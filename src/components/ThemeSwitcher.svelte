@@ -37,13 +37,6 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <!-- svelte-ignore a11y_consider_explicit_label -->
 <div class="dropdown">
-  <svg style="display: none;">
-    <symbol id="icon-diamond-half" viewBox="0 0 16 16" fill="currentColor">
-      <path
-        d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098zM8 .989c.127 0 .253.049.35.145l6.516 6.516a.495.495 0 0 1 0 .7L8.35 14.866a.5.5 0 0 1-.35.145z"
-      />
-    </symbol>
-  </svg>
   <button
     class="btn dropdown-toggle"
     type="button"
@@ -51,10 +44,7 @@
     data-bs-auto-close="outside"
     aria-expanded="false"
   >
-    <svg width="16" height="16">
-      <use xlink:href="#icon-diamond-half" style="color: var(--color-theme);"
-      ></use>
-    </svg>
+    <i class="si-square-fill text-skynest-theme fs-5"></i>
   </button>
   <ul class="dropdown-menu">
     <li
@@ -63,11 +53,7 @@
         setColorTheme("skynest-cyan");
       }}
     >
-      <a href="#" style="color: var(--skynest-cyan);">
-        <svg width="16" height="16">
-          <use xlink:href="#icon-diamond-half"></use>
-        </svg>
-      </a>
+        <i class="si-square-fill text-skynest-cyan fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -75,11 +61,7 @@
         setColorTheme("skynest-red");
       }}
     >
-      <a href="#" style="color: var(--skynest-red);">
-        <svg width="16" height="16">
-          <use xlink:href="#icon-diamond-half"></use>
-        </svg>
-      </a>
+        <i class="si-square-fill text-skynest-red fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -87,11 +69,7 @@
         setColorTheme("skynest-green");
       }}
     >
-      <a href="#" style="color: var(--skynest-green);">
-        <svg width="16" height="16">
-          <use xlink:href="#icon-diamond-half"></use>
-        </svg>
-      </a>
+        <i class="si-square-fill text-skynest-green fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -99,11 +77,7 @@
         setColorTheme("skynest-blue");
       }}
     >
-      <a href="#" style="color: var(--skynest-blue);">
-        <svg width="16" height="16">
-          <use xlink:href="#icon-diamond-half"></use>
-        </svg>
-      </a>
+        <i class="si-square-fill text-skynest-blue fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -111,23 +85,7 @@
         setColorTheme("skynest-purple");
       }}
     >
-      <a href="#" style="color: var(--skynest-purple);">
-        <svg width="16" height="16">
-          <use xlink:href="#icon-diamond-half"></use>
-        </svg>
-      </a>
-    </li>
-    <li
-      class="dropdown-item"
-      onclick={() => {
-        setColorTheme("skynest-gold");
-      }}
-    >
-      <a href="#" style="color: var(--skynest-gold);">
-        <svg width="16" height="16">
-          <use xlink:href="#icon-diamond-half"></use>
-        </svg>
-      </a>
+        <i class="si-square-fill text-skynest-purple fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -135,11 +93,7 @@
         setColorTheme("skynest-orange");
       }}
     >
-      <a href="#" style="color: var(--skynest-orange);">
-        <svg width="16" height="16">
-          <use xlink:href="#icon-diamond-half"></use>
-        </svg>
-      </a>
+        <i class="si-square-fill text-skynest-orange fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -147,11 +101,7 @@
         setColorTheme("skynest-yellow");
       }}
     >
-      <a href="#" style="color: var(--skynest-yellow);">
-        <svg width="16" height="16">
-          <use xlink:href="#icon-diamond-half"></use>
-        </svg>
-      </a>
+      <i class="si-square-fill text-skynest-yellow fs-5"></i>
     </li>
   </ul>
 </div>

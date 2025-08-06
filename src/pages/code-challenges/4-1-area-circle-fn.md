@@ -5,7 +5,7 @@ title: Code Challenge 4.1 - Circle Area Calculator Function
 ---
 
 <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
-  ← Back
+  <i class="si-arrow-left"></i> Back
 </a>
 
 ## Code Challenge 4.1 - Circle Area Calculator Function

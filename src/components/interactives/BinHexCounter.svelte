@@ -9,7 +9,7 @@
   <label for="dec-value" class="form-label">Decimal:</label>
   <input
     id="dec-value"
-    class="form-control form-control-lg text-theme"
+    class="form-control form-control-lg text-skynest-theme"
     bind:value={decValue}
     readonly
   />

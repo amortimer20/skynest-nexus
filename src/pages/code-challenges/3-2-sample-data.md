@@ -5,7 +5,7 @@ title: Code Challenge 3.2 - Sample Data Generator
 ---
 
 <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
-  ← Back
+  <i class="si-arrow-left"></i> Back
 </a>
 
 ## Code Challenge 3.2 - Sample Data Generator 📊
