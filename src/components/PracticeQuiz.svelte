@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { shuffle } from "../scripts/utilities";
   import { fade } from "svelte/transition";
 
   interface Question {
@@ -31,7 +30,17 @@
       .then((res) => res.json())
       .then((data) => {
         questions = data;
-        if (isShuffled) shuffle(questions);
+        if (isShuffled) {
+          for (let i = questions.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+
+            if (i != j) {
+              let temp = questions[i];
+              questions[i] = questions[j];
+              questions[j] = temp;
+            }
+          }
+        }
       });
   });
 

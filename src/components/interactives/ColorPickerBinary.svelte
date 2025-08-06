@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { mapRange } from "../../scripts/utilities";
-
   let { bitDepth }: { bitDepth: "8" | "16" | "24" } = $props();
   const depthMap = { "8": [3, 3, 2], "16": [5, 6, 5], "24": [8, 8, 8] };
   const maxRVal = 2 ** depthMap[bitDepth][0] - 1;
@@ -15,6 +13,10 @@
   let rDec = $derived(mapRange(r, 0, maxRVal, 0, 255));
   let gDec = $derived(mapRange(g, 0, maxGVal, 0, 255));
   let bDec = $derived(mapRange(b, 0, maxBVal, 0, 255));
+
+  function mapRange(value: number, inMin: number, inMax: number, outMin: number, outMax: number): number {
+    return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+  }
 </script>
 
 <section>
@@ -40,7 +42,7 @@
         step="1"
         bind:value={g}
       />
-      <label class="form-label" for="blue">Blue: {bBin}</label>
+      <label for="blue" class="form-label">Blue: {bBin}</label>
       <input
         id="b"
         type="range"
