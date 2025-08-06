@@ -1,0 +1,42 @@
+---
+import "reveal.js/dist/reveal.css";
+import "reveal.js/dist/theme/black.css";
+---
+
+<div class="reveal-container">
+  <div class="reveal">
+    <div class="slides">
+      <slot />
+    </div>
+  </div>
+</div>
+<p class="text-secondary text-end mt-1">'F' &RightArrow; Fullscreen</p>
+
+
+<script>
+  import Reveal from "reveal.js";
+
+  Reveal.initialize({
+    embedded: true,
+    keyboardCondition: "focused",
+  });
+
+</script>
+
+<style>
+  :root {
+    --r-background-color: var(--skynest-darker);
+    --r-main-font: var(--font-jetbrains-mono);
+    --r-code-font: var(--font-jetbrains-mono);
+    --r-link-color: var(--color-theme);
+    --r-link-color-hover: var(--color-theme-lighten);
+  }
+
+    .reveal-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid;
+    border-color: var(--color-theme);
+    margin: 0 auto;
+  }
+</style>

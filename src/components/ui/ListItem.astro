@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import bullet1 from "../../assets/ui/list-icons/li-bullet-1.svg";
+import bullet2 from "../../assets/ui/list-icons/li-bullet-2.svg";
+import bullet3 from "../../assets/ui/list-icons/li-bullet-3.svg";
+
+export interface Props {
+  variant?: string;
+}
+
+let { variant = "1" } = Astro.props;
+
+const bulletImages: Record<string, ImageMetadata> = {
+  "1": bullet1,
+  "2": bullet2,
+  "3": bullet3
+};
+---
+
+<li>
+  {
+    bulletImages[variant] && (
+      <Image src={bulletImages[variant]} class="icon" alt="icon" />
+    )
+  }
+  <slot />
+</li>
+
+<style>
+  li {
+    list-style: none;
+    width: fit-content;
+    font-size: 1.1rem;
+
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      animation: rotate-icon 5s linear infinite;
+    }
+
+    &:hover {
+      .icon {
+        animation: rotate-icon 1s linear infinite;
+      }
+    }
+  }
+
+  @keyframes rotate-icon {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    50% {
+      transform: rotate(180deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>

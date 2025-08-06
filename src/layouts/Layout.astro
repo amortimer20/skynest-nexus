@@ -1,0 +1,94 @@
+---
+import ThemeSwitcher from "../components/ThemeSwitcher.svelte";
+import { Font } from "astro:assets";
+
+import "../styles/site.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>SkyNest.Nexus - St. Edward High School</title>
+    <Font cssVariable="--font-orbitron" />
+    <Font cssVariable="--font-jetbrains-mono" />
+  </head>
+  <body data-bs-theme="dark">
+    <!-- Set theme -->
+    <script is:inline>
+      (() => {
+        let body = document.querySelector('[data-bs-theme="dark"]');
+        if (!body) return;
+
+        let cssVars = [
+          "color-theme",
+          "color-theme-rgb",
+          "color-theme-lighten",
+          "color-theme-darken",
+        ];
+
+        for (const cssVar of cssVars) {
+          let sessionVal = localStorage.getItem(cssVar);
+          let defaultVar = getComputedStyle(body).getPropertyValue(
+            `--${cssVar}`,
+          );
+
+          body.style.setProperty(`--${cssVar}`, sessionVal ?? defaultVar);
+        }
+      })();
+    </script>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-black">
+      <div class="container-fluid">
+        <a href="/" class="navbar-brand font-terminator fs-5">
+          <span class="text-theme">skynest</span><span class="cursor">_</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a href="/" class="nav-link active">/home</a>
+            </li>
+            <li class="nav-item">
+              <a href="/#course-content" class="nav-link active">/courses</a>
+            </li>
+            <li class="nav-item">
+              <a href="/skynest" class="nav-link active">/skynest-club</a>
+            </li>
+          </ul>
+          <ThemeSwitcher client:load />
+        </div>
+      </div>
+    </nav>
+    <slot />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+  </body>
+</html>
+
+<style>
+  @keyframes cursor {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .cursor {
+    animation: cursor 1s none infinite;
+  }
+</style>

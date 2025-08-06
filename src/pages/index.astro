@@ -1,0 +1,199 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import CourseCard from "../components/ui/CourseCard.astro";
+import Divider from "../components/ui/Divider.astro";
+import ListItem from "../components/ui/ListItem.astro";
+
+// Asset Imports
+import codeChallengesThumbnail from "../assets/courses/code-challenges/img/code-challenges-thumbnail.svg";
+import compOrgThumbnail from "../assets/courses/computer-organization/img/computer-organization-thumbnail.svg";
+import cSharpThumbnail from "../assets/courses/csharp-programming/img/csharp-thumbnail.svg";
+import javaScriptThumbnail from "../assets/courses/javascript-programming/img/javascript-thumbnail.svg";
+import javaThumbnail from "../assets/courses/java-programming/img/java-thumbnail.svg";
+import SkynestLogo from "../assets/skynest-emblem-green.svg";
+---
+
+<Layout>
+  <!-- Hero Unit -->
+  <div class="bg-darker mb-3">
+    <canvas id="matrix" style="position: absolute;"></canvas>
+    <h1 class="text-center text-eds-green pt-5 animation-overlay">
+      <span class="bg-black p-2 d-inline-block" style="--bs-bg-opacity: .75;"
+        >St. Edward High School</span
+      >
+    </h1>
+    <h4 class="text-center text-eds-gold animation-overlay">
+      <span class="bg-black p-2 d-inline-block" style="--bs-bg-opacity: .75;"
+        >Computer science and Engineering</span
+      >
+    </h4>
+    <SkynestLogo
+      id="skynestLogo"
+      class="d-block mx-auto img-fluid w-25 animation-overlay spinning-logo"
+    />
+  </div>
+
+  <section class="container mb-3 p-1">
+    <!-- Course Content -->
+    <h3 id="course-content" class="text-center py-3">Course Content</h3>
+    <div class="row mb-3">
+      <div class="col-sm-12 col-md-4 col-lg-3 my-3">
+        <CourseCard
+          link="/computer-organization/"
+          title="Computer Orgranization"
+        >
+          <Image
+            src={compOrgThumbnail}
+            alt="Computer Organization Thumbnail"
+            class="img-fluid"
+          />
+        </CourseCard>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-3 my-3">
+        <CourseCard link="#" title="JavaScript Programming">
+          <Image
+            src={javaScriptThumbnail}
+            alt="JavaScript Thumbnail"
+            class="img-fluid"
+          />
+        </CourseCard>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-3 my-3">
+        <CourseCard link="/csharp-programming/" title="C# Programming">
+          <Image src={cSharpThumbnail} alt="C# Thumbnail" class="img-fluid" />
+        </CourseCard>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-3 my-3">
+        <CourseCard link="/code-challenges/" title="Code Challenges">
+          <Image
+            src={codeChallengesThumbnail}
+            alt="Code Challenges Thumbnail"
+            class="img-fluid"
+          />
+        </CourseCard>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-3 my-3">
+        <CourseCard link="#" title="Java Programming">
+          <Image src={javaThumbnail} alt="Java Thumbnail" class="img-fluid" />
+        </CourseCard>
+      </div>
+    </div>
+
+    <Divider variant="9" />
+
+    <!-- Links/Utilities -->
+    <div class="row mb-3">
+      <div class="col-sm-12 col-md-6">
+        <h4 class="text-center py-3">Links</h4>
+        <ul>
+          <ListItem>
+            <a href="https://code.visualstudio.com/" target="_blank"
+              >Visual Studio Code</a
+            >
+          </ListItem>
+        </ul>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <h4 class="text-center py-3">Utilities</h4>
+        <ul>
+          <ListItem>
+            <a href="/utilities/color-picker">RGB Color Picker</a>
+          </ListItem>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Matrix Animation -->
+<script>
+  (() => {
+    const FONT_FAMILY = getComputedStyle(
+      document.documentElement,
+    ).getPropertyValue("--font-jetbrains-mono");
+    const FONT_SIZE = 16;
+    const FONT_STYLE = FONT_SIZE + "px " + FONT_FAMILY;
+    const BACKGROUND_COLOR = "rgb(5, 0, 20)";
+    const FADE_COLOR = "rgba(5, 0, 20, 0.1)";
+    const CHARS = "0123456789ABCDEF";
+    const canvas = document.querySelector<HTMLCanvasElement>("#matrix");
+
+    if (!canvas?.getContext) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let columns = canvas.width / FONT_SIZE;
+    let coords: number[] = [];
+
+    const initWindow = (canvas: HTMLCanvasElement) => {
+      canvas.width = canvas.parentElement?.clientWidth ?? canvas.width;
+      canvas.height = canvas.parentElement?.clientHeight ?? canvas.height;
+      columns = canvas.width / FONT_SIZE;
+      ctx.fillStyle = BACKGROUND_COLOR;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = FONT_STYLE;
+
+      for (let x = 0; x < columns; x++) {
+        coords[x] = Math.trunc(canvas.height);
+      }
+    };
+
+    initWindow(canvas);
+
+    const draw = () => {
+      // Reinitialize window if canvas size changes
+      if (canvas.width !== canvas.parentElement?.clientWidth) {
+        initWindow(canvas);
+      }
+
+      // Fade each frame
+      ctx.fillStyle = FADE_COLOR;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle =
+        localStorage.getItem("color-theme") ?? "rgb(27, 212, 215)";
+
+      for (let i = 0; i < coords.length; i++) {
+        const text = CHARS[Math.floor(Math.random() * CHARS.length)];
+        ctx.fillText(text, i * FONT_SIZE, coords[i] * FONT_SIZE);
+
+        // Clear faded column cells
+        ctx.fillStyle = "rgb(5, 0, 20)";
+        ctx.fillRect(
+          i * FONT_SIZE,
+          coords[i] * FONT_SIZE + -FONT_SIZE * 24,
+          FONT_SIZE,
+          FONT_SIZE,
+        );
+        ctx.fillStyle =
+          localStorage.getItem("color-theme") ?? "rgb(27, 212, 215)";
+
+        // Reset Y coordinate if exceeds bottom
+        if (coords[i] * FONT_SIZE > canvas.height && Math.random() > 0.95) {
+          coords[i] = 0;
+        }
+
+        coords[i]++;
+      }
+    };
+
+    setInterval(draw, 50);
+  })();
+</script>
+
+<!-- Spinning Skynest Logo -->
+<style>
+  @keyframes spinningLogo {
+    0% {
+      transform: rotateY(0deg);
+    }
+
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+
+  .spinning-logo {
+    animation: spinningLogo 20s linear infinite;
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+export interface Props {
+  link: string;
+  title: string;
+}
+
+let { link = "#", title = "" } = Astro.props;
+---
+
+<div class="card card-shadow" {title}>
+  <a href={link}>
+    <slot />
+  </a>
+</div>
+
+<style>
+  .card {
+    --bs-card-border-width: 0;
+    --bs-card-inner-border-radius: 0;
+    box-shadow: none;
+    transition: box-shadow 0.25s ease;
+  }
+
+  .card-shadow:hover {
+    box-shadow: 0 0.5rem 1rem var(--color-theme);
+  }
+</style>
