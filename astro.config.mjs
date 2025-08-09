@@ -3,21 +3,12 @@ import { defineConfig, fontProviders } from 'astro/config';
 import svelte from '@astrojs/svelte';
 
 import expressiveCode from "astro-expressive-code";
-import { transformerColorizedBrackets } from '@shikijs/colorized-brackets'
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     svelte(),
-    expressiveCode({
-      themes: ['tokyo-night'],
-      frames: {
-        showCopyToClipboardButton: false
-      },
-      shiki: {
-        transformers: [transformerColorizedBrackets()]
-      }
-    })
+    expressiveCode()
   ],
   experimental: {
     fonts: [

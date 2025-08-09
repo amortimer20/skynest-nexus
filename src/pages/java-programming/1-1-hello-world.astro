@@ -1,0 +1,263 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+// Code Snippets
+let figure1 = `
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}`;
+let figure2 = `
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}`;
+let task1 = `
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Skynest Nexus.");
+        System.out.println("This class is taught by Mr. Mortimer");
+        System.out.println();
+        // Stop and run your code
+    }
+}`;
+let task2 = `
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Skynest Nexus.");
+        System.out.println("This class is taught by Mr. Mortimer");
+        System.out.println();
+        
+        System.out.println("What is the answer to life, the universe, and everything?");
+        System.out.println("The answer is 42.");
+        System.out.println();
+
+        System.out.println("Sally sells seashells by the seashore.");
+        System.out.println("Sally wants to invite you to invest in a money making opportunity.");
+        System.out.println();
+
+        System.out.println("If you start to feel overwhelmed, just remember:");
+        System.out.println("Mortimers don't quit, we get fired!");
+        // Stop and run your code
+    }
+}`;
+---
+
+<Layout>
+  <div class="container my-4">
+    <!-- Introduction -->
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.1 Hello World!</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+        <Presentation>
+          <section>
+            <h3>Activity 1.1</h3>
+            <h4 class="text-skynest-theme">Hello World!</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Computer Science</li>
+              <li>Programming</li>
+              <li>The Java Programming Language</li>
+              <li>Entrypoint of a Java Program</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Entrypoint of a Java Program</h4>
+            <p>
+              Java programs begin execution within the <span
+                class="text-skynest-cyan">main method</span
+              >.
+            </p>
+            <div class="text-start">
+              <Code
+                lang="java"
+                frame="code"
+                title="Main.java"
+                showLineNumbers={true}
+                code={figure1}
+              />
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>Entrypoint of a Java Program</h4>
+            <div class="text-start">
+              <Code
+                lang="java"
+                frame="code"
+                title="Main.java"
+                showLineNumbers
+                ins={3}
+                code={figure2}
+              />
+              <Code
+                class="fragment my-2"
+                code={"Hello World!"}
+                frame="terminal"
+                showLineNumbers={false}
+                title="Output"
+              />
+            </div>
+          </section>
+        </Presentation>
+
+        <h3>Skills to Practice</h3>
+        <ul>
+          <ListItem variant="1">Writing and executing code</ListItem>
+          <ListItem variant="1">Displaying console output</ListItem>
+          <ListItem variant="1">Debugging potential syntax errors</ListItem>
+          <ListItem variant="1">Reading comments</ListItem>
+        </ul>
+        <!-- End Introduction -->
+
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Activity Tasks -->
+        <h2>Instructions</h2>
+        <ul>
+          <ListItem variant="2">
+            Create a new Java project named <span class="text-skynest-theme"
+              >1-1-Output</span
+            >.
+          </ListItem>
+          <ListItem variant="2"> Complete each task individually. </ListItem>
+        </ul>
+
+        <h3><span class="text-skynest-theme">Task 1</span>: Write and Test</h3>
+        <ul>
+          <ListItem variant="2">
+            Write each line of code from the section making sure to stay within
+            the main method.
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+        <Code
+          code={task1}
+          frame="code"
+          lang="java"
+          mark={[3, 4, 5]}
+          showLineNumbers
+          title="Main.java"
+        />
+
+        <hr class="my-4" />
+
+        <h3>
+          <span class="text-skynest-theme">Task 2</span>: Add More Code
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Write the additional sections of output under your current print
+            statements.
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+        <Code
+          code={task2}
+          frame="code"
+          lang="java"
+          mark={{ range: "6-16", label: "New Sections:" }}
+          showLineNumbers
+          title="Main.java"
+        />
+
+        <hr class="my-4" />
+
+        <h3>
+          <span class="text-skynest-theme">Task 3</span>: Add Space
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Add an additional blank print statement at the end of each section
+            to increase the spacing between the sections.
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+
+        <hr class="my-4" />
+
+        <h3>
+          <span class="text-skynest-theme">Task 4</span>: Write a Custom Section
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Write an additional three lines of code. Display a paragraph of your
+            choice. Keep it school appropriate.
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+
+        <hr class="my-4" />
+
+        <h3>
+          <span class="text-skynest-theme">Task 5</span>: Write Comments
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Write the following comments to document and modify the code.
+            <ul>
+              <ListItem variant="3">
+                Write a comment to disable the line of code that displays the
+                message 'The answer is 42.'.
+              </ListItem>
+              <ListItem variant="3">
+                Write a comment at the end of a blank print statement that
+                states 'Display a blank line'. Make sure to put the comment to
+                the right of the semi-colon.
+              </ListItem>
+            </ul>
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+        <!-- End Activity Tasks -->
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Reflection Questions</h2>
+
+        <ol>
+          <li>
+            What is the primary function of System.out.println()? How does it
+            relate to the idea of a program "speaking" to a user?
+          </li>
+          <li>
+            Imagine you typed <span
+              class="text-skynest-red text-decoration-underline">Sistem</span
+            >.out.println() by mistake. What do you think would happen when you
+            try to run your program? Why is correct spelling so important in
+            programming?
+          </li>
+          <li>
+            What was the most challenging part of writing your first line of
+            code?
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</Layout>
