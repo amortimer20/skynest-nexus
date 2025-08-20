@@ -5,49 +5,18 @@ import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
-// Code Snippets
-let figure1 = `
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
-}`;
 let task1 = `
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Welcome to the Skynest Nexus.");
-        System.out.println("This class is taught by Mr. Mortimer");
-        System.out.println();
-        // Stop and run your code
-    }
-}`;
-let task2 = `
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Welcome to the Skynest Nexus.");
-        System.out.println("This class is taught by Mr. Mortimer");
-        System.out.println();
-        
-        System.out.println("What is the answer to life, the universe, and everything?");
-        System.out.println("The answer is 42.");
-        System.out.println();
-
-        System.out.println("Sally sells seashells by the seashore.");
-        System.out.println("Sally wants to invite you to invest in a money making opportunity.");
-        System.out.println();
-
-        System.out.println("If you start to feel overwhelmed, just remember:");
-        System.out.println("Mortimers don't quit, we get fired!");
-        // Stop and run your code
-    }
-}`;
+`;
 ---
 
 <Layout>
   <div class="container my-4">
     <div class="row justify-content-center">
       <div class="col-sm-12 col-md-10">
-        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+        <a
+          href="/python-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
           <i class="si-arrow-left"></i> Back
         </a>
 
@@ -56,47 +25,32 @@ public class Main {
 
         <!-- Introduction -->
         <h2>Introduction</h2>
-        <Presentation>
-          <section>
-            <h3>Activity 1.1</h3>
-            <h4 class="text-skynest-theme">Hello World!</h4>
-          </section>
-          <section>
-            <h4>Topics</h4>
-            <ul>
-              <li>Output</li>
-              <li>Console Output</li>
-              <li>Comments</li>
-            </ul>
-          </section>
-          <section>
-            <h4>Output</h4>
-          </section>
-          <section>
-            <h4>Demo</h4>
-            <p>
-              Call <code>System.out.println()</code>. Write a message of your
-              choice.
-            </p>
-            <div class="text-start">
-              <Code
-                lang="java"
-                frame="code"
-                title="Main.java"
-                showLineNumbers
-                ins={3}
-                code={figure1}
-              />
-              <Code
-                class="fragment my-2"
-                code={"Hello World!"}
-                frame="terminal"
-                showLineNumbers={false}
-                title="Output"
-              />
-            </div>
-          </section>
-        </Presentation>
+
+        <p>
+          In this lesson, you will learn about output in programming. For
+          console applications, <strong>output</strong> refers to information displayed
+          to the user. However, the meaning of output can vary depending on the context.
+          To output information to the user, we use the <code>print()</code>
+          function.
+        </p>
+
+        <p>
+          The <code>print()</code> function is a fundamental concept in programming.
+          <strong>Functions</strong> perform specific actions, and in this case,
+          <code>print()</code>
+          outputs a message to the user via the console. The console is a simple
+          terminal for running text-based computer applications. Most of the introductory
+          applications in these programming activities will be console-based.
+        </p>
+
+        <p>
+          Additionally, we will learn how to write comments in Python.
+          <strong>Comments</strong> serve two main purposes: documenting your code
+          and temporarily disabling parts of your program for testing. As we progress,
+          our programs will grow in size and complexity. It's crucial to document
+          your code to ensure it is easily understood and maintainable by yourself
+          and your team. In Python, comments begin with the <code>#</code> symbol.
+        </p>
 
         <h3>Objectives</h3>
         <ul>
@@ -112,8 +66,8 @@ public class Main {
         <h2>Activity Tasks</h2>
         <ul>
           <ListItem variant="2">
-            Create a new Java project named <span class="text-skynest-theme"
-              >1-1-Output</span
+            Create a new Python script named <span class="text-skynest-theme"
+              >1-1-output.py</span
             >.
           </ListItem>
           <ListItem variant="2"> Complete each task individually. </ListItem>
@@ -131,12 +85,12 @@ public class Main {
           </ListItem>
         </ul>
         <Code
-          code={task1}
+          code={"insert"}
           frame="code"
-          lang="java"
+          lang="python"
           ins={[3, 4, 5]}
           showLineNumbers
-          title="Main.java"
+          title="1-1-output.py"
         />
 
         <hr class="my-4" />
@@ -155,12 +109,12 @@ public class Main {
           </ListItem>
         </ul>
         <Code
-          code={task2}
+          code={"insert"}
           frame="code"
-          lang="java"
+          lang="python"
           ins={{ range: "6-16" }}
           showLineNumbers
-          title="Main.java"
+          title="1-1-output.py"
         />
 
         <hr class="my-4" />

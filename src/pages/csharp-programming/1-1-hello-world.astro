@@ -6,48 +6,37 @@ import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 // Code Snippets
-let figure1 = `
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
-}`;
-let task1 = `
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Welcome to the Skynest Nexus.");
-        System.out.println("This class is taught by Mr. Mortimer");
-        System.out.println();
-        // Stop and run your code
-    }
-}`;
+let figure1 = `Console.WriteLine("Hello World!");`;
+let task1 = `Console.WriteLine("Welcome to the Skynest Nexus.");
+Console.WriteLine("This class is taught by Mr. Mortimer");
+Console.WriteLine();
+// Stop and run your code
+`;
 let task2 = `
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Welcome to the Skynest Nexus.");
-        System.out.println("This class is taught by Mr. Mortimer");
-        System.out.println();
-        
-        System.out.println("What is the answer to life, the universe, and everything?");
-        System.out.println("The answer is 42.");
-        System.out.println();
+Console.WriteLine("Welcome to the Skynest Nexus.");
+Console.WriteLine("This class is taught by Mr. Mortimer");
+Console.WriteLine();
 
-        System.out.println("Sally sells seashells by the seashore.");
-        System.out.println("Sally wants to invite you to invest in a money making opportunity.");
-        System.out.println();
+Console.WriteLine("What is the answer to life, the universe, and everything?");
+Console.WriteLine("The answer is 42.");
+Console.WriteLine();
 
-        System.out.println("If you start to feel overwhelmed, just remember:");
-        System.out.println("Mortimers don't quit, we get fired!");
-        // Stop and run your code
-    }
-}`;
+Console.WriteLine("Sally sells seashells by the seashore.");
+Console.WriteLine("Sally wants to invite you to invest in a money making opportunity.");
+Console.WriteLine();
+
+Console.WriteLine("If you start to feel overwhelmed, just remember:");
+Console.WriteLine("Mortimers don't quit, we get fired!");
+// Stop and run your code
+`;
 ---
 
 <Layout>
   <div class="container my-4">
+    <!-- Introduction -->
     <div class="row justify-content-center">
       <div class="col-sm-12 col-md-10">
-        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+        <a href="/csharp-programming/" class="btn btn-sm btn-outline-light mb-3">
           <i class="si-arrow-left"></i> Back
         </a>
 
@@ -75,16 +64,15 @@ public class Main {
           <section>
             <h4>Demo</h4>
             <p>
-              Call <code>System.out.println()</code>. Write a message of your
+              Call <code>Console.WriteLine()</code>. Write a message of your
               choice.
             </p>
             <div class="text-start">
               <Code
-                lang="java"
+                lang="csharp"
                 frame="code"
-                title="Main.java"
+                title="Program.cs"
                 showLineNumbers
-                ins={3}
                 code={figure1}
               />
               <Code
@@ -112,7 +100,7 @@ public class Main {
         <h2>Activity Tasks</h2>
         <ul>
           <ListItem variant="2">
-            Create a new Java project named <span class="text-skynest-theme"
+            Create a new C# project named <span class="text-skynest-theme"
               >1-1-Output</span
             >.
           </ListItem>
@@ -133,10 +121,9 @@ public class Main {
         <Code
           code={task1}
           frame="code"
-          lang="java"
-          ins={[3, 4, 5]}
+          lang="csharp"
           showLineNumbers
-          title="Main.java"
+          title="Program.cs"
         />
 
         <hr class="my-4" />
@@ -157,10 +144,10 @@ public class Main {
         <Code
           code={task2}
           frame="code"
-          lang="java"
-          ins={{ range: "6-16" }}
+          lang="csharp"
+          ins={{ range: "5-14" }}
           showLineNumbers
-          title="Main.java"
+          title="Program.cs"
         />
 
         <hr class="my-4" />
@@ -228,13 +215,13 @@ public class Main {
 
         <ol>
           <li>
-            What is the primary function of System.out.println()? How does it
+            What is the primary function of Console.WriteLine()? How does it
             relate to the idea of a program "speaking" to a user?
           </li>
           <li>
             Imagine you typed <span
-              class="text-skynest-red text-decoration-underline">Sistem</span
-            >.out.println() by mistake. What do you think would happen when you
+              class="text-skynest-red text-decoration-underline">Cosnol</span
+            >.WriteLine() by mistake. What do you think would happen when you
             try to run your program? Why is correct spelling so important in
             programming?
           </li>

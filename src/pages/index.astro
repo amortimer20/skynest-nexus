@@ -7,10 +7,11 @@ import ListItem from "../components/ui/ListItem.astro";
 
 // Asset Imports
 import codeChallengesThumbnail from "../assets/courses/code-challenges/img/code-challenges-thumbnail.svg";
-import compOrgThumbnail from "../assets/courses/computer-organization/img/computer-organization-thumbnail.svg";
+import apcspThumbnail from "../assets/courses/ap-csp/img/ap-csp-thumbnail.svg";
 import cSharpThumbnail from "../assets/courses/csharp-programming/img/csharp-thumbnail.svg";
 import jsThumbnail from "../assets/courses/js-programming/img/js-thumbnail.svg";
 import javaThumbnail from "../assets/courses/java-programming/img/java-thumbnail.svg";
+import pythonThumbnail from "../assets/courses/python-programming/img/python-thumbnail.svg";
 import SkynestLogo from "../assets/skynest-emblem-green.svg";
 ---
 
@@ -39,19 +40,16 @@ import SkynestLogo from "../assets/skynest-emblem-green.svg";
     <h3 id="course-content" class="text-center py-3">Course Content</h3>
     <div class="row mb-3">
       <div class="col-sm-12 col-md-6 col-lg-4 my-3">
-        <CourseCard
-          link="/computer-organization/"
-          title="Computer Orgranization"
-        >
+        <CourseCard link="/ap-csp/" title="Computer Orgranization">
           <Image
-            src={compOrgThumbnail}
-            alt="Computer Organization Thumbnail"
+            src={apcspThumbnail}
+            alt="AP Computer Science Principles Thumbnail"
             class="img-fluid"
           />
         </CourseCard>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-4 my-3">
-        <CourseCard link="#" title="JavaScript Programming">
+        <CourseCard link="/js-programming/" title="JavaScript Programming">
           <Image src={jsThumbnail} alt="JS Thumbnail" class="img-fluid" />
         </CourseCard>
       </div>
@@ -74,6 +72,15 @@ import SkynestLogo from "../assets/skynest-emblem-green.svg";
           <Image src={javaThumbnail} alt="Java Thumbnail" class="img-fluid" />
         </CourseCard>
       </div>
+      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
+        <CourseCard link="/python-programming/" title="Python Programming">
+          <Image
+            src={pythonThumbnail}
+            alt="Python Programming"
+            class="img-fluid"
+          />
+        </CourseCard>
+      </div>
     </div>
 
     <Divider variant="9" />
@@ -84,8 +91,35 @@ import SkynestLogo from "../assets/skynest-emblem-green.svg";
         <h4 class="text-center py-3">Links</h4>
         <ul>
           <ListItem>
-            <a href="https://code.visualstudio.com/" target="_blank"
-              >Visual Studio Code</a
+            <a href="https://www.python.org/" target="_blank"> Python</a>
+          </ListItem>
+          <ListItem>
+            <a href="https://unity.com" target="_blank"> Unity</a>
+          </ListItem>
+          <ListItem>
+            <a
+              href="https://visualstudio.microsoft.com/#vs-section"
+              target="_blank"
+            >
+              Visual Studio 2022 (Purple)</a
+            >
+          </ListItem>
+          <ListItem>
+            <a
+              href="https://visualstudio.microsoft.com/#vscode-section"
+              target="_blank">Visual Studio Code (Blue)</a
+            >
+          </ListItem>
+          <ListItem>
+            <a
+              href="https://www.arduino.cc/en/software/"
+              target="_blank">Arduino IDE</a
+            >
+          </ListItem>
+          <ListItem>
+            <a
+              href="https://libresprite.github.io/#!/"
+              target="_blank">LibreSprite</a
             >
           </ListItem>
         </ul>

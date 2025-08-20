@@ -1,0 +1,30 @@
+---
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+import PracticeQuiz from "../../components/PracticeQuiz.svelte";
+---
+
+<Layout>
+  <div class="container mt-4">
+    <a href="/ap-csp/" class="btn btn-sm btn-outline-light">
+      <i class="si-arrow-left"></i> Back
+    </a>
+    <h2 class="text-center mt-5 text-skynest-theme">
+      Activity 1.8 Hexadecimal to Binary Practice 2
+    </h2>
+    <Divider variant="3" classes="my-4" />
+    <div class="row">
+      <div class="col">
+        <h3>Introduction</h3>
+        <p>
+          For each hexadecimal (hex) number, write the corresponding binary number.
+        </p>
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-sm-12 col-md-6 offset-md-3">
+        <PracticeQuiz dataUrl="/json/hex-bin-2.json" isShuffled={true} client:load />
+      </div>
+    </div>
+  </div>
+</Layout>
