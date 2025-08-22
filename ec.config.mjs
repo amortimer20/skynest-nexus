@@ -3,7 +3,7 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 import { transformerColorizedBrackets } from '@shikijs/colorized-brackets';
 
 export default defineEcConfig({
-    themes: ['tokyo-night'],
+    themes: ['material-theme-ocean'],
       frames: {
         showCopyToClipboardButton: false
       },
