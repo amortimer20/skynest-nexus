@@ -4,6 +4,7 @@ import Divider from "../../components/ui/Divider.astro";
 import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
 
 const Figure1 = `
 console.log(-1953);
@@ -210,11 +211,42 @@ The expression 4 * (10 + 12); equals:
               In JavaScript, the number type represents both integers and
               floating-point (decimal) values.
             </p>
-            <p><code>2.5</code></p>
-            <p><code>401</code></p>
-            <p><code>-65</code></p>
-            <p><code>-123.45</code></p>
-            <p><code>1_000_000</code></p>
+            <AstroCode
+              code={"2.5"}
+              lang="javascript"
+              theme={"tokyo-night"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"401"}
+              lang="javascript"
+              theme={"tokyo-night"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"-65"}
+              lang="javascript"
+              theme={"tokyo-night"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"-123.45"}
+              lang="javascript"
+              theme={"tokyo-night"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"1_000_000"}
+              lang="javascript"
+              theme={"tokyo-night"}
+              inline
+            />&nbsp;
+            <i class="text-skynest-red si-x"></i><AstroCode
+              code={'"35"'}
+              lang="javascript"
+              theme={"tokyo-night"}
+              inline
+            />
           </section>
           <section>
             <h4>Demo: Print Some Numbers</h4>
@@ -224,8 +256,9 @@ The expression 4 * (10 + 12); equals:
             </p>
             <Code
               code={Figure1}
+              frame="code"
               lang="javascript"
-              showLineNumbers={false}
+              title="app.js"
               class="text-start"
             />
           </section>
@@ -243,7 +276,7 @@ The expression 4 * (10 + 12); equals:
               </dd>
               <dd>
                 <strong><code>%</code></strong> Modulus (Mod): Divides and returns
-                the <span class="text-skynest-theme text-decoration-underline"
+                the <span class="text-decoration-underline"
                   >remainder</span
                 >
               </dd>
@@ -253,17 +286,19 @@ The expression 4 * (10 + 12); equals:
             <h4>Order of Operations</h4>
             <p>Use parenthesis for operator precedence.</p>
             <p>
-              <Code
-                code="3 * 4 + 5 // 17"
+              <AstroCode
+                code="3 * 4 + 5"
                 lang="javascript"
-                showLineNumbers={false}
+                theme={"tokyo-night"}
+                inline
               />
             </p>
             <p>
-              <Code
-                code="3 * (4 + 5) // 27"
+              <AstroCode
+                code="3 * (4 + 5)"
                 lang="javascript"
-                showLineNumbers={false}
+                theme={"tokyo-night"}
+                inline
               />
             </p>
           </section>
@@ -274,8 +309,9 @@ The expression 4 * (10 + 12); equals:
             </p>
             <Code
               code={Figure2}
+              frame="code"
               lang="javascript"
-              showLineNumbers={false}
+              title="app.js"
               class="text-start"
             />
           </section>
