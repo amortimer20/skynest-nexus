@@ -166,300 +166,284 @@ The expression 4 * (10 + 12); equals:
 ---
 
 <Layout>
-    <div class="container my-4">
-        <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-10">
-                <a
-                    href="/js-programming/"
-                    class="btn btn-sm btn-outline-light mb-3"
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.2 Arithmetic</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.2</h3>
+            <h4 class="text-skynest-theme">Arithmetic</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Arithmetic in programming</li>
+              <li>The Number data type</li>
+              <li>Math operators</li>
+            </ul>
+          </section>
+          <section>
+            <p>
+              Any useful program, from video games to online stores, relies on
+              numbers.
+            </p>
+            <p>
+              Whether it's calculating scores, processing transactions, or
+              generating graphics, math is everywhere in software.
+            </p>
+          </section>
+          <section>
+            <h4>
+              The <span class="text-skynest-theme">Number</span> Data Type
+            </h4>
+            <p>
+              In JavaScript, the number type represents both integers and
+              floating-point (decimal) values.
+            </p>
+            <p><code>2.5</code></p>
+            <p><code>401</code></p>
+            <p><code>-65</code></p>
+            <p><code>-123.45</code></p>
+            <p><code>1_000_000</code></p>
+          </section>
+          <section>
+            <h4>Demo: Print Some Numbers</h4>
+            <p>
+              Use the <code>console.log()</code> function to display some numbers
+              on the screen.
+            </p>
+            <Code
+              code={Figure1}
+              lang="javascript"
+              showLineNumbers={false}
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>Math Operators</h4>
+            <dl>
+              <dd><strong><code>+</code></strong> Addition</dd>
+              <dd><strong><code>-</code></strong> Subtraction</dd>
+              <dd>
+                <strong><code>*</code></strong> Multiplication
+              </dd>
+              <dd>
+                <strong><code>/</code></strong> Division: Divides and returns the
+                quotient as a decimal
+              </dd>
+              <dd>
+                <strong><code>%</code></strong> Modulus (Mod): Divides and returns
+                the <span class="text-skynest-theme text-decoration-underline"
+                  >remainder</span
                 >
-                    <i class="si-arrow-left"></i> Back
-                </a>
+              </dd>
+            </dl>
+          </section>
+          <section>
+            <h4>Order of Operations</h4>
+            <p>Use parenthesis for operator precedence.</p>
+            <p>
+              <Code
+                code="3 * 4 + 5 // 17"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </p>
+            <p>
+              <Code
+                code="3 * (4 + 5) // 27"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </p>
+          </section>
+          <section>
+            <h4>Demo: Print Some Math Expressions</h4>
+            <p>
+              Use <code>console.log()</code> to display the result of some math expressions.
+            </p>
+            <Code
+              code={Figure2}
+              lang="javascript"
+              showLineNumbers={false}
+              class="text-start"
+            />
+          </section>
+        </Presentation>
 
-                <h1>Activity 1.2 Arithmetic</h1>
-                <Divider variant="8" classes="mb-4" />
+        <h3>Objectives</h3>
+        <ul>
+          <ListItem variant="1">Write Math Expressions</ListItem>
+          <ListItem variant="1"
+            >Output numeric values with <code>console.log()</code></ListItem
+          >
+          <ListItem variant="1">Document code with comments</ListItem>
+          <ListItem variant="1">Practice order of operations</ListItem>
+        </ul>
 
-                <!-- Introduction -->
-                <h2>Introduction</h2>
+        <Divider variant="8" classes="mb-4" />
 
-                <Presentation>
-                    <section>
-                        <h3>Activity 1.2</h3>
-                        <h4 class="text-skynest-theme">Arithmetic</h4>
-                    </section>
-                    <section>
-                        <h4>Topics</h4>
-                        <ul>
-                            <li>Arithmetic in programming</li>
-                            <li>The Number data type</li>
-                            <li>Math operators</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <p>
-                            Any useful program, from video games to online
-                            stores, relies on numbers.
-                        </p>
-                        <p>
-                            Whether it's calculating scores, processing
-                            transactions, or generating graphics, math is
-                            everywhere in software.
-                        </p>
-                    </section>
-                    <section>
-                        <h4>
-                            The <span class="text-skynest-theme">Number</span> Data
-                            Type
-                        </h4>
-                        <p>
-                            In JavaScript, the number type represents both
-                            integers and floating-point (decimal) values.
-                        </p>
-                        <p><code>2.5</code></p>
-                        <p><code>401</code></p>
-                        <p><code>-65</code></p>
-                        <p><code>-123.45</code></p>
-                        <p><code>1_000_000</code></p>
-                    </section>
-                    <section>
-                        <h4>Demo: Print Some Numbers</h4>
-                        <p>
-                            Use the <code>console.log()</code> function to display
-                            some numbers on the screen.
-                        </p>
-                        <Code
-                            code={Figure1}
-                            lang="javascript"
-                            showLineNumbers={false}
-                            class="text-start"
-                        />
-                    </section>
-                    <section>
-                        <h4>Math Operators</h4>
-                        <dl>
-                            <dd><strong><code>+</code></strong> Addition</dd>
-                            <dd><strong><code>-</code></strong> Subtraction</dd>
-                            <dd>
-                                <strong><code>*</code></strong> Multiplication
-                            </dd>
-                            <dd>
-                                <strong><code>/</code></strong> Division: Divides
-                                and returns the quotient as a decimal
-                            </dd>
-                            <dd>
-                                <strong><code>%</code></strong> Modulus (Mod): Divides
-                                and returns the <span
-                                    class="text-skynest-theme text-decoration-underline"
-                                    >remainder</span
-                                >
-                            </dd>
-                        </dl>
-                    </section>
-                    <section>
-                        <h4>Order of Operations</h4>
-                        <p>Use parenthesis for operator precedence.</p>
-                        <p>
-                            <Code
-                                code="3 * 4 + 5 // 17"
-                                lang="javascript"
-                                showLineNumbers={false}
-                            />
-                        </p>
-                        <p>
-                            <Code
-                                code="3 * (4 + 5) // 27"
-                                lang="javascript"
-                                showLineNumbers={false}
-                            />
-                        </p>
-                    </section>
-                    <section>
-                        <h4>Demo: Print Some Math Expressions</h4>
-                        <p>
-                            Use <code>console.log()</code> to display the result
-                            of some math expressions.
-                        </p>
-                        <Code
-                            code={Figure2}
-                            lang="javascript"
-                            showLineNumbers={false}
-                            class="text-start"
-                        />
-                    </section>
-                </Presentation>
+        <!-- Activity Tasks -->
+        <h2>Activity Tasks</h2>
+        <ul>
+          <ListItem variant="2">
+            Create a new project named <span class="text-skynest-theme"
+              >1-2-arithmetic.js</span
+            >.
+          </ListItem>
+          <ListItem variant="2"> Complete each task individually. </ListItem>
+        </ul>
 
-                <h3>Objectives</h3>
-                <ul>
-                    <ListItem variant="1">Write Math Expressions</ListItem>
-                    <ListItem variant="1"
-                        >Output numeric values with <code>console.log()</code
-                        ></ListItem
-                    >
-                    <ListItem variant="1">Document code with comments</ListItem>
-                    <ListItem variant="1">Practice order of operations</ListItem
-                    >
-                </ul>
+        <h3>
+          <span class="text-skynest-theme">Task 1</span>: Addition and
+          Subtraction
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Display the result of the addition and subtraction expressions using
+            console.log().
+          </ListItem>
+        </ul>
+        <Code
+          code={Task1}
+          frame="code"
+          lang="javascript"
+          mark={{ label: "Stop and run your code", range: "14" }}
+          showLineNumbers
+          title="1-2-arithmetic.js"
+        />
 
-                <Divider variant="8" classes="mb-4" />
+        <hr class="my-4" />
 
-                <!-- Activity Tasks -->
-                <h2>Activity Tasks</h2>
-                <ul>
-                    <ListItem variant="2">
-                        Create a new project named <span
-                            class="text-skynest-theme">1-2-arithmetic.js</span
-                        >.
-                    </ListItem>
-                    <ListItem variant="2">
-                        Complete each task individually.
-                    </ListItem>
-                </ul>
+        <h3>
+          <span class="text-skynest-theme">Task 2</span>: Multiplication and
+          Division
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Display the result of the multiplication and division expressions
+            using console.log().
+          </ListItem>
+        </ul>
+        <Code
+          code={Task2}
+          frame="code"
+          ins={{ range: "14-27" }}
+          lang="javascript"
+          mark={{ label: "Stop and run your code", range: "28" }}
+          showLineNumbers
+          title="1-2-arithmetic.js"
+        />
 
-                <h3>
-                    <span class="text-skynest-theme">Task 1</span>: Addition and
-                    Subtraction
-                </h3>
-                <ul>
-                    <ListItem variant="2">
-                        Display the result of the addition and subtraction
-                        expressions using console.log().
-                    </ListItem>
-                </ul>
-                <Code
-                    code={Task1}
-                    frame="code"
-                    lang="javascript"
-                    mark={{ label: "Stop and run your code", range: "14" }}
-                    showLineNumbers
-                    title="1-2-arithmetic.js"
-                />
+        <hr class="my-4" />
 
-                <hr class="my-4" />
+        <h3>
+          <span class="text-skynest-theme">Task 3</span>: Modulo Operation
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Use the mod operator to find the remainder portion of the division
+            operation.</ListItem
+          >
+        </ul>
+        <Code
+          code={Task3}
+          frame="code"
+          ins={{ range: "28-32" }}
+          lang="javascript"
+          mark={{ label: "Stop and run your code", range: "33" }}
+          showLineNumbers
+          title="1-2-arithmetic.js"
+        />
 
-                <h3>
-                    <span class="text-skynest-theme">Task 2</span>:
-                    Multiplication and Division
-                </h3>
-                <ul>
-                    <ListItem variant="2">
-                        Display the result of the multiplication and division
-                        expressions using console.log().
-                    </ListItem>
-                </ul>
-                <Code
-                    code={Task2}
-                    frame="code"
-                    ins={{ range: "14-27" }}
-                    lang="javascript"
-                    mark={{ label: "Stop and run your code", range: "28" }}
-                    showLineNumbers
-                    title="1-2-arithmetic.js"
-                />
+        <hr class="my-4" />
 
-                <hr class="my-4" />
+        <h3>
+          <span class="text-skynest-theme">Task 4</span>: Order of Operations
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Use parenthesis to control the order in which the operations are
+            calculated.</ListItem
+          >
+        </ul>
+        <Code
+          code={Task4}
+          frame="code"
+          ins={{ range: "33-38" }}
+          lang="javascript"
+          mark={{ label: "Stop and run your code", range: "39" }}
+          showLineNumbers
+          title="1-2-arithmetic.js"
+        />
 
-                <h3>
-                    <span class="text-skynest-theme">Task 3</span>: Modulo
-                    Operation
-                </h3>
-                <ul>
-                    <ListItem variant="2">
-                        Use the mod operator to find the remainder portion of
-                        the division operation.</ListItem
-                    >
-                </ul>
-                <Code
-                    code={Task3}
-                    frame="code"
-                    ins={{ range: "28-32" }}
-                    lang="javascript"
-                    mark={{ label: "Stop and run your code", range: "33" }}
-                    showLineNumbers
-                    title="1-2-arithmetic.js"
-                />
+        <!-- End Activity Tasks -->
 
-                <hr class="my-4" />
+        <Divider variant="8" classes="my-4" />
 
-                <h3>
-                    <span class="text-skynest-theme">Task 4</span>: Order of
-                    Operations
-                </h3>
-                <ul>
-                    <ListItem variant="2">
-                        Use parenthesis to control the order in which the
-                        operations are calculated.</ListItem
-                    >
-                </ul>
-                <Code
-                    code={Task4}
-                    frame="code"
-                    ins={{ range: "33-38" }}
-                    lang="javascript"
-                    mark={{ label: "Stop and run your code", range: "39" }}
-                    showLineNumbers
-                    title="1-2-arithmetic.js"
-                />
+        <h2>Sample Output</h2>
 
-                <!-- End Activity Tasks -->
+        <p>
+          Your program output should something similar to the sample output
+          below.
+        </p>
 
-                <Divider variant="8" classes="my-4" />
+        <Code
+          code={SampleOutput}
+          frame="terminal"
+          lang="txt"
+          showLineNumbers={false}
+          title="Sample Output"
+        />
 
-                <h2>Sample Output</h2>
+        <Divider variant="8" classes="my-4" />
 
-                <p>
-                    Your program output should something similar to the sample
-                    output below.
-                </p>
+        <h2>Reflection Questions</h2>
 
-                <Code
-                    code={SampleOutput}
-                    frame="terminal"
-                    lang="txt"
-                    showLineNumbers={false}
-                    title="Sample Output"
-                />
+        <p>
+          You may write your reflection answers as comments at the bottom of
+          your code.
+        </p>
 
-                <Divider variant="8" classes="my-4" />
+        <ol>
+          <li>
+            How did the use of parentheses change the result in the order of
+            operations example? Why is that important when writing code?
+          </li>
+          <li>
+            Which math operator did you find most surprising or unfamiliar in
+            JavaScript, and why?
+          </li>
+          <li>
+            Why is it helpful to include spaces around math operators (like +,
+            -, *, /) when writing code, even though JavaScript works without
+            them?
+          </li>
+        </ol>
 
-                <h2>Reflection Questions</h2>
+        <Divider variant="8" classes="my-4" />
 
-                <p>
-                    You may write your reflection answers as comments at the
-                    bottom of your code.
-                </p>
+        <h2>Submission</h2>
 
-                <ol>
-                    <li>
-                        How did the use of parentheses change the result in the
-                        order of operations example? Why is that important when
-                        writing code?
-                    </li>
-                    <li>
-                        Which math operator did you find most surprising or
-                        unfamiliar in JavaScript, and why?
-                    </li>
-                    <li>
-                        Why is it helpful to include spaces around math
-                        operators (like +, -, *, /) when writing code, even
-                        though JavaScript works without them?
-                    </li>
-                </ol>
+        <p>
+          Submit your activity and reflection answers to the appropriate
+          dropbox.
+        </p>
 
-                <Divider variant="8" classes="my-4" />
-
-                <h2>Submission</h2>
-
-                <p>
-                    Submit your activity and reflection answers to the
-                    appropriate dropbox.
-                </p>
-
-                <h1
-                    class="text-center mt-5 text-skynest-theme border border-primary"
-                >
-                    Activity Complete
-                </h1>
-            </div>
-        </div>
+        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+          Activity Complete
+        </h1>
+      </div>
     </div>
+  </div>
 </Layout>
