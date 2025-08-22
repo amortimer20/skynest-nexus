@@ -4,6 +4,7 @@ import Divider from "../../components/ui/Divider.astro";
 import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
 
 const Task1 = `
 console.log("Hello, world!");
@@ -84,16 +85,29 @@ I also accept the following items for extra credit:
           In this lesson, you will learn about output in programming. For
           console applications, <strong>output</strong> refers to information displayed
           to the user. However, the meaning of output can vary depending on the context.
-          To output information to the user, we use the <code
-            >console.log()</code
-          >
+          To output information to the user, we use the <AstroCode
+            code="console.log()"
+            lang={"javascript"}
+            inline
+            theme={"material-theme-ocean"}
+          />
           function.
         </p>
 
         <p>
-          The <code>console.log()</code> function is a fundamental concept in programming.
+          The <AstroCode
+            code="console.log()"
+            lang={"javascript"}
+            inline
+            theme={"material-theme-ocean"}
+          /> function is a fundamental concept in programming.
           <strong>Functions</strong> perform specific actions, and in this case,
-          <code>console.log()</code>
+          <AstroCode
+            code="console.log()"
+            lang={"javascript"}
+            inline
+            theme={"material-theme-ocean"}
+          />
           outputs a message to the user via the console. The console is a simple
           terminal for running text-based computer applications. Most of the introductory
           applications in these programming activities will be console-based.
@@ -220,7 +234,7 @@ I also accept the following items for extra credit:
         <Code
           code={SampleOutput}
           frame="terminal"
-          lang="javascript"
+          lang="txt"
           mark={{
             label: "My Custom Section (Yours should look different)",
             range: "20",
@@ -240,8 +254,13 @@ I also accept the following items for extra credit:
 
         <ol>
           <li>
-            What is the primary function of <code>console.log()</code>? How does
-            it relate to the idea of a program "speaking" to a user?
+            What is the primary function of <AstroCode
+              code="console.log()"
+              lang={"javascript"}
+              inline
+              theme={"material-theme-ocean"}
+            />? How does it relate to the idea of a program "speaking" to a
+            user?
           </li>
           <li>
             Imagine you typed <code
