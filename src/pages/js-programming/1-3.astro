@@ -1,0 +1,252 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+const Figure1 = `
+console.log("Hey, how's it going?";);
+console.log('Wildcats have hairballs.');
+console.log(\`Pizza Hut > Dominos. Fight me.\`)
+`
+const Task1 = `
+console.log("10 squared is " + (10 * 10));
+console.log();
+
+console.log("I'm 5 foot 10 inches. That's " + (5 * 12 + 10) + "inches.");
+console.log();
+//
+`;
+const Task2 = `
+console.log("10 squared is " + (10 * 10));
+console.log();
+
+console.log("I'm 5 foot 10 inches. That's " + (5 * 12 + 10) + "inches.");
+console.log();
+
+console.log(\`If I take out a $1000 loan, and pay $25 each month, I will pay off my loan in \${1000 / 25} months.\`);
+console.log()
+
+console.log("A woodchuck can chuck 32 wood panels every minute.");
+console.log(\`Therefore, a woodchuck can chuck \${32 * 60} wood panels every hour.\`);
+//
+`;
+const SampleOutput = `
+10 squared is 100
+
+I'm 5 foot 10 inches. That's 70inches.
+
+If I take out a $1000 loan, and pay $25 each month, I will pay off my loan in 40 months.
+
+A woodchuck can chuck 32 wood panels every minute.
+Therefore, a woodchuck can chuck 1920 wood panels every hour.
+`;
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.3 Strings</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.3</h3>
+            <h4 class="text-skynest-theme">Strings</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>The String data type</li>
+              <li>String Formatting
+                <ul>
+                  <li>String concatenation</li>
+                  <li>String templates</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>The <span class="text-skynest-theme">String</span> data type</h4>
+            <p>
+              The string data type represents a sequence of characters used for
+              text.
+            </p>
+            <p class="text-start text-body-secondary">
+              Double Quotes: <AstroCode
+                code={'"Hello friend."'}
+                lang="javascript"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+
+            <p class="text-start text-body-secondary">
+              Single Quotes: <AstroCode
+                code={"'Mortimer rules'"}
+                lang="javascript"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+            <p class="text-start text-body-secondary">
+              Backticks: <AstroCode
+                code={"`Go Eagles!`"}
+                lang="javascript"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+            <hr />
+            <p>
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={"I am happy!"}
+                lang="javascript"
+                theme={"material-theme-ocean"}
+                inline
+              />
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={'"I am sad!'}
+                lang="javascript"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+            <p>
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={'"I said "don\'t" do it."'}
+                lang="javascript"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+          </section>
+          <section>
+            <h4><span class="text-skynest-theme">Demo</span>: Print Strings with Different Quotes</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="javascript"
+              title="app.js"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>String Formatting</h4>
+            <p>The process of inserting variables or values into a string to create a complete, readable message.</p>
+          </section>
+        </Presentation>
+
+        <h3>Objectives</h3>
+        <ul>
+          <ListItem variant="1">Using string concatenation for formatted output</ListItem>
+          <ListItem variant="1">Using string string templates for formatted output</ListItem>
+        </ul>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Activity Tasks -->
+        <h2>Activity Tasks</h2>
+        <ul>
+          <ListItem variant="2">
+            Create a new project named <span class="text-skynest-theme"
+              >1-3-string.js</span
+            >.
+          </ListItem>
+          <ListItem variant="2"> Complete each task individually. </ListItem>
+        </ul>
+
+        <!-- Task 1 -->
+        <h3>
+          <span class="text-skynest-theme">Task 1</span>: Use string concatenation
+        </h3>
+        <ul>
+          <ListItem variant="2"> Use string concatenation to append math expressions to your strings.</ListItem>
+        </ul>
+        <Code
+          code={Task1}
+          frame="code"
+          lang="javascript"
+          mark={{label: "Stop and run your code", range: "6"}}
+          showLineNumbers
+          title="1-3-strings.js"
+        />
+
+        <hr class="my-4" />
+
+        <!-- Task 2 -->
+        <h3>
+          <span class="text-skynest-theme">Task 2</span>: Use String Templates
+        </h3>
+        <ul>
+          <ListItem variant="2"> Use string templates to insert math expressions directly into your strings.</ListItem>
+        </ul>
+        <Code
+          code={Task2}
+          frame="code"
+          ins={{range: "6-11"}}
+          lang="javascript"
+          mark={{label: "Stop and run your code", range: "12"}}
+          showLineNumbers
+          title="1-3-strings.js"
+        />
+
+        <!-- End Activity Tasks -->
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Sample Output</h2>
+
+        <p>
+          Your program output should something similar to the sample output
+          below.
+        </p>
+
+        <Code
+          code={SampleOutput}
+          frame="terminal"
+          lang="INSERT"
+          showLineNumbers={false}
+          title="Sample Output"
+        />
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Reflection Questions</h2>
+
+        <p>
+          You may write your reflection answers as comments at the bottom of
+          your code.
+        </p>
+
+        <ol>
+          <li>Do you have a preference for string concatenation or string templates?</li>
+          <li>When would you consider using one string formatting technique over the other?</li>
+        </ol>
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Submission</h2>
+
+        <p>
+          Submit your activity and reflection answers to the appropriate
+          dropbox.
+        </p>
+
+        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+          Activity Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
