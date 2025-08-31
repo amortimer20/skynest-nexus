@@ -4,6 +4,14 @@ import Divider from "../../components/ui/Divider.astro";
 import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Image } from "astro:assets";
+
+// Assets
+import headphoneImg from "../../assets/courses/java-programming/img/output-headphone.png";
+import monitorImg from "../../assets/courses/java-programming/img/output-monitor.png";
+import speakerImg from "../../assets/courses/java-programming/img/output-speakers.png";
+import guiImg from "../../assets/courses/java-programming/img/gui.png";
+import tuiImg from "../../assets/courses/java-programming/img/tui.png";
 
 // Code Snippets
 let figure1 = `
@@ -12,13 +20,20 @@ public class Main {
         System.out.println("Hello World!");
     }
 }`;
+let figure2 = `
+public class Main {
+    public static void main(String[] args) {
+        // System.out.println("Hello!");
+        System.out.println("Goodbye!");
+    }
+}`;
 let task1 = `
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to the Skynest Nexus.");
         System.out.println("This class is taught by Mr. Mortimer");
         System.out.println();
-        // Stop and run your code
+        //
     }
 }`;
 let task2 = `
@@ -38,7 +53,7 @@ public class Main {
 
         System.out.println("If you start to feel overwhelmed, just remember:");
         System.out.println("Mortimers don't quit, we get fired!");
-        // Stop and run your code
+        //
     }
 }`;
 ---
@@ -64,13 +79,42 @@ public class Main {
           <section>
             <h4>Topics</h4>
             <ul>
-              <li>Output</li>
               <li>Console Output</li>
               <li>Comments</li>
             </ul>
           </section>
           <section>
             <h4>Output</h4>
+            <p>Information sent to the user via an output device.</p>
+            <div class="row">
+              <div class="col">
+                <Image src={monitorImg} alt="monitor" class="img-fluid" />
+              </div>
+              <div class="col">
+                <Image src={speakerImg} alt="speaker" class="img-fluid" />
+              </div>
+              <div class="col">
+                <Image src={headphoneImg} alt="headphone" class="img-fluid" />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h4>GUIs and TUIs</h4>
+            <p>GUI: Graphical User Interface</p>
+            <p>TUI: Terminal user Interface</p>
+            <div class="row">
+              <div class="col">
+                <Image src={guiImg} alt="GUI" class="img-fluid" />
+              </div>
+              <div class="col">
+                <Image src={tuiImg} alt="TUI" class="img-fluid" />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h4><code>System.out.println()</code></h4>
+            <p>Displays a message withing a terminal application.</p>
+            <Code code={`System.out.println("hi!");`} lang="java" showLineNumbers={false} />
           </section>
           <section>
             <h4>Demo</h4>
@@ -90,6 +134,31 @@ public class Main {
               <Code
                 class="fragment my-2"
                 code={"Hello World!"}
+                frame="terminal"
+                showLineNumbers={false}
+                title="Output"
+              />
+            </div>
+          </section>
+          <section>
+            <h4>Comments</h4>
+
+            <p class="mb-0">Not executable code. Used for:</p>
+            <ol>
+              <li>Documenting code</li>
+              <li>Temporarily disabling code</li>
+            </ol>
+            <div class="text-start">
+              <Code
+                code={figure2}
+                lang="java"
+                frame="code"
+                title="Main.java"
+                showLineNumbers
+              />
+              <Code
+                class="fragment my-2"
+                code={"Goodbye!"}
                 frame="terminal"
                 showLineNumbers={false}
                 title="Output"
@@ -134,6 +203,7 @@ public class Main {
           code={task1}
           frame="code"
           lang="java"
+          mark={{ label: "Stop and run your code", range: "6" }}
           ins={[3, 4, 5]}
           showLineNumbers
           title="Main.java"
@@ -158,6 +228,7 @@ public class Main {
           code={task2}
           frame="code"
           lang="java"
+          mark={{ label: "Stop and run your code", range: "17" }}
           ins={{ range: "6-16" }}
           showLineNumbers
           title="Main.java"
