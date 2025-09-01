@@ -1,22 +1,229 @@
 ---
+import Divider from "../components/ui/Divider.astro";
+import ListItem from "../components/ui/ListItem.astro";
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+import t800EagleFront from "../assets/img/t-800-eagle-front.png";
 ---
 
 <Layout>
-    <div class="bg-skynest-darker py-5">
-        <h1 class="text-center">About Skynest</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium fugiat impedit ex quae magni laudantium animi voluptas nobis libero earum totam est, rem doloribus odio debitis similique dicta unde natus?</p>
+  <div class="container-fluid bg-skynest-darker py-5">
+    <div class="p-5">
+      <a href="/" class="btn btn-sm btn-outline-light"
+        ><i class="si-arrow-left"></i> Back</a
+      >
     </div>
-    <div>
-        <h2>E-Waste Program</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis ipsum debitis dolorem fuga consectetur vitae repellendus mollitia sint. Quia autem, praesentium ipsa nihil ad nostrum sint deserunt possimus laborum corrupti!</p>
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-8 text-center">
+        <Image
+          src={t800EagleFront}
+          alt="T-800 Eagle"
+          class="rounded-circle"
+          width={256}
+        />
+        <h1 class="text-skynest-red mt-5">Skynest Tech Club</h1>
+        <h2 class="mb-5">
+          Community Period <span class="text-skynest-red">E</span> Room L4
+        </h2>
+      </div>
     </div>
-    <div>
-        <h2>SkyNest TV</h2>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat sequi quod commodi amet iste, velit, reiciendis totam exercitationem facere quibusdam dolorem cumque quasi. Nisi recusandae atque, accusamus totam perspiciatis voluptate.</p>
+  </div>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <div class="card card-red mb-3">
+          <div class="card-body">
+            <h3 class="text-center">Teams</h3>
+            <ul>
+              <ListItem>Gaming PC Build - Captain: TBD</ListItem>
+              <ListItem>PC Refurbishing - Captain: TBD</ListItem>
+              <ListItem>Electronics Repair - Captain: TBD</ListItem>
+              <ListItem>Game Server - Captain: TBD</ListItem>
+              <ListItem>SkyNest TV - Captain: Noah Ratchford</ListItem>
+              <ListItem>Tournaments - Captain: TBD</ListItem>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-        <h2>Game Servers</h2>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat sequi quod commodi amet iste, velit, reiciendis totam exercitationem facere quibusdam dolorem cumque quasi. Nisi recusandae atque, accusamus totam perspiciatis voluptate.</p>
+
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <div class="card card-red mb-3">
+          <div class="card-body">
+            <h3 class="text-center">Members</h3>
+            <ul class="overflow-auto" style="height: 10rem;">
+              <ListItem variant="3">Blake Karas</ListItem>
+              <ListItem variant="3">Richard Hudgins</ListItem>
+              <ListItem variant="3">Tavion McKinley</ListItem>
+              <ListItem variant="3">Matthew Hollingsworth</ListItem>
+              <ListItem variant="3">Luke Pawlak</ListItem>
+              <ListItem variant="3">Cameron Evans</ListItem>
+              <ListItem variant="3">Daron Payne</ListItem>
+              <ListItem variant="3">Dean Rabic</ListItem>
+              <ListItem variant="3">Sebastian Haikal</ListItem>
+              <ListItem variant="3">Noah Ratchford</ListItem>
+              <ListItem variant="3">Darian Lindsey Jr</ListItem>
+              <ListItem variant="3">Jackson Stephan</ListItem>
+              <ListItem variant="3">Santiago Pereira</ListItem>
+              <ListItem variant="3">Samuel Chen</ListItem>
+              <ListItem variant="3">Tyree Morton</ListItem>
+              <ListItem variant="3">Jadiel Pietri</ListItem>
+            </ul>
+            <p class="text-center fs-4">
+              <a
+                href="https://forms.gle/crkyqqQ36s8GE9nP9"
+                target="_blank"
+                class="text-skynest-red"
+                ><i class="si-link"></i> New Member Form
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <Divider variant="5" classes="my-5" />
+
+    <h3>News and Updates</h3>
+
+    <ul>
+      <ListItem
+        >9/1/26 - SkyNest TV is heading to the <a
+          href="https://www.gamecleveland.com/"
+          target="_blank"
+          class="text-skynest-red">Cleveland Gaming Classic</a
+        >. Come join us!</ListItem
+      >
+    </ul>
+
+    <Divider variant="5" classes="my-5" />
+
+    <h3 class="text-center mt-5">Task Board</h3>
+
+    <p class="text-center fs-4">
+      <a
+        href="https://forms.gle/kfNeDDayStLg29zJA"
+        target="_blank"
+        class="text-skynest-red"
+        ><i class="si-link"></i> Submit an idea
+      </a>
+    </p>
+
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4 class="">Gaming PC Build</h4>
+            <ul>
+              <ListItem>Prepare PC DIY stations (2x)</ListItem>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4 class="text-center">PC Refurbishing</h4>
+            <ul>
+              <ListItem>Organize test station cables</ListItem>
+              <ListItem>Test Computer Donation 01 (9 PCs)</ListItem>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4 class="text-center">Electronics Repair</h4>
+            <ul>
+              <ListItem>Xavier PC PSU</ListItem>
+              <ListItem>Daron PS2 refurbish</ListItem>
+              <ListItem
+                >Class Wii - SoftMod
+                <ul>
+                  <ListItem variant="2"
+                    >New Disc Drive (Not ordered yet)</ListItem
+                  >
+                </ul>
+              </ListItem>
+              <ListItem>Wii donation - Dim display issue</ListItem>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4 class="text-center">Game Server</h4>
+            <ul>
+              <ListItem>Clean Ubuntu Linux</ListItem>
+              <ListItem>Upgrade RAM</ListItem>
+              <ListItem>Plan Minecraft server</ListItem>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4 class="text-center">SkyNest TV</h4>
+            <ul>
+              <ListItem>Create show opening</ListItem>
+              <ListItem>Prep for ep. 1 - CGC</ListItem>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4 class="text-center">Tournaments</h4>
+            <ul>
+              <ListItem
+                >Prep for tournament 1 (NFL 2K)
+                <ul>
+                  <ListItem>Flyers</ListItem>
+                  <ListItem>SkyNest TV episode</ListItem>
+                  <ListItem>Google Form</ListItem>
+                  <ListItem>Choose bracket software</ListItem>
+                </ul>
+              </ListItem>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </Layout>
+
+<style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Terminator";
+  }
+
+  .card-red {
+    border-color: var(--skynest-red);
+  }
+</style>
