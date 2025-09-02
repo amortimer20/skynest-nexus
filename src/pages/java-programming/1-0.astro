@@ -7,7 +7,7 @@ import { Image } from "astro:assets";
 
 import JavaIconAnimation from "../../assets/courses/java-programming/img/hot-coffee.gif";
 
-let figure1 = `
+const Figure1 = `
 public class Main {
     public static void main(String[] args) {
 
@@ -15,7 +15,7 @@ public class Main {
 
     }
 }`;
-let figure2 = `
+const Figure2 = `
 public class Main {
     public static void main(String[] args) {
 
@@ -62,6 +62,7 @@ public class Main {
               <li>Programming</li>
               <li>Compilers and Interpreters</li>
               <li>The Java Programming Language</li>
+              <li>Java Syntax</li>
             </ul>
           </section>
           <section>
@@ -107,9 +108,9 @@ public class Main {
             </p>
             <div class="text-start">
               <Code
-                code={figure1}
+                code={Figure1}
                 frame="code"
-                ins={{label: "\tCode starts inside these braces", range: "4"}}
+                ins={{ label: "\tCode starts inside these braces", range: "4" }}
                 lang="java"
                 showLineNumbers
                 title="Main.java"
@@ -125,7 +126,7 @@ public class Main {
             </p>
             <div class="text-start">
               <Code
-                code={figure2}
+                code={Figure2}
                 frame="code"
                 lang="java"
                 showLineNumbers
@@ -134,26 +135,52 @@ public class Main {
             </div>
           </section>
           <section>
-            <h4><span class="text-skynest-theme">Demo</span> - Create a New Java Project</h4>
-            <p>Follow the instructor in creating a new Java project with the software provided.</p>
+            <h4>Demo</h4>
+            <p>
+              Follow the instructor in creating a new Java project with the
+              software provided.
+            </p>
             <Image src={JavaIconAnimation} alt="Java Icon Animation" />
           </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+
+            <dl>
+              <dt>Syntax</dt>
+              <dd>
+                The rules that govern the structure of a valid Java program,
+                much like grammar rules for a language.
+              </dd>
+              <dt>Syntax Highlighting</dt>
+              <dd>
+                A feature in code editors that displays different elements of a
+                program, like keywords and comments, in different colors to make
+                the code easier to read.
+              </dd>
+              <dt>Syntax Error</dt>
+              <dd>
+                A mistake in the structure of a program that prevents the code
+                from being compiled or run.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+
+            <dl>
+              <dt>Statement</dt>
+              <dd>
+                A command that performs an action, such as printing text to the
+                console.
+              </dd>
+              <dt>Terminate</dt>
+              <dd>
+                The act of ending a statement with a semicolon (;), which
+                signals to the compiler that the command is complete.
+              </dd>
+            </dl>
+          </section>
         </Presentation>
-
-        <h3>Term</h3>
-
-        <dl>
-          <dt>Syntax</dt>
-          <dd>The rules that govern the structure of a valid Java program, much like grammar rules for a language.</dd>
-          <dt>Syntax Highlighting</dt>
-          <dd>A  feature in code editors that displays different elements of a program, like keywords and comments, in different colors to make the code easier to read.</dd>
-          <dt>Syntax Error</dt>
-          <dd>A mistake in the structure of a program that prevents the code from being compiled or run.</dd>
-          <dt>Statement</dt>
-          <dd>A command that performs an action, such as printing text to the console.</dd>
-          <dt>Terminate</dt>
-          <dd>The act of ending a statement with a semicolon (;), which signals to the compiler that the command is complete.</dd>
-        </dl>
       </div>
     </div>
   </div>

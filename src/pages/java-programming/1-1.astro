@@ -4,6 +4,7 @@ import Divider from "../../components/ui/Divider.astro";
 import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
 import { Image } from "astro:assets";
 
 // Assets
@@ -79,13 +80,16 @@ public class Main {
           <section>
             <h4>Topics</h4>
             <ul>
-              <li>Console Output</li>
+              <li>Output</li>
+              <li>User Interfaces</li>
               <li>Comments</li>
             </ul>
           </section>
           <section>
             <h4>Output</h4>
-            <p>Information sent to the user via an output device.</p>
+            <p>Information that a program produces.</p>
+
+            <h5>Output Devices</h5>
             <div class="row">
               <div class="col">
                 <Image src={monitorImg} alt="monitor" class="img-fluid" />
@@ -99,9 +103,11 @@ public class Main {
             </div>
           </section>
           <section>
-            <h4>GUIs and TUIs</h4>
-            <p>GUI: Graphical User Interface</p>
-            <p>TUI: Terminal user Interface</p>
+            <h4>User Interfaces: GUIs and TUIs</h4>
+            <p>
+              Graphical User Interface - Uses visual elements to let you interact with a program.
+            </p>
+            <p>Terminal user Interface - A user interface that uses text and symbols, rather than graphical elements.</p>
             <div class="row">
               <div class="col">
                 <Image src={guiImg} alt="GUI" class="img-fluid" />
@@ -111,20 +117,68 @@ public class Main {
               </div>
             </div>
           </section>
-          <section>
-            <h4><code>System.out.println()</code></h4>
-            <p>Displays a message withing a terminal application.</p>
-            <Code
-              code={`System.out.println("hi!");`}
-              lang="java"
-              showLineNumbers={false}
-            />
+          <section data-auto-animate>
+            <h4>
+              Your First Java Method <AstroCode
+                code="System.out.println()"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </h4>
+            <p>
+              <AstroCode
+                code="System.out.println()"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              /> is a method that displays a message in a terminal application.
+            </p>
+            <div class="text-start">
+              <Code
+                code={`System.out.println("Are you a 1 or a 0?");`}
+                lang="java"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Your First Java Method <AstroCode
+                code="System.out.println()"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </h4>
+            <p>
+              <AstroCode
+                code="System.out.println()"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              /> is a method that displays a message in a terminal application.
+            </p>
+            <div class="text-start">
+              <Code
+                code={`System.out.println("Are you a 1 or a 0?");`}
+                lang="java"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code code="Are you a 1 or a 0?" frame="terminal" lang="txt" />
+            </div>
           </section>
           <section>
             <h4>Demo</h4>
             <p>
-              Call <code>System.out.println()</code>. Write a message of your
-              choice.
+              Call <AstroCode
+                code="System.out.println()"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />. Write a message of your choice.
             </p>
             <div class="text-start">
               <Code
@@ -146,12 +200,7 @@ public class Main {
           </section>
           <section>
             <h4>Comments</h4>
-
-            <p class="mb-0">Not executable code. Used for:</p>
-            <ol>
-              <li>Documenting code</li>
-              <li>Temporarily disabling code</li>
-            </ol>
+            <p>Write notes or disable code. Ignored by the Java compiler.</p>
             <div class="text-start">
               <Code
                 code={figure2}
@@ -169,26 +218,26 @@ public class Main {
               />
             </div>
           </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Method</dt>
+              <dd>Code that performs a specific action.</dd>
+              <dt>Output</dt>
+              <dd>Information that a program produces.</dd>
+              <dt>Console Output</dt>
+              <dd>
+                Text displayed by a program in a command-line interface, like a
+                terminal.
+              </dd>
+              <dt>Comments</dt>
+              <dd>
+                Notes written within the code that are ignored by the Java
+                compiler, used by to explain or clarify the code.
+              </dd>
+            </dl>
+          </section>
         </Presentation>
-
-        <h3>Terms</h3>
-
-        <dl>
-          <dt>Method</dt>
-          <dd>Code that performs a specific action.</dd>
-          <dt>Output</dt>
-          <dd>Information that a program produces.</dd>
-          <dt>Console Output</dt>
-          <dd>
-            A text displayed by a program in a command-line interface, like a
-            terminal.
-          </dd>
-          <dt>Comments</dt>
-          <dd>
-            Notes written within the code that are ignored by the Java compiler, used
-            by to explain or clarify the code.
-          </dd>
-        </dl>
 
         <h3>Objectives</h3>
         <ul>
