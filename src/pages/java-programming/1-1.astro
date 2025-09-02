@@ -1,27 +1,59 @@
 ---
 import Presentation from "../../components/Presentation.astro";
 import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 import { Image } from "astro:assets";
 
-import JavaIconAnimation from "../../assets/courses/java-programming/img/hot-coffee.gif";
+// Assets
+import headphoneImg from "../../assets/courses/java-programming/img/output-headphone.png";
+import monitorImg from "../../assets/courses/java-programming/img/output-monitor.png";
+import speakerImg from "../../assets/courses/java-programming/img/output-speakers.png";
+import guiImg from "../../assets/courses/java-programming/img/gui.png";
+import tuiImg from "../../assets/courses/java-programming/img/tui.png";
 
+// Code Snippets
 let figure1 = `
 public class Main {
     public static void main(String[] args) {
-
-
-
+        System.out.println("Hello World!");
     }
 }`;
 let figure2 = `
 public class Main {
     public static void main(String[] args) {
+        // System.out.println("Hello!");
+        System.out.println("Goodbye!");
+    }
+}`;
+let task1 = `
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Skynest Nexus.");
+        System.out.println("This class is taught by Mr. Mortimer");
+        System.out.println();
+        //
+    }
+}`;
+let task2 = `
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Skynest Nexus.");
+        System.out.println("This class is taught by Mr. Mortimer");
+        System.out.println();
+        
+        System.out.println("What is the answer to life, the universe, and everything?");
+        System.out.println("The answer is 42.");
+        System.out.println();
 
-      System.out.println("Hello, world!");
-      System.out.println("Great success!");
+        System.out.println("Sally sells seashells by the seashore.");
+        System.out.println("Sally wants to invite you to invest in a money making opportunity.");
+        System.out.println();
 
+        System.out.println("If you start to feel overwhelmed, just remember:");
+        System.out.println("Mortimers don't quit, we get fired!");
+        //
     }
 }`;
 ---
@@ -34,111 +66,267 @@ public class Main {
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.1 Introduction to Computers</h1>
+        <h1>Activity 1.1 Hello World!</h1>
         <Divider variant="8" classes="mb-4" />
 
+        <!-- Introduction -->
+        <h2>Introduction</h2>
         <Presentation>
           <section>
             <h3>Activity 1.1</h3>
-            <h4 class="text-skynest-theme">Introduction to Computers</h4>
+            <h4 class="text-skynest-theme">Hello World!</h4>
           </section>
           <section>
             <h4>Topics</h4>
             <ul>
-              <li>
-                Computer Software
-                <ul>
-                  <li>Binary Information</li>
-                </ul>
-              </li>
-              <li>
-                Computer Hardware
-                <ul>
-                  <li>CPU</li>
-                  <li>Memory</li>
-                  <li>Peripherals: Storage and I/O</li>
-                </ul>
-              </li>
-              <li>Programming</li>
-              <li>Compilers and Interpreters</li>
-              <li>The Java Programming Language</li>
+              <li>Console Output</li>
+              <li>Comments</li>
             </ul>
           </section>
           <section>
-            <section>
-              <h4>Computer Software</h4>
-            </section>
-            <section>
-              <h4>Binary Information</h4>
-            </section>
+            <h4>Output</h4>
+            <p>Information sent to the user via an output device.</p>
+            <div class="row">
+              <div class="col">
+                <Image src={monitorImg} alt="monitor" class="img-fluid" />
+              </div>
+              <div class="col">
+                <Image src={speakerImg} alt="speaker" class="img-fluid" />
+              </div>
+              <div class="col">
+                <Image src={headphoneImg} alt="headphone" class="img-fluid" />
+              </div>
+            </div>
           </section>
           <section>
-            <section>
-              <h4>Computer Hardware</h4>
-            </section>
-            <section>
-              <h4>CPU</h4>
-            </section>
-            <section>
-              <h4>Memory</h4>
-            </section>
-            <section>
-              <h4>Peripherals: Storage</h4>
-            </section>
-            <section>
-              <h4>Peripherals: I/O Devices</h4>
-            </section>
+            <h4>GUIs and TUIs</h4>
+            <p>GUI: Graphical User Interface</p>
+            <p>TUI: Terminal user Interface</p>
+            <div class="row">
+              <div class="col">
+                <Image src={guiImg} alt="GUI" class="img-fluid" />
+              </div>
+              <div class="col">
+                <Image src={tuiImg} alt="TUI" class="img-fluid" />
+              </div>
+            </div>
           </section>
           <section>
-            <h4>Programming</h4>
+            <h4><code>System.out.println()</code></h4>
+            <p>Displays a message withing a terminal application.</p>
+            <Code code={`System.out.println("hi!");`} lang="java" showLineNumbers={false} />
           </section>
           <section>
-            <h4>Compilers and Interpreters</h4>
-          </section>
-          <section>
-            <h4>The Java Programming Language</h4>
-          </section>
-          <section data-auto-animate>
-            <h4>Entrypoint of a Java Program</h4>
+            <h4>Demo</h4>
             <p>
-              Java programs begin execution within the <span
-                class="text-skynest-cyan">main method</span
-              >.
+              Call <code>System.out.println()</code>. Write a message of your
+              choice.
             </p>
             <div class="text-start">
               <Code
-                code={figure1}
-                frame="code"
-                ins={{label: "\tCode starts inside these braces", range: "4"}}
                 lang="java"
-                showLineNumbers
+                frame="code"
                 title="Main.java"
+                showLineNumbers
+                ins={3}
+                code={figure1}
+              />
+              <Code
+                class="fragment my-2"
+                code={"Hello World!"}
+                frame="terminal"
+                showLineNumbers={false}
+                title="Output"
               />
             </div>
           </section>
-          <section data-auto-animate>
-            <h4>Entrypoint of a Java Program</h4>
-            <p>
-              Java programs begin execution within the <span
-                class="text-skynest-cyan">main method</span
-              >.
-            </p>
+          <section>
+            <h4>Comments</h4>
+
+            <p class="mb-0">Not executable code. Used for:</p>
+            <ol>
+              <li>Documenting code</li>
+              <li>Temporarily disabling code</li>
+            </ol>
             <div class="text-start">
               <Code
                 code={figure2}
-                frame="code"
                 lang="java"
-                showLineNumbers
+                frame="code"
                 title="Main.java"
+                showLineNumbers
+              />
+              <Code
+                class="fragment my-2"
+                code={"Goodbye!"}
+                frame="terminal"
+                showLineNumbers={false}
+                title="Output"
               />
             </div>
           </section>
-          <section>
-            <h4><span class="text-skynest-theme">Demo</span> - Create a New Java Project</h4>
-            <p>Follow the instructor in creating a new Java project with the software provided.</p>
-            <Image src={JavaIconAnimation} alt="Java Icon Animation" />
-          </section>
         </Presentation>
+
+        <h3>Objectives</h3>
+        <ul>
+          <ListItem variant="1">Writing and executing code</ListItem>
+          <ListItem variant="1">Displaying console output</ListItem>
+          <ListItem variant="1">Debugging potential syntax errors</ListItem>
+          <ListItem variant="1">Reading comments</ListItem>
+        </ul>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Activity Tasks -->
+        <h2>Activity Tasks</h2>
+        <ul>
+          <ListItem variant="2">
+            Create a new Java project named <span class="text-skynest-theme"
+              >1-1-Output</span
+            >.
+          </ListItem>
+          <ListItem variant="2"> Complete each task individually. </ListItem>
+        </ul>
+
+        <!-- Task 1 -->
+        <h3><span class="text-skynest-theme">Task 1</span>: Write and Test</h3>
+        <ul>
+          <ListItem variant="2">
+            Write each line of code from the section making sure to stay within
+            the main method.
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+        <Code
+          code={task1}
+          frame="code"
+          lang="java"
+          mark={{ label: "Stop and run your code", range: "6" }}
+          ins={[3, 4, 5]}
+          showLineNumbers
+          title="Main.java"
+        />
+
+        <hr class="my-4" />
+
+        <!-- Task 2 -->
+        <h3>
+          <span class="text-skynest-theme">Task 2</span>: Add More Code
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Write the additional sections of output under your current print
+            statements.
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+        <Code
+          code={task2}
+          frame="code"
+          lang="java"
+          mark={{ label: "Stop and run your code", range: "17" }}
+          ins={{ range: "6-16" }}
+          showLineNumbers
+          title="Main.java"
+        />
+
+        <hr class="my-4" />
+
+        <!-- Task 3 -->
+        <h3>
+          <span class="text-skynest-theme">Task 3</span>: Add Space
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Add an additional blank print statement at the end of each section
+            to increase the spacing between the sections.
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+
+        <hr class="my-4" />
+
+        <!-- Task 4 -->
+        <h3>
+          <span class="text-skynest-theme">Task 4</span>: Write a Custom Section
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Output a three-line paragraph of your choice somewhere in the
+            program. Keep it school appropriate.
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+
+        <hr class="my-4" />
+
+        <!-- Task 5 -->
+        <h3>
+          <span class="text-skynest-theme">Task 5</span>: Write Comments
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Write the following comments to document and modify the code.
+            <ul>
+              <ListItem variant="3">
+                Disable the line of code that displays the message 'The answer
+                is 42.' by placing a single-line comment at the beginning of the
+                line.
+              </ListItem>
+              <ListItem variant="3">
+                Write a comment at the end of a blank print statement that
+                states 'Displays a blank line'.
+              </ListItem>
+            </ul>
+          </ListItem>
+          <ListItem variant="2">
+            Run and test your project to ensure it executes as intended.
+          </ListItem>
+        </ul>
+        <!-- End Activity Tasks -->
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Reflection Questions</h2>
+
+        <ol>
+          <li>
+            What is the primary function of System.out.println()? How does it
+            relate to the idea of a program "speaking" to a user?
+          </li>
+          <li>
+            Imagine you typed <span
+              class="text-skynest-red text-decoration-underline">Sistem</span
+            >.out.println() by mistake. What do you think would happen when you
+            try to run your program? Why is correct spelling so important in
+            programming?
+          </li>
+          <li>
+            What was the most challenging part of writing your first line of
+            code?
+          </li>
+        </ol>
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Submission</h2>
+
+        <p>
+          Submit your activity and reflection answers to the appropriate
+          dropbox.
+        </p>
+
+        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+          Activity Complete
+        </h1>
       </div>
     </div>
   </div>

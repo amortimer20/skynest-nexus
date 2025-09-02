@@ -4,58 +4,174 @@ import Divider from "../../components/ui/Divider.astro";
 import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
 import { Image } from "astro:assets";
 
-// Assets
-import headphoneImg from "../../assets/courses/java-programming/img/output-headphone.png";
-import monitorImg from "../../assets/courses/java-programming/img/output-monitor.png";
-import speakerImg from "../../assets/courses/java-programming/img/output-speakers.png";
-import guiImg from "../../assets/courses/java-programming/img/gui.png";
-import tuiImg from "../../assets/courses/java-programming/img/tui.png";
-
-// Code Snippets
-let figure1 = `
-public class Main {
+const Figure1 = `
+public class DemoProgram {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println(303);
+        System.out.println(-25.2);
+        System.out.println(1_000_000);
     }
 }`;
-let figure2 = `
-public class Main {
+const Figure2 = `
+public class DemoProgram {
     public static void main(String[] args) {
-        // System.out.println("Hello!");
-        System.out.println("Goodbye!");
+        System.out.println(100 / 2);
+        System.out.println(14 / 3);
+        System.out.println(20 / 6.0);
+        System.out.println(10.0 / 2.5);
+        System.out.println(10 % 4);
     }
 }`;
-let task1 = `
-public class Main {
+const Figure3 = `
+50
+4
+3.3333333333333335
+4.0
+2
+`;
+const Task1 = `
+public class Program {
     public static void main(String[] args) {
-        System.out.println("Welcome to the Skynest Nexus.");
-        System.out.println("This class is taught by Mr. Mortimer");
-        System.out.println();
-        //
-    }
-}`;
-let task2 = `
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Welcome to the Skynest Nexus.");
-        System.out.println("This class is taught by Mr. Mortimer");
-        System.out.println();
-        
-        System.out.println("What is the answer to life, the universe, and everything?");
-        System.out.println("The answer is 42.");
+        // Addition
+        System.out.println("I'm adding 2 and 1. The result is:");
+        System.out.println(2 + 1);
         System.out.println();
 
-        System.out.println("Sally sells seashells by the seashore.");
-        System.out.println("Sally wants to invite you to invest in a money making opportunity.");
+        System.out.println("Adding $1000 and $500.96 gives us:");
+        System.out.println(1000 + 500.96);
         System.out.println();
 
-        System.out.println("If you start to feel overwhelmed, just remember:");
-        System.out.println("Mortimers don't quit, we get fired!");
-        //
+        // Subtraction
+        System.out.println("I have 3 apples, and I eat one. Now, I have:");
+        System.out.println(3 - 1);
+        System.out.println();
+
+        // Multiplication
+        System.out.println("I'm 30 years old. In months, that's: ");
+        System.out.println(30 * 12);
+        System.out.println();
+//
     }
 }`;
+const Task2 = `
+public class Program {
+    public static void main(String[] args) {
+        // Addition
+        System.out.println("I'm adding 2 and 1. The result is:");
+        System.out.println(2 + 1);
+        System.out.println();
+
+        System.out.println("Adding $1000 and $500.96 gives us:");
+        System.out.println(1000 + 500.96);
+        System.out.println();
+
+        // Subtraction
+        System.out.println("I have 3 apples, and I eat one. Now, I have:");
+        System.out.println(3 - 1);
+        System.out.println();
+
+        // Multiplication
+        System.out.println("I'm 30 years old. In months, that's: ");
+        System.out.println(30 * 12);
+        System.out.println();
+
+        // Division with integers and doubles
+        System.out.println("If we divide 8 pizza slices between 2 people, each person gets:");
+        System.out.println(8 / 2);
+        System.out.println();
+
+        System.out.println("Dividing $100 among 6 people gives each person:");
+        System.out.println(100.0 / 6);
+        System.out.println("Without fractional amounts, each person gets:");
+        System.out.println(100 / 6);
+        System.out.println();
+
+        // Remainder using the mod operator
+        System.out.println("After dividing $100 among 6 people, the leftover cents are:");
+        System.out.println(100 % 6);
+        System.out.println();
+//
+    }
+}
+`;
+const Task3 = `
+public class Program {
+    public static void main(String[] args) {
+        // Addition
+        System.out.println("I'm adding 2 and 1. The result is:");
+        System.out.println(2 + 1);
+        System.out.println();
+
+        System.out.println("Adding $1000 and $500.96 gives us:");
+        System.out.println(1000 + 500.96);
+        System.out.println();
+
+        // Subtraction
+        System.out.println("I have 3 apples, and I eat one. Now, I have:");
+        System.out.println(3 - 1);
+        System.out.println();
+
+        // Multiplication
+        System.out.println("I'm 30 years old. In months, that's: ");
+        System.out.println(30 * 12);
+        System.out.println();
+
+        // Division - Quotient and remainder
+        // Quotient
+        System.out.println("If we divide 8 pizza slices between 2 people, each person gets:");
+        System.out.println(8 / 2);
+        System.out.println();
+
+        System.out.println("Dividing $100 among 6 people gives each person:");
+        System.out.println(100.0 / 6);
+        System.out.println("Without fractional amounts, each person gets:");
+        System.out.println(100 / 6);
+        System.out.println();
+
+        // Remainder using the modulus, or mod, operator
+        System.out.println("After dividing $100 among 6 people, the leftover cents are:");
+        System.out.println(100 % 6);
+        System.out.println();
+
+        // Order of operations
+        System.out.println("The expression 4 * 10 + 12 equals:");
+        System.out.println(4 * 10 + 12);
+        System.out.println("The expression 4 * (10 + 12) equals:");
+        System.out.println(4 * (10 + 12));
+//
+    }
+}`;
+const SampleOutput = `
+I'm adding 2 and 1. The result is:
+3
+
+Adding $1000 and $500.96 gives us:
+1500.96
+
+I have 3 apples, and I eat one. Now, I have:
+2
+
+I'm 30 years old. In months, that's: 
+360
+
+If we divide 8 pizza slices between 2 people, each person gets:
+4
+
+Dividing $100 among 6 people gives each person:
+16.666666666666668
+Without fractional amounts, each person gets:
+16
+
+After dividing $100 among 6 people, the leftover cents are:
+4
+
+The expression 4 * 10 + 12 equals:
+52
+The expression 4 * (10 + 12) equals:
+88`;
 ---
 
 <Layout>
@@ -66,113 +182,195 @@ public class Main {
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.1 Hello World!</h1>
+        <h1>Activity 1.2 Arithmetic</h1>
         <Divider variant="8" classes="mb-4" />
 
         <!-- Introduction -->
         <h2>Introduction</h2>
+
         <Presentation>
           <section>
-            <h3>Activity 1.1</h3>
-            <h4 class="text-skynest-theme">Hello World!</h4>
+            <h3>Activity 1.2</h3>
+            <h4 class="text-skynest-theme">Arithmetic</h4>
           </section>
           <section>
             <h4>Topics</h4>
             <ul>
-              <li>Console Output</li>
-              <li>Comments</li>
+              <li>Arithmetic in programming</li>
+              <li>Numeric Types: integer and double</li>
+              <li>Math operators</li>
+              <li>Operator precedence</li>
             </ul>
           </section>
           <section>
-            <h4>Output</h4>
-            <p>Information sent to the user via an output device.</p>
-            <div class="row">
-              <div class="col">
-                <Image src={monitorImg} alt="monitor" class="img-fluid" />
-              </div>
-              <div class="col">
-                <Image src={speakerImg} alt="speaker" class="img-fluid" />
-              </div>
-              <div class="col">
-                <Image src={headphoneImg} alt="headphone" class="img-fluid" />
-              </div>
-            </div>
-          </section>
-          <section>
-            <h4>GUIs and TUIs</h4>
-            <p>GUI: Graphical User Interface</p>
-            <p>TUI: Terminal user Interface</p>
-            <div class="row">
-              <div class="col">
-                <Image src={guiImg} alt="GUI" class="img-fluid" />
-              </div>
-              <div class="col">
-                <Image src={tuiImg} alt="TUI" class="img-fluid" />
-              </div>
-            </div>
-          </section>
-          <section>
-            <h4><code>System.out.println()</code></h4>
-            <p>Displays a message withing a terminal application.</p>
-            <Code code={`System.out.println("hi!");`} lang="java" showLineNumbers={false} />
-          </section>
-          <section>
-            <h4>Demo</h4>
+            <h4>Arithmetic in programming</h4>
             <p>
-              Call <code>System.out.println()</code>. Write a message of your
-              choice.
+              Any useful program, from video games to online stores, relies on
+              numbers.
             </p>
-            <div class="text-start">
-              <Code
-                lang="java"
-                frame="code"
-                title="Main.java"
-                showLineNumbers
-                ins={3}
-                code={figure1}
-              />
-              <Code
-                class="fragment my-2"
-                code={"Hello World!"}
-                frame="terminal"
-                showLineNumbers={false}
-                title="Output"
-              />
-            </div>
+            <p>
+              Whether it's calculating scores, processing transactions, or
+              generating graphics, math is everywhere in software.
+            </p>
           </section>
           <section>
-            <h4>Comments</h4>
-
-            <p class="mb-0">Not executable code. Used for:</p>
-            <ol>
-              <li>Documenting code</li>
-              <li>Temporarily disabling code</li>
-            </ol>
-            <div class="text-start">
-              <Code
-                code={figure2}
+            <h4>
+              Numeric Types: <span class="text-skynest-theme">Integer</span> and
+              <span class="text-skynest-theme">Double</span>
+            </h4>
+            <p>
+              In Java, numbers are categorized as either <b>integers</b> (for whole
+              numbers) or <b>doubles</b> (for decimal numbers).
+            </p>
+            <AstroCode
+              code={"2.5"}
+              lang="java"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"401"}
+              lang="java"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"-65"}
+              lang="java"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"-123.45"}
+              lang="java"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"1_000_000"}
+              lang="java"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <i class="text-skynest-red si-x"></i><AstroCode
+              code={'"35"'}
+              lang="java"
+              theme={"material-theme-ocean"}
+              inline
+            />
+          </section>
+          <section>
+            <h4>
+              <span class="text-skynest-theme">Demo</span> Print Some Numbers
+            </h4>
+            <p>
+              Use the <AstroCode
+                code="System.out.println()"
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              /> method to display some numbers on the screen.
+            </p>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="java"
+              title="DemoProgram.java"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>Math Operators</h4>
+            <dl>
+              <dd>
+                <AstroCode
+                  code="+"
+                  lang={"java"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Addition
+              </dd>
+              <dd>
+                <AstroCode
+                  code="-"
+                  lang={"java"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Subtraction
+              </dd>
+              <dd>
+                <AstroCode
+                  code="*"
+                  lang={"java"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Multiplication
+              </dd>
+              <dd>
+                <AstroCode
+                  code="/"
+                  lang={"java"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Division: Divides two numbers and returns an integer when both
+                numbers are integers, and a double when at least one of the numbers
+                is a double.
+              </dd>
+              <dd>
+                <AstroCode
+                  code="%"
+                  lang={"java"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Modulus (Mod): Divides two numbers and returns the <span
+                  class="text-decoration-underline">remainder.</span
+                >
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Division Operations with Integers and Doubles</h4>
+            <Code code={Figure2} frame="code" lang="java" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Divide Integers and Doubles</h4>
+            <Code
+              code={Figure2}
+              frame="code"
+              lang="java"
+              class="text-start mb-3"
+            />
+            <Code code={Figure3} frame="terminal" class="text-start" />
+          </section>
+          <section>
+            <h4>Operator Precedence</h4>
+            <p>
+              Java follows typical order of operations rules, include
+              parenthesis.
+            </p>
+            <p>
+              <AstroCode
+                code="3 * 4 + 5"
                 lang="java"
-                frame="code"
-                title="Main.java"
-                showLineNumbers
+                theme={"material-theme-ocean"}
+                inline
               />
-              <Code
-                class="fragment my-2"
-                code={"Goodbye!"}
-                frame="terminal"
-                showLineNumbers={false}
-                title="Output"
+            </p>
+            <p>
+              <AstroCode
+                code="3 * (4 + 5)"
+                lang="java"
+                theme={"material-theme-ocean"}
+                inline
               />
-            </div>
+            </p>
           </section>
         </Presentation>
 
         <h3>Objectives</h3>
         <ul>
-          <ListItem variant="1">Writing and executing code</ListItem>
-          <ListItem variant="1">Displaying console output</ListItem>
-          <ListItem variant="1">Debugging potential syntax errors</ListItem>
-          <ListItem variant="1">Reading comments</ListItem>
+          <ListItem>Evaluating math expressions</ListItem>
+          <ListItem>Displaying numeric output</ListItem>
         </ul>
 
         <Divider variant="8" classes="mb-4" />
@@ -182,136 +380,141 @@ public class Main {
         <ul>
           <ListItem variant="2">
             Create a new Java project named <span class="text-skynest-theme"
-              >1-1-Output</span
+              >1-2-Arithmetic</span
             >.
           </ListItem>
           <ListItem variant="2"> Complete each task individually. </ListItem>
         </ul>
 
         <!-- Task 1 -->
-        <h3><span class="text-skynest-theme">Task 1</span>: Write and Test</h3>
+        <h3>
+          <span class="text-skynest-theme">Task 1</span>: Addition, Subtraction,
+          and Multiplication
+        </h3>
         <ul>
           <ListItem variant="2">
-            Write each line of code from the section making sure to stay within
-            the main method.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
+            Display the result of the math expressions using <AstroCode
+              code={"System.out.println()"}
+              lang={"java"}
+              inline
+              theme={"material-theme-ocean"}
+            />.
           </ListItem>
         </ul>
         <Code
-          code={task1}
+          code={Task1}
           frame="code"
           lang="java"
-          mark={{ label: "Stop and run your code", range: "6" }}
-          ins={[3, 4, 5]}
           showLineNumbers
-          title="Main.java"
+          title="Program.java"
+          mark={{ label: "Stop and run your code", range: "21" }}
         />
 
         <hr class="my-4" />
 
         <!-- Task 2 -->
         <h3>
-          <span class="text-skynest-theme">Task 2</span>: Add More Code
+          <span class="text-skynest-theme">Task 2</span>: Division
         </h3>
         <ul>
-          <ListItem variant="2">
-            Write the additional sections of output under your current print
-            statements.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
+          <ListItem variant="2"
+            >Practice the various division operations. Take note of the result
+            when using integers and/or doubles.</ListItem
+          >
         </ul>
         <Code
-          code={task2}
+          code={Task2}
           frame="code"
           lang="java"
-          mark={{ label: "Stop and run your code", range: "17" }}
-          ins={{ range: "6-16" }}
           showLineNumbers
-          title="Main.java"
+          title="Program.java"
+          ins={{ range: "21-36" }}
+          mark={{ label: "Stop and run your code", range: "37" }}
         />
 
         <hr class="my-4" />
 
         <!-- Task 3 -->
         <h3>
-          <span class="text-skynest-theme">Task 3</span>: Add Space
+          <span class="text-skynest-theme">Task 3</span>: Operator precedence
         </h3>
         <ul>
-          <ListItem variant="2">
-            Add an additional blank print statement at the end of each section
-            to increase the spacing between the sections.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
+          <ListItem variant="2"
+            >Practice using parenthesis to control the order of operations.</ListItem
+          >
         </ul>
+        <Code
+          code={Task3}
+          frame="code"
+          lang="java"
+          showLineNumbers
+          title="Program.java"
+          ins={{ range: "38-43" }}
+          mark={{ label: "Stop and run your code", range: "44" }}
+        />
 
-        <hr class="my-4" />
-
-        <!-- Task 4 -->
-        <h3>
-          <span class="text-skynest-theme">Task 4</span>: Write a Custom Section
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Output a three-line paragraph of your choice somewhere in the
-            program. Keep it school appropriate.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
-
-        <hr class="my-4" />
-
-        <!-- Task 5 -->
-        <h3>
-          <span class="text-skynest-theme">Task 5</span>: Write Comments
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Write the following comments to document and modify the code.
-            <ul>
-              <ListItem variant="3">
-                Disable the line of code that displays the message 'The answer
-                is 42.' by placing a single-line comment at the beginning of the
-                line.
-              </ListItem>
-              <ListItem variant="3">
-                Write a comment at the end of a blank print statement that
-                states 'Displays a blank line'.
-              </ListItem>
-            </ul>
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
         <!-- End Activity Tasks -->
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Sample Output</h2>
+
+        <p>
+          Your program output should something similar to the sample output
+          below.
+        </p>
+
+        <Code
+          code={SampleOutput}
+          frame="terminal"
+          lang="txt"
+          showLineNumbers={false}
+          title="Sample Output"
+        />
 
         <Divider variant="8" classes="my-4" />
 
         <h2>Reflection Questions</h2>
 
+        <p>
+          You may write your reflection answers as comments at the bottom of
+          your code.
+        </p>
+
         <ol>
           <li>
-            What is the primary function of System.out.println()? How does it
-            relate to the idea of a program "speaking" to a user?
+            What's the difference between the <AstroCode
+              code="/"
+              lang={"java"}
+              inline
+              theme={"material-theme-ocean"}
+            /> operator and the <AstroCode
+              code="%"
+              lang={"java"}
+              inline
+              theme={"material-theme-ocean"}
+            /> operator, and when would you use each one? Use an example from the
+            lesson to support your answer.
           </li>
           <li>
-            Imagine you typed <span
-              class="text-skynest-red text-decoration-underline">Sistem</span
-            >.out.println() by mistake. What do you think would happen when you
-            try to run your program? Why is correct spelling so important in
-            programming?
+            Explain why it's important to differentiate between whole numbers
+            (integers) and decimal numbers (doubles) when writing code. How did
+            using a decimal number change the output of a division problem in
+            this activity?
           </li>
           <li>
-            What was the most challenging part of writing your first line of
-            code?
+            The lesson shows that <AstroCode
+              code="4 * 10 + 12"
+              lang={"java"}
+              inline={true}
+              theme={"material-theme-ocean"}
+            /> and <AstroCode
+              code="4 * (10 + 12)"
+              lang={"java"}
+              inline={true}
+              theme={"material-theme-ocean"}
+            /> produce different results. Why is it important to use parentheses
+            in an expression, and what do they do?
           </li>
         </ol>
 
