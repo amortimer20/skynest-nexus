@@ -1,0 +1,529 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+const Figure1 = `
+System.out.println("You can retire in");
+System.out.println(67 - 43);
+System.out.println("years.");`;
+const Figure2 = `
+You can retire in
+24
+years.`;
+const Figure3 = `You can retire in 24 years.`;
+const Figure4 = `
+System.out.println("Mortimer " + "rules");
+System.out.println("You owe me $" + 1000);
+`;
+const Figure5 = `
+System.out.println("After interest, you will earn $" + 1000 + 100 + " over one year.");
+`;
+const Figure6 = `
+After interest, you will earn $1000100 over one year.
+`;
+const Figure7 = `
+System.out.println("After interest, you will earn $" + (1000 + 100) + " over one year.");
+`;
+const Figure8 = `
+After interest, you will earn $1100 over one year.
+`;
+const Task1 = `
+public class Program {
+    public static void main(String[] args) {
+        // --- Basic String Concatenation ---
+        System.out.println("Part 1: Basic String and Number Concatenation");
+        System.out.println("Hello" + " world!");
+        System.out.println("Today's number is " + 7);
+        System.out.println("Pi is approximately " + 3.14159);
+        System.out.println("------------------------------------");
+//
+    }
+}
+`;
+const Task2 = `
+public class Program {
+    public static void main(String[] args) {
+        // --- Basic String Concatenation ---
+        System.out.println("Part 1: Basic String and Number Concatenation");
+        System.out.println("Hello" + " world!");
+        System.out.println("Today's number is " + 7);
+        System.out.println("Pi is approximately " + 3.14159);
+        System.out.println("------------------------------------");
+
+        // --- Combining Strings with Arithmetic Expressions ---
+        System.out.println("Part 2: Combining with Math Expressions");
+        System.out.println("5 squared is " + (5 * 5));
+        System.out.println("The area of a circle with a radius of 4 is " + (4 * 4 * 3.14));
+        System.out.println("If I have 25 marbles and my friend gives me 15 more, I have a total of " + (25 + 15) + " marbles.");
+        System.out.println("------------------------------------");
+//
+    }
+}
+`;
+const Task3 = `
+public class Program {
+    public static void main(String[] args) {
+        // --- Basic String Concatenation ---
+        System.out.println("Part 1: Basic String and Number Concatenation");
+        System.out.println("Hello" + " world!");
+        System.out.println("Today's number is " + 7);
+        System.out.println("Pi is approximately " + 3.14159);
+        System.out.println("------------------------------------");
+
+        // --- Combining Strings with Arithmetic Expressions ---
+        System.out.println("Part 2: Combining with Math Expressions");
+        System.out.println("5 squared is " + (5 * 5));
+        System.out.println("The area of a circle with a radius of 4 is " + (4 * 4 * 3.14));
+        System.out.println("If I have 25 marbles and my friend gives me 15 more, I have a total of " + (25 + 15) + " marbles.");
+        System.out.println("------------------------------------");
+
+        // --- Building a Sentence with Multiple Parts ---
+        System.out.println("Part 3: Building a Full Sentence");
+        System.out.println("The current year is " + 2024 + ". The next year will be " + (2024 + 1) + ".");
+        System.out.println("The temperature in my city is " + 72 + " degrees Fahrenheit.");
+        System.out.println("A dozen is 12. Two dozen is " + (12 + 12) + ".");
+        System.out.println("------------------------------------");
+//
+    }
+}
+`;
+const Task4 = `
+public class Program {
+    public static void main(String[] args) {
+        // --- Basic String Concatenation ---
+        System.out.println("Part 1: Basic String and Number Concatenation");
+        System.out.println("Hello" + " world!");
+        System.out.println("Today's number is " + 7);
+        System.out.println("Pi is approximately " + 3.14159);
+        System.out.println("------------------------------------");
+
+        // --- Combining Strings with Arithmetic Expressions ---
+        System.out.println("Part 2: Combining with Math Expressions");
+        System.out.println("5 squared is " + (5 * 5));
+        System.out.println("The area of a circle with a radius of 4 is " + (4 * 4 * 3.14));
+        System.out.println("If I have 25 marbles and my friend gives me 15 more, I have a total of " + (25 + 15) + " marbles.");
+        System.out.println("------------------------------------");
+
+        // --- Building a Sentence with Multiple Parts ---
+        System.out.println("Part 3: Building a Full Sentence");
+        System.out.println("The current year is " + 2024 + ". The next year will be " + (2024 + 1) + ".");
+        System.out.println("The temperature in my city is " + 72 + " degrees Fahrenheit.");
+        System.out.println("A dozen is 12. Two dozen is " + (12 + 12) + ".");
+        System.out.println("------------------------------------");
+
+        // --- Converting an Expression to a String First ---
+        System.out.println("Part 4: Converting Expressions to Strings");
+        System.out.println("Here is a number " + (10 + 20)); // The parentheses force the addition first.
+        System.out.println("But what if we did not have parentheses?");
+        System.out.println("If you put a string in front, it all becomes a string: " + 10 + 20);
+        System.out.println("To fix this, use parentheses: " + (10 + 20));
+//
+    }
+}
+`;
+const SampleOutput = `
+Part 1: Basic String and Number Concatenation
+Hello world!
+Today's number is 7
+Pi is approximately 3.14159
+------------------------------------
+Part 2: Combining with Math Expressions
+5 squared is 25
+The area of a circle with a radius of 4 is 50.24
+If I have 25 marbles and my friend gives me 15 more, I have a total of 40 marbles.
+------------------------------------
+Part 3: Building a Full Sentence
+The current year is 2024. The next year will be 2025.
+The temperature in my city is 72 degrees Fahrenheit.
+A dozen is 12. Two dozen is 24.
+------------------------------------
+Part 4: Converting Expressions to Strings
+Here is a number 30
+But what if we did not have parentheses?
+If you type 10 + 20, the result will be a number: 30
+But if you put a string in front, it all becomes a string: 1020
+To fix this, use parentheses: 30
+`;
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.3 Strings</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.3</h3>
+            <h4 class="text-skynest-theme">Strings</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>The string data type</li>
+              <li>String formatting</li>
+              <li>String concatenation</li>
+            </ul>
+          </section>
+          <section>
+            <h4>
+              The <span class="text-skynest-theme">String</span> Data Type
+            </h4>
+            <p>
+              The string data type represents a sequence of characters used for
+              text.
+            </p>
+            <AstroCode
+              code={'"Hello friend."'}
+              lang="java"
+              theme={"material-theme-ocean"}
+              inline
+            />
+            <br />
+            <AstroCode
+              code={'"Are you a 1 or a 0?"'}
+              lang="java"
+              theme={"material-theme-ocean"}
+              inline
+            />
+            <hr />
+            <p>
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={"I am happy!"}
+                lang="java"
+                theme={"material-theme-ocean"}
+                inline
+              />
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={'"I am sad!'}
+                lang="java"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+            <p>
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={'"I said "don\'t" do it."'}
+                lang="java"
+                theme={"material-theme-ocean"}
+                inline
+              />
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={"'Goodbye.'"}
+                lang="java"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>String Formatting</h4>
+            <p>
+              The process of inserting values into a string to create a
+              complete, readable message.
+            </p>
+            <i class="si-emoji-sad fs-1 text-skynest-red"></i>
+            <Code
+              code={Figure1}
+              lang="java"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure2}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>String Formatting</h4>
+            <p>
+              The process of inserting values into a string to create a
+              complete, readable message.
+            </p>
+            <i class="si-emoji-smile fs-1 text-skynest-green"></i>
+            <Code
+              code={Figure3}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>String Concatenation</h4>
+            <p>
+              Use addition sign (<AstroCode
+                code="+"
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />) to combine strings.
+            </p>
+            <Code code={Figure4} lang="java" class="text-start mb-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>String Concatenation</h4>
+            <p>
+              Use addition sign (<AstroCode
+                code="+"
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />) to combine strings.
+            </p>
+            <Code code={Figure4} lang="java" class="text-start mb-3" />
+            <Code
+              code={"Mortimer rules\nYou owe me $1000"}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Issues with String Concatenation</h4>
+            <p>
+              Math expressions can accidentally concatenate before the
+              expression is evaluated.
+            </p>
+            <Code code={Figure5} lang="java" frame="code" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Issues with String Concatenation</h4>
+            <p>
+              Math expressions can accidentally concatenate before the
+              expression is evaluated.
+            </p>
+            <Code
+              code={Figure5}
+              lang="java"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure6}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Issues with String Concatenation</h4>
+            <p>Surround math expressions with parentheses.</p>
+            <Code
+              code={Figure7}
+              lang="java"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure8}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>String</dt>
+              <dd>
+                A data type used to represent a sequence of characters, like
+                letters, numbers, and symbols.
+              </dd>
+              <dt>String Formatting</dt>
+              <dd>
+                The process of creating a new string by combining a template
+                with specific values. This allows you to easily insert data into
+                a sentence or phrase.
+              </dd>
+              <dt>String Concatenation</dt>
+              <dd>
+                the process of joining two or more strings together to create a
+                single, longer string, often using the plus symbol (+).
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <h3>Objectives</h3>
+        <ul>
+          <ListItem variant="1"
+            >Formatting strings using string concatenation</ListItem
+          >
+        </ul>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Activity Tasks -->
+        <h2>Activity Tasks</h2>
+        <ul>
+          <ListItem variant="2">
+            Create a new Java project named <span class="text-skynest-theme"
+              >1-3-Strings</span
+            >.
+          </ListItem>
+          <ListItem variant="2"> Complete each task individually. </ListItem>
+        </ul>
+
+        <!-- Task 1 -->
+        <h3>
+          <span class="text-skynest-theme">Task 1</span>: Basic String
+          Concatenation
+        </h3>
+        <ul>
+          <ListItem variant="2">
+            Practice simple combinations with strings and numeric values.</ListItem
+          >
+        </ul>
+        <Code
+          code={Task1}
+          frame="code"
+          lang="java"
+          showLineNumbers
+          title="Program.java"
+          mark={{ label: "Stop and run your code", range: "9" }}
+        />
+
+        <hr class="my-4" />
+
+        <!-- Task 2 -->
+        <h3>
+          <span class="text-skynest-theme">Task 2</span>: Strings and Numbers
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >Use string concatenation to append math expressions to string.</ListItem
+          >
+        </ul>
+        <Code
+          code={Task2}
+          frame="code"
+          lang="java"
+          showLineNumbers
+          title="Program.java"
+          mark={{ label: "Stop and run your code", range: "16" }}
+          ins={{ range: "9-15" }}
+        />
+
+        <hr class="my-4" />
+
+        <!-- Task 3 -->
+        <h3>
+          <span class="text-skynest-theme">Task 3</span>: Building Sentences
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >Use multiple instances of concatenation to build sentences.</ListItem
+          >
+        </ul>
+        <Code
+          code={Task3}
+          frame="code"
+          lang="java"
+          showLineNumbers
+          title="Program.java"
+          mark={{ label: "Stop and run your code", range: "23" }}
+          ins={{ range: "16-22" }}
+        />
+
+        <hr class="my-4" />
+
+        <!-- Task 4 -->
+        <h3>
+          <span class="text-skynest-theme">Task 4</span>: Side Effects with
+          Strings and Math
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >Experiment with using parentheses and string concatenation.</ListItem
+          >
+        </ul>
+        <Code
+          code={Task4}
+          frame="code"
+          lang="java"
+          showLineNumbers
+          title="Program.java"
+          mark={{ label: "Stop and run your code", range: "30" }}
+          ins={{ range: "23-29" }}
+        />
+
+        <!-- End Activity Tasks -->
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Sample Output</h2>
+
+        <p>
+          Your program output should something similar to the sample output
+          below.
+        </p>
+
+        <Code
+          code={SampleOutput}
+          frame="terminal"
+          lang="txt"
+          showLineNumbers={false}
+          title="Sample Output"
+        />
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Reflection Questions</h2>
+
+        <p>
+          You may write your reflection answers as comments at the bottom of
+          your code.
+        </p>
+
+        <ol>
+          <li>
+            What is the key difference between string concatenation and a
+            mathematical operation? Describe a scenario from this activity where
+            a missing pair of parentheses could change the outcome of an
+            expression.
+          </li>
+          <li>
+            Thinking about the concept of a string as a "sequence of
+            characters," how is it fundamentally different from a number like an
+            int or a double? How does Java's behavior with the + operator change
+            depending on whether it's used with a string or a number?
+          </li>
+          <li>
+            Based on your experience with this activity, why are parentheses so
+            important when combining strings with mathematical expressions? How
+            do they act as a "traffic light" for your code, telling the computer
+            which operation to perform first?
+          </li>
+        </ol>
+
+        <Divider variant="8" classes="my-4" />
+
+        <h2>Submission</h2>
+
+        <p>
+          Submit your activity and reflection answers to the appropriate
+          dropbox.
+        </p>
+
+        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+          Activity Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
