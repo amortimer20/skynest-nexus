@@ -7,11 +7,13 @@ import { Code } from "astro-expressive-code/components";
 import { Code as AstroCode } from "astro:components";
 import { Image } from "astro:assets";
 
+//#region CodeSnippets
 const Figure1 = `INSERT`;
 const Figure2 = `INSERT`;
 const Task1 = `INSERT`;
 const Task2 = `INSERT`;
 const SampleOutput = `INSERT`;
+//#endregion
 ---
 
 <Layout>
@@ -41,100 +43,107 @@ const SampleOutput = `INSERT`;
           </section>
         </Presentation>
 
-        <h3>Objectives</h3>
-        <ul>
-          <ListItem variant="1">INSERT</ListItem>
-        </ul>
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1">INSERT</ListItem>
+          </ul>
+        </section>
 
         <Divider variant="8" classes="mb-4" />
 
-        <!-- Activity Tasks -->
-        <h2>Activity Tasks</h2>
-        <ul>
-          <ListItem variant="2">
-            Create a new project named <span class="text-skynest-theme"
-              >INSERT</span
-            >.
-          </ListItem>
-          <ListItem variant="2"> Complete each task individually. </ListItem>
-        </ul>
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme"
+                >INSERT</span
+              >.
+            </ListItem>
+            <ListItem variant="2"> Complete each task individually. </ListItem>
+          </ul>
 
-        <!-- Task 1 -->
-        <h3>
-          <span class="text-skynest-theme">Task 1</span>: INSERT
-        </h3>
-        <ul>
-          <ListItem variant="2"> INSERT </ListItem>
-        </ul>
-        <Code
-          code={Task1}
-          frame="code"
-          lang="INSERT"
-          showLineNumbers
-          title="INSERT"
-        />
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: INSERT
+          </h3>
+          <ul>
+            <ListItem variant="2"> INSERT </ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="INSERT"
+            showLineNumbers
+            title="INSERT"
+          />
 
-        <hr class="my-4" />
+          <hr class="my-4" />
 
-        <!-- Task 2 -->
-        <h3>
-          <span class="text-skynest-theme">Task 2</span>: INSERT
-        </h3>
-        <ul>
-          <ListItem variant="2"> INSERT </ListItem>
-        </ul>
-        <Code
-          code={Task2}
-          frame="code"
-          lang="INSERT"
-          showLineNumbers
-          title="INSERT"
-        />
-
-        <!-- End Activity Tasks -->
-
-        <Divider variant="8" classes="my-4" />
-
-        <h2>Sample Output</h2>
-
-        <p>
-          Your program output should something similar to the sample output
-          below.
-        </p>
-
-        <Code
-          code={SampleOutput}
-          frame="terminal"
-          lang="INSERT"
-          showLineNumbers={false}
-          title="Sample Output"
-        />
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: INSERT
+          </h3>
+          <ul>
+            <ListItem variant="2"> INSERT </ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="INSERT"
+            showLineNumbers
+            title="INSERT"
+          />
+        </section>
 
         <Divider variant="8" classes="my-4" />
 
-        <h2>Reflection Questions</h2>
+        <section id="sample-output">
+          <h2>Sample Output</h2>
 
-        <p>
-          You may write your reflection answers as comments at the bottom of
-          your code.
-        </p>
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
 
-        <ol>
-          <li>INSERT</li>
-        </ol>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="INSERT"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
 
         <Divider variant="8" classes="my-4" />
 
-        <h2>Submission</h2>
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
 
-        <p>
-          Submit your activity and reflection answers to the appropriate
-          dropbox.
-        </p>
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
 
-        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
-          Activity Complete
-        </h1>
+          <ol>
+            <li>INSERT</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </div>
       </div>
     </div>
   </div>
