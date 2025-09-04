@@ -10,8 +10,31 @@ import { Image } from "astro:assets";
 import TerminatorScreenshot from "../../assets/courses/shared/img/terminator-no-fate-screenshot.jpg";
 
 //#region CodeSnippets
-const Figure1 = `INSERT`;
-const Figure2 = `INSERT`;
+
+const Figure1 = `
+let health = 100;
+console.log(\"Health: \" + health);
+`;
+const Figure2 = "Health: 100";
+const Figure3 = `
+console.log(health);
+let health = 100;
+`;
+const Figure4 = `
+let health;
+let score = 14000;
+let lives = 3;
+let vehicle = "Motorcycle";
+
+console.log(vehicle);
+console.log("Lives left: " + lives);
+console.log("Score: " + score);
+`;
+const Figure5 = `
+Motorcycle
+Lives left: 3
+Score: 14000
+`;
 const Task1 = `
 // String Variables
 console.log("- About Me -");
@@ -197,22 +220,170 @@ If you take out $50, you will have $50.25 left.
           <section data-auto-animate>
             <h4>Introduction to Variables</h4>
             <p>
-              Variables allow us to store data during our program's
-              execution. Sometimes, variables are described as containers for
-              storing information.
+              Variables allow us to store data during our program's execution.
+              Sometimes, variables are described as containers for storing
+              information.
             </p>
           </section>
           <section data-auto-animate>
             <h4>Introduction to Variables</h4>
             <p>What data is being kept track of in this game?</p>
-            <Image src={TerminatorScreenshot} alt="Terminator Screenshot" class="img-fluid" />
+            <Image
+              src={TerminatorScreenshot}
+              alt="Terminator Screenshot"
+              class="img-fluid"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              Using the <AstroCode
+                code={"let"}
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              /> keyword creates a variable and gives it a name. You my assign it
+              a value later in the program.
+            </p>
+            <p>
+              <AstroCode
+                code={"let health;"}
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              Using the <AstroCode
+                code={"let"}
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              /> keyword creates a variable and gives it a name. You my assign it
+              a value later in the program.
+            </p>
+            <p>
+              <AstroCode
+                code={"let health;"}
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+            <p>
+              <AstroCode
+                code={"health = 100;"}
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              You can also initialize a variable and give it a value
+              immediately.
+            </p>
+            <AstroCode
+              code={"let health = 100;"}
+              lang={"javascript"}
+              inline
+              theme={"material-theme-ocean"}
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              A variable can be used anywhere a typical value would be used.
+            </p>
+            <Code
+              code={Figure1}
+              lang="javascript"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure2}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
           </section>
           <section>
-            <h4>Variable Syntax</h4>
-            
+            <h4>The Assignment Operator</h4>
+            <p>The equal sign (=) used to assign a value to a variable.</p>
+            <p>
+              It is <b>not</b> used to check for equality; it is only used for assigning
+              a value to a variable.
+            </p>
           </section>
           <section>
-
+            <h4>Variable Scope</h4>
+            <p>Variables must be declared before they can be used.</p>
+            <i class="si-x fs-1 text-skynest-red"></i>
+            <Code
+              code={Figure3}
+              lang="javascript"
+              frame="code"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Declare and Use Variables</h4>
+            <Code
+              code={Figure4}
+              lang="javascript"
+              frame="code"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Declare and Use Variables</h4>
+            <Code
+              code={Figure4}
+              lang="javascript"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure5}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>Naming Rules and Conventions</h4>
+            <p>Variables names cannot:</p>
+            <ul>
+              <li>Contain spaces</li>
+              <li>Start with a number</li>
+            </ul>
+            <p>
+              <i class="si-x fs-1 text-skynest-red"></i><AstroCode
+                code="let 1st;"
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <i class="si-x fs-1 text-skynest-red"></i><AstroCode
+                code="let first name;"
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+            <p>For names containing multiple words, use <b>camelCase</b>.</p>
+            <AstroCode
+              code="let firstName;"
+              lang={"javascript"}
+              inline
+              theme={"material-theme-ocean"}
+            />
           </section>
         </Presentation>
 
@@ -349,7 +520,7 @@ If you take out $50, you will have $50.25 left.
           <Code
             code={SampleOutput}
             frame="terminal"
-            lang="INSERT"
+            lang="txt"
             showLineNumbers={false}
             title="Sample Output"
           />
@@ -366,7 +537,13 @@ If you take out $50, you will have $50.25 left.
           </p>
 
           <ol>
-            <li>INSERT</li>
+            <li>
+              How do variables make your code easier to read and understand?
+            </li>
+            <li>
+              Why is it important to choose a descriptive name for a variable,
+              like health or age, instead of a simple name like h or a?
+            </li>
           </ol>
         </section>
 
