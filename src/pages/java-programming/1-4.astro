@@ -1,0 +1,860 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import ObjectScreenshot from "../../assets/courses/java-programming/img/object-screenshot.png";
+import TerminatorScreenshot from "../../assets/courses/shared/img/terminator-no-fate-screenshot.jpg";
+
+//#region CodeSnippets
+const Figure1 = `
+int health = 100;
+System.out.println(\"Health: \" + health);
+`;
+const Figure2 = "Health: 100";
+const Figure3 = `
+String name = "Mortimer";
+System.out.println(name + "is " + name.length() + " characters long.");
+`;
+const Figure4 = "Mortimer is 8 characters long.";
+const Figure5 = `
+System.out.println(health);
+int health = 100;
+`;
+const Figure6 = `
+public class Program {
+    public static void main(String[] args) {
+        int health;
+        int score = 14000;
+        int lives = 3;
+        String vehicle = "Motorcycle";
+
+        System.out.println(vehicle);
+        System.out.println("Lives left: " + lives);
+        System.out.println("Score: " + score);
+    }
+}
+`;
+const Figure7 = `
+Motorcycle
+Lives left: 3
+Score: 14000
+`;
+const Task1 = `
+public class Program {
+    public static void main(String[] args) {
+        // String Variables
+        System.out.println("- About Me -");
+        String person = "Anthony"; // Insert your name into the string
+        String food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+        System.out.println("Hello, my name is " + person + "!");
+        System.out.println("I, " + person + ", love to eat " + food + ".");
+        System.out.println();
+//
+    }
+}
+`;
+const Task2 = `
+public class Program {
+    public static void main(String[] args) {
+        // String Variables
+        System.out.println("- About Me -");
+        String person = "Anthony"; // Insert your name into the string
+        String food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+        System.out.println("Hello, my name is " + person + "!");
+        System.out.println("I, " + person + ", love to eat " + food + ".");
+        System.out.println();
+
+        System.out.println("- Tongue Twister -");
+        String item = "hot dogs"; // Insert a generic item
+        System.out.println("Try saying this five times fast:");
+        System.out.println("Peter Piper picked a peck of pickled " + item + ".");
+        System.out.println("A peck of pickled " + item + " Peter Piper picked.");
+        System.out.println("If Peter Piper picked a peck of " + item + ",");
+        System.out.println("where's the peck of " + item + " Peter Piper picked?");
+        System.out.println();
+//       
+    }
+}
+`;
+const Task3 = `
+public class Program {
+    public static void main(String[] args) {
+        // String Variables
+        System.out.println("- About Me -");
+        String person = "Anthony"; // Insert your name into the string
+        String food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+        System.out.println("Hello, my name is " + person + "!");
+        System.out.println("I, " + person + ", love to eat " + food + ".");
+        System.out.println();
+
+        System.out.println("- Tongue Twister -");
+        String item = "hot dogs"; // Insert a generic item
+        System.out.println("Try saying this five times fast:");
+        System.out.println("Peter Piper picked a peck of pickled " + item + ".");
+        System.out.println("A peck of pickled " + item + " Peter Piper picked.");
+        System.out.println("If Peter Piper picked a peck of " + item + ",");
+        System.out.println("where's the peck of " + item + " Peter Piper picked?");
+        System.out.println();
+
+        // Number Variables
+        System.out.println("- Health Demo -");
+        int health = 100;
+        int damage = 55;
+        System.out.println("You've taken " + damage + " damage. You have " + (health - damage) + " health left.");
+        System.out.println();
+//
+    }
+}
+`;
+const Task4 = `
+public class Program {
+    public static void main(String[] args) {
+        // String Variables
+        System.out.println("- About Me -");
+        String person = "Anthony"; // Insert your name into the string
+        String food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+        System.out.println("Hello, my name is " + person + "!");
+        System.out.println("I, " + person + ", love to eat " + food + ".");
+        System.out.println();
+
+        System.out.println("- Tongue Twister -");
+        String item = "hot dogs"; // Insert a generic item
+        System.out.println("Try saying this five times fast:");
+        System.out.println("Peter Piper picked a peck of pickled " + item + ".");
+        System.out.println("A peck of pickled " + item + " Peter Piper picked.");
+        System.out.println("If Peter Piper picked a peck of " + item + ",");
+        System.out.println("where's the peck of " + item + " Peter Piper picked?");
+        System.out.println();
+
+        // Number Variables
+        System.out.println("- Health Demo -");
+        int health = 100;
+        int damage = 55;
+        System.out.println("You've taken " + damage + " damage. You have " + (health - damage) + " health left.");
+        System.out.println();
+
+        System.out.println("- Age Demo -");
+        int age = 35; // Assign your age
+        System.out.println("you will reach age 100 in " + (100 - age) + " years.");
+        System.out.println();
+//
+    }
+}
+`;
+const Task5 = `
+public class Program {
+    public static void main(String[] args) {
+        // String Variables
+        System.out.println("- About Me -");
+        String person = "Anthony"; // Insert your name into the string
+        String food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+        System.out.println("Hello, my name is " + person + "!");
+        System.out.println("I, " + person + ", love to eat " + food + ".");
+        System.out.println();
+
+        System.out.println("- Tongue Twister -");
+        String item = "hot dogs"; // Insert a generic item
+        System.out.println("Try saying this five times fast:");
+        System.out.println("Peter Piper picked a peck of pickled " + item + ".");
+        System.out.println("A peck of pickled " + item + " Peter Piper picked.");
+        System.out.println("If Peter Piper picked a peck of " + item + ",");
+        System.out.println("where's the peck of " + item + " Peter Piper picked?");
+        System.out.println();
+
+        // Number Variables
+        System.out.println("- Health Demo -");
+        int health = 100;
+        int damage = 55;
+        System.out.println("You've taken " + damage + " damage. You have " + (health - damage) + " health left.");
+        System.out.println();
+
+        System.out.println("- Age Demo -");
+        int age = 35; // Assign your age
+        System.out.println("you will reach age 100 in " + (100 - age) + " years.");
+        System.out.println();
+
+        System.out.println("- Money Demo -");
+        double balance = 100.25;
+        double withdraw = 45.11; // Replace 0 with a positive number of your choice.
+        double leftover = balance - withdraw;
+        System.out.println("You have a balance of $" + balance + " in your bank account.");
+        System.out.println("If you take out $" + withdraw + ", you will have $" + leftover + " left.");
+//
+    }
+}
+`;
+const SampleOutput = `
+- About Me -
+Hello, my name is Anthony!
+I, Anthony, love to eat Pizza Hut Pepperoni Pizza.
+
+- Tongue Twister -
+Try saying this five times fast:
+Peter Piper picked a peck of pickled hot dogs.
+A peck of pickled hot dogs Peter Piper picked.
+If Peter Piper picked a peck of hot dogs,
+where's the peck of hot dogs Peter Piper picked?
+
+- Health Demo -
+You've taken 55 damage. You have 45 health left.
+
+- Age Demo -
+you will reach age 100 in 65 years.
+
+- Money Demo -
+You have a balance of $100.25 in your bank account.
+If you take out $45.11, you will have $55.14 left.
+- About Me -
+Hello, my name is Anthony!
+I, Anthony, love to eat Pizza Hut Pepperoni Pizza.
+
+- Tongue Twister -
+Try saying this five times fast:
+Peter Piper picked a peck of pickled hot dogs.
+A peck of pickled hot dogs Peter Piper picked.
+If Peter Piper picked a peck of hot dogs,
+where's the peck of hot dogs Peter Piper picked?
+
+- Health Demo -
+You've taken 55 damage. You have 45 health left.
+
+- Age Demo -
+you will reach age 100 in 65 years.
+
+- Money Demo -
+You have a balance of $100.25 in your bank account.
+If you take out $45.11, you will have $55.14 left.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.4 Variables</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.4</h3>
+            <h4 class="text-skynest-theme">Variables</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Introduction to Variables</li>
+              <li>Variable assignment</li>
+              <li>Static Typing</li>
+              <li>Primitive Types and Objects</li>
+              <li>Variable scope</li>
+              <li>Naming rules and conventions</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Introduction to Variables</h4>
+            <p>
+              Variables allow us to store data during our program's execution.
+              Sometimes, variables are described as containers for storing
+              information.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Introduction to Variables</h4>
+            <p>What data is being kept track of in this game?</p>
+            <Image
+              src={TerminatorScreenshot}
+              alt="Terminator Screenshot"
+              class="img-fluid"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              Using a type keyword, such as <AstroCode
+                code={"int"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />, <AstroCode
+                code={"double"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />, or
+              <AstroCode
+                code={"String"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              /> creates a variable and gives it a name. You my assign it a value
+              later in the program.
+            </p>
+            <p>
+              <AstroCode
+                code={"int health;"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <br />
+              <AstroCode
+                code={"double gpa;"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <br />
+              <AstroCode
+                code={"String name;"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              <AstroCode
+                code={"int health;"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <br />
+              <AstroCode
+                code={"double gpa;"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <br />
+              <AstroCode
+                code={"String name;"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+            <p>
+              <AstroCode
+                code={"health = 100;"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <br />
+              <AstroCode
+                code={"gpa = 4.2;"}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <br />
+              <AstroCode
+                code={'name = "Mortimer";'}
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              You can also initialize a variable and give it a value
+              immediately.
+            </p>
+            <AstroCode
+              code={"int health = 100;"}
+              lang={"java"}
+              inline
+              theme={"material-theme-ocean"}
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              A variable can be used anywhere a typical value would be used.
+            </p>
+            <Code
+              code={Figure1}
+              lang="java"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure2}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>The Assignment Operator</h4>
+            <p>The equal sign (=) used to assign a value to a variable.</p>
+            <p>
+              It is <b>not</b> used to check for equality; it is only used for assigning
+              a value to a variable.
+            </p>
+          </section>
+          <section>
+            <h4>Static Typing</h4>
+            <p>
+              Java is a statically typed language. Once a variable's type has
+              been declared, it cannot change.
+            </p>
+
+            <p>
+              <i class="si-x fs-1 text-skynest-red"></i>
+              <AstroCode
+                code="String value = 5;"
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <br />
+              <i class="si-check fs-1 text-skynest-green"></i>
+              <AstroCode
+                code=`int x = 5;`
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <br />
+              <i class="si-x fs-1 text-skynest-red"></i>
+              <AstroCode
+                code=`x = "5";`
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Primitive Types and Objects</h4>
+            <p>
+              A primitive type is a basic, fundamental piece of data that
+              represents a single value.
+            </p>
+
+            <table class="table table-striped">
+              <tr>
+                <th colspan="2">Integer Types </th>
+              </tr>
+              <tr>
+                <td>byte</td>
+                <td
+                  >8-bit integer, used for very small numbers ranging from -128
+                  to 127.</td
+                >
+              </tr>
+              <tr>
+                <td>short</td>
+                <td
+                  >16-bit integer, for slightly larger numbers ranging from
+                  -32,768 to 32,767.</td
+                >
+              </tr>
+              <tr>
+                <td>int</td>
+                <td
+                  >32-bit integer, this is the most common type for whole
+                  numbers (~ -2.4 billion to 2.4 billion).</td
+                >
+              </tr>
+              <tr>
+                <td>long</td>
+                <td
+                  >64-bit integer, used for very large numbers that are bigger
+                  than an int can hold.</td
+                >
+              </tr>
+            </table>
+          </section>
+          <section data-auto-animate>
+            <h4>Primitive Types and Objects</h4>
+            <p>
+              A primitive type is a basic, fundamental piece of data that
+              represents a single value.
+            </p>
+
+            <table class="table table-striped">
+              <tr>
+                <th colspan="2">Floating-Point Types</th>
+              </tr>
+              <tr>
+                <td>float</td>
+                <td
+                  >32-bit decimal number, used when memory is a concern. You
+                  must add an 'f' at the end of the number, like
+                  <AstroCode
+                    code="3.14f"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />.</td
+                >
+              </tr>
+              <tr>
+                <td>double</td>
+                <td
+                  >64-bit decimal number. The default and most commonly used
+                  type for decimal values because it's more precise than float.</td
+                >
+              </tr>
+            </table>
+          </section>
+          <section data-auto-animate>
+            <h4>Primitive Types and Objects</h4>
+            <p>
+              A primitive type is a basic, fundamental piece of data that
+              represents a single value.
+            </p>
+
+            <table class="table table-striped">
+              <tr>
+                <th colspan="2">Other Types</th>
+              </tr>
+              <tr>
+                <td>boolean</td>
+                <td
+                  >Stores a single logical value, which can only be <AstroCode
+                    code="true"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  /> or
+                  <AstroCode
+                    code="false"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />.</td
+                >
+              </tr>
+              <tr>
+                <td>char</td>
+                <td
+                  >Stores a single character, like <AstroCode
+                    code="'A'"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  /> or <AstroCode
+                    code="'7'"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />. It's a 16-bit unsigned Unicode character and is enclosed
+                  in single quotes.</td
+                >
+              </tr>
+            </table>
+          </section>
+          <section data-auto-animate>
+            <h4>Primitive Types and Objects</h4>
+            <p>
+              An object is a complex piece of data that can contain multiple
+              values or pieces of information and has associated actions (called
+              methods).
+            </p>
+            <p><AstroCode code="String" lang="java" inline theme="material-theme-ocean" /> is the first of many complex data types in this course.</p>
+            <Code
+              code={Figure3}
+              lang="java"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure4}
+              lang="txt"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <img
+              src={ObjectScreenshot.src}
+              alt="Object Screenshot"
+              width="384px"
+              class="m-0"
+            />
+          </section>
+          <section>
+            <h4>Variable Scope</h4>
+            <p>Variables must be declared before they can be used.</p>
+            <i class="si-x fs-1 text-skynest-red"></i>
+            <Code code={Figure5} lang="java" frame="code" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Declare and Use Variables</h4>
+            <Code
+              code={Figure6}
+              lang="java"
+              frame="code"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Declare and Use Variables</h4>
+            <Code
+              code={Figure6}
+              lang="java"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure7}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>Naming Rules and Conventions</h4>
+            <p>Variables names cannot:</p>
+            <ul>
+              <li>Contain spaces</li>
+              <li>Start with a number</li>
+            </ul>
+            <p>
+              <i class="si-x fs-1 text-skynest-red"></i><AstroCode
+                code="String 1st;"
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <i class="si-x fs-1 text-skynest-red"></i><AstroCode
+                code="String first name;"
+                lang={"java"}
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+            <p>For names containing multiple words, use <b>camelCase</b>.</p>
+            <i class="si-check fs-1 text-skynest-green"></i><AstroCode
+              code="String firstName;"
+              lang={"java"}
+              inline
+              theme={"material-theme-ocean"}
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Variable</dt>
+              <dd>A container that holds a value, such as a number or text, which can be changed while a program is running.</dd>
+              <dt>Variable Declaration</dt>
+              <dd>The process of creating a variable by specifying its type and giving it a name.</dd>
+              <dt>Assignment</dt>
+              <dd>The act of giving a value to a variable using the equals sign (=).</dd>
+              <dt>Static Typing</dt>
+              <dd>A rule that requires a variable's type to be declared and fixed when it is created, meaning it can only hold values of that specific type.</dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Primitive Types</dt>
+              <dd>Basic, fundamental data types in Java that represent single, simple values, like numbers or characters.</dd>
+              <dt>Objects</dt>
+              <dd>Complex data structures in Java that contain multiple values and have associated actions (called methods).</dd>
+              <dt>Variable Scope</dt>
+              <dd>The region or block of code where a variable can be accessed and used.</dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Naming Rule</dt>
+              <dd>A strict, syntax-based rule that must be followed when naming a variable (e.g., a variable name cannot start with a number).</dd>
+              <dt>Naming Convention</dt>
+              <dd>An informal, widely-accepted practice for naming variables to make code more readable (e.g., using camelCase for variable names).</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Declaring and assigning values to variables.</ListItem
+            >
+            <ListItem variant="1"
+              >Using variables in formatted strings.</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme"
+                >1-4-Variables</span
+              >.
+            </ListItem>
+            <ListItem variant="2"> Complete each task individually. </ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: About Me
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{ label: "Stop and run your code", range: "11" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Tongue Twister
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "11-19" }}
+            mark={{ label: "Stop and run your code", range: "20" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Health Demo
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "20-26" }}
+            mark={{ label: "Stop and run your code", range: "27" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Age Demo
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "27-31" }}
+            mark={{ label: "Stop and run your code", range: "32" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Money Demo
+          </h3>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "32-38" }}
+            mark={{ label: "Stop and run your code", range: "39" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              How do variables make your code easier to read and understand?
+            </li>
+            <li>
+              Why is it important to choose a descriptive name for a variable,
+              like health or age, instead of a simple name like h or a?
+            </li>
+            <li>
+              Based on the "Health Demo" and "Money Demo" tasks, how does using
+              a variable allow you to perform calculations and show different
+              results without changing the code inside the System.out.println()
+              statement?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
