@@ -1,0 +1,390 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import TerminatorScreenshot from "../../assets/courses/shared/img/terminator-no-fate-screenshot.jpg";
+
+//#region CodeSnippets
+const Figure1 = `INSERT`;
+const Figure2 = `INSERT`;
+const Task1 = `
+// String Variables
+console.log("- About Me -");
+let person = ""; // Insert your name into the string
+let food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+console.log(\`Hello, my name is \${person}!\`);
+console.log(\`I, \${person}, love to eat \${food}.\`);
+console.log();
+//
+`;
+const Task2 = `
+// String Variables
+console.log("- About Me -");
+let person = ""; // Insert your name into the string
+let food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+console.log(\`Hello, my name is \${person}!\`);
+console.log(\`I, \${person}, love to eat \${food}.\`);
+console.log();
+
+console.log("- Tongue Twister -");
+let item = ""; // Insert a generic item
+console.log(\`Try saying this five times fast:\`);
+console.log(\`Peter Piper picked a peck of pickled \${item}.\`);
+console.log(\`A peck of pickled \${item} Peter Piper picked.\`);
+console.log(\`If Peter Piper picked a peck of \${item},\`);
+console.log(\`Where's the peck of \${item} Peter Piper picked?\`);
+console.log();
+//
+`;
+const Task3 = `
+// String Variables
+console.log("- About Me -");
+let person = ""; // Insert your name into the string
+let food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+console.log(\`Hello, my name is \${person}!\`);
+console.log(\`I, \${person}, love to eat \${food}.\`);
+console.log();
+
+console.log("- Tongue Twister -");
+let item = ""; // Insert a generic item
+console.log(\`Try saying this five times fast:\`);
+console.log(\`Peter Piper picked a peck of pickled \${item}.\`);
+console.log(\`A peck of pickled \${item} Peter Piper picked.\`);
+console.log(\`If Peter Piper picked a peck of \${item},\`);
+console.log(\`Where's the peck of \${item} Peter Piper picked?\`);
+console.log();
+
+// Number Variables
+console.log("- Health Demo -");
+let health = 100;
+let damage = 55;
+console.log(\`You've taken \${damage} damage. You have \${health - damage} health left.\`);
+console.log();
+//
+`;
+const Task4 = `
+// String Variables
+console.log("- About Me -");
+let person = ""; // Insert your name into the string
+let food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+console.log(\`Hello, my name is \${person}!\`);
+console.log(\`I, \${person}, love to eat \${food}.\`);
+console.log();
+
+console.log("- Tongue Twister -");
+let item = ""; // Insert a generic item
+console.log(\`Try saying this five times fast:\`);
+console.log(\`Peter Piper picked a peck of pickled \${item}.\`);
+console.log(\`A peck of pickled \${item} Peter Piper picked.\`);
+console.log(\`If Peter Piper picked a peck of \${item},\`);
+console.log(\`Where's the peck of \${item} Peter Piper picked?\`);
+console.log();
+
+// Number Variables
+console.log("- Health Demo -");
+let health = 100;
+let damage = 55;
+console.log(\`You've taken \${damage} damage. You have \${health - damage} health left.\`);
+console.log();
+
+console.log("- Age Demo -");
+let age; // Set the age variables to your age with the assignment operator (=)
+console.log(\`you will reach age 100 in \${100 - age} years.\`);
+console.log();
+//
+`;
+const Task5 = `
+// String Variables
+console.log("- About Me -");
+let person = ""; // Insert your name into the string
+let food = "Pizza Hut Pepperoni Pizza"; // Replace pizza with your favorite food
+
+console.log(\`Hello, my name is \${person}!\`);
+console.log(\`I, \${person}, love to eat \${food}.\`);
+console.log();
+
+console.log("- Tongue Twister -");
+let item = ""; // Insert a generic item
+console.log(\`Try saying this five times fast:\`);
+console.log(\`Peter Piper picked a peck of pickled \${item}.\`);
+console.log(\`A peck of pickled \${item} Peter Piper picked.\`);
+console.log(\`If Peter Piper picked a peck of \${item},\`);
+console.log(\`Where's the peck of \${item} Peter Piper picked?\`);
+console.log();
+
+// Number Variables
+console.log("- Health Demo -");
+let health = 100;
+let damage = 55;
+console.log(\`You've taken \${damage} damage. You have \${health - damage} health left.\`);
+console.log();
+
+console.log("- Age Demo -");
+let age; // Set the age variables to your age with the assignment operator (=)
+console.log(\`you will reach age 100 in \${100 - age} years.\`);
+console.log();
+
+console.log("- Money Demo -");
+let balance = 100.25;
+let withdraw = 0; // Replace 0 with a positive number of your choice.
+let leftover = balance - withdraw;
+console.log(\`You have a balance of $$\{balance} in your bank account\`);
+console.log(\`If you take out $\${withdraw}, you will have $\${leftover} left.\`);
+//
+`;
+const SampleOutput = `
+- About Me -
+Hello, my name is Anthony!
+I, Anthony, love to eat Pizza Hut Pepperoni Pizza.
+
+- Tongue Twister -
+Try saying this five times fast:
+Peter Piper picked a peck of pickled sausages.
+A peck of pickled sausages Peter Piper picked.
+If Peter Piper picked a peck of sausages,
+Where's the peck of sausages Peter Piper picked?
+
+- Health Demo -
+You've taken 55 damage. You have 45 health left.
+
+- Age Demo -
+you will reach age 100 in 65 years.
+
+- Money Demo -
+You have a balance of $100.25 in your bank account
+If you take out $50, you will have $50.25 left.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.4 Variables</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.4</h3>
+            <h4 class="text-skynest-theme">Variables</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Introduction to Variables</li>
+              <li>Variable assignment</li>
+              <li>Variable scope</li>
+              <li>Naming rules</li>
+              <li>Naming conventions</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Introduction to Variables</h4>
+            <p>
+              Variables allow us to store data during our program's
+              execution. Sometimes, variables are described as containers for
+              storing information.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Introduction to Variables</h4>
+            <p>What data is being kept track of in this game?</p>
+            <Image src={TerminatorScreenshot} alt="Terminator Screenshot" class="img-fluid" />
+          </section>
+          <section>
+            <h4>Variable Syntax</h4>
+            
+          </section>
+          <section>
+
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Declaring and assigning values to variables.</ListItem
+            >
+            <ListItem variant="1"
+              >Using variables in formatted strings.</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme"
+                >1-4-variable.js</span
+              >.
+            </ListItem>
+            <ul>
+              <ListItem variant="2"
+                >Initialize each variable when instructed.</ListItem
+              >
+              <ListItem variant="2"
+                >Use each variable within console output.</ListItem
+              >
+            </ul>
+          </ul>
+
+          <!-- Task 1 -->
+          <section id="task-1">
+            <h3>
+              <span class="text-skynest-theme">Task 1</span>: About Me
+            </h3>
+            <Code
+              code={Task1}
+              frame="code"
+              lang="javascript"
+              showLineNumbers
+              title="1-4-variables.js"
+              mark={{ label: "Stop and run your code", range: "9" }}
+            />
+          </section>
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <section id="task-2">
+            <h3>
+              <span class="text-skynest-theme">Task 2</span>: Tongue Twister
+            </h3>
+            <Code
+              code={Task2}
+              frame="code"
+              lang="javascript"
+              showLineNumbers
+              title="1-4-variables.js"
+              mark={{ label: "Stop and run your code", range: "18" }}
+              ins={{ range: "9-17" }}
+            />
+          </section>
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <section id="task-3">
+            <h3>
+              <span class="text-skynest-theme">Task 3</span>: Health Demo
+            </h3>
+            <Code
+              code={Task3}
+              frame="code"
+              lang="javascript"
+              showLineNumbers
+              title="1-4-variables.js"
+              mark={{ label: "Stop and run your code", range: "25" }}
+              ins={{ range: "18-24" }}
+            />
+          </section>
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <section id="task-4">
+            <h3>
+              <span class="text-skynest-theme">Task 4</span>: Age Demo
+            </h3>
+            <Code
+              code={Task4}
+              frame="code"
+              lang="javascript"
+              showLineNumbers
+              title="1-4-variables.js"
+              mark={{ label: "Stop and run your code", range: "30" }}
+              ins={{ range: "25-29" }}
+            />
+          </section>
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <section id="task-5">
+            <h3>
+              <span class="text-skynest-theme">Task 5</span>: Money Demo
+            </h3>
+            <Code
+              code={Task5}
+              frame="code"
+              lang="javascript"
+              showLineNumbers
+              title="1-4-variables.js"
+              mark={{ label: "Stop and run your code", range: "37" }}
+              ins={{ range: "30-36" }}
+            />
+          </section>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="INSERT"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>INSERT</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
