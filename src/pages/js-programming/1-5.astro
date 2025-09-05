@@ -1,0 +1,548 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import VariableUpdate from "../../assets/courses/js-programming/img/variable-update.png";
+
+//#region CodeSnippets
+const Figure1 = `
+
+let health = 100;
+console.log("Health: " + health);
+console.log("Enemy attacks.");
+health = health - 5;
+console.log("Health: " + health);
+`;
+const Figure2 = `
+Health: 100
+Enemy attacks.
+Health: 95
+`;
+const Task1 = `
+console.log("--- Demo 1 - Battle Demo ---");
+let player_health = 100;
+let player_attack = 25;
+let enemy_health = 100;
+let enemy_attack = 20;
+let potions = 3;
+
+console.log(\`Health: \${player_health}\`);
+console.log(\`Enemy health: \${enemy_health}\`);
+console.log();
+
+console.log("Player attacks.");
+enemy_health = enemy_health - player_attack;
+console.log(\`You did \${player_attack} damage! Enemy health: \${enemy_health}\`);
+console.log();
+
+console.log("Enemy attacks.");
+player_health = player_health - enemy_attack;
+console.log(\`Enemy did \${enemy_attack} damage! Player health: \${player_health}\`);
+console.log();
+
+console.log("Using potion...");
+player_health = player_health + 10;
+potions = potions - 1;
+console.log(\`Player health: \${player_health}. Potions left: \${potions}\`);
+console.log("\\n\\n"); // What on earth is \\n? Consider Googling '\\n Javascript'
+//
+`;
+const Task2 = `
+console.log("--- Demo 1 - Battle Demo ---");
+let player_health = 100;
+let player_attack = 25;
+let enemy_health = 100;
+let enemy_attack = 20;
+let potions = 3;
+
+console.log(\`Health: \${player_health}\`);
+console.log(\`Enemy health: \${enemy_health}\`);
+console.log();
+
+console.log("Player attacks.");
+enemy_health = enemy_health - player_attack;
+console.log(\`You did \${player_attack} damage! Enemy health: \${enemy_health}\`);
+console.log();
+
+console.log("Enemy attacks.");
+player_health = player_health - enemy_attack;
+console.log(\`Enemy did \${enemy_attack} damage! Player health: \${player_health}\`);
+console.log();
+
+console.log("Using potion...");
+player_health = player_health + 10;
+potions = potions - 1;
+console.log(\`Player health: \${player_health}. Potions left: \${potions}\`);
+console.log("\\n\\n");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 2 - Banking Simulator ---");
+let account_name = "Checking Account";
+let balance = 100.50;
+
+console.log(\`\${account_name} balance: \${balance}\`);
+console.log(\`Depositing $99.01 to \${account_name}\`);
+balance = balance + 99.01;
+console.log(\`\${account_name} balance: \${balance}\`);
+console.log("\\n\\n");
+//
+`;
+const Task3 = `
+console.log("--- Demo 1 - Battle Demo ---");
+let player_health = 100;
+let player_attack = 25;
+let enemy_health = 100;
+let enemy_attack = 20;
+let potions = 3;
+
+console.log(\`Health: \${player_health}\`);
+console.log(\`Enemy health: \${enemy_health}\`);
+console.log();
+
+console.log("Player attacks.");
+enemy_health = enemy_health - player_attack;
+console.log(\`You did \${player_attack} damage! Enemy health: \${enemy_health}\`);
+console.log();
+
+console.log("Enemy attacks.");
+player_health = player_health - enemy_attack;
+console.log(\`Enemy did \${enemy_attack} damage! Player health: \${player_health}\`);
+console.log();
+
+console.log("Using potion...");
+player_health = player_health + 10;
+potions = potions - 1;
+console.log(\`Player health: \${player_health}. Potions left: \${potions}\`);
+console.log("\\n\\n");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 2 - Banking Simulator ---");
+let account_name = "Checking Account";
+let balance = 100.50;
+
+console.log(\`\${account_name} balance: \${balance}\`);
+console.log(\`Depositing $99.01 to \${account_name}\`);
+balance = balance + 99.01;
+console.log(\`\${account_name} balance: \${balance}\`);
+console.log("\\n\\n");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 3 - High Score Tracker ---");
+let player_score = 0;
+console.log(\`Current score: \${player_score}\`);
+console.log("Scored 100 points!");
+player_score = player_score + 100;
+console.log(\`New score: \${player_score}\`);
+console.log("Scored 500 more points for a headshot!");
+player_score = player_score + 500;
+console.log(\`New score: \${player_score}\`);
+console.log("\\n\\n");
+//
+`;
+const Task4 = `
+console.log("--- Demo 1 - Battle Demo ---");
+let player_health = 100;
+let player_attack = 25;
+let enemy_health = 100;
+let enemy_attack = 20;
+let potions = 3;
+
+console.log(\`Health: \${player_health}\`);
+console.log(\`Enemy health: \${enemy_health}\`);
+console.log();
+
+console.log("Player attacks.");
+enemy_health = enemy_health - player_attack;
+console.log(\`You did \${player_attack} damage! Enemy health: \${enemy_health}\`);
+console.log();
+
+console.log("Enemy attacks.");
+player_health = player_health - enemy_attack;
+console.log(\`Enemy did \${enemy_attack} damage! Player health: \${player_health}\`);
+console.log();
+
+console.log("Using potion...");
+player_health = player_health + 10;
+potions = potions - 1;
+console.log(\`Player health: \${player_health}. Potions left: \${potions}\`);
+console.log("\\n\\n");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 2 - Banking Simulator ---");
+let account_name = "Checking Account";
+let balance = 100.50;
+
+console.log(\`\${account_name} balance: \${balance}\`);
+console.log(\`Depositing $99.01 to \${account_name}\`);
+balance = balance + 99.01;
+console.log(\`\${account_name} balance: \${balance}\`);
+console.log("\\n\\n");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 3 - High Score Tracker ---");
+let player_score = 0;
+console.log(\`Current score: \${player_score}\`);
+console.log("Scored 100 points!");
+player_score = player_score + 100;
+console.log(\`New score: \${player_score}\`);
+console.log("Scored 500 more points for a headshot!");
+player_score = player_score + 500;
+console.log(\`New score: \${player_score}\`);
+console.log("\\n\\n");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 4 - Social Media Analytics ---");
+let likes = 23;
+console.log(\`Post likes: \${likes}\`);
+console.log("A friend liked the post!");
+likes = likes + 1;
+console.log(\`Post likes: \${likes}\`);
+console.log("Another 10 people liked the post!");
+likes = likes + 10;
+console.log(\`Post likes: \${likes}\`);
+//
+`;
+const SampleOutput = `
+--- Demo 1 - Battle Demo ---
+Health: 100
+Enemy health: 100
+
+Player attacks.
+You did 25 damage! Enemy health: 75
+
+Enemy attacks.
+Enemy did 20 damage! Player health: 80
+
+Using potion...
+Player health: 90. Potions left: 2
+
+
+
+--- Demo 2 - Banking Simulator ---
+Checking Account balance: 100.5
+Depositing $99.01 to Checking Account
+Checking Account balance: 199.51
+
+
+
+--- Demo 3 - High Score Tracker ---
+Current score: 0
+Scored 100 points!
+New score: 100
+Scored 500 more points for a headshot!
+New score: 600
+
+
+
+--- Demo 4 - Social Media Analytics ---
+Post likes: 23
+A friend liked the post!
+Post likes: 24
+Another 10 people liked the post!
+Post likes: 34
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.5 Updating Variables</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.5</h3>
+            <h4 class="text-skynest-theme">Updating Variables</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Working with Dynamic Data</li>
+              <li>Keeping Track of Changes with Variables</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Working with Dynamic Data</h4>
+            <p>
+              Variables don't have to stay the same throughout a program. We can
+              change the value of a variable after it's been initialized.
+            </p>
+            <p>
+              <AstroCode
+                code="let age = 15;"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Working with Dynamic Data</h4>
+            <p>
+              Variables don't have to stay the same throughout a program. We can
+              change the value of a variable after it's been initialized.
+            </p>
+            <p>
+              <AstroCode
+                code="let age = 15;"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p>
+              <AstroCode
+                code='console.log("🎉🎂🥳 Happy birthday!");'
+                '
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Working with Dynamic Data</h4>
+            <p>
+              Variables don't have to stay the same throughout a program. We can
+              change the value of a variable after it's been initialized.
+            </p>
+            <p>
+              <AstroCode
+                code="let age = 15;"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p>
+              <AstroCode
+                code='console.log("🎉🎂🥳 Happy birthday!");'
+                '
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p>
+              <AstroCode
+                code="age = 16;"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Keeping Track of Changes with Variables</h4>
+            <p>
+              A program often needs to track and update a value as it runs. This
+              is done by modifying the variable's value using mathematical
+              operations like addition, subtraction, multiplication, and
+              division.
+            </p>
+            <Code
+              code={Figure1}
+              lang="javascript"
+              mark={{ range: "4" }}
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Keeping Track of Changes with Variables</h4>
+            <p>
+              A program often needs to track and update a value as it runs. This
+              is done by modifying the variable's value using mathematical
+              operations like addition, subtraction, multiplication, and
+              division.
+            </p>
+            <Code
+              code={Figure1}
+              lang="javascript"
+              mark={{ range: "4" }}
+              class="text-start mb-3"
+            />
+            <Code code={Figure2} lang="txt" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Keeping Track of Changes with Variables</h4>
+            <Code
+              code={Figure1}
+              lang="javascript"
+              mark={{ range: "4" }}
+              class="text-start mb-3"
+            />
+            <Code code={Figure2} lang="txt" class="text-start" />
+            <img src={VariableUpdate.src} alt="Variable Update" />
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Updating variable values using the assignment operator.</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme"
+                >1-5-updating-variables.js</span
+              >.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Battle Demo
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-5-updating-variables.js"
+            mark={{ label: "Stop and run your code", range: "27" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Banking Simulator
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-5-updating-variables.js"
+            ins={{ range: "27-38" }}
+            mark={{ label: "Stop and run your code", range: "39" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: High Score Tracker
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-5-updating-variables.js"
+            ins={{ range: "39-51" }}
+            mark={{ label: "Stop and run your code", range: "52" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Social Media
+            Analytics
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-5-updating-variables.js"
+            ins={{ range: "52-63" }}
+            mark={{ label: "Stop and run your code", range: "64" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              When you use let to create a variable for the first time, you're
+              setting its starting value. After that, you can change the
+              variable's value without using let again. Why do you think
+              programming languages have these two different steps? What would
+              happen if we couldn't change a variable's value after we first
+              created it?
+            </li>
+            <li>
+              Think about the four demos you completed. Describe another
+              real-world scenario where updating a variable would be essential.
+              What would the variable represent, and what operations (addition,
+              subtraction, etc.) would be applied to it?
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <Divider variant="8" classes="my-4" />
+
+      <section id="submission">
+        <h2>Submission</h2>
+
+        <p>
+          Submit your activity and reflection answers to the appropriate
+          dropbox.
+        </p>
+
+        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+          Activity Complete
+        </h1>
+      </section>
+    </div>
+  </div>
+</Layout>
