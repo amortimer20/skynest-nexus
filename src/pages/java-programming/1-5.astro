@@ -1,0 +1,574 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import VariableUpdate from "../../assets/courses/java-programming/img/variable-update.png";
+
+//#region CodeSnippets
+const Figure1 = `
+int health = 100;
+System.out.println("Health: " + health);
+System.out.println("Enemy attacks.");
+health = health - 5;
+System.out.println("Health: " + health);
+`;
+const Figure2 = `
+Health: 100
+Enemy attacks.
+Health: 95
+`;
+const Task1 = `
+public class Program {
+    public static void main(String[] args) {
+        System.out.println("--- Demo 1 - Battle Demo ---");
+        int playerHealth = 100;
+        int playerAttack = 25;
+        int enemyHealth = 100;
+        int enemyAttack = 20;
+        int potions = 3;
+
+        System.out.println("Health: " + playerHealth);
+        System.out.println("Enemy health: " + enemyHealth);
+        System.out.println();
+
+        System.out.println("Player attacks.");
+        enemyHealth = enemyHealth - playerAttack;
+        System.out.println("You did " + playerAttack + " damage! Enemy health: " + enemyHealth);
+        System.out.println();
+
+        System.out.println("Enemy attacks.");
+        playerHealth = playerHealth - enemyAttack;
+        System.out.println("Enemy did " + enemyAttack + " damage! Player health: " + playerHealth);
+        System.out.println();
+
+        System.out.println("Using potion...");
+        playerHealth = playerHealth + 10;
+        potions = potions - 1;
+        System.out.println("Player health: " + playerHealth + ". Potions left: " + potions);
+        System.out.println("\\n\\n"); // What on earth is \\n? Consider Googling '\\n Java'
+//
+    }
+}
+`;
+const Task2 = `
+public class Program {
+    public static void main(String[] args) {
+        System.out.println("--- Demo 1 - Battle Demo ---");
+        int playerHealth = 100;
+        int playerAttack = 25;
+        int enemyHealth = 100;
+        int enemyAttack = 20;
+        int potions = 3;
+
+        System.out.println("Health: " + playerHealth);
+        System.out.println("Enemy health: " + enemyHealth);
+        System.out.println();
+
+        System.out.println("Player attacks.");
+        enemyHealth = enemyHealth - playerAttack;
+        System.out.println("You did " + playerAttack + " damage! Enemy health: " + enemyHealth);
+        System.out.println();
+
+        System.out.println("Enemy attacks.");
+        playerHealth = playerHealth - enemyAttack;
+        System.out.println("Enemy did " + enemyAttack + " damage! Player health: " + playerHealth);
+        System.out.println();
+
+        System.out.println("Using potion...");
+        playerHealth = playerHealth + 10;
+        potions = potions - 1;
+        System.out.println("Player health: " + playerHealth + ". Potions left: " + potions);
+        System.out.println("\\n\\n");
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Demo 2 - Banking Simulator ---");
+        String accountName = "Checking Account";
+        double balance = 100.50;
+
+        System.out.println(accountName + " balance: " + balance);
+        System.out.println("Depositing $99.01 to " + accountName);
+        balance = balance + 99.01;
+        System.out.println(accountName + " balance: " + balance);
+        System.out.println("\\n\\n");
+//
+    }
+}
+`;
+const Task3 = `
+public class Program {
+    public static void main(String[] args) {
+        System.out.println("--- Demo 1 - Battle Demo ---");
+        int playerHealth = 100;
+        int playerAttack = 25;
+        int enemyHealth = 100;
+        int enemyAttack = 20;
+        int potions = 3;
+
+        System.out.println("Health: " + playerHealth);
+        System.out.println("Enemy health: " + enemyHealth);
+        System.out.println();
+
+        System.out.println("Player attacks.");
+        enemyHealth = enemyHealth - playerAttack;
+        System.out.println("You did " + playerAttack + " damage! Enemy health: " + enemyHealth);
+        System.out.println();
+
+        System.out.println("Enemy attacks.");
+        playerHealth = playerHealth - enemyAttack;
+        System.out.println("Enemy did " + enemyAttack + " damage! Player health: " + playerHealth);
+        System.out.println();
+
+        System.out.println("Using potion...");
+        playerHealth = playerHealth + 10;
+        potions = potions - 1;
+        System.out.println("Player health: " + playerHealth + ". Potions left: " + potions);
+        System.out.println("\\n\\n");
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Demo 2 - Banking Simulator ---");
+        String accountName = "Checking Account";
+        double balance = 100.50;
+
+        System.out.println(accountName + " balance: " + balance);
+        System.out.println("Depositing $99.01 to " + accountName);
+        balance = balance + 99.01;
+        System.out.println(accountName + " balance: " + balance);
+        System.out.println("\\n\\n");
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Demo 3 - High Score Tracker ---");
+        int playerScore = 0;
+        System.out.println("Current score: " + playerScore);
+        System.out.println("Scored 100 points!");
+        playerScore = playerScore + 100;
+        System.out.println("New score: " + playerScore);
+        System.out.println("Scored 500 more points for a headshot!");
+        playerScore = playerScore + 500;
+        System.out.println("New score: " + playerScore);
+        System.out.println("\\n\\n");
+//
+    }
+}
+`;
+const Task4 = `
+public class Program {
+    public static void main(String[] args) {
+        System.out.println("--- Demo 1 - Battle Demo ---");
+        int playerHealth = 100;
+        int playerAttack = 25;
+        int enemyHealth = 100;
+        int enemyAttack = 20;
+        int potions = 3;
+
+        System.out.println("Health: " + playerHealth);
+        System.out.println("Enemy health: " + enemyHealth);
+        System.out.println();
+
+        System.out.println("Player attacks.");
+        enemyHealth = enemyHealth - playerAttack;
+        System.out.println("You did " + playerAttack + " damage! Enemy health: " + enemyHealth);
+        System.out.println();
+
+        System.out.println("Enemy attacks.");
+        playerHealth = playerHealth - enemyAttack;
+        System.out.println("Enemy did " + enemyAttack + " damage! Player health: " + playerHealth);
+        System.out.println();
+
+        System.out.println("Using potion...");
+        playerHealth = playerHealth + 10;
+        potions = potions - 1;
+        System.out.println("Player health: " + playerHealth + ". Potions left: " + potions);
+        System.out.println("\\n\\n");
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Demo 2 - Banking Simulator ---");
+        String accountName = "Checking Account";
+        double balance = 100.50;
+
+        System.out.println(accountName + " balance: " + balance);
+        System.out.println("Depositing $99.01 to " + accountName);
+        balance = balance + 99.01;
+        System.out.println(accountName + " balance: " + balance);
+        System.out.println("\\n\\n");
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Demo 3 - High Score Tracker ---");
+        int playerScore = 0;
+        System.out.println("Current score: " + playerScore);
+        System.out.println("Scored 100 points!");
+        playerScore = playerScore + 100;
+        System.out.println("New score: " + playerScore);
+        System.out.println("Scored 500 more points for a headshot!");
+        playerScore = playerScore + 500;
+        System.out.println("New score: " + playerScore);
+        System.out.println("\\n\\n");
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Demo 4 - Social Media Analytics ---");
+        int likes = 23;
+        System.out.println("Post likes: " + likes);
+        System.out.println("A friend liked the post!");
+        likes = likes + 1;
+        System.out.println("Post likes: " + likes);
+        System.out.println("Another 10 people liked the post!");
+        likes = likes + 10;
+        System.out.println("Post likes: " + likes);
+//
+    }
+}
+`;
+const SampleOutput = `
+--- Demo 1 - Battle Demo ---
+Health: 100
+Enemy health: 100
+
+Player attacks.
+You did 25 damage! Enemy health: 75
+
+Enemy attacks.
+Enemy did 20 damage! Player health: 80
+
+Using potion...
+Player health: 90. Potions left: 2
+
+
+
+--- Demo 2 - Banking Simulator ---
+Checking Account balance: 100.5
+Depositing $99.01 to Checking Account
+Checking Account balance: 199.51
+
+
+
+--- Demo 3 - High Score Tracker ---
+Current score: 0
+Scored 100 points!
+New score: 100
+Scored 500 more points for a headshot!
+New score: 600
+
+
+
+--- Demo 4 - Social Media Analytics ---
+Post likes: 23
+A friend liked the post!
+Post likes: 24
+Another 10 people liked the post!
+Post likes: 34
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.5 Updating Variables</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.5</h3>
+            <h4 class="text-skynest-theme">Updating Variables</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Working with Dynamic Data</li>
+              <li>Keeping Track of Changes with Variables</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Working with Dynamic Data</h4>
+            <p>
+              Variables don't have to stay the same throughout a program. We can
+              change the value of a variable after it's been initialized.
+            </p>
+            <p>
+              <AstroCode
+                code="int age = 15;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Working with Dynamic Data</h4>
+            <p>
+              Variables don't have to stay the same throughout a program. We can
+              change the value of a variable after it's been initialized.
+            </p>
+            <p>
+              <AstroCode
+                code="int age = 15;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p>
+              <AstroCode
+                code='System.out.println("🎉🎂🥳 Happy birthday!");'
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Working with Dynamic Data</h4>
+            <p>
+              Variables don't have to stay the same throughout a program. We can
+              change the value of a variable after it's been initialized.
+            </p>
+            <p>
+              <AstroCode
+                code="int age = 15;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p>
+              <AstroCode
+                code='System.out.println("🎉🎂🥳 Happy birthday!");'
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p>
+              <AstroCode
+                code="age = 16;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Keeping Track of Changes with Variables</h4>
+            <p>
+              A program often needs to track and update a value as it runs. This
+              is done by modifying the variable's value using mathematical
+              operations like addition, subtraction, multiplication, and
+              division.
+            </p>
+            <Code
+              code={Figure1}
+              lang="java"
+              mark={{ range: "4" }}
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Keeping Track of Changes with Variables</h4>
+            <p>
+              A program often needs to track and update a value as it runs. This
+              is done by modifying the variable's value using mathematical
+              operations like addition, subtraction, multiplication, and
+              division.
+            </p>
+            <Code
+              code={Figure1}
+              lang="java"
+              mark={{ range: "4" }}
+              class="text-start mb-3"
+            />
+            <Code code={Figure2} lang="txt" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Keeping Track of Changes with Variables</h4>
+            <Code
+              code={Figure1}
+              lang="java"
+              mark={{ range: "4" }}
+              class="text-start mb-3"
+            />
+            <Code code={Figure2} lang="txt" class="text-start" />
+            <img src={VariableUpdate.src} alt="Variable Update" />
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Variable Initialization</dt>
+              <dd>
+                The initial assignment of a value to a newly declared variable.
+                This process gives the variable its first stored data and
+                establishes its type.
+              </dd>
+              <dt>Variable Reassignment</dt>
+              <dd>The process of updating or changing the value of a variable after it has been initialized.</dd>
+              <dt>Dynamic Data</dt>
+              <dd>Information in a program that can be changed or modified while the program is running.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Updating variable values using the assignment operator.</ListItem
+            >
+            <ListItem variant="1">Keeping track of data changes during a program's execution.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >1-5-Updating Variables</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Battle Demo
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{ label: "Stop and run your code", range: "29" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Banking Simulator
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "29-40" }}
+            mark={{ label: "Stop and run your code", range: "41" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: High Score Tracker
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "41-53" }}
+            mark={{ label: "Stop and run your code", range: "54" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Social Media
+            Analytics
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "54-65" }}
+            mark={{ label: "Stop and run your code", range: "66" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              What is the key difference between initializing a variable and
+              updating its value? Why is it necessary to declare the variable
+              type (like int or double) only when you initialize it?
+            </li>
+            <li>
+              Consider the "Battle Demo" and "Banking Simulator" tasks. How did
+              updating the variable's value allow the program to simulate a
+              sequence of events, and what would happen if you didn't update the
+              variables?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
