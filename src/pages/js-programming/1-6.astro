@@ -1,0 +1,560 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import PromptInputImg from "../../assets/courses/js-programming/img/prompt-input.png";
+
+//#region CodeSnippets
+const Figure1 = `
+Enter your name:
+`;
+const Figure2 = `
+Enter your name: Anthony Mortimer
+`;
+const Figure3 = `
+Enter your name: Anthony Mortimer [Enter]
+Hello Anthony Mortimer!
+`;
+const Figure4 = `
+let name = prompt("Enter your name:");
+console.log(\`Hello \${name}!\`);
+`;
+const Figure5 = `
+let food = prompt("What is your favorite food?");
+console.log("I love " + food);
+`;
+const Task1 = `
+console.log("\\n--- Demo 1 - Simple To-Do List ---");
+console.log("Let's add a few tasks to your list.");
+
+const task1 = prompt("Task 1:");
+const task2 = prompt("Task 2:");
+const task3 = prompt("Task 3:");
+
+console.log("\\nYour To-Do List:");
+console.log("1." + task1);
+console.log("2." + task2);
+console.log("3." + task3);
+prompt("Press enter to continue..."); // Pause before the next demo app
+//
+`;
+const Task2 = `
+console.log("\\n--- Demo 1 - Simple To-Do List ---");
+console.log("Let's add a few tasks to your list.");
+
+const task1 = prompt("Task 1:");
+const task2 = prompt("Task 2:");
+const task3 = prompt("Task 3:");
+
+console.log("\\nYour To-Do List:");
+console.log("1." + task1);
+console.log("2." + task2);
+console.log("3." + task3);
+prompt("Press enter to continue..."); // Pause before the next demo app
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 2 - User Profile Setup ---");
+console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
+
+const username = prompt("Enter your username:");
+const subject = prompt("What's your favorite subject in school?");
+
+// List of options
+console.log("Choose your preferred after-school activity:");
+console.log("- Sports");
+console.log("- Music");
+console.log("- Gaming");
+console.log("- Volunteering");
+const activity = prompt("->"); // This is just an arrow prompt.
+
+console.log("\\n- Creating your profile -");
+console.log(\`NAME: \${username}\`);
+console.log(\`FAVORITE SUBJECT: \${subject}\`);
+console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
+prompt("Press enter to continue...");
+//
+`;
+const Task3 = `
+console.log("\\n--- Demo 1 - Simple To-Do List ---");
+console.log("Let's add a few tasks to your list.");
+
+const task1 = prompt("Task 1:");
+const task2 = prompt("Task 2:");
+const task3 = prompt("Task 3:");
+
+console.log("\\nYour To-Do List:");
+console.log("1." + task1);
+console.log("2." + task2);
+console.log("3." + task3);
+prompt("Press enter to continue..."); // Pause before the next demo app
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 2 - User Profile Setup ---");
+console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
+
+const username = prompt("Enter your username:");
+const subject = prompt("What's your favorite subject in school?");
+
+// List of options
+console.log("Choose your preferred after-school activity:");
+console.log("- Sports");
+console.log("- Music");
+console.log("- Gaming");
+console.log("- Volunteering");
+const activity = prompt("->"); // This is just an arrow prompt.
+
+console.log("\\n- Creating your profile -");
+console.log(\`NAME: \${username}\`);
+console.log(\`FAVORITE SUBJECT: \${subject}\`);
+console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
+prompt("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 3 - Simple Survey ---");
+console.log("We'd love to get your feedback!");
+
+const favoriteColor = prompt("What is your favorite color?");
+const favoriteFood = prompt("What is your favorite food?");
+const travelDestination = prompt("Where is a place you would like to travel?");
+
+console.log("\\n- Survey Results -");
+console.log("Favorite Color: " + favoriteColor);
+console.log("Favorite Food: " + favoriteFood);
+console.log("Travel Destination: " + travelDestination);
+prompt("Press enter to continue...");
+//
+`;
+const Task4 = `
+console.log("\\n--- Demo 1 - Simple To-Do List ---");
+console.log("Let's add a few tasks to your list.");
+
+const task1 = prompt("Task 1:");
+const task2 = prompt("Task 2:");
+const task3 = prompt("Task 3:");
+
+console.log("\\nYour To-Do List:");
+console.log("1." + task1);
+console.log("2." + task2);
+console.log("3." + task3);
+prompt("Press enter to continue..."); // Pause before the next demo app
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 2 - User Profile Setup ---");
+console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
+
+const username = prompt("Enter your username:");
+const subject = prompt("What's your favorite subject in school?");
+
+// List of options
+console.log("Choose your preferred after-school activity:");
+console.log("- Sports");
+console.log("- Music");
+console.log("- Gaming");
+console.log("- Volunteering");
+const activity = prompt("->"); // This is just an arrow prompt.
+
+console.log("\\n- Creating your profile -");
+console.log(\`NAME: \${username}\`);
+console.log(\`FAVORITE SUBJECT: \${subject}\`);
+console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
+prompt("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 3 - Simple Survey ---");
+console.log("We'd love to get your feedback!");
+
+const favoriteColor = prompt("What is your favorite color?");
+const favoriteFood = prompt("What is your favorite food?");
+const travelDestination = prompt("Where is a place you would like to travel?");
+
+console.log("\\n- Survey Results -");
+console.log("Favorite Color: " + favoriteColor);
+console.log("Favorite Food: " + favoriteFood);
+console.log("Travel Destination: " + travelDestination);
+prompt("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 4 - Fantasy Story Builder ---");
+console.log("Let's create a fantasy story!");
+
+const mainCharacter = prompt("Name your main character:");
+const magicalCreature = prompt("Name a magical creature:");
+const aMagicalPlace = prompt("Name a magical place:");
+
+console.log("\\n- Your Story -");
+console.log("Once upon a time, there was a hero named " + mainCharacter + ".");
+console.log(mainCharacter + " traveled to the " + aMagicalPlace + " to seek the legendary " + magicalCreature + ".");
+console.log("Their quest was just beginning...");
+//
+`;
+const SampleOutput = `
+--- Demo 1 - Simple To-Do List ---
+Let's add a few tasks to your list.
+Task 1: Do Homework
+Task 2: Cook Dinner
+Task 3: Clean Bedroom
+
+Your To-Do List:
+1.Do Homework
+2.Cook Dinner
+3.Clean Bedroom
+Press enter to continue...
+
+--- Demo 2 - User Profile Setup ---
+WELCOME! LET'S SET UP YOUR PROFILE...
+Enter your username: amortimer
+What's your favorite subject in school? Computer Science
+Choose your preferred after-school activity:
+- Sports
+- Music
+- Gaming
+- Volunteering
+-> Gaming
+
+- Creating your profile -
+NAME: amortimer
+FAVORITE SUBJECT: Computer Science
+AFTER-SCHOOL ACTIVITY: Gaming
+Press enter to continue...
+
+--- Demo 3 - Simple Survey ---
+We'd love to get your feedback!
+What is your favorite color? purple
+What is your favorite food? Pizza Hut Pepperoni Pizza
+Where is a place you would like to travel? Great Britain
+
+- Survey Results -
+Favorite Color: purple
+Favorite Food: Pizza Hut Pepperoni Pizza
+Travel Destination: Great Britain
+Press enter to continue...
+
+--- Demo 4 - Fantasy Story Builder ---
+Let's create a fantasy story!
+Name your main character: Fart Knight
+Name a magical creature: Logan Paul
+Name a magical place: Cleveland, Ohio
+
+- Your Story -
+Once upon a time, there was a hero named Fart Knight.
+Fart Knight traveled to the Cleveland, Ohio to seek the legendary Logan Paul.
+Their quest was just beginning...
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.6 Console Input</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.6</h3>
+            <h4 class="text-skynest-theme">Console Input</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Console Input Behavior</li>
+              <li>
+                The <AstroCode
+                  code="prompt()"
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> Function
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <p>
+              Console input is a process where a computer program receives data
+              from a user through a text-based interface, such as the terminal
+              window.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <Code
+              code={Figure1}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <Code
+              code={Figure2}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <Code
+              code={Figure3}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <p>
+              The user is provided with a prompt, such as a question or command.
+              They can then type their response (input) into the terminal.
+            </p>
+            <p>To submit input, press the <i>enter key</i>.</p>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              The <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> Function
+            </h4>
+            <p>
+              The prompt() function is a built-in method that displays a message
+              to the user and waits for them to type a line of text, which it
+              then returns as a string.
+            </p>
+            <Code
+              code={Figure4}
+              lang="javascript"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              The <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> Function
+            </h4>
+            <p>
+              The prompt() function is a built-in method that displays a message
+              to the user and waits for them to type a line of text, which it
+              then returns as a string.
+            </p>
+            <Code code={Figure4} lang="javascript" class="text-start mb-3" />
+            <Code
+              code={Figure3}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              The <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> Function
+            </h4>
+            <p>
+              The prompt() function is a built-in method that displays a message
+              to the user and waits for them to type a line of text, which it
+              then returns as a string.
+            </p>
+            <img src={PromptInputImg.src} alt="Prompt Input" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo Write a Simple Prompt <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </h4>
+            <p>
+              Don't just watch the program run, type your input into the
+              application!
+            </p>
+            <Code code={Figure5} lang="javascript" class="text-start mb-3" />
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Prompting a user for input and saving it to a variable.</ListItem
+            >
+            <ListItem variant="1"
+              >Using variables that contain user input.</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >1-1-input.js</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Simple To-Do List
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-6-input.js"
+            mark={{ label: "Stop and run your code", range: "13" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: User Profile
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-6-input.js"
+            ins={{ range: "13-34" }}
+            mark={{ label: "Stop and run your code", range: "35" }}
+          />
+          /section>
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Simple Survey
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-6-input.js"
+            ins={{ range: "35-49" }}
+            mark={{ label: "Stop and run your code", range: "50" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Fantasy Story
+            Builder
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-6-input.js"
+            ins={{ range: "35-63" }}
+            mark={{ label: "Stop and run your code", range: "64" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              How did the <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function allow you to make your programs interactive?
+            </li>
+            <li>
+              Why is it important to store user input in a variable before you
+              can use it?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
