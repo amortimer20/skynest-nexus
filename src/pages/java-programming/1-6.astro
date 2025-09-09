@@ -1,0 +1,960 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import UserInputVideo from "../../assets/courses/java-programming/video/user-input.mp4";
+
+//#region CodeSnippets
+const Figure1 = "Enter your name:";
+const Figure2 = "Enter your name: Anthony Mortimer";
+const Figure3 = `
+Enter your name: Anthony Mortimer [Enter]
+Hello Anthony Mortimer!`;
+const Figure4 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+
+    }
+}
+`;
+const Figure5 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+      Scanner input = new Scanner(System.in);
+
+    }
+}
+`;
+const Figure6 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+      Scanner input = new Scanner(System.in);
+
+      System.out.print("Enter your favorite food: ");
+      String food = input.nextLine();
+    }
+}
+`;
+const Figure7 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+      Scanner input = new Scanner(System.in);
+
+      System.out.print("Enter your favorite food: ");
+      String food = input.nextLine();
+      System.out.println("I love " + food);
+    }
+}
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        String task1;
+        String task2;
+        String task3;
+
+        System.out.println("--- Demo 1 - Simple To-Do List ---");
+        System.out.println("Let's add a few tasks to your list.");
+        System.out.print("Task 1: ");
+        task1 = input.nextLine();
+        System.out.print("Task 2: ");
+        task2 = input.nextLine();
+        System.out.print("Task 3: ");
+        task3 = input.nextLine();
+
+        System.out.println("\\nYour To-Do List:");
+        System.out.println("1. " + task1);
+        System.out.println("2. " + task2);
+        System.out.println("3. " + task3);
+        System.out.print("Press enter to continue...");
+        input.nextLine(); // Pause before the next demo app
+//
+    }
+}
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        String task1;
+        String task2;
+        String task3;
+
+        System.out.println("--- Demo 1 - Simple To-Do List ---");
+        System.out.println("Let's add a few tasks to your list.");
+        System.out.print("Task 1: ");
+        task1 = input.nextLine();
+        System.out.print("Task 2: ");
+        task2 = input.nextLine();
+        System.out.print("Task 3: ");
+        task3 = input.nextLine();
+
+        System.out.println("\\nYour To-Do List:");
+        System.out.println("1. " + task1);
+        System.out.println("2. " + task2);
+        System.out.println("3. " + task3);
+        System.out.print("Press enter to continue...");
+        input.nextLine(); // Pause before the next demo app
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - User Profile Setup ---");
+        System.out.println("WELCOME! LET'S SET UP YOUR PROFILE...");
+        System.out.print("Enter your username: ");
+        String username = input.nextLine();
+        System.out.print("What's your favorite subject in school? ");
+        String subject = input.nextLine();
+
+        // List of options
+        System.out.println("Choose your preferred after-school activity:");
+        System.out.println("- Sports");
+        System.out.println("- Music");
+        System.out.println("- Gaming");
+        System.out.println("- Volunteering");
+        System.out.print("-> "); // This is just an arrow prompt.
+        String activity = input.nextLine();
+
+        System.out.println("\\n- Creating your profile -");
+        System.out.println("NAME: " + username);
+        System.out.println("FAVORITE SUBJECT: " + subject);
+        System.out.println("AFTER-SCHOOL ACTIVITY: " + activity);
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task4 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        String task1;
+        String task2;
+        String task3;
+
+        System.out.println("--- Demo 1 - Simple To-Do List ---");
+        System.out.println("Let's add a few tasks to your list.");
+        System.out.print("Task 1: ");
+        task1 = input.nextLine();
+        System.out.print("Task 2: ");
+        task2 = input.nextLine();
+        System.out.print("Task 3: ");
+        task3 = input.nextLine();
+
+        System.out.println("\\nYour To-Do List:");
+        System.out.println("1. " + task1);
+        System.out.println("2. " + task2);
+        System.out.println("3. " + task3);
+        System.out.print("Press enter to continue...");
+        input.nextLine(); // Pause before the next demo app
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - User Profile Setup ---");
+        System.out.println("WELCOME! LET'S SET UP YOUR PROFILE...");
+        System.out.print("Enter your username: ");
+        String username = input.nextLine();
+        System.out.print("What's your favorite subject in school? ");
+        String subject = input.nextLine();
+
+        // List of options
+        System.out.println("Choose your preferred after-school activity:");
+        System.out.println("- Sports");
+        System.out.println("- Music");
+        System.out.println("- Gaming");
+        System.out.println("- Volunteering");
+        System.out.print("-> "); // This is just an arrow prompt.
+        String activity = input.nextLine();
+
+        System.out.println("\\n- Creating your profile -");
+        System.out.println("NAME: " + username);
+        System.out.println("FAVORITE SUBJECT: " + subject);
+        System.out.println("AFTER-SCHOOL ACTIVITY: " + activity);
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 3 - Simple Survey ---");
+        System.out.println("We'd love to get your feedback!");
+        System.out.print("What is your favorite color? ");
+        String favoriteColor = input.nextLine();
+        System.out.print("What is your favorite food? ");
+        String favoriteFood = input.nextLine();
+        System.out.print("Where is a place you would like to travel? ");
+        String travelDestination = input.nextLine();
+
+        System.out.println("\\n- Survey Results -");
+        System.out.println("Favorite Color: " + favoriteColor);
+        System.out.println("Favorite Food: " + favoriteFood);
+        System.out.println("Travel Destination: " + travelDestination);
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task5 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        String task1;
+        String task2;
+        String task3;
+
+        System.out.println("--- Demo 1 - Simple To-Do List ---");
+        System.out.println("Let's add a few tasks to your list.");
+        System.out.print("Task 1: ");
+        task1 = input.nextLine();
+        System.out.print("Task 2: ");
+        task2 = input.nextLine();
+        System.out.print("Task 3: ");
+        task3 = input.nextLine();
+
+        System.out.println("\\nYour To-Do List:");
+        System.out.println("1. " + task1);
+        System.out.println("2. " + task2);
+        System.out.println("3. " + task3);
+        System.out.print("Press enter to continue...");
+        input.nextLine(); // Pause before the next demo app
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - User Profile Setup ---");
+        System.out.println("WELCOME! LET'S SET UP YOUR PROFILE...");
+        System.out.print("Enter your username: ");
+        String username = input.nextLine();
+        System.out.print("What's your favorite subject in school? ");
+        String subject = input.nextLine();
+
+        // List of options
+        System.out.println("Choose your preferred after-school activity:");
+        System.out.println("- Sports");
+        System.out.println("- Music");
+        System.out.println("- Gaming");
+        System.out.println("- Volunteering");
+        System.out.print("-> "); // This is just an arrow prompt.
+        String activity = input.nextLine();
+
+        System.out.println("\\n- Creating your profile -");
+        System.out.println("NAME: " + username);
+        System.out.println("FAVORITE SUBJECT: " + subject);
+        System.out.println("AFTER-SCHOOL ACTIVITY: " + activity);
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 3 - Simple Survey ---");
+        System.out.println("We'd love to get your feedback!");
+        System.out.print("What is your favorite color? ");
+        String favoriteColor = input.nextLine();
+        System.out.print("What is your favorite food? ");
+        String favoriteFood = input.nextLine();
+        System.out.print("Where is a place you would like to travel? ");
+        String travelDestination = input.nextLine();
+
+        System.out.println("\\n- Survey Results -");
+        System.out.println("Favorite Color: " + favoriteColor);
+        System.out.println("Favorite Food: " + favoriteFood);
+        System.out.println("Travel Destination: " + travelDestination);
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 4 - Fantasy Story Builder ---");
+        System.out.println("Let's create a fantasy story!");
+        System.out.print("Name your main character: ");
+        String mainCharacter = input.nextLine();
+        System.out.print("Name a magical creature: ");
+        String magicalCreature = input.nextLine();
+        System.out.print("Name a magical place: ");
+        String magicalPlace = input.nextLine();
+
+        System.out.println("\\n- Your Story -");
+        System.out.println("Once upon a time, there was a hero named " + mainCharacter + ".");
+        System.out.println(mainCharacter + " traveled to the " + magicalPlace + " to seek the legendary " + magicalCreature + ".");
+        System.out.println("Their quest was just beginning...");
+//
+    }
+}
+`;
+const SampleOutput = `
+--- Demo 1 - Simple To-Do List ---
+Let's add a few tasks to your list.
+Task 1: Do Homework
+Task 2: Cook Dinner
+Task 3: Clean Bedroom
+
+Your To-Do List:
+1.Do Homework
+2.Cook Dinner
+3.Clean Bedroom
+Press enter to continue...
+
+--- Demo 2 - User Profile Setup ---
+WELCOME! LET'S SET UP YOUR PROFILE...
+Enter your username: amortimer
+What's your favorite subject in school? Computer Science
+Choose your preferred after-school activity:
+- Sports
+- Music
+- Gaming
+- Volunteering
+-> Gaming
+
+- Creating your profile -
+NAME: amortimer
+FAVORITE SUBJECT: Computer Science
+AFTER-SCHOOL ACTIVITY: Gaming
+Press enter to continue...
+
+--- Demo 3 - Simple Survey ---
+We'd love to get your feedback!
+What is your favorite color? purple
+What is your favorite food? Pizza Hut Pepperoni Pizza
+Where is a place you would like to travel? Great Britain
+
+- Survey Results -
+Favorite Color: purple
+Favorite Food: Pizza Hut Pepperoni Pizza
+Travel Destination: Great Britain
+Press enter to continue...
+
+--- Demo 4 - Fantasy Story Builder ---
+Let's create a fantasy story!
+Name your main character: Fart Knight
+Name a magical creature: Logan Paul
+Name a magical place: Cleveland, Ohio
+
+- Your Story -
+Once upon a time, there was a hero named Fart Knight.
+Fart Knight traveled to the Cleveland, Ohio to seek the legendary Logan Paul.
+Their quest was just beginning...
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.6 Console Input</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.6</h3>
+            <h4 class="text-skynest-theme">Console Input</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Console Input Behavior</li>
+              <li>
+                <AstroCode
+                  code="Scanner"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                />
+                <ul>
+                  <li>Importing class files</li>
+                  <li>
+                    Initializing a <AstroCode
+                      code="Scanner"
+                      lang="java"
+                      theme="material-theme-ocean"
+                      inline
+                    /> object.
+                  </li>
+                  <li>
+                    The <AstroCode
+                      code="Scanner.nextLine()"
+                      lang="java"
+                      theme="material-theme-ocean"
+                      inline
+                    /> method
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <p>
+              Console input is a process where a computer program receives data
+              from a user through a text-based interface, such as the terminal
+              window.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <p>
+              The user is provided with a prompt, such as a question or command.
+              They can then type their response (input) into the terminal.
+            </p>
+            <Code
+              code={Figure1}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <p>
+              The user is provided with a prompt, such as a question or command.
+              They can then type their response (input) into the terminal.
+            </p>
+            <Code
+              code={Figure2}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Console Input</h4>
+            <p>To submit user input, press the <i>enter key</i>.</p>
+            <Code
+              code={Figure3}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>
+              Using <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> for Input
+            </h4>
+            <p>
+              <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> is a powerful tool in Java used to read input.
+            </p>
+            <p>
+              The Scanner is a data type in Java that makes it easy to read data
+              from different sources, like the keyboard or a text file.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>Step 1: Import Scanner</h5>
+            <Code
+              code={Figure4}
+              lang="java"
+              class="text-start"
+              ins={{ range: "1" }}
+            />
+            <p>
+              You can also import Scanner using intellisense. Follow the
+              instructor's demo.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>
+              Step 2: Declare a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Variable
+            </h5>
+            A <AstroCode
+              code="Scanner"
+              lang="java"
+              theme="material-theme-ocean"
+              inline
+            /> is a Java object, not a primitive type, so its name is capitalized.
+            The expression <AstroCode
+              code="new Scanner(System.in)"
+              lang="java"
+              theme="material-theme-ocean"
+              inline
+            /> creates a new <AstroCode
+              code="Scanner"
+              lang="java"
+              theme="material-theme-ocean"
+              inline
+            /> object that reads input from the keyboard.
+
+            <Code
+              code={Figure5}
+              lang="java"
+              class="text-start"
+              ins={{ range: "5" }}
+            />
+
+            <p>
+              This code is confusing, so take your time. We will spend an entire
+              unit on this!
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>Step 3: Read User Input</h5>
+            <p>
+              The <AstroCode
+                code="input"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> variable, which is a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> object, contains a number of methods for reading keyboard input.
+            </p>
+            <p>
+              This activity focuses on string input using <AstroCode
+                code="Scanner.nextLine()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>Step 3: Read User Input</h5>
+            <p>
+              The <AstroCode
+                code="input"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> variable, which is a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> object, contains a number of methods for reading keyboard input.
+            </p>
+            <p>
+              This activity focuses on string input using <AstroCode
+                code="Scanner.nextLine()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />.
+            </p>
+            <Code code={Figure6} lang="java" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>Step 3: Read User Input</h5>
+            <p>
+              <AstroCode
+                code="Scanner.nextLine()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> is a method used to read an entire line of input from the user,
+              including any spaces. It waits for the user to type something and press
+              the enter key, then returns everything typed on that line as a <AstroCode
+                code="String"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />.
+            </p>
+            <Code
+              code={Figure6}
+              lang="java"
+              class="text-start"
+              mark={{ range: "8" }}
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>Step 3: Read User Input</h5>
+            <p>
+              The <AstroCode
+                code="System.out.print()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> displays text, but does not go to the next line. It is commonly
+              used when prompting the user for input.
+            </p>
+            <Code
+              code={Figure6}
+              lang="java"
+              class="text-start"
+              mark={{ range: "7" }}
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>Step 3: Read User Input</h5>
+            <p>
+              <AstroCode
+                code="Scanner.nextLine()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> will return any input as a string. Returned values, can be used
+              anywhere data of that type would normally exist.
+            </p>
+            <p>
+              The returned value is being assigned to the <AstroCode
+                code="food"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> variable.
+            </p>
+            <Code
+              code={Figure6}
+              lang="java"
+              class="text-start"
+              mark={{ range: "8" }}
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>Step 4: Use the input in your program</h5>
+
+            <Code
+              code={Figure7}
+              lang="java"
+              class="text-start"
+              mark={{ range: "9" }}
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Demo: Initialize a <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> Object
+            </h4>
+            <h5>Final Result</h5>
+            <video src={UserInputVideo} controls autoplay loop></video>
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Console Input</dt>
+              <dd>
+                A process where a computer program receives data from a user
+                through a text-based interface
+              </dd>
+              <dt>import statement</dt>
+              <dd>
+                A statement used at the beginning of a file to include classes
+                from other packages. Ex. 'java.util'.
+              </dd>
+              <dt>Return Statement</dt>
+              <dd>A statement used to exit the method and send a value back to the code that called it.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Importing classes and initializing objects.</ListItem
+            >
+            <ListItem variant="1"
+              >Prompting a user for input and saving it to a variable.</ListItem
+            >
+            <ListItem variant="1"
+              >Using variables that contain user input.</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >1-6-Input</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Initialize Scanner
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Import the <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> class file.</ListItem
+            >
+            <ListItem variant="2"
+              >Initialize a new <AstroCode
+                code="Scanner"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> object.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "1-2, 5" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Simple To-Do List
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Don't forget to interact with the program in the terminal!</ListItem
+            >
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "7-25" }}
+            mark={{ label: "Stop and run your code", range: "26" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: User Profile
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "26-50" }}
+            mark={{ label: "Stop and run your code", range: "51" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Simple Survey
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "51-68" }}
+            mark={{ label: "Stop and run your code", range: "69" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Fantasy Story
+            Builder
+          </h3>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "69-84" }}
+            mark={{ label: "Stop and run your code", range: "85" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <ol>
+              <li>
+                How did the <AstroCode
+                  code="Scanner.nextLine()"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                /> method allow you to make your programs interactive?
+              </li>
+              <li>
+                Why is it important to store user input in a variable before you
+                can use it?
+              </li>
+            </ol>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
