@@ -8,11 +8,11 @@ import { Code as AstroCode } from "astro:components";
 import { Image } from "astro:assets";
 
 // Assets
-import headphoneImg from "../../assets/courses/java-programming/img/output-headphone.png";
-import monitorImg from "../../assets/courses/java-programming/img/output-monitor.png";
-import speakerImg from "../../assets/courses/java-programming/img/output-speakers.png";
-import guiImg from "../../assets/courses/java-programming/img/gui.png";
-import tuiImg from "../../assets/courses/java-programming/img/tui.png";
+import headphoneImg from "../../assets/courses/shared/img/output-headphone.png";
+import monitorImg from "../../assets/courses/shared/img/output-monitor.png";
+import speakerImg from "../../assets/courses/shared/img/output-speakers.png";
+import guiImg from "../../assets/courses/shared/img/gui.png";
+import tuiImg from "../../assets/courses/shared/img/tui.png";
 
 // Code Snippets
 let figure1 = `
@@ -87,33 +87,43 @@ public class Main {
           </section>
           <section>
             <h4>Output</h4>
-            <p>Information that a program produces.</p>
-
-            <h5>Output Devices</h5>
+            <p>
+              Output refers to information that a program produces. It can be sent
+              to the user via some output device.
+            </p>
             <div class="row">
               <div class="col">
-                <Image src={monitorImg} alt="monitor" class="img-fluid" />
+                <Image src={monitorImg} alt="monitor" class="img-fluid fragment" />
               </div>
               <div class="col">
-                <Image src={speakerImg} alt="speaker" class="img-fluid" />
+                <Image src={speakerImg} alt="speaker" class="img-fluid fragment" />
               </div>
               <div class="col">
-                <Image src={headphoneImg} alt="headphone" class="img-fluid" />
+                <Image src={headphoneImg} alt="headphone" class="img-fluid fragment" />
               </div>
             </div>
           </section>
-          <section>
+          <section data-auto-animate>
             <h4>User Interfaces: GUIs and TUIs</h4>
             <p>
-              Graphical User Interface - Uses visual elements to let you interact with a program.
+              Graphical User Interface - Uses visual elements to let you
+              interact with a program.
             </p>
-            <p>Terminal user Interface - A user interface that uses text and symbols, rather than graphical elements.</p>
             <div class="row">
               <div class="col">
-                <Image src={guiImg} alt="GUI" class="img-fluid" />
+                <Image src={guiImg} alt="GUI" />
               </div>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>User Interfaces: GUIs and TUIs</h4>
+            <p>
+              Terminal user Interface - A user interface that uses text and
+              symbols, rather than graphical elements.
+            </p>
+            <div class="row">
               <div class="col">
-                <Image src={tuiImg} alt="TUI" class="img-fluid" />
+                <Image src={tuiImg} alt="TUI" />
               </div>
             </div>
           </section>

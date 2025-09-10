@@ -5,7 +5,27 @@ import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
 
+import headphoneImg from "../../assets/courses/shared/img/output-headphone.png";
+import monitorImg from "../../assets/courses/shared/img/output-monitor.png";
+import speakerImg from "../../assets/courses/shared/img/output-speakers.png";
+import guiImg from "../../assets/courses/shared/img/gui.png";
+import tuiImg from "../../assets/courses/shared/img/tui.png";
+
+//#region CodeSnippets
+const Figure1 = `
+console.log("Hello world!");
+`;
+const Figure2 = `
+Hello world!
+`;
+const Figure3 = `
+// This line prints a friendly greeting to the console
+console.log("Hello, world!");
+
+// console.log("This line is disabled for testing purposes.");
+`;
 const Task1 = `
 console.log("Hello, world!");
 console.log("This class is taught by Mr. Mortimer.");
@@ -65,6 +85,7 @@ I also accept the following items for extra credit:
 2. A preserved eyeball
 3. A VHS tape of a movie that nobody has heard of
 `;
+//#endregion
 ---
 
 <Layout>
@@ -81,216 +102,380 @@ I also accept the following items for extra credit:
         <!-- Introduction -->
         <h2>Introduction</h2>
 
-        <p>
-          In this lesson, you will learn about output in programming. For
-          console applications, <strong>output</strong> refers to information displayed
-          to the user. However, the meaning of output can vary depending on the context.
-          To output information to the user, we use the <AstroCode
-            code="console.log()"
-            lang={"javascript"}
-            inline
-            theme={"material-theme-ocean"}
-          />
-          function.
-        </p>
+        <Presentation>
+          <section>
+            <h3>Activity 1.1</h3>
+            <h4 class="text-skynest-theme">Hello World!</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Output</li>
+              <li>User Interfaces</li>
+              <li>
+                <AstroCode
+                  code="console.log()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </li>
+              <li>Comments</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Output</h4>
+            <p>
+              Output refers to information that a program produces. It can be
+              sent to the user via some output device.
+            </p>
+            <div class="row">
+              <div class="col">
+                <Image
+                  src={monitorImg}
+                  alt="monitor"
+                  class="img-fluid fragment"
+                />
+              </div>
+              <div class="col">
+                <Image
+                  src={speakerImg}
+                  alt="speaker"
+                  class="img-fluid fragment"
+                />
+              </div>
+              <div class="col">
+                <Image
+                  src={headphoneImg}
+                  alt="headphone"
+                  class="img-fluid fragment"
+                />
+              </div>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>User Interfaces: GUIs and TUIs</h4>
+            <p>
+              Graphical User Interface - Uses visual elements to let you
+              interact with a program.
+            </p>
+            <div class="row">
+              <div class="col">
+                <Image src={guiImg} alt="GUI" />
+              </div>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>User Interfaces: GUIs and TUIs</h4>
+            <p>
+              Terminal User Interface - A user interface that uses text and
+              symbols, rather than graphical elements.
+            </p>
+            <div class="row">
+              <div class="col">
+                <Image src={tuiImg} alt="TUI" />
+              </div>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>Your First JavaScript Function</h4>
+            <h4>
+              <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </h4>
 
-        <p>
-          The <AstroCode
-            code="console.log()"
-            lang={"javascript"}
-            inline
-            theme={"material-theme-ocean"}
-          /> function is a fundamental concept in programming.
-          <strong>Functions</strong> perform specific actions, and in this case,
-          <AstroCode
-            code="console.log()"
-            lang={"javascript"}
-            inline
-            theme={"material-theme-ocean"}
-          />
-          outputs a message to the user via the console. The console is a simple
-          terminal for running text-based computer applications. Most of the introductory
-          applications in these programming activities will be console-based.
-        </p>
+            <p>
+              <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> is a function that displays a message in a terminal application.
+            </p>
+            <Code code={Figure1} lang="javascript" class="text-start mb-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>Your First JavaScript Function</h4>
+            <h4>
+              <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </h4>
 
-        <p>
-          Additionally, we will learn how to write comments in JavaScript.
-          <strong>Comments</strong> serve two main purposes: documenting your code
-          and temporarily disabling parts of your program for testing. As we progress,
-          our programs will grow in size and complexity. It's crucial to document
-          your code to ensure it is easily understood and maintainable by yourself
-          and your team. In JavaScript, comments begin with the <AstroCode
-            code="//"
-            lang={"javascript"}
-            inline
-            theme={"material-theme-ocean"}
-          /> symbol.
-        </p>
+            <p>
+              <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> is a function that displays a message in a terminal application.
+            </p>
+            <Code code={Figure1} lang="javascript" class="text-start mb-3" />
+            <Code
+              code={Figure2}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+              title="Sample"
+            />
+          </section>
+          <section>
+            <h4>
+              Demo: Display a message of your choice using <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </h4>
+            <Code
+              code={'console.log("I love JavaScript!");'}
+              lang="javascript"
+              class="text-start mb-3"
+            />
+            <Code
+              code={"I love JavaScript!"}
+              lang="txt"
+              frame="terminal"
+              title="Demo"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              <AstroCode
+                code="// Comments"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </h4>
+            <p>
+              Comments serve two key roles: documenting code and disabling it
+              temporarily for testing.
+            </p>
+            <Code code={Figure3} lang="javascript" class="text-start mb-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              <AstroCode
+                code="// Comments"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </h4>
+            <p>Comments are completely ignored when the program is executed.</p>
+            <Code code={Figure3} lang="javascript" class="text-start mb-3" />
+            <Code
+              code={"Hello, world!"}
+              lang="txt"
+              frame="terminal"
+              title="Sample"
+              class="text-start mb-3"
+            />
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Function</dt>
+              <dd>Code that performs a specific action.</dd>
+              <dt>Output</dt>
+              <dd>Information that a program produces.</dd>
+              <dt>Console Output</dt>
+              <dd>
+                Text displayed by a program in a command-line interface, like a
+                terminal.
+              </dd>
+              <dt>Comments</dt>
+              <dd>
+                Notes written within the code that are ignored by JavaScript,
+                used by to explain or clarify the code.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
 
-        <h3>Objectives</h3>
-        <ul>
-          <ListItem variant="1">Writing and executing code</ListItem>
-          <ListItem variant="1">Displaying console output</ListItem>
-          <ListItem variant="1">Debugging potential syntax errors</ListItem>
-          <ListItem variant="1">Reading comments</ListItem>
-        </ul>
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1">Writing and executing code</ListItem>
+            <ListItem variant="1">Displaying console output</ListItem>
+            <ListItem variant="1">Debugging potential syntax errors</ListItem>
+            <ListItem variant="1">Reading comments</ListItem>
+          </ul>
+        </section>
 
         <Divider variant="8" classes="mb-4" />
 
-        <!-- Activity Tasks -->
-        <h2>Activity Tasks</h2>
-        <ul>
-          <ListItem variant="2">
-            Create a new JavaScript script named <span
-              class="text-skynest-theme">1-1-output.js</span
-            >.
-          </ListItem>
-          <ListItem variant="2"> Complete each task individually. </ListItem>
-        </ul>
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new JavaScript script named <span
+                class="text-skynest-theme">1-1-output.js</span
+              >.
+            </ListItem>
+            <ListItem variant="2"> Complete each task individually. </ListItem>
+          </ul>
 
-        <!-- Task 1 -->
-        <h3>
-          <span class="text-skynest-theme">Task 1</span>: Write and Test
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Write each line of code from the section making sure to stay within
-            the main method.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
-        <Code
-          code={Task1}
-          frame="code"
-          lang="javascript"
-          mark={{ label: "Stop and run your code", range: "5" }}
-          showLineNumbers
-          title="1-1-output.js"
-        />
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Write and Test
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              Write each line of code from the section making sure to stay
+              within the main method.
+            </ListItem>
+            <ListItem variant="2">
+              Run and test your project to ensure it executes as intended.
+            </ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            mark={{ label: "Stop and run your code", range: "5" }}
+            showLineNumbers
+            title="1-1-output.js"
+          />
 
-        <hr class="my-4" />
+          <hr class="my-4" />
 
-        <!-- Task 2 -->
-        <h3>
-          <span class="text-skynest-theme">Task 2</span>: Add More Code
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Write the additional sections of output under your current code.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
-        <Code
-          code={Task2}
-          frame="code"
-          ins={{ range: "5-23" }}
-          lang="javascript"
-          mark={{ label: "Stop and run your code", range: "24" }}
-          showLineNumbers
-          title="1-1-output.js"
-        />
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Add More Code
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              Write the additional sections of output under your current code.
+            </ListItem>
+            <ListItem variant="2">
+              Run and test your project to ensure it executes as intended.
+            </ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            ins={{ range: "5-23" }}
+            lang="javascript"
+            mark={{ label: "Stop and run your code", range: "24" }}
+            showLineNumbers
+            title="1-1-output.js"
+          />
 
-        <hr class="my-4" />
+          <hr class="my-4" />
 
-        <!-- Task 3 -->
-        <h3>
-          <span class="text-skynest-theme">Task 3</span>: Write a Custom Section
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Output a three-line paragraph of your choice somewhere in the
-            program. Keep it school appropriate.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Write a Custom
+            Section
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              Output a three-line paragraph of your choice somewhere in the
+              program. Keep it school appropriate.
+            </ListItem>
+            <ListItem variant="2">
+              Run and test your project to ensure it executes as intended.
+            </ListItem>
+          </ul>
 
-        <hr class="my-4" />
+          <hr class="my-4" />
 
-        <!-- Task 4 -->
-        <h3>
-          <span class="text-skynest-theme">Task 4</span>: Comments
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            There is a section of code that is 'commented out'. Uncomment the
-            code so that it executes when your program runs.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
-        <!-- End Activity Tasks -->
-
-        <Divider variant="8" classes="my-4" />
-
-        <h2>Sample Output</h2>
-
-        <p>
-          Your program output should something similar to the sample output
-          below.
-        </p>
-
-        <Code
-          code={SampleOutput}
-          frame="terminal"
-          lang="txt"
-          mark={{
-            label: "My Custom Section (Yours should look different)",
-            range: "20",
-          }}
-          showLineNumbers={false}
-          title="Sample Output"
-        />
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Comments
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              There is a section of code that is 'commented out'. Uncomment the
+              code so that it executes when your program runs.
+            </ListItem>
+            <ListItem variant="2">
+              Run and test your project to ensure it executes as intended.
+            </ListItem>
+          </ul>
+        </section>
 
         <Divider variant="8" classes="my-4" />
 
-        <h2>Reflection Questions</h2>
+        <section id="sample-output">
+          <h2>Sample Output</h2>
 
-        <p>
-          You may write your reflection answers as comments at the bottom of
-          your code.
-        </p>
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
 
-        <ol>
-          <li>
-            What is the primary function of <AstroCode
-              code="console.log()"
-              lang={"javascript"}
-              inline
-              theme={"material-theme-ocean"}
-            />? How does it relate to the idea of a program "speaking" to a
-            user?
-          </li>
-          <li>
-            Imagine you typed <code
-              ><span class="text-skynest-red">Cosnol</span>.log()</code
-            > by mistake. What do you think would happen when you try to run your
-            program? Why is correct spelling so important in programming?
-          </li>
-          <li>
-            What was the most challenging part of writing your first line of
-            code?
-          </li>
-        </ol>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            mark={{
+              label: "My Custom Section (Yours should look different)",
+              range: "20",
+            }}
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
 
         <Divider variant="8" classes="my-4" />
 
-        <h2>Submission</h2>
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
 
-        <p>
-          Submit your activity and reflection answers to the appropriate
-          dropbox.
-        </p>
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
 
-        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
-          Activity Complete
-        </h1>
+          <ol>
+            <li>
+              What is the primary function of <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              />? How does it relate to the idea of a program "speaking" to a
+              user?
+            </li>
+            <li>
+              Imagine you typed <code
+                ><span class="text-skynest-red">Cosnol</span>.log()</code
+              > by mistake. What do you think would happen when you try to run your
+              program? Why is correct spelling so important in programming?
+            </li>
+            <li>
+              What was the most challenging part of writing your first line of
+              code?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
       </div>
     </div>
   </div>
