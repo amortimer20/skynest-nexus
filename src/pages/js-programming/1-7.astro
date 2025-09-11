@@ -1,0 +1,806 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+let input = prompt("Enter your dollar amount:"); // Step 1
+let dollars = parseFloat(input); // Step 2
+console.log(dollars + 10); // Now you can do math!
+`;
+const Figure2 = `
+let dollars = parseFloat(prompt("Enter your dollar amount:"));
+console.log(dollars + 10);
+`;
+const Task1 = `
+console.log("--- Demo 1 - Age to Months Calculator ---");
+
+// Convert input to a number in two steps (simple, but tedious). 
+let ageString = prompt("Enter your age:"); // 1) User types in age
+let age = parseInt(ageString); // 2) Convert string input to an integer
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+prompt("\\nPress enter to continue...");
+//
+`;
+const Task2 = `
+console.log("--- Demo 1 - Age to Months Calculator ---");
+
+// Convert input to a number in two steps (simple, but tedious). 
+let ageString = prompt("Enter your age:"); // 1) User types in age
+let age = parseInt(ageString); // 2) Convert string input to an integer
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 2 - Square Area Calculator ---");
+
+// Convert input to a number in one step
+let length = parseFloat(prompt("Enter the length of the square: "));
+let area = length * length;
+console.log(\`The area of the square is \${area}\`);
+
+prompt("\\nPress enter to continue...");
+//
+`;
+const Task3 = `
+console.log("--- Demo 1 - Age to Months Calculator ---");
+
+// Convert input to a number in two steps (simple, but tedious). 
+let ageString = prompt("Enter your age:"); // 1) User types in age
+let age = parseInt(ageString); // 2) Convert string input to an integer
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 2 - Square Area Calculator ---");
+
+// Convert input to a number in one step
+let length = parseFloat(prompt("Enter the length of the square: "));
+let area = length * length;
+console.log(\`The area of the square is \${area}\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 3 - Score Calculator ---");
+
+let score1 = parseFloat(prompt("Enter the score for game 1: "));
+let score2 = parseFloat(prompt("Enter the score for game 2: "));
+let score3 = parseFloat(prompt("Enter the score for game 3: "));
+let totalScore = score1 + score2 + score3;
+console.log(\`Your total score for the three games is \${totalScore}!\`);
+
+prompt("\\nPress enter to continue...");
+//
+`;
+const Task4 = `
+console.log("--- Demo 1 - Age to Months Calculator ---");
+
+// Convert input to a number in two steps (simple, but tedious). 
+let ageString = prompt("Enter your age:"); // 1) User types in age
+let age = parseInt(ageString); // 2) Convert string input to an integer
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 2 - Square Area Calculator ---");
+
+// Convert input to a number in one step
+let length = parseFloat(prompt("Enter the length of the square: "));
+let area = length * length;
+console.log(\`The area of the square is \${area}\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 3 - Score Calculator ---");
+
+let score1 = parseFloat(prompt("Enter the score for game 1: "));
+let score2 = parseFloat(prompt("Enter the score for game 2: "));
+let score3 = parseFloat(prompt("Enter the score for game 3: "));
+let totalScore = score1 + score2 + score3;
+console.log(\`Your total score for the three games is \${totalScore}!\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 4 - Shopping Cart Subtotal ---");
+
+let item1Price = parseFloat(prompt("Enter the price of the first item: "));
+let item2Price = parseFloat(prompt("Enter the price of the second item: "));
+let subtotal = item1Price + item2Price;
+
+// There is a function for making the dollar amount go to two decimals.
+// Try subtotal.toFixed(2) inside the string template.
+console.log(\`The subtotal for your two items is $\${subtotal}.\`);
+
+prompt("\\nPress enter to continue...");
+//
+`;
+const Task5 = `
+console.log("--- Demo 1 - Age to Months Calculator ---");
+
+// Convert input to a number in two steps (simple, but tedious). 
+let ageString = prompt("Enter your age:"); // 1) User types in age
+let age = parseInt(ageString); // 2) Convert string input to an integer
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 2 - Square Area Calculator ---");
+
+// Convert input to a number in one step
+let length = parseFloat(prompt("Enter the length of the square: "));
+let area = length * length;
+console.log(\`The area of the square is \${area}\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 3 - Score Calculator ---");
+
+let score1 = parseFloat(prompt("Enter the score for game 1: "));
+let score2 = parseFloat(prompt("Enter the score for game 2: "));
+let score3 = parseFloat(prompt("Enter the score for game 3: "));
+let totalScore = score1 + score2 + score3;
+console.log(\`Your total score for the three games is \${totalScore}!\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 4 - Shopping Cart Subtotal ---");
+
+let item1Price = parseFloat(prompt("Enter the price of the first item: "));
+let item2Price = parseFloat(prompt("Enter the price of the second item: "));
+let subtotal = item1Price + item2Price;
+
+// There is a function for making the dollar amount go to two decimals.
+// Try subtotal.toFixed(2) inside the string template.
+console.log(\`The subtotal for your two items is $\${subtotal}.\`);
+
+prompt("\\nPress enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 5 - Hours to Minutes Converter ---");
+
+let hours = parseFloat(prompt("Enter a number of hours: "));
+let minutes = hours * 60;
+console.log(\`\${hours} hours is equal to \${minutes} minutes.\\n\`);
+//
+`;
+const SampleOutput = `
+--- Demo 1 - Age to Months Calculator ---
+Enter your age: 35
+You are 35 years old. That's 420 months old!
+
+Press enter to continue... 
+--- Demo 2 - Square Area Calculator ---
+Enter the length of the square:  11.5
+The area of the square is 132.25
+
+Press enter to continue... 
+--- Demo 3 - Score Calculator ---
+Enter the score for game 1:  45
+Enter the score for game 2:  64
+Enter the score for game 3:  99
+Your total score for the three games is 208!
+
+Press enter to continue... 
+--- Demo 4 - Shopping Cart Subtotal ---
+Enter the price of the first item:  12.50
+Enter the price of the second item:  10
+The subtotal for your two items is $22.5.
+
+Press enter to continue... 
+--- Demo 5 - Hours to Minutes Converter ---
+Enter a number of hours:  12
+12 hours is equal to 720 minutes.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.7 Numeric Input</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.7</h3>
+            <h4 class="text-skynest-theme">Numeric Input</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Issues with strings and arithmetic</li>
+              <li>Converting strings into numbers</li>
+              <ul>
+                <li>
+                  The <AstroCode
+                    code="parseInt()"
+                    lang="javascript"
+                    theme="material-theme-ocean"
+                    inline
+                  /> function
+                </li>
+                <li>
+                  The <AstroCode
+                    code="parseFloat()"
+                    lang="javascript"
+                    theme="material-theme-ocean"
+                    inline
+                  /> function
+                </li>
+              </ul>
+              <li>Converting user input into numeric form</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Issues with Strings and Arithmetic</h4>
+            <p>
+              To convert strings to numbers for computation, you can't rely on
+              the numbers in strings to perform math correctly.
+            </p>
+
+            <p class="fragment">
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code=`"3" + "3" // 33`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code=` 2 * "3" + "3" // 63`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Issues with Strings and Arithmetic</h4>
+            <p>
+              JavaScript might let you get away with doing math with strings,
+              but many languages won't.
+            </p>
+
+            <p class="fragment">
+              Javascript:
+              <i class="text-skynest-green si-check"></i><AstroCode
+                code=`3 * "3" -> 9`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              Python:
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code=` "3" * 3 -> "333"`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              Java:
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code=` "3" * 3 ->  Syntax Error`
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+          </section>
+          <section>
+            <h4>Converting Strings into Numbers</h4>
+            <p>
+              JavaScript has two functions for converting strings into numbers:
+            </p>
+            <p>
+              <AstroCode
+                code="parseInt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p>
+              <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              The <AstroCode
+                code="parseInt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> Function
+            </h4>
+
+            <p>
+              The <AstroCode
+                code="parseInt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function attempts to take a string and convert it into an integer
+              number.
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`parseInt("55") -> 55`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`parseInt("29.25") -> 29`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`parseInt("35 years") -> 35`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`parseInt("Mortimer is 35") -> NaN`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> (Not a Number)
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              The <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> Function
+            </h4>
+
+            <p>
+              The <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function attempts to take a string and convert it into a floating-point
+              number (decimal).
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`parseFloat("29.25") -> 29.25`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`parseFloat("55") -> 55`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`parseFloat("35.95 cents") -> 35.95`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`parseFloat("Amount: $35.95") -> NaN`
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> (Not a Number)
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Converting User Input into Numeric Form</h4>
+            <h5>Get Input and Convert: 2 Steps</h5>
+            <ol>
+              <li>
+                <b>Get the user's input as a string:</b> The <AstroCode
+                  code="prompt()"
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> function gets whatever the user types and saves it as a string.
+              </li>
+              <li>
+                <b>Convert the string to a number:</b> Use <AstroCode
+                  code="parseFloat()"
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> to turn the text string into a usable number so you can do math
+                with it.
+              </li>
+            </ol>
+
+            <Code code={Figure1} lang="javascript" class="text-start mt-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>Converting User Input into Numeric Form</h4>
+            <h5>Get Input and Convert: 1 Step</h5>
+
+            <p>
+              Combine getting the user's input and convert it into a number by
+              nesting the <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function inside the <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+              function. JavaScript evaluates what's inside the parentheses first.
+            </p>
+            <Code code={Figure2} lang="javascript" class="text-start mt-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>Converting User Input into Numeric Form</h4>
+            <h5>Get Input and Convert: 1 Step</h5>
+
+            <p>
+              Combine getting the user's input and convert it into a number by
+              nesting the <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function inside the <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+              function. JavaScript evaluates what's inside the parentheses first.
+            </p>
+            <Code
+              code={Figure2}
+              lang="javascript"
+              class="text-start mt-3"
+              mark=`prompt("Enter your dollar amount:")`
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Converting User Input into Numeric Form</h4>
+            <h5>Get Input and Convert: 1 Step</h5>
+
+            <p>
+              Combine getting the user's input and convert it into a number by
+              nesting the <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function inside the <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+              function. JavaScript evaluates what's inside the parentheses first.
+            </p>
+            <Code
+              code={Figure2}
+              lang="javascript"
+              class="text-start mt-3"
+              mark=`parseFloat(prompt("Enter your dollar amount:"))`
+            />
+          </section>
+          <section>
+            <h4>
+              <AstroCode
+                code="parseInt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> vs. <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </h4>
+
+            <p>
+              Use <AstroCode
+                code="parseInt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> when you need a whole number (student ID, age, number of people,
+              etc.).
+            </p>
+
+            <p>
+              Use <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> when you need a decimal number (dollar amount, weight, GPA, etc.).
+            </p>
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Numeric Input</dt>
+              <dd>
+                The process of getting numerical data from a user, typically via
+                a keyboard, for a program to use in calculations.
+              </dd>
+              <dt>Nesting Functions</dt>
+              <dd>The practice of placing one function call inside another.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Prompting a user for input and saving it to a variable</ListItem
+            >
+            <ListItem
+              >Converting input from a string to a number
+              <ul>
+                <ListItem variant="2"
+                  >Convert a string into an integer using <AstroCode
+                    code="parseInt()"
+                    lang="javascript"
+                    theme="material-theme-ocean"
+                    inline
+                  /></ListItem
+                >
+                <ListItem variant="2"
+                  >Convert a string into a floating-point number (decimal) using <AstroCode
+                    code="parseFloat()"
+                    lang="javascript"
+                    theme="material-theme-ocean"
+                    inline
+                  /></ListItem
+                >
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >1-7-numeric-input.js</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Age to Months
+            Calculator
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Convert the user's input to a number over two lines.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-7-numeric-input.js"
+            mark={{ label: "Stop and run your code", range: "9" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Square Area
+            Calculator
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Convert the user's input to a number in one line.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-7-numeric-input.js"
+            ins={{ range: "9-19" }}
+            mark={{ label: "Stop and run your code", range: "20" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Score Calculator
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-7-numeric-input.js"
+            ins={{ range: "20-31" }}
+            mark={{ label: "Stop and run your code", range: "32" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Shopping Cart
+            Subtotal
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-7-numeric-input.js"
+            ins={{ range: "32-45" }}
+            mark={{ label: "Stop and run your code", range: "46" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Hours to Minutes
+            Converter
+          </h3>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-7-numeric-input.js"
+            ins={{ range: "46-53" }}
+            mark={{ label: "Stop and run your code", range: "54" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              Why is it important to convert user input from a string to a
+              number before performing mathematical calculations, and what can
+              happen if you don't?
+            </li>
+            <li>
+              In what scenarios would you choose to use the <AstroCode
+                code="parseInt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function versus the <AstroCode
+                code="parseFloat()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function? Give one specific example for each.
+            </li>
+            <li>
+              Describe a real-world application or program you could create that
+              would require using numeric input from a user. What data would you
+              need to collect, and what calculations would you perform?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
