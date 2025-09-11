@@ -1,0 +1,116 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+import MadLibImage from "../../assets/courses/code-challenges/img/mad-lib-sample.jpg";
+
+//#region CodeSnippets
+const SampleOutput = `
+--- The Wonderful Journey ---
+Enter a noun: Nintendo Entertainment System [Enter]
+Enter an adjective: smelly [Enter]
+Enter a verb: jump [Enter]
+Enter another noun: hot dog [Enter]
+Enter an adverb: suspiciously [Enter]
+
+Here is your story:
+Once upon a time, a smelly Nintendo Entertainment System decided to jump.
+On its journey, it found a mysterious hot dog.
+The Nintendo Entertainment System and the hot dog became friends.
+Together, they jumped suspiciously into the sunset and lived happily ever
+after.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Challenge 1.1 Mad Lib</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>Build a console-based mad lib game.</p>
+
+          <p>
+            A mad lib is a word game where players fill in blanks with random
+            words—like nouns, verbs, or places—to complete a silly story. The
+            result is often weird, funny, and totally unexpected.
+            <a href="http://www.madtakes.com/libs/176.html" target="_blank"
+              >Try one here</a
+            > to see how it works.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Ask the user for input</ListItem>
+            <ListItem>Store input in a variable</ListItem>
+            <ListItem>Use variables to format and display output</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >madlib-lastname</span
+              >. Don't forget the file extension (e.g. .js, .py, etc.).</ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2">Print a story title at the start of your program.</ListItem>
+                <ListItem variant="2">
+                  Ask the user to enter at least 5 words (e.g., noun, verb,
+                  adjective).
+                </ListItem>
+                <ListItem variant="2">Insert those words into a pre-written story template.</ListItem>
+                <ListItem variant="2">Print the completed story in a fun, readable format.</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h4>Sample Output</h4>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .slow-flash {
+    animation: slow-flash 2s ease-out infinite;
+  }
+</style>

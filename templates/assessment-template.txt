@@ -1,0 +1,74 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `INSERT`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>INSERT TITLE</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>INSERT</p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>INSERT</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem>Create a new project named <span class="text-skynest-theme">INSERT</span></ListItem>
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2">INSERT</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h4>Sample Output</h4>
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin INSERT (Challenge OR Sprint)
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .slow-flash {
+    animation: slow-flash 2s ease-out infinite;
+  }
+</style>
