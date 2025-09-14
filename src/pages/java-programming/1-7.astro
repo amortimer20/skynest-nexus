@@ -1,0 +1,749 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+Scanner input = new Scanner(System.in);
+
+System.out.print("Enter your ID: ");
+int id = input.nextInt();
+System.out.print("Enter your balance: $");
+double balance = input.nextDouble();
+`;
+const Figure2 = `
+Enter your ID: 20255555 [Enter]
+Enter your balance: $55.59 [Enter]
+`;
+const Figure3 = `
+Scanner input = new Scanner(System.in);
+
+System.out.print("Enter the distance: ");
+double id = input.nextDouble();
+
+System.out.print("Enter the unit: ");
+String unit = input.nextLine();
+`;
+const Figure4 = `
+Enter the distance: 10 [Enter]
+Enter the unit: [Enter]
+`;
+const Figure5 = `
+Scanner input = new Scanner(System.in);
+
+System.out.print("Enter the distance: ");
+double id = input.nextDouble();
+
+input.nextLine(); // Consume the leftover \\n
+
+System.out.print("Enter the unit: ");
+String unit = input.nextLine();
+`;
+const Figure6 = `
+Enter the distance: 10 [Enter]
+Enter the unit: Km [Enter]
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age to Months Calculator ---");
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        System.out.println("You are " + age + " years old. That's " + (age * 12) + " months old!");
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age to Months Calculator ---");
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        System.out.println("You are " + age + " years old. That's " + (age * 12) + " months old!");
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - Square Area Calculator ---");
+
+        System.out.print("Enter the length of the square: ");
+        double length = input.nextDouble();
+
+        double area = length * length;
+        System.out.println("The area of the square is " + area);
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task4 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age to Months Calculator ---");
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        System.out.println("You are " + age + " years old. That's " + (age * 12) + " months old!");
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - Square Area Calculator ---");
+
+        System.out.print("Enter the length of the square: ");
+        double length = input.nextDouble();
+
+        double area = length * length;
+        System.out.println("The area of the square is " + area);
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 3 - Score Calculator ---");
+
+        System.out.print("Enter the score for game 1: ");
+        int score1 = input.nextInt();
+        System.out.print("Enter the score for game 2: ");
+        int score2 = input.nextInt();
+        System.out.print("Enter the score for game 3: ");
+        int score3 = input.nextInt();
+
+        int totalScore = score1 + score2 + score3;
+        System.out.println("The total score for the games is " + totalScore);
+
+        input.nextLine();
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task5 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age to Months Calculator ---");
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        System.out.println("You are " + age + " years old. That's " + (age * 12) + " months old!");
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - Square Area Calculator ---");
+
+        System.out.print("Enter the length of the square: ");
+        double length = input.nextDouble();
+
+        double area = length * length;
+        System.out.println("The area of the square is " + area);
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 3 - Score Calculator ---");
+
+        System.out.print("Enter the score for game 1: ");
+        int score1 = input.nextInt();
+        System.out.print("Enter the score for game 2: ");
+        int score2 = input.nextInt();
+        System.out.print("Enter the score for game 3: ");
+        int score3 = input.nextInt();
+
+        int totalScore = score1 + score2 + score3;
+        System.out.println("The total score for the games is " + totalScore);
+
+        input.nextLine();
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 4 - Shopping Cart Subtotal ---");
+
+        System.out.print("Enter the price of the first item: ");
+        double item1Price = input.nextDouble();
+        System.out.print("Enter the price of the second item: ");
+        double item2Price = input.nextDouble();
+
+        double subtotal = item1Price + item2Price;
+        System.out.println("The subtotal is $" + subtotal);
+        
+        // Try this to force the subtotal to two decimal places.
+        // System.out.println(String.format("The subtotal is $%.2f", subtotal));
+
+        input.nextLine();
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task6 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age to Months Calculator ---");
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        System.out.println("You are " + age + " years old. That's " + (age * 12) + " months old!");
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - Square Area Calculator ---");
+
+        System.out.print("Enter the length of the square: ");
+        double length = input.nextDouble();
+
+        double area = length * length;
+        System.out.println("The area of the square is " + area);
+
+        input.nextLine(); // Consume leftover \\n [Enter] from numeric input
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 3 - Score Calculator ---");
+
+        System.out.print("Enter the score for game 1: ");
+        int score1 = input.nextInt();
+        System.out.print("Enter the score for game 2: ");
+        int score2 = input.nextInt();
+        System.out.print("Enter the score for game 3: ");
+        int score3 = input.nextInt();
+
+        int totalScore = score1 + score2 + score3;
+        System.out.println("The total score for the games is " + totalScore);
+
+        input.nextLine();
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 4 - Shopping Cart Subtotal ---");
+
+        System.out.print("Enter the price of the first item: ");
+        double item1Price = input.nextDouble();
+        System.out.print("Enter the price of the second item: ");
+        double item2Price = input.nextDouble();
+
+        double subtotal = item1Price + item2Price;
+        System.out.println("The subtotal is $" + subtotal);
+        
+        // Try this to force the subtotal to two decimal places.
+        // System.out.println(String.format("The subtotal is $%.2f", subtotal));
+
+        input.nextLine();
+        System.out.print("Press Enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 5 - Hours to Minutes Converter ---");
+
+        System.out.print("Enter a number of hours: ");
+        int hours = input.nextInt();
+        int minutes = hours * 60;
+        
+        System.out.println(hours + " hours is equal to " + minutes + " minutes.");
+//
+    }
+}
+`;
+const SampleOutput = `
+--- Demo 1 - Age to Months Calculator ---
+Enter your age: 35
+You are 35 years old. That's 420 months old!
+Press Enter to continue...
+
+--- Demo 2 - Square Area Calculator ---
+Enter the length of the square: 12.5
+The area of the square is 156.25
+Press Enter to continue...
+
+--- Demo 3 - Score Calculator ---
+Enter the score for game 1: 76
+Enter the score for game 2: 45
+Enter the score for game 3: 32
+The total score for the games is 153
+Press Enter to continue...
+
+--- Demo 4 - Shopping Cart Subtotal ---
+Enter the price of the first item: 13.12
+Enter the price of the second item: 14.28
+The subtotal is $27.4
+Press Enter to continue...
+
+--- Demo 5 - Hours to Minutes Converter ---
+Enter a number of hours: 11
+11 hours is equal to 660 minutes.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.7 Numeric Input</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.7</h3>
+            <h4 class="text-skynest-theme">Numeric Input</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>
+                Numeric input methods with <AstroCode
+                  code="Scanner"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                />
+              </li>
+              <li>
+                Issues when getting string and numeric input with <AstroCode
+                  code="Scanner"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                />
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>
+              <AstroCode
+                code="Scanner.nextInt()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> and <AstroCode
+                code="Scanner.nextDouble()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />
+            </h4>
+            <p>
+              When numeric input is necessary, use <AstroCode
+                code="Scanner.nextInt()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> and <AstroCode
+                code="Scanner.nextDouble()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />.
+            </p>
+            <Code code={Figure1} lang="java" class="fragment text-start mb-3" />
+            <Code
+              code={Figure2}
+              lang="txt"
+              frame="terminal"
+              class="fragment text-start"
+            />
+          </section>
+          <section>
+            <h4>
+              <AstroCode
+                code="Scanner.nextInt()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> vs. <AstroCode
+                code="Scanner.nextDouble()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />
+            </h4>
+
+            <p>
+              Use <AstroCode
+                code="Scanner.nextInt()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> when you need a whole number (student ID, age, number of people,
+              etc.).
+            </p>
+            <p>
+              Use <AstroCode
+                code="Scanner.nextDouble()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> when you need a decimal number (dollar amount, weight, GPA, etc.).
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Issues when getting string and numeric input</h4>
+            <p class="fragment">
+              When you press the Enter key after typing a number, it leaves a
+              hidden new-line character<AstroCode
+                code="\\n"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> in the input stream. Methods like <AstroCode
+                code="Scanner.nextInt()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> and <AstroCode
+                code="Scanner.nextDouble()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> read only the number, but they leave the new-line character behind.
+            </p>
+            <p class="fragment">
+              If your program then asks for a string using <AstroCode
+                code="Scanner.nextLine()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />, it will immediately read the leftover new-line character as an
+              empty string and skip the input you were expecting to type.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Issues when getting string and numeric input</h4>
+            <Code code={Figure3} lang="java" class="text-start mb-3" />
+            <Code
+              code={Figure4}
+              lang="txt"
+              frame="terminal"
+              class="fragment text-start"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Issues when getting string and numeric input</h4>
+            <h5>
+              Fix: Use an extra <AstroCode
+                code="Scanner.nextLine()"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> to "consume" the leftover <AstroCode
+                code="\\n"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />
+            </h5>
+            <Code code={Figure5} lang="java" class="text-start mb-3" />
+            <Code
+              code={Figure6}
+              lang="txt"
+              frame="terminal"
+              class="fragment text-start"
+            />
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Input Stream</dt>
+              <dd>
+                The flow of data from a source, such as a keyboard, into a
+                program. When you type and press <b>enter</b>, the characters
+                you've typed are sent to this stream. Methods from <AstroCode
+                  code="Scanner"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                /> read from this stream.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1">Prompting a user for numeric input</ListItem>
+            <ListItem variant="1"
+              >Performing math operations with user input</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >1-7-Numeric-Input</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Initialize Scanner
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "1-2, 5" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Age to Months
+            Calculator
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "7-16" }}
+            mark={{ label: "Stop and run your code", range: "17" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Square Area
+            Calculator
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "17-30" }}
+            mark={{ label: "Stop and run your code", range: "31" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Score Calculator
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "31-48" }}
+            mark={{ label: "Stop and run your code", range: "49" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Shopping Cart
+            Calculator
+          </h3>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "49-67" }}
+            mark={{ label: "Stop and run your code", range: "68" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 6 -->
+          <h3>
+            <span class="text-skynest-theme">Task 6</span>: Hours to Minutes
+            Calculator
+          </h3>
+          <Code
+            code={Task6}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "68-77" }}
+            mark={{ label: "Stop and run your code", range: "78" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              In what scenarios would you choose to use the <AstroCode
+                code="Scanner.nextInt()"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              /> method versus the <AstroCode
+                code="Scanner.nextDouble()"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              /> method? Give one specific example for each.
+            </li>
+            <li>
+              Describe a real-world application or program you could create that
+              would require using numeric input from a user. What data would you
+              need to collect, and what calculations would you perform?
+            </li>
+            <li>
+              Why is it important to "consume" the leftover <AstroCode
+                code="\\n"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              /> character with
+              <AstroCode
+                code="Scanner.nextLine()"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              /> after using numeric input methods? What would happen if you forgot
+              to include this step in a program that also needed to read a string?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
