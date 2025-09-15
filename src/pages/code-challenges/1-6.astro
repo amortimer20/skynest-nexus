@@ -1,0 +1,113 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+import LineSlopeImg from "../../assets/courses/code-challenges/img/line-slope.png";
+
+//#region CodeSnippets
+const SampleOutput = `
+Enter x1: 2 [Enter]
+Enter y1: 3 [Enter]
+Enter x2: 12 [Enter]
+Enter y2: 14 [Enter]
+The slope of the line is 1.1
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Challenge 1.6 Line Slope Calculator</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            When graphing lines in Algebra, it's important to understand how to
+            calculate the slope of a line. To calculate the slope, at least two
+            points must be identified. You can then calculate the slope using
+            the <i>Slope Formula</i>. The Slope Formula is defined as:
+          </p>
+
+          <img src={LineSlopeImg.src} alt="Line Slope Formula" />
+
+          <p>
+            where <i>m</i> is the slope, the ordered pair (X<sub>1</sub>, Y<sub
+              >1</sub
+            >) is the first point, and the ordered pair (X<sub>2</sub>, Y<sub
+              >2</sub
+            >) is the second point.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Prompting a user for input</ListItem>
+            <ListItem>Saving user input to variables</ListItem>
+            <ListItem
+              >Converting input to the correct data type (if necessary)</ListItem
+            >
+            <ListItem>Performing arithmetic calculations</ListItem>
+            <ListItem>Formatting custom output using variables</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >1-6-line-slope-calculator</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2"
+                  >Prompt the user to enter four values corresponding to two
+                  points of a line i.e. (X<sub>1</sub>, Y<sub>1</sub>) and
+                  (X<sub>2</sub>, Y<sub>2</sub>)</ListItem
+                >
+                <ListItem variant="2">Calculate the slope using the Slope Formula.</ListItem>
+                <ListItem variant="2">Optionally, round the answer to three decimal places.</ListItem>
+                <ListItem variant="2">Display the calculated slope to the user in a clear and formatted manner.</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
