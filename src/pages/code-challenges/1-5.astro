@@ -1,0 +1,103 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+Enter the amount of change needed (in cents): 68 [Enter]
+You will need:
+2 quarters
+1 dime
+1 nickel
+3 pennies
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Challenge 1.5 Change Calculator</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Your task is to write a program that helps novice cashiers give back
+            the correct change efficiently. The program should start with the
+            largest coin denomination and work its way down until the exact
+            change is given.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Prompting a user for input</ListItem>
+            <ListItem>Saving user input to variables</ListItem>
+            <ListItem
+              >Converting input to the correct data type (if necessary)</ListItem
+            >
+            <ListItem>Performing arithmetic calculations</ListItem>
+            <ListItem>Formatting custom output using variables</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >1-5-change-calculator</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2"
+                  >Prompt the user to input the amount of change needed. For
+                  simplicity, assume the value will range from 1 to 99 cents.</ListItem
+                >
+                <ListItem variant="2"
+                  >alculate the change starting with the largest denomination
+                  (quarters) and work down to the smallest (pennies).</ListItem
+                >
+                <ListItem variant="2">Display the result in a clear and concise format.</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
