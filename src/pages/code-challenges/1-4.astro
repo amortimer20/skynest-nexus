@@ -1,0 +1,132 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+--- Tip Calculator ---
+Enter the bill subtotal: 50.00 [Enter]
+Enter the tip percentage: 15 [Enter]
+
+Tip amount: $7.50
+Total amount: $57.50
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Challenge 1.4 Tip Calculator</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Create a console application that helps users calculate the tip
+            amount based on their bill subtotal and a given tip percentage.
+          </p>
+
+          <h5>Terms</h5>
+          <ul>
+            <ListItem>Bill/Subtotal: The cost of your food and drink</ListItem>
+            <ListItem
+              >Tip/Gratuity: Additional payment given for a service</ListItem
+            >
+            <ListItem>Total: The sum of the subtotal and the tip</ListItem>
+          </ul>
+
+          <p>
+            <strong>Example 1:</strong> A $10 bill with 20% tip = $2 tip; $12 total
+          </p>
+          <p>
+            <strong>Example 2:</strong> A $25 bill with 18% tip = $4.50 tip; $29.50
+            total
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Prompting a user for input</ListItem>
+            <ListItem>Saving user input to variables</ListItem>
+            <ListItem
+              >Converting input to the correct data type (if necessary)</ListItem
+            >
+            <ListItem>Performing arithmetic calculations</ListItem>
+            <ListItem>Formatting custom output using variables</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+
+          <ul>
+            <ListItem>
+              Create a project named <span class="text-skynest-theme"
+                >tipcalculator-lastname</span
+              >.
+            </ListItem>
+            <ListItem>
+              Complete the following tasks:
+              <ul>
+                <ListItem variant="2"
+                  >Prompt the user to enter the bill subtotal.</ListItem
+                >
+                <ListItem variant="2">
+                  Prompt the user to enter the tip percentage as a whole number.
+                  For example, 20 means 20%.
+                </ListItem>
+                <ListItem variant="2">Calculate the tip amount.</ListItem>
+                <ListItem variant="2">
+                  Formula: <strong class="text-skynest-cyan"
+                    >Tip = Subtotal &times; (TipPercentage &div; 100)</strong
+                  >
+                </ListItem>
+                <ListItem variant="2">Calculate the total amount.</ListItem>
+                <ListItem variant="2">
+                  Display the calculated tip amount and total amount to the user
+                  in a clear and formatted manner.
+                </ListItem>
+                <ListItem variant="2">
+                  If you want to ensure your dollar amount always has two
+                  decimal places, google search how to accomplish this with your
+                  respective programming language.
+                </ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <section id="sample-output">
+          <h4>Sample Output</h4>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
