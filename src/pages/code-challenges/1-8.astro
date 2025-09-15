@@ -1,0 +1,90 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+--- Circle Area Calculator ---
+Enter the radius of the circle: 5 [Enter]
+The area of the circle is 78.54
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Challenge 1.8 - Area of a Circle</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Create a console application that calculates the area of a circle
+            based on user input for the radius.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Prompting a user for input</ListItem>
+            <ListItem>Converting input to the correct data type (if necessary)</ListItem>
+            <ListItem>Performing arithmetic calculations</ListItem>
+            <ListItem>Formatting output</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >area-circle-calculator</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2">Prompt the user to enter the radius of the circle.</ListItem>
+                <ListItem variant="2">Use the formula <span class="text-skynest-cyan">Area = π × radius<sup>2</sup></span> to calculate the area of the circle.</ListItem>
+                <ListItem variant="2">Optionally, round the answer to two decimal places.</ListItem>
+                <ListItem variant="2">Display the calculated area to the user in a clear and formatted manner.</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
