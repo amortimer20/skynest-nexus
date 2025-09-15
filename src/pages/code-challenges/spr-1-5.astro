@@ -1,0 +1,104 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+Enter the first number: 10 [Enter]
+Enter the second number: 2 [Enter]
+
+10 plus 2 equals 12
+10 minus 2 equals 8
+10 times 2 equals 20
+10 divided by 2 equals 5
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Sprint 1.5 Simple Math</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Obtain some numbers from a user and perform simple arithmetic
+            calculations using their input.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Prompting a user for input</ListItem>
+            <ListItem>Performing arithmetic</ListItem>
+            <ListItem>Formatting text output</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >sprint-1-5</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2"
+                  >Prompt the user to enter two numbers.</ListItem
+                >
+                <ListItem variant="2"
+                  >Perform the following operations with the input:
+                  <ul>
+                    <ListItem variant="3">Addition</ListItem>
+                    <ListItem variant="3">Subtraction</ListItem>
+                    <ListItem variant="3">Multiplication</ListItem>
+                    <ListItem variant="3">Division</ListItem>
+                  </ul>
+                </ListItem>
+                <ListItem variant="2"
+                  >Display the result of each operation.
+                </ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+
+          <Divider variant="8" />
+
+          <section id="sample-output">
+            <h3>Sample Output</h3>
+            <Code
+              code={SampleOutput}
+              frame="terminal"
+              title="Sample Output"
+              lang="txt"
+            />
+          </section>
+
+          <h1
+            class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+          >
+            Begin Sprint
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
