@@ -1,0 +1,1164 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+final double TAX_RATE = 0.08;
+...
+double total = subtotal * TAX_RATE; 
+`;
+const Figure2 = `
+double myDouble = 7.99;
+int myInt = (int) myDouble; // myInt becomes 7
+`;
+const Figure3 = `
+int a = 5;
+int b = 2;
+double result = (double) a / b; // The cast ensures floating-point division
+// The expression is evaluated as 5.0 / 2, and the result is 2.5
+`;
+const Figure4 = `
+int x = 5;
+int y = ++x; // Prefix increment
+// x is incremented to 6, then assigned to y. Both x and y are now 6.
+`;
+const Figure5 = `
+int a = 5;
+int b = a++; // Postfix increment
+// a's original value (5) is assigned to b. Then, a is incremented to 6. a is 6, b is 5.
+`;
+const Figure6 = `
+int x = 5;
+x++; // x is simply incremented to the value 6.
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // Scanner is only being used to pause between demos.
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+        int score = 10;
+        System.out.println("Initial score: " + score);
+
+        // Compound assignment
+        score += 5;
+        System.out.println("Score after += 5: " + score);
+
+        // Increment operator
+        score++;
+        System.out.println("Score after ++: " + score);
+
+        // Decrement operator
+        score--;
+        System.out.println("Score after --: " + score);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // Scanner is only being used to pause between demos.
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+        int score = 10;
+        System.out.println("Initial score: " + score);
+
+        // Compound assignment
+        score += 5;
+        System.out.println("Score after += 5: " + score);
+
+        // Increment operator
+        score++;
+        System.out.println("Score after ++: " + score);
+
+        // Decrement operator
+        score--;
+        System.out.println("Score after --: " + score);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+        
+        System.out.println("--- Task 2: Type Casting ---");
+
+        double price = 29.99;
+        System.out.println("Original price (double): " + price);
+
+        // Narrowing conversion (double to int)
+        int intPrice = (int) price;
+        System.out.println("Price after casting to int: " + intPrice);
+
+        int items = 3;
+        // Explicit casting for accurate division
+        double average = (double) intPrice / items;
+        System.out.println("Average price with explicit casting: " + average);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // Scanner is only being used to pause between demos.
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+        int score = 10;
+        System.out.println("Initial score: " + score);
+
+        // Compound assignment
+        score += 5;
+        System.out.println("Score after += 5: " + score);
+
+        // Increment operator
+        score++;
+        System.out.println("Score after ++: " + score);
+
+        // Decrement operator
+        score--;
+        System.out.println("Score after --: " + score);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+        
+        System.out.println("--- Task 2: Type Casting ---");
+
+        double price = 29.99;
+        System.out.println("Original price (double): " + price);
+
+        // Narrowing conversion (double to int)
+        int intPrice = (int) price;
+        System.out.println("Price after casting to int: " + intPrice);
+
+        int items = 3;
+        // Explicit casting for accurate division
+        double average = (double) intPrice / items;
+        System.out.println("Average price with explicit casting: " + average);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Task 3: The Math Class and Constants ---");
+
+        // Constant declaration
+        final double PI = 3.14159;
+        int radius = 5;
+
+        // Calculate area using Math.pow()
+        double area = PI * Math.pow(radius, 2);
+        System.out.println("Area of circle with radius " + radius + ": " + area);
+
+        // Generate a random dice roll (1-6)
+        int diceRoll = (int) (Math.random() * 6) + 1;
+        System.out.println("Random dice roll: " + diceRoll);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task4 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // Scanner is only being used to pause between demos.
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+        int score = 10;
+        System.out.println("Initial score: " + score);
+
+        // Compound assignment
+        score += 5;
+        System.out.println("Score after += 5: " + score);
+
+        // Increment operator
+        score++;
+        System.out.println("Score after ++: " + score);
+
+        // Decrement operator
+        score--;
+        System.out.println("Score after --: " + score);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+        
+        System.out.println("--- Task 2: Type Casting ---");
+
+        double price = 29.99;
+        System.out.println("Original price (double): " + price);
+
+        // Narrowing conversion (double to int)
+        int intPrice = (int) price;
+        System.out.println("Price after casting to int: " + intPrice);
+
+        int items = 3;
+        // Explicit casting for accurate division
+        double average = (double) intPrice / items;
+        System.out.println("Average price with explicit casting: " + average);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Task 3: The Math Class and Constants ---");
+
+        // Constant declaration
+        final double PI = 3.14159;
+        int radius = 5;
+
+        // Calculate area using Math.pow()
+        double area = PI * Math.pow(radius, 2);
+        System.out.println("Area of circle with radius " + radius + ": " + area);
+
+        // Generate a random dice roll (1-6)
+        int diceRoll = (int) (Math.random() * 6) + 1;
+        System.out.println("Random dice roll: " + diceRoll);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Task 4: Escape Characters ---");
+
+        // Using tab (\\t) for formatting
+        String table = "Item\\t\\tPrice\\nKeyboard\\t$75\\nMouse\\t\\t$25";
+        System.out.println(table);
+
+        // Using newline (\\n) and quotes (\\")
+        String message = "He said, \\"Hello, world!\\"\\nAnd the program responded, 'Hi.'";
+        System.out.println(message);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+//
+    }
+}
+`;
+const Task5 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // Scanner is only being used to pause between demos.
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+        int score = 10;
+        System.out.println("Initial score: " + score);
+
+        // Compound assignment
+        score += 5;
+        System.out.println("Score after += 5: " + score);
+
+        // Increment operator
+        score++;
+        System.out.println("Score after ++: " + score);
+
+        // Decrement operator
+        score--;
+        System.out.println("Score after --: " + score);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+        
+        System.out.println("--- Task 2: Type Casting ---");
+
+        double price = 29.99;
+        System.out.println("Original price (double): " + price);
+
+        // Narrowing conversion (double to int)
+        int intPrice = (int) price;
+        System.out.println("Price after casting to int: " + intPrice);
+
+        int items = 3;
+        // Explicit casting for accurate division
+        double average = (double) intPrice / items;
+        System.out.println("Average price with explicit casting: " + average);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Task 3: The Math Class and Constants ---");
+
+        // Constant declaration
+        final double PI = 3.14159;
+        int radius = 5;
+
+        // Calculate area using Math.pow()
+        double area = PI * Math.pow(radius, 2);
+        System.out.println("Area of circle with radius " + radius + ": " + area);
+
+        // Generate a random dice roll (1-6)
+        int diceRoll = (int) (Math.random() * 6) + 1;
+        System.out.println("Random dice roll: " + diceRoll);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Task 4: Escape Characters ---");
+
+        // Using tab (\\t) for formatting
+        String table = "Item\\t\\tPrice\\nKeyboard\\t$75\\nMouse\\t\\t$25";
+        System.out.println(table);
+
+        // Using newline (\\n) and quotes (\\")
+        String message = "He said, \\"Hello, world!\\"\\nAnd the program responded, 'Hi.'";
+        System.out.println(message);
+
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("--- Task 5: Challenge Task (Combining Concepts) ---");
+
+        int totalStudents = 15;
+        final double GRADE_INCREASE = 1.05;
+        double newGrade = 80;
+
+        // Compound assignment with a constant
+        newGrade *= GRADE_INCREASE;
+
+        // Round the grade using Math.round()
+        long roundedGrade = Math.round(newGrade);
+
+        // Print a final, formatted message that includes all variables
+        String finalMessage = "Out of " + totalStudents + " students, the new rounded grade is: " + roundedGrade + ".\\n\\tThis is a " + (GRADE_INCREASE - 1) * 100 + "% increase.";
+        System.out.println(finalMessage);
+//
+    }
+}
+`;
+const SampleOutput = `
+--- Task 1: Increment, Decrement, and Compound Assignment ---
+Initial score: 10
+Score after += 5: 15
+Score after ++: 16
+Score after --: 15
+
+Press enter to continue...
+--- Task 2: Type Casting ---
+Original price (double): 29.99
+Price after casting to int: 29
+Average price with explicit casting: 9.666666666666666
+
+Press enter to continue...
+--- Task 3: The Math Class and Constants ---
+Area of circle with radius 5: 78.53975
+Random dice roll: 2
+
+Press enter to continue...
+--- Task 4: Escape Characters ---
+Item            Price
+Keyboard        $75
+Mouse           $25
+He said, "Hello, world!"
+And the program responded, 'Hi.'
+
+Press enter to continue...
+--- Task 5: Challenge Task (Combining Concepts) ---
+Out of 15 students, the new rounded grade is: 84.
+        This is a 5.000000000000004% increase.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.8 Intermediate Data Types and Operations</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.8</h3>
+            <h4 class="text-skynest-theme">
+              Intermediate Data Types and Operations
+            </h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Escape Sequences</li>
+              <li>Constants</li>
+              <li>Type Casting</li>
+              <li>Compound Assignment Operators</li>
+              <li>Increment and Decrement Operators</li>
+              <li>The Math Class</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Escape Sequences</h4>
+            <p>
+              An escape sequence is a special combination of characters that
+              tells a computer to do something other than what those characters
+              normally do.
+            </p>
+            <p class="fragment">
+              In Java, an escape sequence starts with a backslash (\) followed
+              by another character.
+            </p>
+            <p class="fragment">
+              For example, the sequence <AstroCode
+                code="\\n"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> doesn't print a backslash and the letter 'n'. Instead, the backslash
+              "escapes" the usual meaning of the 'n' and tells the program to insert
+              a new line.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Escape Sequences</h4>
+            <ul>
+              <li>
+                <AstroCode
+                  code="\\n"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                /> Newline
+              </li>
+              <li>
+                <AstroCode
+                  code="\\\\"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                /> Backslash literal
+              </li>
+              <li>
+                <AstroCode
+                  code=`\\"`
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                /> Double-Quote literal
+              </li>
+              <li>
+                <AstroCode
+                  code="\\t"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                /> Tab
+              </li>
+              <li>
+                <AstroCode
+                  code=`\\'`
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                /> Single-Quote literal
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Constants</h4>
+            <p>
+              A constant is a variable whose value, once assigned, cannot be
+              changed. It's used to store data that should remain the same
+              throughout a program's execution.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Constants</h4>
+            <p>
+              You define a constant using the final keyword. The convention is
+              to name constants using all uppercase letters, with words
+              separated by underscores.
+            </p>
+            <Code code={Figure1} lang="java" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Why Use Constants</h4>
+            <p>
+              <b>Readability:</b> Using a descriptive name like <AstroCode
+                code="PI"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> or <AstroCode
+                code="MAX_CONNECTIONS"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />
+              is much clearer than using a "magic number" like <AstroCode
+                code="3.14159"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              /> or <AstroCode
+                code="100"
+                lang="java"
+                theme="material-theme-ocean"
+                inline
+              />.
+            </p>
+            <p class="fragment">
+              <b>Preventing Errors:</b> Since the value can't be changed after initialization,
+              you're protected from accidentally overwriting it later in your code.
+            </p>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Type Casting</h4>
+            <p>
+              The process of explicitly converting a value from one data type to
+              another. For the AP Computer Science A exam, this involves:
+            </p>
+            <dl>
+              <div class="fragment">
+                <dt>
+                  Narrowing (<AstroCode
+                    code="double -> int"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />)
+                </dt>
+                <dd>
+                  This truncates (cuts off) any decimal portion of the number.
+                </dd>
+              </div>
+              <div class="fragment">
+                <dt>
+                  Widening (<AstroCode
+                    code="int -> double"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />)
+                </dt>
+                <dd>
+                  This is often done to ensure that a calculation (especially
+                  division) produces a decimal result rather than an integer.
+                </dd>
+              </div>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Type Casting</h4>
+            <div class="mb-3">
+              <h5>Narrowing</h5>
+              <Code code={Figure2} lang="java" class="text-start" />
+            </div>
+            <div class="fragment">
+              <h5>Widening</h5>
+              <Code code={Figure3} lang="java" class="text-start" />
+            </div>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Compound Assignment Operators</h4>
+            <p>
+              Compound assignment operators provide a concise way to perform an
+              operation on a variable and then assign the new value back to that
+              same variable.
+            </p>
+            <div class="mb-3">
+              <AstroCode
+                code="+="
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <AstroCode
+                code="-="
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <AstroCode
+                code="*="
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <AstroCode
+                code="/="
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <AstroCode
+                code="%="
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Addition Assignment: <AstroCode
+                code="x = x + 5 -> x += 5"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Subtraction Assignment: <AstroCode
+                code="x = x - 5 -> x -= 5"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Multiplication Assignment: <AstroCode
+                code="y = y * 2 -> y *= 2"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Divison Assignment: <AstroCode
+                code="y = y / 2 -> y /= 2"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Modulus Assignment: <AstroCode
+                code="y = y % 2 -> y %= 2"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Increment and Decrement Operators</h4>
+            <p>
+              The increment (<AstroCode
+                code="++"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />) and decrement (<AstroCode
+                code="--"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />) operators are a shorthand way to add or subtract 1 from a
+              variable. These are frequently used in loops and counters. There
+              are two forms for each operator: prefix form and postfix form.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Increment and Decrement Operators</h4>
+            <h5>Prefix Form</h5>
+            <p>
+              Prefix Form (<AstroCode
+                code="++x"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              /> or <AstroCode
+                code="--x"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />): The operator comes before the variable. The value is
+              incremented or decremented first, and then the new value is used
+              in the expression.
+            </p>
+            <div class="fragment text-start">
+              <Code code={Figure4} lang="java" />
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>Increment and Decrement Operators</h4>
+            <h5>Postfix Form</h5>
+            <p>
+              Prefix Form (<AstroCode
+                code="x++"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              /> or <AstroCode
+                code="x--"
+                lang="java"
+                inline
+                theme={"material-theme-ocean"}
+              />): The operator comes after the variable. The original value is
+              used in the expression <b>first</b>, and then the value is
+              incremented or decremented.
+            </p>
+            <div class="fragment text-start mb-3">
+              <Code code={Figure5} lang="java" />
+            </div>
+            <div class="fragment text-start">
+              <Code code={Figure6} lang="java" />
+            </div>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>The Math Class</h4>
+            <p>
+              The Math class contains a collection of methods and constants for
+              performing common mathematical operations.
+            </p>
+            <div class="fragment text-start">
+              Constants:
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.PI"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Represents the mathematical constant PI (π), approximately <AstroCode
+                    code="3.14159"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+                <dt>
+                  <AstroCode
+                    code="Math.E"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Represents the base of the natural logarithm (e),
+                  approximately <AstroCode
+                    code="2.718"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+              </dl>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>The Math Class</h4>
+            <div class="text-start">
+              Methods:
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.abs(num)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Returns the absolute value of num. Example: <AstroCode
+                    code="Math.abs(-10)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> returns <AstroCode
+                    code="10"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+                <dt>
+                  <AstroCode
+                    code="Math.pow(base, exp)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Returns the value of the base raised to the power of the exp.
+                  Example: <AstroCode
+                    code="Math.pow(2, 3)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> returns <AstroCode
+                    code="8.0"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />. The return type is a <AstroCode
+                    code="double"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+              </dl>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>The Math Class</h4>
+            <div class="text-start">
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.sqrt(num)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Returns the positive square root of num. Example: <AstroCode
+                    code="Math.sqrt(25)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> returns <AstroCode
+                    code="5.0"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />. The return type is a <AstroCode
+                    code="double"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+                <dt>
+                  <AstroCode
+                    code="Math.min(num1, num2)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> and <AstroCode
+                    code="Math.max(num1, num2)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Returns the smaller or larger of the two values. Example: <AstroCode
+                    code="Math.min(5, 8)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> returns <AstroCode
+                    code="5"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+              </dl>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>The Math Class</h4>
+            <div class="text-start">
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.random()"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Returns a random <AstroCode
+                    code="double"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> value greater than or equal to <AstroCode
+                    code="0.0"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> and less than <AstroCode
+                    code="1.0"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> (~0.9999).<br />Example: <AstroCode
+                    code="(int)(Math.random() * 10) + 1"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> returns a random integer between <AstroCode
+                    code="1"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> and <AstroCode
+                    code="10"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> (inclusive).
+                </dd>
+              </dl>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>The Math Class</h4>
+            <div class="text-start">
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.round(num)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Returns the closest <AstroCode
+                    code="long"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> to the argument. This is used to round a decimal number to the
+                  nearest whole number.
+                  <br />Example: <AstroCode
+                    code="Math.round(7.6)"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> returns <AstroCode
+                    code="8"
+                    lang="java"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+              </dl>
+            </div>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Practice implementing various Java constructs:
+              <ul>
+                <ListItem variant="2">Escape sequences</ListItem>
+                <ListItem variant="2">Constants</ListItem>
+                <ListItem variant="2">Type casting</ListItem>
+                <ListItem variant="2">Compound assignment operations</ListItem>
+                <ListItem variant="2"
+                  >Increment and decrement operations</ListItem
+                >
+                <ListItem variant="2">Math constants and methods</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >1-8-Intermediate-Data-Operations</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Increment,
+            Decrement, and Compound Assignment
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{ label: "Stop and run your code", range: "27" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Type Casting
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "27-45" }}
+            mark={{ label: "Stop and run your code", range: "46" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: The Math Class and
+            Constants
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "46-64" }}
+            mark={{ label: "Stop and run your code", range: "65" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Escape Sequences
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "65-79" }}
+            mark={{ label: "Stop and run your code", range: "80" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Combining Concepts
+          </h3>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "80-97" }}
+            mark={{ label: "Stop and run your code", range: "98" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              Think about the concepts of type casting and compound assignment.
+              What is a real-world scenario (outside of a programming context)
+              where you might perform a similar "narrowing" or "shortcut"
+              operation? For example, is there a situation where you would round
+              a number down rather than up, or where you would use a shorthand
+              to keep a running total?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
