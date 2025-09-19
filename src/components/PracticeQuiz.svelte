@@ -2,11 +2,13 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
+  // questionType: (1) Fill in the blank; (2) Multiple choice
   interface Question {
     text: string;
     correctAnswers: string[];
     questionType: number;
     answerDetail: string;
+    choices: string[];
   }
 
   let {
@@ -108,9 +110,68 @@
         </p>
       </div>
       <div class="card-body">
-        <label class="form-label" for="answer">Answer: </label>
-        <input id="answer" class="form-control" bind:value={submittedAnswer} />
-        <p>{@html responseHTML}</p>
+        {#if currentQuestion.questionType == 1}
+          <label class="form-label" for="answer">Answer: </label>
+          <input
+            id="answer"
+            class="form-control"
+            bind:value={submittedAnswer}
+          />
+        {:else}
+          <div>
+            <input
+              type="radio"
+              name="choices"
+              id="choiceA"
+              class="form-check-input"
+              value={currentQuestion.choices[0]}
+              bind:group={submittedAnswer}
+            />
+            <label class="form-check-label" for="choiceA"
+              >{@html currentQuestion.choices[0]}</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="choices"
+              id="choiceB"
+              class="form-check-input"
+              value={currentQuestion.choices[1]}
+              bind:group={submittedAnswer}
+            />
+            <label class="form-check-label" for="choiceB"
+              >{@html currentQuestion.choices[1]}</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="choices"
+              id="choiceC"
+              class="form-check-input"
+              value={currentQuestion.choices[2]}
+              bind:group={submittedAnswer}
+            />
+            <label class="form-check-label" for="choiceC"
+              >{@html currentQuestion.choices[2]}</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="choices"
+              id="choiceD"
+              class="form-check-input"
+              value={currentQuestion.choices[3]}
+              bind:group={submittedAnswer}
+            />
+            <label class="form-check-label" for="choiceD"
+              >{@html currentQuestion.choices[3]}</label
+            >
+          </div>
+        {/if}
+        <p class="text-skynest-theme">{@html responseHTML}</p>
         <p>Score: {score}/{questions.length}</p>
       </div>
       <div class="card-footer">
@@ -146,3 +207,9 @@
     </div>
   {/if}
 </section>
+
+<style>
+  input[type="radio"] {
+    vertical-align: middle;
+  }
+</style>
