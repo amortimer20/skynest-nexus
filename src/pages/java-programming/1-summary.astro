@@ -1,0 +1,727 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code as AstroCode } from "astro:components";
+import { Code } from "astro-expressive-code/components";
+import { Image } from "astro:assets";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Module 1 Summary</h1>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <p>
+          This summary covers the essential building blocks of Java programming,
+          from displaying information and handling user input to working with
+          data, performing calculations, and using advanced mathematical tools.
+          Mastering these concepts is crucial for success in AP Computer Science
+          A.
+        </p>
+
+        <hr />
+
+        <section id="section-1">
+          <h2><span class="text-skynest-theme">1.</span> Console I/O</h2>
+
+          <p>
+            An application's ability to communicate with the user is
+            fundamental. This involves both displaying information (<b>output</b
+            >) and receiving information (<b>input</b>).
+          </p>
+
+          <h3>Displaying Output</h3>
+
+          <p>
+            <AstroCode
+              code="System.out.println()"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />: Prints the given data to the console and moves the cursor to the
+            next line.
+          </p>
+
+          <p>
+            <AstroCode
+              code="System.out.print()"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />: Prints the given data to the console and leaves the cursor on
+            the same line. This is useful for prompting the user for input.
+          </p>
+
+          <h3>Getting user Input with the Scanner Class</h3>
+
+          <p>
+            The <AstroCode
+              code="Scanner"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> class is the standard tool for reading keyboard input, making programs
+            interactive. Using it involves three steps:
+          </p>
+          <ol>
+            <li>
+              <b>Import:</b> Add <AstroCode
+                code="import java.util.Scanner;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> to the top of your file.
+            </li>
+            <li>
+              <b>Instantiate:</b> Create a Scanner object in your main method: <AstroCode
+                code="Scanner input = new Scanner(System.in);"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </li>
+            <li>
+              <b>Invoke:</b> Call methods on the Scanner object to read data.
+              <ul>
+                <li>
+                  <AstroCode
+                    code="input.nextLine()"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />: Reads an entire line of text as a <AstroCode
+                    code="String"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />.
+                </li>
+                <li>
+                  <AstroCode
+                    code="input.nextInt()"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />: Reads the next token of input as an <AstroCode
+                    code="int"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />.
+                </li>
+                <li>
+                  <AstroCode
+                    code="input.nextDouble()"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />: Reads the next token of input as a <AstroCode
+                    code="double"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />.
+                </li>
+              </ul>
+            </li>
+          </ol>
+
+          <p>
+            <b
+              >The <AstroCode
+                code="Scanner"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Issue:</b
+            > A common bug occurs when mixing numeric and string input. Methods like
+            <AstroCode
+              code="nextInt()"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> and <AstroCode
+              code="nextDouble()"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> read the number but leave the newline (<AstroCode
+              code="\\n"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />) character in the input stream. A subsequent call to <AstroCode
+              code="nextLine()"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> will read this leftover newline as an empty string.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="section-2">
+          <h2><span class="text-skynest-theme">2.</span> Data and Variables</h2>
+
+          <p>
+            Java is a <b>statically-typed</b> language, meaning all data must have
+            a defined type that cannot be changed.
+          </p>
+
+          <h3>Data Types</h3>
+
+          <p>
+            <b>Primitive Types:</b> Store simple, single values. The core primitives
+            for the AP exam are:
+          </p>
+          <ul>
+            <li>
+              <AstroCode
+                code="int"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: Whole numbers (<AstroCode
+                code="100"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="-5"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />).
+            </li>
+            <li>
+              <AstroCode
+                code="double"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: Numbers with decimal points (<AstroCode
+                code="98.6"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="-0.5"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />).
+            </li>
+            <li>
+              <AstroCode
+                code="boolean"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: Logical values, true or false (covered in more detail later).
+            </li>
+          </ul>
+
+          <p>
+            <b>Objects:</b> Store more complex data and can have associated behaviors
+            (methods).
+          </p>
+
+          <ul>
+            <li>
+              <AstroCode
+                code="String"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: A sequence of characters enclosed in double quotes (<AstroCode
+                code=`\"`
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />).
+            </li>
+          </ul>
+
+          <h3>Variables and Constants</h3>
+
+          <p>
+            <b>Variable:</b> A named container for storing a value. The value can
+            be changed.
+          </p>
+
+          <ul>
+            <li>
+              <b>Declaration:</b>
+              <AstroCode
+                code="int score;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </li>
+            <li>
+              <b>Initialization:</b>
+              <AstroCode
+                code="score = 0;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </li>
+            <li>
+              <b>Reassignment:</b>
+              <AstroCode
+                code="score = 100;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </li>
+          </ul>
+
+          <p>
+            <b>Constant:</b> A variable whose value cannot be changed after its initial
+            assignment. It is declared with the final keyword.
+          </p>
+
+          <ul>
+            <li>
+              <b>Declaration:</b>
+              <AstroCode
+                code="final double TAX_RATE = 0.07;"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </li>
+          </ul>
+
+          <h3>Naming Conventions</h3>
+
+          <ul>
+            <li>
+              <b>Variables:</b> Use camelCase (<AstroCode
+                code="playerScore"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="lastName"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />).
+            </li>
+            <li>
+              <b>Constants:</b> Use ALL_CAPS with underscores (<AstroCode
+                code="MAX_HEALTH"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />,
+              <AstroCode
+                code="TAX_RATE"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />).
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="section-3">
+          <h2>
+            <span class="text-skynest-theme">3.</span> Operators and Expressions
+          </h2>
+
+          <p>
+            Operators are special symbols used to perform operations on
+            variables and values.
+          </p>
+
+          <h3>Arithmetic and Concatenation</h3>
+
+          <p>
+            <b>Arithmetic:</b>
+            <AstroCode
+              code="+"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> (add), <AstroCode
+              code="-"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> (subtract), <AstroCode
+              code="*"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> (multiply), <AstroCode
+              code="/"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> (divide), <AstroCode
+              code="%"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />
+            (modulus/remainder).
+          </p>
+
+          <p>
+            <b>Integer Division:</b> When <AstroCode
+              code="/"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> is used with two integers, the result is truncated (the decimal part
+            is discarded). <AstroCode
+              code="10 / 3"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> is <AstroCode
+              code="3"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />.
+          </p>
+
+          <p>
+            <b>String Concatenation:</b> The <AstroCode
+              code="+"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> operator joins strings. If one operand is a String, the other is converted
+            to a String. Use parentheses () to control the order of operations:
+          </p>
+
+          <ul>
+            <li>
+              <AstroCode
+                code=`"Result: " + (5 + 10)`
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> → Result: 15
+            </li>
+            <li>
+              <AstroCode
+                code=`"Result: " + 5 + 10`
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> → Result: 510
+            </li>
+          </ul>
+
+          <h3>Assignment Shorthands</h3>
+
+          <p>
+            These operators provide a concise way to modify a variable's value.
+          </p>
+
+          <p>
+            <b>Compound Assignment:</b>
+            <AstroCode
+              code="score += 5;"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> is shorthand for <AstroCode
+              code="score = score + 5;"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />. This works for <AstroCode
+              code="+"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />, <AstroCode
+              code="-"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />, <AstroCode
+              code="*"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />, <AstroCode
+              code="/"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />, and <AstroCode
+              code="%"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />.
+          </p>
+
+          <p>
+            <b>Increment/Decrement:</b>
+            <AstroCode
+              code="++"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> and <AstroCode
+              code="--"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            /> add or subtract 1 from a variable. Their behavior depends on their
+            position:
+          </p>
+
+          <ul>
+            <li>
+              <b
+                >Prefix (<AstroCode
+                  code="++x"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />):</b
+              > The value is changed before it is used in an expression.
+            </li>
+            <li>
+              <b
+                >Postfix (<AstroCode
+                  code="x++"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />):</b
+              > The original value is used in the expression, and then it is changed.
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="section-4">
+          <h2>
+            <span class="text-skynest-theme">4.</span> Other Tools and Techniques
+          </h2>
+
+          <h3>Comments</h3>
+
+          <p>
+            Use comments (<AstroCode
+              code="//"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />) to document your code and make it understandable for yourself
+            and others.
+          </p>
+
+          <h3>Type Casting</h3>
+
+          <p>
+            Type casting is the explicit conversion of one data type to another.
+            The syntax is <AstroCode
+              code="(type) value"
+              lang="java"
+              inline
+              theme="material-theme-ocean"
+            />.
+          </p>
+
+          <ul>
+            <li>
+              <b
+                >Narrowing (<AstroCode
+                  code="double -> int"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />):</b
+              > Truncates the decimal. <AstroCode
+                code="(int) 9.99"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> becomes <AstroCode
+                code="9"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </li>
+            <li>
+              <b
+                >Widening (<AstroCode
+                  code="int -> double"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />):</b
+              > Forces floating-point division. <AstroCode
+                code="(double) 10 / 3"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> becomes <AstroCode
+                code="3.333..."
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </li>
+          </ul>
+
+          <h3>The Math Class</h3>
+
+          <p>
+            A built-in Java library for common mathematical functions. No import
+            is needed.
+          </p>
+
+          <ul>
+            <li>
+              <AstroCode
+                code="Math.PI"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: The constant π.
+            </li>
+            <li>
+              <AstroCode
+                code="Math.abs(x)"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: Returns the absolute value of x.
+            </li>
+            <li>
+              <AstroCode
+                code="Math.pow(base, exp)"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: Returns base raised to the power of exp.
+            </li>
+            <li>
+              <AstroCode
+                code="Math.sqrt(x)"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: Returns the square root of x.
+            </li>
+            <li>
+              <AstroCode
+                code="Math.round(x)"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: Rounds a double to the nearest whole number (<AstroCode
+                code="long"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />).
+            </li>
+            <li>
+              <AstroCode
+                code="Math.random()"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />: Returns a random double value in the range [<AstroCode
+                code="0.0"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />,<AstroCode
+                code="1.0"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />). To generate a random integer in a specific range, use the
+              formula:
+              <ul>
+                <li>
+                  <AstroCode
+                    code="(int)(Math.random() * range) + startValue"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>String Escape Sequences</h3>
+
+          <p>Special character sequences inside a String literal.</p>
+
+          <ul>
+            <li>
+              <AstroCode
+                code="\\n"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Newline
+            </li>
+            <li>
+              <AstroCode
+                code=`\\\"`
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Double quote
+            </li>
+            <li>
+              <AstroCode
+                code="\\\\"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Backslash
+            </li>
+            <li>
+              <AstroCode
+                code="\\t"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Tab
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  code {
+    font-size: 1rem;
+  }
+</style>
