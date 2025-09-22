@@ -28,6 +28,16 @@ const Figure5 = `
 let food = prompt("What is your favorite food?");
 console.log("I love " + food);
 `;
+const Figure6 = `
+console.log("Section 1");
+alert("Press enter to continue");
+console.log("Section 2");
+`;
+const Figure7 = `
+Section 1
+Press enter to continue [Enter]
+Section 2
+`;
 const Task1 = `
 console.log("--- Demo 1 - Simple To-Do List ---");
 console.log("Let's add a few tasks to your list.");
@@ -40,7 +50,7 @@ console.log("\\nYour To-Do List:");
 console.log("1." + task1);
 console.log("2." + task2);
 console.log("3." + task3);
-prompt("Press enter to continue..."); // Pause before the next demo app
+alert("Press enter to continue..."); // Pause before the next demo app
 //
 `;
 const Task2 = `
@@ -55,7 +65,7 @@ console.log("\\nYour To-Do List:");
 console.log("1." + task1);
 console.log("2." + task2);
 console.log("3." + task3);
-prompt("Press enter to continue..."); // Pause before the next demo app
+alert("Press enter to continue..."); // Pause before the next demo app
 
 // -----------------------------------------------------------------------------
 
@@ -77,7 +87,7 @@ console.log("\\n- Creating your profile -");
 console.log(\`NAME: \${username}\`);
 console.log(\`FAVORITE SUBJECT: \${subject}\`);
 console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
-prompt("Press enter to continue...");
+alert("Press enter to continue...");
 //
 `;
 const Task3 = `
@@ -92,7 +102,7 @@ console.log("\\nYour To-Do List:");
 console.log("1." + task1);
 console.log("2." + task2);
 console.log("3." + task3);
-prompt("Press enter to continue..."); // Pause before the next demo app
+alert("Press enter to continue..."); // Pause before the next demo app
 
 // -----------------------------------------------------------------------------
 
@@ -114,7 +124,7 @@ console.log("\\n- Creating your profile -");
 console.log(\`NAME: \${username}\`);
 console.log(\`FAVORITE SUBJECT: \${subject}\`);
 console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
-prompt("Press enter to continue...");
+alert("Press enter to continue...");
 
 // -----------------------------------------------------------------------------
 
@@ -129,7 +139,7 @@ console.log("\\n- Survey Results -");
 console.log("Favorite Color: " + favoriteColor);
 console.log("Favorite Food: " + favoriteFood);
 console.log("Travel Destination: " + travelDestination);
-prompt("Press enter to continue...");
+alert("Press enter to continue...");
 //
 `;
 const Task4 = `
@@ -144,7 +154,7 @@ console.log("\\nYour To-Do List:");
 console.log("1." + task1);
 console.log("2." + task2);
 console.log("3." + task3);
-prompt("Press enter to continue..."); // Pause before the next demo app
+alert("Press enter to continue..."); // Pause before the next demo app
 
 // -----------------------------------------------------------------------------
 
@@ -166,7 +176,7 @@ console.log("\\n- Creating your profile -");
 console.log(\`NAME: \${username}\`);
 console.log(\`FAVORITE SUBJECT: \${subject}\`);
 console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
-prompt("Press enter to continue...");
+alert("Press enter to continue...");
 
 // -----------------------------------------------------------------------------
 
@@ -181,7 +191,7 @@ console.log("\\n- Survey Results -");
 console.log("Favorite Color: " + favoriteColor);
 console.log("Favorite Food: " + favoriteFood);
 console.log("Travel Destination: " + travelDestination);
-prompt("Press enter to continue...");
+alert("Press enter to continue...");
 
 // -----------------------------------------------------------------------------
 
@@ -209,7 +219,7 @@ Your To-Do List:
 1.Do Homework
 2.Cook Dinner
 3.Clean Bedroom
-Press enter to continue...
+Press enter to continue... [Enter]
 
 --- Demo 2 - User Profile Setup ---
 WELCOME! LET'S SET UP YOUR PROFILE...
@@ -226,7 +236,7 @@ Choose your preferred after-school activity:
 NAME: amortimer
 FAVORITE SUBJECT: Computer Science
 AFTER-SCHOOL ACTIVITY: Gaming
-Press enter to continue...
+Press enter to continue... [Enter]
 
 --- Demo 3 - Simple Survey ---
 We'd love to get your feedback!
@@ -238,7 +248,7 @@ Where is a place you would like to travel? Great Britain
 Favorite Color: purple
 Favorite Food: Pizza Hut Pepperoni Pizza
 Travel Destination: Great Britain
-Press enter to continue...
+Press enter to continue... [Enter]
 
 --- Demo 4 - Fantasy Story Builder ---
 Let's create a fantasy story!
@@ -280,6 +290,14 @@ Their quest was just beginning...
               <li>
                 The <AstroCode
                   code="prompt()"
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> Function
+              </li>
+              <li>
+                The <AstroCode
+                  code="alert()"
                   lang="javascript"
                   theme="material-theme-ocean"
                   inline
@@ -383,9 +401,14 @@ Their quest was just beginning...
               /> Function
             </h4>
             <p>
-              The prompt() function is a built-in method that displays a message
-              to the user and waits for them to type a line of text, which it
-              then returns as a string.
+              The <AstroCode
+                code="prompt()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> function is a built-in function that displays a message to the user
+              and waits for them to type a line of text, which it then returns as
+              a string.
             </p>
             <img src={PromptInputImg.src} alt="Prompt Input" />
           </section>
@@ -403,6 +426,27 @@ Their quest was just beginning...
               application!
             </p>
             <Code code={Figure5} lang="javascript" class="text-start mb-3" />
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>
+              The <AstroCode
+                code="alert()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> Function</h4>
+              <p>
+                The <AstroCode
+                  code="alert()"
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> function displays a message and waits for the user to press <b
+                  >enter</b
+                >.
+              </p>
+              <Code code={Figure6} lang="javascript" class="text-start mb-3" />
+              <Code code={Figure7} lang="txt" showLineNumbers={false} class="text-start mb-3" />
           </section>
         </Presentation>
 
