@@ -1,0 +1,778 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import BooleanAgeScreenshot from "../../assets/courses/shared/img/boolean-age-verification-screenshot.png";
+import BooleanLoginScreenshot from "../../assets/courses/shared/img/boolean-login-screenshot.png";
+import BooleanGameScreenshot from "../../assets/courses/shared/img/boolean-game-screenshot.jpg";
+
+//#region CodeSnippets
+const Figure1 = `
+let isRaining = true;
+let hasUmbrella = false;
+`;
+const Figure2 = `
+let health = 100;
+let isAlive = health > 0;
+`;
+const Task1 = `
+// Boolean expressions
+let nameIsMortimer = name == "Mr. Mortimer";
+let canDrive = age >= 16;
+let canBuyCar = balance > 31000;
+let isSenior = age >= 65;
+//
+`;
+const Task2 = `
+// Boolean expressions
+let nameIsMortimer = name == "Mr. Mortimer";
+let canDrive = age >= 16;
+let canBuyCar = balance > 31000;
+let isSenior = age >= 65;
+
+console.log("-Name Checks-");
+console.log(\`Is my name Mr. Mortimer? \${nameIsMortimer}\`);
+console.log(\`Is my name Mr. Mertens? \${name == "Mr. Mertens"}\`);
+console.log(\`My name is not Mr. Merriman: \${name != "Mr. Merriman"}\`);
+alert("Press enter to continue...")
+//
+`;
+const Task3 = `
+// Boolean expressions
+let nameIsMortimer = name == "Mr. Mortimer";
+let canDrive = age >= 16;
+let canBuyCar = balance > 31000;
+let isSenior = age >= 65;
+
+console.log("-Name Checks-");
+console.log(\`Is my name Mr. Mortimer? \${nameIsMortimer}\`);
+console.log(\`Is my name Mr. Mertens? \${name == "Mr. Mertens"}\`);
+console.log(\`My name is not Mr. Merriman: \${name != "Mr. Merriman"}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Age-Related Checks-");
+console.log(\`Am I old enough to drive? \${canDrive}\`);
+let canRentCar = age >= 25;
+console.log(\`Am I old enough to rent a car? \${canRentCar}\`);
+console.log(\`Am I eligible for a senior citizen discount? \${isSenior}\`);
+alert("Press enter to continue...")
+//
+`;
+const Task4 = `
+// Boolean expressions
+let nameIsMortimer = name == "Mr. Mortimer";
+let canDrive = age >= 16;
+let canBuyCar = balance > 31000;
+let isSenior = age >= 65;
+
+console.log("-Name Checks-");
+console.log(\`Is my name Mr. Mortimer? \${nameIsMortimer}\`);
+console.log(\`Is my name Mr. Mertens? \${name == "Mr. Mertens"}\`);
+console.log(\`My name is not Mr. Merriman: \${name != "Mr. Merriman"}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Age-Related Checks-");
+console.log(\`Am I old enough to drive? \${canDrive}\`);
+let canRentCar = age >= 25;
+console.log(\`Am I old enough to rent a car? \${canRentCar}\`);
+console.log(\`Am I eligible for a senior citizen discount? \${isSenior}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Bank Account Checks-");
+console.log(\`Do I have enough to buy a Dodge Challenger? \${canBuyCar}\`);
+let hasFunds = balance > 0;
+console.log(\`Do I have a positive bank balance? \${hasFunds}\`);
+alert("Press enter to continue...")
+//
+`;
+const Task5 = `
+// Boolean expressions
+let nameIsMortimer = name == "Mr. Mortimer";
+let canDrive = age >= 16;
+let canBuyCar = balance > 31000;
+let isSenior = age >= 65;
+
+console.log("-Name Checks-");
+console.log(\`Is my name Mr. Mortimer? \${nameIsMortimer}\`);
+console.log(\`Is my name Mr. Mertens? \${name == "Mr. Mertens"}\`);
+console.log(\`My name is not Mr. Merriman: \${name != "Mr. Merriman"}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Age-Related Checks-");
+console.log(\`Am I old enough to drive? \${canDrive}\`);
+let canRentCar = age >= 25;
+console.log(\`Am I old enough to rent a car? \${canRentCar}\`);
+console.log(\`Am I eligible for a senior citizen discount? \${isSenior}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Bank Account Checks-");
+console.log(\`Do I have enough to buy a Dodge Challenger? \${canBuyCar}\`);
+let hasFunds = balance > 0;
+console.log(\`Do I have a positive bank balance? \${hasFunds}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Boolean Checks-");
+console.log(\`\${name} is a teacher: \${isTeacher}\`);
+console.log(\`\${name} is a millionaire: \${isMillionaire}\`);
+let notMillionaire = !isMillionaire;
+console.log(\`So, \${name} isn't a millionaire? \${notMillionaire}\`);
+alert("Press enter to continue...")
+//
+`;
+const Task6 = `
+// Boolean expressions
+let nameIsMortimer = name == "Mr. Mortimer";
+let canDrive = age >= 16;
+let canBuyCar = balance > 31000;
+let isSenior = age >= 65;
+
+console.log("-Name Checks-");
+console.log(\`Is my name Mr. Mortimer? \${nameIsMortimer}\`);
+console.log(\`Is my name Mr. Mertens? \${name == "Mr. Mertens"}\`);
+console.log(\`My name is not Mr. Merriman: \${name != "Mr. Merriman"}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Age-Related Checks-");
+console.log(\`Am I old enough to drive? \${canDrive}\`);
+let canRentCar = age >= 25;
+console.log(\`Am I old enough to rent a car? \${canRentCar}\`);
+console.log(\`Am I eligible for a senior citizen discount? \${isSenior}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Bank Account Checks-");
+console.log(\`Do I have enough to buy a Dodge Challenger? \${canBuyCar}\`);
+let hasFunds = balance > 0;
+console.log(\`Do I have a positive bank balance? \${hasFunds}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Boolean Checks-");
+console.log(\`\${name} is a teacher: \${isTeacher}\`);
+console.log(\`\${name} is a millionaire: \${isMillionaire}\`);
+let notMillionaire = !isMillionaire;
+console.log(\`So, \${name} isn't a millionaire? \${notMillionaire}\`);
+alert("Press enter to continue...")
+
+console.log("\\n-Logical Operator Examples-");
+let canDriveAndBuy = canDrive && canBuyCar;
+console.log(\`Am I old enough to drive AND have enough to buy a Dodge Challenger? \${canDriveAndBuy}\`);
+let canDriveOrBuy = canDrive || canBuyCar;
+console.log(\`Am I old enough to drive OR have enough to buy a Dodge Challenger? \${canDriveOrBuy}\`);
+//
+`;
+const SampleOutput = `
+-Name Checks-
+Is my name Mr. Mortimer? true
+Is my name Mr. Mertens? false
+My name is not Mr. Merriman: true
+Press enter to continue... [Enter] 
+
+-Age-Related Checks-
+Am I old enough to drive? true
+Am I old enough to rent a car? true
+Am I eligible for a senior citizen discount? false
+Press enter to continue... [Enter] 
+
+-Bank Account Checks-
+Do I have enough to buy a Dodge Challenger? false
+Do I have a positive bank balance? true
+Press enter to continue... [Enter]
+
+-Boolean Checks-
+Mr. Mortimer is a teacher: true
+Mr. Mortimer is a millionaire: false
+So, Mr. Mortimer isn't a millionaire? true
+Press enter to continue... [Enter]
+
+-Logical Operator Examples-
+Am I old enough to drive AND have enough to buy a Dodge Challenger? false
+Am I old enough to drive OR have enough to buy a Dodge Challenger? true
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.1 Boolean Logic</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.1</h3>
+            <h4 class="text-skynest-theme">Boolean Logic</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Application Logic</li>
+              <li>The Boolean Data Type</li>
+              <li>Boolean Logic Operators</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Application Logic</h4>
+            <p>
+              Computer processors can perform more than just arithmetic
+              calculations. They can also make decisions based on certain
+              conditions.
+            </p>
+            <p class="fragment">
+              This ability to make decisions allows programs to handle different
+              outcomes.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Application Logic Samples</h4>
+            <p>What possible outcomes may occur when I type in my age?</p>
+            <img
+              src={BooleanAgeScreenshot.src}
+              class="img-fluid"
+              alt="Boolean Age Screenshot"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Application Logic Samples</h4>
+            <p>What possible outcomes may occur when I try to login?</p>
+            <img
+              src={BooleanLoginScreenshot.src}
+              class="img-fluid"
+              alt="Boolean Login Screenshot"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Application Logic Samples</h4>
+            <p>How does the game know when to finish the round or match?</p>
+            <img
+              src={BooleanGameScreenshot.src}
+              class="img-fluid"
+              alt="Boolean Game Screenshot"
+            />
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>
+              The <span class="text-skynest-theme">Boolean</span> Data Type
+            </h4>
+            <p>
+              the boolean data type is used to store values that can be either <AstroCode
+                code="true"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+              or <AstroCode
+                code="false"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />. It is used for logical expressions, which are questions or
+              conditions that the computer can evaluate.
+            </p>
+
+            <Code
+              code={Figure1}
+              lang="javascript"
+              class="fragment text-start"
+            />
+          </section>
+          <section>
+            <h4>Boolean Logic</h4>
+            <p>
+              The study of how logical expressions are formed and evaluated is
+              called <b>boolean logic</b>.
+            </p>
+            <p class="fragment">
+              In programming, these logical expressions are constructed using
+              operators and values, and they always result in either <AstroCode
+                code="true"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> or
+              <AstroCode
+                code="false"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Boolean Logic Operators</h4>
+            <h5>Comparison Operators</h5>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Operator</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="font-monospace">==</span></td>
+                  <td>Equality</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if operands are equal.</td
+                  >
+                </tr>
+                <tr>
+                  <td><span class="font-monospace">!=</span></td>
+                  <td>Inequality</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if operands are <b>not</b> equal.</td
+                  >
+                </tr>
+                <tr>
+                  <td>&gt;</td>
+                  <td>Greater Than</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if left operand is greater than right.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section data-auto-animate>
+            <h4>Boolean Logic Operators</h4>
+            <h5>Comparison Operators</h5>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Operator</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>&lt;</td>
+                  <td>Less Than</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if left operand is greater than or equal to right.
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="font-monospace">&gt;=</span></td>
+                  <td>Greater Than or Equal</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if left operand is greater than or equal to right.
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="font-monospace">&lt;=</span></td>
+                  <td>Less Than or Equal</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if left operand is less than or equal to right.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section data-auto-animate>
+            <h4>Boolean Logic Operators</h4>
+            <h5>Logical Operators</h5>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Operator</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>&&</td>
+                  <td>Logical AND</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if both operands are <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    />.</td
+                  >
+                </tr>
+                <tr>
+                  <td>||</td>
+                  <td>Logical OR</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if at least one operand is <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    />.</td
+                  >
+                </tr>
+                <tr>
+                  <td>!</td>
+                  <td>Logical NOT</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if the operand is <AstroCode
+                      code="false"
+                      lang="javascript"
+                      inline
+                      theme="material-theme-ocean"
+                    />, and vice versa.</td
+                  >
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Sample Boolean Expressions</h4>
+            <p>
+              <AstroCode
+                code="'abc' == 'abc'"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="'ABC' == 'abc'"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="100 != 99"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="'ABC' != 'abc'"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="100 > 100"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="100 >= 100"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Sample Boolean Expressions</h4>
+            <p>
+              <AstroCode
+                code="!true"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="!true == false"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="!(100 > 100)"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section>
+            <h4>Boolean Variables</h4>
+            <p>Boolean values and expressions can be saved to a variable.</p>
+            <Code
+              code={Figure2}
+              lang="javascript"
+              class="fragment text-start"
+            />
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Boolean</dt>
+              <dd>
+                A data type that can only have one of two possible values: true
+                or false. It is fundamental to computer logic, as it represents
+                the outcome of a logical question or condition.
+              </dd>
+              <dt>Logical Expression</dt>
+              <dd>
+                A statement that a computer can evaluate to determine if it is
+                true or false.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Evaluating boolean expressions</ListItem>
+            <ListItem>Saving boolean expression results to variables</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-1-boolean-logic.js</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Boolean Variables
+            and Name Checks
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Evaluate boolean expressions and save the results to variables.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-1-boolean-logic.js"
+            mark={{ label: "Stop and run your code", range: "6" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Name Checks
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Output the results of boolean expressions.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-1-boolean-logic.js"
+            ins={{ range: "6-11" }}
+            mark={{ label: "Stop and run your code", range: "12" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Age-Related Checks
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-1-boolean-logic.js"
+            ins={{ range: "12-18" }}
+            mark={{ label: "Stop and run your code", range: "19" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Monetary Checks
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-1-boolean-logic.js"
+            ins={{ range: "19-24" }}
+            mark={{ label: "Stop and run your code", range: "25" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Logical Not
+            Operations
+          </h3>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-1-boolean-logic.js"
+            ins={{ range: "25-31" }}
+            mark={{ label: "Stop and run your code", range: "32" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 6 -->
+          <h3>
+            <span class="text-skynest-theme">Task 6</span>: Logical AND & OR
+          </h3>
+          <Code
+            code={Task6}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-1-boolean-logic.js"
+            ins={{ range: "32-37" }}
+            mark={{ label: "Stop and run your code", range: "38" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              How do boolean expressions and logical operators connect to
+              real-world decision-making processes, like the examples of age
+              verification or logging in? Think about how they help a program
+              "decide" what to do.
+            </li>
+            <li>
+              The activity uses different types of operators (comparison and
+              logical). Describe a scenario where you would need to use a
+              combination of comparison operators and a logical operator (&& or
+              ||) to get the correct result. For example, checking if a person
+              is both old enough to drive AND has enough money to buy a car.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
