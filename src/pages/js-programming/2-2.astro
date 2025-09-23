@@ -1,0 +1,617 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+let age = prompt("Enter your age: ");
+
+if (age >= 16) {
+  console.log("You can drive!");
+}
+`;
+const Figure2 = `{
+  console.log("You can drive!");
+}
+`;
+
+const Figure3 = `
+Enter your age: 17 [Enter]
+You can drive!
+`;
+const Figure4 = `
+Enter your age: 12 [Enter]
+[No output]
+`;
+const Task1 = `
+console.log("--- Demo 1 - Age Validator ---");
+
+let userAge = parseInt(prompt("Enter your age:"));
+
+if (userAge >= 16) {
+  console.log("Time to hit the road! You've earned your driving permit.\\n");
+}
+
+if (userAge >= 18) {
+  console.log("Adulting 101: You can now vote and live independently.");
+  console.log("Please exit your mom's basement.\\n");
+}
+
+if (userAge >= 35) {
+  console.log("You're old enough to run for president.");
+  let fullName = prompt("Enter your full name:");
+  let electionYear = prompt("What year will you run?");
+  let nickName = prompt("What's your nickname (e.g., 'The Awesome')?");
+
+  console.log(\`\${nickName} \${fullName} for president in \${electionYear}!\`);
+}
+
+alert("Press enter to continue...");
+//
+`;
+const Task2 = `
+console.log("--- Demo 1 - Age Validator ---");
+
+let userAge = parseInt(prompt("Enter your age:"));
+
+if (userAge >= 16) {
+  console.log("Time to hit the road! You've earned your driving permit.\\n");
+}
+
+if (userAge >= 18) {
+  console.log("Adulting 101: You can now vote and live independently.");
+  console.log("Please exit your mom's basement.\\n");
+}
+
+if (userAge >= 35) {
+  console.log("You're old enough to run for president.");
+  let fullName = prompt("Enter your full name:");
+  let electionYear = prompt("What year will you run?");
+  let nickName = prompt("What's your nickname (e.g., 'The Awesome')?");
+
+  console.log(\`\${nickName} \${fullName} for president in \${electionYear}!\`);
+}
+
+alert("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 2 - Simple Score Calculator ---");
+
+let score = parseInt(prompt("Enter your score (0-100):"));
+
+if (score >= 60) {
+  console.log("You passed!");
+}
+
+if (score < 60) {
+  console.log("You did not pass. Keep studying!");
+}
+
+alert("Press enter to continue...");
+//
+`;
+const Task3 = `
+console.log("--- Demo 1 - Age Validator ---");
+
+let userAge = parseInt(prompt("Enter your age:"));
+
+if (userAge >= 16) {
+  console.log("Time to hit the road! You've earned your driving permit.\\n");
+}
+
+if (userAge >= 18) {
+  console.log("Adulting 101: You can now vote and live independently.");
+  console.log("Please exit your mom's basement.\\n");
+}
+
+if (userAge >= 35) {
+  console.log("You're old enough to run for president.");
+  let fullName = prompt("Enter your full name:");
+  let electionYear = prompt("What year will you run?");
+  let nickName = prompt("What's your nickname (e.g., 'The Awesome')?");
+
+  console.log(\`\${nickName} \${fullName} for president in \${electionYear}!\`);
+}
+
+alert("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 2 - Simple Score Calculator ---");
+
+let score = parseInt(prompt("Enter your score (0-100):"));
+
+if (score >= 60) {
+  console.log("You passed!");
+}
+
+if (score < 60) {
+  console.log("You did not pass. Keep studying!");
+}
+
+alert("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 3 - Temperature Check ---");
+
+let currentTemp = parseInt(prompt("What is the current temperature in Fahrenheit?"));
+
+if (currentTemp <= 32) {
+    console.log("Brrr! It's freezing. Don't forget your coat!");
+}
+
+// The '&&' (AND) operator lets us check if two conditions are true at the same time.
+// We use it here to check if a grade falls within a specific range.
+if (currentTemp > 32 && currentTemp <= 65) {
+    console.log("It's a bit chilly. A light jacket should be perfect.");
+}
+
+if (currentTemp > 65) {
+    console.log("It's warm outside. Enjoy the nice weather!");
+}
+
+alert("Press enter to continue...");
+//
+`;
+const Task4 = `
+console.log("--- Demo 1 - Age Validator ---");
+
+let userAge = parseInt(prompt("Enter your age:"));
+
+if (userAge >= 16) {
+  console.log("Time to hit the road! You've earned your driving permit.\\n");
+}
+
+if (userAge >= 18) {
+  console.log("Adulting 101: You can now vote and live independently.");
+  console.log("Please exit your mom's basement.\\n");
+}
+
+if (userAge >= 35) {
+  console.log("You're old enough to run for president.");
+  let fullName = prompt("Enter your full name:");
+  let electionYear = prompt("What year will you run?");
+  let nickName = prompt("What's your nickname (e.g., 'The Awesome')?");
+
+  console.log(\`\${nickName} \${fullName} for president in \${electionYear}!\`);
+}
+
+alert("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 2 - Simple Score Calculator ---");
+
+let score = parseInt(prompt("Enter your score (0-100):"));
+
+if (score >= 60) {
+  console.log("You passed!");
+}
+
+if (score < 60) {
+  console.log("You did not pass. Keep studying!");
+}
+
+alert("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 3 - Temperature Check ---");
+
+let currentTemp = parseInt(prompt("What is the current temperature in Fahrenheit?"));
+
+if (currentTemp <= 32) {
+    console.log("Brrr! It's freezing. Don't forget your coat!");
+}
+
+// The '&&' (AND) operator lets us check if two conditions are true at the same time.
+// We use it here to check if a grade falls within a specific range.
+if (currentTemp > 32 && currentTemp <= 65) {
+    console.log("It's a bit chilly. A light jacket should be perfect.");
+}
+
+if (currentTemp > 65) {
+    console.log("It's warm outside. Enjoy the nice weather!");
+}
+
+alert("Press enter to continue...");
+
+// -----------------------------------------------------------------------------
+
+console.log("\\n--- Demo 4 - Letter Grade Calculator ---");
+
+let finalGrade = parseInt(prompt("Enter your final grade percentage (0-100):"));
+
+if (finalGrade >= 90) {
+  console.log("You got an A! Excellent work!");
+}
+if (finalGrade >= 80 && finalGrade < 90) {
+  console.log("You got a B! Great job!");
+}
+if (finalGrade >= 70 && finalGrade < 80) {
+  console.log("You got a C. Solid effort.");
+}
+if (finalGrade >= 60 && finalGrade < 70) {
+  console.log("You got a D. You passed, but there's room to improve.");
+}
+if (finalGrade < 60) {
+  console.log("You got an F. Let's review the material and try again.");
+}
+  //
+`;
+const SampleOutput = `
+--- Demo 1 - Age Validator ---
+Enter your age: 35
+Time to hit the road! You've earned your driving permit.
+
+Adulting 101: You can now vote and live independently.
+Please exit your mom's basement.
+
+You're old enough to run for president.
+Enter your full name: Anthony Mortimer
+What year will you run? 2028
+What's your nickname (e.g., 'The Awesome')? Sleepy
+Sleepy Anthony Mortimer for president in 2028!
+Press enter to continue... [Enter] 
+
+--- Demo 2 - Simple Score Calculator ---
+Enter your score (0-100): 76
+You passed!
+Press enter to continue... [Enter]
+
+--- Demo 3 - Temperature Check ---
+What is the current temperature in Fahrenheit? 76
+It's warm outside. Enjoy the nice weather!
+Press enter to continue... [Enter]
+
+--- Demo 4 - Letter Grade Calculator ---
+Enter your final grade percentage (0-100): 66
+You got a D. You passed, but there's room to improve.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.2 If Statements</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.2</h3>
+            <h4 class="text-skynest-theme">If Statements</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Making Decisions</li>
+              <li>If Statements</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Making Decisions</h4>
+            <p>
+              <b>Programs need to make choices.</b> Sometimes, your code must decide
+              what to do based on a condition, like whether someone is old enough
+              to drive.
+            </p>
+            <p class="fragment">
+              <b>This kind of decision-making is called selection.</b> It lets your
+              program follow different paths depending on what's true.
+            </p>
+          </section>
+          <section>
+            <h4>
+              The <AstroCode
+                code="if"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> Statement
+            </h4>
+            <p>
+              An if statement allows your program to check a condition and
+              decide whether or not to execute a block of code based on whether
+              its condition is <AstroCode
+                code="true"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> or <AstroCode
+                code="false"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+
+            <Code code={Figure1} lang="javascript" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Components of an <AstroCode
+                code="if"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> Statement
+            </h4>
+            <Code code={Figure1} lang="javascript" class="text-start" />
+            <p class="fragment text-start">
+              1. (<AstroCode
+                code="if"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />) if keyword - Denotes the beginning of an if statement.
+            </p>
+            <p class="fragment text-start">
+              2. (<AstroCode
+                code="age >= 16"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />) Condition - A boolean expression that evaluates <AstroCode
+                code="true"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> or <AstroCode
+                code="false"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+            <p class="fragment text-start">
+              3. Code Block: A group of statements surrounded by braces.
+              <AstroCode
+                code={Figure2}
+                lang="javascript"
+                theme="material-theme-ocean"
+                class="fragment"
+              />
+            </p>
+          </section>
+          <section>
+            <h4>Demo: Create the Driving Age Checker</h4>
+            <Code code={Figure1} lang="javascript" class="text-start mb-3" />
+            <Code
+              code={Figure3}
+              lang="txt"
+              frame="terminal"
+              title="Sample Output 1"
+              class="text-start fragment mb-3"
+            />
+            <Code
+              code={Figure4}
+              lang="txt"
+              frame="terminal"
+              title="Sample Output 2"
+              class="text-start fragment"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Selection</dt>
+              <dd>
+                The ability of a program to choose which code to execute based
+                on a condition.
+              </dd>
+              <dt>If Statement</dt>
+              <dd>
+                A fundamental control flow structure that allows a program to
+                execute a block of code only if a specified condition is <AstroCode
+                  code="true"
+                  lang="javascript"
+                  inline
+                  theme="material-theme-ocean"
+                />. It consists of the if keyword, a condition, and a code
+                block.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Condition</dt>
+              <dd>
+                A logical expression that evaluates to a Boolean value (<AstroCode
+                  code="true"
+                  lang="javascript"
+                  inline
+                  theme="material-theme-ocean"
+                /> or <AstroCode
+                  code="false"
+                  lang="javascript"
+                  inline
+                  theme="material-theme-ocean"
+                />). It determines whether the code inside an if statement's
+                code block will be executed.
+              </dd>
+              <dt>Code Block</dt>
+              <dd>
+                A group of one or more programming statements enclosed in curly
+                braces (<AstroCode
+                  code="{ }"
+                  lang="javascript"
+                  inline
+                  theme="material-theme-ocean"
+                />). In an <AstroCode
+                  code="if"
+                  lang="javascript"
+                  inline
+                  theme="material-theme-ocean"
+                /> statement, this block of code is executed when the condition is
+                met.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Constructing If Statements</ListItem>
+            <ListItem>Evaluating Conditions</ListItem>
+            <ListItem>Grouping code into code blocks</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-2-if-statements.js</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Age Validator
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-2-if-statements.js"
+            mark={{ label: "Stop and run your code", range: "24" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Simple Score
+            Calculator
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-2-if-statements.js"
+            ins={{ range: "24-39" }}
+            mark={{ label: "Stop and run your code", range: "40" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Temperature Check
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-2-if-statements.js"
+            ins={{ range: "40-61" }}
+            mark={{ label: "Stop and run your code", range: "62" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Letter Grade
+            Calculator
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-2-if-statements.js"
+            ins={{ range: "62-83" }}
+            mark={{ label: "Stop and run your code", range: "84" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              Describe a real-life situation where you make a decision based on
+              multiple conditions. How would you translate that decision-making
+              process into an if statement using logical operators like && (AND)
+              and || (OR)?
+            </li>
+            <li>
+              In the score calculator task, why is it important to have separate
+              if statements for score &gt;= 60 and score &lt; 60 instead of just
+              one? What happens if you use if (score &lt; 60) followed by a
+              separate if (score &gt;= 60)?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
