@@ -9,17 +9,17 @@ import { Image } from "astro:assets";
 
 //#region CodeSnippets
 const Figure1 = `
-let age = prompt("Enter your age: ");
+let age = parseInt(prompt("Enter your age: "));
 
 if (age >= 16) {
   console.log("You can drive!");
 }
 `;
-const Figure2 = `{
+const Figure2 = `
+if (age >= 16) {
   console.log("You can drive!");
 }
 `;
-
 const Figure3 = `
 Enter your age: 17 [Enter]
 You can drive!
@@ -286,7 +286,7 @@ You got a D. You passed, but there's room to improve.
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 2.2 If Statements</h1>
+        <h1>Activity 2.2 Selection: If Statements</h1>
         <Divider variant="8" classes="mb-4" />
 
         <!-- Introduction -->
@@ -295,25 +295,29 @@ You got a D. You passed, but there's room to improve.
         <Presentation>
           <section>
             <h3>Activity 2.2</h3>
-            <h4 class="text-skynest-theme">If Statements</h4>
+            <h4 class="text-skynest-theme">Selection: If Statements</h4>
           </section>
           <section>
             <h4>Topics</h4>
             <ul>
               <li>Making Decisions</li>
               <li>If Statements</li>
+              <li>Common Mistakes when Writing If Statements</li>
             </ul>
           </section>
           <section>
             <h4>Making Decisions</h4>
             <p>
-              <b>Programs need to make choices.</b> Sometimes, your code must decide
-              what to do based on a condition, like whether someone is old enough
-              to drive.
+              Programs often need to make <span class="text-skynest-theme"
+                >choices</span
+              >.As discussed in the previous lesson, a program often needs to
+              decide what to do based on certain circumstances.
             </p>
             <p class="fragment">
-              <b>This kind of decision-making is called selection.</b> It lets your
-              program follow different paths depending on what's true.
+              This kind of decision-making is called <span
+                class="text-skynest-theme">selection</span
+              >. It lets your program follow different paths depending on what's
+              true.
             </p>
           </section>
           <section>
@@ -352,14 +356,14 @@ You got a D. You passed, but there's room to improve.
                 theme="material-theme-ocean"
               /> Statement
             </h4>
-            <Code code={Figure1} lang="javascript" class="text-start" />
+            <Code code={Figure2} lang="javascript" class="text-start" />
             <p class="fragment text-start">
               1. (<AstroCode
                 code="if"
                 lang="javascript"
                 inline
                 theme="material-theme-ocean"
-              />) if keyword - Denotes the beginning of an if statement.
+              />) If keyword - Denotes the beginning of an if statement.
             </p>
             <p class="fragment text-start">
               2. (<AstroCode
@@ -380,13 +384,12 @@ You got a D. You passed, but there's room to improve.
               />.
             </p>
             <p class="fragment text-start">
-              3. Code Block: A group of statements surrounded by braces.
-              <AstroCode
-                code={Figure2}
+              3. (<AstroCode
+                code="{ }"
                 lang="javascript"
+                inline
                 theme="material-theme-ocean"
-                class="fragment"
-              />
+              />) Code Block: A Group of statements surrounded by braces.
             </p>
           </section>
           <section>
@@ -406,6 +409,31 @@ You got a D. You passed, but there's room to improve.
               title="Sample Output 2"
               class="text-start fragment"
             />
+          </section>
+          <section>
+            <h4>Common Mistakes</h4>
+            <p>
+              <b>1. Forgetting to Close a Code Block: </b> Always let your editor
+              generate the closing brace and avoid deleting it. New programmers often
+              forget to close their code blocks.
+            </p>
+            <p class="fragment">
+              <b>2. Poor indentation:</b> Indent all code within a block by one tab.
+              While not required by the compiler, this makes your code much easier
+              to read and maintain.
+            </p>
+            <p class="fragment">
+              3. <b>Unnecessary semi-colons:</b>
+              <i class="si-x text-skynest-red"></i><AstroCode
+                code="if (condition); {"
+                inline
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> Avoid placing semi-colons after an if statement's condition. A semi-colon
+              here separates the condition from the code block, causing the block
+              to run unconditionally.
+            </p>
           </section>
           <section data-auto-animate>
             <h4>Key Terms</h4>
