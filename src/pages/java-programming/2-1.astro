@@ -1,0 +1,952 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import BooleanAgeScreenshot from "../../assets/courses/shared/img/boolean-age-verification-screenshot.png";
+import BooleanLoginScreenshot from "../../assets/courses/shared/img/boolean-login-screenshot.png";
+import BooleanGameScreenshot from "../../assets/courses/shared/img/boolean-game-screenshot.jpg";
+
+//#region CodeSnippets
+const Figure1 = `
+boolean isRaining = true;
+boolean hasUmbrella = false;
+`;
+const Figure2 = `
+boolean health = 100;
+boolean isAlive = health > 0;
+`;
+const Figure3 = `
+String name1; 
+String name2;
+boolean isSameName = name1.equals(name2);
+`;
+const Task1 = `
+public class Program {
+
+    public static void main(String[] args) {
+        String name = "Mr. Mortimer";
+        int age = 30;
+        double balance = 150.00;
+        boolean isTeacher = true;
+        boolean isMillionaire = false;
+//
+    }
+}
+`;
+const Task2 = `
+public class Program {
+
+    public static void main(String[] args) {
+        String name = "Mr. Mortimer";
+        int age = 30;
+        double balance = 150.00;
+        boolean isTeacher = true;
+        boolean isMillionaire = false;
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("-Name Checks-");
+
+        boolean nameIsMortimer = name.equals("Mr. Mortimer");
+
+        System.out.println("Is my name Mr. Mortimer? " + nameIsMortimer);
+        System.out.println("Is my name Mr. Mertens? " + name.equals("Mr. Mertens"));
+        System.out.println("My name is not Mr. Merriman: " + !name.equals("Mr. Merriman"));
+//
+    }
+}
+`;
+const Task3 = `
+public class Program {
+
+    public static void main(String[] args) {
+        String name = "Mr. Mortimer";
+        int age = 30;
+        double balance = 150.00;
+        boolean isTeacher = true;
+        boolean isMillionaire = false;
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("-Name Checks-");
+
+        boolean nameIsMortimer = name.equals("Mr. Mortimer");
+
+        System.out.println("Is my name Mr. Mortimer? " + nameIsMortimer);
+        System.out.println("Is my name Mr. Mertens? " + name.equals("Mr. Mertens"));
+        System.out.println("My name is not Mr. Merriman: " + !name.equals("Mr. Merriman"));
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Age-Related Checks-");
+
+        boolean canDrive = age >= 16;
+        boolean canRentCar = age >= 25;
+        boolean isSenior = age >= 65;
+
+        System.out.println("Am I old enough to drive? " + canDrive);
+
+        System.out.println("Am I old enough to rent a car? " + canRentCar);
+        System.out.println("Am I eligible for a senior citizen discount? " + isSenior);
+//
+    }
+}
+`;
+const Task4 = `
+public class Program {
+
+    public static void main(String[] args) {
+        String name = "Mr. Mortimer";
+        int age = 30;
+        double balance = 150.00;
+        boolean isTeacher = true;
+        boolean isMillionaire = false;
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("-Name Checks-");
+
+        boolean nameIsMortimer = name.equals("Mr. Mortimer");
+
+        System.out.println("Is my name Mr. Mortimer? " + nameIsMortimer);
+        System.out.println("Is my name Mr. Mertens? " + name.equals("Mr. Mertens"));
+        System.out.println("My name is not Mr. Merriman: " + !name.equals("Mr. Merriman"));
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Age-Related Checks-");
+
+        boolean canDrive = age >= 16;
+        boolean canRentCar = age >= 25;
+        boolean isSenior = age >= 65;
+
+        System.out.println("Am I old enough to drive? " + canDrive);
+
+        System.out.println("Am I old enough to rent a car? " + canRentCar);
+        System.out.println("Am I eligible for a senior citizen discount? " + isSenior);
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Bank Account Checks-");
+
+        boolean canBuyCar = balance > 31000;
+        boolean hasFunds = balance > 0;
+
+        System.out.println("Do I have enough to buy a Dodge Challenger? " + canBuyCar);
+        System.out.println("Do I have a positive bank balance? " + hasFunds);
+//
+    }
+}
+`;
+const Task5 = `
+public class Program {
+
+    public static void main(String[] args) {
+        String name = "Mr. Mortimer";
+        int age = 30;
+        double balance = 150.00;
+        boolean isTeacher = true;
+        boolean isMillionaire = false;
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("-Name Checks-");
+
+        boolean nameIsMortimer = name.equals("Mr. Mortimer");
+
+        System.out.println("Is my name Mr. Mortimer? " + nameIsMortimer);
+        System.out.println("Is my name Mr. Mertens? " + name.equals("Mr. Mertens"));
+        System.out.println("My name is not Mr. Merriman: " + !name.equals("Mr. Merriman"));
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Age-Related Checks-");
+
+        boolean canDrive = age >= 16;
+        boolean canRentCar = age >= 25;
+        boolean isSenior = age >= 65;
+
+        System.out.println("Am I old enough to drive? " + canDrive);
+
+        System.out.println("Am I old enough to rent a car? " + canRentCar);
+        System.out.println("Am I eligible for a senior citizen discount? " + isSenior);
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Bank Account Checks-");
+
+        boolean canBuyCar = balance > 31000;
+        boolean hasFunds = balance > 0;
+
+        System.out.println("Do I have enough to buy a Dodge Challenger? " + canBuyCar);
+        System.out.println("Do I have a positive bank balance? " + hasFunds);
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Boolean Checks-");
+
+        System.out.println(name + " is a teacher: " + isTeacher);
+        System.out.println(name + " is a millionaire: " + isMillionaire);
+
+        boolean notMillionaire = !isMillionaire;
+        System.out.println("So, " + name + " isn't a millionaire? " + notMillionaire);
+//
+    }
+}
+`;
+const Task6 = `
+public class Program {
+
+    public static void main(String[] args) {
+        String name = "Mr. Mortimer";
+        int age = 30;
+        double balance = 150.00;
+        boolean isTeacher = true;
+        boolean isMillionaire = false;
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("-Name Checks-");
+
+        boolean nameIsMortimer = name.equals("Mr. Mortimer");
+
+        System.out.println("Is my name Mr. Mortimer? " + nameIsMortimer);
+        System.out.println("Is my name Mr. Mertens? " + name.equals("Mr. Mertens"));
+        System.out.println("My name is not Mr. Merriman: " + !name.equals("Mr. Merriman"));
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Age-Related Checks-");
+
+        boolean canDrive = age >= 16;
+        boolean canRentCar = age >= 25;
+        boolean isSenior = age >= 65;
+
+        System.out.println("Am I old enough to drive? " + canDrive);
+
+        System.out.println("Am I old enough to rent a car? " + canRentCar);
+        System.out.println("Am I eligible for a senior citizen discount? " + isSenior);
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Bank Account Checks-");
+
+        boolean canBuyCar = balance > 31000;
+        boolean hasFunds = balance > 0;
+
+        System.out.println("Do I have enough to buy a Dodge Challenger? " + canBuyCar);
+        System.out.println("Do I have a positive bank balance? " + hasFunds);
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Boolean Checks-");
+
+        System.out.println(name + " is a teacher: " + isTeacher);
+        System.out.println(name + " is a millionaire: " + isMillionaire);
+
+        boolean notMillionaire = !isMillionaire;
+        System.out.println("So, " + name + " isn't a millionaire? " + notMillionaire);
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n-Logical Operator Examples-");
+        boolean canDriveAndBuy = canDrive && canBuyCar;
+        System.out.println("Am I old enough to drive AND have enough to buy a Dodge Challenger? " + canDriveAndBuy);
+        boolean canDriveOrBuy = canDrive || canBuyCar;
+        System.out.println("Am I old enough to drive OR have enough to buy a Dodge Challenger? " + canDriveOrBuy);
+//
+    }
+}
+`;
+const SampleOutput = `
+-Name Checks-
+Is my name Mr. Mortimer? true
+Is my name Mr. Mertens? false
+My name is not Mr. Merriman: true
+
+-Age-Related Checks-
+Am I old enough to drive? true
+Am I old enough to rent a car? true
+Am I eligible for a senior citizen discount? false
+
+-Bank Account Checks-
+Do I have enough to buy a Dodge Challenger? false
+Do I have a positive bank balance? true
+
+-Boolean Checks-
+Mr. Mortimer is a teacher: true
+Mr. Mortimer is a millionaire: false
+So, Mr. Mortimer isn't a millionaire? true
+
+-Logical Operator Examples-
+Am I old enough to drive AND have enough to buy a Dodge Challenger? false
+Am I old enough to drive OR have enough to buy a Dodge Challenger? true
+Mr. Mortimer is a millionaire: false
+So, Mr. Mortimer isn't a millionaire? true
+
+Mr. Mortimer is a millionaire: false
+Mr. Mortimer is a millionaire: false
+So, Mr. Mortimer isn't a millionaire? true
+
+-Logical Operator Examples-
+Am I old enough to drive AND have enough to buy a Dodge Challenger? false
+Am I old enough to drive OR have enough to buy a Dodge Challenger? true
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.1 Boolean Logic</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.1</h3>
+            <h4 class="text-skynest-theme">Boolean Logic</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Application Logic</li>
+              <li>The Boolean Data Type</li>
+              <li>Boolean Logic Operators</li>
+              <li>String Equality</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Application Logic</h4>
+            <p>
+              Computer processors can perform more than just arithmetic
+              calculations. They can also make decisions based on certain
+              conditions.
+            </p>
+            <p class="fragment">
+              This ability to make decisions allows programs to handle different
+              outcomes.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Application Logic Samples</h4>
+            <p>What possible outcomes may occur when I type in my age?</p>
+            <img
+              src={BooleanAgeScreenshot.src}
+              class="img-fluid"
+              alt="Boolean Age Screenshot"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Application Logic Samples</h4>
+            <p>What possible outcomes may occur when I try to login?</p>
+            <img
+              src={BooleanLoginScreenshot.src}
+              class="img-fluid"
+              alt="Boolean Login Screenshot"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Application Logic Samples</h4>
+            <p>How does the game know when to finish the round or match?</p>
+            <img
+              src={BooleanGameScreenshot.src}
+              class="img-fluid"
+              alt="Boolean Game Screenshot"
+            />
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>
+              The <span class="text-skynest-theme">Boolean</span> Data Type
+            </h4>
+            <p>
+              the boolean data type is used to store values that can be either <AstroCode
+                code="true"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+              or <AstroCode
+                code="false"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />. It is used for logical expressions, which are questions or
+              conditions that the computer can evaluate.
+            </p>
+
+            <Code code={Figure1} lang="java" class="fragment text-start" />
+          </section>
+          <section>
+            <h4>Boolean Logic</h4>
+            <p>
+              The study of how logical expressions are formed and evaluated is
+              called <b>boolean logic</b>.
+            </p>
+            <p class="fragment">
+              In programming, these logical expressions are constructed using
+              operators and values, and they always result in either <AstroCode
+                code="true"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> or
+              <AstroCode
+                code="false"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Boolean Logic Operators</h4>
+            <h5>Relational Operators</h5>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Operator</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="font-monospace">==</span></td>
+                  <td>Equality</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if operands are equal.</td
+                  >
+                </tr>
+                <tr>
+                  <td><span class="font-monospace">!=</span></td>
+                  <td>Inequality</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if operands are <b>not</b> equal.</td
+                  >
+                </tr>
+                <tr>
+                  <td>&gt;</td>
+                  <td>Greater Than</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if left operand is greater than right.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section data-auto-animate>
+            <h4>Boolean Logic Operators</h4>
+            <h5>Relational Operators</h5>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Operator</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>&lt;</td>
+                  <td>Less Than</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if left operand is less than right.
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="font-monospace">&gt;=</span></td>
+                  <td>Greater Than or Equal</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if left operand is greater than or equal to right.
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="font-monospace">&lt;=</span></td>
+                  <td>Less Than or Equal</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if left operand is less than or equal to right.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section data-auto-animate>
+            <h4>Boolean Logic Operators</h4>
+            <h5>Logical Operators</h5>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Operator</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>&&</td>
+                  <td>Logical AND</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if both operands are <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    />.</td
+                  >
+                </tr>
+                <tr>
+                  <td>||</td>
+                  <td>Logical OR</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if at least one operand is <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    />.</td
+                  >
+                </tr>
+                <tr>
+                  <td>!</td>
+                  <td>Logical NOT</td>
+                  <td
+                    >Returns <AstroCode
+                      code="true"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    /> if the operand is <AstroCode
+                      code="false"
+                      lang="java"
+                      inline
+                      theme="material-theme-ocean"
+                    />, and vice versa.</td
+                  >
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <h4>Boolean Variables</h4>
+            <p>Both Boolean values and expressions can be saved to a variable.</p>
+            <Code code={Figure2} lang="java" class="fragment text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              String Comparison in Java: <AstroCode
+                code="=="
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> vs. <AstroCode
+                code="String.equals()"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </h4>
+            <p>
+              The behavior of the <b>equality operator</b> (<AstroCode
+                code="=="
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />) differs significantly between Java's <b>primitive types</b>
+              (<AstroCode
+                code="int"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="boolean"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="double"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, etc.) and <b>object types</b>, such as <AstroCode
+                code="String"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+            <p class="fragment">
+              When using <AstroCode
+                code="=="
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> with two <b>String objects</b>, the operator does
+              <b>not</b> compare the actual character contents. Instead, it compares
+              their <b>memory references</b>. It is checking if the two string
+              variables point to the <b>exact same object</b> in memory.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              String Comparison in Java: <AstroCode
+                code="=="
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> vs. <AstroCode
+                code="String.equals()"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </h4>
+
+            <p>
+              To compare the actual character content (to see if two strings are
+              textually identical), you must use the <AstroCode
+                code="equals()"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+              method (<AstroCode
+                code="name1.equals(name2)"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />).
+            </p>
+
+            <Code code={Figure3} lang="java" class="fragment text-start" />
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Sample Boolean Expressions</h4>
+            <p>
+              <AstroCode
+                code=`"abc".equals("abc")`
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`"ABC".equals("abc")`
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="100 != 99"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code=`!"ABC".equals("abc")`
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="100 > 100"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="100 >= 100"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Sample Boolean Expressions</h4>
+            <p>
+              <AstroCode
+                code="!true"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="!true == false"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+            <p class="fragment">
+              <AstroCode
+                code="!(100 > 100)"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />
+            </p>
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Boolean</dt>
+              <dd>
+                A data type that can only have one of two possible values: true
+                or false. It is fundamental to computer logic, as it represents
+                the outcome of a logical question or condition.
+              </dd>
+              <dt>Logical Expression</dt>
+              <dd>
+                A statement that a computer can evaluate to determine if it is
+                true or false.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Evaluating boolean expressions</ListItem>
+            <ListItem>Saving boolean expression results to variables</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-1-Boolean-Logic</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Initialize Variables
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{ label: "Stop and run your code", range: "9" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Name Checks
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "9-18" }}
+            mark={{ label: "Stop and run your code", range: "19" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Age-Related Checks
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "19-31" }}
+            mark={{ label: "Stop and run your code", range: "32" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Bank Account Checks
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "32-41" }}
+            mark={{ label: "Stop and run your code", range: "42" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Boolean checks
+          </h3>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "42-51" }}
+            mark={{ label: "Stop and run your code", range: "52" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 6 -->
+          <h3>
+            <span class="text-skynest-theme">Task 6</span>: Logical Operators
+          </h3>
+          <Code
+            code={Task6}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{ range: "52-59" }}
+            mark={{ label: "Stop and run your code", range: "60" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              How do boolean expressions and logical operators connect to
+              real-world decision-making processes, like the examples of age
+              verification or logging in? Think about how they help a program
+              "decide" what to do.
+            </li>
+            <li>
+              The activity uses different types of operators (relational and
+              logical). Describe a scenario where you would need to use a
+              combination of relational operators and a logical operator (&& or
+              ||) to get the correct result. For example, checking if a person
+              is both old enough to drive AND has enough money to buy a car.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
