@@ -1,4 +1,5 @@
 import { defineEcConfig } from "astro-expressive-code";
+import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 import { transformerColorizedBrackets } from '@shikijs/colorized-brackets';
 
@@ -10,7 +11,10 @@ export default defineEcConfig({
       shiki: {
         transformers: [transformerColorizedBrackets()]
       },
-      plugins: [pluginLineNumbers()],
+      plugins: [
+        pluginCollapsibleSections(),
+        pluginLineNumbers()
+      ],
       styleOverrides: {
         textMarkers: {
           backgroundOpacity: '25%'
