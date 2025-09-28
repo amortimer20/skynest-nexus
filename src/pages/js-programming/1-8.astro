@@ -1,0 +1,767 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+const TAX_RATE = 0.08;
+...
+let total = subtotal * TAX_RATE;
+`;
+const Figure2 = `
+let x = 5;
+let y = 5;
+x++; // x becomes 6
+y--; // y becomes 4
+`;
+const Task1 = `
+console.log("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+let score = 10;
+console.log("Initial score: " + score);
+
+// Compound assignment
+score += 5;
+console.log("Score after += 5: " + score);
+
+// Increment operator
+score++;
+console.log("Score after ++: " + score);
+
+// Decrement operator
+score--;
+console.log("Score after --: " + score);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+//
+`;
+const Task2 = `
+console.log("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+let score = 10;
+console.log("Initial score: " + score);
+
+// Compound assignment
+score += 5;
+console.log("Score after += 5: " + score);
+
+// Increment operator
+score++;
+console.log("Score after ++: " + score);
+
+// Decrement operator
+score--;
+console.log("Score after --: " + score);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+
+console.log("--- Task 2: The Math Object and Constants ---");
+
+let radius = 5;
+
+// Calculate area using Math.PI Math.pow()
+let area = Math.PI * Math.pow(radius, 2);
+console.log("Area of circle with radius " + radius + ": " + area);
+
+// Generate a random dice roll (1-6)
+let diceRoll = Math.floor(Math.random() * 6) + 1;
+console.log("Random dice roll: " + diceRoll);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+//
+`;
+const Task3 = `
+console.log("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+let score = 10;
+console.log("Initial score: " + score);
+
+// Compound assignment
+score += 5;
+console.log("Score after += 5: " + score);
+
+// Increment operator
+score++;
+console.log("Score after ++: " + score);
+
+// Decrement operator
+score--;
+console.log("Score after --: " + score);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+
+console.log("--- Task 2: The Math Object and Constants ---");
+
+let radius = 5;
+
+// Calculate area using Math.PI Math.pow()
+let area = Math.PI * Math.pow(radius, 2);
+console.log("Area of circle with radius " + radius + ": " + area);
+
+// Generate a random dice roll (1-6)
+let diceRoll = Math.floor(Math.random() * 6) + 1;
+console.log("Random dice roll: " + diceRoll);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+
+console.log("--- Task 3: Escape Characters ---");
+
+// Using tab (\\t) for formatting
+let table = "Item\\t\\tPrice\\nKeyboard\\t$75\\nMouse\\t\\t$25";
+console.log(table);
+
+// Using newline (\\n) and quotes (\\")
+let message = "He said, \\"Hello, world!\\"\\nAnd the program responded, 'Hi.'";
+console.log(message);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+//
+`;
+const Task4 = `
+console.log("--- Task 1: Increment, Decrement, and Compound Assignment ---");
+
+let score = 10;
+console.log("Initial score: " + score);
+
+// Compound assignment
+score += 5;
+console.log("Score after += 5: " + score);
+
+// Increment operator
+score++;
+console.log("Score after ++: " + score);
+
+// Decrement operator
+score--;
+console.log("Score after --: " + score);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+
+console.log("--- Task 2: The Math Object and Constants ---");
+
+let radius = 5;
+
+// Calculate area using Math.PI Math.pow()
+let area = Math.PI * Math.pow(radius, 2);
+console.log("Area of circle with radius " + radius + ": " + area);
+
+// Generate a random dice roll (1-6)
+let diceRoll = Math.floor(Math.random() * 6) + 1;
+console.log("Random dice roll: " + diceRoll);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+
+console.log("--- Task 3: Escape Characters ---");
+
+// Using tab (\\t) for formatting
+let table = "Item\\t\\tPrice\\nKeyboard\\t$75\\nMouse\\t\\t$25";
+console.log(table);
+
+// Using newline (\\n) and quotes (\\")
+let message = "He said, \\"Hello, world!\\"\\nAnd the program responded, 'Hi.'";
+console.log(message);
+
+alert("Press Enter to continue...");
+// -----------------------------------------------------------------------------
+
+console.log("--- Task 4: Challenge Task (Combining Concepts) ---");
+
+let totalStudents = 15;
+const GRADE_INCREASE = 1.05;
+let newGrade = 80;
+
+// Compound assignment with a constant
+newGrade *= GRADE_INCREASE;
+
+// Round the grade using Math.round()
+let roundedGrade = Math.round(newGrade);
+
+console.log(\`Out of \${totalStudents} students,\`);
+console.log(\`the new rounded grade is: \${roundedGrade}.\`);
+//
+`;
+const SampleOutput = `
+--- Task 1: Increment, Decrement, and Compound Assignment ---
+Initial score: 10
+Score after += 5: 15
+Score after ++: 16
+Score after --: 15
+Press Enter to continue... [Enter] 
+--- Task 2: The Math Object and Constants ---
+Area of circle with radius 5: 78.53981633974483
+Random dice roll: 6
+Press Enter to continue... [Enter] 
+--- Task 3: Escape Characters ---
+Item            Price
+Keyboard        $75
+Mouse           $25
+He said, "Hello, world!"
+And the program responded, 'Hi.'
+Press Enter to continue... [Enter] 
+--- Task 4: Challenge Task (Combining Concepts) ---
+Out of 15 students,
+the new rounded grade is: 84.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.8 Intermediate Data Types and Operations</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.8</h3>
+            <h4 class="text-skynest-theme">
+              Intermediate Data Types and Operations
+            </h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Escape Sequences</li>
+              <li>Constants</li>
+              <li>Compound Assignment Operators</li>
+              <li>Increment and Decrement Operators</li>
+              <li>Math Constants and Functions</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Escape Sequences</h4>
+            <p>
+              An escape sequence is a special combination of characters that
+              tells a computer to do something other than what those characters
+              normally do.
+            </p>
+            <p class="fragment">
+              In JavaScript, an escape sequence starts with a backslash (<AstroCode
+                code="\\"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />) followed by another character.
+            </p>
+            <p class="fragment">
+              For example, the sequence <AstroCode
+                code="\\n"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> doesn't print a backslash and the letter 'n'. Instead, the backslash
+              "escapes" the usual meaning of the 'n' and tells the program to insert
+              a new line.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Escape Sequences</h4>
+            <ul>
+              <li>
+                <AstroCode
+                  code="\\n"
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> Newline
+              </li>
+              <li>
+                <AstroCode
+                  code="\\\\"
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> Backslash literal
+              </li>
+              <li>
+                <AstroCode
+                  code=`\\"`
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> Double-Quote literal
+              </li>
+              <li>
+                <AstroCode
+                  code="\\t"
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> Tab
+              </li>
+              <li>
+                <AstroCode
+                  code=`\\'`
+                  lang="javascript"
+                  theme="material-theme-ocean"
+                  inline
+                /> Single-Quote literal
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Constants</h4>
+            <p>
+              A constant is a variable whose value, once assigned, cannot be
+              changed. It's used to store data that should remain the same
+              throughout a program's execution.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Constants</h4>
+            <p>
+              You define a constant using the <AstroCode
+                code="const"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> keyword. The convention is to name constants using all uppercase
+              letters, with words separated by underscores.
+            </p>
+            <Code code={Figure1} lang="javascript" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Why Use Constants</h4>
+            <p>
+              <b>Readability:</b> Using a descriptive name like <AstroCode
+                code="PI"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> or <AstroCode
+                code="MAX_CONNECTIONS"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+              is much clearer than using a "magic number" like <AstroCode
+                code="3.14159"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> or <AstroCode
+                code="100"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />.
+            </p>
+            <p class="fragment">
+              <b>Preventing Errors:</b> Since the value can't be changed after initialization,
+              you're protected from accidentally overwriting it later in your code.
+            </p>
+          </section>
+          <section>
+            <h4>Compound Assignment Operators</h4>
+            <p>
+              Compound assignment operators provide a concise way to perform an
+              operation on a variable and then assign the new value back to that
+              same variable.
+            </p>
+            <div class="mb-3">
+              <AstroCode
+                code="+="
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <AstroCode
+                code="-="
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <AstroCode
+                code="*="
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <AstroCode
+                code="/="
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <AstroCode
+                code="%="
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Addition Assignment: <AstroCode
+                code="x = x + 5 -> x += 5"
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Subtraction Assignment: <AstroCode
+                code="x = x - 5 -> x -= 5"
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Multiplication Assignment: <AstroCode
+                code="y = y * 2 -> y *= 2"
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Divison Assignment: <AstroCode
+                code="y = y / 2 -> y /= 2"
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+            <div class="fragment text-start mb-2">
+              Modulus Assignment: <AstroCode
+                code="y = y % 2 -> y %= 2"
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </div>
+          </section>
+          <section>
+            <h4>Increment and Decrement Operators</h4>
+            <p>
+              The increment (<AstroCode
+                code="++"
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />) and decrement (<AstroCode
+                code="--"
+                lang="javascript"
+                inline
+                theme={"material-theme-ocean"}
+              />) operators are a shorthand way to add or subtract 1 from a
+              variable. These are frequently used in loops and counters.
+            </p>
+            <div class="fragment text-start mb-3">
+              <Code code={Figure2} lang="javascript" class="text-start mb-3" />
+            </div>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Math Constants and Functions</h4>
+            <p>
+              JavaScript contains a collection of functions and constants for
+              performing common mathematical operations.
+            </p>
+            <div class="fragment text-start">
+              Constants:
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.PI"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Represents the mathematical constant PI (π), approximately <AstroCode
+                    code="3.14159"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+              </dl>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>Math Constants and Functions</h4>
+            <div class="text-start">
+              Functions:
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.round(num)"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>Round a decimal number to the nearest whole number.</dd>
+                <dt>
+                  <AstroCode
+                    code="Math.floor(num)"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>Round a decimal number <b>down</b> to the nearest whole number.</dd>
+                <dt>
+                  <AstroCode
+                    code="Math.ceil(num)"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>Round a decimal number <b>up</b> to the nearest whole number.</dd>
+              </dl>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>Math Constants and Functions</h4>
+            <div class="text-start">
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.sqrt(num)"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Returns the positive square root of num. Example: <AstroCode
+                    code="Math.sqrt(25)"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> returns <AstroCode
+                    code="5.0"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+              </dl>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>Math Constants and Functions</h4>
+            <div class="text-start">
+              <dl>
+                <dt>
+                  <AstroCode
+                    code="Math.random()"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />
+                </dt>
+                <dd>
+                  Returns a random number value greater than or equal to <AstroCode
+                    code="0.0"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> and less than <AstroCode
+                    code="1.0"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> (~0.9999).<br />Example: <AstroCode
+                    code="Math.floor((Math.random() * 10) + 1"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> returns a random integer between <AstroCode
+                    code="1"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  /> and <AstroCode
+                    code="10"
+                    lang="javascript"
+                    inline
+                    theme={"material-theme-ocean"}
+                  />.
+                </dd>
+              </dl>
+            </div>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1"
+              >Practice implementing various JavaScript constructs:
+              <ul>
+                <ListItem variant="2">Escape sequences</ListItem>
+                <ListItem variant="2">Constants</ListItem>
+                <ListItem variant="2">Compound assignment operations</ListItem>
+                <ListItem variant="2">Increment & decrement operations</ListItem
+                >
+                <ListItem variant="2">Math constants and functions</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >1-8-intermediate-data.js</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Increment,
+            Decrement, and Compound Assignment
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-8-intermediate-data.js"
+            mark={{ label: "Stop and run your code", range: "20" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Math Constants and
+            Functions
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-8-intermediate-data.js"
+            collapse={["1-19"]}
+            collapseStyle={"collapsible-auto"}
+            mark={{ label: "Stop and run your code", range: "35" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Escape Sequences
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-8-intermediate-data.js"
+            collapse={["1-34"]}
+            collapseStyle={"collapsible-auto"}
+            mark={{ label: "Stop and run your code", range: "48" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Combining Concepts
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="1-8-intermediate-data.js"
+            collapse={["1-47"]}
+            collapseStyle={"collapsible-auto"}
+            mark={{ label: "Stop and run your code", range: "63" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              Think about the concept of compound assignment. What is a
+              real-world scenario (outside of a programming context) where you
+              might perform a similar "shortcut" operation—where you update a
+              value by combining it with another? For example, is there a
+              situation where you keep a running total of expenses by adding
+              each new cost to your existing total, rather than recalculating
+              from scratch each time?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
