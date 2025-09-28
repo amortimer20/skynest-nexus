@@ -1,0 +1,731 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+System.out.print("Enter your age: ");
+int age = input.nextDouble();
+
+if (age >= 16) {
+  System.out.println("You can drive!");
+}
+`;
+const Figure2 = `
+if (age >= 16) {
+  System.out.println("You can drive!");
+}
+`;
+const Figure3 = `
+Enter your age: 17 [Enter]
+You can drive!
+`;
+const Figure4 = `
+Enter your age: 12 [Enter]
+[No output]
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age Validator ---");
+
+        System.out.print("Enter your age: ");
+        int userAge = Integer.parseInt(input.nextLine());
+
+        if (userAge >= 16) {
+            System.out.println("Time to hit the road! You've earned your driving permit.\\n");
+        }
+
+        if (userAge >= 18) {
+            System.out.println("Adulting 101: You can now vote and live independently.");
+            System.out.println("Please exit your mom's basement.\\n");
+        }
+
+        if (userAge >= 35) {
+            System.out.println("You're old enough to run for president.");
+
+            System.out.print("Enter your full name: ");
+            String fullName = input.nextLine();
+
+            System.out.print("What year will you run? ");
+            String electionYear = input.nextLine();
+
+            System.out.print("What's your nickname (e.g., 'The Awesome')? ");
+            String nickName = input.nextLine();
+
+            System.out.println(nickName + " " + fullName + " for president in " + electionYear + "!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+//
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age Validator ---");
+
+        System.out.print("Enter your age: ");
+        int userAge = Integer.parseInt(input.nextLine());
+
+        if (userAge >= 16) {
+            System.out.println("Time to hit the road! You've earned your driving permit.\\n");
+        }
+
+        if (userAge >= 18) {
+            System.out.println("Adulting 101: You can now vote and live independently.");
+            System.out.println("Please exit your mom's basement.\\n");
+        }
+
+        if (userAge >= 35) {
+            System.out.println("You're old enough to run for president.");
+
+            System.out.print("Enter your full name: ");
+            String fullName = input.nextLine();
+
+            System.out.print("What year will you run? ");
+            String electionYear = input.nextLine();
+
+            System.out.print("What's your nickname (e.g., 'The Awesome')? ");
+            String nickName = input.nextLine();
+
+            System.out.println(nickName + " " + fullName + " for president in " + electionYear + "!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - Simple Score Calculator ---");
+
+        System.out.print("Enter your score (0-100): ");
+        int score = Integer.parseInt(input.nextLine());
+
+        if (score >= 60) {
+            System.out.println("You passed!");
+        }
+
+        if (score < 60) {
+            System.out.println("You did not pass. Keep studying!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+//
+    }
+}
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age Validator ---");
+
+        System.out.print("Enter your age: ");
+        int userAge = Integer.parseInt(input.nextLine());
+
+        if (userAge >= 16) {
+            System.out.println("Time to hit the road! You've earned your driving permit.\\n");
+        }
+
+        if (userAge >= 18) {
+            System.out.println("Adulting 101: You can now vote and live independently.");
+            System.out.println("Please exit your mom's basement.\\n");
+        }
+
+        if (userAge >= 35) {
+            System.out.println("You're old enough to run for president.");
+
+            System.out.print("Enter your full name: ");
+            String fullName = input.nextLine();
+
+            System.out.print("What year will you run? ");
+            String electionYear = input.nextLine();
+
+            System.out.print("What's your nickname (e.g., 'The Awesome')? ");
+            String nickName = input.nextLine();
+
+            System.out.println(nickName + " " + fullName + " for president in " + electionYear + "!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - Simple Score Calculator ---");
+
+        System.out.print("Enter your score (0-100): ");
+        int score = Integer.parseInt(input.nextLine());
+
+        if (score >= 60) {
+            System.out.println("You passed!");
+        }
+
+        if (score < 60) {
+            System.out.println("You did not pass. Keep studying!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 3 - Temperature Check ---");
+
+        System.out.print("What is the current temperature in Fahrenheit? ");
+        int currentTemp = Integer.parseInt(input.nextLine());
+
+        if (currentTemp <= 32) {
+            System.out.println("Brrr! It's freezing. Don't forget your coat!");
+        }
+
+        if (currentTemp > 32 && currentTemp <= 65) {
+            System.out.println("It's a bit chilly. A light jacket should be perfect.");
+        }
+
+        if (currentTemp > 65) {
+            System.out.println("It's warm outside. Enjoy the nice weather!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+//
+    }
+}
+`;
+const Task4 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Age Validator ---");
+
+        System.out.print("Enter your age: ");
+        int userAge = Integer.parseInt(input.nextLine());
+
+        if (userAge >= 16) {
+            System.out.println("Time to hit the road! You've earned your driving permit.\\n");
+        }
+
+        if (userAge >= 18) {
+            System.out.println("Adulting 101: You can now vote and live independently.");
+            System.out.println("Please exit your mom's basement.\\n");
+        }
+
+        if (userAge >= 35) {
+            System.out.println("You're old enough to run for president.");
+
+            System.out.print("Enter your full name: ");
+            String fullName = input.nextLine();
+
+            System.out.print("What year will you run? ");
+            String electionYear = input.nextLine();
+
+            System.out.print("What's your nickname (e.g., 'The Awesome')? ");
+            String nickName = input.nextLine();
+
+            System.out.println(nickName + " " + fullName + " for president in " + electionYear + "!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - Simple Score Calculator ---");
+
+        System.out.print("Enter your score (0-100): ");
+        int score = Integer.parseInt(input.nextLine());
+
+        if (score >= 60) {
+            System.out.println("You passed!");
+        }
+
+        if (score < 60) {
+            System.out.println("You did not pass. Keep studying!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 3 - Temperature Check ---");
+
+        System.out.print("What is the current temperature in Fahrenheit? ");
+        int currentTemp = Integer.parseInt(input.nextLine());
+
+        if (currentTemp <= 32) {
+            System.out.println("Brrr! It's freezing. Don't forget your coat!");
+        }
+
+        if (currentTemp > 32 && currentTemp <= 65) {
+            System.out.println("It's a bit chilly. A light jacket should be perfect.");
+        }
+
+        if (currentTemp > 65) {
+            System.out.println("It's warm outside. Enjoy the nice weather!");
+        }
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 4 - Letter Grade Calculator ---");
+
+        System.out.print("Enter your final grade percentage (0-100): ");
+        int finalGrade = Integer.parseInt(input.nextLine());
+
+        if (finalGrade >= 90) {
+            System.out.println("You got an A! Excellent work!");
+        }
+
+        if (finalGrade >= 80 && finalGrade < 90) {
+            System.out.println("You got a B! Great job!");
+        }
+
+        if (finalGrade >= 70 && finalGrade < 80) {
+            System.out.println("You got a C. Solid effort.");
+        }
+
+        if (finalGrade >= 60 && finalGrade < 70) {
+            System.out.println("You got a D. You passed, but there's room to improve.");
+        }
+
+        if (finalGrade < 60) {
+            System.out.println("You got an F. Let's review the material and try again.");
+        }
+//
+    }
+}
+`;
+const SampleOutput = `
+--- Demo 1 - Age Validator ---
+Enter your age: 35
+Time to hit the road! You've earned your driving permit.
+
+Adulting 101: You can now vote and live independently.
+Please exit your mom's basement.
+
+You're old enough to run for president.
+Enter your full name: Anthony Mortimer
+What year will you run? 2028
+What's your nickname (e.g., 'The Awesome')? Sleepy
+Sleepy Anthony Mortimer for president in 2028!
+Press enter to continue...
+
+
+--- Demo 2 - Simple Score Calculator ---
+Enter your score (0-100): 83
+You passed!
+Press enter to continue...
+
+
+--- Demo 3 - Temperature Check ---
+What is the current temperature in Fahrenheit? 72
+It's warm outside. Enjoy the nice weather!
+Press enter to continue...
+
+
+--- Demo 4 - Letter Grade Calculator ---
+Enter your final grade percentage (0-100): 76
+You got a C. Solid effort.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.2 If Statements</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.2</h3>
+            <h4 class="text-skynest-theme">If Statements</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Making Decisions</li>
+              <li>If Statements</li>
+              <li>Common Mistakes when Writing If Statements</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Making Decisions</h4>
+            <p>
+              Programs often need to make <span class="text-skynest-theme"
+                >choices</span
+              >. As discussed in the previous lesson, a program often needs to
+              decide what to do based on certain circumstances.
+            </p>
+            <p class="fragment">
+              This kind of decision-making is called <span
+                class="text-skynest-theme">selection</span
+              >. It lets your program follow different paths depending on what's
+              true.
+            </p>
+          </section>
+          <section>
+            <h4>
+              The <AstroCode
+                code="if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Statement
+            </h4>
+            <p>
+              An if statement allows your program to check a condition and
+              decide whether or not to execute a block of code based on whether
+              its condition is <AstroCode
+                code="true"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> or <AstroCode
+                code="false"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+
+            <Code code={Figure1} lang="java" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Components of an <AstroCode
+                code="if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Statement
+            </h4>
+            <Code code={Figure2} lang="java" class="text-start" />
+            <p class="fragment text-start">
+              1. (<AstroCode
+                code="if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />) If keyword - Denotes the beginning of an if statement.
+            </p>
+            <p class="fragment text-start">
+              2. (<AstroCode
+                code="age >= 16"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />) Condition - A boolean expression that evaluates <AstroCode
+                code="true"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> or <AstroCode
+                code="false"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+            <p class="fragment text-start">
+              3. (<AstroCode
+                code="{ }"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />) Code Block: A Group of statements surrounded by braces.
+            </p>
+          </section>
+          <section>
+            <h4>Demo: Create the Driving Age Checker</h4>
+            <Code code={Figure1} lang="java" class="text-start mb-3" />
+            <Code
+              code={Figure3}
+              lang="txt"
+              frame="terminal"
+              title="Sample Output 1"
+              class="text-start fragment mb-3"
+            />
+            <Code
+              code={Figure4}
+              lang="txt"
+              frame="terminal"
+              title="Sample Output 2"
+              class="text-start fragment"
+            />
+          </section>
+          <section>
+            <h4>Common Mistakes</h4>
+            <p>
+              <b>1. Forgetting to Close a Code Block: </b> Always let your editor
+              generate the closing brace and avoid deleting it. New programmers often
+              forget to close their code blocks.
+            </p>
+            <p class="fragment">
+              <b>2. Poor indentation:</b> Indent all code within a block by one tab.
+              While not required by the compiler, this makes your code much easier
+              to read and maintain.
+            </p>
+            <p class="fragment">
+              3. <b>Unnecessary semi-colons:</b>
+              <i class="si-x text-skynest-red"></i><AstroCode
+                code="if (condition); {"
+                inline
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Avoid placing semi-colons after an if statement's condition. A semi-colon
+              here separates the condition from the code block, causing the block
+              to run unconditionally.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Selection</dt>
+              <dd>
+                The ability of a program to choose which code to execute based
+                on a condition.
+              </dd>
+              <dt>
+                <AstroCode
+                  code="if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> Statement
+              </dt>
+              <dd>
+                A fundamental control flow structure that allows a program to
+                execute a block of code only if a specified condition is <AstroCode
+                  code="true"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />. It consists of the if keyword, a condition, and a code
+                block.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Condition</dt>
+              <dd>
+                A logical expression that evaluates to a Boolean value (<AstroCode
+                  code="true"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> or <AstroCode
+                  code="false"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />). It determines whether the code inside an if statement's
+                code block will be executed.
+              </dd>
+              <dt>Code Block</dt>
+              <dd>
+                A group of one or more programming statements enclosed in curly
+                braces (<AstroCode
+                  code="{ }"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />). In an <AstroCode
+                  code="if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> statement, this block of code is executed when the condition is
+                met.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Constructing If Statements</ListItem>
+            <ListItem>Evaluating Conditions</ListItem>
+            <ListItem>Grouping code into code blocks</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-2-If-Statements</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Age Validator
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{ label: "Stop and run your code", range: "39" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Simple Score
+            Calculator
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="5-38"
+            collapseStyle="collapsible-auto"
+            mark={{ label: "Stop and run your code", range: "56" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Temperature Check
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="5-55"
+            collapseStyle="collapsible-auto"
+            mark={{ label: "Stop and run your code", range: "77" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Letter Grade
+            Calculator
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="5-76"
+            collapseStyle="collapsible-auto"
+            mark={{ label: "Stop and run your code", range: "102" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              Describe a real-life situation where you make a decision based on
+              multiple conditions. How would you translate that decision-making
+              process into an if statement using logical operators like && (AND)
+              and || (OR)?
+            </li>
+            <li>
+              In the score calculator task, why is it important to have separate
+              if statements for score &gt;= 60 and score &lt; 60 instead of just
+              one? What happens if you use if (score &lt; 60) followed by a
+              separate if (score &gt;= 60)?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
