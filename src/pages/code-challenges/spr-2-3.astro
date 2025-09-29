@@ -1,0 +1,131 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+Enter your head size in inches: 23  
+Hat size: Large  
+Roomy for big ideas.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Sprint 2.3 Hat Size Checker</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Build a console program that asks the user for their head
+            circumference (in inches) and displays a matching hat size label.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Evaluating Boolean expressions</ListItem>
+            <ListItem>Branching with Selection Statements</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >sprint-2-3</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2"
+                  >Ask the user to enter their head size in inches</ListItem
+                >
+                <ListItem variant="2"
+                  >Use selection statements to math the input to a hat size
+                  category</ListItem
+                >
+                <ListItem variant="2"
+                  >Display the had size and a custom message based on the range</ListItem
+                >
+              </ul>
+            </ListItem>
+          </ul>
+
+          <h4>Hat Size Reference</h4>
+          <div class="row">
+            <div class="col-6">
+              <table class="table">
+            <thead>
+              <tr>
+                <th>Circumference</th>
+                <th>Hat Size</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>20-21</td>
+                <td>Small</td>
+                <td>Snug fit for speedy thinkers</td>
+              </tr>
+              <tr>
+                <td>21-22.5</td>
+                <td>Medium</td>
+                <td>Balanced and brilliant</td>
+              </tr>
+              <tr>
+                <td>22.5-24</td>
+                <td>Large</td>
+                <td>Roomy for big ideas</td>
+              </tr>
+              <tr>
+                <td>24+</td>
+                <td>Extra Large</td>
+                <td>Legendary noggin detected</td>
+              </tr>
+            </tbody>
+          </table>
+            </div>
+          </div>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
