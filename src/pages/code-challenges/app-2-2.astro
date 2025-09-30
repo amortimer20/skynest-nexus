@@ -1,0 +1,143 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput1 = `
+Enter the coefficient a: 1 [Enter]
+Enter the coefficient b: -3 [Enter]
+Enter the coefficient c: 2 [Enter]
+The roots of the equation are: 2 and 1.
+`;
+const SampleOutput2 = `
+Enter the coefficient a: 1 [Enter]
+Enter the coefficient b: -3 [Enter]
+Enter the coefficient c: 2 [Enter]
+The roots of the equation are: 2 and 1.
+`;
+const SampleOutput3 = `
+Enter the coefficient a: 1 [Enter]
+Enter the coefficient b: -3 [Enter]
+Enter the coefficient c: 2 [Enter]
+The roots of the equation are: 2 and 1.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Application 2.2 Quadratics</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Your task is to create a program that solves quadratic equations
+            using the quadratic formula. Given coefficients a, b, and c, your
+            program should calculate the roots of the equation <i
+              class="text-skynest-theme">ax<sup>2</sup> + bx + c = 0</i
+            >.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Invoking math functions for complex calculations</ListItem
+            >
+            <ListItem>Branching with selection statements</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >application-2-2</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2"
+                  >Prompt the user to input the coefficients a, b, and c.</ListItem
+                >
+                <ListItem variant="2"
+                  >Calculate the discriminant <i class="text-skynest-theme"
+                    >b<sup>2</sup> - 4ac</i
+                  >.</ListItem
+                >
+                <ListItem variant="2"
+                  >Determine the roots of the equation based on the
+                  discriminant:
+                  <ul>
+                    <ListItem variant="3"
+                      >If the discriminant is positive, there are two distinct
+                      real roots.</ListItem
+                    >
+                    <ListItem variant="3"
+                      >If the discriminant is zero, there is one real root.</ListItem
+                    >
+                    <ListItem variant="3"
+                      >If the discriminant is negative, there are no real roots.</ListItem
+                    >
+                  </ul>
+                </ListItem>
+                <ListItem variant="2"
+                  >Display the roots in a clear format.</ListItem
+                >
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput1}
+            frame="terminal"
+            title="Sample Output 1"
+            lang="txt"
+            class="mb-3"
+          />
+          <Code
+            code={SampleOutput2}
+            frame="terminal"
+            title="Sample Output 2"
+            lang="txt"
+            class="mb-3"
+          />
+          <Code
+            code={SampleOutput3}
+            frame="terminal"
+            title="Sample Output 3"
+            lang="txt"
+            class="mb-3"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
