@@ -1,0 +1,884 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+let answer = prompt("Would you like to delete your account?");
+
+if (answer == "yes") {
+    let confirm = prompt("Are you ABSOLUTELY SURE?");
+
+    if (confirm == "yes") {
+        console.log("Deleting your account.");
+    }
+    else {
+        console.log("Cancelling your request.")
+    }
+} 
+`;
+const Figure2 = `
+Would you like to delete your account? yes [Enter]
+Are you ABSOLUTELY SURE? yes [Enter]
+Deleting your account.
+`;
+const Task1 = `
+// If the player beats one of the levels, set its boolean variable to true
+let wolfpackEnding = false;
+let dragonEnding = false;
+let gold = 0;
+let twinkies = 0;
+`;
+const Task2 = `
+// If the player beats one of the levels, set its boolean variable to true
+let wolfpackEnding = false;
+let dragonEnding = false;
+let gold = 0;
+let twinkies = 0;
+
+// Prologue -----------------------------------------------------------------------------
+console.log("Your car crashes into a tree during a thunderstorm in the woods.");
+console.log("Darkness surrounds you as thunder crashes and rain pours.");
+console.log("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+console.log("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+// Convert a string to lowercase using String.toLowerCase()
+let path = prompt("Which path do you take? (left or right) -> ").toLowerCase();
+
+if (path == "left" || path == "right") {
+    console.log("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+    console.log("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+    let twinkieChoice = (prompt("(take or eat) -> ") || "").toLowerCase();
+
+    if (twinkieChoice === "take") {
+        console.log("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+        twinkies = twinkies + 1;
+    }
+    else if (twinkieChoice === "eat") {
+        console.log("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+    }
+    else {
+        console.log("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+    }
+}
+//
+`;
+const Task3 = `
+// If the player beats one of the levels, set its boolean variable to true
+let wolfpackEnding = false;
+let dragonEnding = false;
+let gold = 0;
+let twinkies = 0;
+
+// Prologue -----------------------------------------------------------------------------
+console.log("Your car crashes into a tree during a thunderstorm in the woods.");
+console.log("Darkness surrounds you as thunder crashes and rain pours.");
+console.log("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+console.log("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+// Convert a string to lowercase using String.toLowerCase()
+let path = prompt("Which path do you take? (left or right) -> ").toLowerCase();
+
+if (path == "left" || path == "right") {
+    console.log("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+    console.log("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+    let twinkieChoice = (prompt("(take or eat) -> ") || "").toLowerCase();
+
+    if (twinkieChoice === "take") {
+        console.log("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+        twinkies = twinkies + 1;
+    }
+    else if (twinkieChoice === "eat") {
+        console.log("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+    }
+    else {
+        console.log("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+    }
+}
+
+// Caves -----------------------------------------------------------------------------
+// Left -> Wolfpack
+// Right -> Dragon
+// Else -> No path chosen
+if (path === "left") {
+
+}
+else if (path === "right") {
+
+}
+else {
+    
+}
+//
+`;
+const Task4 = `
+// If the player beats one of the levels, set its boolean variable to true
+let wolfpackEnding = false;
+let dragonEnding = false;
+let gold = 0;
+let twinkies = 0;
+
+// Prologue -----------------------------------------------------------------------------
+console.log("Your car crashes into a tree during a thunderstorm in the woods.");
+console.log("Darkness surrounds you as thunder crashes and rain pours.");
+console.log("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+console.log("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+// Convert a string to lowercase using String.toLowerCase()
+let path = prompt("Which path do you take? (left or right) -> ").toLowerCase();
+
+if (path == "left" || path == "right") {
+    console.log("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+    console.log("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+    let twinkieChoice = (prompt("(take or eat) -> ") || "").toLowerCase();
+
+    if (twinkieChoice === "take") {
+        console.log("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+        twinkies = twinkies + 1;
+    }
+    else if (twinkieChoice === "eat") {
+        console.log("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+    }
+    else {
+        console.log("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+    }
+}
+
+// Caves -----------------------------------------------------------------------------
+// Left -> Wolfpack
+// Right -> Dragon
+// Else -> No path chosen
+if (path === "left") {
+    console.log("You cautiously take the left path.");
+    console.log("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.");
+    console.log("The pack leader, larger and fiercer than the others, steps forward, growling softly...\\n");
+
+    let wolfChoice = prompt("Do you offer the pack leader your hand in peace? (yes or no) -> ").toLowerCase();
+
+    if (wolfChoice === "yes" && twinkies >= 1) {
+        console.log("As you reach out, the wolves smell the Twinkie...");
+        console.log("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!\\n");
+    }
+    else if (wolfChoice === "yes") {
+        console.log("The pack leader sniffs your hand and accepts you into the fold.");
+        console.log("You're given a small satchel of gold as a token of their trust.");
+        console.log("You settle in with the wolves, awaiting dawn as the storm howls outside...\\n");
+        gold = gold + 5;
+        wolfpackEnding = true;
+    }
+    else {
+        console.log("Sensing your hesitation, the wolves close in, their teeth bared.");
+        console.log("You feel their claws sink in, and everything goes black...\\n");
+    } 
+}
+else if (path === "right") {
+
+}
+else {
+    
+}
+//
+`;
+const Task5 = `
+// If the player beats one of the levels, set its boolean variable to true
+let wolfpackEnding = false;
+let dragonEnding = false;
+let gold = 0;
+let twinkies = 0;
+
+// Prologue -----------------------------------------------------------------------------
+console.log("Your car crashes into a tree during a thunderstorm in the woods.");
+console.log("Darkness surrounds you as thunder crashes and rain pours.");
+console.log("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+console.log("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+// Convert a string to lowercase using String.toLowerCase()
+let path = prompt("Which path do you take? (left or right) -> ").toLowerCase();
+
+if (path == "left" || path == "right") {
+    console.log("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+    console.log("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+    let twinkieChoice = (prompt("(take or eat) -> ") || "").toLowerCase();
+
+    if (twinkieChoice === "take") {
+        console.log("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+        twinkies = twinkies + 1;
+    }
+    else if (twinkieChoice === "eat") {
+        console.log("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+    }
+    else {
+        console.log("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+    }
+}
+
+// Caves -----------------------------------------------------------------------------
+// Left -> Wolfpack
+// Right -> Dragon
+// Else -> No path chosen
+if (path === "left") {
+    console.log("You cautiously take the left path.");
+    console.log("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.");
+    console.log("The pack leader, larger and fiercer than the others, steps forward, growling softly...\\n");
+
+    let wolfChoice = prompt("Do you offer the pack leader your hand in peace? (yes or no) -> ").toLowerCase();
+
+    if (wolfChoice === "yes" && twinkies >= 1) {
+        console.log("As you reach out, the wolves smell the Twinkie...");
+        console.log("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!\\n");
+    }
+    else if (wolfChoice === "yes") {
+        console.log("The pack leader sniffs your hand and accepts you into the fold.");
+        console.log("You're given a small satchel of gold as a token of their trust.");
+        console.log("You settle in with the wolves, awaiting dawn as the storm howls outside...\\n");
+        gold = gold + 5;
+        wolfpackEnding = true;
+    }
+    else {
+        console.log("Sensing your hesitation, the wolves close in, their teeth bared.");
+        console.log("You feel their claws sink in, and everything goes black...\\n");
+    } 
+}
+else if (path === "right") {
+    console.log("You take the right path, deeper into the damp, dark cave.");
+    console.log("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.");
+    console.log("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'");
+
+    let dragonChoice = prompt("Do you offer him a treat? (yes or no) -> ").toLowerCase();
+
+    if (dragonChoice === "yes" && twinkies >= 1) {
+        console.log("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.");
+        console.log("In gratitude, he hands you a pile of gold coins.\\n");
+
+        let goldChoice = prompt("How much gold do you take? -> ");
+        let goldAmount = parseInt(goldChoice, 10); 
+
+        if (goldAmount > 0 && goldAmount <= 100) {
+            console.log("The dragon grunts approval, allowing you to take the gold...\\n");
+            gold = gold + goldAmount;
+        }
+        else if (goldAmount > 100) {
+            console.log("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'\\n");
+        }
+        else {
+            // This handles 0, negative numbers, or non-numeric input (NaN) 
+            // where parseInt fails, mirroring the original Python 'else' logic.
+            console.log("The dragon, impressed by your modesty, lets you take all the gold!\\n");
+            gold = gold + 100000;
+        }
+
+        dragonEnding = true;
+    }
+    else {
+        console.log("The dragon's face darkens, and he lunges towards you!");
+        console.log("His jaws close around you as everything fades to black...\\n");
+    }
+}
+else {
+    
+}
+//
+`;
+const Task6 = `
+// If the player beats one of the levels, set its boolean variable to true
+let wolfpackEnding = false;
+let dragonEnding = false;
+let gold = 0;
+let twinkies = 0;
+
+// Prologue -----------------------------------------------------------------------------
+console.log("Your car crashes into a tree during a thunderstorm in the woods.");
+console.log("Darkness surrounds you as thunder crashes and rain pours.");
+console.log("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+console.log("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+// Convert a string to lowercase using String.toLowerCase()
+let path = prompt("Which path do you take? (left or right) -> ").toLowerCase();
+
+if (path == "left" || path == "right") {
+    console.log("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+    console.log("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+    let twinkieChoice = (prompt("(take or eat) -> ") || "").toLowerCase();
+
+    if (twinkieChoice === "take") {
+        console.log("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+        twinkies = twinkies + 1;
+    }
+    else if (twinkieChoice === "eat") {
+        console.log("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+    }
+    else {
+        console.log("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+    }
+}
+
+// Caves -----------------------------------------------------------------------------
+// Left -> Wolfpack
+// Right -> Dragon
+// Else -> No path chosen
+if (path === "left") {
+    console.log("You cautiously take the left path.");
+    console.log("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.");
+    console.log("The pack leader, larger and fiercer than the others, steps forward, growling softly...\\n");
+
+    let wolfChoice = prompt("Do you offer the pack leader your hand in peace? (yes or no) -> ").toLowerCase();
+
+    if (wolfChoice === "yes" && twinkies >= 1) {
+        console.log("As you reach out, the wolves smell the Twinkie...");
+        console.log("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!\\n");
+    }
+    else if (wolfChoice === "yes") {
+        console.log("The pack leader sniffs your hand and accepts you into the fold.");
+        console.log("You're given a small satchel of gold as a token of their trust.");
+        console.log("You settle in with the wolves, awaiting dawn as the storm howls outside...\\n");
+        gold = gold + 5;
+        wolfpackEnding = true;
+    }
+    else {
+        console.log("Sensing your hesitation, the wolves close in, their teeth bared.");
+        console.log("You feel their claws sink in, and everything goes black...\\n");
+    } 
+}
+else if (path === "right") {
+    console.log("You take the right path, deeper into the damp, dark cave.");
+    console.log("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.");
+    console.log("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'");
+
+    let dragonChoice = prompt("Do you offer him a treat? (yes or no) -> ").toLowerCase();
+
+    if (dragonChoice === "yes" && twinkies >= 1) {
+        console.log("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.");
+        console.log("In gratitude, he hands you a pile of gold coins.\\n");
+
+        let goldChoice = prompt("How much gold do you take? -> ");
+        let goldAmount = parseInt(goldChoice, 10); 
+
+        if (goldAmount > 0 && goldAmount <= 100) {
+            console.log("The dragon grunts approval, allowing you to take the gold...\\n");
+            gold = gold + goldAmount;
+        }
+        else if (goldAmount > 100) {
+            console.log("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'\\n");
+        }
+        else {
+            // This handles 0, negative numbers, or non-numeric input (NaN) 
+            // where parseInt fails, mirroring the original Python 'else' logic.
+            console.log("The dragon, impressed by your modesty, lets you take all the gold!\\n");
+            gold = gold + 100000;
+        }
+
+        dragonEnding = true;
+    }
+    else {
+        console.log("The dragon's face darkens, and he lunges towards you!");
+        console.log("His jaws close around you as everything fades to black...\\n");
+    }
+}
+else {
+    console.log("You hesitate, feeling the storm grow stronger as lightning flashes around you.");
+    console.log("Suddenly, a bolt strikes nearby, and you fall to the ground, darkness closing in.\\n");
+}
+//
+`;
+const Task7 = `
+// If the player beats one of the levels, set its boolean variable to true
+let wolfpackEnding = false;
+let dragonEnding = false;
+let gold = 0;
+let twinkies = 0;
+
+// Prologue -----------------------------------------------------------------------------
+console.log("Your car crashes into a tree during a thunderstorm in the woods.");
+console.log("Darkness surrounds you as thunder crashes and rain pours.");
+console.log("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+console.log("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+// Convert a string to lowercase using String.toLowerCase()
+let path = prompt("Which path do you take? (left or right) -> ").toLowerCase();
+
+if (path == "left" || path == "right") {
+    console.log("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+    console.log("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+    let twinkieChoice = (prompt("(take or eat) -> ") || "").toLowerCase();
+
+    if (twinkieChoice === "take") {
+        console.log("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+        twinkies = twinkies + 1;
+    }
+    else if (twinkieChoice === "eat") {
+        console.log("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+    }
+    else {
+        console.log("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+    }
+}
+
+// Caves -----------------------------------------------------------------------------
+// Left -> Wolfpack
+// Right -> Dragon
+// Else -> No path chosen
+if (path === "left") {
+    console.log("You cautiously take the left path.");
+    console.log("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.");
+    console.log("The pack leader, larger and fiercer than the others, steps forward, growling softly...\\n");
+
+    let wolfChoice = prompt("Do you offer the pack leader your hand in peace? (yes or no) -> ").toLowerCase();
+
+    if (wolfChoice === "yes" && twinkies >= 1) {
+        console.log("As you reach out, the wolves smell the Twinkie...");
+        console.log("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!\\n");
+    }
+    else if (wolfChoice === "yes") {
+        console.log("The pack leader sniffs your hand and accepts you into the fold.");
+        console.log("You're given a small satchel of gold as a token of their trust.");
+        console.log("You settle in with the wolves, awaiting dawn as the storm howls outside...\\n");
+        gold = gold + 5;
+        wolfpackEnding = true;
+    }
+    else {
+        console.log("Sensing your hesitation, the wolves close in, their teeth bared.");
+        console.log("You feel their claws sink in, and everything goes black...\\n");
+    } 
+}
+else if (path === "right") {
+    console.log("You take the right path, deeper into the damp, dark cave.");
+    console.log("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.");
+    console.log("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'");
+
+    let dragonChoice = prompt("Do you offer him a treat? (yes or no) -> ").toLowerCase();
+
+    if (dragonChoice === "yes" && twinkies >= 1) {
+        console.log("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.");
+        console.log("In gratitude, he hands you a pile of gold coins.\\n");
+
+        let goldChoice = prompt("How much gold do you take? -> ");
+        let goldAmount = parseInt(goldChoice, 10); 
+
+        if (goldAmount > 0 && goldAmount <= 100) {
+            console.log("The dragon grunts approval, allowing you to take the gold...\\n");
+            gold = gold + goldAmount;
+        }
+        else if (goldAmount > 100) {
+            console.log("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'\\n");
+        }
+        else {
+            // This handles 0, negative numbers, or non-numeric input (NaN) 
+            // where parseInt fails, mirroring the original Python 'else' logic.
+            console.log("The dragon, impressed by your modesty, lets you take all the gold!\\n");
+            gold = gold + 100000;
+        }
+
+        dragonEnding = true;
+    }
+    else {
+        console.log("The dragon's face darkens, and he lunges towards you!");
+        console.log("His jaws close around you as everything fades to black...\\n");
+    }
+}
+else {
+    console.log("You hesitate, feeling the storm grow stronger as lightning flashes around you.");
+    console.log("Suddenly, a bolt strikes nearby, and you fall to the ground, darkness closing in.\\n");
+}
+
+// Epilogue -----------------------------------------------------------------------------
+console.log("-- Ending --");
+
+if (wolfpackEnding) {
+    console.log("By cuddling with the wolfpack, you weather out the storm.");
+    console.log("Upon leaving the cave, they follow you, seeing you as the new pack leader.");
+    console.log("You survived!!!");
+}
+else if (dragonEnding) {
+    console.log("By tempting the dragon with a delicious Hostess snack cake, you avoid his wrath.");
+    console.log("He flies you back home after the storm, but not after raiding the nearest Hostess factory.");
+    console.log("You survived!!!");
+}
+else {
+    console.log("Game Over!");
+}
+
+if (gold > 0) {
+    console.log(\`\\nYou not only survived, but you found \${gold} gold!\`);
+}
+//
+`;
+const SampleOutput = `
+Your car crashes into a tree during a thunderstorm in the woods.
+Darkness surrounds you as thunder crashes and rain pours.
+You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.
+Inside, you see two shadowy paths diverging deeper into the unknown...
+
+Which path do you take? (left or right) -> left
+
+As you move forward, you see something glimmering on the ground - a Hostess Twinkie.
+Do you eat the Twinkie for sustenance, or will you save it for later?
+(take or eat) -> take
+You slip the Twinkie into your pocket, unsure what awaits in the darkness...
+
+You cautiously take the left path.
+A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.
+The pack leader, larger and fiercer than the others, steps forward, growling softly...
+
+Do you offer the pack leader your hand in peace? (yes or no) -> yes
+As you reach out, the wolves smell the Twinkie...
+In a frenzy of hunger, they turn on you, and you're surrounded with no escape!
+
+-- Ending --
+Game Over!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.4 Nesting Code Blocks</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.4</h3>
+            <h4 class="text-skynest-theme">Nesting Code Blocks</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Nesting Code Blocks: Building Complex Logic</li>
+              <li>Demo: Confirm Account Deletion</li>
+              <li>Importance of Code Formatting</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Nesting Code Blocks: Building Complex Logic</h4>
+            <p>
+              Nesting is the process of placing one set of instructions (a code
+              block) inside another.
+            </p>
+            <p class="fragment">
+              This technique is crucial for making decisions based on previous
+              selections, which is common in even basic programs.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Confirm Account Deletion</h4>
+            <Code code={Figure1} lang="javascript" class="text-start" />
+            <p class="fragment">
+              The inner block of code only executes if the condition for the
+              outer block is first met.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Confirm Account Deletion</h4>
+            <Code
+              code={Figure1}
+              lang="javascript"
+              class="text-start"
+              mark={{ range: "6-11" }}
+            />
+            <p>
+              <Code code={Figure2} lang="txt" class="text-start mt-3" />
+            </p>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Importance of Code Formatting</h4>
+            <p>
+              It's crucial to keep your code nicely formatted. Good formatting
+              makes code easier to read, understand, and debug.
+            </p>
+            <p class="fragment">
+              <b>1. Indentation: </b>Always indent one tab for every code block.
+              If you have a nested block, the code in the nested block should be
+              indented again. This visually shows the level of nesting.
+            </p>
+            <p class="fragment">
+              <b>2. Grouping Statements: </b>
+              <AstroCode
+                code="if"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="else if"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />, and <AstroCode
+                code="else"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> statements that belong together should not have space between them.
+              Group them together to visually indicate that they are related.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Importance of Code Formatting</h4>
+            <p>
+              <b>3. Spacing Sections: </b>Space your code based on logical
+              sections. Avoid bunching up your entire program; this makes it
+              much easier to read and isolate issues when debugging.
+            </p>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Nesting if statements</ListItem>
+            <ListItem>Testing nested branching statements</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2.5-nesting.js</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Initialize Data
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Initialize the variables for the game.
+              <ul>
+                <ListItem variant="3"
+                  >The two <i>ending</i> variables are initialized to <AstroCode
+                    code="false"
+                    lang="javascript"
+                    inline
+                    theme="material-theme-ocean"
+                  />. If the use survives one of the scenarios, the variable is
+                  changed to <AstroCode
+                    code="true"
+                    lang="javascript"
+                    inline
+                    theme="material-theme-ocean"
+                  />, which will be used to select an ending.</ListItem
+                >
+                <ListItem variant="3"
+                  >The player can pick up items an accumulate gold.</ListItem
+                >
+              </ul>
+            </ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-nesting.js"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Prologue
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-nesting.js"
+            collapse="1-5"
+            collapseStyle="collapsible-auto"
+            mark={{ label: "Stop and run your code", range: "33" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Construct Selection
+            Statements for Main Levels
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Each code block will be completed individually. Take care to keep
+              track of what section you are working on.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-nesting.js"
+            collapse="1-32"
+            collapseStyle="collapsible-auto"
+            mark={{ label: "Stop and run your code", range: "47" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Wolfpack Level
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-nesting.js"
+            collapse="1-32"
+            collapseStyle="collapsible-auto"
+            ins={{ range: "39-59" }}
+            mark={{ label: "Stop and run your code", range: "67" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Dragon Level
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              ><span class="text-skynest-red text-uppercase">Warning!</span> Take
+              your time with this section. There are multiple levels of nested blocks.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-nesting.js"
+            collapse={["1-32", "39-59"]}
+            collapseStyle="collapsible-auto"
+            ins={{ range: "62-94" }}
+            mark={{ label: "Stop and run your code", range: "99" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 6 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Default Bad Ending
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >This block will execute if neither 'left' nor 'right' is chosen.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task6}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-nesting.js"
+            collapse={["1-32", "39-59", "62-94"]}
+            collapseStyle="collapsible-auto"
+            ins={{ range: "97-98" }}
+            mark={{ label: "Stop and run your code", range: "100" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 7 -->
+          <h3>
+            <span class="text-skynest-theme">Task 7</span>: Epilogue
+          </h3>
+          <ul>
+            <ListItem variant="2">Note the win conditions.</ListItem>
+          </ul>
+          <Code
+            code={Task7}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-nesting.js"
+            collapse={["1-99"]}
+            collapseStyle="collapsible-auto"
+            mark={{ label: "Stop and run your code", range: "121" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              The lesson stressed the importance of indentation and spacing
+              sections. In the Dungeon Crawler, you ended up with several layers
+              of nested if/else blocks. If you had not kept your code perfectly
+              formatted, what's a debugging mistake you may have made when
+              writing the wolfpack or dragon sections?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
