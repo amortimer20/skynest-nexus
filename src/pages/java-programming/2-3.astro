@@ -1,0 +1,763 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+int grade = 95;
+
+// Curly braces omitted for brevity
+if (grade >= 90)
+    System.out.println("A");
+if (grade >= 80)
+    System.out.println("B");
+if (grade >= 70)
+    System.out.println("C");
+if (grade >= 60)
+    System.out.println("D");
+if (grade < 60)
+    System.out.println("F");
+`;
+const Figure2 = `
+int grade = input.nextInt();
+
+if (grade > 60) {
+    System.out.println("Pass!");
+}
+else {
+    System.out.println("Fail!");
+}
+`;
+const Figure3 = `
+Enter grade: 45 [Enter]
+Fail!
+`;
+const Figure4 = `
+Enter grade: 78 [Enter]
+Pass!
+`;
+const Figure5 = `
+String password = input.nextLine();
+String secret = "secret123";
+
+if (password.equals(secret)) {
+    System.out.println("Access granted.");
+}
+else {
+    System.out.println("Access denied.");
+}
+`;
+const Figure6 = `
+Enter password: secret123 [Enter]
+Access granted.
+`;
+const Figure7 = `
+Enter password: secretpassword [Enter]
+Access denied.
+`;
+const Figure8 = `
+int grade = input.nextInt();
+
+// braces ommitted for brevity
+if (grade >= 90)
+    System.out.println("A");
+else if (grade >= 80)
+    System.out.println("B");
+else if (grade >= 70)
+    System.out.println("C");
+else if (grade >= 60)
+    System.out.println("D");
+else
+    System.out.println("F");
+`;
+const Figure9 = `
+Enter grade: 86 [Enter]
+B
+`;
+const Figure10 = `
+Enter grade: 49 [Enter]
+F
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Chinese Zodiac Calendar ---");
+        System.out.print("Enter your birth year: ");
+
+        int birthYear = input.nextInt();
+        int zodiacNumber = birthYear % 12;
+        String zodiacAnimal; // Assign animal based on birth year
+
+        input.nextLine(); // Consume newline
+
+        if (zodiacNumber == 0) {
+            zodiacAnimal = "monkey";
+        }
+        else if (zodiacNumber == 1) {
+            zodiacAnimal = "rooster";
+        }
+        else if (zodiacNumber == 2) {
+            zodiacAnimal = "dog";
+        }
+        else if (zodiacNumber == 3) {
+            zodiacAnimal = "pig";
+        }
+        else if (zodiacNumber == 4) {
+            zodiacAnimal = "rat";
+        }
+        else if (zodiacNumber == 5) {
+            zodiacAnimal = "ox";
+        }
+        else if (zodiacNumber == 6) {
+            zodiacAnimal = "tiger";
+        }
+        else if (zodiacNumber == 7) {
+            zodiacAnimal = "rabbit";
+        }
+        else if (zodiacNumber == 8) {
+            zodiacAnimal = "dragon";
+        }
+        else if (zodiacNumber == 9) {
+            zodiacAnimal = "snake";
+        }
+        else if (zodiacNumber == 10) {
+            zodiacAnimal = "horse";
+        }
+        else if (zodiacNumber == 11) {
+            zodiacAnimal = "sheep";
+        }
+        else {
+            System.out.println("Error: invalid input");
+            zodiacAnimal = "something went wrong";
+        }
+
+        System.out.println("\\nBirth year: " + birthYear + " - You are the year of the ..." + zodiacAnimal + "!");
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+//
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Chinese Zodiac Calendar ---");
+        System.out.print("Enter your birth year: ");
+
+        int birthYear = input.nextInt();
+        int zodiacNumber = birthYear % 12;
+        String zodiacAnimal; // Assign animal based on birth year
+
+        input.nextLine(); // Consume newline
+
+        if (zodiacNumber == 0) {
+            zodiacAnimal = "monkey";
+        }
+        else if (zodiacNumber == 1) {
+            zodiacAnimal = "rooster";
+        }
+        else if (zodiacNumber == 2) {
+            zodiacAnimal = "dog";
+        }
+        else if (zodiacNumber == 3) {
+            zodiacAnimal = "pig";
+        }
+        else if (zodiacNumber == 4) {
+            zodiacAnimal = "rat";
+        }
+        else if (zodiacNumber == 5) {
+            zodiacAnimal = "ox";
+        }
+        else if (zodiacNumber == 6) {
+            zodiacAnimal = "tiger";
+        }
+        else if (zodiacNumber == 7) {
+            zodiacAnimal = "rabbit";
+        }
+        else if (zodiacNumber == 8) {
+            zodiacAnimal = "dragon";
+        }
+        else if (zodiacNumber == 9) {
+            zodiacAnimal = "snake";
+        }
+        else if (zodiacNumber == 10) {
+            zodiacAnimal = "horse";
+        }
+        else if (zodiacNumber == 11) {
+            zodiacAnimal = "sheep";
+        }
+        else {
+            System.out.println("Error: invalid input");
+            zodiacAnimal = "something went wrong";
+        }
+
+        System.out.println("\\nBirth year: " + birthYear + " - You are the year of the ..." + zodiacAnimal + "!");
+
+        System.out.println("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Lottery Game ---\\n");
+        System.out.println("Rules: Pick two lottery numbers ranging from 0 to 9");
+        System.out.println("Match two numbers and win BIG!");
+        System.out.println("Match one number in order and win SMALL!\\n");
+
+        System.out.print("Enter your 1st lottery number (0 to 9): ");
+        int lottoNum1 = input.nextInt();
+
+        System.out.print("Enter your 2nd lottery number (0 to 9): ");
+        int lottoNum2 = input.nextInt();
+
+        int winningNum1 = (int)(Math.random() * 10);
+        int winningNum2 = (int)(Math.random() * 10);
+
+        // Exit the program if either lotto number is out of range
+        if (lottoNum1 < 0 || lottoNum1 > 9 || lottoNum2 < 0 || lottoNum2 > 9) {
+            System.out.println("Error: Your lotto numbers are invalid. Exiting");
+            System.exit(0); // Exit application
+        }
+
+        System.out.println("The winning numbers are " + winningNum1 + " and " + winningNum2);
+
+        if (lottoNum1 == winningNum1 && lottoNum2 == winningNum2) {
+            System.out.println("You win BIG!");
+        }
+        else if (lottoNum1 == winningNum1 || lottoNum2 == winningNum2) {
+            System.out.println("You win SMALL!");
+        }
+        else {
+            System.out.println("You lose! Better luck next time!");
+        }
+//
+    }
+}
+`;
+const SampleOutput = `
+Enter your birth year: 1990
+
+Birth year: 1990 - You are the year of the ...horse!
+Press enter to continue...
+
+--- Lottery Game ---
+
+Rules: Pick two lottery numbers ranging from 0 to 9
+Match two numbers and win BIG!
+Match one number in order and win SMALL!
+Enter your 1st lottery number (0 to 9): 7
+Enter your 2nd lottery number (0 to 9): 2
+The winning numbers are 6 and 7
+You lose! Better luck next time!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.3 Branching with If/Else</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.3</h3>
+            <h4 class="text-skynest-theme">Branching with If/Else</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Mutually Exclusive Conditions</li>
+              <li>
+                Branching with <AstroCode
+                  code="else if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> and <AstroCode
+                  code="else"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> statements
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Mutually Exclusive Conditions</h4>
+            <p>
+              The last activity introduced us to the idea of controlling the
+              flow of an application with if statements.
+            </p>
+            <p class="fragment">
+              Each program had multiple if statements that execute if their
+              conditions were true.
+            </p>
+            <p class="fragment">
+              But what if you only want to execute one block of code out of a
+              set of possibilities?
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Mutually Exclusive Conditions</h4>
+            <p class="fragment">This code may output multiple letter grades.</p>
+            <Code code={Figure1} lang="java" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Mutually Exclusive Conditions</h4>
+            <p>A grade of 95 would outout <b>A, B, C, and D</b>.</p>
+            <Code code={Figure1} lang="java" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Mutually Exclusive Conditions</h4>
+            <p>
+              Mutually exclusive conditions ensure only one selection is chosen
+              from a list of possibilities.
+            </p>
+            <p class="fragment">
+              These types of statements are also known as <b
+                >branching statements</b
+              >.
+            </p>
+          </section>
+          <section>
+            <h4>
+              Branching with <AstroCode
+                code="else if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> and <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Statements
+            </h4>
+            <p>
+              The <AstroCode
+                code="if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="else if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> structure is a way to control the flow of a program by executing
+              exactly one block of code from a series of options.
+            </p>
+            <p class="fragment">
+              It's used to handle mutually exclusive conditions, where only one
+              outcome is possible.
+            </p>
+          </section>
+          <section>
+            <h4>
+              Components of an <AstroCode
+                code="if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="else if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> structure
+            </h4>
+            <ul>
+              <li>
+                <AstroCode
+                  code="if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />: The first condition in the chain that is checked. You must
+                always start with an <AstroCode
+                  code="if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> statement.
+              </li>
+              <li class="fragment">
+                <AstroCode
+                  code="else if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />: A condition that is only checked if all preceding <AstroCode
+                  code="if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> or
+                <AstroCode
+                  code="else if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> statements were false. You can have multiple <AstroCode
+                  code="else if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />
+                statements.
+              </li>
+              <li class="fragment">
+                <AstroCode
+                  code="else"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />: An optional "catch-all" or "fallback" block that runs only
+                if all preceding <AstroCode
+                  code="if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> and <AstroCode
+                  code="else if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> conditions were false.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Statements
+            </h4>
+            <h5>Simple Pass/Fail Checker</h5>
+            <Code code={Figure2} lang="java" class="text-start mb-3" />
+            <Code code={Figure3} lang="txt" class="fragment text-start mb-3" />
+            <Code code={Figure4} lang="txt" class="fragment text-start mb-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Statements
+            </h4>
+            <h5>Simple Login Prompt</h5>
+            <Code code={Figure5} lang="java" class="text-start mb-3" />
+            <Code code={Figure6} lang="txt" class="fragment text-start mb-3" />
+            <Code code={Figure7} lang="txt" class="fragment text-start mb-3" />
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>
+              <AstroCode
+                code="else if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Statements
+            </h4>
+            <h5>Corrected Letter Grade Program</h5>
+            <Code code={Figure8} lang="java" class="text-start mb-3" />
+            <Code code={Figure9} lang="txt" class="fragment text-start mb-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> Statements
+            </h4>
+            <h5>Corrected Letter Grade Program</h5>
+            <Code code={Figure8} lang="java" class="text-start mb-3" />
+            <Code code={Figure10} lang="txt" class="text-start mb-3" />
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Branching Statements</dt>
+              <dd>
+                Statements that allow a program to follow one of several
+                possible paths of execution based on a condition. The <AstroCode
+                  code="if, else if, else"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> structure is a type of branching statement.
+              </dd>
+              <dt>
+                <AstroCode
+                  code="else if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />
+              </dt>
+              <dd>
+                A keyword that introduces an additional condition. The <AstroCode
+                  code="else if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />
+                block is only checked and executed if the preceding if or else if
+                statements were all false.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>
+                <AstroCode
+                  code="else"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                />
+              </dt>
+              <dd>
+                A keyword that introduces a final, optional block of code. The
+                else block acts as a "catch-all" and will execute if all
+                preceding <AstroCode
+                  code="if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> and <AstroCode
+                  code="else if"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> conditions were false.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem
+              >Using <AstroCode
+                code="if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="else if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, and <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> statements to create mutually exclusive conditions.</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-3-Branching-If-Else</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Chinese Zodiac
+            Calendar
+          </h3>
+          <ul>
+            <ListItem
+              >Each birth year maps to one of twelve zodiac animals in a
+              repeating cycle. To find the corresponding animal, use the formula <AstroCode
+                code="birthYear % 12"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, which gives you a remainder between 0 and 11.
+            </ListItem>
+            <ListItem
+              ><b>Tip: </b>Once you've written you first <AstroCode
+                code="else if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> copy and paste it to speed things up, just tweak the values as needed.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{ label: "Stop and run your code", range: "62" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Simple Lottery Game
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="5-61"
+            collapseStyle="collapsible-auto"
+            mark={{ label: "Stop and run your code", range: "94" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Bonus - Add Another Lotto
+            Win Condition
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Create another win condition using another <AstroCode
+                code="else if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> statement if the lotto numbers match <b>out of order</b>.
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              How does using <AstroCode
+                code="if, else if, else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> change the behavior of the program compared to using multiple, separate
+              if statements? Describe a scenario where a separate <AstroCode
+                code="if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> statement would be appropriate.
+            </li>
+            <li>
+              In the Chinese Zodiac program, the <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> block handles the case where the input is invalid. How does this
+              demonstrate the role of the <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> statement as a "catch-all" or "fallback" in your code?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
