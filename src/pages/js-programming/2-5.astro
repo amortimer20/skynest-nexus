@@ -1,0 +1,558 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import PlaylistImg from "../../assets/courses/shared/img/playlist.png";
+
+//#region CodeSnippets
+const Figure1 = `
+let timer = 10;
+
+while (timer > 0) {
+  console.log(timer);
+  timer--;
+}
+`;
+const Figure2 = `
+let start = 1;
+let end = 10;
+
+while (start <= end) {
+  console.log(number);
+  start++;
+}
+`;
+const Figure3 = `
+let number = 2;
+
+while (number >= 1024) {
+  console.log(number);
+  number = number * 2;
+}
+`;
+const Figure4 = `
+  let choice = "";
+
+  while (choice != "2") {
+    console.log("-Menu-");
+    console.log("1) Place Order");
+    console.log("2) Finish");
+    choice = prompt("->");
+    // Remaining code omitted...
+  }
+`;
+const Figure5 = `
+  let score = 0;
+
+  while (score != -1) {
+    score = parseInt(prompt("Enter a score (-1 to stop):"));
+    // Remaining code omitted
+  }
+`;
+const Figure6 = `
+  let number = 1;
+
+  while (number <= 100) {
+    console.log(number);
+  }
+`;
+const Figure7 = `
+  let number = 1;
+
+  while (number <= 100) {
+    console.log(number);
+    number++;
+  }
+`;
+const Task1 = `
+console.log("--- Demo 1 - 99 Bottles Song ---\\n");
+let soda = prompt("Enter your favorite soda:");
+let bottles = 99;
+
+// While there are bottles left to pass around...
+while (bottles > 0) {
+    console.log(\`\${bottles} bottles of \${soda} on the wall,\`);
+    console.log(\`\${bottles} bottles of \${soda}!\`);
+    console.log("You take one down, pass it around,");
+    bottles--;
+    console.log(\`\${bottles} bottles of \${soda} on the wall!\`);
+
+    // Uncomment alert() if you want to pause between iterations
+    // alert("");
+}
+
+alert("Press enter to continue...");
+// -----------------------------------------------------------------------------
+//
+`;
+const Task2 = `
+console.log("--- Demo 1 - 99 Bottles Song ---\\n");
+let soda = prompt("Enter your favorite soda:");
+let bottles = 99;
+
+// While there are bottles left to pass around...
+while (bottles > 0) {
+    console.log(\`\${bottles} bottles of \${soda} on the wall,\`);
+    console.log(\`\${bottles} bottles of \${soda}!\`);
+    console.log("You take one down, pass it around,");
+    bottles--;
+    console.log(\`\${bottles} bottles of \${soda} on the wall!\`);
+
+    // Uncomment alert() if you want to pause between iterations
+    // alert("");
+}
+
+alert("Press enter to continue...");
+// -----------------------------------------------------------------------------
+
+console.log("--- Demo 2 - Turn-Based Battle ---\\n");
+
+let playerHealth = 10;
+let enemyHealth = 6;
+let fighting = true;
+
+// Another suitable condition: playerHealth > 0 && enemyHealth == 0
+while (fighting) {
+    console.log("Health: " + playerHealth);
+    console.log("Goblin: " + enemyHealth);
+    console.log("\\n-Menu-");
+    console.log("1) Attack");
+    console.log("2) Heal");
+    let choice = prompt("->").toLowerCase();
+
+    if (choice == "1" || choice == "attack") {
+        console.log("Player attacks!");
+        let playerAttack = Math.floor(Math.random() * 6); // 0 to 5
+
+        if (playerAttack > 0) {
+            console.log(\`You did \${playerAttack} damage.\`);
+            enemyHealth = enemyHealth - playerAttack;
+        }
+        else {
+            console.log("Missed!");
+        }
+    }
+    else if (choice == "2" || choice == "heal") {
+        let potion = Math.floor(Math.random() * 3) + 1; // 1 to 3
+        console.log(\`Healed \${potion} points.\`);
+        playerHealth = playerHealth + potion;
+    }
+    else {
+        console.log("Invalid option. You lose your turn!");
+    }
+
+    if (enemyHealth > 0) {
+        console.log("Goblin attacks!");
+        let enemyAttack = Math.floor(Math.random() * 4); // 0 to 3
+
+        if (enemyAttack > 0) {
+            console.log(\`Goblin did \${enemyAttack} damage.\`);
+            playerHealth = playerHealth - enemyAttack;
+        }
+        else {
+            console.log("Missed!");
+        }
+    }
+    else {
+        console.log("Goblin defeated!");
+        fighting = false; // Exit battle
+    }
+
+    if (playerHealth <= 0) {
+        console.log("You were defeated!");
+        fighting = false; // Exit battle
+    }
+}
+//
+`;
+const SampleOutput = `
+--- Demo 1 - 99 Bottles Song ---
+
+Enter your favorite soda: Code Zero
+99 bottles of Code Zero on the wall,
+99 bottles of Code Zero!
+You take one down, pass it around,
+98 bottles of Code Zero on the wall!
+Press enter to continue... [Enter]
+--- Demo 2 - Turn-Based Battle ---
+
+Health: 10
+Goblin: 6
+
+-Menu-
+1) Attack
+2) Heal
+-> 1
+Player attacks!
+You did 3 damage.
+Goblin attacks!
+Missed!
+Health: 10
+Goblin: 3
+
+-Menu-
+1) Attack
+2) Heal
+-> 1
+Player attacks!
+You did 4 damage.
+Goblin defeated!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.5 Iteration: While Loops</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.5</h3>
+            <h4 class="text-skynest-theme">Iteration: While Loops</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Doing Things Repeatedly</li>
+              <li>While Loops</li>
+              <li>Sentinel Values</li>
+              <li>Infinite Loops</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Doing Things Repeatedly 🔁</h4>
+            <p>
+              Programs also often need to perform the <span
+                class="text-skynest-theme">same action multiple times</span
+              >. Think about counting, processing a list of items, or waiting
+              for a specific event.
+            </p>
+            <p class="fragment">
+              This concept of repeating a sequence of instructions is called <span
+                class="text-skynest-theme">iteration</span
+              > (or looping). It's essential for automating repetitive tasks.
+            </p>
+            <p class="fragment">
+              Unlike <span class="text-skynest-theme">selection</span> (<AstroCode
+                code="if"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> statements), which chooses one path, <span
+                class="text-skynest-theme">iteration</span
+              > repeats a path until a condition is no longer met.
+            </p>
+          </section>
+          <section>
+            <h4>Iteration Sample</h4>
+            <p>
+              How can we repeat the "play next song" action for every song in
+              the playlist?
+            </p>
+            <img src={PlaylistImg.src} alt="Playlist Screenshot" />
+          </section>
+          <section>
+            <h4>
+              The <AstroCode
+                code="while"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> Loop
+            </h4>
+            <p>
+              The <AstroCode
+                code="while"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> loop is the simplest way to perform iteration in JavaScript. It
+              repeatedly executes a block of code
+              <span class="text-skynest-theme">as long as</span> its condition remains
+              <AstroCode
+                code="true"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+
+            <Code code={Figure1} lang="javascript" class="text-start" />
+          </section>
+          <section>
+            <h4>Components of a While Loop</h4>
+            <Code code={Figure1} lang="javascript" class="text-start" />
+
+            <p class="fragment text-start">
+              1. (<AstroCode
+                code="while"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />) While keyword
+            </p>
+            <p class="fragment text-start">
+              2. (<AstroCode
+                code="timer > 0"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />) Condition
+              <p class="fragment text-start">
+                3. (<AstroCode
+                  code="{ }"
+                  lang="javascript"
+                  inline
+                  theme="material-theme-ocean"
+                />) Loop Body/Code Block: Must contain the repeated action and
+                the updating statement that changes the condition.
+              </p>
+            </p>
+          </section>
+          <section>
+            <h4>Demo 1: Counting Up</h4>
+            <Code code={Figure2} lang="javascript" class="text-start" />
+          </section>
+          <section>
+            <h4>Demo 2: Counting Powers of 2</h4>
+            <Code code={Figure3} lang="javascript" class="text-start" />
+          </section>
+          <section>
+            <h4>The Sentinel Value</h4>
+            <p>
+              A sentinel value is a specific input or condition that signals the
+              loop to stop.
+            </p>
+            <ul>
+              <li class="fragment">
+                It's used when the number of iterations is <b>unknown</b> beforehand.
+              </li>
+              <li class="fragment">
+                It acts as a <b>terminating signal</b> (the 'stop sign' for the loop).
+              </li>
+            </ul>
+            <Code
+              code={Figure5}
+              lang="javascript"
+              class="fragment text-start"
+            />
+            <p class="fragment">
+              In this example, -1 is the sentinel value that stops the loop.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Demo 3: Menu system</h4>
+            <Code code={Figure4} lang="javascript" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Infinite Loops</h4>
+            <ul>
+              <li>
+                A major mistake is creating a loop that never stops. These are
+                called <span class="text-skynest-theme">infinite loops</span>
+              </li>
+              <li class="fragment">
+                An infinite loop occurs when the loop's condition never becomes
+                <AstroCode
+                  code="false"
+                  lang="javascript"
+                  inline
+                  theme="material-theme-ocean"
+                />. They cause your program to freeze or crash because they
+                consume all available resources.
+              </li>
+              <li class="fragment">
+                Prevent them by ensuring the code inside the loop modifies the
+                variable(s) used in the condition.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Infinite Loops</h4>
+
+            <i class="si-emoji-sad fs-1 text-skynest-red"></i>
+            <Code
+              code={Figure6}
+              lang="javascript"
+              frame="code"
+              class="text-start mb-3"
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Infinite Loops</h4>
+
+            <i class="si-emoji-smile fs-1 text-skynest-green"></i>
+            <Code
+              code={Figure7}
+              lang="javascript"
+              frame="code"
+              class="text-start"
+            />
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Iteration / Looping</dt>
+              <dd>
+                The process of repeatedly executing a set of instructions.
+              </dd>
+              <dt>While Loop</dt>
+              <dd>
+                A control structure that executes a block of code as long as a
+                specified condition remains true.
+              </dd>
+              <dt>Loop Condition</dt>
+              <dd>
+                The boolean expression checked at the start of each iteration to
+                determine if the loop should continue.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Sentinel Value</dt>
+              <dd>
+                A special value or input that signals the end of the input or
+                the stopping point for a loop with an unknown number of
+                iterations.
+              </dd>
+              <dt>Infinite Loop</dt>
+              <dd>
+                A loop whose condition never becomes false, causing it to run
+                indefinitely and crash the program.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Writing while loops</ListItem>
+            <ListItem>Using while loops to implement menu systems</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-5-loops.js</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: 99 Bottles Song
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Pay attention to the condition. When do you stop singing the
+              song?</ListItem
+            >
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-loops.js"
+            mark={{ label: "Stop and run your code", range: "19" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Turn-Based Battle
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            showLineNumbers
+            title="2-5-loops.js"
+            collapse={"1-18"}
+            mark={{ label: "Stop and run your code", range: "78" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              When designing a while loop, you must ensure that the loop will
+              eventually stop. In Task 1 (99 Bottles), the update was simple
+              (bottles--). In Task 2 (Turn-Based Battle), how did the code
+              inside the loop ensure the loop condition (while (fighting)) could
+              eventually change to false?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
