@@ -1,0 +1,953 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+System.out.print("Would you like to delete your account?");
+String answer = input.nextLine();
+
+if (answer.equals("yes")) {
+    System.out.print("Are you ABSOLUTELY SURE?");
+    String confirm = input.nextLine();
+
+    if (confirm.equals("yes")) {
+        System.out.println("Deleting your account.");
+    }
+    else {
+        System.out.println("Cancelling your request.");
+    }
+} 
+`;
+const Figure2 = `
+Would you like to delete your account? yes [Enter]
+Are you ABSOLUTELY SURE? yes [Enter]
+Deleting your account.
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // If the player beats one of the levels, set its boolean variable to true
+        boolean wolfpackEnding = false;
+        boolean dragonEnding = false;
+        int gold = 0;
+        int twinkies = 0;
+        Scanner input = new Scanner(System.in);
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // If the player beats one of the levels, set its boolean variable to true
+        boolean wolfpackEnding = false;
+        boolean dragonEnding = false;
+        int gold = 0;
+        int twinkies = 0;
+        Scanner input = new Scanner(System.in);
+
+        // Prologue -----------------------------------------------------------------------------
+        System.out.println("Your car crashes into a tree during a thunderstorm in the woods.");
+        System.out.println("Darkness surrounds you as thunder crashes and rain pours.");
+        System.out.println("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+        System.out.println("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+        // Convert a string to lowercase using String.toLowerCase()
+        System.out.print("Which path do you take? (left or right) -> ");
+        String path = input.nextLine().toLowerCase();
+
+        if (path.equals("left") || path.equals("right")) {
+            System.out.println("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+            System.out.println("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+            System.out.print("(take or eat) -> ");
+            String twinkieChoice = input.nextLine().toLowerCase();
+
+            if (twinkieChoice.equals("take")) {
+                System.out.println("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+                twinkies += 1;
+            }
+            else if (twinkieChoice.equals("eat")) {
+                System.out.println("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+            }
+            else {
+                System.out.println("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+            }
+        }
+    }
+}
+//
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // If the player beats one of the levels, set its boolean variable to true
+        boolean wolfpackEnding = false;
+        boolean dragonEnding = false;
+        int gold = 0;
+        int twinkies = 0;
+        Scanner input = new Scanner(System.in);
+
+        // Prologue -----------------------------------------------------------------------------
+        System.out.println("Your car crashes into a tree during a thunderstorm in the woods.");
+        System.out.println("Darkness surrounds you as thunder crashes and rain pours.");
+        System.out.println("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+        System.out.println("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+        // Convert a string to lowercase using String.toLowerCase()
+        System.out.print("Which path do you take? (left or right) -> ");
+        String path = input.nextLine().toLowerCase();
+
+        if (path.equals("left") || path.equals("right")) {
+            System.out.println("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+            System.out.println("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+            System.out.print("(take or eat) -> ");
+            String twinkieChoice = input.nextLine().toLowerCase();
+
+            if (twinkieChoice.equals("take")) {
+                System.out.println("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+                twinkies += 1;
+            }
+            else if (twinkieChoice.equals("eat")) {
+                System.out.println("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+            }
+            else {
+                System.out.println("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+            }
+        }
+
+        // Caves -----------------------------------------------------------------------------
+        // Left -> Wolfpack
+        // Right -> Dragon
+        // Else -> No path chosen
+        if (path.equals("left")) {
+
+        }
+        else if (path.equals("right")) {
+
+        }
+        else {
+
+        }
+    }
+}
+//
+`;
+const Task4 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // If the player beats one of the levels, set its boolean variable to true
+        boolean wolfpackEnding = false;
+        boolean dragonEnding = false;
+        int gold = 0;
+        int twinkies = 0;
+        Scanner input = new Scanner(System.in);
+
+        // Prologue -----------------------------------------------------------------------------
+        System.out.println("Your car crashes into a tree during a thunderstorm in the woods.");
+        System.out.println("Darkness surrounds you as thunder crashes and rain pours.");
+        System.out.println("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+        System.out.println("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+        // Convert a string to lowercase using String.toLowerCase()
+        System.out.print("Which path do you take? (left or right) -> ");
+        String path = input.nextLine().toLowerCase();
+
+        if (path.equals("left") || path.equals("right")) {
+            System.out.println("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+            System.out.println("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+            System.out.print("(take or eat) -> ");
+            String twinkieChoice = input.nextLine().toLowerCase();
+
+            if (twinkieChoice.equals("take")) {
+                System.out.println("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+                twinkies += 1;
+            }
+            else if (twinkieChoice.equals("eat")) {
+                System.out.println("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+            }
+            else {
+                System.out.println("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+            }
+        }
+
+        // Caves -----------------------------------------------------------------------------
+        // Left -> Wolfpack
+        // Right -> Dragon
+        // Else -> No path chosen
+        if (path.equals("left")) {
+            System.out.println("You cautiously take the left path.");
+            System.out.println("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.");
+            System.out.println("The pack leader, larger and fiercer than the others, steps forward, growling softly...\\n");
+
+            System.out.print("Do you offer the pack leader your hand in peace? (yes or no) -> ");
+            String wolfChoice = input.nextLine().toLowerCase();
+
+            if (wolfChoice.equals("yes") && twinkies >= 1) {
+                System.out.println("As you reach out, the wolves smell the Twinkie...");
+                System.out.println("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!\\n");
+            }
+            else if (wolfChoice.equals("yes")) {
+                System.out.println("The pack leader sniffs your hand and accepts you into the fold.");
+                System.out.println("You're given a small satchel of gold as a token of their trust.");
+                System.out.println("You settle in with the wolves, awaiting dawn as the storm howls outside...\\n");
+                gold += 5;
+                wolfpackEnding = true;
+            }
+            else {
+                System.out.println("Sensing your hesitation, the wolves close in, their teeth bared.");
+                System.out.println("You feel their claws sink in, and everything goes black...\\n");
+            } 
+        }
+        else if (path.equals("right")) {
+
+        }
+        else {
+
+        }
+    }
+}
+//
+`;
+const Task5 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // If the player beats one of the levels, set its boolean variable to true
+        boolean wolfpackEnding = false;
+        boolean dragonEnding = false;
+        int gold = 0;
+        int twinkies = 0;
+        Scanner input = new Scanner(System.in);
+
+        // Prologue -----------------------------------------------------------------------------
+        System.out.println("Your car crashes into a tree during a thunderstorm in the woods.");
+        System.out.println("Darkness surrounds you as thunder crashes and rain pours.");
+        System.out.println("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+        System.out.println("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+        // Convert a string to lowercase using String.toLowerCase()
+        System.out.print("Which path do you take? (left or right) -> ");
+        String path = input.nextLine().toLowerCase();
+
+        if (path.equals("left") || path.equals("right")) {
+            System.out.println("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+            System.out.println("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+            System.out.print("(take or eat) -> ");
+            String twinkieChoice = input.nextLine().toLowerCase();
+
+            if (twinkieChoice.equals("take")) {
+                System.out.println("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+                twinkies += 1;
+            }
+            else if (twinkieChoice.equals("eat")) {
+                System.out.println("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+            }
+            else {
+                System.out.println("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+            }
+        }
+
+        // Caves -----------------------------------------------------------------------------
+        // Left -> Wolfpack
+        // Right -> Dragon
+        // Else -> No path chosen
+        if (path.equals("left")) {
+            System.out.println("You cautiously take the left path.");
+            System.out.println("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.");
+            System.out.println("The pack leader, larger and fiercer than the others, steps forward, growling softly...\\n");
+
+            System.out.print("Do you offer the pack leader your hand in peace? (yes or no) -> ");
+            String wolfChoice = input.nextLine().toLowerCase();
+
+            if (wolfChoice.equals("yes") && twinkies >= 1) {
+                System.out.println("As you reach out, the wolves smell the Twinkie...");
+                System.out.println("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!\\n");
+            }
+            else if (wolfChoice.equals("yes")) {
+                System.out.println("The pack leader sniffs your hand and accepts you into the fold.");
+                System.out.println("You're given a small satchel of gold as a token of their trust.");
+                System.out.println("You settle in with the wolves, awaiting dawn as the storm howls outside...\\n");
+                gold += 5;
+                wolfpackEnding = true;
+            }
+            else {
+                System.out.println("Sensing your hesitation, the wolves close in, their teeth bared.");
+                System.out.println("You feel their claws sink in, and everything goes black...\\n");
+            } 
+        }
+        else if (path.equals("right")) {
+            System.out.println("You take the right path, deeper into the damp, dark cave.");
+            System.out.println("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.");
+            System.out.println("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'");
+
+            System.out.print("Do you offer him a treat? (yes or no) -> ");
+            String dragonChoice = input.nextLine().toLowerCase();
+
+            if (dragonChoice.equals("yes") && twinkies >= 1) {
+                System.out.println("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.");
+                System.out.println("In gratitude, he hands you a pile of gold coins.\\n");
+
+                System.out.print("How much gold do you take? -> ");
+                int goldAmount = input.nextInt();
+
+                if (goldAmount > 0 && goldAmount <= 100) {
+                    System.out.println("The dragon grunts approval, allowing you to take the gold...\\n");
+                    gold += goldAmount;
+                }
+                else if (goldAmount > 100) {
+                    System.out.println("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'\\n");
+                }
+                else {
+                    System.out.println("The dragon, impressed by your modesty, lets you take all the gold!\\n");
+                    gold += 100000;
+                }
+
+                dragonEnding = true;
+            }
+            else {
+                System.out.println("The dragon's face darkens, and he lunges towards you!");
+                System.out.println("His jaws close around you as everything fades to black...\\n");
+            }
+        }
+        else {
+
+        }
+    }
+}
+//
+`;
+const Task6 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // If the player beats one of the levels, set its boolean variable to true
+        boolean wolfpackEnding = false;
+        boolean dragonEnding = false;
+        int gold = 0;
+        int twinkies = 0;
+        Scanner input = new Scanner(System.in);
+
+        // Prologue -----------------------------------------------------------------------------
+        System.out.println("Your car crashes into a tree during a thunderstorm in the woods.");
+        System.out.println("Darkness surrounds you as thunder crashes and rain pours.");
+        System.out.println("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+        System.out.println("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+        // Convert a string to lowercase using String.toLowerCase()
+        System.out.print("Which path do you take? (left or right) -> ");
+        String path = input.nextLine().toLowerCase();
+
+        if (path.equals("left") || path.equals("right")) {
+            System.out.println("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+            System.out.println("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+            System.out.print("(take or eat) -> ");
+            String twinkieChoice = input.nextLine().toLowerCase();
+
+            if (twinkieChoice.equals("take")) {
+                System.out.println("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+                twinkies += 1;
+            }
+            else if (twinkieChoice.equals("eat")) {
+                System.out.println("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+            }
+            else {
+                System.out.println("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+            }
+        }
+
+        // Caves -----------------------------------------------------------------------------
+        // Left -> Wolfpack
+        // Right -> Dragon
+        // Else -> No path chosen
+        if (path.equals("left")) {
+            System.out.println("You cautiously take the left path.");
+            System.out.println("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.");
+            System.out.println("The pack leader, larger and fiercer than the others, steps forward, growling softly...\\n");
+
+            System.out.print("Do you offer the pack leader your hand in peace? (yes or no) -> ");
+            String wolfChoice = input.nextLine().toLowerCase();
+
+            if (wolfChoice.equals("yes") && twinkies >= 1) {
+                System.out.println("As you reach out, the wolves smell the Twinkie...");
+                System.out.println("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!\\n");
+            }
+            else if (wolfChoice.equals("yes")) {
+                System.out.println("The pack leader sniffs your hand and accepts you into the fold.");
+                System.out.println("You're given a small satchel of gold as a token of their trust.");
+                System.out.println("You settle in with the wolves, awaiting dawn as the storm howls outside...\\n");
+                gold += 5;
+                wolfpackEnding = true;
+            }
+            else {
+                System.out.println("Sensing your hesitation, the wolves close in, their teeth bared.");
+                System.out.println("You feel their claws sink in, and everything goes black...\\n");
+            } 
+        }
+        else if (path.equals("right")) {
+            System.out.println("You take the right path, deeper into the damp, dark cave.");
+            System.out.println("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.");
+            System.out.println("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'");
+
+            System.out.print("Do you offer him a treat? (yes or no) -> ");
+            String dragonChoice = input.nextLine().toLowerCase();
+
+            if (dragonChoice.equals("yes") && twinkies >= 1) {
+                System.out.println("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.");
+                System.out.println("In gratitude, he hands you a pile of gold coins.\\n");
+
+                System.out.print("How much gold do you take? -> ");
+                int goldAmount = input.nextInt();
+
+                if (goldAmount > 0 && goldAmount <= 100) {
+                    System.out.println("The dragon grunts approval, allowing you to take the gold...\\n");
+                    gold += goldAmount;
+                }
+                else if (goldAmount > 100) {
+                    System.out.println("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'\\n");
+                }
+                else {
+                    System.out.println("The dragon, impressed by your modesty, lets you take all the gold!\\n");
+                    gold += 100000;
+                }
+
+                dragonEnding = true;
+            }
+            else {
+                System.out.println("The dragon's face darkens, and he lunges towards you!");
+                System.out.println("His jaws close around you as everything fades to black...\\n");
+            }
+        }
+        else {
+            System.out.println("You hesitate, feeling the storm grow stronger as lightning flashes around you.");
+            System.out.println("Suddenly, a bolt strikes nearby, and you fall to the ground, darkness closing in.\\n");
+        }
+    }
+}
+//
+`;
+const Task7 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        // If the player beats one of the levels, set its boolean variable to true
+        boolean wolfpackEnding = false;
+        boolean dragonEnding = false;
+        int gold = 0;
+        int twinkies = 0;
+        Scanner input = new Scanner(System.in);
+
+        // Prologue -----------------------------------------------------------------------------
+        System.out.println("Your car crashes into a tree during a thunderstorm in the woods.");
+        System.out.println("Darkness surrounds you as thunder crashes and rain pours.");
+        System.out.println("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.");
+        System.out.println("Inside, you see two shadowy paths diverging deeper into the unknown...\\n");
+
+        // Convert a string to lowercase using String.toLowerCase()
+        System.out.print("Which path do you take? (left or right) -> ");
+        String path = input.nextLine().toLowerCase();
+
+        if (path.equals("left") || path.equals("right")) {
+            System.out.println("\\nAs you move forward, you see something glimmering on the ground — a Hostess Twinkie.");
+            System.out.println("Do you eat the Twinkie for sustenance, or will you save it for later?");
+
+            System.out.print("(take or eat) -> ");
+            String twinkieChoice = input.nextLine().toLowerCase();
+
+            if (twinkieChoice.equals("take")) {
+                System.out.println("You slip the Twinkie into your pocket, unsure what awaits in the darkness...\\n");
+                twinkies += 1;
+            }
+            else if (twinkieChoice.equals("eat")) {
+                System.out.println("Feeling uneasy, you eat the Twinkie to keep up your strength.\\n");
+            }
+            else {
+                System.out.println("You leave the Twinkie untouched, feeling an ominous presence watching.\\n");
+            }
+        }
+
+        // Caves -----------------------------------------------------------------------------
+        // Left -> Wolfpack
+        // Right -> Dragon
+        // Else -> No path chosen
+        if (path.equals("left")) {
+            System.out.println("You cautiously take the left path.");
+            System.out.println("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.");
+            System.out.println("The pack leader, larger and fiercer than the others, steps forward, growling softly...\\n");
+
+            System.out.print("Do you offer the pack leader your hand in peace? (yes or no) -> ");
+            String wolfChoice = input.nextLine().toLowerCase();
+
+            if (wolfChoice.equals("yes") && twinkies >= 1) {
+                System.out.println("As you reach out, the wolves smell the Twinkie...");
+                System.out.println("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!\\n");
+            }
+            else if (wolfChoice.equals("yes")) {
+                System.out.println("The pack leader sniffs your hand and accepts you into the fold.");
+                System.out.println("You're given a small satchel of gold as a token of their trust.");
+                System.out.println("You settle in with the wolves, awaiting dawn as the storm howls outside...\\n");
+                gold += 5;
+                wolfpackEnding = true;
+            }
+            else {
+                System.out.println("Sensing your hesitation, the wolves close in, their teeth bared.");
+                System.out.println("You feel their claws sink in, and everything goes black...\\n");
+            } 
+        }
+        else if (path.equals("right")) {
+            System.out.println("You take the right path, deeper into the damp, dark cave.");
+            System.out.println("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.");
+            System.out.println("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'");
+
+            System.out.print("Do you offer him a treat? (yes or no) -> ");
+            String dragonChoice = input.nextLine().toLowerCase();
+
+            if (dragonChoice.equals("yes") && twinkies >= 1) {
+                System.out.println("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.");
+                System.out.println("In gratitude, he hands you a pile of gold coins.\\n");
+
+                System.out.print("How much gold do you take? -> ");
+                int goldAmount = input.nextInt();
+
+                if (goldAmount > 0 && goldAmount <= 100) {
+                    System.out.println("The dragon grunts approval, allowing you to take the gold...\\n");
+                    gold += goldAmount;
+                }
+                else if (goldAmount > 100) {
+                    System.out.println("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'\\n");
+                }
+                else {
+                    System.out.println("The dragon, impressed by your modesty, lets you take all the gold!\\n");
+                    gold += 100000;
+                }
+
+                dragonEnding = true;
+            }
+            else {
+                System.out.println("The dragon's face darkens, and he lunges towards you!");
+                System.out.println("His jaws close around you as everything fades to black...\\n");
+            }
+        }
+        else {
+            System.out.println("You hesitate, feeling the storm grow stronger as lightning flashes around you.");
+            System.out.println("Suddenly, a bolt strikes nearby, and you fall to the ground, darkness closing in.\\n");
+        }
+
+        // Epilogue -----------------------------------------------------------------------------
+        System.out.println("-- Ending --");
+
+        if (wolfpackEnding) {
+            System.out.println("By cuddling with the wolfpack, you weather out the storm.");
+            System.out.println("Upon leaving the cave, they follow you, seeing you as the new pack leader.");
+            System.out.println("You survived!!!");
+        }
+        else if (dragonEnding) {
+            System.out.println("By tempting the dragon with a delicious Hostess snack cake, you avoid his wrath.");
+            System.out.println("He flies you back home after the storm, but not after raiding the nearest Hostess factory.");
+            System.out.println("You survived!!!");
+        }
+        else {
+            System.out.println("Game Over!");
+        }
+
+        if (gold > 0) {
+            System.out.println("You not only survived, but you found " + gold + "gold!");
+        }
+    }
+}
+//
+`;
+const SampleOutput = `
+Your car crashes into a tree during a thunderstorm in the woods.
+Darkness surrounds you as thunder crashes and rain pours.
+You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.
+Inside, you see two shadowy paths diverging deeper into the unknown...
+
+Which path do you take? (left or right) -> left
+
+As you move forward, you see something glimmering on the ground - a Hostess Twinkie.
+Do you eat the Twinkie for sustenance, or will you save it for later?
+(take or eat) -> take
+You slip the Twinkie into your pocket, unsure what awaits in the darkness...
+
+You cautiously take the left path.
+A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.
+The pack leader, larger and fiercer than the others, steps forward, growling softly...
+
+Do you offer the pack leader your hand in peace? (yes or no) -> yes
+As you reach out, the wolves smell the Twinkie...
+In a frenzy of hunger, they turn on you, and you're surrounded with no escape!
+
+-- Ending --
+Game Over!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.4 Nesting Code Blocks</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.4</h3>
+            <h4 class="text-skynest-theme">Nesting Code Blocks</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Nesting Code Blocks: Building Complex Logic</li>
+              <li>Demo: Confirm Account Deletion</li>
+              <li>Importance of Code Formatting</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Nesting Code Blocks: Building Complex Logic</h4>
+            <p>
+              Nesting is the process of placing one set of instructions (a code
+              block) inside another.
+            </p>
+            <p class="fragment">
+              This technique is crucial for making decisions based on previous
+              selections, which is common in even basic programs.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Confirm Account Deletion</h4>
+            <Code code={Figure1} lang="java" class="text-start" />
+            <p></p>
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Confirm Account Deletion</h4>
+            <Code code={Figure1} lang="java" class="text-start" mark={{ range: "8-13" }} />
+            <p>
+              The inner block of code only executes if the condition for the
+              outer block is first met.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Confirm Account Deletion</h4>
+            <Code
+              code={Figure1}
+              lang="java"
+              class="text-start"
+            />
+            <p>
+              <Code code={Figure2} lang="txt" class="text-start mt-3" />
+            </p>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Importance of Code Formatting</h4>
+            <p>
+              It's crucial to keep your code nicely formatted. Good formatting
+              makes code easier to read, understand, and debug.
+            </p>
+            <p class="fragment">
+              <b>1. Indentation: </b>Always indent one tab for every code block.
+              If you have a nested block, the code in the nested block should be
+              indented again. This visually shows the level of nesting.
+            </p>
+            <p class="fragment">
+              <b>2. Grouping Statements: </b>
+              <AstroCode
+                code="if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, <AstroCode
+                code="else if"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              />, and <AstroCode
+                code="else"
+                lang="java"
+                inline
+                theme="material-theme-ocean"
+              /> statements that belong together should not have space between them.
+              Group them together to visually indicate that they are related.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Importance of Code Formatting</h4>
+            <p>
+              <b>3. Spacing Sections: </b>Space your code based on logical
+              sections. Avoid bunching up your entire program; this makes it
+              much easier to read and isolate issues when debugging.
+            </p>
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Nesting</dt>
+              <dd>Placing one statement or block of code inside another.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Nesting if statements</ListItem>
+            <ListItem>Testing nested branching statements</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-4-Nesting</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Initialize Data
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Initialize the variables for the game.
+              <ul>
+                <ListItem variant="3"
+                  >The two <i>ending</i> variables are initialized to <AstroCode
+                    code="false"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />. If the use survives one of the scenarios, the variable is
+                  changed to <AstroCode
+                    code="true"
+                    lang="java"
+                    inline
+                    theme="material-theme-ocean"
+                  />, which will be used to select an ending.</ListItem
+                >
+                <ListItem variant="3"
+                  >The player can pick up items an accumulate gold.</ListItem
+                >
+              </ul>
+            </ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Prologue
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="5-10"
+            mark={{ label: "Stop and run your code", range: "42" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Construct Selection
+            Statements for Main Levels
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Each code block will be completed individually. Take care to keep
+              track of what section you are working on.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="5-39"
+            mark={{ label: "Stop and run your code", range: "56" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Wolfpack Level
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="5-39"
+            ins={{ range: "46-67" }}
+            mark={{ label: "Stop and run your code", range: "77" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Dragon Level
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              ><span class="text-skynest-red text-uppercase">Warning!</span> Take
+              your time with this section. There are multiple levels of nested blocks.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse={["5-39", "46-67"]}
+            ins={{ range: "70-101" }}
+            mark={{ label: "Stop and run your code", range: "108" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 6 -->
+          <h3>
+            <span class="text-skynest-theme">Task 6</span>: Default Bad Ending
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >This block will execute if neither 'left' nor 'right' is chosen.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task6}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse={["5-39", "46-67", "70-101"]}
+            ins={{ range: "104-105" }}
+            mark={{ label: "Stop and run your code", range: "109" }}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 7 -->
+          <h3>
+            <span class="text-skynest-theme">Task 7</span>: Epilogue
+          </h3>
+          <ul>
+            <ListItem variant="2">Note the win conditions.</ListItem>
+          </ul>
+          <Code
+            code={Task7}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse={["5-106"]}
+            mark={{ label: "Stop and run your code", range: "130" }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              The lesson stressed the importance of indentation and spacing
+              sections. In the Dungeon Crawler, you ended up with several layers
+              of nested if/else blocks. If you had not kept your code perfectly
+              formatted, what's a debugging mistake you may have made when
+              writing the wolfpack or dragon sections?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
