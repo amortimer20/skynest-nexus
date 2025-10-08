@@ -1,0 +1,104 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+import DiagnosisFlowchart from "../../assets/courses/code-challenges/img/pc-diagnosis-flowchart.png";
+
+//#region CodeSnippets
+const SampleOutput = `
+Is the PC powering on? (yes/no): yes [Enter]
+Is there any display on the monitor? (yes/no): no [Enter]
+
+Check the monitor connections and ensure the monitor is turned on.
+If the problem persists, try using a different monitor or graphics card.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Application 2.4 PC Diagnosis Tool</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Write a program that simulates a simple PC diagnostic tool based on
+            the flowchart below.
+          </p>
+
+          <h4>Flowchart</h4>
+
+          <p>Click on the chart to open it in a new tab.</p>
+
+          <a href={DiagnosisFlowchart.src} target="_blank">
+            <img
+              class="img-fluid mb-5"
+              src={DiagnosisFlowchart.src}
+              alt="PC Diagnosis Flowchart"
+              title="PC Diagnosis Flowchart"
+            />
+          </a>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Using nested selection statements</ListItem>
+            <ListItem>Logical problem-solving</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >application-2-4</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2">Apply the logic from the flowchart into your program.</ListItem>
+                <ListItem variant="2">Prompt the user to input responses for each condition.</ListItem>
+                <ListItem variant="2">Based on the responses, provide a diagnosis.</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
