@@ -1,14 +1,17 @@
 ---
 import { Code } from "astro-expressive-code/components";
 import Divider from "../../components/ui/Divider.astro";
-import Layout from "../../layouts/Layout.astro";
 import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
 
 //#region CodeSnippets
 const SampleOutput = `
---- Miles to Kilometers Calculator ---
-Enter the distance in miles: 12.5 [Enter]
-12.5 miles is equal to 20.11 kilometers
+Enter the amount of change needed (in cents): 68 [Enter]
+You will need:
+2 quarters
+1 dime
+1 nickel
+3 pennies
 `;
 //#endregion
 ---
@@ -22,7 +25,7 @@ Enter the distance in miles: 12.5 [Enter]
             <i class="si-arrow-left"></i> Back
           </a>
 
-          <h2>Challenge 1.2 Miles to Kilometers Calculator</h2>
+          <h2>Application 1.5 Change Calculator</h2>
         </section>
 
         <Divider variant="8" />
@@ -31,8 +34,10 @@ Enter the distance in miles: 12.5 [Enter]
           <h3>Objective</h3>
 
           <p>
-            Create a console application that converts a distance from miles to
-            kilometers based on user input.
+            Your task is to write a program that helps novice cashiers give back
+            the correct change efficiently. The program should start with the
+            largest coin denomination and work its way down until the exact
+            change is given.
           </p>
 
           <h4>Skills to Practice</h4>
@@ -55,35 +60,27 @@ Enter the distance in miles: 12.5 [Enter]
           <ul>
             <ListItem
               >Create a new project named <span class="text-skynest-theme"
-                >mitokm-lastname</span
-              >.</ListItem
+                >1-5-change-calculator</span
+              ></ListItem
             >
-            <ListItem>
-              Complete the following tasks:
+            <ListItem
+              >Complete the following tasks:
               <ul>
                 <ListItem variant="2"
-                  >Prompt the user to enter a distance in miles.</ListItem
+                  >Prompt the user to input the amount of change needed. For
+                  simplicity, assume the value will range from 1 to 99 cents.</ListItem
                 >
-                <ListItem variant="2">
-                  Convert the miles value from the user to the equivalent value
-                  in Kilometers.
-                </ListItem>
-                <ListItem variant="2">
-                  Formula: <strong class="text-skynest-cyan"
-                    >Km = Mi &times; 1.609</strong
-                  >
-                </ListItem>
                 <ListItem variant="2"
-                  >Optionally, round the answer to two decimal places.</ListItem
+                  >alculate the change starting with the largest denomination
+                  (quarters) and work down to the smallest (pennies).</ListItem
                 >
-                <ListItem variant="2">
-                  Display the calculated Kilometers value to the user in a clear
-                  and formatted manner.
-                </ListItem>
+                <ListItem variant="2">Display the result in a clear and concise format.</ListItem>
               </ul>
             </ListItem>
           </ul>
         </section>
+
+        <Divider variant="8" />
 
         <section id="sample-output">
           <h3>Sample Output</h3>

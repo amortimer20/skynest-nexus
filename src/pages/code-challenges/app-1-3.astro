@@ -1,18 +1,14 @@
 ---
 import { Code } from "astro-expressive-code/components";
 import Divider from "../../components/ui/Divider.astro";
-import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
-
-import LineSlopeImg from "../../assets/courses/code-challenges/img/line-slope.png";
+import ListItem from "../../components/ui/ListItem.astro";
 
 //#region CodeSnippets
 const SampleOutput = `
-Enter x1: 2 [Enter]
-Enter y1: 3 [Enter]
-Enter x2: 12 [Enter]
-Enter y2: 14 [Enter]
-The slope of the line is 1.1
+--- Celsius to Fahrenheit Calculator ---
+Enter the temperature in Celsius: 62 [Enter]
+62°C is equal to 143.6°F
 `;
 //#endregion
 ---
@@ -26,7 +22,7 @@ The slope of the line is 1.1
             <i class="si-arrow-left"></i> Back
           </a>
 
-          <h2>Challenge 1.6 Line Slope Calculator</h2>
+          <h2>Application 1.3 Celsius to Fahrenheit Calculator</h2>
         </section>
 
         <Divider variant="8" />
@@ -35,20 +31,8 @@ The slope of the line is 1.1
           <h3>Objective</h3>
 
           <p>
-            When graphing lines in Algebra, it's important to understand how to
-            calculate the slope of a line. To calculate the slope, at least two
-            points must be identified. You can then calculate the slope using
-            the <i>Slope Formula</i>. The Slope Formula is defined as:
-          </p>
-
-          <img src={LineSlopeImg.src} alt="Line Slope Formula" />
-
-          <p>
-            where <i>m</i> is the slope, the ordered pair (X<sub>1</sub>, Y<sub
-              >1</sub
-            >) is the first point, and the ordered pair (X<sub>2</sub>, Y<sub
-              >2</sub
-            >) is the second point.
+            Create a console application that converts a temperature from
+            Celsius to Fahrenheit based on user input.
           </p>
 
           <h4>Skills to Practice</h4>
@@ -68,32 +52,47 @@ The slope of the line is 1.1
 
         <section id="tasks">
           <h3>Tasks</h3>
+
           <ul>
-            <ListItem
-              >Create a new project named <span class="text-skynest-theme"
-                >1-6-line-slope-calculator</span
-              ></ListItem
-            >
-            <ListItem
-              >Complete the following tasks:
+            <ListItem>
+              Create a project named <span class="text-skynest-theme"
+                >celtofahr-lastname</span
+              >.
+            </ListItem>
+            <ListItem>
+              Complete the following tasks:
               <ul>
                 <ListItem variant="2"
-                  >Prompt the user to enter four values corresponding to two
-                  points of a line i.e. (X<sub>1</sub>, Y<sub>1</sub>) and
-                  (X<sub>2</sub>, Y<sub>2</sub>)</ListItem
+                  >Prompt the user to enter a temperature in Celsius.</ListItem
                 >
-                <ListItem variant="2">Calculate the slope using the Slope Formula.</ListItem>
-                <ListItem variant="2">Optionally, round the answer to three decimal places.</ListItem>
-                <ListItem variant="2">Display the calculated slope to the user in a clear and formatted manner.</ListItem>
+                <ListItem variant="2">
+                  Convert the celsius value from the user to the equivalent
+                  value in fahrenheit.
+                </ListItem>
+                <ListItem variant="2">
+                  Formula: <strong class="text-skynest-cyan"
+                    >F = C &times; 1.8 + 32</strong
+                  >
+                </ListItem>
+                <ListItem variant="2"
+                  >Optionally, round the answer to two decimal places.</ListItem
+                >
+                <ListItem variant="2">
+                  Display the calculated Fahrenheit temperature to the user in a
+                  clear and formatted manner.
+                </ListItem>
+                <ListItem variant="2">
+                  If you want to use the degree symbol in your output, I've
+                  provided it here to copy and paste: °
+                </ListItem>
               </ul>
             </ListItem>
           </ul>
         </section>
 
-        <Divider variant="8" />
-
         <section id="sample-output">
           <h3>Sample Output</h3>
+
           <Code
             code={SampleOutput}
             frame="terminal"
