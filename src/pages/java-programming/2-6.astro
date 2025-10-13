@@ -1,0 +1,252 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Task1 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int secretNumber = (int)(Math.random() * 10) + 1;
+        int guess = 0;
+        int tries = 0;
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int secretNumber = (int)(Math.random() * 10) + 1;
+        int guess = 0;
+        int tries = 0;
+
+        while (guess != secretNumber) {
+            System.out.print("Guess the number (1-10): ");
+            guess = input.nextInt();
+            tries++;
+
+            if (guess == secretNumber) {
+                System.out.println("Correct! It took you " + tries + " tries!");
+            }
+            else if (guess > secretNumber) {
+                System.out.println("Wrong! Your guess was too high.");
+            }
+            else {
+                System.out.println("Wrong! Your guess was too low.");
+            }
+        }
+    }
+}
+//
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int secretNumber = (int)(Math.random() * 10) + 1;
+        int guess = 0;
+        int tries = 0;
+
+        while (guess != secretNumber) {
+            System.out.print("Guess the number (1-10): ");
+            guess = input.nextInt();
+            tries++;
+
+            if (guess == secretNumber) {
+                System.out.println("Correct! It took you " + tries + " tries!");
+            }
+            else if (guess < 1 || guess > 10) {
+                System.out.println("Your guess was out of range.");
+            }
+            else if (guess > secretNumber) {
+                System.out.println("Wrong! Your guess was too high.");
+            }
+            else {
+                System.out.println("Wrong! Your guess was too low.");
+            }
+        }
+    }
+}
+//
+`;
+const SampleOutput = `
+Guess the number (1-10): 6
+Wrong! Your guess was too high.
+Guess the number (1-10): 3
+Wrong! Your guess was too low.
+Guess the number (1-10): 5
+Wrong! Your guess was too high.
+Guess the number (1-10): 4
+Correct! It took you 4 tries!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.6 Number Guessing Game</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <p>
+          Adding simple selection and iteration to our code allows us to build a
+          variety of fun programs. For this activity, we'll apply these concepts
+          to create a classic number guessing game.
+        </p>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Implementing game logic if statements and loops</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-6-Number-Game</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Initalize Game Data
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Implement Core Game
+            Logic
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{range: "10-24"}}
+            mark={{label: "Stop and run your code", range: "27"}}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Add Data Validation
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Notify the user if they either enter a number that's out of range
+              or an invalid input.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            ins={{range: "18-20"}}
+            mark={{label: "Stop and run your code", range: "30"}}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Bonus - Set Difficulty
+          </h3>
+          <ul>
+            <ListItem variant="2">Before the core game logic begins, ask the user to choose a difficulty: easy, medium, or hard.</ListItem>
+            <ListItem variant="2">Based on the difficulty chosen, set an appropriate number range that the user needs to guess.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>How was the while loop essential for making the game playable more than once.</li>
+            <li>Where did you use if/else if/else statements to guide the player?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
