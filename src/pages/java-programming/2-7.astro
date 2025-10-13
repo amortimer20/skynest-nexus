@@ -1,0 +1,440 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Task1 = `
+let wins = 0;
+let losses = 0;
+let round = 1;
+let playing = true;
+let player;
+let computer;
+
+/*
+Rules:
+Rock smashes Scissors
+Paper covers Rock
+Scissors cuts Paper
+*/
+
+console.log("--- Rock, Paper, Scissors ---")
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int wins = 0;
+        int losses = 0;
+        int round = 1;
+        boolean playing = true;
+        String player;
+        String computer;
+
+        /*
+        Rules:
+        Rock smashes Scissors
+        Paper covers Rock
+        Scissors cuts Paper
+        */
+
+        System.out.println("--- Rock, Paper, Scissors ---");
+
+        while (playing) {
+            System.out.println("Round " + round);
+            System.out.println("W: " + wins + " - L: " + losses + "\\n");
+
+            System.out.print("(rock, paper, scissors): ");
+            player = input.nextLine().toLowerCase();
+
+            // Pick computer hand
+            int random = (int)(Math.random() * 3); // 0 to 2
+
+            if (random == 0) {
+                computer = "rock";
+            }
+            else if (random == 1) {
+                computer = "paper";
+            }
+            else {
+                computer = "scissors";
+            }
+
+            System.out.println("Computer chooses " + computer + "!");
+        }
+    }
+}
+//
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int wins = 0;
+        int losses = 0;
+        int round = 1;
+        boolean playing = true;
+        String player;
+        String computer;
+
+        /*
+        Rules:
+        Rock smashes Scissors
+        Paper covers Rock
+        Scissors cuts Paper
+        */
+
+        System.out.println("--- Rock, Paper, Scissors ---");
+
+        while (playing) {
+            System.out.println("Round " + round);
+            System.out.println("W: " + wins + " - L: " + losses + "\\n");
+
+            System.out.print("(rock, paper, scissors): ");
+            player = input.nextLine().toLowerCase();
+
+            // Pick computer hand
+            int random = (int)(Math.random() * 3); // 0 to 2
+
+            if (random == 0) {
+                computer = "rock";
+            }
+            else if (random == 1) {
+                computer = "paper";
+            }
+            else {
+                computer = "scissors";
+            }
+
+            System.out.println("Computer chooses " + computer + "!");
+
+            // Regarding the win condition:
+            // It's okay to break a condition over multiple lines if it get too long.
+            if (player.equals(computer)) {
+                System.out.println("-TIE-");
+            }
+            else if (
+                (player.equals("rock") && computer.equals("scissors")) ||
+                (player.equals("paper") && computer.equals("rock")) ||
+                (player.equals("scissors") && computer.equals("paper"))
+            ) {
+                System.out.println("-YOU WIN-");
+                wins++;
+            }
+            else {
+                System.out.println("-YOU LOSE-");
+                losses++;
+            }
+
+            round++;
+
+            System.out.print("Play again? (yes/no) ");
+            String choice = input.nextLine();
+
+            if (choice.equals("no")) {
+                playing = false;
+            }
+        }
+    }
+}
+//
+`;
+const Task4 = `
+import java.util.Scanner;
+
+public class Program {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int wins = 0;
+        int losses = 0;
+        int round = 1;
+        boolean playing = true;
+        String player;
+        String computer;
+
+        /*
+        Rules:
+        Rock smashes Scissors
+        Paper covers Rock
+        Scissors cuts Paper
+        */
+
+        System.out.println("--- Rock, Paper, Scissors ---");
+
+        while (playing) {
+            System.out.println("Round " + round);
+            System.out.println("W: " + wins + " - L: " + losses + "\\n");
+
+            System.out.print("(rock, paper, scissors): ");
+            player = input.nextLine().toLowerCase();
+
+            // Pick computer hand
+            int random = (int)(Math.random() * 3); // 0 to 2
+
+            if (random == 0) {
+                computer = "rock";
+            }
+            else if (random == 1) {
+                computer = "paper";
+            }
+            else {
+                computer = "scissors";
+            }
+
+            System.out.println("Computer chooses " + computer + "!");
+
+            // Regarding the win condition:
+            // It's okay to break a condition over multiple lines if it get too long.
+            if (player.equals(computer)) {
+                System.out.println("-TIE-");
+            }
+            else if (
+                (player.equals("rock") && computer.equals("scissors")) ||
+                (player.equals("paper") && computer.equals("rock")) ||
+                (player.equals("scissors") && computer.equals("paper"))
+            ) {
+                System.out.println("-YOU WIN-");
+                wins++;
+            }
+            else {
+                System.out.println("-YOU LOSE-");
+                losses++;
+            }
+
+            round++;
+
+            System.out.print("Play again? (yes/no) ");
+            String choice = input.nextLine();
+
+            if (choice.equals("no")) {
+                playing = false;
+            }
+        }
+
+        System.out.println("\\n--- Final Score ---");
+        System.out.println("Wins: " + wins + " - Losses: " + losses);
+        System.out.println("Thanks for playing!");
+    }
+}
+//
+`;
+const SampleOutput = `
+--- Rock, Paper, Scissors ---
+Round 1
+W: 0 - L: 0
+
+(rock, paper, scissors): rock
+Computer chooses scissors!
+-YOU WIN-
+Play again? (yes/no) y
+Round 2
+W: 1 - L: 0
+
+(rock, paper, scissors): paper
+Computer chooses paper!
+-TIE-
+Play again? (yes/no) y
+Round 3
+W: 1 - L: 0
+
+(rock, paper, scissors): scissors
+Computer chooses rock!
+-YOU LOSE-
+Play again? (yes/no) n
+
+--- Final Score ---
+Wins: 1 - Losses: 1
+Thanks for playing!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.7 Rock, Paper, Scissors</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <p>
+          In this activity, you will use <b>loops</b> and <b
+            >selection statements</b
+          > to create the classic game of Rock, Paper, Scissors.
+        </p>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Implementing game logic if statements and loops</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-7-Rock-Paper-Scissors</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Initialize Game Data
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Begin Core Game Loop
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Display the round number and Wins/Losses.</ListItem
+            >
+            <ListItem variant="2"
+              >User inputs rock, paper, or scissors.</ListItem
+            >
+            <ListItem variant="2">Computer generates a random hand.</ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="5-20"
+            ins={{range: "21-43"}}
+            mark={{label: "Stop and run your code. Press Ctrl+C to stop the program.", range: "46"}}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Implement Win/Loss
+            Conditions
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >If player and computer pick the same hand: tie.</ListItem
+            >
+            <ListItem variant="2"
+              >There are three possible win conditions.</ListItem
+            >
+            <ListItem variant="2"
+              >If the player neither ties nor wins, they lose.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse={["5-21", "23-42"]}
+            ins={{range: "43-69"}}
+            mark={{label: "Stop and run your code. Press Ctrl+C to stop the program.", range: "73"}}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Show Final Score
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse={["5-20", "23-69"]}
+            ins={{range: "72-74"}}
+            mark={{label: "Stop and run your code", range: "77"}}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              If you wanted to play best-of-5 instead of a continuous game, how
+              would you change the while loop condition?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
