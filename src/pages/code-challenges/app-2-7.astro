@@ -1,0 +1,102 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+Kilograms        Pounds   
+1                2.2             
+3                6.6             
+...
+197              433.4           
+199              437.8
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Application 2.7 Kg to Lbs Table</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Create a program that displays a table of values showing the
+            conversion from kilograms to pounds.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Using loops to generate tabular data</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >application-2-7</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2"
+                  >Write a loop that outputs the following table in the sample
+                  output.</ListItem
+                >
+                <ListItem variant="2"
+                  >Formula: <span class="text-skynest-theme">1kg = 2.2lbs</span
+                  >, or <span class="text-skynest-theme">lbs = kg * 2.2</span
+                  >.</ListItem
+                >
+              </ul>
+            </ListItem>
+            <ListItem
+              >Note that there is no user input for this program. However, you
+              may modify the program by prompting the user for a row count.</ListItem
+            >
+            <ListItem
+              >Ensure the output is neatly formatted into two columns.</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

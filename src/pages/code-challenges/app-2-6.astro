@@ -1,0 +1,104 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+Enter the number of times to flip the coin: 10 [Enter]
+Flip 1: Heads
+Flip 2: Tails
+Flip 3: Heads
+Flip 4: Heads
+Flip 5: Tails
+Flip 6: Heads
+Flip 7: Tails
+Flip 8: Tails
+Flip 9: Heads
+Flip 10: Heads
+
+Results:
+Heads: 6 (60%)
+Tails: 4 (40%)
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Application 2.6 Coin Flip Simulation</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Your task is to create a program that simulates flipping a coin
+            multiple times based on user input. The program will keep track of
+            how many times heads and tails occur and display the counts and
+            percentages at the end.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Using loops to repeat actions based on user input</ListItem>
+            <ListItem>Generating random numbers</ListItem>
+            <ListItem>Calculating statistics</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >application-2-6</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following tasks:
+              <ul>
+                <ListItem variant="2">Prompt the user to enter the number of times they want to flip the coin.</ListItem>
+                <ListItem variant="2">Use a loop to "flip" the coin the specified number of times.</ListItem>
+                <ListItem variant="2">Keep track of the number of heads and tails.</ListItem>
+                <ListItem variant="2">Calculate the percentage of heads and tails.</ListItem>
+                <ListItem variant="2">Display the total number of heads and tails and their respective percentages.</ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
