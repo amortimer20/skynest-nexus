@@ -1,0 +1,375 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import ForLoopAnimation from "../../assets/courses/java-programming/video/for-loop-animation.mp4";
+import WhileLoopToForLoopAnimation from "../../assets/courses/java-programming/video/while-to-for-loop-animation.mp4";
+
+//#region CodeSnippets
+const Figure1 = `
+for (int i = 1; i <= 10; i++)
+{
+  System.out.println(i);
+}
+`;
+const Figure2 = `
+for (int i = 10; i >= 1; i--)
+{
+  System.out.println(i);
+}
+`;
+const Figure3 = `
+for (int i = 2; i <= 10; i += 2)
+{
+  System.out.println(i);
+}
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Counting Multiples ---");
+
+        System.out.print("Choose a number: ");
+        int number = input.nextInt();
+        System.out.print("List how many multiples of " + number + "? ");
+        int count = input.nextInt();
+
+        int sum = number; // Sum is used to keep track of current multiple
+
+        for (int i = 0; i < count; i++)
+        {
+            System.out.print(sum + " "); // Display horizontally
+            sum += number;
+        }
+
+        input.nextLine(); // Consume newline
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Counting Multiples ---");
+
+        System.out.print("Choose a number: ");
+        int number = input.nextInt();
+        System.out.print("List how many multiples of " + number + "? ");
+        int count = input.nextInt();
+
+        int sum = number; // Sum is used to keep track of current multiple
+
+        for (int i = 0; i < count; i++)
+        {
+            System.out.print(sum + " "); // Display horizontally
+            sum += number;
+        }
+
+        input.nextLine(); // Consume newline
+        System.out.print("\\nPress enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2 - Square Tables ---");
+
+        System.out.print("Enter row count: ");
+        int rows = input.nextInt();
+
+        System.out.println("\\nNumber\\tSquare");
+        System.out.println("----------------");
+
+        for (int i = 1; i <= rows; i++)
+        {
+            System.out.println(i + "\\t" + (i * i));
+        }
+    }
+}
+`;
+const SampleOutput = `
+--- Demo 1 - Counting Multiples ---
+Choose a number: 5
+List how many multiples of 5? 10
+5 10 15 20 25 30 35 40 45 50 
+Press enter to continue...
+
+--- Demo 2 - Square Tables ---
+Enter row count: 12
+
+Number  Square
+----------------
+1       1
+2       4
+3       9
+4       16
+5       25
+6       36
+7       49
+8       64
+9       81
+10      100
+11      121
+12      144
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.8 For Loops</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.8</h3>
+            <h4 class="text-skynest-theme">For Loops</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Introduction to For Loops</li>
+              <li>Components of a For Loop</li>
+              <li>While Loop vs. For Loop</li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Introduction to For Loops</h4>
+            <p>
+              Java offers several loop constructs to handle iteration. Although
+              the while loop is flexible enough for most iterative tasks, other
+              loops can often achieve the same results with code that is more
+              concise or logically structured.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Introduction to For Loops</h4>
+            <p>
+              One essential construct is the for loop. While it is functionally
+              similar to a while loop, its syntax groups the key control
+              elements together.
+            </p>
+            <Code code={Figure1} lang="java" class="text-start fragment" />
+          </section>
+          <section>
+            <h4>Components of a For Loop</h4>
+            <p>
+              A for loop consists of three main expressions, separated by
+              semicolons, within the parentheses, in addition to the for keyword
+              and the code block:
+            </p>
+            <Code code={Figure1} lang="java" class="text-start" />
+            <ol>
+              <li class="fragment">
+                Initialization (<AstroCode
+                  code="int i = 1;"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                />): Executed once at the beginning of the loop.
+              </li>
+              <li class="fragment">
+                Condition (<AstroCode
+                  code="i <= 10;"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                />): A logical expression evaluated before each iteration.
+              </li>
+              <li class="fragment">
+                Update (<AstroCode
+                  code="i++"
+                  lang="java"
+                  theme="material-theme-ocean"
+                  inline
+                />): Executed at the end of each iteration.
+              </li>
+            </ol>
+          </section>
+          <section>
+            <h4>For Loop Animation</h4>
+            <video src={ForLoopAnimation} controls></video>
+          </section>
+          <section>
+            <h4>Converting a Simple While Loop to a For Loop</h4>
+            <video src={WhileLoopToForLoopAnimation} controls></video>
+          </section>
+          <section>
+            <h4>Demo: Counting Down</h4>
+            <Code code={Figure2} lang="java" class="text-start mb-3" />
+          </section>
+          <section>
+            <h4>Demo: Counting Evens</h4>
+            <Code code={Figure3} lang="java" class="text-start mb-3" />
+          </section>
+          <section>
+            <h4>While Loop vs. For Loop</h4>
+            <p>
+              The following tips can help you decide which loop to use, but
+              they're not strict rules. Choose the approach that best fits your
+              specific task and makes your code easier to understand.
+            </p>
+            <p class="fragment">
+              Use a <strong>for loop</strong> when you know ahead of time how many
+              times the loop should run. This is ideal for situations with a fixed
+              number of iterations, like looping through a list or counting a range
+              of numbers.
+            </p>
+            <p class="fragment">
+              Use a <strong>while loop</strong> when the number of iterations isn't
+              known in advance. This works well when you're waiting for a condition
+              to be met, such as user input.
+            </p>
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>For Loop</dt>
+              <dd>
+                A control structure designed for definite iteration (repetition)
+                where the number of cycles is typically known before the loop
+                begins. Its syntax groups the control variables in one line.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Iteration with For Loops</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-8-For-Loops</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Printing Multiples
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Squares Table
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="7-28"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              Based on the difference between for and while loops explained in
+              the Introduction, why might the for loop a better structural
+              choice for both the "Counting Multiples" and "Square Tables"
+              demos?
+            </li>
+            <li>
+              In the "Counting Multiples" task, the for loop variable i starts
+              at 0. If you wanted the loop to start counting from i = 1, what
+              specific change would you need to make to the Condition part of
+              the loop's header, and why?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
