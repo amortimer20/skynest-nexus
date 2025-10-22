@@ -1,0 +1,495 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+import NestedForLoopAnimation from "../../assets/courses/java-programming/video/nested-for-loop-animation.mp4";
+
+//#region CodeSnippets
+const Figure1 = `
+for (int row = 1; row <= 5; row++)
+{
+	for (int col = 1; col <= 3; col++)
+	{
+        System.out.print("(Row " + row + ", Col " + col + ")\\t");
+	}
+    System.out.println();
+}
+`;
+const Figure2 = `
+(Row 1, Col 1)  (Row 1, Col 2)  (Row 1, Col 3)
+(Row 2, Col 1)  (Row 2, Col 2)  (Row 2, Col 3)
+(Row 3, Col 1)  (Row 3, Col 2)  (Row 3, Col 3)
+(Row 4, Col 1)  (Row 4, Col 2)  (Row 4, Col 3)
+(Row 5, Col 1)  (Row 5, Col 2)  (Row 5, Col 3)
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // ANSI Color Codes
+        final String GREEN_TEXT = "\\u001B[32m";
+        final String RED_TEXT = "\\u001B[31m";
+        final String WHITE_TEXT = "\\u001B[37m";
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Multiplication Table ---");
+
+        System.out.print("Enter the size of the table: ");
+        int size = input.nextInt();
+
+        // Column Headers
+        for (int i = 0; i <= size; i++)
+        {
+            // Omit braces for single-line code blocks
+            // Exclude zero at top left
+            if (i == 0)
+                System.out.print("\\t");
+            else
+                System.out.print(GREEN_TEXT + i + "\\t");
+        }
+
+        System.out.println(); // Move to next row
+
+        for (int num1 = 1; num1 <= size; num1++)
+        {
+            // Left column
+            System.out.print(GREEN_TEXT + num1 + "\\t" + WHITE_TEXT);
+
+            // Body for each row
+            for (int num2 = 1; num2 <= size; num2++)
+            {
+                System.out.print(num1 * num2 + "\\t");
+            }
+
+            System.out.println(); // Move to next row
+        }
+
+
+        input.nextLine(); // Consume newline
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // ANSI Color Codes
+        final String GREEN_TEXT = "\\u001B[32m";
+        final String RED_TEXT = "\\u001B[31m";
+        final String WHITE_TEXT = "\\u001B[37m";
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Demo 1 - Multiplication Table ---");
+
+        System.out.print("Enter the size of the table: ");
+        int size = input.nextInt();
+
+        // Column Headers
+        for (int i = 0; i <= size; i++)
+        {
+            // Omit braces for single-line code blocks
+            // Exclude zero at top left
+            if (i == 0)
+                System.out.print("\\t");
+            else
+                System.out.print(GREEN_TEXT + i + "\\t");
+        }
+
+        System.out.println(); // Move to next row
+
+        for (int num1 = 1; num1 <= size; num1++)
+        {
+            // Left column
+            System.out.print(GREEN_TEXT + num1 + "\\t" + WHITE_TEXT);
+
+            // Body for each row
+            for (int num2 = 1; num2 <= size; num2++)
+            {
+                System.out.print(num1 * num2 + "\\t");
+            }
+
+            System.out.println(); // Move to next row
+        }
+
+
+        input.nextLine(); // Consume newline
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+
+        // -----------------------------------------------------------------------------
+
+        boolean playing = true;
+        int keys = 0;
+        String choice;
+
+        System.out.println("\\n--- Demo 2 - Multi-Room Game Demo ---");
+        System.out.println(RED_TEXT + "Work-in-progress. Expect bugs!" + WHITE_TEXT);
+
+        while (playing)
+        {
+            System.out.println(GREEN_TEXT + "-Main Hallway-" + WHITE_TEXT);
+            System.out.println("1) Kitchen");
+            System.out.println("2) Bathroom");
+            System.out.println("3) Bedroom");
+            System.out.println("4) Quit Demo");
+            System.out.print("-> ");
+            choice = input.nextLine();
+
+            if (choice.equals("1"))
+            {
+                while (!choice.equals("2"))
+                {
+                    System.out.println(GREEN_TEXT + "-Kitchen-" + WHITE_TEXT);
+                    System.out.println("1) Search cupboards");
+                    System.out.println("2) Leave");
+                    System.out.print("-> ");
+                    choice = input.nextLine();
+
+                    if (choice.equals("1"))
+                    {
+                        System.out.println("Found a key in the cupboard!");
+                        keys++;
+                    }
+                    else if (choice.equals("2"))
+                    {
+                        System.out.println("Exiting kitchen.");
+                    }
+                    else
+                    {
+                        System.out.println("Invalid input.");
+                    }
+                }
+            }
+            else if (choice.equals("2"))
+            {
+                System.out.println(GREEN_TEXT + "-Bathroom-" + WHITE_TEXT);
+                // Demo code omitted
+            }
+            else if (choice.equals("3"))
+            {
+                System.out.println(GREEN_TEXT + "-Bedroom-" + WHITE_TEXT);
+                // Demo code omitted
+            }
+            else if (choice.equals("4"))
+            {
+                playing = false;
+            }
+            else{
+                System.out.println("Invalid choice.");
+            }
+        }
+    }
+}
+`;
+const SampleOutput = `
+--- Demo 1 - Multiplication Table ---
+Enter the size of the table: 5
+        1       2       3       4       5
+1       1       2       3       4       5
+2       2       4       6       8       10
+3       3       6       9       12      15
+4       4       8       12      16      20
+5       5       10      15      20      25
+Press enter to continue...
+
+--- Demo 2 - Multi-Room Game Demo ---
+Work-in-progress. Expect bugs!
+-Main Hallway-
+1) Kitchen
+2) Bathroom
+3) Bedroom
+4) Quit Demo
+-> 1
+-Kitchen-
+1) Search cupboards
+2) Leave
+-> 1
+Found a key in the cupboard!
+-Kitchen-
+1) Search cupboards
+2) Leave
+-> 2
+Exiting kitchen.
+-Main Hallway-
+1) Kitchen
+2) Bathroom
+3) Bedroom
+4) Quit Demo
+-> 4
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.9 Nested Loops</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.9</h3>
+            <h4 class="text-skynest-theme">Nested Loops</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Introduction to Nesting Loops</li>
+              <li>Demo: Grid</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Introduction to Nesting Loops</h4>
+            <p>
+              Nested loops are tools for handling tasks that involve multiple
+              layers of repetition. By placing one loop inside another, you can
+              manage complex operations.
+            </p>
+            <p class="fragment">
+              Each time the outer loop runs, the inner loop completes all its
+              iterations.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Grid</h4>
+            <Code code={Figure1} lang="java" class="text-start mb-3" />
+            <Code
+              code={Figure2}
+              lang="txt"
+              class="text-start fragment"
+              showLineNumbers={false}
+            />
+          </section>
+          <section>
+            <h4>Nested For Loop Animation</h4>
+            <video src={NestedForLoopAnimation} controls></video>
+          </section>
+          <section data-auto-animate>
+            <h4>Tips for Working with Nested Loops</h4>
+            <p><u>1. The "Inner Loop Runs Completely" Rule</u></p>
+            <p>
+              The single most important concept to nail down is the flow of
+              control:
+            </p>
+            <p class="fragment">
+              For every single iteration of the outer loop, the inner loop will
+              execute its entire range, from start to finish.
+            </p>
+            <p class="fragment">
+              Clock Analogy:The hour hand (outer loop) only moves one time for
+              every twelve complete revolutions of the minute hand (inner loop).
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Tips for Working with Nested Loops</h4>
+            <p><u>2. Differentiate the Control Variables</u></p>
+            <p>
+              Students often struggle when the inner loop's condition depends on
+              the outer loop.
+            </p>
+            <p class="fragment">
+              Always use different variable names (e.g., i and j, or row and
+              col). Also, explicitly state what each variable controls.
+            </p>
+            <ul>
+              <li class="fragment">
+                Outer Loop Variable (i or row): Almost always controls the row
+                number or the group/set being processed.
+              </li>
+              <li class="fragment">
+                Inner Loop Variable (j or col): Almost always controls the
+                column number or the individual item within that group.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Tips for Working with Nested Loops</h4>
+            <p>
+              <u>3. Visualize Output with the print/println Distinction</u>
+            </p>
+            <p>
+              When teaching pattern generation, students often confuse when to
+              stay on the same line versus moving to the next. Use this rule for
+              pattern printing:
+            </p>
+            <ul>
+              <li class="fragment">
+                The inner loop uses <AstroCode
+                  code="System.out.print()"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> to put elements side-by-side (building the column/row content).
+              </li>
+              <li class="fragment">
+                The line of code immediately after the inner loop (but still
+                inside the outer loop) uses <AstroCode
+                  code="System.out.println()"
+                  lang="java"
+                  inline
+                  theme="material-theme-ocean"
+                /> to force the cursor to the next row.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Tips for Working with Nested Loops</h4>
+            <p><u>4. Pre-Calculate the Total Iterations</u></p>
+            <p>
+              Before writing any code, you should be able to calculate the total
+              number of times the inner block of code will execute. This helps
+              you catch infinite loops or off-by-one errors early.
+            </p>
+
+            <ul>
+              <li class="fragment">
+                For fixed loops, the total complexity is the product of the
+                number of iterations: <span class="text-skynest-theme"
+                  >Total = Outer loop iterations * Inner loop iterations</span
+                >
+              </li>
+              <li class="fragment">
+                If the outer loop runs 10 times and the inner loop runs 5 times,
+                the code inside the inner loop runs <span
+                  class="text-skynest-theme">10 * 5 = 50</span
+                > times.
+              </li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Writing and tracing nested loops</ListItem>
+            <ListItem>Generating tables</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-9-Nested-Loops</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Multiplication Table
+          </h3>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Multi-Room Game Demo
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >For brevity, I omitted a significant amount of game logic from
+              this demo. Feel free to fill in the gaps as you like.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            collapse="7-50"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              Describe one programming task that cannot be reasonably
+              accomplished with a single loop but requires a nested loop to
+              manage. Why is the nested structure essential for that specific
+              task?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
