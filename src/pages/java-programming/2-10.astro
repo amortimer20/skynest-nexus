@@ -1,0 +1,504 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+for (int i = 1; i <= 10; i++) {
+    if (i == 5) {
+        break; // exits the loop entirely
+    }
+    System.out.println(i);
+}
+System.out.println("Loop ended");
+`;
+const Figure2 = `
+1
+2
+3
+4
+Loop ended
+`;
+const Figure3 = `
+for (int i = 1; i <= 10; i++) {
+    if (i % 2 == 0) {
+        continue; // skip even numbers
+    }
+    System.out.println(i);
+}
+`;
+const Figure4 = `
+1
+3
+5
+7
+9
+`;
+const Figure5 = `
+int number = 7;
+String result = (number % 2 == 0) ? "Even" : "Odd";
+System.out.println(result);
+`;
+const Figure6 = `Odd`;
+const Figure7 = `
+String grade = "A";
+
+if (grade.equals("A"))
+    System.out.println("Excellent!");
+else if (grade.equals("B"))
+    System.out.println("Good job!");
+else if (grade.equals("C"))
+    System.out.println("Not bad.");
+else
+    System.out.println("Needs improvement.");
+`;
+const Figure8 = `
+String grade = "A";
+
+switch (grade)
+{
+    case "A" -> System.out.println("Excellent!");
+    case "B" -> System.out.println("Good job!");
+    case "C" -> System.out.println("Not bad.");
+    default -> System.out.println("Needs improvement.");
+}
+`;
+const Figure9 = `
+Scanner input = new Scanner(System.in);
+int number;
+
+do {
+    System.out.print("Enter a positive number: ");
+    number = input.nextInt();
+} while (number <= 0);
+`;
+
+const Task1 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("\\n--- Demo 1: Prime Number Checker ---");        
+        System.out.print("Enter an integer: ");
+        int number = input.nextInt();
+        boolean isPrime = true;
+
+        for (int i = 2; i < number; i++)
+        {
+            if (number % i == 0)
+            {
+                isPrime = false;
+                break;
+            }
+        }
+
+        System.out.println(number + " is " + (isPrime ? "prime" : "not prime"));
+
+        input.nextLine(); // Consume newline
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+    }
+}
+//
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("\\n--- Demo 1: Prime Number Checker ---");        
+        System.out.print("Enter an integer: ");
+        int number = input.nextInt();
+        boolean isPrime = true;
+
+        for (int i = 2; i < number; i++)
+        {
+            if (number % i == 0)
+            {
+                isPrime = false;
+                break;
+            }
+        }
+
+        System.out.println(number + " is " + (isPrime ? "prime" : "not prime"));
+
+        input.nextLine(); // Consume newline
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2: Day of the Week ---");
+
+        System.out.print("Enter a number between 1 and 7: ");
+        int day = input.nextInt();
+
+        switch (day)
+        {
+            case 1 -> System.out.println("Monday");
+            case 2 -> System.out.println("Tuesday");
+            case 3 -> System.out.println("Wednesday");
+            case 4 -> System.out.println("Thursday");
+            case 5 -> System.out.println("Friday");
+            case 6 -> System.out.println("Saturday");
+            case 7 -> System.out.println("Sunday");
+            default -> System.out.println("Invalid day");
+        }
+
+        input.nextLine(); // Consume newline
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+    }
+}
+//
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("\\n--- Demo 1: Prime Number Checker ---");        
+        System.out.print("Enter an integer: ");
+        int number = input.nextInt();
+        boolean isPrime = true;
+
+        for (int i = 2; i < number; i++)
+        {
+            if (number % i == 0)
+            {
+                isPrime = false;
+                break;
+            }
+        }
+
+        System.out.println(number + " is " + (isPrime ? "prime" : "not prime"));
+
+        input.nextLine(); // Consume newline
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 2: Day of the Week ---");
+
+        System.out.print("Enter a number between 1 and 7: ");
+        int day = input.nextInt();
+
+        switch (day)
+        {
+            case 1 -> System.out.println("Monday");
+            case 2 -> System.out.println("Tuesday");
+            case 3 -> System.out.println("Wednesday");
+            case 4 -> System.out.println("Thursday");
+            case 5 -> System.out.println("Friday");
+            case 6 -> System.out.println("Saturday");
+            case 7 -> System.out.println("Sunday");
+            default -> System.out.println("Invalid day");
+        }
+
+        input.nextLine(); // Consume newline
+        System.out.print("Press enter to continue...");
+        input.nextLine();
+        // -----------------------------------------------------------------------------
+
+        System.out.println("\\n--- Demo 3: Number Analyzer ---");
+
+        for (int i = 0; i < 5; i++)
+        {
+            System.out.print("Enter a number: ");
+            int n = input.nextInt();
+
+            if (n == 0)
+            {
+                System.out.println("Skipping zero...");
+                continue;
+            }
+
+            String sign = (n > 0) ? "positive" : "negative";
+            String parity = (n % 2 == 0) ? "even" : "odd";
+
+            System.out.println(n + " is " + sign + " and " + parity + ".");
+        }
+    }
+}
+//
+`;
+const SampleOutput = `
+--- Demo 1: Prime Number Checker ---
+Enter an integer: 5
+5 is prime
+Press enter to continue...
+
+--- Demo 2: Day of the Week ---
+Enter a number between 1 and 7: 4
+Thursday
+Press enter to continue...
+
+--- Demo 3: Number Analyzer ---
+Enter a number: 3
+3 is positive and odd.
+Enter a number: 4
+4 is positive and even.
+Enter a number: 5
+5 is positive and odd.
+Enter a number: 6
+6 is positive and even.
+Enter a number: 7
+7 is positive and odd.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.10 More Control Flow</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 2.10</h3>
+            <h4 class="text-skynest-theme">More Control Flow</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>break and continue Keywords</li>
+              <li>Ternary Operator</li>
+              <li>switch Statement</li>
+              <li>do-while Loop</li>
+              <li>Short-Circuit Evaluation</li>
+              <li>DeMorgan's Theorem</li>
+            </ul>
+          </section>
+          <section>
+            <h4>break Statement</h4>
+            <p>Immediately exits the nearest enclosing loop.</p>
+            <Code code={Figure1} lang="java" class="text-start mb-3" />
+            <Code code={Figure2} lang="txt" class="text-start fragment" />
+          </section>
+          <section>
+            <h4>continue Statement</h4>
+            <p>Skips the rest of the current iteration and moves to the next one.</p>
+            <Code code={Figure3} lang="java" class="text-start mb-3" />
+            <Code code={Figure4} lang="txt" class="text-start fragment" />
+          </section>
+          <section>
+            <h4>Ternary Operator</h4>
+            <p>A compact conditional operator (?:) that returns one of two values based on whether a condition is true or false.</p>
+            <p>It provides a compact way to choose between two values.</p>
+            <p>Syntax: <AstroCode code="condition ? valueIfTrue : valueIfFalse;" inline /></p>
+            <Code code={Figure5} lang="java" class="text-start mb-3" />
+            <Code code={Figure6} lang="txt" class="text-start fragment" />
+          </section>
+          <section data-auto-animate>
+            <h4>switch Statement</h4>
+            <p>A control structure that selectes and executes one block of code from multiple options based on the value of an expression.</p>
+            <p>It can be used to simplify some if/else if/else statements.</p>
+            <Code code={Figure7} lang="java" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>switch Statement</h4>
+            <p>A control structure that selectes and executes one block of code from multiple options based on the value of an expression.</p>
+            <p>It can be used to simplify some if/else if/else statements.</p>
+            <Code code={Figure8} lang="java" class="text-start" />
+          </section>
+          <section>
+            <h4>do-while Loop</h4>
+            <p>A control structure that executes its body at least once and then repeats as long as a specified condition remains true.</p>
+            <Code code={Figure9} lang="java" class="text-start" />
+          </section>
+          <section>
+            <h4>Short-Circuit Evaluation</h4>
+            <p>A behavior where Java stops evaluating a logical expression as soon as the result is known.</p>
+            <ul>
+                <li class="fragment"><AstroCode code="&&" lang="java" inline theme="material-theme-ocean" /> (AND): If the left side is false, Java does not check the right side.</li>
+                <li class="fragment"><AstroCode code="||" lang="java" inline theme="material-theme-ocean" /> (OR): If the left side is true, Java does not check the right side.</li>
+            </ul>
+          </section>
+          <section>
+            <h4>DeMorgan's Theorem</h4>
+            <p>De Morgan's laws let us rewrite logical expressions involving !, &&, and ||.</p>
+            <p class="fragment"><AstroCode code="!(x > 0 && y > 0)" lang="java" inline theme="material-theme-ocean" /> is the same as <AstroCode code="x <= 0 || y <= 0" lang="java" inline theme="material-theme-ocean" />.</p>
+            <p class="fragment"><AstroCode code="!(isRaining || isSnowing)" lang="java" inline theme="material-theme-ocean" /> is the same as <AstroCode code="!isRaining && !isSnowing" lang="java" inline theme="material-theme-ocean" />.</p>
+            <p class="fragment">Challenge: Simplify <AstroCode code="!(a < 5 || b >= 10)" lang="java" inline theme="material-theme-ocean" /></p>
+            <p class="fragment">Answer: <AstroCode code="a >= 5 && b < 10" lang="java" inline theme="material-theme-ocean" /></p>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+                <dt>break Keyword</dt>
+                <dd>Ends the nearest enclosing loop or switch statement immediately, skipping any remaining code inside it.</dd>
+                <dt>continue Keyword</dt>
+                <dd>Skips the rest of the current loop iteration and jumps to the next iteration of the loop.</dd>
+                <dt>Ternary Operator</dt>
+                <dd>A compact conditional operator that returns one of two values based on whether a condition is true or false.</dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+                <dt>switch Statement</dt>
+                <dd>A control structure that chooses one block of code to execute from multiple possible cases based on the value of an expression.</dd>
+                <dt>do-while Loop</dt>
+                <dd>A control structure that runs its body at least once and continues repeating while a condition remains true.</dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+                <dt>Short-Circuit Evaluation</dt>
+                <dd>A behavior where Java stops evaluating a logical expression as soon as the result is known.</dd>
+                <dt>DeMorgan's Theorem</dt>
+                <dd>A rule for simplifying negated boolean expressions.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Practice various control flow constructs and techniques</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >2-10-More-Control-Flow</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Prime Number Calculator
+          </h3>
+          <ul>
+            <ListItem variant="2">A prime number is a whole number greater than 1 that has exactly two distinct positive factors: 1 and itself.</ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{label: "Stop and run your code", range: "31"}}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Day of the Week
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{label: "Stop and run your code", range: "53"}}
+            collapse="7-28"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Number Analyzer
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+            mark={{label: "Stop and run your code", range: "72"}}
+            collapse="7-50"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>How is continue different from break?</li>
+            <li>Why can a switch statement sometimes be preferable to using if/else if/else statements?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
