@@ -1,0 +1,160 @@
+[
+    {
+        "text": "What is the output of the following code?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>int x = 0;\n\nif (x != 0 &amp;&amp; 10 / x &gt; 1)\n{\n    System.out.println(&quot;Valid&quot;);\n}\nelse\n{\n    System.out.println(&quot;Invalid&quot;);\n}</code></pre></div>",
+        "correctAnswers": [
+            "Invalid"
+        ],
+        "questionType": 2,
+        "answerDetail": "Explanation: Short-circuiting prevents division by zero because x != 0 is false, so 10 / x is never evaluated.",
+        "choices": [
+            "Valid",
+            "Invalid",
+            "Runtime error",
+            "Compilation Error"
+        ]
+    },
+    {
+        "text": "How many times does System.out.print(\"*\"); execute?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>for (int i = 1; i <= 3; i++)\n{\n    for (int j = i; j <= 3; j++)\n    {\n        System.out.print(\"*\");\n    }\n}</code></pre></div>",
+        "correctAnswers": [
+            "6"
+        ],
+        "questionType": 2,
+        "answerDetail": "Explanation: Iterations: i=1 → 3 times, i=2 → 2 times, i=3 → 1 time → total = 6.",
+        "choices": [
+            "3",
+            "4",
+            "6",
+            "9"
+        ]
+    },
+    {
+        "text": "Which value is printed?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>int a = 5;\nint b = 10;\nSystem.out.println((a > b) ? (a - b) : ((b > 2 * a) ? b : a));</code></pre></div>",
+        "correctAnswers": [
+            "5"
+        ],
+        "questionType": 2,
+        "answerDetail": "Explanation: a > b is false → check if b > 2 * a → 10 > 10 is false → result is a → 5.",
+        "choices": [
+            "-5",
+            "5",
+            "10",
+            "0"
+        ]
+    },
+    {
+        "text": "Which of the following is logically equivalent to <code>!(x > 5 || y < 3)</code>?",
+        "correctAnswers": [
+            "x <= 5 && y >= 3"
+        ],
+        "questionType": 2,
+        "answerDetail": "Explanation: Apply DeMorgan's theorem: !(A || B) ≡ !A && !B",
+        "choices": [
+            "x <= 5 && y >= 3",
+            "x > 5 && y < 3",
+            "!(x > 5) || !(y < 3)",
+            "x < 5 || y > 3"
+        ]
+    },
+    {
+        "text": "What is the output after the code snippet executes?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>for (int i = 0; i <= 5; i++)\n{\n    if (i == 2)\n        continue;\n    if (i == 4)\n        break;\n    System.out.print(i + \" \");\n}</code></pre></div>",
+        "correctAnswers": [
+            "0 1 3"
+        ],
+        "questionType": 1,
+        "answerDetail": "Explanation: i = 2 is skipped due to the continue keyword, and i = 4 breaks the loop, so neither 2 nor 4 are ever printed."
+    },
+    {
+        "text": "What is the output?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>int x = 7;\n\nif (x > 5)\n{\n    if (x < 10 && x % 2 == 1)\n{\n        System.out.println(\"Odd and in range\");\n    }\n}</code></pre></div>",
+        "correctAnswers": [
+            "Odd and in range"
+        ],
+        "questionType": 2,
+        "answerDetail": "x > 5 → true, x < 10 → true, x % 2 == 1 → true, All conditions are met, so the message is printed.",
+        "choices": [
+            "Odd and in range",
+            "No output",
+            "Compilation Error",
+            "Runtime error"
+        ]
+    },
+    {
+        "text": "What is the output of the following code segment?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>int x = 5;\nint y = 7;\nif (x > 5)\n{\n    y = 10;\n}\nelse if (x >= 5)\n{\n    y = 20;\n}\nelse if (y > 10)\n{\n    y = 30;\n}\nSystem.out.println(y);</code></pre></div>",
+        "correctAnswers": [
+            "20"
+        ],
+        "questionType": 2,
+        "answerDetail": "Explanation: The first condition is false. The second condition is true, so y is updated to 20, and the entire if/else if/else structure is exited.",
+        "choices": [
+            "7",
+            "10",
+            "30",
+            "20"
+        ]
+    },
+    {
+        "text": "What is the final value of count after the following code segment executes?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>int count = 0;\nint limit = 5;\nwhile (limit > 0)\n{\n    limit -= 2;\n    count++;\n}</code></pre></div>",
+        "correctAnswers": [
+            "3"
+        ],
+        "questionType": 1,
+        "answerDetail": "Explanation: The loop executes while limit is 5, 3, and 1. On the third iteration, limit becomes -1, and the condition limit > 0 becomes false, terminating the loop. The count is incremented 3 times."
+    },
+    {
+        "text": "What is printed by the following code segment?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>String s = \"\";\nfor (int i = 1; i < 5; i++)\n{\n    s += i;\n}\nSystem.out.println(s);</code></pre></div>",
+        "correctAnswers": [
+            "1234"
+        ],
+        "questionType": 1,
+        "answerDetail": "Explanation: The loop runs for i = 1, 2, 3, 4. The numbers are concatenated to the string s, resulting in '1234'."
+    },
+    {
+        "text": "What is the output of the following code segment?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>int sum = 0;\nfor (int k = 1; k <= 10; k++)\n{\n    if (k % 4 == 0)\n        break;\n    sum += k;\n}\nSystem.out.println(sum);</code></pre></div>",
+        "correctAnswers": [
+            "6"
+        ],
+        "questionType": 1,
+        "answerDetail": "Explanation: The loop runs for k=1, k=2, and k=3. When k=4, the condition 4 % 4 == 0 is true, and the break statement immediately terminates the loop. The calculated sum is 1+2+3=6."
+    },
+    {
+        "text": "What is the final value of the variable output after the following code segment executes?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>String output = \"\";\nfor (int i = 1; i <= 4; i++)\n{\n    for (int j = 1; j <= i; j++)\n    {\n        if (i + j > 5)\n        {\n            break;\n        }\n        output += \"(\" + i + \",\" + j + \")\";\n    }\n}</code></pre></div>",
+        "correctAnswers": [
+            "(1,1)(2,1)(2,2)(3,1)(3,2)(4,1)"
+        ],
+        "questionType": 2,
+        "answerDetail": "Explanation: The loop executes until i=4. The inner loop iterates until i+j > 5 is true, at which point the inner loop breaks.",
+        "choices": [
+            "(1,1)(2,1)(2,2)(3,1)(3,2)(3,3)(4,1)",
+            "(1,1)(2,1)(2,2)(3,1)(3,2)(4,1)",
+            "(1,1)(2,1)(2,2)(3,1)(3,2)(3,3)",
+            "(1,1)(2,1)(2,2)(3,1)(3,2)(3,3)(4,1)(4,2)(4,3)(4,4)"
+        ]
+    },
+    {
+        "text": "What is the output of the following code segment?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>int p = 10;\nint q = 2;\nwhile (p > q)\n{\n    if (p % 3 == 0)\n    {\n        p--;\n    }\n    else\n    {\n        p -= q;\n        q++;\n    }\n}\nSystem.out.println(q);</code></pre></div>",
+        "correctAnswers": [
+            "5"
+        ],
+        "questionType": 2,
+        "answerDetail": "Explanation: The loop executes while p > q: 10>2, 8>3, and 5>4. The variable q is incremented during the last three iterations, resulting in a final value of 5.",
+        "choices": [
+            "3",
+            "4",
+            "5",
+            "7"
+        ]
+    },
+    {
+        "text": "What is the final value of the variable sum after the following code segment executes?<div class=\"card p-3 mt-2\"><pre class=\"m-0\"><code>int sum = 0;\nfor (int i = 10; i >= 0; i -= 3)\n{\n    if (i == 4)\n    {\n        continue;\n    }\n    if (i < 5)\n    {\n        sum += 1;\n    }\n    else\n    {\n        sum += 2;\n    }\n}</code></pre></div>",
+        "correctAnswers": [
+            "5"
+        ],
+        "questionType": 2,
+        "answerDetail": "Explanation: The loop iterates for i = 10, 7, 4, 1, -2, ... . Trace: i=10 (sum += 2). i=7 (sum += 2). i=4 (continue, sum unchanged). i=1 (sum += 1). i=-2 (sum += 1). The loop condition i >= 0 is checked after the update, so the last valid iteration is i=1. Total: 2+2+1=5.",
+        "choices": [
+            "4",
+            "7",
+            "6",
+            "5"
+        ]
+    }
+]
