@@ -4,9 +4,175 @@ import Divider from "../../components/ui/Divider.astro";
 import ListItem from "../../components/ui/ListItem.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
 
-let task1 = `
+//#region CodeSnippets
+const Figure1 = `print("Hello world!")`;
+const Figure2 = `Hello world!`;
+const Figure3 = `
+print(-1953)
+print(1_000_000)
 `;
+const Figure4 = `print(f"I am 35 years old, which is {35 * 12} months.")`;
+const Figure5 = `
+health = 100
+print("Health:", health)
+`;
+const Figure6 = `
+print("Health:", health)
+health = 100
+`;
+const Figure7 = `
+score = 14000
+lives = 3
+vehicle = "Motorcycle"
+
+print(vehicle)
+print("Lives left:", lives)
+print("Score:", score)
+`;
+const Figure8 = `
+Motorcycle
+Lives left: 3
+Score: 14000
+`;
+const Figure9 = `
+x = 5
+y = 2
+z = 4 * 5
+print(x * 10.2)
+print(x + y)
+print(10 % y)
+print(z)
+`;
+const Figure10 = `
+51
+7
+0
+20
+`;
+const Figure11 = `
+# This line prints a friendly greeting to the console
+print("Hello, world!")
+
+# print("This line is disabled for testing purposes.")
+`;
+const Task1 = `
+# Activity 1.1 - Task 1
+# Engineer's first Python program
+
+print("Engineering is about solving problems.")
+print('Coding helps us solve problems faster.')
+print("Let's calculate something useful!")
+`;
+const Task2 = `
+# Activity 1.1 - Task 1
+# Engineer's first Python program
+
+print("Engineering is about solving problems.")
+print('Coding helps us solve problems faster.')
+print("Let's calculate something useful!")
+
+# Task 2: Combine text and numeric output
+
+print("The area of a 10x5 plate is", 10 * 5, "square cm.")
+`;
+const Task3 = `
+# Activity 1.1 - Task 1
+# Engineer's first Python program
+
+print("Engineering is about solving problems.")
+print('Coding helps us solve problems faster.')
+print("Let's calculate something useful!")
+
+# Task 2: Combine text and numeric output
+
+print("The area of a 10x5 plate is", 10 * 5, "square cm.")
+
+# Task 3: Convert inches to centimeters
+# 1 inch = 2.54 cm
+
+inches = 8.5
+cm = inches * 2.54
+
+print(inches, "inches is equal to", cm, "centimeters.")
+`;
+const Task4 = `
+# Activity 1.1 - Task 1
+# Engineer's first Python program
+
+print("Engineering is about solving problems.")
+print('Coding helps us solve problems faster.')
+print("Let's calculate something useful!")
+
+# Task 2: Combine text and numeric output
+
+print("The area of a 10x5 plate is", 10 * 5, "square cm.")
+
+# Task 3: Convert inches to centimeters
+# 1 inch = 2.54 cm
+
+inches = 8.5
+cm = inches * 2.54
+
+print(inches, "inches is equal to", cm, "centimeters.")
+
+# Task 4: Use f-strings to simplify formatting
+
+voltage = 12
+current = 1.5
+power = voltage * current
+
+print(f"A circuit with {voltage}V and {current}A uses {power}W of power.")
+
+`;
+const Task5 = `
+# Activity 1.1 - Task 1
+# Engineer's first Python program
+
+print("Engineering is about solving problems.")
+print('Coding helps us solve problems faster.')
+print("Let's calculate something useful!")
+
+# Task 2: Combine text and numeric output
+
+print("The area of a 10x5 plate is", 10 * 5, "square cm.")
+
+# Task 3: Convert inches to centimeters
+# 1 inch = 2.54 cm
+
+inches = 8.5
+cm = inches * 2.54
+
+print(inches, "inches is equal to", cm, "centimeters.")
+
+# Task 4: Use f-strings to simplify formatting
+
+voltage = 12
+current = 1.5
+power = voltage * current
+
+print(f"A circuit with {voltage}V and {current}A uses {power}W of power.")
+
+# Task 5: Simple beam load
+# Formula: stress = force / area
+
+force = 500  # Newtons
+area = 25    # cm^2
+
+stress = force / area
+print(f"The beam experiences {stress} N/cm^2 of stress.")
+`;
+const SampleOutput = `
+Engineering is about solving problems.
+Coding helps us solve problems faster.
+Let's calculate something useful!
+The area of a 10x5 plate is 50 square cm.
+8.5 inches is equal to 21.59 centimeters.
+A circuit with 12V and 1.5A uses 18.0W of power.
+The beam experiences 20.0 N/cm^2 of stress.
+`;
+//#endregion
 ---
 
 <Layout>
@@ -20,196 +186,734 @@ let task1 = `
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.1 Hello World!</h1>
+        <h1>Activity 1.1 Fundamental Programming Operations</h1>
         <Divider variant="8" classes="mb-4" />
 
         <!-- Introduction -->
         <h2>Introduction</h2>
 
-        <p>
-          In this lesson, you will learn about output in programming. For
-          console applications, <strong>output</strong> refers to information displayed
-          to the user. However, the meaning of output can vary depending on the context.
-          To output information to the user, we use the <code>print()</code>
-          function.
-        </p>
+        <Presentation>
+          <section>
+            <h3>Activity 1.1</h3>
+            <h4 class="text-skynest-theme">
+              Fundamental Programming Operations
+            </h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>
+                <AstroCode
+                  code="print()"
+                  inline
+                  lang="py"
+                  theme={"material-theme-ocean"}
+                /> for displaying output
+              </li>
+              <li>Data Types</li>
+              <li>Integer and float data types</li>
+              <li>String data type</li>
+              <li>Variables</li>
+              <li>Arithmetic Operations</li>
+              <li>Comments</li>
+            </ul>
+          </section>
+          <!-- print() Function -->
+          <section data-auto-animate>
+            <h4>
+              The <AstroCode
+                code="print()"
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              /> Function
+            </h4>
+            <p>
+              <AstroCode
+                code="print()"
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              /> is a function that displays a message in an application.
+            </p>
+            <Code code={Figure1} lang="py" class="text-start mb-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              The <AstroCode
+                code="print()"
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              /> Function
+            </h4>
+            <p>
+              <AstroCode
+                code="print()"
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              /> is a function that displays a message in an application.
+            </p>
+            <Code code={Figure1} lang="py" class="text-start mb-3" />
+            <Code
+              code={Figure2}
+              lang="txt"
+              showLineNumbers={false}
+              frame="terminal"
+              class="text-start"
+              title="Sample"
+            />
+          </section>
+          <section>
+            <h4>
+              Demo: Display a message using <AstroCode
+                code="print()"
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </h4>
+            <Code
+              code={'print("I love Python!")'}
+              lang="py"
+              class="text-start mb-3"
+            />
+            <Code
+              code={"I love Python!"}
+              lang="txt"
+              showLineNumbers={false}
+              frame="terminal"
+              title="Demo"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>Passing Multiple Arguments</h4>
+            <p>
+              Use commas to separate the arguments you pass into the <AstroCode
+                code="print()"
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              /> function.
+            </p>
+            <Code
+              code=`print("Students:", "Anthony,", "Bob")`
+              lang="py"
+              class="text-start mb-3"
+            />
+            <Code
+              code=`Students: Anthony, Bob`
+              frame="terminal"
+              showLineNumbers={false}
+              title="Sample"
+              lang="text"
+              class="text-start"
+            />
+          </section>
+          <!-- Int and Float -->
+          <section>
+            <h4>Data Types</h4>
+            <p>
+              A classification that defines the kind of data a variable can hold.
+            </p>
+          </section>
+          <section>
+            <h4>
+              <span class="text-skynest-theme">Integer</span> and <span
+                class="text-skynest-theme">Float</span
+              > Data Types
+            </h4>
+            <p>
+              In python, numbers are classified as either integers or
+              floating-point (decimal) values.
+            </p>
+            <AstroCode
+              code={"2.5"}
+              lang="py"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"401"}
+              lang="py"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"-65"}
+              lang="py"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"-123.45"}
+              lang="py"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"1_000_000"}
+              lang="py"
+              theme={"material-theme-ocean"}
+              inline
+            />
+          </section>
+          <section>
+            <h4>Demo: Print Some Numbers</h4>
+            <p>
+              Use the <AstroCode
+                code="print()"
+                lang="py"
+                inline
+                theme={"material-theme-ocean"}
+              /> function to display some numbers on the screen.
+            </p>
+            <Code
+              code={Figure3}
+              frame="code"
+              lang="py"
+              title="app.py"
+              class="text-start"
+            />
+          </section>
+          <!-- Strings -->
+          <section>
+            <h4>
+              The <span class="text-skynest-theme">String</span> data type
+            </h4>
+            <p>
+              The string data type represents a sequence of characters used for
+              text.
+            </p>
+            <p class="text-start text-body-secondary">
+              Double Quotes: <AstroCode
+                code='"Hello friend."'
+                lang="py"
+                inline
+              />
+            </p>
 
-        <p>
-          The <code>print()</code> function is a fundamental concept in programming.
-          <strong>Functions</strong> perform specific actions, and in this case,
-          <code>print()</code>
-          outputs a message to the user via the console. The console is a simple
-          terminal for running text-based computer applications. Most of the introductory
-          applications in these programming activities will be console-based.
-        </p>
+            <p class="text-start text-body-secondary">
+              Single Quotes: <AstroCode
+                code={"'Mortimer rules'"}
+                lang="py"
+                inline
+              />
+            </p>
+            <hr />
+            <p>
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={"I am happy!"}
+                lang="py"
+                inline
+              />
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code={'"I am sad!'}
+                lang="py"
+                inline
+              />
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Format String (f-string)</h4>
+            <p>
+              Special strings that you easily insert code inside text by using
+              curly braces (<AstroCode
+                code={"{ }"}
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              />).
+            </p>
+            <Code code={Figure4} lang="py" class="text-start mb-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>Format String (f-string)</h4>
+            <p>
+              Special strings that you easily insert code inside text by using
+              curly braces (<AstroCode
+                code={"{ }"}
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              />).
+            </p>
+            <Code code={Figure4} lang="py" class="text-start mb-3" />
+            <Code
+              code={"I am 35 years old, which is 420 months."}
+              frame="terminal"
+              lang="txt"
+              class="text-start mb-3"
+            />
+          </section>
+          <!-- Variables -->
+          <section>
+            <h4>Introduction to Variables</h4>
+            <p>
+              Variables allow us to store data during our program's execution.
+              Sometimes, variables are described as containers for storing
+              information.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              You can create a variable and assign it a value whenever you need
+              one.
+            </p>
+            <AstroCode
+              code={"health = 100"}
+              lang="py"
+              inline
+              theme={"material-theme-ocean"}
+            />
+          </section>
+          <section data-auto-animate>
+            <h4>Declaring a Variable</h4>
+            <p>
+              A variable can be used anywhere a typical value would be used.
+            </p>
+            <Code
+              code={Figure5}
+              lang="py"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={"Health: 100"}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>The Assignment Operator</h4>
+            <p>The equal sign (=) used to assign a value to a variable.</p>
+            <p>
+              It is <b>not</b> used to check for equality; it is only used for assigning
+              a value to a variable.
+            </p>
+          </section>
+          <section>
+            <h4>Variable Scope</h4>
+            <p>Variables must be declared before they can be used.</p>
+            <i class="si-x fs-1 text-skynest-red"></i>
+            <Code code={Figure6} lang="py" frame="code" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Declare and Use Variables</h4>
+            <Code code={Figure7} lang="py" frame="code" class="text-start" />
+          </section>
+          <section data-auto-animate>
+            <h4>Demo: Declare and Use Variables</h4>
+            <Code
+              code={Figure7}
+              lang="py"
+              frame="code"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure8}
+              lang="txt"
+              frame="terminal"
+              class="text-start"
+            />
+          </section>
+          <section>
+            <h4>Naming Rules and Conventions</h4>
+            <p>Variables names cannot:</p>
+            <ul>
+              <li>Contain spaces</li>
+              <li>Start with a number</li>
+            </ul>
+            <p>
+              <i class="si-x fs-1 text-skynest-red"></i><AstroCode
+                code="1st;"
+                lang="py"
+                inline
+                theme={"material-theme-ocean"}
+              />
+              <i class="si-x fs-1 text-skynest-red"></i><AstroCode
+                code="first name;"
+                lang="py"
+                inline
+                theme={"material-theme-ocean"}
+              />
+            </p>
+            <p>For names containing multiple words, use <b>snake_case</b>.</p>
+            <AstroCode
+              code="first_name;"
+              lang="py"
+              inline
+              theme={"material-theme-ocean"}
+            />
+          </section>
+          <!-- Arithmetic -->
+          <section>
+            <h4>Math Operators</h4>
+            <dl>
+              <dd>
+                <AstroCode
+                  code="+"
+                  lang="py"
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Addition
+              </dd>
+              <dd>
+                <AstroCode
+                  code="-"
+                  lang="py"
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Subtraction
+              </dd>
+              <dd>
+                <AstroCode
+                  code="*"
+                  lang="py"
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Multiplication
+              </dd>
+              <dd>
+                <AstroCode
+                  code="**"
+                  lang="py"
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Exponents (<AstroCode
+                  code="2**3"
+                  lang="py"
+                  inline
+                  theme={"material-theme-ocean"}
+                />)
+              </dd>
+              <dd>
+                <AstroCode
+                  code="/"
+                  lang="py"
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Float Division: Divides two numbers and returns the quotient as
+                a decimal.
+              </dd>
+              <dd>
+                <AstroCode
+                  code="//"
+                  lang="py"
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Integer Division: Divides two numbers and returns the quotient
+                as an integer.
+              </dd>
+              <dd>
+                <AstroCode
+                  code="%"
+                  lang="py"
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Modulus (Mod): Divides two numbers and returns the remainder.
+              </dd>
+            </dl>
+          </section>
+          <section>
+            <h4>Order of Operations</h4>
+            <p>Use parenthesis for operator precedence.</p>
+            <p>
+              <AstroCode
+                code="3 * 4 + 5"
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+            <p>
+              <AstroCode
+                code="3 * (4 + 5)"
+                lang="py"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+          </section>
+          <section>
+            <h4>Demo: Evaluate Some Math Expressions</h4>
+            <Code
+              code={Figure9}
+              frame="code"
+              lang="py"
+              title="app.py"
+              class="text-start mb-3"
+            />
+            <Code
+              code={Figure10}
+              frame="terminal"
+              lang="py"
+              showLineNumbers={false}
+              title="Sample"
+              class="text-start fragment"
+            />
+          </section>
+          <!-- Comments -->
+          <section data-auto-animate>
+            <h4>
+              <AstroCode
+                code="# Comments"
+                lang="py"
+                inline
+                theme="material-theme-ocean"
+              />
+            </h4>
+            <p>
+              Comments serve two key roles: documenting code and disabling it
+              temporarily for testing.
+            </p>
+            <Code code={Figure11} lang="py" class="text-start mb-3" />
+          </section>
+          <section data-auto-animate>
+            <h4>
+              <AstroCode
+                code="# Comments"
+                lang="py"
+                inline
+                theme="material-theme-ocean"
+              />
+            </h4>
+            <p>Comments are completely ignored when the program is executed.</p>
+            <Code code={Figure11} lang="py" class="text-start mb-3" />
+            <Code
+              code={"Hello, world!"}
+              lang="txt"
+              showLineNumbers={false}
+              frame="terminal"
+              title="Sample"
+              class="text-start mb-3"
+            />
+          </section>
+          <!-- Key Terms -->
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Data Type</dt>
+              <dd>
+                A classification that defines the kind of data a variable can
+                hold, such as numbers and text.
+              </dd>
 
-        <p>
-          Additionally, we will learn how to write comments in Python.
-          <strong>Comments</strong> serve two main purposes: documenting your code
-          and temporarily disabling parts of your program for testing. As we progress,
-          our programs will grow in size and complexity. It's crucial to document
-          your code to ensure it is easily understood and maintainable by yourself
-          and your team. In Python, comments begin with the <code>#</code> symbol.
-        </p>
+              <dt>String</dt>
+              <dd>
+                A sequence of characters enclosed in quotes, used to represent
+                text in a program.
+              </dd>
 
-        <h3>Objectives</h3>
-        <ul>
-          <ListItem variant="1">Writing and executing code</ListItem>
-          <ListItem variant="1">Displaying console output</ListItem>
-          <ListItem variant="1">Debugging potential syntax errors</ListItem>
-          <ListItem variant="1">Reading comments</ListItem>
-        </ul>
+              <dt>Integer (int)</dt>
+              <dd>
+                A whole number without a fractional or decimal component, such
+                as 3 or -42.
+              </dd>
+
+              <dt>Float (floating-point)</dt>
+              <dd>
+                A number that contains a decimal point, used to represent values
+                requiring precision, such as 3.14 or -0.5.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Variable</dt>
+              <dd>
+                A named container that stores a value which can be used or
+                changed during program execution.
+              </dd>
+
+              <dt>Assignment Operator (=)</dt>
+              <dd>
+                The symbol used to give a variable a value; for example, <code
+                  >x = 5</code
+                > assigns 5 to <code>x</code>.
+              </dd>
+
+              <dt>Arithmetic Operation</dt>
+              <dd>
+                A mathematical calculation performed using operators such as +,
+                -, *, /, **, or %.
+              </dd>
+
+              <dt>f-string (formatted string)</dt>
+              <dd>
+                A string literal that allows embedded expressions inside curly
+                braces, evaluated at runtime for cleaner output formatting.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>print() Function</dt>
+              <dd>
+                A built-in Python function that displays text or data on the
+                screen.
+              </dd>
+
+              <dt>Comment</dt>
+              <dd>
+                Text in code that Python ignores, used to explain what the
+                program does or to disable code temporarily; written with a <code
+                  >#</code
+                > symbol.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Work with various basic data types</ListItem>
+            <ListItem>Perform arithmetic expressions</ListItem>
+            <ListItem>Display output</ListItem>
+            <ListItem>Apply formulas from basic algebra</ListItem>
+          </ul>
+        </section>
 
         <Divider variant="8" classes="mb-4" />
 
-        <!-- Activity Tasks -->
-        <h2>Activity Tasks</h2>
-        <ul>
-          <ListItem variant="2">
-            Create a new Python script named <span class="text-skynest-theme"
-              >1-1-output.py</span
-            >.
-          </ListItem>
-          <ListItem variant="2"> Complete each task individually. </ListItem>
-        </ul>
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >1-1-data.py</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
 
-        <!-- Task 1 -->
-        <h3><span class="text-skynest-theme">Task 1</span>: Write and Test</h3>
-        <ul>
-          <ListItem variant="2">
-            Write each line of code from the section making sure to stay within
-            the main method.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
-        <Code
-          code={"insert"}
-          frame="code"
-          lang="python"
-          ins={[3, 4, 5]}
-          showLineNumbers
-          title="1-1-output.py"
-        />
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Printing Simples
+            Messages
+          </h3>
+          <Code code={Task1} frame="code" lang="py" title="2-1-data.py" />
 
-        <hr class="my-4" />
+          <hr class="my-4" />
 
-        <!-- Task 2 -->
-        <h3>
-          <span class="text-skynest-theme">Task 2</span>: Add More Code
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Write the additional sections of output under your current print
-            statements.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
-        <Code
-          code={"insert"}
-          frame="code"
-          lang="python"
-          ins={{ range: "6-16" }}
-          showLineNumbers
-          title="1-1-output.py"
-        />
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Combining Text and
+            Numbers
+          </h3>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="py"
+            title="2-1-data.py"
+            collapse="1-6"
+          />
 
-        <hr class="my-4" />
+          <hr class="my-4" />
 
-        <!-- Task 3 -->
-        <h3>
-          <span class="text-skynest-theme">Task 3</span>: Add Space
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Add an additional blank print statement at the end of each section
-            to increase the spacing between the sections.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Engineering Units
+            and Conversion
+          </h3>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="py"
+            title="2-1-data.py"
+            collapse="1-10"
+          />
 
-        <hr class="my-4" />
+          <hr class="my-4" />
 
-        <!-- Task 4 -->
-        <h3>
-          <span class="text-skynest-theme">Task 4</span>: Write a Custom Section
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Output a three-line paragraph of your choice somewhere in the
-            program. Keep it school appropriate.
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Using f-strings for
+            Readability
+          </h3>
+          <Code
+            code={Task4}
+            frame="code"
+            lang="py"
+            title="2-1-data.py"
+            collapse="1-18"
+          />
 
-        <hr class="my-4" />
+          <hr class="my-4" />
 
-        <!-- Task 5 -->
-        <h3>
-          <span class="text-skynest-theme">Task 5</span>: Write Comments
-        </h3>
-        <ul>
-          <ListItem variant="2">
-            Write the following comments to document and modify the code.
-            <ul>
-              <ListItem variant="3">
-                Disable the line of code that displays the message 'The answer
-                is 42.' by placing a single-line comment at the beginning of the
-                line.
-              </ListItem>
-              <ListItem variant="3">
-                Write a comment at the end of a blank print statement that
-                states 'Displays a blank line'.
-              </ListItem>
-            </ul>
-          </ListItem>
-          <ListItem variant="2">
-            Run and test your project to ensure it executes as intended.
-          </ListItem>
-        </ul>
-        <!-- End Activity Tasks -->
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Real-World Example:
+            Beam Load Calculation
+          </h3>
+          <Code
+            code={Task5}
+            frame="code"
+            lang="py"
+            title="2-1-data.py"
+            collapse="1-26"
+          />
+        </section>
 
         <Divider variant="8" classes="my-4" />
 
-        <h2>Reflection Questions</h2>
+        <section id="sample-output">
+          <h2>Sample Output</h2>
 
-        <ol>
-          <li>
-            What is the primary function of System.out.println()? How does it
-            relate to the idea of a program "speaking" to a user?
-          </li>
-          <li>
-            Imagine you typed <span
-              class="text-skynest-red text-decoration-underline">Sistem</span
-            >.out.println() by mistake. What do you think would happen when you
-            try to run your program? Why is correct spelling so important in
-            programming?
-          </li>
-          <li>
-            What was the most challenging part of writing your first line of
-            code?
-          </li>
-        </ol>
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
 
         <Divider variant="8" classes="my-4" />
 
-        <h2>Submission</h2>
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
 
-        <p>
-          Submit your activity and reflection answers to the appropriate
-          dropbox.
-        </p>
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
 
-        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
-          Activity Complete
-        </h1>
+          <ol>
+            <li>
+              When combining text and numbers, which method (commas or
+              f-strings) felt most natural?
+            </li>
+            <li>Why is commenting important in engineering programs?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
       </div>
     </div>
   </div>
