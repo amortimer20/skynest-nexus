@@ -1,0 +1,757 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+public static void greeting()
+{
+    System.out.println("Hey buddy!");
+    System.out.println("How are you?");
+}
+`;
+const Figure2 = `
+public class Example {
+    public static void main(String[] args) {
+        greeting();  // Method call
+        greeting();  // Call it again
+    }
+
+    public static void greeting() {
+        System.out.println("Hey buddy!");
+        System.out.println("How are you?");
+    }
+}
+`;
+const Figure3 = `
+public static int randomNumber() {
+    int randomNumber = (int)(Math.random() * 10);
+}
+
+public static void revealAnswer() {
+    ❌System.out.println("The secret number was " + randomNumber);
+}
+`;
+const Task1 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+        String choice;
+
+        showIntro();
+        displayMenu();
+
+        // To Do: Menu System
+    }
+
+    static void showIntro()
+    {
+        System.out.println("=== MINI GAME COLLECTION VOL. 1 ===");
+        System.out.println("Welcome!");
+        System.out.println();
+    }
+
+    static void displayMenu()
+    {
+        System.out.println("1. Guess the Number");
+        System.out.println("2. Lucky Dice");
+        System.out.println("3. Spin the Wheel");
+        System.out.println("4. Exit");
+        System.out.println();
+    }
+
+    static void gameOver() 
+    {
+        System.out.println("Thanks for playing!");
+        System.out.println("Goodbye!");
+    }
+}
+`;
+const Task2 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+        String choice;
+
+        showIntro();
+        // move displayMenu() into e loop
+
+        do
+        {
+            displayMenu();
+            System.out.print("Choose mini-game: ");
+            choice = input.nextLine();
+
+            switch (choice)
+            {
+                case "1" -> playGuessTheNumber();
+                case "2" -> playLuckyDice();
+                case "3" -> playSpinTheWheel();
+                case "4" -> gameOver();
+                default -> System.out.println("Invalid choice.");
+            }
+
+            System.out.println();
+
+        } while (!choice.equals("4"));
+    }
+
+    static void showIntro()
+    {
+        System.out.println("=== MINI GAME COLLECTION VOL. 1 ===");
+        System.out.println("Welcome!");
+        System.out.println();
+    }
+
+    static void displayMenu()
+    {
+        System.out.println("1. Guess the Number");
+        System.out.println("2. Lucky Dice");
+        System.out.println("3. Spin the Wheel");
+        System.out.println("4. Exit");
+        System.out.println();
+    }
+
+    static void gameOver() 
+    {
+        System.out.println("Thanks for playing!");
+        System.out.println("Goodbye!");
+    }
+
+    static void playGuessTheNumber()
+    {
+        // To Do: Guess the Number Mini-Game
+    }
+
+    static void playLuckyDice()
+    {
+        // To Do: Lucky Dice Mini-Game
+    }
+
+    static void playSpinTheWheel()
+    {
+        // To Do: Spin the Wheel Mini-Game
+    }
+}
+`;
+const Task3 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+        String choice;
+
+        showIntro();
+
+
+        do
+        {
+            displayMenu();
+            System.out.print("Choose mini-game: ");
+            choice = input.nextLine();
+
+            switch (choice)
+            {
+                case "1" -> playGuessTheNumber();
+                case "2" -> playLuckyDice();
+                case "3" -> playSpinTheWheel();
+                case "4" -> gameOver();
+                default -> System.out.println("Invalid choice.");
+            }
+
+            System.out.println();
+
+        } while (!choice.equals("4"));
+    }
+
+    static void showIntro()
+    {
+        System.out.println("=== MINI GAME COLLECTION VOL. 1 ===");
+        System.out.println("Welcome!");
+        System.out.println();
+    }
+
+    static void displayMenu()
+    {
+        System.out.println("1. Guess the Number");
+        System.out.println("2. Lucky Dice");
+        System.out.println("3. Spin the Wheel");
+        System.out.println("4. Exit");
+        System.out.println();
+    }
+
+    static void gameOver() 
+    {
+        System.out.println("Thanks for playing!");
+        System.out.println("Goodbye!");
+    }
+
+    static void playGuessTheNumber()
+    {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--- Guess the Number ---");
+        System.out.print("Guess my secret number betwen 1 and 10: ");
+        int secret = (int)((Math.random() * 10) + 1);
+        int guess = input.nextInt();
+
+        System.out.println("It was " + secret + "!");
+        System.out.println(guess == secret ? "You Win!" : "You Lose!");
+    }
+
+    static void playLuckyDice()
+    {
+        Scanner input = new Scanner(System.in);
+        int die1 = (int)((Math.random() * 6) + 1);
+        int die2 = (int)((Math.random() * 6) + 1);
+        int bet;
+
+        System.out.println("--- Lucky Dice ---");
+        System.out.println();
+    }
+
+    static void playSpinTheWheel()
+    {
+        Scanner input = new Scanner(System.in);
+        int wheel = (int)((Math.random() * 25) + 1);
+        int bet;
+
+        System.out.println("--- Spin the Wheel ---");
+        System.out.println();
+    }
+}
+`;
+const SampleOutput = `
+=== MINI GAME COLLECTION VOL. 1 ===
+Welcome!
+
+1. Guess the Number
+2. Lucky Dice
+3. Spin the Wheel
+4. Exit
+
+Choose mini-game: 1
+--- Guess the Number ---
+Guess my secret number betwen 1 and 10: 7
+It was 7!
+You Win!
+
+1. Guess the Number
+2. Lucky Dice
+3. Spin the Wheel
+4. Exit
+
+Choose mini-game: 4
+Thanks for playing!
+Goodbye!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.1 Defining and Invoking Methods</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Introduction to Methods in Java</h3>
+            <h4 class="text-skynest-theme">
+              Breaking Programs into Smaller, Reusable Parts
+            </h4>
+          </section>
+          <section>
+            <h4>What Are Methods?</h4>
+            <p>
+              Methods (aka functions or procedures) are blocks of code that
+              perform a specific task.
+            </p>
+            <p>
+              They allow us to <strong>reuse</strong> logic, <strong
+                >organize</strong
+              > our programs, and <strong>simplify</strong> complex tasks.
+            </p>
+          </section>
+          <section>
+            <h4>Built-in Methods</h4>
+            <p>
+              You've already been using methods in every Java program so far.
+            </p>
+            <Code
+              code={`System.out.println("Hello world!");`}
+              frame="code"
+              lang="java"
+              class="text-start"
+            />
+            <p class="fragment">
+              You may not know how <code>System.out.println()</code> works behind
+              the scenes, but that's okay. Methods are designed so you can use functionality
+              without needing to understand every detail.
+            </p>
+            <p class="fragment">This is known as <b>abstraction</b>.</p>
+          </section>
+          <section>
+            <h3>Key Benefits of Using Methods</h3>
+            <ul>
+              <li class="fragment">
+                <strong>Reusability:</strong> Write code once and use it multiple
+                times.
+              </li>
+              <li class="fragment">
+                <strong>Modularity:</strong> Break down complex problems into smaller,
+                manageable parts.
+              </li>
+              <li class="fragment">
+                <strong>Readability:</strong> Make code easier to understand and
+                maintain.
+              </li>
+              <li class="fragment">
+                <strong>Debugging:</strong> Find and fix errors in isolated sections.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Components of a Method</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="java"
+              class="text-start"
+              mark=`public static void greeting()`
+            />
+
+            <p>
+              <strong>Header:</strong> Declares the method's access level, return
+              type, name, and parameters.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Components of a Method</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="java"
+              class="text-start"
+              mark={{ range: "2-5" }}
+            />
+            <p>
+              <strong>Header:</strong> Declares the method's access level, return
+              type, name, and parameters.
+            </p>
+            <p>
+              <strong>Body:</strong> Contains the instructions that run when the
+              method is called.
+            </p>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Components of a Method Header</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="java"
+              class="text-start"
+              mark="public static"
+            />
+
+            <p>In this example:</p>
+
+            <ul>
+              <li>
+                <code>public static</code> - modifiers that control visibility and
+                behavior.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Components of a Method Header</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="java"
+              class="text-start"
+              mark="void"
+            />
+
+            <p>In this example:</p>
+
+            <ul>
+              <li>
+                <code>public static</code> - modifiers that control visibility and
+                behavior.
+              </li>
+              <li>
+                <code>void</code> - the <strong>return type</strong> (no value is
+                returned).
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Components of a Method Header</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="java"
+              class="text-start"
+              mark="greeting"
+            />
+
+            <p>In this example:</p>
+
+            <ul>
+              <li>
+                <code>public static</code> - modifiers that control visibility and
+                behavior.
+              </li>
+              <li>
+                <code>void</code> - the <strong>return type</strong> (no value is
+                returned).
+              </li>
+              <li>
+                <code>greeting</code> - the <strong>method name</strong>.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Components of a Method Header</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="java"
+              class="text-start"
+              mark="()"
+            />
+
+            <p>In this example:</p>
+
+            <ul>
+              <li>
+                <code>public static</code> - modifiers that control visibility and
+                behavior.
+              </li>
+              <li>
+                <code>void</code> - the <strong>return type</strong> (no value is
+                returned).
+              </li>
+              <li>
+                <code>greeting</code> - the <strong>method name</strong>.
+              </li>
+              <li>
+                <code>()</code> - parentheses (empty for now).
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Defining a Method ≠ Calling a Method</h4>
+            <p>
+              Defining a method describes what it does, but it doesn't run until
+              you <strong>call</strong> or <strong>invoke</strong> it.
+            </p>
+
+            <Code code={Figure2} frame="code" lang="java" class="text-start" />
+
+            <p class="fragment">
+              Each time <code>greeting()</code> is called, the same code runs again
+              — a simple example of code reuse.
+            </p>
+          </section>
+          <section>
+            <h4>Variable Scope</h4>
+            <p>
+              Variables declared inside a method exist only within that method.
+            </p>
+            <Code code={Figure3} frame="code" lang="java" class="text-start" />
+            <p class="fragment">
+              <strong>Local Variables:</strong> Declared inside a method — only accessible
+              there.
+            </p>
+            <p class="fragment">
+              Once a method finishes running, its local variables are deleted
+              from memory.
+            </p>
+          </section>
+          <section>
+            <h4>Methods in Practice</h4>
+            <ul>
+              <li class="fragment">
+                Keep <code>main()</code> short and easy to read.
+              </li>
+              <li class="fragment">
+                Group related behavior into its own section of code.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Next Lesson Preview</h4>
+            <h4 class="text-skynest-theme">Parameters and Return Values</h4>
+            <p>
+              So far, our methods don't take any input or return any output.
+            </p>
+            <p>
+              In the next lesson, you'll learn how to make your methods more
+              flexible by:
+            </p>
+            <ul>
+              <li class="fragment">
+                Passing <strong>arguments</strong> into a method.
+              </li>
+              <li class="fragment">
+                Returning <strong>values</strong> back to the caller.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Method</strong></dt>
+              <dd>
+                A named block of code that performs a specific task. Methods
+                make programs modular, reusable, and easier to read.
+              </dd>
+              <dt><strong>Method Header</strong></dt>
+              <dd>
+                The first line of a method declaration that specifies its access
+                level, return type, name, and parameter list.
+              </dd>
+              <dt><strong>Method Body</strong></dt>
+              <dd>
+                The code block inside curly braces <code>{}</code> that contains
+                the instructions the method will execute.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Return Type</strong></dt>
+              <dd>
+                Specifies the type of value a method sends back to the caller.
+                If a method doesn't return a value, its return type is <code
+                  >void</code
+                >.
+              </dd>
+              <dt><strong>Method Call (Invocation)</strong></dt>
+              <dd>
+                The statement that executes a method by using its name followed
+                by parentheses. i.e. "Using the method".
+              </dd>
+              <dt><strong>Local Variable</strong></dt>
+              <dd>
+                A variable declared inside a method. It can only be accessed
+                within that method and is removed from memory once the method
+                finishes.
+              </dd>
+              
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Scope</strong></dt>
+              <dd>
+                The region of a program where a variable can be accessed. Local
+                variables have method-level scope.
+              </dd>
+              <dt><strong>Abstraction</strong></dt>
+              <dd>
+                The concept of using methods or classes without knowing the full
+                details of how they work internally.
+              </dd>
+              <dt><strong>Modularity</strong></dt>
+              <dd>
+                Dividing a program into independent sections or modules, such as
+                methods, to simplify design and debugging.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Code Reuse</strong></dt>
+              <dd>
+                The practice of writing a method once and using it multiple
+                times instead of duplicating code.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+      </div>
+
+      <section id="objectives">
+        <h3>Objectives</h3>
+        <ul>
+          <ListItem
+            >Define and invoke simple <code>void</code> methods in Java.</ListItem
+          >
+          <ListItem
+            >Explain how methods improve readability and organization.</ListItem
+          >
+          <ListItem
+            >Use methods to structure a simple console-based program.</ListItem
+          >
+        </ul>
+      </section>
+
+      <Divider variant="8" classes="mb-4" />
+
+      <section id="activity-tasks">
+        <h2>Activity Tasks</h2>
+        <ul>
+          <ListItem variant="2"
+            >Create a new Java file named <span class="text-skynest-theme"
+              >3-1-Methods</span
+            >.</ListItem
+          >
+          <ListItem variant="2"
+            >Complete each task individually and run your program to verify the
+            output.</ListItem
+          >
+        </ul>
+
+        <!-- Task 1 -->
+        <h3>
+          <span class="text-skynest-theme">Task 1</span>: Create and Call
+          Methods
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >Define three methods: <code>showIntro()</code>, <code
+              >displayMenu()</code
+            >, and <code>gameOver()</code>.</ListItem
+          >
+          <ListItem variant="2"
+            >Each method should print a short message related to its name.</ListItem
+          >
+          <ListItem variant="2"
+            >From <code>main()</code>, call these methods in sequence.</ListItem
+          >
+        </ul>
+        <Code code={Task1} frame="code" lang="java" title="Program.java" />
+
+        <hr class="my-4" />
+
+        <!-- Task 2 -->
+        <h3>
+          <span class="text-skynest-theme">Task 2</span>: Menu System
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >Implement the main menu system, and create the corresponding method
+            definitions. The mini-game methods will be implemented in the next
+            task.</ListItem
+          >
+        </ul>
+        <Code
+          code={Task2}
+          frame="code"
+          lang="java"
+          title="Program.java"
+          collapse={["34-36", "41-45", "50-51"]}
+          ins={[{ range: "13-30" }, { range: "54-67" }]}
+          del={{ range: "11" }}
+        />
+
+        <hr class="my-4" />
+
+        <!-- Task 3 -->
+        <h3>
+          <span class="text-skynest-theme">Task 3</span>: Implement Mini-Games
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >The Number Guessing mini-game has been implemented for you.</ListItem
+          >
+          <ListItem variant="2"
+            >Implement the remaining mini-game methods. They don't need to be
+            complex, but have some fun!</ListItem
+          >
+        </ul>
+        <Code
+          code={Task3}
+          frame="code"
+          lang="java"
+          title="Program.java"
+          collapse={["7-30", "34-37", "41-46", "50-52"]}
+          ins={[{ range: "58-65" }, { range: "70-76" }, { range: "81-86" }]}
+        />
+      </section>
+    </div>
+
+    <Divider variant="8" classes="my-4" />
+
+    <section id="sample-output">
+      <h2>Sample Output</h2>
+
+      <p>Your program output should look similar to the sample output below.</p>
+
+      <Code
+        code={SampleOutput}
+        frame="terminal"
+        lang="txt"
+        showLineNumbers={false}
+        title="Sample Output"
+      />
+    </section>
+
+    <Divider variant="8" classes="my-4" />
+
+    <section id="reflection">
+      <h2>Reflection Questions</h2>
+
+      <p>
+        You may write your reflection answers as comments at the bottom of your
+        code.
+      </p>
+
+      <ol>
+        <li>
+          What is the purpose of defining a method instead of placing all code
+          in <code>main()</code>?
+        </li>
+        <li>How does invoking a method help you organize or reuse code?</li>
+        <li>
+          What patterns do you notice in how methods are defined and called?
+        </li>
+      </ol>
+    </section>
+
+    <Divider variant="8" classes="my-4" />
+
+    <section id="submission">
+      <h2>Submission</h2>
+
+      <p>
+        Submit your completed <code>.java</code> file and reflection answers to the
+        appropriate dropbox.
+      </p>
+
+      <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+        Activity Complete
+      </h1>
+    </section>
+  </div>
+</Layout>
