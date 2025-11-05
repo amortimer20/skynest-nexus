@@ -1,0 +1,494 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+public static void greetUser(String name)
+{
+    System.out.println("Hello, " + name + "!");
+    System.out.println("Welcome to the Math Utility Program.");
+}
+`;
+
+const Figure2 = `
+public static int square(int n)
+{
+    return n * n;
+}
+`;
+
+const Figure3 = `
+public static double average(double a, double b)
+{
+    return (a + b) / 2.0;
+}
+`;
+
+const Task1 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        // Task 1
+        System.out.println("--- Math Utilities ---");
+
+        System.out.print("Enter your name: ");
+        String userName = input.nextLine();
+
+        greetUser(userName);
+    }
+
+    // Task 1 Method
+    static void greetUser(String name)
+    {
+        System.out.println("Hello, " + name + "!");
+        System.out.println("Welcome to the Math Utility Program.\\n");
+    }
+}
+`;
+
+const Task2 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        // Task 1
+        System.out.println("--- Math Utilities ---");
+
+        System.out.print("Enter your name: ");
+        String userName = input.nextLine();
+
+        greetUser(userName);
+
+
+        // Task 2
+        System.out.print("Enter a number to square: ");
+        int num = input.nextInt();
+
+        int result = square(num);
+        System.out.println("The square is " + result + "\\n");
+    }
+
+    // Task 1 Method
+    static void greetUser(String name)
+    {
+        System.out.println("Hello, " + name + "!");
+        System.out.println("Welcome to the Math Utility Program.\\n");
+    }
+
+    // Task 2 Method
+    static int square(int n)
+    {
+        return n * n;
+    }
+}
+`;
+
+const Task3 = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        // Task 1
+        System.out.println("--- Math Utilities ---");
+
+        System.out.print("Enter your name: ");
+        String userName = input.nextLine();
+
+        greetUser(userName);
+
+
+        // Task 2
+        System.out.print("Enter a number to square: ");
+        int num = input.nextInt();
+
+        int result = square(num);
+        System.out.println("The square is " + result + "\\n");
+
+
+        // Task 3
+        System.out.print("Enter first number: ");
+        double a = input.nextDouble();
+
+        System.out.print("Enter second number: ");
+        double b = input.nextDouble();
+
+        double avg = average(a, b);
+        System.out.println("The average is " + avg + "\\n");
+
+        System.out.print("Enter minimum value: ");
+        int min = input.nextInt();
+
+        System.out.print("Enter maximum value: ");
+        int max = input.nextInt();
+
+        int random = randomInRange(min, max);
+        System.out.println("Random number between " + min + " and " + max + ": " + random + "\\n");
+    }
+
+    // Task 1 Method
+    static void greetUser(String name)
+    {
+        System.out.println("Hello, " + name + "!");
+        System.out.println("Welcome to the Math Utility Program.\\n");
+    }
+
+    // Task 2 Method
+    static int square(int n)
+    {
+        return n * n;
+    }
+
+    // Task 3 Methods
+    static double average(double a, double b)
+    {
+        return (a + b) / 2.0;
+    }
+
+    static int randomInRange(int min, int max)
+    {
+        return (int)((Math.random() * (max - min + 1)) + min);
+    }
+}
+`;
+
+const SampleOutput = `
+Enter your name: Anthony
+Hello, Anthony!
+Welcome to the Math Utility Program.
+
+Enter a number to square: 6
+The square is 36
+
+Enter first number: 8
+Enter second number: 10
+The average is 9.0
+
+Enter minimum value: 1
+Enter maximum value: 10
+Random number between 1 and 10: 4
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.2 Methods with Parameters and Return Values</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Methods with Parameters and Return Values</h3>
+            <h4 class="text-skynest-theme">
+              Sending and Receiving Data in Java Methods
+            </h4>
+          </section>
+
+          <section>
+            <h4>Why Use Parameters and Returns?</h4>
+            <p>
+              So far, we've created methods that perform actions, but they
+              couldn't accept input or return results.
+            </p>
+            <p class="fragment">
+              Parameters and return statements allow data to flow <em>into</em> and
+              <em>out of</em> a method.
+            </p>
+          </section>
+
+          <section>
+            <h4>Parameters</h4>
+            <p>
+              A <strong>parameter</strong> is a variable that receives data when
+              a method is called. It lets us reuse one method for different inputs.
+            </p>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="java"
+              class="text-start"
+              mark=`String name`
+            />
+          </section>
+
+          <section>
+            <h4>Return Values</h4>
+            <p>
+              A method can send data back to the caller using a
+              <strong>return</strong> statement. The method's
+              <strong>return type</strong> tells Java what kind of data to return.
+            </p>
+            <Code
+              code={Figure2}
+              frame="code"
+              lang="java"
+              class="text-start"
+              mark=`return n * n;`
+            />
+          </section>
+
+          <section>
+            <h4>Parameters + Returns Together</h4>
+            <p>
+              Methods can use both parameters and return values to create
+              flexible and reusable tools.
+            </p>
+            <Code code={Figure3} frame="code" lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Data Flow</h4>
+            <ol>
+              <li class="fragment">
+                Parameters are <span class="text-skynest-theme">inputs</span>
+              </li>
+              <li class="fragment">
+                The method body is the <span class="text-skynest-theme"
+                  >process</span>
+              </li>
+              <li class="fragment">
+                The return value is the <span class="text-skynest-theme"
+                  >output</span>
+              </li>
+            </ol>
+          </section>
+
+          <!-- Key Terms Slides -->
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Parameter</strong></dt>
+              <dd>
+                A variable declared inside a method's header that receives input
+                when the method is called.
+              </dd>
+
+              <dt><strong>Argument</strong></dt>
+              <dd>
+                The actual value or expression passed into a method when it's
+                called.
+              </dd>
+
+              <dt><strong>Return Type</strong></dt>
+              <dd>
+                Specifies the kind of data a method sends back to the caller. If
+                no data is returned, the return type is <code>void</code>.
+              </dd>
+            </dl>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Return Statement</strong></dt>
+              <dd>
+                The command that exits a method and sends a value back to the
+                caller.
+              </dd>
+
+              <dt><strong>Void Method</strong></dt>
+              <dd>
+                A method that performs an action but does not return data.
+              </dd>
+
+              <dt><strong>Scope</strong></dt>
+              <dd>
+                The part of a program where a variable can be accessed. A
+                parameter has scope only inside its method.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h4>Next Lesson Preview</h4>
+            <h5 class="text-skynest-theme">Method Overloading</h5>
+            <p>
+              In the next lesson, we'll explore how to define multiple methods
+              with the same name but different parameters.
+            </p>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Define and call methods that take parameters.</ListItem>
+            <ListItem>Define and call methods that return values.</ListItem>
+            <ListItem>Use both to make methods reusable and flexible.</ListItem>
+            <ListItem>Differentiate between parameters and arguments.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new Java file named
+              <span class="text-skynest-theme">3-2-ParametersReturn</span
+              >.</ListItem
+            >
+            <ListItem variant="2"
+              >Complete each task and test your program output after every
+              method is added.</ListItem
+            >
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Passing Data into a
+            Method
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Create a method named <code>greetUser(String name)</code> that prints
+              a personalized greeting.</ListItem
+            >
+            <ListItem variant="2"
+              >Prompt the user for their name in <code>main()</code> and call the
+              method.</ListItem
+            >
+          </ul>
+          <Code code={Task1} frame="code" lang="java" title="Program.java" />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Returning a Value
+            from a Method
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Define a method <code>square(int n)</code> that returns the square
+              of a number.</ListItem
+            >
+            <ListItem variant="2"
+              >In <code>main()</code>, ask the user for a number, call
+              <code>square(num)</code>, and print the result.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            title="Program.java"
+            collapse={["7-15", "26-31"]}
+            ins={[{ range: "16-23" }, { range: "32-37" }]}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Combining Parameters
+            and Return Values
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Create a method <code>average(double a, double b)</code> that returns
+              the average of two numbers.</ListItem
+            >
+            <ListItem variant="2"
+              >Add another method <code>randomInRange(int min, int max)</code> to
+              return a random integer between two values.</ListItem
+            >
+            <ListItem variant="2"
+              >Test both methods by prompting the user for input and displaying
+              the results.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="java"
+            title="Program.java"
+            collapse={["7-23", "46-57"]}
+            ins={[{ range: "24-43" }, { range: "58-68" }]}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <p>Your program output should look similar to the example below.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+          <ol>
+            <li>What is the difference between a parameter and an argument?</li>
+            <li>
+              Why must a method that returns a value specify a non-void return
+              type?
+            </li>
+            <li>
+              How could one method's return value be used as input to another
+              method?
+            </li>
+            <li>
+              Why is using parameters and returns more flexible than relying on
+              global variables?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>
+            Submit your completed <code>.java</code> file and reflection answers
+            to the appropriate dropbox.
+          </p>
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
