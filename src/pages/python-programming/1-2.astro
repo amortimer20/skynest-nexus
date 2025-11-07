@@ -1,0 +1,348 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `name = input("Enter your name: ")
+print("Hello", name)`; 
+
+const Figure2 = `Enter your name: Alex [Enter]
+Hello Alex`;
+
+const Figure3 = `age = input("Enter your age: ")
+print("You are", age * 12, "months old.")`;
+
+const Figure4 = `height = input("Enter your height in meters: ")
+print("Double your height is", height * 2)`; 
+
+const Figure5 = `
+Enter your age: 35 [enter]
+You are 353535353535353535353535 months old.
+`;
+
+const Figure6 = `height = float(input("Enter your height in meters: "))
+print("Double your height is", height * 2)`; 
+
+const Figure7 = `count = int(input("Enter the number of bolts needed: "))
+cost = float(input("Enter cost per bolt ($): "))
+total = count * cost
+print(f"Total cost = \${total}")`;
+
+const Task1 = `
+# Activity 1.2 - Task 1
+# Getting user input
+
+name = input("Enter your name: ")
+print("Welcome,", name)
+`;
+
+const Task2 = `
+# Activity 1.2 - Task 1
+# Getting user input
+
+name = input("Enter your name: ")
+print("Welcome,", name)
+
+# Task 2 - Input Strings and Numbers
+
+tool = input("Enter the tool name: ")
+price = input("Enter the price: ")
+print("The", tool, "costs $", price)
+`;
+
+const Task3 = `
+# Activity 1.2 - Task 1
+# Getting user input
+
+name = input("Enter your name: ")
+print("Welcome,", name)
+
+# Task 2 - Input Strings and Numbers
+
+tool = input("Enter the tool name: ")
+price = input("Enter the price: ")
+print("The", tool, "costs $", price)
+
+# Task 3 - Convert numeric input
+
+radius = float(input("Enter radius of the circle (cm): "))
+area = 3.1416 * radius ** 2
+print(f"Area = {area} cm^2")
+`;
+
+const Task4 = `
+# Activity 1.2 - Task 1
+# Getting user input
+
+name = input("Enter your name: ")
+print("Welcome,", name)
+
+# Task 2 - Input Strings and Numbers
+
+tool = input("Enter the tool name: ")
+price = input("Enter the price: ")
+print("The", tool, "costs $", price)
+
+# Task 3 - Convert numeric input
+
+radius = float(input("Enter radius of the circle (cm): "))
+area = 3.1416 * radius ** 2
+print(f"Area = {area} cm^2")
+
+# Task 4 - Convert multiple numeric inputs
+
+length = float(input("Enter beam length (m): "))
+force = float(input("Enter applied force (N): "))
+stress = force / length
+print(f"Stress per meter = {stress} N/m")
+`;
+
+const SampleOutput = `
+Enter your name: Maya
+Welcome, Maya
+Enter radius of the circle (cm): 3
+Area = 28.2744 cm^2
+Enter beam length (m): 2.5
+Enter applied force (N): 500
+Stress per meter = 200.0 N/m
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/python-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.2 Console Input and Type Conversion</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.2</h3>
+            <h4 class="text-skynest-theme">Console Input and Type Conversion</h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>
+                Using <AstroCode code="input()" lang="py" inline theme="material-theme-ocean" /> to get user input
+              </li>
+              <li>Converting string input to numbers using <AstroCode code="int()" lang="py" inline /> and <AstroCode code="float()" lang="py" inline /></li>
+              <li>Displaying user input with <AstroCode code="print()" lang="py" inline /></li>
+            </ul>
+          </section>
+
+          <!-- input() Function -->
+          <section data-auto-animate>
+            <h4>The <AstroCode code="input()" lang="py" inline /> Function</h4>
+            <p>
+              The <AstroCode code="input()" lang="py" inline /> function pauses the program and waits for the user to type something.
+            </p>
+            <Code code={Figure1} frame="code" lang="py" class="text-start" />
+          </section>
+
+          <section data-auto-animate>
+            <h4>The <AstroCode code="input()" lang="py" inline /> Function</h4>
+            <Code code={Figure1} lang="py" class="text-start mb-3" />
+            <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} title="Sample" class="text-start" />
+          </section>
+
+          <!-- Strings vs Numbers -->
+          <section>
+            <h4>All Input is a String</h4>
+            <p>By default, <AstroCode code="input()" lang="py" inline /> always returns a <b>string</b> value, even if the user types a number.</p>
+            <Code code={Figure3} lang="py" frame="code" class="text-start mb-3" />
+            <Code code={Figure5} frame="terminal" lang="txt" title="Note" class="text-start" />
+          </section>
+
+          <!-- Issues with Strings and Arithmetic -->
+           <section>
+            <h4>Issues with Strings and Arithmetic</h4>
+            <p>
+              Because strings aren't treated as numbers in Python, you must
+              convert them before doing arithmetic; otherwise, your calculations
+              may not work as expected.
+            </p>
+
+            <p class="fragment">
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code=`"3" + "3" # 33`
+                lang="python"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+            <p class="fragment">
+              <i class="text-skynest-red si-x"></i><AstroCode
+                code=` 2 * "3" + "3" # 333`
+                lang="python"
+                theme="material-theme-ocean"
+                inline
+              />
+            </p>
+          </section>
+
+          <!-- Type Conversion -->
+          <section>
+            <h4>Converting Input to Numbers</h4>
+            <p>To perform arithmetic with input, you must convert it to a number using <AstroCode code="int()" inline /> or <AstroCode code="float()" inline />.</p>
+            <Code code={Figure6} lang="py" frame="code" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Engineering Example</h4>
+            <p>Combine integer and floating-point input for calculations.</p>
+            <Code code={Figure7} lang="py" frame="code" class="text-start mb-3" />
+            <Code
+              code={`Enter the number of bolts needed: 5
+Enter cost per bolt ($): 0.75
+Total cost = $3.75`}
+              frame="terminal"
+              lang="txt"
+              showLineNumbers={false}
+              title="Sample"
+              class="text-start"
+            />
+          </section>
+
+          <!-- int() vs float() -->
+           <section>
+            <h4>
+              <AstroCode
+                code="int()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> vs. <AstroCode
+                code="float()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              />
+            </h4>
+
+            <p>
+              Use <AstroCode
+                code="int()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> when you need a whole number (student ID, age, number of people,
+              etc.).
+            </p>
+
+            <p>
+              Use <AstroCode
+                code="float()"
+                lang="javascript"
+                theme="material-theme-ocean"
+                inline
+              /> when you need a decimal number (dollar amount, weight, GPA, etc.).
+            </p>
+          </section>
+
+          <!-- Key Terms -->
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><AstroCode code="input()" lang="py" inline /> Function</dt>
+              <dd>Pauses the program to accept input from the user as text (string).</dd>
+
+              <dt>Type Conversion</dt>
+              <dd>The process of changing a value's data type using functions like <code>int()</code> or <code>float()</code>.</dd>
+
+              <dt><AstroCode code="int()" lang="py" inline /></dt>
+              <dd>Converts a string into an integer (whole number).</dd>
+
+              <dt><AstroCode code="float()" lang="py" inline /></dt>
+              <dd>Converts a string into a floating-point (decimal) number.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use <AstroCode code="input()" inline /> to gather user input.</ListItem>
+            <ListItem>Store and display input values using variables.</ListItem>
+            <ListItem>Convert string input into numeric data types with <AstroCode code="int()" inline /> and <AstroCode code="float()" inline />.</ListItem>
+            <ListItem>Perform arithmetic using user-provided values.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Activity Tasks -->
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">Create a new project named <span class="text-skynest-theme">1-2-input.py</span>.</ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <h3><span class="text-skynest-theme">Task 1</span>: Getting User Input</h3>
+          <Code code={Task1} frame="code" lang="py" title="1-2-input.py" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 2</span>: Input Strings and Numbers</h3>
+          <Code code={Task2} frame="code" lang="py" title="1-2-input.py" collapse="1-5" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 3</span>: Convert Numeric Input</h3>
+          <Code code={Task3} frame="code" lang="py" title="1-2-input.py" collapse="1-12" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 4</span>: Multi-Variable Input (Engineering Example)</h3>
+          <Code code={Task4} frame="code" lang="py" title="1-2-input.py" collapse="1-19" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <!-- Sample Output -->
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <p>Your program output should look similar to the sample below.</p>
+          <Code code={SampleOutput} frame="terminal" lang="txt" showLineNumbers={false} title="Sample Output" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+          <p>You may write your reflection answers as comments at the bottom of your code.</p>
+          <ol>
+            <li>What happens if you forget to convert input before doing arithmetic?</li>
+            <li>When might it appropriate to use <code>int()</code> instead of <code>float()</code>?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>Submit your activity and reflection answers to the appropriate dropbox.</p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
