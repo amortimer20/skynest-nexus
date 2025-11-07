@@ -1,0 +1,147 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+Inches to Centimeters: 12.7
+Max of (8, 3): 8
+Area of Circle (r=3): 28.27
+Is 7 even? false
+98.6°F in Celsius: 37.0
+Average of (5, 7, 9): 7.0
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Application 3.1 Function Set 1</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Demonstrate proficiency in defining and invoking functions with
+            parameters and return values by solving practical math and logic
+            problems.
+          </p>
+
+          <p>
+            These challenges are language-agnostic, meaning they can be
+            completed in any programming language. Make sure to use the proper
+            conventions for your chosen language.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Defining and calling functions with parameters</ListItem>
+            <ListItem
+              >Using <code>return</code> statements to send values back to the caller</ListItem
+            >
+            <ListItem>Applying mathematical formulas inside functions</ListItem>
+            <ListItem
+              >Using <code>void</code> and non-<code>void</code> functions correctly</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ul>
+            <ListItem
+              >Create a new project named <span class="text-skynest-theme"
+                >Application-3-1</span
+              ></ListItem
+            >
+            <ListItem
+              >Complete the following function challenges:
+              <ul>
+                <ListItem variant="2">
+                  <strong>1. Convert Inches to Centimeters</strong>: Write a
+                  function named <code>inchesToCm()</code> that takes one <code
+                    >float or double parameter</code
+                  >
+                  parameter (inches) and returns the equivalent length in centimeters.
+                </ListItem>
+
+                <ListItem variant="2">
+                  <strong>2. Find the Maximum of Two Numbers</strong>: Write a
+                  function named <code>max()</code> that takes two <code
+                    >integer</code
+                  > parameters and returns the larger of the two values.
+                </ListItem>
+
+                <ListItem variant="2">
+                  <strong>3. Calculate the Area of a Circle</strong>: Write a
+                  function named <code>circleArea()</code> that accepts a
+                  <code>float or double parameter radius</code> parameter and returns
+                  the area of a circle using
+                  <code>Math.PI</code>.
+                </ListItem>
+
+                <ListItem variant="2">
+                  <strong>4. Determine if a Number is Even</strong>: Write a
+                  function named <code>isEven()</code> that accepts an
+                  <code>integer</code> and returns <code>true</code> if it's even
+                  or
+                  <code>false</code> if it's odd.
+                </ListItem>
+
+                <ListItem variant="2">
+                  <strong>5. Convert Fahrenheit to Celsius</strong>: Write a
+                  function named <code>toCelsius()</code> that converts a
+                  <code>float or double parameter</code> Fahrenheit temperature to
+                  Celsius using the formula
+                  <code>(F - 32) * 5 / 9</code>.
+                </ListItem>
+
+                <ListItem variant="2">
+                  <strong>6. Calculate the Average of Three Numbers</strong>:
+                  Write a function named <code>averageOfThree()</code> that accepts
+                  three
+                  <code>float or double parameter</code> parameters and returns their
+                  average.
+                </ListItem>
+              </ul>
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
