@@ -118,7 +118,7 @@
             bind:value={submittedAnswer}
           />
         {:else}
-          <div>
+          <div class="form-check my-2">
             <input
               type="radio"
               name="choices"
@@ -131,7 +131,7 @@
               >{@html currentQuestion.choices[0]}</label
             >
           </div>
-          <div>
+          <div class="form-check my-2">
             <input
               type="radio"
               name="choices"
@@ -144,7 +144,7 @@
               >{@html currentQuestion.choices[1]}</label
             >
           </div>
-          <div>
+          <div class="form-check my-2">
             <input
               type="radio"
               name="choices"
@@ -157,7 +157,7 @@
               >{@html currentQuestion.choices[2]}</label
             >
           </div>
-          <div>
+          <div class="form-check my-2">
             <input
               type="radio"
               name="choices"
