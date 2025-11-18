@@ -45,19 +45,23 @@ public class Program {
 `;
 
 const Task1Student = `
-public class Student {
+public class Student
+{
     String name;
     int gradeLevel;
 
-    void introduce() {
+    void introduce()
+    {
         System.out.println("Hi, I'm " + name + " and I'm in grade " + gradeLevel + ".");
     }
 }
 `;
 
 const Task1Program = `
-public class Program {
-    public static void main(String[] args) {
+public class Program
+{
+    public static void main(String[] args)
+    {
         Student s1 = new Student();
         s1.name = "Alex";
         s1.gradeLevel = 10;
@@ -73,23 +77,30 @@ public class Program {
 `;
 
 const Task2Student = `
-public class Student {
+public class Student
+{
     String name;
     int gradeLevel;
     double gpa;
 
-    void introduce() {
+    void introduce()
+    {
         System.out.println("Hi, I'm " + name + " and I'm in grade " + gradeLevel + ".");
     }
 
-    void showGpa() {
+    void showGpa()
+    {
         System.out.println(name + "'s GPA is " + gpa + ".");
     }
 
-    void checkHonorRoll() {
-        if (gpa >= 3.5) {
+    void checkHonorRoll()
+    {
+        if (gpa >= 3.5)
+        {
             System.out.println(name + " made the honor roll!");
-        } else {
+        }
+        else
+        {
             System.out.println(name + " did not make the honor roll this time.");
         }
     }
@@ -97,8 +108,10 @@ public class Student {
 `;
 
 const Task2Program = `
-public class Program {
-    public static void main(String[] args) {
+public class Program
+{
+    public static void main(String[] args)
+    {
         Student s1 = new Student();
         s1.name = "Alex";
         s1.gradeLevel = 10;
@@ -529,6 +542,7 @@ Jordan did not make the honor roll this time.
             lang="java"
             showLineNumbers
             title="Student.java"
+            ins={{range: "11-26"}}
           />
 
           <p class="mt-3">
@@ -542,6 +556,7 @@ Jordan did not make the honor roll this time.
             lang="java"
             showLineNumbers
             title="Program.java"
+            ins={[{range: "16-17"}, {range: "22-23"}]}
           />
 
           <p class="mt-3">
