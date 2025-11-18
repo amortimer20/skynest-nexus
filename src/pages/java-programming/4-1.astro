@@ -1,0 +1,633 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+import DogTemplate from "../../assets/courses/shared/img/dogs/dog-template.gif";
+import DogRunning from "../../assets/courses/shared/img/dogs/dog-running.gif";
+import DogBarking from "../../assets/courses/shared/img/dogs/dog-barking.gif";
+import DogSitting from "../../assets/courses/shared/img/dogs/dog-sitting.gif";
+import DogSleeping from "../../assets/courses/shared/img/dogs/dog-sleeping.gif";
+
+//#region CodeSnippets
+const DogClass = `
+class Dog {
+    String name;
+    String breed;
+    int age;
+
+    void bark() {
+        System.out.println("Woof!");
+    }
+
+    void eat() {
+        System.out.println(name + " is eating.");
+    }
+}
+`;
+
+const DogProgram = `
+public class Program {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.name = "Sparky";
+        myDog.breed = "Boxer";
+        myDog.age = 1;
+
+        System.out.println("Meet " + myDog.name + " the " + myDog.breed + ".");
+        myDog.eat();
+        myDog.bark();
+    }
+}
+`;
+
+const Task1Student = `
+public class Student {
+    String name;
+    int gradeLevel;
+
+    void introduce() {
+        System.out.println("Hi, I'm " + name + " and I'm in grade " + gradeLevel + ".");
+    }
+}
+`;
+
+const Task1Program = `
+public class Program {
+    public static void main(String[] args) {
+        Student s1 = new Student();
+        s1.name = "Alex";
+        s1.gradeLevel = 10;
+
+        Student s2 = new Student();
+        s2.name = "Jordan";
+        s2.gradeLevel = 11;
+
+        s1.introduce();
+        s2.introduce();
+    }
+}
+`;
+
+const Task2Student = `
+public class Student {
+    String name;
+    int gradeLevel;
+    double gpa;
+
+    void introduce() {
+        System.out.println("Hi, I'm " + name + " and I'm in grade " + gradeLevel + ".");
+    }
+
+    void showGpa() {
+        System.out.println(name + "'s GPA is " + gpa + ".");
+    }
+
+    void checkHonorRoll() {
+        if (gpa >= 3.5) {
+            System.out.println(name + " made the honor roll!");
+        } else {
+            System.out.println(name + " did not make the honor roll this time.");
+        }
+    }
+}
+`;
+
+const Task2Program = `
+public class Program {
+    public static void main(String[] args) {
+        Student s1 = new Student();
+        s1.name = "Alex";
+        s1.gradeLevel = 10;
+        s1.gpa = 3.8;
+
+        Student s2 = new Student();
+        s2.name = "Jordan";
+        s2.gradeLevel = 11;
+        s2.gpa = 3.2;
+
+        s1.introduce();
+        s1.showGpa();
+        s1.checkHonorRoll();
+
+        System.out.println();
+
+        s2.introduce();
+        s2.showGpa();
+        s2.checkHonorRoll();
+    }
+}
+`;
+
+const SampleOutput = `
+Hi, I'm Alex and I'm in grade 10.
+Alex's GPA is 3.8.
+Alex made the honor roll!
+
+Hi, I'm Jordan and I'm in grade 11.
+Jordan's GPA is 3.2.
+Jordan did not make the honor roll this time.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.1 Introduction to Object-Oriented Programming</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.1</h3>
+            <h4 class="text-skynest-theme">
+              Introduction to Object-Oriented Programming
+            </h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>What are Objects?</li>
+              <li>What are Classes?</li>
+              <li>Instance variables (Attributes) and Methods (Behavior)</li>
+              <li>
+                Creating Objects with <AstroCode
+                  code="new"
+                  lang="java"
+                  inline
+                />
+              </li>
+              <li>Using the Dot Operator to Access Members</li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Why Object-Oriented Programming?</h4>
+            <p>
+              So far, you've worked with variables, methods, conditionals, and
+              loops. These tools let us solve many problems, but larger programs
+              can become difficult to organize.
+            </p>
+            <p class="fragment">
+              <strong>Object-Oriented Programming (OOP)</strong> helps us organize
+              code around <em>things</em> in our program: students, bank accounts,
+              dogs, game characters, messages, and more.
+            </p>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Objects</h4>
+            <p>
+              An <strong>object</strong> is a specific instance of something. Think
+              nouns:
+            </p>
+            <ul>
+              <li class="fragment">One specific dog named "Sparky"</li>
+              <li class="fragment">Your personal bank account</li>
+              <li class="fragment">A single student in this class</li>
+            </ul>
+            <p class="fragment">Objects have:</p>
+            <ul>
+              <li class="fragment">
+                <strong>Attributes</strong> (data about the object)
+              </li>
+              <li class="fragment">
+                <strong>Behavior</strong> (actions the object can perform)
+              </li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Classes</h4>
+            <p>
+              A <strong>class</strong> is a <em>blueprint</em> for creating objects.
+              It describes what all objects of that type know and can do.
+            </p>
+            <ul>
+              <li class="fragment">
+                A <strong>Dog</strong> class might store a dog's name, breed, and
+                age.
+              </li>
+              <li class="fragment">
+                It might define behaviors like <AstroCode
+                  code="bark()"
+                  lang="java"
+                  inline
+                />
+                and <AstroCode code="eat()" lang="java" inline />.
+              </li>
+            </ul>
+            <p class="fragment">
+              A class is also a <strong>custom data type</strong> that you define.
+            </p>
+          </section>
+
+          <!-- Dog Pictures -->
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Example: Dog Class and Instances</h4>
+            <table class="table table-bordered w-auto mx-auto small">
+              <thead>
+                <tr><th class="text-center">Identity: Dog Class</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">
+                    <img
+                      src={DogTemplate.src}
+                      class="img-fluid"
+                    />
+                  </td>
+                </tr>
+                <tr><td>Attributes: name, breed, age, color</td></tr>
+                <tr><td>Behavior: Bark(), Eat()</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section data-auto-animate>
+            <h4>Example: Dog Class and Instances</h4>
+            <table class="table table-bordered w-auto mx-auto small">
+              <thead>
+                <tr>
+                  <th class="text-center">Dog Object</th>
+                  <th class="text-center">Dog Object</th>
+                  <th class="text-center">Dog Object</th>
+                  <th class="text-center">Dog Object</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">
+                    <img
+                      src={DogRunning.src}
+                      class="img-fluid"
+                    />
+                  </td>
+                  <td class="text-center">
+                    <img
+                      src={DogBarking.src}
+                      class="img-fluid"
+                    />
+                  </td>
+                  <td class="text-center">
+                    <img
+                      src={DogSitting.src}
+                      class="img-fluid"
+                    />
+                  </td>
+                  <td class="text-center">
+                    <img
+                      src={DogSleeping.src}
+                      class="img-fluid"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Fido, Greyhound, Age 3, gray</td>
+                  <td>Dodger, Ger. Shep, Age 6, brown</td>
+                  <td>Pooch, Husky, Age 1, blue</td>
+                  <td>Star, Shiba Inu, Age 2, tan</td>
+                </tr>
+                <tr>
+                  <td>Fido barks and eats</td>
+                  <td>Dodger barks and eats</td>
+                  <td>Pooch barks and eats</td>
+                  <td>Star barks and eats</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section>
+            <h4>Demo: Dog Class</h4>
+            <Code code={DogClass} lang="java" class="text-start" />
+            <p class="mt-3">
+              This <AstroCode code="Dog" lang="java" inline /> class defines:
+            </p>
+            <ul>
+              <li class="fragment">
+                Instance Variables: <AstroCode
+                  code="name"
+                  lang="java"
+                  inline
+                />, <AstroCode code="breed" lang="java" inline />, <AstroCode
+                  code="age"
+                  lang="java"
+                  inline
+                />
+              </li>
+              <li class="fragment">
+                Methods: <AstroCode
+                  code="bark()"
+                  lang="java"
+                  inline
+                />, <AstroCode code="eat()" lang="java" inline />
+              </li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Creating an Object (Instantiating)</h4>
+            <p>
+              To use a class, create an object using the
+              <AstroCode code="new" lang="java" inline /> keyword.
+            </p>
+            <Code code={DogProgram} lang="java" class="text-start mb-3" />
+          </section>
+
+          <section data-auto-animate>
+            <h4>Creating an Object (Instantiating)</h4>
+            <Code code={DogProgram} lang="java" class="text-start mb-3" />
+            <ol>
+              <li class="fragment">
+                <AstroCode code="Dog myDog" lang="java" inline /> declares a variable
+                of type <AstroCode code="Dog" lang="java" inline />.
+              </li>
+              <li class="fragment">
+                <AstroCode code="new Dog()" lang="java" inline /> creates a new object.
+              </li>
+              <li class="fragment">
+                <AstroCode code=`myDog.name = "Sparky";` lang="java" inline /> uses
+                the <strong>dot operator</strong> to access an instance variable.
+              </li>
+              <li class="fragment">
+                <AstroCode code="myDog.bark();" lang="java" inline /> calls a method
+                on the object.
+              </li>
+            </ol>
+          </section>
+
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Class</dt>
+              <dd>
+                A blueprint or template for objects. Defines the instance
+                variables (data) and methods (behavior) shared by all objects of
+                that type.
+              </dd>
+
+              <dt>Object</dt>
+              <dd>
+                A specific instance of a class, with its own values stored in
+                the instance variables.
+              </dd>
+            </dl>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Instance Variable</dt>
+              <dd>
+                A variable declared inside a class that stores data about an
+                object.
+              </dd>
+
+              <dt>Method</dt>
+              <dd>
+                A block of code inside a class that defines an action an object
+                can perform.
+              </dd>
+
+              <dt>Dot Operator</dt>
+              <dd>
+                The <AstroCode code="." lang="java" inline /> used to access an object's
+                instance variables and methods, such as <AstroCode
+                  code="myDog.bark()"
+                  lang="java"
+                  inline
+                />.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem
+              >Describe the difference between a class and an object.</ListItem
+            >
+            <ListItem
+              >Create simple classes with instance variables and methods in
+              Java.</ListItem
+            >
+            <ListItem
+              >Instantiate objects using the <AstroCode
+                code="new"
+                lang="java"
+                inline
+              /> keyword.</ListItem
+            >
+            <ListItem
+              >Access instance variables and call methods using the dot
+              operator.</ListItem
+            >
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named
+              <span class="text-skynest-theme">5-1-Classes-and-Objects</span>.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Basic Student Class
+          </h3>
+          <p>
+            In this task, you will create a simple
+            <AstroCode code="Student" lang="java" inline /> class with a few instance
+            variables and one method. Then you will create two student objects and
+            call their method.
+          </p>
+
+          <p>
+            <strong>Step 1:</strong> Create a file named <AstroCode
+              code="Student.java"
+              lang="java"
+              inline
+            /> and type the following code:
+          </p>
+          <Code
+            code={Task1Student}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Student.java"
+          />
+
+          <p class="mt-3">
+            <strong>Step 2:</strong> Create a file named
+            <AstroCode code="Program.java" lang="java" inline /> and type the following
+            code:
+          </p>
+
+          <Code
+            code={Task1Program}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <p class="mt-3">
+            <strong>Step 3:</strong> Run the program. Make sure you understand how
+            the objects are created and how the <AstroCode
+              code="introduce()"
+              lang="java"
+              inline
+            />
+            method uses the instance variables.
+          </p>
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Adding GPA and
+            Behavior
+          </h3>
+          <p>
+            Now you will extend the <AstroCode
+              code="Student"
+              lang="java"
+              inline
+            />
+            class to store a GPA and add new behavior based on that data.
+          </p>
+
+          <p>
+            <strong>Step 1:</strong> Update your <AstroCode
+              code="Student.java"
+              lang="java"
+              inline
+            /> to match the code below:
+          </p>
+          <Code
+            code={Task2Student}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Student.java"
+          />
+
+          <p class="mt-3">
+            <strong>Step 2:</strong> Replace the code in
+            <AstroCode code="Program.java" lang="java" inline /> with the following:
+          </p>
+
+          <Code
+            code={Task2Program}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <p class="mt-3">
+            <strong>Step 3:</strong> Run the program. Observe how each student's
+            instance variables are used to determine whether they made the honor
+            roll.
+          </p>
+
+          <p class="mt-2">
+            <strong>Challenge:</strong> Add a third student of your choice with a
+            different GPA and test your methods again.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should look similar to the sample output below
+            (exact wording or spacing may vary slightly).
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your <AstroCode code="Program.java" lang="java" inline /> file.
+          </p>
+
+          <ol>
+            <li>
+              In your own words, what is the difference between a
+              <strong>class</strong> and an <strong>object</strong>? Use the
+              <AstroCode code="Student" lang="java" inline /> example in your answer.
+            </li>
+            <li>
+              Explain how the dot operator is used in this activity. Include at
+              least one example of accessing an instance variable and one
+              example of calling a method.
+            </li>
+            <li>
+              How would this activity be different if we tried to store all of
+              the student information in separate variables instead of using a
+              <AstroCode code="Student" lang="java" inline /> class?
+            </li>
+            <li>
+              What is one advantage of organizing your code into classes and
+              objects when programs get larger and more complex?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your completed <AstroCode
+              code="Student.java"
+              lang="java"
+              inline
+            />,
+            <AstroCode code="Program.java" lang="java" inline />, and your
+            reflection answers to the appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
