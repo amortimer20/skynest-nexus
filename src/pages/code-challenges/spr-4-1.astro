@@ -1,0 +1,129 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+--- Movie Details ---
+Title: Inception
+Director: Christopher Nolan
+Runtime: 148 minutes
+Rating: PG-13
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Sprint 4.1 Movie Class</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Design a class that models a movie by defining instance variables,
+            constructing objects with meaningful state, and implementing methods
+            that describe or display information about the movie.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <ListItem>Defining classes</ListItem>
+            <ListItem>Declaring instance variables</ListItem>
+            <ListItem
+              >Writing no-argument and full-argument constructors</ListItem
+            >
+            <ListItem>Creating methods that operate on object data</ListItem>
+            <ListItem>Creating and using objects in a main program</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+          <ol>
+            <li>
+              Create a new project named
+              <span class="text-skynest-theme">Sprint-4-1</span>
+            </li>
+
+            <li>
+              Complete the following tasks:
+              <ul>
+                <li>
+                  Create a class named <strong>Movie</strong> with the following
+                  <em>required</em> instance variables:
+                  <ul>
+                    <li>title (text)</li>
+                    <li>director (text)</li>
+                    <li>runtime (number of minutes)</li>
+                    <li>rating (text or age rating)</li>
+                  </ul>
+                </li>
+
+                <li>
+                  Create a <strong>no-argument constructor</strong> that assigns
+                  default values to all instance variables.
+                </li>
+
+                <li>
+                  Create a <strong>full-argument constructor</strong> that accepts
+                  values for all instance variables and stores them.
+                </li>
+
+                <li>
+                  Write a method named <strong>getDetails</strong> that prints or
+                  returns formatted information about the movie, such as its title,
+                  director, runtime, and rating.
+                </li>
+
+                <li>
+                  In your main program, create:
+                  <ul>
+                    <li>One movie using the no-arg constructor</li>
+                    <li>One movie using the full constructor</li>
+                    <li>
+                      Call the <strong>getDetails</strong> method on both objects
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
