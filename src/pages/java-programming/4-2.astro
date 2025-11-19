@@ -1,0 +1,424 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+
+const FigureDogClass = `
+class Dog {
+    // Instance variables
+    String name;
+    String breed;
+    int age;
+
+    // No-argument constructor
+    Dog() {
+        name = "Unknown";
+        breed = "Unknown";
+        age = 0;
+    }
+
+    // Full-argument constructor
+    Dog(String name, String breed, int age) {
+        this.name = name;   // 'this' fixes the shadowing problem
+        this.breed = breed;
+        this.age = age;
+    }
+
+    void bark() {
+        System.out.println(name + " says: Woof!");
+    }
+}
+`;
+
+const Task1Class = `
+class Student
+{
+    String name;
+    int gradeLevel;
+
+    // No-argument constructor
+    Student()
+    {
+        name = "Unnamed";
+        gradeLevel = 9;
+    }
+
+    // Full-argument constructor
+    Student(String name, int gradeLevel)
+    {
+        this.name = name;
+        this.gradeLevel = gradeLevel;
+    }
+
+    void introduce()
+    {
+        System.out.println("Hi, I'm " + name + " and I'm in grade " + gradeLevel + ".");
+    }
+}
+`;
+
+const Task1Main = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Student s1 = new Student(); // Calls no-arg constructor
+        Student s2 = new Student("Alex", 10); // Calls full constructor
+
+        s1.introduce();
+        s2.introduce();
+    }
+}
+`;
+
+const Task2Class = `
+class Student
+{
+    String name;
+    int gradeLevel;
+    double gpa;
+
+    // No-argument constructor
+    Student()
+    {
+        name = "Unnamed";
+        gradeLevel = 9;
+        gpa = 0.0;
+    }
+
+    // Full constructor with validation
+    Student(String name, int gradeLevel, double gpa)
+    {
+        this.name = name;
+        this.gradeLevel = gradeLevel;
+
+        if (gpa < 0.0 || gpa > 4.0)
+        {
+            System.out.println("Invalid GPA! Setting to 0.0...");
+            this.gpa = 0.0;
+        }
+        else
+        {
+            this.gpa = gpa;
+        }
+    }
+
+    void showInfo()
+    {
+        System.out.println(name + " (Grade " + gradeLevel + ") — GPA: " + gpa);
+    }
+}
+`;
+
+const Task2Main = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+
+        Student s1 = new Student("Alex", 10, 3.8);
+        Student s2 = new Student("Jordan", 11, 5.2); // invalid GPA triggers fix
+
+        s1.showInfo();
+        s2.showInfo();
+    }
+}
+`;
+
+const SampleOutput = `
+Hi, I'm Unnamed and I'm in grade 9.
+Hi, I'm Alex and I'm in grade 10.
+
+Alex (Grade 10) — GPA: 3.8
+Invalid GPA! Setting to 0.0...
+Jordan (Grade 11) — GPA: 0.0
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.2 Constructors</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4.2</h3>
+            <h4 class="text-skynest-theme">Constructors</h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>What a constructor is and why objects need them</li>
+              <li>No-argument constructors</li>
+              <li>Full-argument constructors</li>
+              <li>Constructor overloading</li>
+              <li>Shadowing problem & the <AstroCode code="this" lang="java" inline /></li>
+              <li>Constructor parameter validation</li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>What is a Constructor?</h4>
+            <p>
+              A <strong>constructor</strong> initializes a new object. It sets up 
+              initial values for the instance variables and ensures the object 
+              begins in a valid state.
+            </p>
+            <p class="fragment">
+              It has:
+            </p>
+            <ul>
+              <li class="fragment">the same name as the class</li>
+              <li class="fragment">no return type (not even void)</li>
+              <li class="fragment">runs automatically when using <AstroCode code="new" lang="java" inline /></li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>No-Argument Constructor</h4>
+            <p>
+              A <strong>no-arg constructor</strong> provides default values when no 
+              information is supplied.
+            </p>
+            <Code code={`class Dog {\n    Dog() { /* default values */ }\n}`} lang="java" class="text-start" />
+          </section>
+
+          <section data-auto-animate>
+            <h4>Full-Argument Constructor</h4>
+            <p>
+              A <strong>full constructor</strong> requires all needed info to create a valid object.
+            </p>
+            <p>
+              But there’s a catch: constructor parameters often <em>shadow</em> instance variables.
+            </p>
+            <Code code={`Dog(String name) {\n    this.name = name;\n}`} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>The Shadowing Problem</h4>
+            <p>
+              When parameter names match instance variables:
+            </p>
+            <Code code={`Dog(String name) {\n    name = name; // WRONG\n}`} lang="java" class="text-start" />
+            <p class="fragment">
+              This sets the <em>parameter</em> equal to itself, not the instance variable.
+            </p>
+            <p class="fragment"><strong>Solution:</strong> Use <AstroCode code="this" lang="java" inline /></p>
+            <Code code={`this.name = name;`} lang="java" class="fragment" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Example: Dog Class With Both Constructors</h4>
+            <Code code={FigureDogClass} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Constructor Overloading</h4>
+            <p>
+              Java allows multiple constructors as long as they have different 
+              parameter lists.
+            </p>
+            <p>This is called <strong>constructor overloading</strong> (similar to method overloading).</p>
+          </section>
+
+          <section>
+            <h4>Constructor Validation</h4>
+            <p>
+              Constructors often check whether values are valid before storing them.
+              This pattern appears frequently on AP FRQs.
+            </p>
+            <Code code={`if (gpa < 0 || gpa > 4.0) gpa = 0.0;`} lang="java" />
+          </section>
+
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Constructor</dt>
+              <dd>A special method that initializes new objects.</dd>
+
+              <dt>No-Argument Constructor</dt>
+              <dd>A constructor that provides default values.</dd>
+
+              <dt>Full-Argument Constructor</dt>
+              <dd>A constructor that receives values through parameters.</dd>
+
+              <dt>Shadowing</dt>
+              <dd>When a parameter name hides an instance variable name.</dd>
+
+              <dt><AstroCode code="this" lang="java" inline /></dt>
+              <dd>Refers to the current object; fixes the shadowing problem.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Write and use constructors to initialize objects.</ListItem>
+            <ListItem>Differentiate between no-argument and full-argument constructors.</ListItem>
+            <ListItem>Explain and resolve parameter shadowing with <AstroCode code="this" lang="java" inline />.</ListItem>
+            <ListItem>Use constructor overloading to support different initialization needs.</ListItem>
+            <ListItem>Apply constructor validation to enforce valid object state.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named 
+              <span class="text-skynest-theme">4-2-Constructors</span>.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: No-Arg and Full Constructors
+          </h3>
+
+          <p>
+            <strong>Step 1:</strong> Create a file named <AstroCode
+              code="Student.java"
+              lang="java"
+              inline
+            /> and type the following code:
+          </p>
+          <Code
+            code={Task1Class}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Student.java"
+          />
+
+          <p class="mt-3">
+            <strong>Step 2:</strong> Create a file named
+            <AstroCode code="Program.java" lang="java" inline /> and type the following
+            code:
+          </p>
+          <Code
+            code={Task1Main}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Main.java"
+          />
+
+          <p class="mt-3">
+            Run the program. Notice how each constructor initializes the object differently.
+          </p>
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Constructor Validation
+          </h3>
+
+          <p>
+            Modify your <AstroCode code="Student" lang="java" inline /> class to include 
+            a <AstroCode code="gpa" lang="java" inline /> instance variable and use a 
+            full constructor that enforces valid values.
+          </p>
+
+          <Code
+            code={Task2Class}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Student.java"
+            class="mb-3"
+            ins={[{range: "5"}, {range: "12"}]}
+            mark={[{range: "16-30"}, {range: "34"}]}
+          />
+
+
+          <Code
+            code={Task2Main}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Main.java"
+            mark={{range: "6-7"}}
+          />
+
+          <p class="mt-3">
+            Run the program and confirm that invalid GPA values are corrected. This pattern 
+            appears frequently in AP FRQs involving class design.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>Your output should look similar to the following:</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>Write your answers as comments at the bottom of <AstroCode code="Main.java" lang="java" inline />.</p>
+
+          <ol>
+            <li>
+              Explain the shadowing problem. Why is the <AstroCode code="this" lang="java" inline /> 
+              keyword necessary?
+            </li>
+            <li>
+              What advantages does constructor overloading give you when designing a class?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your completed <AstroCode code="Student.java" lang="java" inline />, 
+            <AstroCode code="Main.java" lang="java" inline />, and reflection responses 
+            to the appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</Layout>
