@@ -1,0 +1,658 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+function greeting() {
+  console.log("Hey buddy!");
+  console.log("How are you?");
+}
+`;
+const Figure2 = `
+function greeting() {
+  console.log("Hey buddy!");
+  console.log("How are you?");
+}
+
+greeting();  // Function call
+greeting();  // Call it again
+`;
+const Figure3 = `
+function randomNumber() {
+  let randomNumber = Math.floor(Math.random() * 10);
+}
+
+function revealAnswer() {
+  ❌console.log("The secret number was " + randomNumber);
+}
+`;
+const Task1 = `
+function showIntro() {
+  console.log("--- MINI GAME COLLECTION VOL. 1 ---");
+  console.log("Welcome!");
+  console.log();
+}
+
+function displayMenu() {
+  console.log("1. Guess the Number");
+  console.log("2. Lucky Dice");
+  console.log("3. Spin the Wheel");
+  console.log("4. Exit");
+  console.log();
+}
+
+function gameOver() {
+  console.log("Thanks for playing!");
+  console.log("Goodbye!");
+}
+
+// Call your functions here:
+showIntro();
+displayMenu();
+// Later, you'll decide where to call gameOver()
+`;
+const Task2 = `
+function showIntro() {
+  console.log("-- MINI GAME COLLECTION VOL. 1 --");
+  console.log("Welcome!");
+  console.log();
+}
+
+function displayMenu() {
+  console.log("1. Guess the Number");
+  console.log("2. Lucky Dice");
+  console.log("3. Spin the Wheel");
+  console.log("4. Exit");
+  console.log();
+}
+
+function gameOver() {
+  console.log("Thanks for playing!");
+  console.log("Goodbye!");
+}
+
+function playGuessTheNumber() {
+  // To Do: Guess the Number Mini-Game
+}
+
+function playLuckyDice() {
+  // To Do: Lucky Dice Mini-Game
+}
+
+function playSpinTheWheel() {
+  // To Do: Spin the Wheel Mini-Game
+}
+
+let choice = "";
+
+showIntro();
+
+while (choice !== "4") {
+  displayMenu();
+  choice = prompt("Choose mini-game: ");
+
+  if (choice == "1") {
+    playGuessTheNumber();
+  }
+  else if (choice == "2") {
+    playLuckyDice();
+  }
+  else if (choice == "3") {
+    playSpinTheWheel();
+  }
+  else if (choice == "4") {
+    gameOver();
+  }
+  else {
+    console.log("Invalid choice.");
+  }
+
+  console.log();
+}
+`;
+const Task3 = `
+function showIntro() {
+  console.log("-- MINI GAME COLLECTION VOL. 1 --");
+  console.log("Welcome!");
+  console.log();
+}
+
+function displayMenu() {
+  console.log("1. Guess the Number");
+  console.log("2. Lucky Dice");
+  console.log("3. Spin the Wheel");
+  console.log("4. Exit");
+  console.log();
+}
+
+function gameOver() {
+  console.log("Thanks for playing!");
+  console.log("Goodbye!");
+}
+
+function playGuessTheNumber() {
+  console.log("--- Guess the Number ---");
+
+  const secret = Math.floor(Math.random() * 10) + 1;
+  const guessText = prompt("Guess my secret number between 1 and 10: ");
+  const guess = Number(guessText);
+
+  console.log("It was " + secret + "!");
+
+  if (guess == secret)
+    console.log("You Win!");
+  else
+    console.log("You Lose!");
+}
+
+function playLuckyDice() {
+  console.log("--- Lucky Dice ---");
+  console.log();
+
+  const betText = prompt("Bet on a total between 2 and 12: ");
+  const bet = Number(betText);
+
+  const die1 = Math.floor(Math.random() * 6) + 1;
+  const die2 = Math.floor(Math.random() * 6) + 1;
+  const total = die1 + die2;
+
+  console.log("You rolled " + die1 + " and " + die2 + " (total: " + total + ").");
+
+  if (total == bet)
+    console.log("You Win!");
+  else
+    console.log("You Lose!");
+}
+
+function playSpinTheWheel() {
+  console.log("--- Spin the Wheel ---");
+  console.log();
+
+  const betText = prompt("Pick a number on the wheel between 1 and 25: ");
+  const bet = Number(betText);
+
+  const wheel = Math.floor(Math.random() * 25) + 1;
+
+  console.log("The wheel landed on " + wheel + ".");
+
+  if (wheel == bet)
+    console.log("You Win!");
+  else
+    console.log("You Lose!");
+}
+
+let choice = "";
+
+showIntro();
+
+while (choice !== "4") {
+  displayMenu();
+  choice = prompt("Choose mini-game: ");
+
+  if (choice == "1") {
+    playGuessTheNumber();
+  }
+  else if (choice == "2") {
+    playLuckyDice();
+  }
+  else if (choice == "3") {
+    playSpinTheWheel();
+  }
+  else if (choice == "4") {
+    gameOver();
+  }
+  else {
+    console.log("Invalid choice.");
+  }
+
+  console.log();
+}
+`;
+const SampleOutput = `
+-- MINI GAME COLLECTION VOL. 1 --
+Welcome!
+
+1. Guess the Number
+2. Lucky Dice
+3. Spin the Wheel
+4. Exit
+
+Choose mini-game: 1
+--- Guess the Number ---
+Guess my secret number betwen 1 and 10: 7
+It was 7!
+You Win!
+
+1. Guess the Number
+2. Lucky Dice
+3. Spin the Wheel
+4. Exit
+
+Choose mini-game: 4
+Thanks for playing!
+Goodbye!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/javascript-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.1 Defining and Invoking Functions</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Introduction to Functions in JavaScript</h3>
+            <h4 class="text-skynest-theme">
+              Breaking Programs into Smaller, Reusable Parts
+            </h4>
+          </section>
+          <section>
+            <h4>What Are Functions?</h4>
+            <p>
+              Functions (also called procedures) are blocks of code that
+              perform a specific task.
+            </p>
+            <p>
+              They allow us to <strong>reuse</strong> logic, <strong
+                >organize</strong
+              > our programs, and <strong>simplify</strong> complex tasks.
+            </p>
+          </section>
+          <section>
+            <h4>Built-in Functions</h4>
+            <p>
+              You've already been using functions in your JavaScript programs.
+            </p>
+            <Code
+              code={`console.log("Hello world!");`}
+              frame="code"
+              lang="javascript"
+              class="text-start"
+            />
+            <p class="fragment">
+              You may not know exactly how <code>console.log()</code> works behind
+              the scenes, but that's okay. Functions are designed so you can use functionality
+              without needing to understand every detail.
+            </p>
+            <p class="fragment">This is known as <b>abstraction</b>.</p>
+          </section>
+          <section>
+            <h3>Key Benefits of Using Functions</h3>
+            <ul>
+              <li class="fragment">
+                <strong>Reusability:</strong> Write code once and use it multiple
+                times.
+              </li>
+              <li class="fragment">
+                <strong>Modularity:</strong> Break down complex problems into smaller,
+                manageable parts.
+              </li>
+              <li class="fragment">
+                <strong>Readability:</strong> Make code easier to understand and
+                maintain.
+              </li>
+              <li class="fragment">
+                <strong>Debugging:</strong> Find and fix errors in isolated sections.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Parts of a Function</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="javascript"
+              class="text-start"
+              mark={`function greeting()`}
+            />
+
+            <p>
+              <strong>First line (definition):</strong> Declares the function using
+              the <code>function</code> keyword, its name, and parentheses for parameters.
+            </p>
+          </section>
+          <section data-auto-animate>
+            <h4>Parts of a Function</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="javascript"
+              class="text-start"
+              mark={{ range: "2-5" }}
+            />
+            <p>
+              <strong>Definition line:</strong> Includes the <code>function</code> keyword,
+              the function name, and parameters (if any).
+            </p>
+            <p>
+              <strong>Body:</strong> Contains the instructions that run when the
+              function is called.
+            </p>
+          </section>
+          <section data-auto-animate data-auto-animate-restart>
+            <h4>Function Definition Line</h4>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="javascript"
+              class="text-start"
+              mark="function greeting()"
+            />
+
+            <p>In this example:</p>
+
+            <ul>
+              <li>
+                <code>function</code> - keyword that starts a function definition.
+              </li>
+              <li>
+                <code>greeting</code> - the <strong>function name</strong>.
+              </li>
+              <li>
+                <code>()</code> - parentheses (empty for now, later used for parameters).
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Defining a Function ≠ Calling a Function</h4>
+            <p>
+              Defining a function describes what it does, but it doesn't run until
+              you <strong>call</strong> or <strong>invoke</strong> it.
+            </p>
+
+            <Code code={Figure2} frame="code" lang="javascript" class="text-start" />
+
+            <p class="fragment">
+              Each time <code>greeting()</code> is called, the same code runs again
+              — a simple example of code reuse.
+            </p>
+          </section>
+          <section>
+            <h4>Variable Scope</h4>
+            <p>
+              Variables declared inside a function exist only within that function.
+            </p>
+            <Code code={Figure3} frame="code" lang="javascript" class="text-start" />
+            <p class="fragment">
+              <strong>Local Variables:</strong> Declared inside a function — only accessible
+              there.
+            </p>
+            <p class="fragment">
+              Once a function finishes running, its local variables are removed
+              from memory.
+            </p>
+          </section>
+          <section>
+            <h4>Functions in Practice</h4>
+            <ul>
+              <li class="fragment">
+                Keep your overall program logic short and easy to read.
+              </li>
+              <li class="fragment">
+                Group related behavior into its own function.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Next Lesson Preview</h4>
+            <h5 class="text-skynest-theme">Parameters and Return Values</h5>
+            <p>
+              So far, our functions don't take any input or return any output.
+            </p>
+            <p>
+              In the next lesson, you'll learn how to make your functions more
+              flexible by:
+            </p>
+            <ul>
+              <li class="fragment">
+                Passing <strong>arguments</strong> into a function.
+              </li>
+              <li class="fragment">
+                Returning <strong>values</strong> back to the caller.
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Function</strong></dt>
+              <dd>
+                A named block of code that performs a specific task. Functions
+                make programs modular, reusable, and easier to read.
+              </dd>
+              <dt><strong>Function Definition</strong></dt>
+              <dd>
+                The line that starts a function and the code block that follows it.
+                It specifies the function name and its parameters (if any).
+              </dd>
+              <dt><strong>Function Body</strong></dt>
+              <dd>
+                The code block inside curly braces <code>{}</code> that contains
+                the instructions the function will execute.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Return Value</strong></dt>
+              <dd>
+                The value a function sends back to the part of the program that called it.
+                (In this lesson, our functions do not return values.)
+              </dd>
+              <dt><strong>Function Call (Invocation)</strong></dt>
+              <dd>
+                The statement that executes a function by using its name followed
+                by parentheses. i.e. "Using the function".
+              </dd>
+              <dt><strong>Local Variable</strong></dt>
+              <dd>
+                A variable declared inside a function. It can only be accessed
+                within that function and is removed from memory once the function
+                finishes.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Scope</strong></dt>
+              <dd>
+                The region of a program where a variable can be accessed. Local
+                variables have function-level scope.
+              </dd>
+              <dt><strong>Abstraction</strong></dt>
+              <dd>
+                The concept of using functions or other structures without knowing the full
+                details of how they work internally.
+              </dd>
+              <dt><strong>Modularity</strong></dt>
+              <dd>
+                Dividing a program into independent sections or modules, such as
+                functions, to simplify design and debugging.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Code Reuse</strong></dt>
+              <dd>
+                The practice of writing a function once and using it multiple
+                times instead of duplicating code.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+      </div>
+
+      <section id="objectives">
+        <h3>Objectives</h3>
+        <ul>
+          <ListItem
+            >Define and invoke simple functions in JavaScript.</ListItem
+          >
+          <ListItem
+            >Explain how functions improve readability and organization.</ListItem
+          >
+          <ListItem
+            >Use functions to structure a simple console-based program.</ListItem
+          >
+        </ul>
+      </section>
+
+      <Divider variant="8" classes="mb-4" />
+
+      <section id="activity-tasks">
+        <h2>Activity Tasks</h2>
+        <ul>
+          <ListItem variant="2"
+            >Create a new JavaScript file named <span class="text-skynest-theme"
+              >3-1-functions.js</span
+            >.</ListItem
+          >
+          <ListItem variant="2"
+            >Complete each task individually and run your program to verify the
+            output.</ListItem
+          >
+        </ul>
+
+        <!-- Task 1 -->
+        <h3>
+          <span class="text-skynest-theme">Task 1</span>: Create and Call
+          Functions
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >Define three functions: <code>showIntro()</code>, <code
+              >displayMenu()</code
+            >, and <code>gameOver()</code>.</ListItem
+          >
+          <ListItem variant="2"
+            >Each function should print a short message related to its name.</ListItem
+          >
+          <ListItem variant="2"
+            >At the bottom of your file, call these functions in sequence to test them.</ListItem
+          >
+        </ul>
+        <Code code={Task1} frame="code" lang="javascript" title="main.js" />
+
+        <hr class="my-4" />
+
+        <!-- Task 2 -->
+        <h3>
+          <span class="text-skynest-theme">Task 2</span>: Menu System
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >Implement the main menu system using a <code>while</code> loop and
+            <code>if / else if / else</code> statements. The mini-game functions will be implemented in the next
+            task.</ListItem
+          >
+        </ul>
+        <Code
+          code={Task2}
+          frame="code"
+          lang="javascript"
+          title="main.js"
+          ins={{range: "20-57"}}
+          collapse={["2-4", "8-12", "16-17"]}
+        />
+
+        <hr class="my-4" />
+
+        <!-- Task 3 -->
+        <h3>
+          <span class="text-skynest-theme">Task 3</span>: Implement Mini-Games
+        </h3>
+        <ul>
+          <ListItem variant="2"
+            >The Number Guessing mini-game has been implemented for you.</ListItem
+          >
+          <ListItem variant="2"
+            >Implement the remaining mini-game functions. They don't need to be
+            complex, but have some fun!</ListItem
+          >
+        </ul>
+        <Code
+          code={Task3}
+          frame="code"
+          lang="javascript"
+          title="main.js"
+          ins={[{range: "21-32"}, {range: "36-51"}, {range: "55-68"}]}
+          collapse={["2-4", "8-12", "16-17", "71-96"]}
+
+        />
+      </section>
+    </div>
+
+    <Divider variant="8" classes="my-4" />
+
+    <section id="sample-output">
+      <h2>Sample Output</h2>
+
+      <p>Your program output should look similar to the sample output below.</p>
+
+      <Code
+        code={SampleOutput}
+        frame="terminal"
+        lang="txt"
+        showLineNumbers={false}
+        title="Sample Output"
+      />
+    </section>
+
+    <Divider variant="8" classes="my-4" />
+
+    <section id="reflection">
+      <h2>Reflection Questions</h2>
+
+      <p>
+        You may write your reflection answers as comments at the bottom of your
+        code.
+      </p>
+
+      <ol>
+        <li>
+          What is the purpose of defining a function instead of placing all code
+          in one big block?
+        </li>
+        <li>How does invoking a function help you organize or reuse code?</li>
+        <li>
+          What patterns do you notice in how functions are defined and called?
+        </li>
+      </ol>
+    </section>
+
+    <Divider variant="8" classes="my-4" />
+
+    <section id="submission">
+      <h2>Submission</h2>
+
+      <p>
+        Submit your completed <code>.js</code> file and reflection answers to the
+        appropriate dropbox.
+      </p>
+
+      <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+        Activity Complete
+      </h1>
+    </section>
+  </div>
+</Layout>
