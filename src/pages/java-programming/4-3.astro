@@ -1,0 +1,501 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+
+const FigureBadStudent = `
+class Student
+{
+    String name;
+    int gradeLevel;
+    double gpa;
+}
+`;
+
+const FigureEncapsulatedStudent = `
+class Student
+{
+    // Instance variables should be private
+    private String name;
+    private int gradeLevel;
+    private double gpa;
+
+    public Student(String name, int gradeLevel, double gpa)
+    {
+        this.name = name;
+        this.gradeLevel = gradeLevel;
+        setGpa(gpa); // use setter for validation
+    }
+
+    // Accessors (getters)
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getGradeLevel()
+    {
+        return gradeLevel;
+    }
+
+    public double getGpa()
+    {
+        return gpa;
+    }
+
+    // Mutators (setters)
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setGradeLevel(int gradeLevel)
+    {
+        this.gradeLevel = gradeLevel;
+    }
+
+    public void setGpa(double gpa)
+    {
+        if (gpa < 0.0 || gpa > 4.0)
+        {
+            this.gpa = 0.0; // enforce invariant
+        }
+        else
+        {
+            this.gpa = gpa;
+        }
+    }
+}
+`;
+
+const Task1Class = `
+class Movie
+{
+    private String title;
+    private String director;
+
+    public Movie()
+    {
+        title = "Untitled";
+        director = "Unknown";
+    }
+
+    public Movie(String title, String director)
+    {
+        this.title = title;
+        this.director = director;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public String getDirector()
+    {
+        return director;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public void setDirector(String director)
+    {
+        this.director = director;
+    }
+}
+`;
+
+const Task1Program = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Movie m = new Movie("Inception", "Christopher Nolan");
+
+        System.out.println(m.getTitle());
+        System.out.println(m.getDirector());
+
+        m.setTitle("Interstellar");
+        System.out.println(m.getTitle());
+    }
+}
+`;
+
+const Task2Class = `
+class BankAccount
+{
+    private String owner;
+    private double balance;
+
+    public BankAccount(String owner, double balance)
+    {
+        this.owner = owner;
+
+        // Validate initial balance
+        if (balance < 0)
+        {
+            this.balance = 0;
+        }
+        else
+        {
+            this.balance = balance;
+        }
+    }
+
+    public String getOwner()
+    {
+        return owner;
+    }
+
+    public double getBalance()
+    {
+        return balance;
+    }
+
+    // Controlled deposit
+    public void deposit(double amount)
+    {
+        if (amount > 0)
+        {
+            balance += amount;
+        }
+    }
+
+    // Controlled withdrawal
+    public void withdraw(double amount)
+    {
+        if (amount > 0 && amount <= balance)
+        {
+            balance -= amount;
+        }
+    }
+}
+`;
+
+const Task2Program = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // Movie test code ommitted.
+
+        BankAccount acct = new BankAccount("Alex", 100);
+
+        acct.deposit(50);
+        acct.withdraw(30);
+
+        System.out.println(acct.getOwner() + " — Balance: $" + acct.getBalance());
+    }
+}
+`;
+
+const SampleOutput = `
+Inception
+Christopher Nolan
+Interstellar
+
+Alex — Balance: $120.0
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.3 Encapsulation</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.3</h3>
+            <h4 class="text-skynest-theme">Encapsulation</h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Private instance variables</li>
+              <li>Accessors (getters) and mutators (setters)</li>
+              <li>Protecting object state</li>
+              <li>Enforcing invariants</li>
+              <li>Correct access through methods</li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>The Problem With Public Variables</h4>
+            <p>
+              Without encapsulation, any code can change your object's data
+              incorrectly.
+            </p>
+            <Code code={FigureBadStudent} lang="java" class="text-start" />
+            <p class="fragment">
+              Nothing prevents another class from assigning invalid values.
+            </p>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Encapsulation Fixes This</h4>
+            <p>
+              <strong>Encapsulation</strong> means keeping instance variables private
+              and providing controlled access through methods.
+            </p>
+            <ul>
+              <li class="fragment">
+                <strong>private</strong> variables hide data
+              </li>
+              <li class="fragment"><strong>getters</strong> return values</li>
+              <li class="fragment">
+                <strong>setters</strong> modify values safely
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Encapsulated Class Example</h4>
+            <pre>
+              <code>
+                <Code code={FigureEncapsulatedStudent} lang="java" class="text-start" />
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <h4>What Is an Invariant?</h4>
+            <p>
+              An <strong>invariant</strong> is a rule or condition that must
+              <em>always</em> be true about an object's internal state.
+            </p>
+            <ul>
+              <li class="fragment">
+                Constructors establish the invariant when the object is created.
+              </li>
+              <li class="fragment">
+                Setters and methods preserve the invariant by blocking invalid
+                changes.
+              </li>
+            </ul>
+
+            <h5 class="mt-3">Examples</h5>
+            <ul>
+              <li class="fragment"><code>0.0 ≤ gpa ≤ 4.0</code></li>
+              <li class="fragment"><code>balance ≥ 0</code></li>
+              <li class="fragment"><code>currentHp ≤ maxHp</code></li>
+            </ul>
+
+            <p class="fragment mt-3">
+              <strong>In short:</strong> Invariants ensure your objects always remain
+              in a valid state.
+            </p>
+          </section>
+
+          <section>
+            <h4>Why Encapsulation Matters</h4>
+            <ul>
+              <li class="fragment">Protects object integrity</li>
+              <li class="fragment">Prevents invalid data</li>
+              <li class="fragment">Keeps control inside the class</li>
+              <li class="fragment">Essential for AP CSA FRQs</li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Encapsulation</dt>
+              <dd>
+                Protecting data by restricting direct access to instance
+                variables.
+              </dd>
+
+              <dt>private</dt>
+              <dd>Access modifier preventing use outside the class.</dd>
+
+              <dt>public</dt>
+              <dd>Access modifier allowing use outside the class.</dd>
+            </dl>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Accessor (Getter)</dt>
+              <dd>A method that returns the value of a private variable.</dd>
+
+              <dt>Mutator (Setter)</dt>
+              <dd>A method that changes the value of a private variable.</dd>
+
+              <dt>Invariant</dt>
+              <dd>
+                A rule or constraint that must always be true for the object.
+              </dd>
+            </dl>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Invariant</dt>
+              <dd>
+                A rule or constraint that must always be true for the object.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use private to protect instance variables</ListItem>
+            <ListItem>Write getters and setters</ListItem>
+            <ListItem>Explain why encapsulation prevents invalid state</ListItem>
+            <ListItem>Apply encapsulation in class design</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named
+              <span class="text-skynest-theme">5-3-Encapsulation</span>.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Movie Class
+            (Encapsulated)
+          </h3>
+
+          <p>Implement getters and setters for the Movie class.</p>
+
+          <h4>Step 1 — Movie.java</h4>
+          <Code
+            code={Task1Class}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Movie.java"
+          />
+
+          <h4 class="mt-4">Step 2 — Program.java</h4>
+          <Code
+            code={Task1Program}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Bank Account
+            Invariants
+          </h3>
+
+          <p>
+            Modify this BankAccount class to enforce correct behavior through
+            encapsulation.
+          </p>
+
+          <h4>Step 1 — BankAccount.java</h4>
+          <Code
+            code={Task2Class}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="BankAccount.java"
+          />
+
+          <h4 class="mt-4">Step 2 — Program.java</h4>
+          <Code
+            code={Task2Program}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>Write your answers as comments in your Program.java file.</p>
+
+          <ol>
+            <li>
+              Why should instance variables almost always be private in Java?
+            </li>
+            <li>What problem do setters prevent when validating data?</li>
+            <li>
+              Why is it dangerous to modify private variables directly from
+              outside the class?
+            </li>
+            <li>
+              Describe an invariant your class enforces. How does your setter or
+              constructor enforce it?
+            </li>
+            <li>
+              In your own words, explain the difference between an accessor and
+              a mutator.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your completed class files and reflection answers to the
+            appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
