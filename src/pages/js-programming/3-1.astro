@@ -139,9 +139,9 @@ function gameOver() {
 function playGuessTheNumber() {
   console.log("--- Guess the Number ---");
 
-  const secret = Math.floor(Math.random() * 10) + 1;
-  const guessText = prompt("Guess my secret number between 1 and 10: ");
-  const guess = Number(guessText);
+  let secret = Math.floor(Math.random() * 10) + 1;
+  let guessText = prompt("Guess my secret number between 1 and 10: ");
+  let guess = Number(guessText);
 
   console.log("It was " + secret + "!");
 
@@ -155,12 +155,12 @@ function playLuckyDice() {
   console.log("--- Lucky Dice ---");
   console.log();
 
-  const betText = prompt("Bet on a total between 2 and 12: ");
-  const bet = Number(betText);
+  let betText = prompt("Bet on a total between 2 and 12: ");
+  let bet = Number(betText);
 
-  const die1 = Math.floor(Math.random() * 6) + 1;
-  const die2 = Math.floor(Math.random() * 6) + 1;
-  const total = die1 + die2;
+  let die1 = Math.floor(Math.random() * 6) + 1;
+  let die2 = Math.floor(Math.random() * 6) + 1;
+  let total = die1 + die2;
 
   console.log("You rolled " + die1 + " and " + die2 + " (total: " + total + ").");
 
@@ -174,10 +174,10 @@ function playSpinTheWheel() {
   console.log("--- Spin the Wheel ---");
   console.log();
 
-  const betText = prompt("Pick a number on the wheel between 1 and 25: ");
-  const bet = Number(betText);
+  let betText = prompt("Pick a number on the wheel between 1 and 25: ");
+  let bet = Number(betText);
 
-  const wheel = Math.floor(Math.random() * 25) + 1;
+  let wheel = Math.floor(Math.random() * 25) + 1;
 
   console.log("The wheel landed on " + wheel + ".");
 
