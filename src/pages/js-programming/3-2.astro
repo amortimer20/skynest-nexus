@@ -1,0 +1,425 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+function greetUser(name) {
+  console.log("Hello, " + name + "!");
+  console.log("Welcome to the Math Utility Program.");
+}
+`;
+
+const Figure2 = `
+function square(n) {
+  return n * n;
+}
+`;
+
+const Figure3 = `
+function average(a, b) {
+  return (a + b) / 2;
+}
+`;
+
+const Task1 = `
+function greetUser(name) {
+  console.log("Hello, " + name + "!");
+  console.log("Welcome to the Math Utility Program.");
+  console.log();
+}
+
+console.log("--- Math Utilities ---");
+
+let userName = prompt("Enter your name: ");
+greetUser(userName);
+`;
+
+const Task2 = `
+function greetUser(name) {
+  console.log("Hello, " + name + "!");
+  console.log("Welcome to the Math Utility Program.");
+  console.log();
+}
+
+function square(n) {
+  return n * n;
+}
+
+console.log("--- Math Utilities ---");
+
+let userName = prompt("Enter your name: ");
+greetUser(userName);
+
+let num = parseInt(prompt("Enter a number to square: "));
+let result = square(num);
+
+console.log("The square is " + result);
+console.log();
+`;
+
+const Task3 = `
+function greetUser(name) {
+  console.log("Hello, " + name + "!");
+  console.log("Welcome to the Math Utility Program.");
+  console.log();
+}
+
+function square(n) {
+  return n * n;
+}
+
+function average(a, b) {
+  return (a + b) / 2;
+}
+
+function randomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+console.log("--- Math Utilities ---");
+
+let userName = prompt("Enter your name: ");
+greetUser(userName);
+
+let num = parseInt(prompt("Enter a number to square: "));
+let result = square(num);
+console.log("The square is " + result);
+console.log();
+
+let a = parseFloat(prompt("Enter first number: "));
+let b = parseFloat(prompt("Enter second number: "));
+let avg = average(a, b);
+console.log("The average is " + avg);
+console.log();
+
+let min = parseInt(prompt("Enter minimum value: "));
+let max = parseInt(prompt("Enter maximum value: "));
+let random = randomInRange(min, max);
+console.log("Random number between " + min + " and " + max + ": " + random);
+`;
+
+const SampleOutput = `
+Enter your name: Anthony
+Hello, Anthony!
+Welcome to the Math Utility Program.
+
+Enter a number to square: 6
+The square is 36
+
+Enter first number: 8
+Enter second number: 10
+The average is 9
+
+Enter minimum value: 1
+Enter maximum value: 10
+Random number between 1 and 10: 4
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.2 Functions with Parameters and Return Values</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Functions with Parameters and Return Values</h3>
+            <h4 class="text-skynest-theme">
+              Sending and Receiving Data in JavaScript Functions
+            </h4>
+          </section>
+
+          <section>
+            <h4>Why Use Parameters and Returns?</h4>
+            <p>
+              So far, we've created functions that perform actions, but they
+              couldn't accept input or return results.
+            </p>
+            <p class="fragment">
+              Parameters and <code>return</code> statements allow data to flow
+              <em>into</em> and <em>out of</em> a function.
+            </p>
+          </section>
+
+          <section>
+            <h4>Parameters</h4>
+            <p>
+              A <strong>parameter</strong> is a variable that receives data when
+              a function is called. It lets us reuse one function for different inputs.
+            </p>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="javascript"
+              class="text-start"
+              mark={`name`}
+            />
+          </section>
+
+          <section>
+            <h4>Return Values</h4>
+            <p>
+              A function can send data back to the caller using a
+              <strong>return</strong> statement.
+            </p>
+            <Code
+              code={Figure2}
+              frame="code"
+              lang="javascript"
+              class="text-start"
+              mark={`return n * n;`}
+            />
+          </section>
+
+          <section>
+            <h4>Parameters + Returns Together</h4>
+            <p>
+              Functions can use both parameters and return values to create
+              flexible and reusable tools.
+            </p>
+            <Code code={Figure3} frame="code" lang="javascript" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Data Flow</h4>
+            <ol>
+              <li class="fragment">
+                Parameters are <span class="text-skynest-theme">inputs</span>
+              </li>
+              <li class="fragment">
+                The function body is the <span class="text-skynest-theme"
+                  >process</span>
+              </li>
+              <li class="fragment">
+                The return value is the <span class="text-skynest-theme"
+                  >output</span>
+              </li>
+            </ol>
+          </section>
+
+          <!-- Key Terms Slides -->
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Parameter</strong></dt>
+              <dd>
+                A variable listed inside a function’s parentheses that receives input
+                when the function is called.
+              </dd>
+
+              <dt><strong>Argument</strong></dt>
+              <dd>
+                The actual value or expression passed into a function when it's
+                called.
+              </dd>
+
+              <dt><strong>Return Value</strong></dt>
+              <dd>
+                The value a function sends back to the part of the program that called it.
+              </dd>
+            </dl>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><strong>Return Statement</strong></dt>
+              <dd>
+                The command that exits a function and sends a value back to the
+                caller (for example: <code>return total;</code>).
+              </dd>
+
+              <dt><strong>Void Function</strong></dt>
+              <dd>
+                A function that performs an action (like printing) but does not
+                return data.
+              </dd>
+
+              <dt><strong>Scope</strong></dt>
+              <dd>
+                The part of a program where a variable can be accessed. A parameter
+                has scope only inside its function.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h4>Next Lesson Preview</h4>
+            <h5 class="text-skynest-theme">Designing with Functions: Stepwise Refinement</h5>
+            <p>
+              In the next lesson, you'll use functions to break larger problems
+              into smaller steps and design programs in stages.
+            </p>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Define and call functions that take parameters.</ListItem>
+            <ListItem>Define and call functions that return values.</ListItem>
+            <ListItem>Use both to make functions reusable and flexible.</ListItem>
+            <ListItem>Differentiate between parameters and arguments.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new JavaScript file named
+              <span class="text-skynest-theme">3-2-parameters.js</span
+              >.</ListItem
+            >
+            <ListItem variant="2"
+              >Complete each task and test your program output after every
+              function is added.</ListItem
+            >
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Passing Data into a
+            Function
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Create a function named <code>greetUser(name)</code> that prints
+              a personalized greeting.</ListItem
+            >
+            <ListItem variant="2"
+              >Prompt the user for their name and call the function, passing the
+              input as an argument.</ListItem
+            >
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="main.js" />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Returning a Value
+            from a Function
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Define a function <code>square(n)</code> that returns the square
+              of a number.</ListItem
+            >
+            <ListItem variant="2"
+              >Ask the user for a number, call <code>square(num)</code>, and
+              print the result.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="main.js"
+            ins={[{range: "15-20"}, {range: "7-9"}]}
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Combining Parameters
+            and Return Values
+          </h3>
+          <ul>
+            <ListItem variant="2"
+              >Create a function <code>average(a, b)</code> that returns
+              the average of two numbers.</ListItem
+            >
+            <ListItem variant="2"
+              >Add another function <code>randomInRange(min, max)</code> to
+              return a random integer between two values.</ListItem
+            >
+            <ListItem variant="2"
+              >Test both functions by prompting the user for input and displaying
+              the results.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="main.js"
+            ins={[{range: "28-38"}, {range: "11-17"}]}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <p>Your program output should look similar to the example below.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+          <ol>
+            <li>What is the difference between a parameter and an argument?</li>
+            <li>
+              Why does a function that sends back a result need a
+              <code>return</code> statement?
+            </li>
+            <li>
+              How could one function's return value be used as input to another
+              function?
+            </li>
+            <li>
+              Why is using parameters and returns more flexible than relying on
+              global variables?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>
+            Submit your completed <code>.js</code> file and reflection answers
+            to the appropriate dropbox.
+          </p>
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
