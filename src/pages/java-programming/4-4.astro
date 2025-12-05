@@ -1,0 +1,393 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+
+const FigureInstanceVsStatic = `
+class Dog {
+    private String name;
+    private static int dogCount = 0; // static: shared across all Dog objects
+
+    public Dog(String name) {
+        this.name = name;
+        dogCount++; // increments whenever a Dog is created
+    }
+
+    public static int getDogCount() {
+        return dogCount; // static method can access static variables
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+`;
+
+const FigureStaticUtility = `
+class MathTools {
+    public static int square(int x) {
+        return x * x;
+    }
+}
+`;
+
+const Task1Class = `
+class Student {
+    private String name;
+    private static int studentCount = 0;
+
+    public Student(String name) {
+        this.name = name;
+        studentCount++;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static int getStudentCount() {
+        return studentCount;
+    }
+}
+`;
+
+const Task1Main = `
+public class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student("Alex");
+        Student s2 = new Student("Jordan");
+        Student s3 = new Student("Riley");
+
+        System.out.println("Total students: " + Student.getStudentCount());
+    }
+}
+`;
+
+const Task2Utility = `
+class TemperatureConverter {
+    public static double cToF(double c) {
+        return (c * 9.0 / 5.0) + 32;
+    }
+
+    public static double fToC(double f) {
+        return (f - 32) * (5.0 / 9.0);
+    }
+}
+`;
+
+const Task2Main = `
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("20C in F: " + TemperatureConverter.cToF(20));
+        System.out.println("72F in C: " + TemperatureConverter.fToC(72));
+    }
+}
+`;
+
+const SampleOutput = `
+Total students: 3
+
+20C in F: 68.0
+72F in C: 22.222...
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.4 Static Variables and Static Methods</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.4</h3>
+            <h4 class="text-skynest-theme">
+              Static Variables and Static Methods
+            </h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Difference between instance and static members</li>
+              <li>Static variables (class-level data)</li>
+              <li>Static methods (class-level behavior)</li>
+              <li>
+                Why <AstroCode code="main" lang="java" inline /> is static
+              </li>
+              <li>Common AP mistakes involving static context</li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Instance vs. Static: The Big Idea</h4>
+            <p>
+              So far, all data you've worked with belonged to specific objects
+              (instance variables).
+            </p>
+            <p class="fragment">
+              <strong>Static</strong> means "belongs to the class itself," not to
+              a specific object.
+            </p>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Instance Members (Review)</h4>
+            <ul>
+              <li class="fragment">Each object gets its own copy</li>
+              <li class="fragment">Used to store object-specific data</li>
+              <li class="fragment">
+                Accessed with <AstroCode
+                  code="objectName.variable"
+                  lang="java"
+                  inline
+                />
+              </li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Static Members</h4>
+            <ul>
+              <li class="fragment">Shared among ALL objects of the class</li>
+              <li class="fragment">
+                Stored at the class level, not inside objects
+              </li>
+              <li class="fragment">
+                Called using <AstroCode
+                  code="ClassName.method()"
+                  lang="java"
+                  inline
+                />
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Example: Counting Objects</h4>
+            <Code
+              code={FigureInstanceVsStatic}
+              lang="java"
+              class="text-start"
+            />
+          </section>
+
+          <section>
+            <h4>Static Methods</h4>
+            <p>
+              Static methods do NOT require an object. They are often used for:
+            </p>
+            <ul>
+              <li class="fragment">Utility functions (e.g., conversions)</li>
+              <li class="fragment">Operations that don't need instance data</li>
+              <li class="fragment">Working with static variables</li>
+            </ul>
+            <Code
+              code={FigureStaticUtility}
+              lang="java"
+              class="text-start mt-3"
+            />
+          </section>
+
+          <section>
+            <h4>Common AP Mistake</h4>
+            <p class="fragment">
+              Static methods <strong
+                >cannot directly access instance variables</strong
+              >.
+            </p>
+            <p class="fragment">
+              Instance variables belong to objects, not classes.
+            </p>
+            <p class="fragment">
+              <AstroCode code="main" lang="java" inline /> is static for this reason
+              — it runs before any objects exist.
+            </p>
+          </section>
+
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Static Variable</dt>
+              <dd>
+                Shared by all objects of a class; belongs to the class itself.
+              </dd>
+
+              <dt>Static Method</dt>
+              <dd>A method that can be called without creating an object.</dd>
+
+              <dt>Instance Variable</dt>
+              <dd>Stored per object; each object has its own copy.</dd>
+
+              <dt>Class Method / Class Variable</dt>
+              <dd>Another name for static methods/variables.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Distinguish between instance and static members</ListItem>
+            <ListItem>Write static variables and static methods</ListItem>
+            <ListItem>Count objects using static fields</ListItem>
+            <ListItem>Call static utility methods</ListItem>
+            <ListItem>Avoid common static-access errors</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+
+          <ul>
+            <ListItem variant="2">
+              Create a new project named
+              <span class="text-skynest-theme">4-4-Static-Members</span>.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Counting Objects
+            with Static Variables
+          </h3>
+
+          <p>
+            Add a static counter to the <AstroCode
+              code="Student"
+              lang="java"
+              inline
+            />
+            class to track how many objects have been created.
+          </p>
+
+          <h4>Step 1 — Student.java</h4>
+          <Code
+            code={Task1Class}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Student.java"
+          />
+
+          <h4 class="mt-4">Step 2 — Main.java</h4>
+          <Code
+            code={Task1Main}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Main.java"
+          />
+
+          <p class="mt-3">
+            Run the program. Notice how static variables track data shared
+            across all objects.
+          </p>
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Static Utility
+            Methods
+          </h3>
+
+          <p>
+            Write a utility class with static methods that convert temperatures.
+          </p>
+
+          <h4>TemperatureConverter.java</h4>
+          <Code
+            code={Task2Utility}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="TemperatureConverter.java"
+          />
+
+          <h4 class="mt-4">Main.java</h4>
+          <Code
+            code={Task2Main}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Main.java"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <ol>
+            <li>
+              Explain in your own words the difference between an instance
+              variable and a static variable.
+            </li>
+            <li>
+              Why can static methods not access instance variables directly?
+            </li>
+            <li>
+              What is a real-world example of something that should be static?
+            </li>
+            <li>
+              Why is the <AstroCode code="main" lang="java" inline /> method static?
+            </li>
+            <li>
+              Describe a situation in which using static methods is preferable
+              to instance methods.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your completed project and reflection answers to the
+            appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
