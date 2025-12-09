@@ -1,0 +1,206 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+const SampleOutput = `
+Created products:
+[1001] T-Shirt - $19.99 (Stock: 10)
+[1002] Mug - $7.50 (Stock: 0)
+
+Restocking Mug by 5...
+[1002] Mug - $7.50 (Stock: 5)
+
+Selling 3 T-Shirts...
+[1001] T-Shirt - $19.99 (Stock: 7)
+
+Applying 20% discount to T-Shirts...
+[1001] T-Shirt - $15.99 (Stock: 7)
+
+Attempting to sell 10 Mugs...
+Not enough stock to complete sale.
+[1002] Mug - $7.50 (Stock: 5)
+
+Total products created: 2
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Sprint 4.2 Retail Product Class</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Design a <strong>Product</strong> class that models items in a small retail
+            business. Use constructors, encapsulation, static members, and instance
+            methods with logic to track inventory and pricing.
+          </p>
+
+          <h4>Skills to Practice</h4>
+          <ul>
+            <li>Defining classes with private instance variables</li>
+            <li>Writing no-argument and full-argument constructors</li>
+            <li>Using a static variable to track shared information</li>
+            <li>Writing getters and methods that modify object state</li>
+            <li>Using conditionals to enforce valid values and invariants</li>
+            <li>Interacting with objects in a main/driver program</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+
+          <ul>
+            <li>Create a new project named <strong>Retail-Product-Challenge</strong>.</li>
+
+            <li>
+              Create a <strong>Product</strong> class with the following
+              <em>private</em> instance variables:
+              <ul>
+                <li>id (a numeric product ID)</li>
+                <li>name (text)</li>
+                <li>price (number, e.g. 19.99)</li>
+                <li>stock (number of units currently in stock)</li>
+              </ul>
+            </li>
+
+            <li>
+              Add a <strong>static</strong> variable to track how many products
+              have been created so far. Use it to assign a unique <code>id</code>
+              to each new Product object.
+            </li>
+
+            <li>
+              Add two constructors:
+              <ul>
+                <li>
+                  <strong>No-argument constructor:</strong>
+                  <ul>
+                    <li>Assigns a unique <code>id</code> using the static counter.</li>
+                    <li>Sets a default name like <code>"Unnamed Product"</code>.</li>
+                    <li>Sets price to <code>0.0</code>.</li>
+                    <li>Sets stock to <code>0</code>.</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Full-argument constructor:</strong>
+                  <ul>
+                    <li>Accepts a name, price, and starting stock.</li>
+                    <li>Assigns a unique <code>id</code> using the static counter.</li>
+                    <li>
+                      Enforces invariants:
+                      <ul>
+                        <li>If price is negative, set price to <code>0.0</code>.</li>
+                        <li>If starting stock is negative, set stock to <code>0</code>.</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              Add the following methods:
+              <ul>
+                <li>Getters for at least <code>id</code>, <code>name</code>, <code>price</code>, and <code>stock</code>.</li>
+                <li>
+                  <strong>restock(amount)</strong>  
+                  Increases <code>stock</code> by <code>amount</code> if
+                  <code>amount &gt; 0</code>.
+                </li>
+                <li>
+                  <strong>sell(amount)</strong>  
+                  Attempts to reduce <code>stock</code> by <code>amount</code> if:
+                  <ul>
+                    <li><code>amount &gt; 0</code>, and</li>
+                    <li><code>amount ≤ stock</code></li>
+                  </ul>
+                  Returns a boolean (or your language's equivalent) indicating
+                  whether the sale was successful.
+                </li>
+                <li>
+                  <strong>applyDiscount(percent)</strong>  
+                  Lowers the price by a given percentage (for example, 20 means
+                  20% off). Only apply the discount if <code>percent</code> is
+                  between 0 and 100. Price should never become negative.
+                </li>
+                <li>
+                  <strong>static getProductCount()</strong>  
+                  Returns how many Product objects have been created so far.
+                </li>
+                <li>
+                  (Optional) A method that returns a formatted string like:
+                  <code>[id] name - $price (Stock: stock)</code>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              In your <strong>Main</strong> program:
+              <ul>
+                <li>
+                  Create one Product using the full constructor  
+                  (for example, <code>"T-Shirt", 19.99, 10</code>).
+                </li>
+                <li>
+                  Create another Product using the no-argument constructor, then
+                  manually set its name, price, and stock using setters (if you
+                  choose to add setters) or by using a full constructor instead.
+                </li>
+                <li>Print both products’ information.</li>
+                <li>Restock one product and print the updated information.</li>
+                <li>Sell a valid quantity of one product and print the updated stock.</li>
+                <li>
+                  Attempt to sell more units than are in stock and print a message
+                  if the sale fails.
+                </li>
+                <li>
+                  Apply a discount (for example, 20%) to one product and print the
+                  new price.
+                </li>
+                <li>
+                  At the end, print how many products have been created using your
+                  static method.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-skynest-theme border border-primary slow-flash"
+        >
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

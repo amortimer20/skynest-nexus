@@ -1,0 +1,321 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+
+const FigureCharacter = `
+class GameCharacter
+{
+    private String name;
+    private int maxHealth;
+    private int currentHealth;
+    private int attackPower;
+
+    public GameCharacter(String name, int maxHealth, int attackPower)
+    {
+        this.name = name;
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;  // start full health
+        this.attackPower = attackPower;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int getAttackPower()
+    {
+        return attackPower;
+    }
+
+    // Reduce health but never below 0
+    public void takeDamage(int amount)
+    {
+        if (amount > 0)
+        {
+            currentHealth -= amount;
+            
+            if (currentHealth < 0)
+            {
+                currentHealth = 0;
+            }
+        }
+    }
+
+    // Heal but never above maxHealth
+    public void heal(int amount)
+    {
+        if (amount > 0)
+        {
+            currentHealth += amount;
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
+    }
+
+    // Deal attack damage equal to attackPower
+    public void attack(GameCharacter target)
+    {
+        target.takeDamage(attackPower);
+    }
+
+    public boolean isDefeated()
+    {
+        return currentHealth == 0;
+    }
+}
+`;
+
+const FigureMain = `
+import java.util.Scanner;
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        GameCharacter player = new GameCharacter("Hero", 100, 15);
+        GameCharacter enemy = new GameCharacter("Goblin", 75, 10);
+
+        System.out.println("-- Turn-Based Battle --");
+
+        while (!player.isDefeated() && !enemy.isDefeated())
+        {
+            System.out.println("\\n" + player.getName() + " HP: " + player.getCurrentHealth());
+            System.out.println(enemy.getName() + " HP: " + enemy.getCurrentHealth());
+
+            System.out.println("\\nChoose an action:");
+            System.out.println("1) Attack");
+            System.out.println("2) Heal");
+            System.out.print("> ");
+            String choice = input.nextLine();
+
+            if (choice.equals("1"))
+            {
+                player.attack(enemy);
+                System.out.println("\\nYou dealt " + player.getAttackPower() + " damage!");
+            }
+            else if (choice.equals("2")) {
+                player.heal(10);
+                System.out.println("\\nYou healed 10 HP.");
+            }
+            else
+            {
+                System.out.println("Invalid choice. You lose your turn!");
+            }
+
+            if (enemy.isDefeated())
+            {
+                break;
+            }
+
+            enemy.attack(player);
+            System.out.println("The " + enemy.getName() + " attacks for " + enemy.getAttackPower() + " damage!");
+        }
+
+        if (player.isDefeated())
+        {
+            System.out.println("\\nYou were defeated...");
+        }
+        else
+        {
+            System.out.println("\\nYou defeated the enemy!");
+        }
+    }
+}
+`;
+
+const SampleOutput = `
+-- Turn-Based Battle --
+Hero HP: 100
+Goblin HP: 75
+
+Choose an action:
+1) Attack
+2) Heal
+> 1
+
+You dealt 15 damage!
+The Goblin attacks for 10 damage!
+
+Hero HP: 90
+Goblin HP: 60
+...
+
+You defeated the enemy!
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.5 Turn-Based Battle with GameCharacter</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4.5</h3>
+            <h4 class="text-skynest-theme">Turn-Based Battle Simulation</h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Objects interacting with other objects</li>
+              <li>Instance methods that modify and return state</li>
+              <li>Using loops and conditionals to control game flow</li>
+              <li>Maintaining invariants during gameplay</li>
+              <li>Designing a simple system of classes</li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>What Are We Building?</h4>
+            <p>
+              In this activity, you will design a class that models a character in a game
+              and write a simple turn-based battle.
+            </p>
+            <ul>
+              <li class="fragment">Characters can attack and heal</li>
+              <li class="fragment">Health must stay between 0 and maxHealth</li>
+              <li class="fragment">Battle continues until one character is defeated</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Key Ideas</h4>
+            <ul>
+              <li class="fragment">Objects can call methods on other objects.</li>
+              <li class="fragment">Instance methods enforce class invariants.</li>
+              <li class="fragment">Logic in <AstroCode code="main" inline /> drives the simulation.</li>
+              <li class="fragment">Encapsulation ensures predictable behavior.</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Write instance methods that perform actions and update state</ListItem>
+            <ListItem>Enforce invariants in methods (health cannot go below 0)</ListItem>
+            <ListItem>Use objects inside other objects and methods</ListItem>
+            <ListItem>Create a simple text-based game using OOP</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+
+          <ul>
+            <ListItem variant="2">
+              Create a new project named
+              <span class="text-skynest-theme">4-5-GameCharacter-Battle</span>.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3><span class="text-skynest-theme">Task 1</span>: Implement GameCharacter</h3>
+
+          <p>Create the <strong>GameCharacter</strong> class by following the example shown above.</p>
+
+          <Code
+            code={FigureCharacter}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="GameCharacter.java"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3><span class="text-skynest-theme">Task 2</span>: Build the Battle Loop</h3>
+
+          <p>
+            Write the main game loop where the player chooses actions and the
+            enemy responds automatically.
+          </p>
+
+          <Code
+            code={FigureMain}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Main.java"
+          />
+
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <ol>
+            <li>Why should health never go below 0 or above maxHealth?</li>
+            <li>How does encapsulation protect the internal state of a character?</li>
+            <li>Why is a loop used to control the flow of the battle?</li>
+            <li>What advantages do instance methods provide over writing logic in main?</li>
+            <li>How could you expand this system in the future (e.g., items, spells, multiple enemies)?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your project and reflection answers to the appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</Layout>
