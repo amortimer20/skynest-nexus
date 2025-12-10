@@ -1,0 +1,487 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+// Task 1 — rollDie that PRINTS (void-like); top-level calls multiple times
+const Task1 = `
+function rollDie() {
+  let die = Math.floor(Math.random() * 6) + 1;
+  console.log("Rolled: " + die);
+}
+
+console.log("--- CRAPS ---");
+// Call several times to verify randomness
+rollDie();
+rollDie();
+rollDie();
+`;
+
+// Task 2 — modify rollDie to RETURN a number; top-level prints the value
+const Task2 = `
+function rollDie() {
+  let die = Math.floor(Math.random() * 6) + 1;
+  console.log("Rolled: " + die);
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+console.log("--- CRAPS ---");
+
+rollDie();
+rollDie();
+rollDie();
+
+let d1 = rollDie();
+let d2 = rollDie();
+
+console.log("You rolled: " + d1 + " and " + d2);
+`;
+
+// Task 3 — rollDice uses rollDie() twice, prints breakdown, returns total
+const Task3 = `
+function rollDie() {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+function rollDice() {
+  let die1 = rollDie();
+  let die2 = rollDie();
+  let total = die1 + die2;
+
+  console.log("You rolled " + die1 + " + " + die2 + " = " + total);
+  return total;
+}
+
+console.log("--- CRAPS ---");
+let total = rollDice();
+console.log("Total: " + total);
+`;
+
+// Task 4 — come-out roll logic; returns boolean (true=end of round)
+// If not over, caller will set 'point'
+const Task4 = `
+function rollDie() {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+function rollDice() {
+  let d1 = rollDie();
+  let d2 = rollDie();
+  let total = d1 + d2;
+
+  console.log("You rolled " + d1 + " + " + d2 + " = " + total);
+  return total;
+}
+
+function evaluateComeOutRoll(roll) {
+  if (roll == 7 || roll == 11) {
+    console.log("Rolled a " + roll + "! You win!");
+    return true;
+  }
+  else if (roll == 2 || roll == 3 || roll == 12) {
+    console.log("Rolled a " + roll + ". You lose.");
+    return true;
+  }
+  else {
+    console.log("Rolled a " + roll + ".");
+    return false;
+  }
+}
+
+console.log("--- CRAPS ---");
+
+let point = 0;
+
+let roll = rollDice();
+let roundOver = evaluateComeOutRoll(roll);
+
+if (!roundOver) {
+  point = roll;
+  console.log("The point is now " + point + ".");
+  // Next step: loop while not over and resolve the point.
+}
+`;
+
+// Task 5 — add point resolution: evaluatePointRoll + loop until end
+const Task5 = `
+function rollDie() {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+function rollDice() {
+  let d1 = rollDie();
+  let d2 = rollDie();
+  let total = d1 + d2;
+
+  console.log("You rolled " + d1 + " + " + d2 + " = " + total);
+  return total;
+}
+
+function evaluateComeOutRoll(roll) {
+  if (roll == 7 || roll == 11) {
+    console.log("Rolled a " + roll + "! You win!");
+    return true;
+  }
+  else if (roll == 2 || roll == 3 || roll == 12) {
+    console.log("Rolled a " + roll + ". You lose.");
+    return true;
+  }
+  else {
+    console.log("Rolled a " + roll + ".");
+    return false;
+  }
+}
+
+// Step 5: resolve after point is set
+function evaluatePointRoll(roll, point) {
+  if (roll == point) {
+    console.log("Rolled a " + roll + "! You win!");
+    return true;
+  }
+  else if (roll == 7) {
+    console.log("Rolled a 7. You lose.");
+    return true;
+  }
+  else {
+    console.log("Rolled a " + roll + ". Still shooting for " + point + ".");
+    return false;
+  }
+}
+
+console.log("--- CRAPS ---");
+
+let point = 0;
+let gameOver = false;
+
+// Come-out roll
+let roll = rollDice();
+gameOver = evaluateComeOutRoll(roll);
+
+if (!gameOver) {
+  point = roll;
+  console.log("The point is now " + point + ".");
+
+  // Keep rolling until win (hit point) or lose (7)
+  while (!gameOver) {
+    roll = rollDice();
+    gameOver = evaluatePointRoll(roll, point);
+  }
+}
+
+console.log("Thanks for playing!");
+`;
+
+// Sample output for the final task
+const SampleOutput = `
+--- CRAPS ---
+You rolled 4 + 3 = 7
+Rolled a 7! You win!
+Thanks for playing!
+`;
+//#endregion
+---
+
+<Layout>
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-10">
+                <a
+                    href="/javascript-programming/"
+                    class="btn btn-sm btn-outline-light mb-3"
+                >
+                    <i class="si-arrow-left"></i> Back
+                </a>
+
+                <h1>
+                    Activity 3.3 Designing with Functions: Stepwise Refinement
+                </h1>
+                <Divider variant="8" classes="mb-4" />
+
+                <!-- Introduction -->
+                <h2>Introduction</h2>
+                <Presentation>
+                    <section>
+                        <h3>Designing with Functions</h3>
+                        <h4 class="text-skynest-theme">
+                            Breaking Down Problems Step by Step
+                        </h4>
+                    </section>
+                    <section>
+                        <h4>What Is Stepwise Refinement?</h4>
+                        <p>
+                            Stepwise refinement is the process of starting with
+                            a broad goal and gradually dividing it into smaller,
+                            more manageable tasks.
+                        </p>
+                        <p>
+                            Each step adds more detail until your program is
+                            complete and ready to run.
+                        </p>
+                    </section>
+                    <section>
+                        <h4>Why Use Stepwise Refinement?</h4>
+                        <ul>
+                            <li class="fragment">
+                                <strong>Organization:</strong> Plan before coding.
+                                Avoid writing everything in one big block of code.
+                            </li>
+                            <li class="fragment">
+                                <strong>Focus:</strong> Build and test one small part
+                                at a time.
+                            </li>
+                            <li class="fragment">
+                                <strong>Reusability:</strong> Each function can be
+                                reused or replaced later.
+                            </li>
+                            <li class="fragment">
+                                <strong>Debugging:</strong> When something breaks,
+                                you know exactly where to look.
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Example of Refinement</h4>
+                        <p>
+                            Suppose we want to build a simple dice game. Instead
+                            of writing the whole game at once, we can break it
+                            down:
+                        </p>
+                        <ol>
+                            <li>Roll a single die</li>
+                            <li>Roll two dice and calculate the total</li>
+                            <li>Apply the game rules for a round</li>
+                            <li>Repeat rounds until the game ends</li>
+                        </ol>
+                        <p class="fragment">
+                            Each step becomes a <strong>function</strong>.
+                            Together, they form a complete game.
+                        </p>
+                    </section>
+                    <section>
+                        <h4>Our Goal</h4>
+                        <p>
+                            We'll design a simplified version of the dice game <strong
+                                >Craps</strong
+                            > using stepwise refinement.
+                        </p>
+                        <p>
+                            Each function will handle one small, focused task to
+                            make the code easier to test and read.
+                        </p>
+                    </section>
+                </Presentation>
+
+                <section id="objectives">
+                    <h3>Objectives</h3>
+                    <ul>
+                        <ListItem
+                            >Apply stepwise refinement to design a small game.</ListItem
+                        >
+                        <ListItem
+                            >Use parameters and return values to control program
+                            flow.</ListItem
+                        >
+                        <ListItem
+                            >Refactor working code into clean, reusable
+                            functions.</ListItem
+                        >
+                    </ul>
+                </section>
+
+                <Divider variant="8" classes="mb-4" />
+
+                <section id="activity-tasks">
+                    <h2>Activity Tasks</h2>
+                    <ul>
+                        <ListItem variant="2">
+                            Create a new JavaScript file named
+                            <span class="text-skynest-theme">3-3-CrapsGame</span
+                            >.
+                        </ListItem>
+                        <ListItem variant="2">
+                            Build and run after each step. Do not skip ahead.
+                        </ListItem>
+                    </ul>
+
+                    <!-- Task 1 -->
+                    <Divider variant="8" classes="my-4" />
+                    <h3>
+                        <span class="text-skynest-theme">Task 1</span>: Roll a
+                        Single Die (print only)
+                    </h3>
+                    <ul>
+                        <ListItem variant="2">
+                            Implement <code>rollDie()</code> that prints the die result.
+                        </ListItem>
+                        <ListItem variant="2">
+                            Call it several times from the bottom of your file
+                            to verify randomness.
+                        </ListItem>
+                    </ul>
+                    <Code
+                        code={Task1}
+                        frame="code"
+                        lang="javascript"
+                        title="craps.js"
+                    />
+
+                    <!-- Task 2 -->
+                    <Divider variant="8" classes="my-4" />
+                    <h3>
+                        <span class="text-skynest-theme">Task 2</span>: Return
+                        Instead of Print
+                    </h3>
+                    <ul>
+                        <ListItem variant="2">
+                            Modify <code>rollDie()</code> so it returns the value
+                            instead of printing it.
+                        </ListItem>
+                        <ListItem variant="2">
+                            In your top-level code, call <code>rollDie()</code> twice
+                            and print both results.
+                        </ListItem>
+                    </ul>
+                    <Code
+                        code={Task2}
+                        frame="code"
+                        lang="javascript"
+                        title="craps.js"
+                        del={[{range: "2-3"}, {range: "9-11"}]}
+                        ins={[{range: "4"}, {range: "13-16"}]}
+                    />
+
+                    <!-- Task 3 -->
+                    <Divider variant="8" classes="my-4" />
+                    <h3>
+                        <span class="text-skynest-theme">Task 3</span>: Roll Two
+                        Dice
+                    </h3>
+                    <ul>
+                        <ListItem variant="2">
+                            Create <code>rollDice()</code> that calls <code
+                                >rollDie()</code
+                            > twice, prints the breakdown, and returns the total.
+                        </ListItem>
+                        <ListItem variant="2">
+                            Test <code>rollDice()</code> by calling it and printing
+                            the total.
+                        </ListItem>
+                    </ul>
+                    <Code
+                        code={Task3}
+                        frame="code"
+                        lang="javascript"
+                        title="craps.js"
+                        ins={[{range: "5-12"}, {range: "15-16"}]}
+                    />
+
+                    <!-- Task 4 -->
+                    <Divider variant="8" classes="my-4" />
+                    <h3>
+                        <span class="text-skynest-theme">Task 4</span>: Come-Out
+                        Roll Rules
+                    </h3>
+                    <ul>
+                        <ListItem variant="2">
+                            Write <code>evaluateComeOutRoll(roll)</code> to print
+                            the outcome and return whether the round is over (<code
+                                >true</code
+                            > or <code>false</code>).
+                        </ListItem>
+                        <ListItem variant="2">
+                            If the round continues, store the roll in a <code
+                                >point</code
+                            > variable.
+                        </ListItem>
+                    </ul>
+                    <Code
+                        code={Task4}
+                        frame="code"
+                        lang="javascript"
+                        title="craps.js"
+                        collapse={"6-11"}
+                        ins={[{range: "14-27"}, {range: "31-40"}]}
+                    />
+
+                    <!-- Task 5 -->
+                    <Divider variant="8" classes="my-4" />
+                    <h3>
+                        <span class="text-skynest-theme">Task 5</span>: Resolve
+                        the Point
+                    </h3>
+                    <ul>
+                        <ListItem variant="2">
+                            Add <code>evaluatePointRoll(roll, point)</code> and use
+                            a
+                            <code>while</code> loop to keep rolling until the player
+                            wins or loses.
+                        </ListItem>
+                        <ListItem variant="2">
+                            Print a final message when the game is over.
+                        </ListItem>
+                    </ul>
+                    <Code
+                        code={Task5}
+                        frame="code"
+                        lang="javascript"
+                        title="craps.js"
+                        collapse={["6-11", "15-26"]}
+                        ins={[{range: "30-43"}, {range: "47-65"}]}
+                    />
+                </section>
+
+                <Divider variant="8" classes="my-4" />
+
+                <section id="sample-output">
+                    <h2>Sample Output</h2>
+                    <Code
+                        code={SampleOutput}
+                        frame="terminal"
+                        lang="txt"
+                        showLineNumbers={false}
+                        title="Sample Output"
+                    />
+                </section>
+
+                <Divider variant="8" classes="my-4" />
+
+                <section id="reflection">
+                    <h2>Reflection Questions</h2>
+                    <ol>
+                        <li>
+                            Which function did you write first, and why was that
+                            a good starting point?
+                        </li>
+                        <li>
+                            How did return values help you control the game
+                            flow?
+                        </li>
+                        <li>
+                            After refactoring, what does your top-level code
+                            focus on now?
+                        </li>
+                    </ol>
+                </section>
+
+                <Divider variant="8" classes="my-4" />
+
+                <section id="submission">
+                    <h2>Submission</h2>
+                    <p>
+                        Submit your completed <code>.js</code> file and reflection
+                        answers to the appropriate dropbox.
+                    </p>
+                    <h1
+                        class="text-center mt-5 text-skynest-theme border border-primary"
+                    >
+                        Activity Complete
+                    </h1>
+                </section>
+            </div>
+        </div>
+    </div>
+</Layout>
