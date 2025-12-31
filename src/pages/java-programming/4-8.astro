@@ -1,0 +1,883 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+
+const Figure1 = `
+public class Room
+{
+    private Lock doorLock;     // Room has-a Lock
+    private Item hiddenItem;   // Room has-a Item (may become null after pickup)
+}
+`;
+
+const Figure2 = `
+public class Player
+{
+    private Item heldItem; // One-slot inventory (may be null)
+
+    public String getHeldItemName()
+    {
+        if (heldItem == null)
+        {
+            return "none"; // sentinel value
+        }
+
+        return heldItem.getName();
+    }
+}
+`;
+
+const Task1_Item = `
+public class Item
+{
+    private String name;
+    private int keyCode; // -1 means "not a key" (sentinel value)
+
+    public Item(String name, int keyCode)
+    {
+        this.name = name;
+        this.keyCode = keyCode;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public boolean isKey()
+    {
+        return keyCode != -1;
+    }
+
+    public int getKeyCode()
+    {
+        return keyCode;
+    }
+
+    public String getDescription()
+    {
+        if (isKey())
+        {
+            return name + " (Key)";
+        }
+
+        return name + " (Not a key)";
+    }
+}
+`;
+
+const Task1_Checkpoint = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Item key = new Item("Brass Key", 1234);
+        Item note = new Item("Crumpled Note", -1);
+
+        System.out.println(key.getDescription());
+        System.out.println(note.getDescription());
+    }
+}
+`;
+
+const Task2_Lock = `
+public class Lock
+{
+    private boolean locked;
+    private int requiredKeyCode;
+
+    public Lock(int requiredKeyCode)
+    {
+        locked = true;
+        this.requiredKeyCode = requiredKeyCode;
+    }
+
+    public boolean isLocked()
+    {
+        return locked;
+    }
+
+    public boolean tryUnlock(Item item)
+    {
+        if (item == null)
+        {
+            return false;
+        }
+
+        if (!item.isKey())
+        {
+            return false;
+        }
+
+        if (item.getKeyCode() != requiredKeyCode)
+        {
+            return false;
+        }
+
+        locked = false;
+        return true;
+    }
+}
+`;
+
+const Task2_Checkpoint = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Lock doorLock = new Lock(1234);
+
+        Item wrongKey = new Item("Fake Key", 9999);
+        Item rightKey = new Item("Brass Key", 1234);
+
+        System.out.println("Locked? " + doorLock.isLocked());
+
+        boolean unlocked = doorLock.tryUnlock(null);
+        System.out.println("Unlock with null: " + unlocked);
+        System.out.println("Locked? " + doorLock.isLocked());
+
+        unlocked = doorLock.tryUnlock(wrongKey);
+        System.out.println("Unlock with wrong key: " + unlocked);
+        System.out.println("Locked? " + doorLock.isLocked());
+
+        unlocked = doorLock.tryUnlock(rightKey);
+        System.out.println("Unlock with correct key: " + unlocked);
+        System.out.println("Locked? " + doorLock.isLocked());
+    }
+}
+`;
+
+const Task3_Room = `
+public class Room
+{
+    private String name;
+    private String clue;
+
+    private Lock doorLock;
+    private Item hiddenItem;
+
+    private boolean searched;
+
+    public Room(String name, String clue, Lock doorLock, Item hiddenItem)
+    {
+        this.name = name;
+        this.clue = clue;
+        this.doorLock = doorLock;
+        this.hiddenItem = hiddenItem;
+        searched = false;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String search()
+    {
+        if (!searched)
+        {
+            searched = true;
+            return "You search the room... " + clue;
+        }
+
+        return "You already searched. Nothing new stands out.";
+    }
+
+    public Item takeItem()
+    {
+        if (!searched)
+        {
+            return null;
+        }
+
+        if (hiddenItem == null)
+        {
+            return null;
+        }
+
+        Item found = hiddenItem;
+        hiddenItem = null;
+        return found;
+    }
+
+    public boolean tryUnlockDoor(Item item)
+    {
+        return doorLock.tryUnlock(item);
+    }
+
+    public boolean isDoorLocked()
+    {
+        return doorLock.isLocked();
+    }
+}
+`;
+
+const Task3_Checkpoint = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Lock doorLock = new Lock(1234);
+        Item key = new Item("Brass Key", 1234);
+
+        Room room = new Room(
+            "Locked Lab",
+            "You notice scratch marks near a loose floor tile.",
+            doorLock,
+            key
+        );
+
+        System.out.println(room.search());
+
+        Item found = room.takeItem();
+
+        if (found == null)
+        {
+            System.out.println("No item found.");
+        }
+        else
+        {
+            System.out.println("Found: " + found.getDescription());
+        }
+    }
+}
+`;
+
+const Task4_Player = `
+public class Player
+{
+    private Item heldItem;
+
+    public Player()
+    {
+        heldItem = null;
+    }
+
+    // AP-style sentinel method (String sentinel)
+    public String getHeldItemName()
+    {
+        if (heldItem == null)
+        {
+            return "none";
+        }
+
+        return heldItem.getName();
+    }
+
+    public boolean hasItem()
+    {
+        return heldItem != null;
+    }
+
+    public Item getHeldItem()
+    {
+        return heldItem;
+    }
+
+    public boolean pickUp(Item item)
+    {
+        if (item == null)
+        {
+            return false;
+        }
+
+        if (heldItem != null)
+        {
+            return false;
+        }
+
+        heldItem = item;
+        return true;
+    }
+
+    public Item dropItem()
+    {
+        Item dropped = heldItem;
+        heldItem = null;
+        return dropped;
+    }
+
+    public String inspectHeldItem()
+    {
+        if (heldItem == null)
+        {
+            return "You are holding nothing.";
+        }
+
+        return "Held item: " + heldItem.getDescription();
+    }
+}
+`;
+
+const Task4_Checkpoint = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Player player = new Player();
+        System.out.println("Held: " + player.getHeldItemName());
+
+        Item note = new Item("Crumpled Note", -1);
+
+        boolean pickedUp = player.pickUp(note);
+        System.out.println("Picked up? " + pickedUp);
+        System.out.println(player.inspectHeldItem());
+
+        Item dropped = player.dropItem();
+        System.out.println("Dropped: " + dropped.getName());
+        System.out.println("Held: " + player.getHeldItemName());
+    }
+}
+`;
+
+const Task5_Game = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        int requiredKeyCode = 1234;
+
+        Lock doorLock = new Lock(requiredKeyCode);
+
+        // Change these two lines if you want a different theme.
+        String roomName = "Locked Lab";
+        String clue = "You notice scratch marks near a loose floor tile.";
+
+        // Hidden item (the key). You can swap this to a decoy to test failure cases.
+        Item hiddenKey = new Item("Brass Key", requiredKeyCode);
+
+        Room room = new Room(roomName, clue, doorLock, hiddenKey);
+        Player player = new Player();
+
+        System.out.println("--- ESCAPE ROOM ---");
+        System.out.println("You wake up in a locked room. The door is sealed.");
+        System.out.println("Room: " + room.getName());
+
+        boolean running = true;
+
+        while (running)
+        {
+            System.out.println();
+            System.out.println("Held item: " + player.getHeldItemName());
+            System.out.println("1) Search room");
+            System.out.println("2) Take item");
+            System.out.println("3) Inspect held item");
+            System.out.println("4) Try unlock door");
+            System.out.println("5) Drop held item");
+            System.out.println("6) Quit");
+            System.out.print("> ");
+
+            String choice = input.nextLine();
+
+            if (choice.equals("1"))
+            {
+                System.out.println(room.search());
+            }
+            else if (choice.equals("2"))
+            {
+                Item found = room.takeItem();
+
+                if (found == null)
+                {
+                    System.out.println("You don't find anything you can take.");
+                }
+                else
+                {
+                    boolean pickedUp = player.pickUp(found);
+
+                    if (pickedUp)
+                    {
+                        System.out.println("You picked up: " + found.getName());
+                    }
+                    else
+                    {
+                        // Player already holding something; put it back by "re-hiding" in the simplest way:
+                        // For this mini-project, we will just tell the player to drop first.
+                        System.out.println("Your hands are full. Drop your item first.");
+                    }
+                }
+            }
+            else if (choice.equals("3"))
+            {
+                System.out.println(player.inspectHeldItem());
+            }
+            else if (choice.equals("4"))
+            {
+                boolean unlocked = room.tryUnlockDoor(player.getHeldItem());
+
+                if (unlocked)
+                {
+                    System.out.println("Click! The lock opens.");
+                    System.out.println("YOU ESCAPED!");
+                    running = false;
+                }
+                else
+                {
+                    if (player.hasItem())
+                    {
+                        System.out.println("That didn't work. The door remains locked.");
+                    }
+                    else
+                    {
+                        System.out.println("You try the door... It won't budge. (You have no key.)");
+                    }
+                }
+            }
+            else if (choice.equals("5"))
+            {
+                Item dropped = player.dropItem();
+
+                if (dropped == null)
+                {
+                    System.out.println("You have nothing to drop.");
+                }
+                else
+                {
+                    System.out.println("You dropped: " + dropped.getName());
+                }
+            }
+            else if (choice.equals("6"))
+            {
+                running = false;
+            }
+            else
+            {
+                System.out.println("Invalid choice.");
+            }
+
+            // Optional: if the door is unlocked for any reason, end the game.
+            if (!room.isDoorLocked())
+            {
+                running = false;
+            }
+        }
+
+        System.out.println("\\nGame over.");
+    }
+}
+`;
+
+const SampleOutput = `
+--- ESCAPE ROOM ---
+You wake up in a locked room. The door is sealed.
+Room: Locked Lab
+
+Held item: none
+1) Search room
+2) Take item
+3) Inspect held item
+4) Try unlock door
+5) Drop held item
+6) Quit
+> 4
+You try the door... It won't budge. (You have no key.)
+
+Held item: none
+> 1
+You search the room... You notice scratch marks near a loose floor tile.
+
+Held item: none
+> 2
+You picked up: Brass Key
+
+Held item: Brass Key
+> 4
+Click! The lock opens.
+YOU ESCAPED!
+
+Game over.
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.8 Mini-Project: Escape Room Mini-Game</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4.8</h3>
+            <h4 class="text-skynest-theme">Escape Room Mini-Game</h4>
+          </section>
+
+          <section>
+            <h4>What you're building</h4>
+            <ul>
+              <li>A one-room escape game with a locked door</li>
+              <li>One hidden item (a key)</li>
+              <li>One inventory slot (held item)</li>
+              <li>A menu loop for actions</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>OOP Goals</h4>
+            <ul>
+              <li>Write multiple classes across files</li>
+              <li>Use composition (has-a relationships)</li>
+              <li>
+                Handle <AstroCode code="null" lang="java" inline /> safely
+              </li>
+              <li>Use encapsulation + methods with logic</li>
+              <li>Use an AP-style sentinel value method</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Composition in this project</h4>
+            <p>
+              Your <strong>Room</strong> contains (has-a) a <strong>Lock</strong
+              > and may contain (has-a) a hidden
+              <strong>Item</strong>.
+            </p>
+            <Code code={Figure1} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Sentinel values (AP style)</h4>
+            <p>
+              When data is "missing," an AP-style approach is to return a
+              special value (a sentinel). In this project, the player uses <AstroCode
+                code=`\"none\"`
+                lang="java"
+                inline
+              /> when no item is held.
+            </p>
+            <Code code={Figure2} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Rules</h4>
+            <ul>
+              <li>
+                Keep it simple: one room, one lock, one hidden item, one
+                inventory slot
+              </li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <li>Design a small program using multiple interacting classes</li>
+            <li>Use composition to model a system</li>
+            <li>Write safe code reminded by object references and null</li>
+            <li>Build a game loop with meaningful choices</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+
+          <p>
+            This mini-project is written using stepwise refinement. Complete
+            each chunk in order.
+            <strong>After each chunk, run the checkpoint program</strong> to verify
+            your progress.
+          </p>
+
+          <ul>
+            <li>
+              Create a new project named <strong>4-8-Escape-Room</strong>.
+            </li>
+            <li>
+              Create these files: <strong>Item.java</strong>, <strong
+                >Lock.java</strong
+              >, <strong>Room.java</strong>, <strong>Player.java</strong>, <strong
+                >Program.java</strong
+              >.
+            </li>
+            <li>Complete the chunks below in order. Don't skip checkpoints.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Chunk 1: Item (Build the smallest "thing" first)</h3>
+          <ul>
+            <li>Create the <strong>Item</strong> class.</li>
+            <li>
+              Use a keyCode where <AstroCode code="-1" lang="java" inline /> means
+              "not a key."
+            </li>
+            <li>
+              Add <AstroCode code="getDescription()" lang="java" inline /> for debugging
+              and player feedback.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1_Item}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Item.java"
+          />
+
+          <p class="mt-3">
+            <strong>Checkpoint:</strong> Run a tiny Main program to verify Items work.
+          </p>
+          <Code
+            code={Task1_Checkpoint}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java (Checkpoint 1)"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Chunk 2: Lock (Write the "win condition" logic early)</h3>
+          <ul>
+            <li>Create the <strong>Lock</strong> class.</li>
+            <li>The lock starts locked.</li>
+            <li>
+              <AstroCode code="tryUnlock(item)" lang="java" inline /> returns true
+              only for the correct key.
+            </li>
+            <li>
+              Unlock attempts with <AstroCode code="null" lang="java" inline /> must
+              fail safely.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2_Lock}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Lock.java"
+          />
+
+          <p class="mt-3">
+            <strong>Checkpoint:</strong> Test null, wrong key, and correct key.
+          </p>
+          <Code
+            code={Task2_Checkpoint}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java (Checkpoint 2)"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Chunk 3: Room (Composition begins here)</h3>
+          <ul>
+            <li>Create the <strong>Room</strong> class.</li>
+            <li>The Room has-a Lock and has-a hidden Item.</li>
+            <li>The player must search before taking the item.</li>
+            <li>
+              After the item is taken, the hidden item becomes <AstroCode
+                code="null"
+                lang="java"
+                inline
+              />.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3_Room}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Room.java"
+          />
+
+          <p class="mt-3">
+            <strong>Checkpoint:</strong> Search → take item → print what you found.
+          </p>
+          <Code
+            code={Task3_Checkpoint}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java (Checkpoint 3)"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Chunk 4: Player (One-slot inventory + sentinel method)</h3>
+          <ul>
+            <li>Create the <strong>Player</strong> class.</li>
+            <li>The player can hold exactly one item.</li>
+            <li>
+              Add <AstroCode code="getHeldItemName()" lang="java" inline /> that returns
+              <AstroCode code=`\"none\"` lang="java" inline /> if nothing is held.
+            </li>
+            <li>
+              Add <AstroCode code="pickUp(item)" lang="java" inline />, <AstroCode
+                code="dropItem()"
+                lang="java"
+                inline
+              />, and <AstroCode code="inspectHeldItem()" lang="java" inline />.
+            </li>
+          </ul>
+
+          <Code
+            code={Task4_Player}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Player.java"
+          />
+
+          <p class="mt-3">
+            <strong>Checkpoint:</strong> Pick up an item, inspect it, drop it, and
+            confirm the sentinel value.
+          </p>
+          <Code
+            code={Task4_Checkpoint}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java (Checkpoint 4)"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Chunk 5: Main Game Loop (Put it all together)</h3>
+          <ul>
+            <li>
+              Create fixed objects: one Room, one Lock, one hidden key Item, one
+              Player.
+            </li>
+            <li>Build a menu loop with the required actions.</li>
+            <li>Win condition: unlock the door.</li>
+            <li>
+              Make sure you can attempt unlock with no item (null) safely.
+            </li>
+          </ul>
+
+          <Code
+            code={Task5_Game}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Required Tests (Before you submit)</h3>
+          <ul>
+            <li>
+              Try unlocking the door before picking up anything (must not
+              crash).
+            </li>
+            <li>Search, then take the item.</li>
+            <li>Inspect held item (should display item description).</li>
+            <li>Unlock the door and win.</li>
+            <li>
+              Verify the hidden item cannot be taken twice (should fail after it
+              becomes null).
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should look similar to the sample below (your
+            story text can differ).
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of <strong
+              >Program.java</strong
+            >.
+          </p>
+
+          <ol>
+            <li>
+              Where did you use composition (has-a relationships)? List at least
+              two examples from your classes.
+            </li>
+            <li>
+              In this game, where can <AstroCode
+                code="null"
+                lang="java"
+                inline
+              /> occur? Give at least two situations.
+            </li>
+            <li>
+              What sentinel value did you use in <AstroCode
+                code="getHeldItemName()"
+                lang="java"
+                inline
+              />? Why is that useful in a menu program?
+            </li>
+            <li>
+              Which class "owns" the unlocking logic? Why is that a good design?
+            </li>
+            <li>
+              If you were allowed to use arrays to store multiple items later, what part of this game
+              could you expand first? (Answer conceptually—do not implement.)
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <ul>
+            <li>
+              Submit: <strong>Item.java</strong>, <strong>Lock.java</strong>, <strong
+                >Room.java</strong
+              >, <strong>Player.java</strong>, <strong>Program.java</strong>
+            </li>
+            <li>
+              Include your reflection answers as comments at the bottom of <strong
+                >Program.java</strong
+              >
+            </li>
+          </ul>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
