@@ -1,0 +1,540 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+
+const FigureHasA = `
+public class Car
+{
+    private Engine engine; // Car has-an Engine (may be null)
+
+    public Car()
+    {
+        engine = null;
+    }
+}
+`;
+
+const FigureDelegation = `
+public void start()
+{
+    if (engine != null)
+    {
+        engine.start();
+    }
+}
+`;
+
+const FigureSentinel = `
+public int getEngineHorsepower()
+{
+    if (engine == null)
+    {
+        return -1; // sentinel value: no engine installed
+    }
+
+    return engine.getHorsepower();
+}
+`;
+
+const Task1Engine = `
+public class Engine
+{
+    private int horsepower;
+    private boolean running;
+
+    public Engine(int horsepower)
+    {
+        this.horsepower = horsepower;
+        running = false;
+    }
+
+    public int getHorsepower()
+    {
+        return horsepower;
+    }
+
+    public boolean isRunning()
+    {
+        return running;
+    }
+
+    public void start()
+    {
+        running = true;
+    }
+
+    public void stop()
+    {
+        running = false;
+    }
+}
+`;
+
+const Task2Car = `
+public class Car
+{
+    private String make;
+    private String model;
+    private Engine engine; // Composition: Car has-an Engine (can be null)
+
+    public Car(String make, String model)
+    {
+        this.make = make;
+        this.model = model;
+        engine = null; // no engine installed yet
+    }
+
+    public String getMake()
+    {
+        return make;
+    }
+
+    public String getModel()
+    {
+        return model;
+    }
+
+    public void installEngine(Engine engine)
+    {
+        this.engine = engine;
+    }
+
+    public void removeEngine()
+    {
+        engine = null;
+    }
+
+    public boolean hasEngine()
+    {
+        return engine != null;
+    }
+
+    // AP-style sentinel value method
+    public int getEngineHorsepower()
+    {
+        if (engine == null)
+        {
+            return -1; // sentinel value: no engine installed
+        }
+
+        return engine.getHorsepower();
+    }
+
+    public void start()
+    {
+        if (engine == null)
+        {
+            System.out.println("Cannot start: no engine installed.");
+            return;
+        }
+
+        engine.start();
+        System.out.println("Car started.");
+    }
+
+    public void stop()
+    {
+        if (engine == null)
+        {
+            System.out.println("Cannot stop: no engine installed.");
+            return;
+        }
+
+        engine.stop();
+        System.out.println("Car stopped.");
+    }
+
+    public String getStatus()
+    {
+        int hp = getEngineHorsepower();
+
+        if (hp == -1)
+        {
+            return make + " " + model + " | Engine: none";
+        }
+
+        String state;
+
+        if (engine.isRunning())
+        {
+            state = "running";
+        }
+        else
+        {
+            state = "stopped";
+        }
+
+        return make + " " + model + " | Engine: " + hp + " HP (" + state + ")";
+    }
+}
+`;
+
+const Task3Main = `
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+
+        Car car = new Car("Honda", "Civic");
+        Engine smallEngine = new Engine(140);
+        Engine sportEngine = new Engine(220);
+
+        System.out.println("-- Composition Demo: Car has-an Engine --");
+        System.out.println(car.getStatus());
+
+        boolean running = true;
+
+        while (running)
+        {
+            System.out.println("\\n--- Menu ---");
+            System.out.println("1) Show status");
+            System.out.println("2) Install 140 HP engine");
+            System.out.println("3) Install 220 HP engine");
+            System.out.println("4) Remove engine");
+            System.out.println("5) Start car");
+            System.out.println("6) Stop car");
+            System.out.println("7) Print engine horsepower (AP-style)");
+            System.out.println("8) Quit");
+            System.out.print("> ");
+
+            String choice = input.nextLine();
+
+            if (choice.equals("1"))
+            {
+                System.out.println(car.getStatus());
+            }
+            else if (choice.equals("2"))
+            {
+                car.installEngine(smallEngine);
+                System.out.println("Installed 140 HP engine.");
+                System.out.println(car.getStatus());
+            }
+            else if (choice.equals("3"))
+            {
+                car.installEngine(sportEngine);
+                System.out.println("Installed 220 HP engine.");
+                System.out.println(car.getStatus());
+            }
+            else if (choice.equals("4"))
+            {
+                car.removeEngine();
+                System.out.println("Engine removed.");
+                System.out.println(car.getStatus());
+            }
+            else if (choice.equals("5"))
+            {
+                car.start();
+                System.out.println(car.getStatus());
+            }
+            else if (choice.equals("6"))
+            {
+                car.stop();
+                System.out.println(car.getStatus());
+            }
+            else if (choice.equals("7"))
+            {
+                int hp = car.getEngineHorsepower();
+
+                if (hp == -1)
+                {
+                    System.out.println("Horsepower: (no engine installed)");
+                }
+                else
+                {
+                    System.out.println("Horsepower: " + hp);
+                }
+            }
+            else if (choice.equals("8"))
+            {
+                running = false;
+            }
+            else
+            {
+                System.out.println("Invalid choice.");
+            }
+        }
+
+        System.out.println("\\nGoodbye!");
+    }
+}
+`;
+
+const SampleOutput = `
+-- Composition Demo: Car has-an Engine --
+Honda Civic | Engine: none
+
+--- Menu ---
+1) Show status
+2) Install 140 HP engine
+3) Install 220 HP engine
+4) Remove engine
+5) Start car
+6) Stop car
+7) Print engine horsepower (AP-style)
+8) Quit
+> 7
+Horsepower: (no engine installed)
+
+--- Menu ---
+> 5
+Cannot start: no engine installed.
+Honda Civic | Engine: none
+
+--- Menu ---
+> 2
+Installed 140 HP engine.
+Honda Civic | Engine: 140 HP (stopped)
+
+--- Menu ---
+> 7
+Horsepower: 140
+
+--- Menu ---
+> 5
+Car started.
+Honda Civic | Engine: 140 HP (running)
+
+--- Menu ---
+> 4
+Engine removed.
+Honda Civic | Engine: none
+
+--- Menu ---
+> 7
+Horsepower: (no engine installed)
+
+--- Menu ---
+> 8
+
+Goodbye!
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.7 Composition: Car Has-an Engine</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4.7</h3>
+            <h4 class="text-skynest-theme">Composition (Has-A Relationships)</h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Composition: one class contains another class as a field</li>
+              <li>Object references as instance variables</li>
+              <li>Working safely with <AstroCode code="null" lang="java" inline /></li>
+              <li>Delegation: calling methods on a contained object</li>
+              <li>AP-style sentinel return values</li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Composition: Has-A</h4>
+            <p>
+              Composition is a relationship where one object <strong>contains</strong> another object.
+            </p>
+            <p class="fragment">
+              A <strong>Car</strong> has an <strong>Engine</strong>.
+            </p>
+            <Code code={FigureHasA} lang="java" class="text-start fragment" />
+          </section>
+
+          <section data-auto-animate>
+            <h4>Why <AstroCode code="null" lang="java" inline /> Matters</h4>
+            <p>
+              Sometimes the contained object doesn’t exist yet.
+              In that case, the reference is <AstroCode code="null" lang="java" inline />.
+            </p>
+            <ul>
+              <li class="fragment">No engine installed yet → <AstroCode code="engine == null" lang="java" inline /></li>
+              <li class="fragment">Calling methods on null causes a crash</li>
+              <li class="fragment">Use a null check before using the contained object</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Delegation</h4>
+            <p>
+              Delegation means one object calls a method on an object it contains.
+              The Car can tell its Engine to start.
+            </p>
+            <Code code={FigureDelegation} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>AP-Style Sentinel Return Value</h4>
+            <p>
+              Sometimes a method needs to return a value even when data is missing.
+              A common AP pattern is returning a <strong>sentinel value</strong> to represent
+              “not available.”
+            </p>
+            <Code code={FigureSentinel} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Composition (Has-A)</dt>
+              <dd>A design where one class contains another object as a field.</dd>
+              <dt>Delegation</dt>
+              <dd>Calling a method on a contained object to perform work.</dd>
+              <dt>null</dt>
+              <dd>A reference that does not point to any object.</dd>
+              <dt>Sentinel Value</dt>
+              <dd>A special return value used to represent “missing” or “not available” data.</dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <li>Implement a has-a relationship using instance variables</li>
+            <li>Safely handle null references in a composed class</li>
+            <li>Use delegation to call methods on a contained object</li>
+            <li>Use a sentinel return value to represent missing data</li>
+            <li>Build a small multi-file program using composition</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+
+          <ul>
+            <li>Create a new project named <strong>4-7-Composition-Car-Engine</strong>.</li>
+            <li>Create three files: <strong>Engine.java</strong>, <strong>Car.java</strong>, and <strong>Program.java</strong>.</li>
+            <li>Complete each task in order.</li>
+          </ul>
+
+          <h3 class="mt-4">Task 1: Engine Class</h3>
+          <p>
+            Implement the <strong>Engine</strong> class. It should track horsepower and whether it is running.
+          </p>
+
+          <Code
+            code={Task1Engine}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Engine.java"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Car Class (Composition + Sentinel Value)</h3>
+          <p>
+            Implement the <strong>Car</strong> class that has-an <strong>Engine</strong>.
+            The engine may be <AstroCode code="null" lang="java" inline /> if it has not been installed yet.
+            Add the AP-style method <AstroCode code="getEngineHorsepower()" lang="java" inline /> that returns
+            <AstroCode code="-1" lang="java" inline /> when there is no engine.
+          </p>
+
+          <Code
+            code={Task2Car}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Car.java"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Main Program</h3>
+          <p>
+            Write a small menu-driven program that allows a user to install/remove an engine, start/stop the car,
+            and print horsepower using the sentinel-value method.
+          </p>
+
+          <Code
+            code={Task3Main}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <p>Your output should look similar to the sample below (values may vary slightly).</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <ol>
+            <li>
+              In your own words, explain what it means for a Car to “have-an” Engine.
+            </li>
+            <li>
+              Why might a Car’s engine be <AstroCode code="null" lang="java" inline /> in a program?
+              Give a real-world reason.
+            </li>
+            <li>
+              Identify one method in Car that uses delegation. What Engine method is being delegated to?
+            </li>
+            <li>
+              What could go wrong if Car tried to call <AstroCode code="engine.start()" lang="java" inline /> without checking for null?
+            </li>
+            <li>
+              Why does <AstroCode code="getEngineHorsepower()" lang="java" inline /> return
+              <AstroCode code="-1" lang="java" inline /> instead of returning
+              <AstroCode code="0" lang="java" inline />? What does <AstroCode code="-1" lang="java" inline /> represent?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your project files (<strong>Engine.java</strong>, <strong>Car.java</strong>, <strong>Program.java</strong>)
+            and your reflection answers to the appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

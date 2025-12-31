@@ -1,0 +1,321 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+import DogReference from "../../assets/courses/shared/img/dogs/dog-reference.gif";
+
+//#region CodeSnippets
+
+const FigureDefaults = `
+class Example
+{
+    private int count;
+    private double price;
+    private boolean active;
+    private String name;
+    private Product featuredProduct;
+}
+`;
+
+const FigureConstructorDefaults = `
+class Example
+{
+    private int count;
+    private String name;
+
+    public Example()
+    {
+        // Constructor runs AFTER default initialization
+        name = "Default";
+    }
+}
+`;
+
+const FigureNullVsEmpty = `
+String a = null;
+String b = "";
+
+System.out.println(a);
+System.out.println(b.length());
+`;
+
+const FigureReferenceAlias = `
+Dog dog1 = new Dog("Fido", "Greyhound", 3, "gray");
+Dog dog2 = dog1;
+`;
+
+const FigureNullCrash = `
+Product p = null;
+p.applyDiscount(10); // NullPointerException
+`;
+
+const FigureNullCheck = `
+if (p != null) {
+    p.applyDiscount(10);
+}
+`;
+
+const Task1 = `
+class Demo {
+    private int number;
+    private boolean flag;
+    private String text;
+}
+`;
+
+const Task2 = `
+class Test {
+    public static void main(String[] args) {
+        String name = null;
+
+        if (name != null) {
+            System.out.println(name.length());
+        } else {
+            System.out.println("Name is null");
+        }
+    }
+}
+`;
+
+const SampleOutput = `
+Name is null
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.6 Object References and Default Values</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4.6</h3>
+            <h4 class="text-skynest-theme">
+              Object References and Default Values
+            </h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Default initialization of instance variables</li>
+              <li>Primitive vs object defaults</li>
+              <li>
+                What <AstroCode code="null" lang="java" inline /> means
+              </li>
+              <li>Object references</li>
+              <li>Why NullPointerException occurs</li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Default Initialization</h4>
+            <p>
+              Instance variables are automatically assigned default values
+              before the constructor runs.
+            </p>
+            <Code code={FigureDefaults} lang="java" class="text-start" />
+          </section>
+
+          <section data-auto-animate>
+            <h4>Default Values</h4>
+            <ul>
+              <li class="fragment"><strong>int</strong> → 0</li>
+              <li class="fragment">
+                <strong>double</strong> → 0.0
+              </li>
+              <li class="fragment">
+                <strong>boolean</strong> → false
+              </li>
+              <li class="fragment">
+                <strong>char</strong> → '\u0000'
+              </li>
+              <li class="fragment">
+                <strong>Any object</strong> → null
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Constructors Run After Defaults</h4>
+            <p>
+              Default values are assigned <em>before</em> the constructor executes.
+            </p>
+            <Code
+              code={FigureConstructorDefaults}
+              lang="java"
+              class="text-start"
+            />
+          </section>
+
+          <section>
+            <h4>
+              What Does <AstroCode code="null" lang="java" inline /> Mean?
+            </h4>
+            <p>
+              <strong>null</strong> means a variable does not reference any object.
+            </p>
+            <ul>
+              <li class="fragment">null is not an object</li>
+              <li class="fragment">null is only used with object variables</li>
+              <li class="fragment">null is different from an empty String</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>null vs Empty String</h4>
+            <Code code={FigureNullVsEmpty} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>NullPointerException</h4>
+            <p>
+              If a variable is <AstroCode code="null" lang="java" inline />,
+              there is no object to use.
+            </p>
+            <Code code={FigureNullCrash} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Preventing NullPointerException</h4>
+            <Code code={FigureNullCheck} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Object References</h4>
+            <p>
+              Object variables store <strong>references</strong> to objects, not the
+              objects themselves.
+            </p>
+            <Code code={FigureReferenceAlias} lang="java" class="text-start" />
+            <img src={DogReference.src} class="img-fluid" />
+          </section>
+
+          <section>
+            <h4>Why This Matters</h4>
+            <ul>
+              <li class="fragment">Many fields start as null by default</li>
+              <li class="fragment">Constructors often prevent null problems</li>
+              <li class="fragment">
+                Composition (next lesson) relies heavily on object references
+              </li>
+              <li class="fragment">
+                Data structures (next module) are also reference types
+              </li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <li>Explain default values of instance variables</li>
+            <li>Describe what null represents</li>
+            <li>Identify object reference behavior</li>
+            <li>Prevent NullPointerException using null checks</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+
+          <h3>Task 1: Predict the Defaults</h3>
+          <p>
+            Examine the class below. Write down the default value for each
+            instance variable before the constructor runs.
+          </p>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Demo.java"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Safe Use of null</h3>
+          <p>Run the program below and explain why it does not crash.</p>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Test.java"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <ol>
+            <li>
+              Why do object variables default to <AstroCode
+                code="null"
+                lang="java"
+                inline
+              />?
+            </li>
+            <li>
+              What is the difference between a variable being null and an object
+              being empty?
+            </li>
+            <li>Why can two variables refer to the same object?</li>
+            <li>What causes a NullPointerException?</li>
+            <li>
+              Why do constructors often explicitly initialize object fields?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity responses and reflection answers to the
+            appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
