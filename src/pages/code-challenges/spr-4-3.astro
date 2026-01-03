@@ -1,0 +1,201 @@
+---
+import { Code } from "astro-expressive-code/components";
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+
+//#region CodeSnippets
+
+const Starter_Customer = `
+public class Customer
+{
+    // TODO: private instance variables (name, email)
+
+    // TODO: constructor(s)
+
+    // TODO: getters (getName, getEmail)
+
+    // TODO: getContactCard() -> returns a single formatted String
+}
+`;
+
+const Starter_Invoice = `
+public class Invoice
+{
+    // TODO: private instance variables
+    // invoiceNumber (int), amount (double), paid (boolean), customer (Customer)
+
+    // TODO: constructor
+    // Hint: invoices begin unpaid, and customer may be null
+
+    // TODO: getters (getInvoiceNumber, getAmount, isPaid)
+
+    // TODO: composition methods
+    // setCustomer(Customer customer)
+    // clearCustomer()
+    // getCustomerName() -> returns "none" if customer is null (sentinel)
+
+    // TODO: behavior methods
+    // markPaid()
+    // getSummary() -> returns a single formatted String describing the invoice
+}
+`;
+
+const Starter_Main = `
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // TODO: Create:
+        // 1) an Invoice with no Customer yet
+        // 2) a Customer
+        // 3) assign the Customer to the Invoice
+        // 4) mark the Invoice paid
+        // 5) print invoice summaries at each stage (see Sample Output)
+    }
+}
+`;
+
+const SampleOutput = `
+-- Invoice Demo --
+
+Invoice #1001 | Customer: none | Amount: $199.99 | Status: UNPAID
+
+Assigning customer...
+Invoice #1001 | Customer: Ada Lovelace | Amount: $199.99 | Status: UNPAID
+
+Marking invoice paid...
+Invoice #1001 | Customer: Ada Lovelace | Amount: $199.99 | Status: PAID
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 mb-5">
+        <section id="header">
+          <a href="/code-challenges/" class="btn btn-sm btn-outline-light mb-3">
+            <i class="si-arrow-left"></i> Back
+          </a>
+
+          <h2>Code Challenge: Invoice Has-a Customer (Composition)</h2>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="objective">
+          <h3>Objective</h3>
+
+          <p>
+            Practice <strong>composition</strong> by building a small business-domain model where an
+            <strong>Invoice</strong> has-a <strong>Customer</strong>. Your code should safely handle a missing
+            customer using a <strong>sentinel value</strong>.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Creating classes with constructors and instance variables</li>
+            <li>Using composition (has-a relationship)</li>
+            <li>Using <code>null</code> safely</li>
+            <li>Returning an AP-style sentinel value</li>
+            <li>Designing simple methods that describe object state</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="tasks">
+          <h3>Tasks</h3>
+
+          <ul>
+            <li>Create a new project named <span class="text-skynest-theme">CH-Composition-Invoice</span></li>
+            <li>Create three files: <strong>Customer.java</strong>, <strong>Invoice.java</strong>, <strong>Program.java</strong></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h4>Task 1: Customer Class</h4>
+          <ul>
+            <li>Add <strong>private</strong> instance variables: <code>name</code> and <code>email</code></li>
+            <li>Create a constructor that initializes both values</li>
+            <li>Add getters: <code>getName()</code>, <code>getEmail()</code></li>
+            <li>
+              Add <code>getContactCard()</code> that returns something like:
+              <code>"Ada Lovelace &lt;ada@company.com&gt;"</code>
+            </li>
+          </ul>
+
+          <Code
+            code={Starter_Customer}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Customer.java (Starter)"
+          />
+
+          <hr class="my-4" />
+
+          <h4>Task 2: Invoice Class (Composition)</h4>
+          <ul>
+            <li>Add private instance variables: <code>invoiceNumber</code>, <code>amount</code>, <code>paid</code>, and <code>customer</code></li>
+            <li>In the constructor, invoices begin <strong>UNPAID</strong></li>
+            <li>The <code>customer</code> field may start as <code>null</code></li>
+            <li>Add composition methods: <code>setCustomer</code> and <code>clearCustomer</code></li>
+            <li>
+              Add an AP-style sentinel method <code>getCustomerName()</code>:
+              <ul>
+                <li>Return the customer's name if customer is not null</li>
+                <li>Return <code>"none"</code> if customer is null</li>
+              </ul>
+            </li>
+            <li>Add <code>markPaid()</code> to set the invoice status to paid</li>
+            <li>
+              Add <code>getSummary()</code> that returns a single-line String summary exactly like the sample output format:
+              <code>Invoice #____ | Customer: ____ | Amount: $____ | Status: ____</code>
+            </li>
+          </ul>
+
+          <Code
+            code={Starter_Invoice}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Invoice.java (Starter)"
+          />
+
+          <hr class="my-4" />
+
+          <h4>Task 3: Main Method</h4>
+          <ul>
+            <li>Create an Invoice with invoice number <strong>1001</strong> and amount <strong>199.99</strong></li>
+            <li>Print the invoice summary (should show <code>Customer: none</code>)</li>
+            <li>Create a Customer named <strong>Ada Lovelace</strong> with any email you choose</li>
+            <li>Assign the customer to the invoice and print the summary again</li>
+            <li>Mark the invoice paid and print the summary one last time</li>
+          </ul>
+
+          <Code
+            code={Starter_Main}
+            frame="code"
+            lang="java"
+            showLineNumbers
+            title="Program.java (Starter)"
+          />
+        </section>
+
+        <Divider variant="8" />
+
+        <section id="sample-output">
+          <h3>Sample Output</h3>
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" />
+        </section>
+
+        <h1 class="text-center mt-5 text-skynest-theme border border-primary slow-flash">
+          Begin Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
