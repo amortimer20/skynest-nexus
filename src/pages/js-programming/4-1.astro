@@ -1,0 +1,267 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+// Arrays store a collection of related values under one variable name.
+let scores = [84, 91, 76, 88, 95];
+
+// Elements are accessed by index (position).
+// Indexes start at 0.
+console.log(scores[0]); // first element
+console.log(scores[2]); // third element
+`;
+
+const Figure2 = `
+// Updating an element
+let scores = [84, 91, 76, 88, 95];
+
+// Change the second score (index 1) to 100
+scores[1] = 100;
+
+console.log(scores);
+`;
+
+const Task1 = `
+// Task 1 — Create and Access Arrays
+// Follow the steps below.
+
+// 1) Create an array named 'foods' with 5 food strings.
+let foods = ["pizza", "tacos", "sushi", "pasta", "burgers"];
+
+// 2) Print the FIRST food (index 0).
+console.log("First food:", foods[0]);
+
+// 3) Print the THIRD food (index 2).
+console.log("Third food:", foods[2]);
+
+// 4) Print the LAST food.
+// (Hint: for today, you may use the last index directly since you know there are 5 items.)
+console.log("Last food:", foods[4]);
+
+// 5) Answer (in a comment):
+// If foods has 5 elements, what is the last index? Why?
+`;
+
+const Task2 = `
+// Task 2 — Modify an Array + Mini Challenge
+
+let temps = [72, 68, 75, 70, 69];
+
+// 1) Print the temperature at index 3 with a label.
+console.log("Temp at index 3:", temps[3]);
+
+// 2) Update the FIRST temperature to 74.
+temps[0] = 74;
+
+// 3) Update the LAST temperature to 71.
+temps[4] = 71;
+
+// 4) Print the entire temps array so we can see the changes.
+console.log("Updated temps:", temps);
+
+// 5) Mini Challenge (no loops):
+// Create a variable named 'range' that equals highest - lowest.
+// Use ONLY index access (temps[?]) and Math.max/Math.min.
+// Then print: "Range: X"
+//
+// Hint: Math.max(temps[0], temps[1], temps[2], temps[3], temps[4])
+// Hint: Math.min(temps[0], temps[1], temps[2], temps[3], temps[4])
+`;
+
+const SampleOutput = `
+First food: pizza
+Third food: sushi
+Last food: burgers
+Temp at index 3: 70
+Updated temps: [74, 68, 75, 70, 71]
+Range: 7
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.1 — Data Structures with Array</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4.1</h3>
+            <h4 class="text-skynest-theme">Data Structures with Arrays</h4>
+          </section>
+
+          <section>
+            <h4>Why Arrays Exist</h4>
+            <ul>
+              <li>Storing 10 related values as separate variables is annoying.</li>
+              <li>Storing 30+ values becomes hard to manage and easy to mess up.</li>
+              <li>Arrays store many related values under <strong>one</strong> variable name.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Vocabulary</h4>
+            <ul>
+              <li><strong>Array</strong>: a collection of values stored together</li>
+              <li><strong>Element</strong>: one value inside the array</li>
+              <li><strong>Index</strong>: the position number of an element</li>
+              <li><strong>Zero-based indexing</strong>: first element is at index <strong>0</strong></li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Today's Skills</h4>
+            <ul>
+              <li>Create an array using <span class="text-skynest-theme">[ ]</span></li>
+              <li>Access elements using <span class="text-skynest-theme">array[index]</span></li>
+              <li>Update an element with assignment</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Create arrays that store multiple related values.</ListItem>
+            <ListItem>Access elements using <span class="text-skynest-theme">indexes</span> (starting at 0).</ListItem>
+            <ListItem>Modify array elements by assigning a new value.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme">4-1-arrays.js</span>.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+            <ListItem variant="2">
+              If you get stuck, use the figures as examples and ask for help early.
+            </ListItem>
+          </ul>
+
+          <!-- Figures -->
+          <h3>
+            <span class="text-skynest-theme">Figures</span>: Examples
+          </h3>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="js"
+            title="Figure 1 — Create + Access"
+          />
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="js"
+            title="Figure 2 — Modify an Element"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Create + Access
+          </h3>
+          <ul>
+            <ListItem variant="2">Create an array of strings and print specific elements.</ListItem>
+            <ListItem variant="2">Answer the last-index question as a comment.</ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="js"
+            title="Task 1 — Create + Access"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Modify + Mini Challenge
+          </h3>
+          <ul>
+            <ListItem variant="2">Update elements by index, then print the updated array.</ListItem>
+            <ListItem variant="2">
+              Mini challenge: compute a range using <span class="text-skynest-theme">Math.max</span> and <span class="text-skynest-theme">Math.min</span>.
+            </ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="js"
+            title="Task 2 — Modify + Mini Challenge"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of your code.
+          </p>
+
+          <ol>
+            <li>What is an <span class="text-skynest-theme">index</span>? What is an <span class="text-skynest-theme">element</span>?</li>
+            <li>Why do arrays start at index <span class="text-skynest-theme">0</span> (zero-based indexing)?</li>
+            <li>Explain one reason arrays are easier to manage than 30 separate variables.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

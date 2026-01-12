@@ -1,0 +1,243 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+// Figure 1 — .length + Safe Last Element Pattern
+
+let scores = [84, 91, 76, 88, 95];
+
+console.log("Length:", scores.length); // number of elements
+
+let lastIndex = scores.length - 1;
+console.log("Last index:", lastIndex);
+console.log("Last score:", scores[lastIndex]);
+
+// Common mistakes:
+// scores.length() ❌ length is a property, not a function
+// scores[scores.length] ❌ one past the last index (undefined)
+`;
+
+const Figure2 = `
+// Figure 2 — Updating First + Last Elements Safely
+
+let tasks = ["Warm-up", "Notes", "Practice", "Exit Ticket"];
+
+tasks[0] = "Do Now"; // update first element
+tasks[tasks.length - 1] = "Reflection"; // update last element
+
+console.log(tasks);
+`;
+
+const Task1 = `
+// Task 1 — "Class Score Snapshot" (Create + Access + .length)
+//
+// Goal: Use .length to safely access the last element and print a short report.
+
+// Step 1: Create an array named 'scores' with at least 6 quiz scores.
+let scores = [84, 91, 76, 88, 95, 82];
+
+// Step 2: Print how many scores are stored.
+console.log("Number of scores:", scores.length);
+
+// Step 3: Create a variable named 'lastIndex' equal to the last valid index.
+let lastIndex = scores.length - 1;
+
+// Step 4: Print the first and last score (do NOT hard-code the last index).
+console.log("First score:", scores[0]);
+console.log("Last score:", scores[lastIndex]);
+
+// Step 5: Print ONE summary line exactly like this format:
+// We have X scores. First: A, Last: B
+console.log("We have " + scores.length + " scores. First: " + scores[0] + ", Last: " + scores[lastIndex]);
+`;
+
+const Task2 = `
+// Task 2 — "Score Fix + Pass Check" (Update + Decision)
+//
+// Scenario: The first and last scores were entered incorrectly.
+// - The first score should be 90
+// - The last score should be 87
+//
+// Step 1: Update the FIRST score to 90.
+scores[0] = 90;
+
+// Step 2: Update the LAST score to 87 using lastIndex (do NOT hard-code).
+scores[lastIndex] = 87;
+
+// Step 3: Print the updated scores array.
+console.log("Updated scores:", scores);
+
+// Step 4: Print whether the LAST score is passing (70 or higher).
+// Print exactly ONE of these lines:
+// "Last score is passing."
+// "Last score is not passing."
+if (scores[lastIndex] >= 70) {
+  console.log("Last score is passing.");
+} else {
+  console.log("Last score is not passing.");
+}
+
+// Step 5 (Optional Challenge):
+// Print: Last index is X (array length is Y).
+// Use lastIndex and scores.length
+`;
+
+const SampleOutput = `
+Number of scores: 6
+First score: 84
+Last score: 82
+We have 6 scores. First: 84, Last: 82
+Updated scores: [90, 91, 76, 88, 95, 87]
+Last score is passing.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.2 — Using .length</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Data Structures with Arrays</h3>
+            <h4 class="text-skynest-theme">Lesson 2 — Access + Update + .length</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Using <span class="text-skynest-theme">.length</span> to measure an array</li>
+              <li>Finding the last index with <span class="text-skynest-theme">length - 1</span></li>
+              <li>Accessing first and last elements safely</li>
+              <li>Updating elements using index expressions</li>
+              <li>Using array data inside <span class="text-skynest-theme">if/else</span></li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use <span class="text-skynest-theme">.length</span> to determine how many elements are in an array.</ListItem>
+            <ListItem>Compute the last index using <span class="text-skynest-theme">array.length - 1</span>.</ListItem>
+            <ListItem>Access and update the first and last elements without hard-coding the last index.</ListItem>
+            <ListItem>Use an <span class="text-skynest-theme">if/else</span> statement based on array data.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >arrays-length</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Class Score Snapshot
+          </h3>
+          <ul>
+            <ListItem variant="2">Create an array, print <span class="text-skynest-theme">.length</span>, and safely display the first and last values.</ListItem>
+            <ListItem variant="2">Do not hard-code the last index; use <span class="text-skynest-theme">lastIndex = scores.length - 1</span>.</ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="js"
+            title="Task 1 — Snapshot"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Score Fix + Pass Check
+          </h3>
+          <ul>
+            <ListItem variant="2">Update the first and last elements safely, then print the updated array.</ListItem>
+            <ListItem variant="2">Use <span class="text-skynest-theme">if/else</span> to print whether the last score is passing.</ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="js"
+            title="Task 2 — Update + Decision"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>Why is <span class="text-skynest-theme">array.length - 1</span> the last valid index?</li>
+            <li>What is wrong with <span class="text-skynest-theme">scores[scores.length]</span>?</li>
+            <li>Why is it better to use <span class="text-skynest-theme">lastIndex</span> instead of hard-coding a number?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
