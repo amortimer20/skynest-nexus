@@ -1,0 +1,486 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+console.log("--- Demo 1: Traverse Cities ---");
+
+let cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"];
+
+let i = 0;
+while (i < cities.length) {
+  console.log(i + ": " + cities[i]);
+  i++;
+}
+
+prompt("Press enter to continue...");
+`;
+
+const Figure2 = `
+// The standard traversal pattern
+
+let i = 0;
+while (i < array.length) {
+  console.log(array[i]);
+  i++;
+}
+`;
+
+const Figure3 = `
+// New Tool: push()
+// push(value) adds a value to the END of an array.
+
+let tasks = [];
+tasks.push("Practice arrays");
+tasks.push("Finish homework");
+
+console.log(tasks); // ["Practice arrays", "Finish homework"]
+console.log("Length:", tasks.length); // 2
+`;
+
+const Task1 = `
+console.log("--- Demo 1: Traverse Cities ---");
+
+let cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"];
+
+// Use a while loop to print every city in this format:
+// 0: Cleveland
+// 1: Chicago
+// ...
+let i = 0;
+while (i < cities.length) {
+  console.log(i + ": " + cities[i]);
+  i++;
+}
+
+// (Quick Check): What would happen if you changed the loop condition to:
+// while (i <= cities.length) ?
+// Answer as a comment below.
+
+prompt("Press enter to continue...");
+// -----------------------------------------------------------------------------
+`;
+
+const Task2 = `
+console.log("--- Demo 1: Traverse Cities ---");
+
+let cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"];
+
+// Use a while loop to print every city in this format:
+// 0: Cleveland
+// 1: Chicago
+// ...
+let i = 0;
+while (i < cities.length) {
+  console.log(i + ": " + cities[i]);
+  i++;
+}
+
+// (Quick Check): What would happen if you changed the loop condition to:
+// while (i <= cities.length) ?
+// Answer as a comment below.
+
+prompt("Press enter to continue...");
+// -----------------------------------------------------------------------------
+
+
+console.log("--- Demo 2: Simple Task App ---");
+
+let tasks = [];
+let choice = "";
+
+while (choice != "3") {
+    console.log("- Main Menu -");
+    console.log("1) Add task");
+    console.log("2) List tasks");
+    console.log("3) Exit");
+    choice = prompt("->");
+
+    if (choice == "1") {
+        let newTask = prompt("Enter task:");
+        tasks.push(newTask);
+        console.log(newTask + " added to tasks.\\n");
+    }
+    else if (choice == "2") {
+        console.log("--Tasks--");
+
+        if (tasks.length == 0) {
+            console.log("No tasks to complete.");
+        }
+
+        let i = 0;
+        while (i < tasks.length) {
+            console.log("* " + tasks[i]);
+            i++;
+        }
+
+        console.log(); // Add spacing after list
+    }
+    else if (choice == "3") {
+        console.log("Exiting app.\\n")
+    }
+    else {
+        console.log("Invalid option - Please try again.\\n");
+    }
+}
+`;
+
+const SampleOutput = `
+--- Demo 1: Traverse Cities ---
+0: Cleveland
+1: Chicago
+2: New York
+3: Dallas
+4: Seattle
+Press enter to continue... [Enter]
+
+--- Demo 2: Simple Task App ---
+- Main Menu -
+1) Add task
+2) List tasks
+3) Exit
+-> 1
+Enter task: Practice arrays
+Practice arrays added to tasks.
+
+- Main Menu -
+1) Add task
+2) List tasks
+3) Exit
+-> 1
+Enter task: Pack gym clothes
+Pack gym clothes added to tasks.
+
+- Main Menu -
+1) Add task
+2) List tasks
+3) Exit
+-> 2
+--Tasks--
+* Practice arrays
+* Pack gym clothes
+
+- Main Menu -
+1) Add task
+2) List tasks
+3) Exit
+-> 3
+Exiting app.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.1 Arrays: Traversal & push()</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 3.1</h3>
+            <h4 class="text-skynest-theme">Arrays: Traversal & push()</h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Traversing arrays with <span class="text-skynest-theme">while</span> loops</li>
+              <li>The traversal pattern: <span class="text-skynest-theme">i</span>, <span class="text-skynest-theme">array.length</span>, and <span class="text-skynest-theme">array[i]</span></li>
+              <li>Common mistakes when traversing arrays</li>
+              <li>Adding new items with <span class="text-skynest-theme">push()</span></li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Traversing Arrays</h4>
+            <p>
+              An array is most useful when you can work with <span class="text-skynest-theme">all</span> of its values.
+              To do that, we use a loop to visit each element one-by-one. This process is called
+              <span class="text-skynest-theme">traversal</span>.
+            </p>
+            <p class="fragment">
+              In this lesson, you will traverse arrays to print every element, and then build a simple
+              console task app that can grow over time.
+            </p>
+          </section>
+
+          <section>
+            <h4>
+              The Traversal Pattern with <AstroCode
+                code="while"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />
+            </h4>
+            <p>
+              The index variable starts at <AstroCode
+                code="0"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> and increases by 1 each loop. The loop stops when <AstroCode
+                code="i < array.length"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> becomes false.
+            </p>
+            <Code code={Figure2} lang="javascript" class="text-start" />
+          </section>
+
+          <section data-auto-animate>
+            <h4>Components of the Traversal Pattern</h4>
+            <Code code={Figure2} lang="javascript" class="text-start mb-3" />
+            <p class="fragment text-start">
+              1. (<AstroCode
+                code="let i = 0"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />) Start at the first index.
+            </p>
+            <p class="fragment text-start">
+              2. (<AstroCode
+                code="i < array.length"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />) Stop before going past the last element.
+            </p>
+            <p class="fragment text-start">
+              3. (<AstroCode
+                code="array[i]"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />) Access the current element.
+            </p>
+            <p class="fragment text-start">
+              4. (<AstroCode
+                code="i++"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />) Move to the next index.
+            </p>
+          </section>
+
+          <section>
+            <h4>Demo 1: Traverse Cities</h4>
+            <Code code={Figure1} lang="javascript" class="text-start mb-3" />
+          </section>
+
+          <section>
+            <h4 class="text-skynest-theme">New Tool: push()</h4>
+            <p>
+              The <AstroCode
+                code="push()"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> function adds a new item to the <strong>end</strong> of an array.
+              This is useful when your program needs a list that can grow over time.
+            </p>
+            <Code code={Figure3} lang="javascript" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Common Mistakes</h4>
+            <p>
+              <b>1. Off-by-one condition:</b> Using <AstroCode
+                code="i <= array.length"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /> goes one past the end and can print <AstroCode
+                code="undefined"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />.
+            </p>
+            <p class="fragment">
+              <b>2. Forgetting <AstroCode
+                code="i++"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              />:</b> The loop never ends.
+            </p>
+            <p class="fragment">
+              <b>3. Starting at the wrong index:</b> If you start at 1, you skip the first element.
+            </p>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt>Traversal</dt>
+              <dd>
+                Visiting each element of an array one-by-one, usually from index 0 to index length-1.
+              </dd>
+              <dt><AstroCode
+                code="array.length"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /></dt>
+              <dd>
+                The number of elements in an array. Used to stop a traversal loop safely.
+              </dd>
+            </dl>
+          </section>
+
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+            <dl>
+              <dt><AstroCode
+                code="push()"
+                lang="javascript"
+                inline
+                theme="material-theme-ocean"
+              /></dt>
+              <dd>
+                Adds a new element to the end of an array and increases its length by 1.
+              </dd>
+              <dt>Off-by-one Error</dt>
+              <dd>
+                A common mistake where a loop runs one extra time (or one too few times), often due to an incorrect loop condition.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use a <span class="text-skynest-theme">while</span> loop to traverse an array.</ListItem>
+            <ListItem>Access elements using <span class="text-skynest-theme">array[i]</span>.</ListItem>
+            <ListItem>Add new items using <span class="text-skynest-theme">push()</span>.</ListItem>
+            <ListItem>Build a simple console app that displays a growing list.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2"
+              >Create a new project named <span class="text-skynest-theme"
+                >arrays-traversal</span
+              >.</ListItem
+            >
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Traverse Cities
+          </h3>
+          <ul>
+            <ListItem variant="2">Use the traversal pattern to print every city with its index.</ListItem>
+            <ListItem variant="2">Answer the quick check question as a code comment.</ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Task 1"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Simple Task App
+          </h3>
+          <ul>
+            <ListItem variant="2">Use <span class="text-skynest-theme">prompt()</span> to choose menu options.</ListItem>
+            <ListItem variant="2">Add tasks using <span class="text-skynest-theme">tasks.push(newTask)</span>.</ListItem>
+            <ListItem variant="2">List tasks using a traversal while loop.</ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Task 2"
+            collapse={"1-22"}
+            mark={[
+              { label: "Add", range: "35" },
+              { label: "List", range: "40" },
+              { label: "Exit", range: "55" },
+            ]}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>Why must the traversal condition be <span class="text-skynest-theme">i &lt; array.length</span>?</li>
+            <li>What does <span class="text-skynest-theme">push()</span> do to an array?</li>
+            <li>In the task app, why do we check <span class="text-skynest-theme">tasks.length == 0</span> before printing tasks?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
