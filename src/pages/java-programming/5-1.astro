@@ -1,0 +1,318 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `// Creating an array with initial values
+int[] scores = {84, 91, 76, 88, 95};
+
+// Indexes start at 0
+System.out.println(scores[0]); // 84
+System.out.println(scores[2]); // 76
+`;
+
+const Figure2 = `// Index vs element (visualized)
+// index:   0    1    2    3
+// value:  12   25   30   18
+
+int[] points = {12, 25, 30, 18};
+
+System.out.println(points[1]); // 25
+`;
+
+const Figure3 = `// Creating an empty array of a given size
+int[] quizScores = new int[4];
+
+// Default values for int arrays are 0
+System.out.println(quizScores[0]); // 0
+
+quizScores[0] = 85;
+quizScores[1] = 92;
+`;
+
+const Figure4 = `// Why do we need this?
+import java.util.Arrays;
+
+// Arrays don't print nicely by default.
+// Arrays.toString(...) converts the array into readable text.
+int[] nums = {3, 6, 9};
+
+System.out.println(Arrays.toString(nums));
+`;
+
+const Task1 = `public class Program {
+  public static void main(String[] args) {
+    // Task 1 — Create + Access
+    String[] classes = {"Math", "English", "Science", "History"};
+
+    System.out.println("First class: " + classes[0]);
+    System.out.println("Last class: " + classes[3]);
+    System.out.println("Number of classes: " + classes.length);
+
+    // In a comment:
+    // If the length is 4, why is the last index 3?
+  }
+}
+`;
+
+const Task2 = `import java.util.Arrays;
+
+public class Program {
+  public static void main(String[] args) {
+    // Task 1 — Create + Access
+    String[] classes = {"Math", "English", "Science", "History"};
+
+    System.out.println("First class: " + classes[0]);
+    System.out.println("Last class: " + classes[3]);
+    System.out.println("Number of classes: " + classes.length);
+
+    // In a comment:
+    // If the length is 4, why is the last index 3?
+
+    // Task 2 — Modify Elements
+    int[] temps = {72, 68, 75, 70, 69};
+
+    System.out.println("Temp at index 2: " + temps[2]);
+
+    temps[0] = 74;
+    temps[temps.length - 1] = 71;
+
+    System.out.println("Updated temps: " + Arrays.toString(temps));
+  }
+}
+`;
+
+const Task3 = `import java.util.Arrays;
+
+public class Program {
+  public static void main(String[] args) {
+    // Task 1 — Create + Access
+    String[] classes = {"Math", "English", "Science", "History"};
+
+    System.out.println("First class: " + classes[0]);
+    System.out.println("Last class: " + classes[3]);
+    System.out.println("Number of classes: " + classes.length);
+
+    // In a comment:
+    // If the length is 4, why is the last index 3?
+
+    // Task 2 — Modify Elements
+    int[] temps = {72, 68, 75, 70, 69};
+
+    System.out.println("Temp at index 2: " + temps[2]);
+
+    temps[0] = 74;
+    temps[temps.length - 1] = 71;
+
+    System.out.println("Updated temps: " + Arrays.toString(temps));
+
+    // Task 3 — Empty Array
+    int[] points = new int[3];
+
+    points[0] = 10;
+    points[1] = 15;
+    points[2] = 20;
+
+    System.out.println("Points: " + Arrays.toString(points));
+  }
+}
+`;
+
+const Task4 = `import java.util.Arrays;
+
+public class Program {
+  public static void main(String[] args) {
+    // Task 1 — Create + Access
+    String[] classes = {"Math", "English", "Science", "History"};
+
+    System.out.println("First class: " + classes[0]);
+    System.out.println("Last class: " + classes[3]);
+    System.out.println("Number of classes: " + classes.length);
+
+    // In a comment:
+    // If the length is 4, why is the last index 3?
+
+    // Task 2 — Modify Elements
+    int[] temps = {72, 68, 75, 70, 69};
+
+    System.out.println("Temp at index 2: " + temps[2]);
+
+    temps[0] = 74;
+    temps[temps.length - 1] = 71;
+
+    System.out.println("Updated temps: " + Arrays.toString(temps));
+
+    // Task 3 — Empty Array
+    int[] points = new int[3];
+
+    points[0] = 10;
+    points[1] = 15;
+    points[2] = 20;
+
+    System.out.println("Points: " + Arrays.toString(points));
+
+    // Task 4 — Index Math
+    int[] nums = {4, 7, 2, 9};
+
+    int sum = nums[0] + nums[nums.length - 1];
+    int diff = nums[1] - nums[2];
+
+    System.out.println("First + Last: " + sum);
+    System.out.println("Second - Third: " + diff);
+  }
+}
+`;
+
+const SampleOutput = `First class: Math
+Last class: History
+Number of classes: 4
+Temp at index 2: 75
+Updated temps: [74, 68, 75, 70, 71]
+Points: [10, 15, 20]
+First + Last: 13
+Second - Third: 5
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/apcsa/unit-5/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.1 — Introduction to Arrays</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Arrays</h3>
+            <h4 class="text-skynest-theme">Storing many values under one name</h4>
+          </section>
+
+          <section>
+            <h4>Why Arrays Exist</h4>
+            <ul>
+              <li>Managing many related variables is messy</li>
+              <li>Arrays group related values together</li>
+              <li>Each value has a <strong>position</strong></li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Creating an Array (Pattern 1)</h4>
+            <Code code={Figure1} lang="java" class="text-start" />
+            <p>
+              Use this when you already know the values.
+            </p>
+          </section>
+
+          <section>
+            <h4>Indexes vs Elements</h4>
+            <Code code={Figure2} lang="java" class="text-start" />
+            <ul>
+              <li>Index = position</li>
+              <li>Element = value at that position</li>
+              <li>Indexes start at <strong>0</strong></li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Creating an Array (Pattern 2)</h4>
+            <Code code={Figure3} lang="java" class="text-start" />
+            <p>
+              This creates empty slots that you fill later.
+            </p>
+          </section>
+
+          <section>
+            <h4>Printing Arrays (New Concept)</h4>
+            <Code code={Figure4} lang="java" class="text-start" />
+            <ul>
+              <li><code>import</code> gives us access to helper tools</li>
+              <li><code>Arrays.toString</code> makes arrays readable</li>
+              <li>This is why we use the import today</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Create arrays using two different patterns.</ListItem>
+            <ListItem>Access and modify elements using indexes.</ListItem>
+            <ListItem>Use <code>.length</code> to reason about array size.</ListItem>
+            <ListItem>Explain what an <code>import</code> statement does.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">Create a project named <span class="text-skynest-theme">Activity5_1_Arrays</span>.</ListItem>
+            <ListItem variant="2">Complete Tasks 1–4 in order.</ListItem>
+            <ListItem variant="2">No loops yet — focus on positions and indexes.</ListItem>
+          </ul>
+
+          <h3><span class="text-skynest-theme">Task 1</span>: Create + Access</h3>
+          <Code code={Task1} frame="code" lang="java" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 2</span>: Modify Elements</h3>
+          <Code code={Task2} frame="code" lang="java" ins={{range: "1"}} collapse="5-13" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 3</span>: Empty Array</h3>
+          <Code code={Task3} frame="code" lang="java" collapse="5-23" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 4</span>: Index Math</h3>
+          <Code code={Task4} frame="code" lang="java" collapse="5-32" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <Code code={SampleOutput} frame="terminal" lang="txt" showLineNumbers={false} />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+          <ol>
+            <li>What is the difference between an index and an element?</li>
+            <li>Why does the last index equal <code>length - 1</code>?</li>
+            <li>When would creating an empty array be useful?</li>
+            <li>Why did we need an <code>import</code> statement today?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>Submit your completed activity and reflection answers.</p>
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
