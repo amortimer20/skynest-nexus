@@ -1,0 +1,305 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+// Survey data example
+let responses = [6, 7, 5, 8, 6];
+
+// Processing pattern
+let total = 0;
+let i = 0;
+
+while (i < responses.length) {
+  total += responses[i];
+  i++;
+}
+
+let average = total / responses.length;
+console.log("Average:", average);
+`;
+
+const Figure2 = `
+// Counting values that meet a condition
+let belowSeven = 0;
+let i = 0;
+
+while (i < responses.length) {
+  if (responses[i] < 7) {
+    belowSeven++;
+  }
+  i++;
+}
+
+console.log("Below 7 hours:", belowSeven);
+`;
+
+const Task1 = `
+console.log("--- Demo 1: Collect Survey Data ---");
+
+let responses = [];
+let input = "";
+
+while (input != "done") {
+  input = prompt("Enter hours of sleep (or type 'done'):");
+
+  if (input != "done") {
+    responses.push(parseInt(input));
+  }
+}
+
+console.log("Responses collected:", responses.length);
+prompt("Press enter to continue...");
+`;
+
+const Task2 = `
+console.log("--- Demo 2: Survey Analyzer ---");
+
+// Sample data (use your collected data here)
+let responses = [6, 7, 5, 8, 6, 4, 9];
+
+// Step 1: Calculate total and average
+let total = 0;
+let i = 0;
+
+while (i < responses.length) {
+  total += responses[i];
+  i++;
+}
+
+let average = total / responses.length;
+
+// Step 2: Count responses below 7 hours
+let belowSeven = 0;
+i = 0;
+
+while (i < responses.length) {
+  if (responses[i] < 7) {
+    belowSeven++;
+  }
+  i++;
+}
+
+// Step 3: Output results
+console.log("Number of responses:", responses.length);
+console.log("Average hours of sleep:", average);
+console.log("Students below 7 hours:", belowSeven);
+
+prompt("Press enter to continue...");
+`;
+
+const SampleOutput = `
+--- Demo 1: Collect Survey Data ---
+Enter hours of sleep (or type 'done'): 6
+Enter hours of sleep (or type 'done'): 7
+Enter hours of sleep (or type 'done'): 5
+Enter hours of sleep (or type 'done'): 8
+Enter hours of sleep (or type 'done'): done
+Responses collected: 4
+Press enter to continue... [Enter]
+
+--- Demo 2: Survey Analyzer ---
+Number of responses: 7
+Average hours of sleep: 6.43
+Students below 7 hours: 4
+Press enter to continue... [Enter]
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.5 — Survey Analyzer</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4.5</h3>
+            <h4 class="text-skynest-theme">Analyzing Real-World Data</h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Collecting user input</li>
+              <li>Storing survey data in arrays</li>
+              <li>Processing data with traversal</li>
+              <li>Summarizing results</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Why Analyze Data?</h4>
+            <p>
+              Many real programs don’t just store information — they
+              <span class="text-skynest-theme">analyze</span> it.
+            </p>
+            <p class="fragment">
+              Surveys, fitness apps, and recommendation systems all rely on
+              processing collections of data.
+            </p>
+          </section>
+
+          <section>
+            <h4>The Survey Question</h4>
+            <p>
+              In this activity, your program analyzes responses to the question:
+            </p>
+            <p class="text-skynest-theme">
+              “How many hours of sleep did you get last night?”
+            </p>
+          </section>
+
+          <section>
+            <h4>Processing Pattern Review</h4>
+            <p>
+              Most data-processing programs follow this pattern:
+            </p>
+            <ul>
+              <li>Collect values into a list</li>
+              <li>Traverse the list</li>
+              <li>Update one or more accumulator variables</li>
+              <li>Use the results to produce output</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Demo: Calculating an Average</h4>
+            <Code code={Figure1} lang="javascript" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Demo: Counting Below a Threshold</h4>
+            <Code code={Figure2} lang="javascript" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Why This Matters</h4>
+            <ul>
+              <li>This pattern appears directly in the Create Performance Task</li>
+              <li>Simple programs can still analyze meaningful data</li>
+              <li>Clear logic is more important than complexity</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Collect user input and store it in an array.</ListItem>
+            <ListItem>Use traversal to process survey data.</ListItem>
+            <ListItem>Calculate averages from numeric lists.</ListItem>
+            <ListItem>Count values that meet a condition.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme">survey-analyzer</span>.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Collect Survey Data
+          </h3>
+          <ul>
+            <ListItem variant="2">Use <code>prompt()</code> to collect responses.</ListItem>
+            <ListItem variant="2">Store each response using <code>push()</code>.</ListItem>
+            <ListItem variant="2">Stop collecting data when the user types <code>done</code>.</ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Task 1 — Collect Data"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Analyze Results
+          </h3>
+          <ul>
+            <ListItem variant="2">Calculate the average hours of sleep.</ListItem>
+            <ListItem variant="2">Count how many responses are below 7 hours.</ListItem>
+            <ListItem variant="2">Print a clear summary of the results.</ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Task 2 — Survey Analyzer"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>Why is traversal necessary to calculate an average?</li>
+            <li>What role do accumulator variables play in data processing?</li>
+            <li>How does this program demonstrate meaningful data analysis?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

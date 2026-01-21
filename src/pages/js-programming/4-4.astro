@@ -1,0 +1,297 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `
+// Processing Pattern: Counting Elements
+
+let tasks = ["Homework", "Study", "Workout"];
+
+let count = 0;
+let i = 0;
+
+while (i < tasks.length) {
+  count++;
+  i++;
+}
+
+console.log("Number of tasks:", count);
+`;
+
+const Figure2 = `
+// Processing Pattern: Total + Average
+
+let scores = [85, 90, 78, 92, 88];
+
+let total = 0;
+let i = 0;
+
+while (i < scores.length) {
+  total += scores[i];
+  i++;
+}
+
+let average = total / scores.length;
+console.log("Average score:", average);
+`;
+
+const Task1 = `
+console.log("--- Demo 1: Task Counter ---");
+
+// Starter task list
+let tasks = [
+  "Finish math homework",
+  "Practice arrays",
+  "Pack gym clothes",
+  "Email coach"
+];
+
+// Use traversal to COUNT how many tasks exist
+let count = 0;
+let i = 0;
+
+while (i < tasks.length) {
+  count++;
+  i++;
+}
+
+// Print the result
+console.log("You have " + count + " tasks to complete.");
+
+prompt("Press enter to continue...");
+`;
+
+const Task2 = `
+console.log("--- Demo 2: Score Analyzer ---");
+
+// Starter data
+let scores = [72, 85, 90, 66, 88];
+
+// Step 1: Calculate the TOTAL of all scores
+let total = 0;
+let i = 0;
+
+while (i < scores.length) {
+  total += scores[i];
+  i++;
+}
+
+// Step 2: Calculate the AVERAGE score
+let average = total / scores.length;
+
+// Step 3: Print results
+console.log("Total score:", total);
+console.log("Average score:", average);
+
+// Step 4: Print a message based on the average
+if (average >= 70) {
+  console.log("Class average is passing.");
+} else {
+  console.log("Class average is not passing.");
+}
+
+prompt("Press enter to continue...");
+`;
+
+const SampleOutput = `
+--- Demo 1: Task Counter ---
+You have 4 tasks to complete.
+Press enter to continue... [Enter]
+
+--- Demo 2: Score Analyzer ---
+Total score: 401
+Average score: 80.2
+Class average is passing.
+Press enter to continue... [Enter]
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.4 — Processing Arrays</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4.4</h3>
+            <h4 class="text-skynest-theme">Processing Data with Arrays</h4>
+          </section>
+
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Processing arrays using traversal</li>
+              <li>Counting elements</li>
+              <li>Calculating totals and averages</li>
+              <li>Using conditionals with processed data</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>From Lists to Data</h4>
+            <p>
+              In the previous activity, arrays helped us <span class="text-skynest-theme">store</span>
+              and <span class="text-skynest-theme">display</span> information.
+            </p>
+            <p class="fragment">
+              In this activity, arrays become <span class="text-skynest-theme">data</span> —
+              something we can analyze, summarize, and make decisions with.
+            </p>
+          </section>
+
+          <section>
+            <h4>The Processing Pattern</h4>
+            <p>
+              Processing an array usually follows this pattern:
+            </p>
+            <ul>
+              <li>Start with an accumulator variable (<code>count</code>, <code>total</code>)</li>
+              <li>Traverse the array</li>
+              <li>Update the accumulator each loop</li>
+              <li>Use the final result</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Demo: Counting Items</h4>
+            <Code code={Figure1} lang="javascript" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Demo: Total & Average</h4>
+            <Code code={Figure2} lang="javascript" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Why This Matters</h4>
+            <ul>
+              <li>This is how programs analyze survey results</li>
+              <li>This is how grades are summarized</li>
+              <li>This pattern appears directly in the Create Performance Task</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use traversal to process every element in an array.</ListItem>
+            <ListItem>Count elements using an accumulator variable.</ListItem>
+            <ListItem>Calculate totals and averages from numeric arrays.</ListItem>
+            <ListItem>Use conditionals based on processed results.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme">arrays-processing</span>.
+            </ListItem>
+            <ListItem variant="2">Complete each task individually.</ListItem>
+          </ul>
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Task Counter
+          </h3>
+          <ul>
+            <ListItem variant="2">Use traversal to count how many tasks exist.</ListItem>
+            <ListItem variant="2">Store the result in a variable named <code>count</code>.</ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Task 1 — Task Counter"
+          />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Score Analyzer
+          </h3>
+          <ul>
+            <ListItem variant="2">Calculate the total and average of all scores.</ListItem>
+            <ListItem variant="2">Use an <span class="text-skynest-theme">if/else</span> statement with the average.</ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Task 2 — Score Analyzer"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>What is the purpose of an accumulator variable?</li>
+            <li>Why do we divide by <code>array.length</code> when calculating an average?</li>
+            <li>How does traversal allow a program to analyze data?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
