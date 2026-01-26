@@ -1,0 +1,612 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const Figure1 = `// Standard array traversal pattern
+int[] nums = {4, 7, 2, 9};
+
+for (int i = 0; i < nums.length; i++)
+{
+  System.out.println("Index " + i + " => " + nums[i]);
+}
+
+// i is the index (position)
+// nums[i] is the element (value at that position)
+`;
+
+const Figure2 = `// Common mistake: off-by-one (DO NOT DO THIS)
+int[] nums = {4, 7, 2, 9};
+
+// When i == nums.length, nums[i] is out of bounds
+for (int i = 0; i <= nums.length; i++)
+{
+  System.out.println(nums[i]);
+}
+
+// Correct condition is: i < nums.length
+`;
+
+const Figure3 = `// Tracing practice: What prints?
+int[] a = {10, 20, 30};
+
+for (int i = 0; i < a.length; i++)
+{
+  System.out.println(a[i] + i);
+}
+
+// i=0 prints 10+0
+// i=1 prints 20+1
+// i=2 prints 30+2
+`;
+
+const Figure4 = `// Using import to print arrays nicely
+import java.util.Arrays;
+
+int[] nums = {4, 7, 2, 9};
+System.out.println(Arrays.toString(nums));
+
+// Without Arrays.toString, printing an array isn't readable.
+`;
+
+const Task1 = `public class Program
+{
+  public static void main(String[] args)
+  {
+    // Task 1 — Print Every Element (Traversal Basics)
+    int[] nums = {4, 7, 2, 9, 5};
+
+    // Use a for loop to print each element on its own line.
+    // Example output line: "Value: 4"
+    for (int i = 0; i < nums.length; i++)
+    {
+      System.out.println("Value: " + nums[i]);
+    }
+  }
+}
+`;
+
+const Task2 = `public class Program
+{
+  public static void main(String[] args)
+  {
+    // Task 1 — Print Every Element (Traversal Basics)
+    int[] nums = {4, 7, 2, 9, 5};
+
+    // Use a for loop to print each element on its own line.
+    // Example output line: "Value: 4"
+    for (int i = 0; i < nums.length; i++)
+    {
+      System.out.println("Value: " + nums[i]);
+    }
+    
+
+    // Task 2 — Sum + Average
+    int[] scores = {84, 91, 76, 88, 95};
+
+    int sum = 0;
+
+    // Add every element into sum
+    for (int i = 0; i < scores.length; i++)
+    {
+      sum += scores[i];
+    }
+
+    double avg = (double) sum / scores.length;
+
+    System.out.println("Sum: " + sum);
+    System.out.println("Average: " + avg);
+  }
+}
+`;
+
+const Task3 = `public class Program
+{
+  public static void main(String[] args)
+  {
+    // Task 1 — Print Every Element (Traversal Basics)
+    int[] nums = {4, 7, 2, 9, 5};
+
+    // Use a for loop to print each element on its own line.
+    // Example output line: "Value: 4"
+    for (int i = 0; i < nums.length; i++)
+    {
+      System.out.println("Value: " + nums[i]);
+    }
+    
+    
+    // Task 2 — Sum + Average
+    int[] scores = {84, 91, 76, 88, 95};
+
+    int sum = 0;
+
+    // Add every element into sum
+    for (int i = 0; i < scores.length; i++)
+    {
+      sum += scores[i];
+    }
+
+    double avg = (double) sum / scores.length;
+
+    System.out.println("Sum: " + sum);
+    System.out.println("Average: " + avg);
+
+
+    // Task 3 — Count Values Meeting a Condition
+    int[] temps = {72, 68, 75, 70, 69, 76, 71};
+
+    // Count how many temps are 72 or higher
+    int count = 0;
+
+    for (int i = 0; i < temps.length; i++)
+    {
+      if (temps[i] >= 72)
+      {
+        count++;
+      }
+    }
+
+    System.out.println("Temps >= 72: " + count);
+  }
+}
+`;
+
+const Task4 = `public class Program
+{
+  public static void main(String[] args)
+  {
+    // Task 1 — Print Every Element (Traversal Basics)
+    int[] nums = {4, 7, 2, 9, 5};
+
+    // Use a for loop to print each element on its own line.
+    // Example output line: "Value: 4"
+    for (int i = 0; i < nums.length; i++)
+    {
+      System.out.println("Value: " + nums[i]);
+    }
+    
+    
+    // Task 2 — Sum + Average
+    int[] scores = {84, 91, 76, 88, 95};
+
+    int sum = 0;
+
+    // Add every element into sum
+    for (int i = 0; i < scores.length; i++)
+    {
+      sum += scores[i];
+    }
+
+    double avg = (double) sum / scores.length;
+
+    System.out.println("Sum: " + sum);
+    System.out.println("Average: " + avg);
+
+
+    // Task 3 — Count Values Meeting a Condition
+    int[] temps = {72, 68, 75, 70, 69, 76, 71};
+
+    // Count how many temps are 72 or higher
+    int count = 0;
+
+    for (int i = 0; i < temps.length; i++)
+    {
+      if (temps[i] >= 72)
+      {
+        count++;
+      }
+    }
+
+    System.out.println("Temps >= 72: " + count);
+
+
+    // Task 4 — Find Min and Max (Classic AP Pattern)
+    int[] nums = {4, 7, 2, 9, 5};
+
+    // Start min and max at the first element
+    int min = nums[0];
+    int max = nums[0];
+
+    for (int i = 1; i < nums.length; i++) {
+      if (nums[i] < min)
+      {
+        min = nums[i];
+      }
+      if (nums[i] > max)
+      {
+        max = nums[i];
+      }
+    }
+
+    System.out.println("Min: " + min);
+    System.out.println("Max: " + max);
+  }
+}
+`;
+
+const SampleOutput = `Value: 4
+Value: 7
+Value: 2
+Value: 9
+Value: 5
+Sum: 434
+Average: 86.8
+Temps >= 72: 3
+Min: 2
+Max: 9
+`;
+//#endregion
+---
+
+<Layout>
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-10">
+                <a
+                    href="/java-programming/"
+                    class="btn btn-sm btn-outline-light mb-3"
+                >
+                    <i class="si-arrow-left"></i> Back
+                </a>
+
+                <h1>Activity 5.2 — Array Traversal with for Loops</h1>
+                <Divider variant="8" classes="mb-4" />
+
+                <!-- Introduction -->
+                <h2>Introduction</h2>
+
+                <Presentation>
+                    <section>
+                        <h3>Activity 5.2</h3>
+                        <h4 class="text-skynest-theme">
+                            Array Traversal with for Loops
+                        </h4>
+                    </section>
+
+                    <section>
+                        <h4>Warm-Up Question</h4>
+                        <ul>
+                            <li>
+                                If an array has <strong>100</strong> elements…
+                            </li>
+                            <li>
+                                Do you really want to type <code>arr[0]</code>, <code
+                                    >arr[1]</code
+                                >, … <code>arr[99]</code>?
+                            </li>
+                            <li class="text-skynest-theme">
+                                <strong>Traversal</strong> means visiting every element
+                                using a loop.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Key Vocabulary (Again)</h4>
+                        <ul>
+                            <li>
+                                <strong>Index</strong>: position (starts at 0)
+                            </li>
+                            <li>
+                                <strong>Element</strong>: value stored at a
+                                position
+                            </li>
+                            <li>
+                                <strong>Length</strong>: number of elements (<code
+                                    >arr.length</code
+                                >)
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>The One Loop Pattern You Must Know</h4>
+                        <Code code={Figure1} lang="java" class="text-start" />
+                        <ul>
+                            <li><code>i</code> starts at 0 (first index)</li>
+                            <li>
+                                loop continues while <code
+                                    >i &lt; arr.length</code>
+                            </li>
+                            <li>
+                                <code>arr[i]</code> means “element at index i”
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Index vs Element</h4>
+                        <ul>
+                            <li>
+                                <code>i</code> is the <strong>index</strong>
+                            </li>
+                            <li>
+                                <code>arr[i]</code> is the <strong
+                                    >element</strong>
+                            </li>
+                            <li class="text-skynest-theme">
+                                Index = where, Element = what
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Off-by-One (Most Common Bug)</h4>
+                        <Code code={Figure2} lang="java" class="text-start" />
+                        <ul>
+                            <li>
+                                Valid indexes go from <code>0</code> to <code
+                                    >length - 1</code>
+                            </li>
+                            <li>
+                                <code>i &lt; length</code> stops the loop before it
+                                breaks
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Tracing Example (AP Style)</h4>
+                        <Code code={Figure3} lang="java" class="text-start" />
+                        <ul>
+                            <li>
+                                Before you run code, you should be able to
+                                predict output.
+                            </li>
+                            <li>
+                                Write the values of <code>i</code> and what prints
+                                each time.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Printing Arrays (Reminder)</h4>
+                        <Code code={Figure4} lang="java" class="text-start" />
+                        <ul>
+                            <li>
+                                <code>import</code> lets us use helper tools from
+                                Java libraries.
+                            </li>
+                            <li>
+                                <code>Arrays.toString(...)</code> converts an array
+                                into readable text.
+                            </li>
+                            <li>
+                                Today: you'll mostly print elements in a loop —
+                                that's even more readable.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Today's Skills</h4>
+                        <ul>
+                            <li>
+                                Traverse an array using a <code>for</code> loop
+                            </li>
+                            <li>
+                                Compute a <strong>sum</strong> and <strong
+                                    >average</strong>
+                            </li>
+                            <li>Count elements that match a condition</li>
+                            <li>Find a minimum or maximum value</li>
+                        </ul>
+                    </section>
+                </Presentation>
+
+                <section id="objectives">
+                    <h3>Objectives</h3>
+                    <ul>
+                        <ListItem
+                            >Use a <code>for</code> loop to visit every element in
+                            an array.</ListItem
+                        >
+                        <ListItem
+                            >Explain why the correct loop condition is <code
+                                >i &lt; arr.length</code
+                            >.</ListItem
+                        >
+                        <ListItem
+                            >Write traversal code that computes a sum/average or
+                            count.</ListItem
+                        >
+                        <ListItem
+                            >Use traversal to find a minimum and maximum value.</ListItem
+                        >
+                    </ul>
+                </section>
+
+                <Divider variant="8" classes="mb-4" />
+
+                <section id="activity-tasks">
+                    <h2>Activity Tasks</h2>
+                    <ul>
+                        <ListItem variant="2">
+                            Create a new project named <span
+                                class="text-skynest-theme"
+                                >Activity5_2_ArrayTraversal</span
+                            >.
+                        </ListItem>
+                        <ListItem variant="2"
+                            >Complete each task in order.</ListItem
+                        >
+                        <ListItem variant="2">
+                            Use only <span class="text-skynest-theme"
+                                >index-based for loops</span
+                            > today (no enhanced for loop yet).
+                        </ListItem>
+                    </ul>
+
+                    <!-- Task 1 -->
+                    <h3>
+                        <span class="text-skynest-theme">Task 1</span>: Print
+                        Every Element
+                    </h3>
+                    <ul>
+                        <ListItem variant="2"
+                            >Traverse an array and print each element.</ListItem
+                        >
+                        <ListItem variant="2"
+                            >Make sure your loop condition uses <code
+                                >i &lt; nums.length</code
+                            >.</ListItem
+                        >
+                    </ul>
+                    <Code
+                        code={Task1}
+                        frame="code"
+                        lang="java"
+                        title="Task 1 — Traversal Basics"
+                    />
+
+                    <hr class="my-4" />
+
+                    <!-- Task 2 -->
+                    <h3>
+                        <span class="text-skynest-theme">Task 2</span>: Sum +
+                        Average
+                    </h3>
+                    <ul>
+                        <ListItem variant="2"
+                            >Use a loop to add every score into <code>sum</code
+                            >.</ListItem
+                        >
+                        <ListItem variant="2"
+                            >Compute the average as a <code>double</code
+                            >.</ListItem
+                        >
+                    </ul>
+                    <Code
+                        code={Task2}
+                        frame="code"
+                        lang="java"
+                        title="Task 2 — Sum + Average"
+                        collapse="5-13"
+                    />
+
+                    <hr class="my-4" />
+
+                    <!-- Task 3 -->
+                    <h3>
+                        <span class="text-skynest-theme">Task 3</span>: Count
+                        Values Meeting a Condition
+                    </h3>
+                    <ul>
+                        <ListItem variant="2"
+                            >Count how many items match a rule using an <code
+                                >if</code
+                            > inside the loop.</ListItem
+                        >
+                        <ListItem variant="2"
+                            >This pattern shows up constantly on AP-style
+                            questions.</ListItem
+                        >
+                    </ul>
+                    <Code
+                        code={Task3}
+                        frame="code"
+                        lang="java"
+                        title="Task 3 — Counting"
+                        collapse="5-30"
+                    />
+
+                    <hr class="my-4" />
+
+                    <!-- Task 4 -->
+                    <h3>
+                        <span class="text-skynest-theme">Task 4</span>: Find Min
+                        and Max
+                    </h3>
+                    <ul>
+                        <ListItem variant="2"
+                            >Initialize <code>min</code> and <code>max</code> to the
+                            first element.</ListItem
+                        >
+                        <ListItem variant="2"
+                            >Traverse from index 1 to the end, updating as
+                            needed.</ListItem
+                        >
+                    </ul>
+                    <Code
+                        code={Task4}
+                        frame="code"
+                        lang="java"
+                        title="Task 4 — Min/Max"
+                        collapse="5-47"
+                    />
+                </section>
+
+                <Divider variant="8" classes="my-4" />
+
+                <section id="sample-output">
+                    <h2>Sample Output</h2>
+
+                    <p>
+                        Your program output should something similar to the
+                        sample output below.
+                    </p>
+
+                    <Code
+                        code={SampleOutput}
+                        frame="terminal"
+                        lang="txt"
+                        showLineNumbers={false}
+                        title="Sample Output"
+                    />
+                </section>
+
+                <Divider variant="8" classes="my-4" />
+
+                <section id="reflection">
+                    <h2>Reflection Questions</h2>
+
+                    <p>
+                        You may write your reflection answers as comments at the
+                        bottom of your code.
+                    </p>
+
+                    <ol>
+                        <li>
+                            In one sentence: what does it mean to <strong
+                                >traverse</strong
+                            > an array?
+                        </li>
+                        <li>
+                            Why is <code>i &lt; arr.length</code> correct, but <code
+                                >i &lt;= arr.length</code
+                            > is not?
+                        </li>
+                        <li>
+                            What is the difference between <code>i</code> and <code
+                                >arr[i]</code
+                            >?
+                        </li>
+                    </ol>
+                </section>
+
+                <Divider variant="8" classes="my-4" />
+
+                <section id="submission">
+                    <h2>Submission</h2>
+
+                    <p>
+                        Submit your activity and reflection answers to the
+                        appropriate dropbox.
+                    </p>
+
+                    <h1
+                        class="text-center mt-5 text-skynest-theme border border-primary"
+                    >
+                        Activity Complete
+                    </h1>
+                </section>
+            </div>
+        </div>
+    </div>
+</Layout>
