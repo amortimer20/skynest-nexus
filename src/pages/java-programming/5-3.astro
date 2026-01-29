@@ -1,0 +1,482 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const SlideSnippet1 = `// Traversal template (the "shape" of many algorithms)
+for (int i = 0; i < arr.length; i++)
+{
+    // work with arr[i]
+}`;
+
+const SlideSnippet2 = `// Max pattern (start with first element)
+int max = arr[0];
+
+for (int i = 1; i < arr.length; i++)
+{
+    if (arr[i] > max)
+    {
+        max = arr[i];
+    }
+}`;
+
+const SlideSnippet3 = `// Swap pattern (requires a temp variable)
+int temp = arr[i];
+arr[i] = arr[j];
+arr[j] = temp;`;
+
+const SlideSnippet4 = `// Linear search: "check every element"
+boolean found = false;
+
+for (int i = 0; i < arr.length; i++)
+{
+    if (arr[i] == target)
+    {
+        found = true;
+    }
+}`;
+
+const SlideSnippet5 = `// Binary search (enrichment): "cut the search space"
+int low = 0;
+int high = arr.length - 1;
+
+while (low <= high)
+{
+    int mid = (low + high) / 2;
+
+    // compare arr[mid] to target
+    // move low or high inward
+}`;
+
+const Figure1 = `// Review: counting pattern (loop + if + counter)
+int[] scores = {84, 91, 76, 88, 95};
+int count = 0;
+
+for (int i = 0; i < scores.length; i++)
+{
+    if (scores[i] >= 80)
+    {
+        count++;
+    }
+}
+
+System.out.println(count);
+`;
+
+const Figure2 = `// Swap algorithm (building block for sorting)
+int[] nums = {10, 20, 30, 40};
+
+// swap index 0 and index 3
+int temp = nums[0];
+nums[0] = nums[3];
+nums[3] = temp;
+
+// nums is now {40, 20, 30, 10}
+`;
+
+const Figure3 = `// Binary search (ENRICHMENT — not required for AP CSA)
+// Array MUST be sorted
+int[] nums = {2, 4, 7, 9, 12, 15};
+int target = 9;
+
+int low = 0;
+int high = nums.length - 1;
+boolean found = false;
+
+while (low <= high)
+{
+    int mid = (low + high) / 2;
+
+    if (nums[mid] == target)
+    {
+        found = true;
+        break;
+    }
+    else if (nums[mid] < target)
+    {
+        low = mid + 1;
+    }
+    else
+    {
+        high = mid - 1;
+    }
+}
+
+System.out.println(found);
+`;
+
+const Task1 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 1 — Review: Min & Max
+        int[] nums = {4, 7, 2, 9, 5};
+
+        int min = nums[0];
+        int max = nums[0];
+
+        for (int i = 1; i < nums.length; i++)
+        {
+            if (nums[i] < min)
+            {
+                min = nums[i];
+            }
+
+            if (nums[i] > max)
+            {
+                max = nums[i];
+            }
+        }
+
+        System.out.println("Min: " + min);
+        System.out.println("Max: " + max);
+    }
+}
+`;
+
+const Task2 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 2 — Swap Algorithm (precursor to sorting)
+        int[] nums = {10, 20, 30, 40};
+
+        // 1) Swap index 0 and index 3
+        int temp = nums[0];
+        nums[0] = nums[3];
+        nums[3] = temp;
+
+        // 2) Print each element on its own line (use traversal)
+        for (int i = 0; i < nums.length; i++)
+        {
+            System.out.println(nums[i]);
+        }
+
+        // 3) Challenge (optional): swap index 1 and index 2, then print again.
+    }
+}
+`;
+
+const Task3 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 3 — Linear Search (AP Required)
+        int[] nums = {4, 7, 2, 9, 5};
+        int target = 9;
+
+        boolean found = false;
+        int foundIndex = -1;
+
+        for (int i = 0; i < nums.length; i++)
+        {
+            if (nums[i] == target)
+            {
+                found = true;
+                foundIndex = i;
+            }
+        }
+
+        System.out.println("Found: " + found);
+        System.out.println("Index: " + foundIndex);
+    }
+}
+`;
+
+const Task4 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 4 — Binary Search (ENRICHMENT / FOR FUN)
+        // Not required for the AP CSA exam
+        int[] nums = {2, 4, 7, 9, 12, 15};
+        int target = 12;
+
+        int low = 0;
+        int high = nums.length - 1;
+
+        boolean found = false;
+        int foundIndex = -1;
+
+        while (low <= high)
+        {
+            int mid = (low + high) / 2;
+
+            if (nums[mid] == target)
+            {
+                found = true;
+                foundIndex = mid;
+                break;
+            }
+            else if (nums[mid] < target)
+            {
+                low = mid + 1;
+            }
+            else
+            {
+                high = mid - 1;
+            }
+        }
+
+        System.out.println("Found: " + found);
+        System.out.println("Index: " + foundIndex);
+    }
+}
+`;
+
+const SampleOutput = `Min: 2
+Max: 9
+40
+20
+30
+10
+Found: true
+Index: 3
+Found: true
+Index: 4
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.3 — Common Array Algorithms</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.3</h3>
+            <h4 class="text-skynest-theme">Using traversal to solve problems</h4>
+          </section>
+
+          <section>
+            <h4>Today's Big Idea</h4>
+            <ul>
+              <li>Most array “algorithms” are the same loop… with different logic inside.</li>
+              <li>We're learning patterns you can reuse on MC and FRQs.</li>
+              <li><span class="text-skynest-theme">Two extras for fun:</span> swap + binary search.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Algorithm Template (the loop shape)</h4>
+            <Code code={SlideSnippet1} lang="java" class="text-start" />
+            <ul>
+              <li><code>i</code> is the index</li>
+              <li><code>arr[i]</code> is the element</li>
+              <li>Algorithms differ by what happens inside the loop</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Review Patterns (Quick)</h4>
+            <ul>
+              <li><strong>Sum/Average:</strong> accumulator (<code>sum += arr[i]</code>)</li>
+              <li><strong>Count:</strong> loop + if + counter (<code>count++</code>)</li>
+              <li><strong>Min/Max:</strong> track best-so-far and update</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Min/Max Pattern (why start at index 1?)</h4>
+            <Code code={SlideSnippet2} lang="java" class="text-start" />
+            <ul>
+              <li>We initialize with <code>arr[0]</code> so max starts as a real value.</li>
+              <li>Then we compare the rest (starting at index 1).</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Swap Algorithm (precursor to sorting)</h4>
+            <p>Goal: exchange two elements without losing either value.</p>
+            <Code code={SlideSnippet3} lang="java" class="text-start" />
+            <ul>
+              <li><code>temp</code> holds one value safely</li>
+              <li>Without <code>temp</code>, you overwrite and lose data</li>
+              <li>This is the “move” used in many sorting methods</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Linear Search (AP Required)</h4>
+            <p>Idea: check every element until you find the target.</p>
+            <Code code={SlideSnippet4} lang="java" class="text-start" />
+            <ul>
+              <li>Works on any array (sorted or not)</li>
+              <li>Can return a boolean or an index (often <code>-1</code> if not found)</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Binary Search (Enrichment / For Fun)</h4>
+            <ul>
+              <li><strong>Requirement:</strong> array must be sorted</li>
+              <li>Instead of checking every element, we check the <strong>middle</strong></li>
+              <li>Then we throw away half the search space</li>
+              <li class="text-skynest-theme"><strong>Not required for AP CSA</strong></li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Binary Search Loop Skeleton</h4>
+            <Code code={SlideSnippet5} lang="java" class="text-start" />
+            <ul>
+              <li>If middle is too small → move <code>low</code> up</li>
+              <li>If middle is too big → move <code>high</code> down</li>
+              <li>If equal → found</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Trace It (quick oral check)</h4>
+            <ul>
+              <li>Array: <code>[2, 4, 7, 9, 12, 15]</code>, target = <code>12</code></li>
+              <li>mid starts at index <code>2</code> (value 7)</li>
+              <li>Is target left or right?</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Success Today</h4>
+            <ul>
+              <li>You can recognize the pattern based on the goal.</li>
+              <li>You can write the code with correct braces + indentation.</li>
+              <li>You can trace what happens step-by-step.</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use array traversal to solve common problems (min/max, counting).</ListItem>
+            <ListItem>Use a swap algorithm to exchange two array elements.</ListItem>
+            <ListItem>Implement linear search and report a result (boolean and index).</ListItem>
+            <ListItem>Implement binary search as an optional enrichment challenge.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme">Activity5-3-ArrayAlgorithms</span>.
+            </ListItem>
+            <ListItem variant="2">Complete Tasks 1 through 3. Task 4 is optional enrichment.</ListItem>
+          </ul>
+
+          <hr class="my-4" />
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Min & Max (Review)
+          </h3>
+          <ul>
+            <ListItem variant="2">Track the smallest and largest values in an array.</ListItem>
+            <ListItem variant="2">Initialize with the first element, then traverse from index 1.</ListItem>
+          </ul>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — Min & Max" />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Swap Algorithm
+          </h3>
+          <ul>
+            <ListItem variant="2">Swap two elements using a temporary variable.</ListItem>
+            <ListItem variant="2">Print the array using traversal (one element per line).</ListItem>
+            <ListItem variant="2">Optional: do a second swap and print again.</ListItem>
+          </ul>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Swap" />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Linear Search (AP Required)
+          </h3>
+          <ul>
+            <ListItem variant="2">Search for a target value.</ListItem>
+            <ListItem variant="2">Print both a boolean (<code>found</code>) and an index (<code>foundIndex</code>).</ListItem>
+            <ListItem variant="2">Use <code>-1</code> as the “not found” index.</ListItem>
+          </ul>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — Linear Search" />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Binary Search (Optional Enrichment)
+          </h3>
+          <ul>
+            <ListItem variant="2">Only works on a sorted array.</ListItem>
+            <ListItem variant="2">Use <code>low</code>, <code>high</code>, and <code>mid</code> to cut the search space in half.</ListItem>
+            <ListItem variant="2">Print a boolean and index just like Task 3.</ListItem>
+          </ul>
+          <Code code={Task4} frame="code" lang="java" title="Task 4 — Binary Search (Enrichment)" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>Your program output should something similar to the sample output below.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>You may write your reflection answers as comments at the bottom of your code.</p>
+
+          <ol>
+            <li>Why does swapping require a temporary variable?</li>
+            <li>What value do we use for <code>foundIndex</code> when the target is not found? Why is that useful?</li>
+            <li>How is binary search different from linear search (in words, not code)?</li>
+            <li>Why must the array be sorted for binary search?</li>
+            <li>Which searching algorithm is required for the AP CSA exam?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>Submit your activity and reflection answers to the appropriate dropbox.</p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
