@@ -1,0 +1,441 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+const SlideSnippet1 = `// Parallel arrays = same index = same "record"
+names[i]  <->  scores[i]`;
+
+const SlideSnippet2 = `// Traverse IN SYNC
+for (int i = 0; i < names.length; i++)
+{
+    System.out.println(names[i] + ": " + scores[i]);
+}`;
+
+const SlideSnippet3 = `// Find the index of the best score, then use it
+int bestIndex = 0;
+
+for (int i = 1; i < scores.length; i++)
+{
+    if (scores[i] > scores[bestIndex])
+    {
+        bestIndex = i;
+    }
+}
+
+// names[bestIndex] matches scores[bestIndex]`;
+
+const SlideSnippet4 = `// Linear search across a parallel array
+int index = -1;
+
+for (int i = 0; i < names.length; i++)
+{
+    if (names[i].equals(targetName))
+    {
+        index = i;
+    }
+}`;
+
+const Figure1 = `// Example: Two parallel arrays
+String[] names = {"Alex", "Jordan", "Sam"};
+int[] scores = {85, 92, 78};
+
+// names[0] goes with scores[0], etc.
+System.out.println(names[1] + " scored " + scores[1]);
+`;
+
+const Figure2 = `// Example: Find best score + matching name
+String[] names = {"Alex", "Jordan", "Sam"};
+int[] scores = {85, 92, 78};
+
+int bestIndex = 0;
+
+for (int i = 1; i < scores.length; i++)
+{
+    if (scores[i] > scores[bestIndex])
+    {
+        bestIndex = i;
+    }
+}
+
+System.out.println("Top student: " + names[bestIndex]);
+System.out.println("Top score: " + scores[bestIndex]);
+`;
+
+const Task1 = `import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 1 — Numeric App: Student Score Analyzer (Parallel Arrays)
+        //
+        // You are given two parallel arrays:
+        // - names[i] goes with scores[i]
+        //
+        // Your job:
+        // 1) Print a roster (each student + score)
+        // 2) Compute and print the class average
+        // 3) Find and print the highest score AND the student's name
+        // 4) Count and print how many students are passing (>= 70)
+        // 5) Ask the user for a name and print that student's score (or "Not found")
+
+        String[] names = {"Ava", "Ben", "Chris", "Dina", "Eli"};
+        int[] scores = {88, 73, 95, 67, 81};
+
+        // 1) Print roster
+        System.out.println("Roster:");
+        for (int i = 0; i < names.length; i++)
+        {
+            System.out.println(names[i] + ": " + scores[i]);
+        }
+
+        // 2) Average
+        int sum = 0;
+        for (int i = 0; i < scores.length; i++)
+        {
+            sum += scores[i];
+        }
+        double avg = (double) sum / scores.length;
+        System.out.println("Average: " + avg);
+
+        // 3) Highest score + name
+        int bestIndex = 0;
+        for (int i = 1; i < scores.length; i++)
+        {
+            if (scores[i] > scores[bestIndex])
+            {
+                bestIndex = i;
+            }
+        }
+        System.out.println("Top student: " + names[bestIndex]);
+        System.out.println("Top score: " + scores[bestIndex]);
+
+        // 4) Count passing (>= 70)
+        int passing = 0;
+        for (int i = 0; i < scores.length; i++)
+        {
+            if (scores[i] >= 70)
+            {
+                passing++;
+            }
+        }
+        System.out.println("Passing count: " + passing);
+
+        // 5) Search by name
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a student name to look up: ");
+        String targetName = scanner.nextLine();
+
+        int index = -1;
+        for (int i = 0; i < names.length; i++)
+        {
+            if (names[i].equals(targetName))
+            {
+                index = i;
+            }
+        }
+
+        if (index == -1)
+        {
+            System.out.println("Not found.");
+        }
+        else
+        {
+            System.out.println(targetName + "'s score: " + scores[index]);
+        }
+
+        scanner.close();
+    }
+}
+`;
+
+const Task2 = `import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 2 — Quiz App: Question + Answer Parallel Arrays
+        //
+        // You are given two parallel arrays:
+        // - questions[i] goes with answers[i]
+        //
+        // Your job:
+        // 1) Ask each question
+        // 2) Compare the user's answer to the correct answer (case-insensitive)
+        // 3) Keep score and print the final result
+        //
+        // Notes:
+        // - Use equalsIgnoreCase(...) for comparison
+        // - Print "Correct!" or "Incorrect. The answer was ___"
+
+        String[] questions =
+        {
+            "What is 2 + 2?",
+            "What keyword starts a for loop in Java?",
+            "What is the first index in an array?",
+            "True/False: Arrays can change size after creation."
+        };
+
+        String[] answers =
+        {
+            "4",
+            "for",
+            "0",
+            "false"
+        };
+
+        Scanner scanner = new Scanner(System.in);
+        int correct = 0;
+
+        System.out.println("Quiz Time!");
+        System.out.println("----------");
+
+        for (int i = 0; i < questions.length; i++)
+        {
+            System.out.println("Q" + (i + 1) + ": " + questions[i]);
+            System.out.print("Your answer: ");
+            String user = scanner.nextLine();
+
+            if (user.equalsIgnoreCase(answers[i]))
+            {
+                System.out.println("Correct!");
+                correct++;
+            }
+            else
+            {
+                System.out.println("Incorrect. The answer was: " + answers[i]);
+            }
+
+            System.out.println();
+        }
+
+        System.out.println("Final Score: " + correct + " / " + questions.length);
+
+        scanner.close();
+    }
+}
+`;
+
+const SampleOutput = `Roster:
+Ava: 88
+Ben: 73
+Chris: 95
+Dina: 67
+Eli: 81
+Average: 80.8
+Top student: Chris
+Top score: 95
+Passing count: 4
+Enter a student name to look up: Dina
+Dina's score: 67
+
+Quiz Time!
+----------
+Q1: What is 2 + 2?
+Your answer: 4
+Correct!
+
+Q2: What keyword starts a for loop in Java?
+Your answer: for
+Correct!
+
+Q3: What is the first index in an array?
+Your answer: 1
+Incorrect. The answer was: 0
+
+Q4: True/False: Arrays can change size after creation.
+Your answer: false
+Correct!
+
+Final Score: 3 / 4
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.4 — Parallel Arrays</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.4</h3>
+            <h4 class="text-skynest-theme">Parallel Arrays</h4>
+          </section>
+
+          <section>
+            <h4>The Big Idea</h4>
+            <p>
+              Parallel arrays store related information in separate arrays.
+              The relationship is maintained by using the <strong>same index</strong>.
+            </p>
+            <Code code={SlideSnippet1} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Think Like a “Record”</h4>
+            <ul>
+              <li>If <code>names[2]</code> is "Sam"...</li>
+              <li>...then <code>scores[2]</code> is Sam's score.</li>
+              <li class="text-skynest-theme">Same index = same person / same item.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Traversal Must Stay in Sync</h4>
+            <p>When you loop, you loop over the indexes and use both arrays.</p>
+            <Code code={SlideSnippet2} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Common Algorithm: “Best So Far”</h4>
+            <p>
+              Often you don't store the best value — you store the <strong>index</strong> of the best value.
+              Then you can use that index in both arrays.
+            </p>
+            <Code code={SlideSnippet3} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Common Algorithm: Search by Name</h4>
+            <p>
+              To find a student, you search the <code>names</code> array.
+              If you find it, you use the same index to get the score.
+            </p>
+            <Code code={SlideSnippet4} lang="java" class="text-start" />
+            <ul>
+              <li>If the name is not found, keep index as <code>-1</code>.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Today's Two Apps</h4>
+            <ul>
+              <li><strong>Numeric App:</strong> Score Analyzer (average, max, passing count, lookup)</li>
+              <li><strong>Quiz App:</strong> Questions + Answers using parallel arrays</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Success Criteria</h4>
+            <ul>
+              <li>You can explain what “same index” means.</li>
+              <li>Your loops keep arrays aligned.</li>
+              <li>You can find and use the correct index for calculations and search.</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Explain how parallel arrays store related data using matching indexes.</ListItem>
+            <ListItem>Traverse two arrays in sync to print, compute, and analyze data.</ListItem>
+            <ListItem>Use linear search on one array and use the found index to access the other.</ListItem>
+            <ListItem>Build two small apps that use parallel arrays: a numeric analyzer and a quiz.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme">Activity5-4-ParallelArrays</span>.
+            </ListItem>
+            <ListItem variant="2">Complete both tasks.</ListItem>
+          </ul>
+
+          <hr class="my-4" />
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Numeric App — Student Score Analyzer
+          </h3>
+          <ul>
+            <ListItem variant="2">Print a roster (name + score) using one loop.</ListItem>
+            <ListItem variant="2">Compute and print the class average.</ListItem>
+            <ListItem variant="2">Find and print the top student's name and score.</ListItem>
+            <ListItem variant="2">Count and print how many students are passing (>= 70).</ListItem>
+            <ListItem variant="2">Ask the user for a name and print that student's score (or “Not found”).</ListItem>
+          </ul>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — Score Analyzer" />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Quiz App — Questions + Answers
+          </h3>
+          <ul>
+            <ListItem variant="2">Ask each question in a loop.</ListItem>
+            <ListItem variant="2">Compare answers using <code>equalsIgnoreCase</code>.</ListItem>
+            <ListItem variant="2">Track a score counter and print the final score.</ListItem>
+            <ListItem variant="2">Print feedback after each question.</ListItem>
+          </ul>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Quiz App" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>Your program output should something similar to the sample output below.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>You may write your reflection answers as comments at the bottom of your code.</p>
+
+          <ol>
+            <li>In your own words, what does “same index = same record” mean?</li>
+            <li>Why is it safer to store <strong>bestIndex</strong> instead of storing the best score directly?</li>
+            <li>What does the value <code>-1</code> mean in a search algorithm?</li>
+            <li>What could go wrong if two parallel arrays are not the same length?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>Submit your activity and reflection answers to the appropriate dropbox.</p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

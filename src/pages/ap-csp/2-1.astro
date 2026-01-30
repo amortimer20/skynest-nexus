@@ -1,0 +1,399 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+
+// A tiny, rubric-friendly *concept* example (language: JavaScript)
+// This is for Lesson 1 only: students are *not* building the full PT today.
+const ExampleProgram = `
+// Create PT "Minimum Viable" Example (concept demo)
+
+// LIST: stores user answers over time
+let answers = [];
+
+// PROCEDURE (student-developed) with a PARAMETER
+function analyzeAnswers(answerList)
+{
+  let score = 0;
+
+  // ITERATION
+  for (let i = 0; i < answerList.length; i++)
+  {
+    // SELECTION
+    if (answerList[i] === "yes")
+    {
+      score++;
+    }
+  }
+
+  // OUTPUT (return value)
+  return score;
+}
+
+// INPUT (simulated here for demo)
+answers.push("yes");
+answers.push("no");
+answers.push("yes");
+
+// CALL THE PROCEDURE
+let result = analyzeAnswers(answers);
+
+// OUTPUT
+console.log("Yes count:", result);
+`;
+
+const ExampleProgramCallouts = `
+✅ LIST: answers
+✅ PROCEDURE with PARAMETER: analyzeAnswers(answerList)
+✅ ALGORITHM in the procedure:
+   - Sequencing (top-to-bottom steps)
+   - Selection (if)
+   - Iteration (for loop)
+✅ INPUT → PROCESSING → OUTPUT shown
+`;
+
+const ExitTicketPrompts = `
+Pick ONE to answer:
+
+1) In your own words: what is the purpose of the list in a Create PT program?
+2) Why does AP require a procedure with a parameter?
+3) Name one thing students often overdo on the Create PT that doesn't help their score.
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Create Performance Task — Lesson 1</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+        <p>
+          This lesson introduces the AP CSP Create Performance Task (Create PT)
+          with one goal: clarity. Students should leave understanding what the
+          task is, what must exist in their code, and why simple + explainable
+          beats impressive + confusing.
+        </p>
+
+        <Presentation>
+          {/* Slide 1 */}
+          <section>
+            <h3>Create Performance Task</h3>
+            <h4 class="text-skynest-theme">Lesson 1: What AP Actually Wants</h4>
+            <p class="mt-4">
+              Today's goal: remove confusion, reduce anxiety, and make the task
+              feel <b>doable</b>.
+            </p>
+          </section>
+
+          {/* Slide 2 */}
+          <section>
+            <h4>Today's Plan</h4>
+            <ul>
+              <li>What the Create PT is (plain English)</li>
+              <li>What you submit</li>
+              <li>The <span class="text-skynest-theme">Big Three</span> required code elements</li>
+              <li>What doesn't matter as much as you think</li>
+              <li>A minimum-viable mental model</li>
+              <li>Exit check</li>
+            </ul>
+          </section>
+
+          {/* Slide 3 */}
+          <section>
+            <h4>What is the Create PT?</h4>
+            <p>
+              You will build a small program of your choice and explain parts of
+              it to prove you understand core computer science ideas.
+            </p>
+            <p class="text-skynest-theme">
+              This is an evidence task — not an “impress the grader” contest.
+            </p>
+          </section>
+
+          {/* Slide 4 */}
+          <section>
+            <h4>What You Submit</h4>
+            <ul>
+              <li><b>Program Code</b> (your proof)</li>
+              <li><b>Video</b> (shows input → output)</li>
+              <li><b>Written Responses</b> (explain how your code meets requirements)</li>
+            </ul>
+            <p class="mt-3">
+              The grader typically does <b>not</b> run your program. They score based
+              on what you clearly show and explain.
+            </p>
+          </section>
+
+          {/* Slide 5 */}
+          <section>
+            <h4>What the Grader Actually Sees</h4>
+            <ul>
+              <li>Your <b>video</b></li>
+              <li>Your <b>written responses</b></li>
+              <li>Your <b>code</b></li>
+            </ul>
+            <p class="mt-3">
+              So your job is to make your evidence <span class="text-skynest-theme">easy to find</span>.
+            </p>
+          </section>
+
+          {/* Slide 6 */}
+          <section>
+            <h4>The <span class="text-skynest-theme">Big Three</span> Your Code Must Include</h4>
+            <ol>
+              <li>
+                <b>A List</b> (stores related data in a way that matters)
+              </li>
+              <li>
+                <b>A Student-Developed Procedure</b> with a <b>parameter</b>
+              </li>
+              <li>
+                <b>An Algorithm</b> inside that procedure with:
+                <ul>
+                  <li><b>Sequencing</b></li>
+                  <li><b>Selection</b> (<AstroCode code="if" lang="javascript" inline theme="material-theme-ocean" />)</li>
+                  <li><b>Iteration</b> (a loop)</li>
+                </ul>
+              </li>
+            </ol>
+            <p class="mt-3 text-skynest-theme">
+              One strong procedure can satisfy multiple requirements.
+            </p>
+          </section>
+
+          {/* Slide 7 */}
+          <section>
+            <h4>Lists That “Count”</h4>
+            <p><b>Counts when…</b></p>
+            <ul>
+              <li>It stores multiple values over time</li>
+              <li>You use it meaningfully (read + update)</li>
+              <li>The program would be worse without it</li>
+            </ul>
+            <p class="mt-3"><b>Often doesn't count when…</b></p>
+            <ul>
+              <li>You use it once and forget it</li>
+              <li>It only holds one value</li>
+              <li>It could be replaced with 2-3 simple variables</li>
+            </ul>
+          </section>
+
+          {/* Slide 8 */}
+          <section>
+            <h4>Procedures That “Count”</h4>
+            <ul>
+              <li>It must be <b>student-developed</b> (not built-in)</li>
+              <li>It must have at least <b>one parameter</b></li>
+              <li>It should do <b>real work</b> (not just “print one thing”)</li>
+              <li>It must be <b>called</b> in your program</li>
+            </ul>
+            <p class="mt-3">
+              Parameters help prove your procedure can handle different inputs.
+            </p>
+          </section>
+
+          {/* Slide 9 */}
+          <section>
+            <h4>What AP Means by “Algorithm”</h4>
+            <p>
+              AP's algorithm requirement is about proving you can write logic —
+              not about advanced math.
+            </p>
+            <ul>
+              <li><b>Sequencing:</b> steps in order</li>
+              <li><b>Selection:</b> decisions using <AstroCode code="if" lang="javascript" inline theme="material-theme-ocean" /></li>
+              <li><b>Iteration:</b> repetition with a loop</li>
+            </ul>
+            <p class="mt-3 text-skynest-theme">
+              The algorithm should live inside your procedure.
+            </p>
+          </section>
+
+          {/* Slide 10 */}
+          <section>
+            <h4>What Doesn't Matter as Much as You Think</h4>
+            <div class="row">
+              <div class="col-6">
+                <h5>Students over-focus on…</h5>
+                <ul>
+                  <li>Fancy UI / graphics</li>
+                  <li>Huge codebases</li>
+                  <li>Complicated games</li>
+                  <li>Extra features “just because”</li>
+                </ul>
+              </div>
+              <div class="col-6">
+                <h5>What actually helps…</h5>
+                <ul>
+                  <li>Easy-to-find evidence</li>
+                  <li>Clear input → processing → output</li>
+                  <li>One meaningful list</li>
+                  <li>One strong procedure + algorithm</li>
+                </ul>
+              </div>
+            </div>
+            <p class="mt-3 text-skynest-theme">
+              Simple and explainable beats impressive and confusing.
+            </p>
+          </section>
+
+          {/* Slide 11 */}
+          <section>
+            <h4>Minimum-Viable Mental Model</h4>
+            <p><b>Example concept:</b> Quiz / Survey Analyzer</p>
+            <ol>
+              <li>Ask questions (input)</li>
+              <li>Store answers in a <b>list</b></li>
+              <li>Call a <b>procedure(parameter)</b> to analyze</li>
+              <li>Inside the procedure: loop + if (algorithm)</li>
+              <li>Display a result (output)</li>
+            </ol>
+          </section>
+
+          {/* Slide 12 */}
+          <section>
+            <h4>Micro-Activity (3-5 min): Evidence Spotting</h4>
+            <p>With a partner, answer:</p>
+            <ul>
+              <li>What could the <b>list</b> store in the quiz example?</li>
+              <li>What could the <b>procedure parameter</b> be?</li>
+              <li>Where would the <b>loop</b> and <b>if</b> naturally happen?</li>
+            </ul>
+            <p class="mt-3">
+              You are <b>not</b> writing code yet — just locating evidence.
+            </p>
+          </section>
+
+          {/* Slide 13 */}
+          <section>
+            <h4>Concept Demo: A Minimal Example</h4>
+            <p>
+              This is not “the Create PT” — it's a tiny example showing the
+              <span class="text-skynest-theme">structure</span>.
+            </p>
+            <Code
+              code={ExampleProgram}
+              frame="code"
+              lang="javascript"
+              title="demo.js"
+              class="text-start"
+            />
+          </section>
+
+          {/* Slide 14 */}
+          <section>
+            <h4>Where's the Evidence?</h4>
+            <p>In the demo, we can point to each requirement:</p>
+            <Code
+              code={ExampleProgramCallouts}
+              frame="terminal"
+              lang="txt"
+              title="Checklist"
+              class="text-start"
+            />
+          </section>
+
+          {/* Slide 15 */}
+          <section>
+            <h4>Common Traps (Preview)</h4>
+            <ul>
+              <li>Procedure has <b>no parameter</b></li>
+              <li>List is used once and forgotten</li>
+              <li>Algorithm exists, but not inside the procedure</li>
+              <li>Video doesn't clearly show input and output</li>
+            </ul>
+            <p class="mt-3">
+              Next lesson: “counts” vs “looks like it counts.”
+            </p>
+          </section>
+
+          {/* Slide 16 */}
+          <section>
+            <h4>Exit Ticket</h4>
+            <p>Answer one prompt in 2-3 sentences.</p>
+            <Code
+              code={ExitTicketPrompts}
+              frame="terminal"
+              lang="txt"
+              title="Exit Ticket"
+              class="text-start"
+            />
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1">Describe the Create Performance Task in plain English</ListItem>
+            <ListItem variant="1">Identify the Big Three required code elements (List, Procedure, Algorithm)</ListItem>
+            <ListItem variant="1">Explain why “simple + explainable” is a winning strategy</ListItem>
+            <ListItem variant="1">Recognize common Create PT traps before they happen</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              During the micro-activity slide, write down your team's answers for:
+              <b>list idea</b>, <b>procedure parameter</b>, and where the <b>if + loop</b> would go.
+            </ListItem>
+            <ListItem variant="2">
+              Complete the exit ticket (Slide 16) and submit it in your LMS / on paper.
+            </ListItem>
+            <ListItem variant="2">
+              (Optional) Write 2-3 program ideas that fit the “minimum-viable” model:
+              input → list → procedure(parameter) with if + loop → output.
+            </ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+          <ol>
+            <li>
+              Why might a “simple but clear” program score better than a “big but messy” program?
+            </li>
+            <li>
+              Which of the Big Three (List, Procedure, Algorithm) do you feel most confident about right now?
+              Which feels the most confusing?
+            </li>
+            <li>
+              In your own words, what does it mean to “make the evidence easy to find” for a grader?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>
+            Submit your exit ticket response (and optional homework ideas if assigned) to the appropriate dropbox.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+          Lesson Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
