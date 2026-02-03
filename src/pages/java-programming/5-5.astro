@@ -1,0 +1,711 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+
+// --- Presentation snippets (small + teachy) ---
+const Slide1 = `// A 2D array is an "array of arrays"
+int[][] grid =
+{
+    {3, 5, 7},
+    {1, 4, 9},
+    {8, 6, 2}
+};
+
+// Think: grid[row][col]
+`;
+
+const Slide2 = `// Accessing one element
+int value = grid[2][1]; // row 2, col 1
+// value is 6
+`;
+
+const Slide3 = `// Row traversal (one row)
+for (int c = 0; c < grid[0].length; c++)
+{
+    System.out.println(grid[0][c]);
+}
+`;
+
+const Slide4 = `// Full grid traversal (nested loops)
+for (int r = 0; r < grid.length; r++)
+{
+    for (int c = 0; c < grid[r].length; c++)
+    {
+        System.out.println("grid[" + r + "][" + c + "] = " + grid[r][c]);
+    }
+}
+`;
+
+const Slide5 = `// Row sum pattern
+int rowSum = 0;
+
+for (int c = 0; c < grid[r].length; c++)
+{
+    rowSum += grid[r][c];
+}
+`;
+
+const Slide6 = `// Finding a max value in a 2D array
+int max = grid[0][0];
+
+for (int r = 0; r < grid.length; r++)
+{
+    for (int c = 0; c < grid[r].length; c++)
+    {
+        if (grid[r][c] > max)
+        {
+            max = grid[r][c];
+        }
+    }
+}
+`;
+
+const Slide7 = `// Printing a grid as rows
+for (int r = 0; r < grid.length; r++)
+{
+    for (int c = 0; c < grid[r].length; c++)
+    {
+        System.out.print(grid[r][c] + " ");
+    }
+    System.out.println();
+}
+`;
+
+const Slide8 = `// Common bug: mixing up row and col
+// grid.length is # of rows
+// grid[r].length is # of columns in row r
+`;
+
+const Figure1 = `// Figure 1 — A small 2D array you can picture as a grid
+int[][] grid =
+{
+    {3, 5, 7},
+    {1, 4, 9},
+    {8, 6, 2}
+};
+
+// grid has 3 rows and 3 columns
+// grid[0][0] is 3
+// grid[1][2] is 9
+// grid[2][1] is 6
+`;
+
+const Figure2 = `// Figure 2 — Access + update one element
+int[][] seats =
+{
+    {0, 0, 1, 0},
+    {0, 1, 1, 0},
+    {0, 0, 0, 0}
+};
+
+// 1 means occupied, 0 means empty
+System.out.println(seats[1][1]); // prints 1
+
+// Mark row 2, col 0 as occupied
+seats[2][0] = 1;
+`;
+
+const Figure3 = `// Figure 3 — Nested loop traversal template (Allman braces)
+for (int r = 0; r < grid.length; r++)
+{
+    for (int c = 0; c < grid[r].length; c++)
+    {
+        // use grid[r][c]
+    }
+}
+`;
+
+const Task1 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 1 — Grid Basics (Access + Update)
+        //
+        // You are given a 3x3 grid of integers.
+        // 1) Print the center element (row 1, col 1)
+        // 2) Print the top-right element (row 0, col 2)
+        // 3) Change the bottom-left element (row 2, col 0) to 99
+        // 4) Print the updated bottom-left element to confirm
+
+        int[][] grid =
+        {
+            {3, 5, 7},
+            {1, 4, 9},
+            {8, 6, 2}
+        };
+
+        System.out.println("Center (1,1): " + grid[1][1]);
+        System.out.println("Top-right (0,2): " + grid[0][2]);
+
+        grid[2][0] = 99;
+
+        System.out.println("Updated bottom-left (2,0): " + grid[2][0]);
+    }
+}
+`;
+
+const Task2 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 2 — Print the Grid Nicely
+        //
+        // Print the grid so it looks like rows and columns.
+        // Example:
+        // 3 5 7
+        // 1 4 9
+        // 8 6 2
+
+        int[][] grid =
+        {
+            {3, 5, 7},
+            {1, 4, 9},
+            {8, 6, 2}
+        };
+
+        for (int r = 0; r < grid.length; r++)
+        {
+            for (int c = 0; c < grid[r].length; c++)
+            {
+                System.out.print(grid[r][c] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+`;
+
+const Task3 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 3 — Grid Stats (Sum, Max, Count)
+        //
+        // Using traversal:
+        // 1) Compute the sum of ALL values in the grid
+        // 2) Find the maximum value
+        // 3) Count how many values are even
+
+        int[][] grid =
+        {
+            {3, 5, 7},
+            {1, 4, 9},
+            {8, 6, 2}
+        };
+
+        int sum = 0;
+        int max = grid[0][0];
+        int evenCount = 0;
+
+        for (int r = 0; r < grid.length; r++)
+        {
+            for (int c = 0; c < grid[r].length; c++)
+            {
+                int value = grid[r][c];
+                sum += value;
+
+                if (value > max)
+                {
+                    max = value;
+                }
+
+                if (value % 2 == 0)
+                {
+                    evenCount++;
+                }
+            }
+        }
+
+        System.out.println("Sum: " + sum);
+        System.out.println("Max: " + max);
+        System.out.println("Even count: " + evenCount);
+    }
+}
+`;
+
+const Task4 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 4 — Row Totals (Practical: Weekly Steps)
+        //
+        // Each row is a person.
+        // Each column is a day of the week (Mon-Sun).
+        //
+        // 1) Print each person's total steps for the week.
+        // 2) Print which person (row index) had the highest weekly total.
+
+        int[][] steps =
+        {
+            {5200, 6100, 4300, 7000, 8000, 12000, 9000},  // Person 0
+            {8000, 7800, 8200, 7900, 8100, 8300, 7600},   // Person 1
+            {3000, 4500, 5000, 4000, 6500, 7000, 6000}    // Person 2
+        };
+
+        int bestPerson = 0;
+        int bestTotal = 0;
+
+        for (int r = 0; r < steps.length; r++)
+        {
+            int rowSum = 0;
+
+            for (int c = 0; c < steps[r].length; c++)
+            {
+                rowSum += steps[r][c];
+            }
+
+            System.out.println("Person " + r + " weekly total: " + rowSum);
+
+            if (r == 0 || rowSum > bestTotal)
+            {
+                bestTotal = rowSum;
+                bestPerson = r;
+            }
+        }
+
+        System.out.println("Highest weekly total: Person " + bestPerson);
+        System.out.println("Total steps: " + bestTotal);
+    }
+}
+`;
+
+const Task5 = `import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 5 — Gradebook Mini App (Practical)
+        //
+        // Rows = students
+        // Cols = assignments
+        //
+        // 1) Print each student's average.
+        // 2) Ask the user for a student number (0-2) and print that student's scores.
+        //
+        // NOTE: We'll keep it small so it's easy to trace.
+
+        int[][] grades =
+        {
+            {90, 82, 88, 100},   // Student 0
+            {70, 85, 79, 92},    // Student 1
+            {95, 91, 93, 89}     // Student 2
+        };
+
+        // 1) Student averages
+        for (int r = 0; r < grades.length; r++)
+        {
+            int sum = 0;
+
+            for (int c = 0; c < grades[r].length; c++)
+            {
+                sum += grades[r][c];
+            }
+
+            double avg = (double) sum / grades[r].length;
+            System.out.println("Student " + r + " average: " + avg);
+        }
+
+        // 2) Lookup a student row and print their scores
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a student number (0-2): ");
+        int student = scanner.nextInt();
+
+        if (student < 0 || student >= grades.length)
+        {
+            System.out.println("Invalid student number.");
+        }
+        else
+        {
+            System.out.print("Student " + student + " scores: ");
+            for (int c = 0; c < grades[student].length; c++)
+            {
+                System.out.print(grades[student][c] + " ");
+            }
+            System.out.println();
+        }
+
+        scanner.close();
+    }
+}
+`;
+
+const Task6 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 6 — Seat Map (Practical + Visual)
+        //
+        // 0 means empty seat, 1 means occupied seat.
+        //
+        // 1) Count how many seats are occupied.
+        // 2) Count how many seats are empty.
+        // 3) Print the coordinates (row, col) of every occupied seat.
+        //
+        // This is a very common "grid scanning" pattern.
+
+        int[][] seats =
+        {
+            {0, 0, 1, 0},
+            {1, 1, 1, 0},
+            {0, 0, 0, 0}
+        };
+
+        int occupied = 0;
+        int empty = 0;
+
+        for (int r = 0; r < seats.length; r++)
+        {
+            for (int c = 0; c < seats[r].length; c++)
+            {
+                if (seats[r][c] == 1)
+                {
+                    occupied++;
+                    System.out.println("Occupied at (" + r + ", " + c + ")");
+                }
+                else
+                {
+                    empty++;
+                }
+            }
+        }
+
+        System.out.println("Occupied seats: " + occupied);
+        System.out.println("Empty seats: " + empty);
+    }
+}
+`;
+
+const SampleOutput = `Center (1,1): 4
+Top-right (0,2): 7
+Updated bottom-left (2,0): 99
+
+3 5 7 
+1 4 9 
+8 6 2 
+
+Sum: 45
+Max: 9
+Even count: 4
+
+Person 0 weekly total: 51600
+Person 1 weekly total: 55900
+Person 2 weekly total: 36000
+Highest weekly total: Person 1
+Total steps: 55900
+
+Student 0 average: 90.0
+Student 1 average: 81.5
+Student 2 average: 92.0
+Enter a student number (0-2): 1
+Student 1 scores: 70 85 79 92 
+
+Occupied at (0, 2)
+Occupied at (1, 0)
+Occupied at (1, 1)
+Occupied at (1, 2)
+Occupied seats: 4
+Empty seats: 8
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.5 — Two-Dimensional Arrays (2D Arrays)</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.5</h3>
+            <h4 class="text-skynest-theme">Two-Dimensional Arrays</h4>
+          </section>
+
+          <section>
+            <h4>What is a 2D array?</h4>
+            <ul>
+              <li>A 2D array is an <strong>array of arrays</strong>.</li>
+              <li>It looks like a <strong>grid</strong> (rows and columns).</li>
+              <li>Use it when data naturally fits a table.</li>
+            </ul>
+            <Code code={Slide1} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Vocabulary (Grid Thinking)</h4>
+            <ul>
+              <li><strong>Row</strong> = which inner array</li>
+              <li><strong>Column</strong> = which position inside the row</li>
+              <li><code>grid[row][col]</code> accesses one element</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Picture the Grid</h4>
+            <p>For this array:</p>
+            <pre><code class="language-txt">3 5 7
+1 4 9
+8 6 2</code></pre>
+            <ul>
+              <li><code>grid[0][0] = 3</code> (top-left)</li>
+              <li><code>grid[1][2] = 9</code> (row 1, col 2)</li>
+              <li><code>grid[2][1] = 6</code> (row 2, col 1)</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Accessing One Element</h4>
+            <p>Pick a row, then pick a column.</p>
+            <Code code={Slide2} lang="java" class="text-start" />
+            <ul>
+              <li>Row index comes first.</li>
+              <li>Column index comes second.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Two different lengths</h4>
+            <ul>
+              <li><code>grid.length</code> = number of rows</li>
+              <li><code>grid[r].length</code> = number of columns in row <code>r</code></li>
+              <li class="text-skynest-theme">This prevents the #1 2D array bug.</li>
+            </ul>
+            <Code code={Slide8} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Traversal Step 1: One Row</h4>
+            <p>Before scanning a whole grid, practice one row.</p>
+            <Code code={Slide3} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Traversal Step 2: Whole Grid</h4>
+            <p>You need a loop for rows and a loop for columns.</p>
+            <Code code={Slide4} lang="java" class="text-start" />
+            <ul>
+              <li>Outer loop controls the row</li>
+              <li>Inner loop controls the column</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Printing the Grid Nicely</h4>
+            <p>Row by row, with spaces between columns.</p>
+            <Code code={Slide7} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Algorithms on Grids</h4>
+            <ul>
+              <li><strong>Sum all values</strong> (accumulator)</li>
+              <li><strong>Count matches</strong> (if + counter)</li>
+              <li><strong>Find max/min</strong> (best-so-far)</li>
+              <li><strong>Row totals</strong> (reset sum each row)</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Row Total Pattern</h4>
+            <p>Reset the sum for each new row.</p>
+            <Code code={Slide5} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Find a Max in a Grid</h4>
+            <p>Same idea as 1D, but inside nested loops.</p>
+            <Code code={Slide6} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Practical Uses</h4>
+            <ul>
+              <li>Gradebook (students × assignments)</li>
+              <li>Steps tracker (people × days)</li>
+              <li>Seating chart (rows × seats)</li>
+              <li>Game boards (later)</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Today's Work</h4>
+            <ul>
+              <li>Start simple: access + print</li>
+              <li>Move to algorithms: sum, max, count</li>
+              <li>Finish with mini apps: gradebook + seat map</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Explain how a 2D array represents rows and columns.</ListItem>
+            <ListItem>Access and update values using <code>grid[row][col]</code>.</ListItem>
+            <ListItem>Traverse a 2D array using nested <code>for</code> loops (row-major order).</ListItem>
+            <ListItem>Apply common algorithms (sum, max, counting, row totals) to a grid.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme">Activity5-5-2DArrays</span>.
+            </ListItem>
+            <ListItem variant="2">Complete Tasks 1-4. Tasks 5-6 are “mini apps” for extra practice.</ListItem>
+            <ListItem variant="2">Keep your loops correct: rows use <code>grid.length</code>, columns use <code>grid[r].length</code>.</ListItem>
+          </ul>
+
+          <!-- Figures -->
+          <h3>
+            <span class="text-skynest-theme">Figures</span>: Examples
+          </h3>
+
+          <Code code={Figure1} frame="code" lang="java" title="Figure 1 — A 3x3 Grid" class="my-3" />
+          <Code code={Figure2} frame="code" lang="java" title="Figure 2 — Access + Update" class="my-3" />
+          <Code code={Figure3} frame="code" lang="java" title="Figure 3 — Nested Loop Template" class="my-3" />
+
+          <hr class="my-4" />
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Grid Basics (Access + Update)
+          </h3>
+          <ul>
+            <ListItem variant="2">Practice reading and changing a single element.</ListItem>
+            <ListItem variant="2">This builds confidence before nested loops.</ListItem>
+          </ul>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — Access + Update" />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Print the Grid Nicely
+          </h3>
+          <ul>
+            <ListItem variant="2">Use nested loops to print the grid as rows and columns.</ListItem>
+            <ListItem variant="2">You should see a clean 3x3 table.</ListItem>
+          </ul>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Print Grid" />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Grid Stats (Sum, Max, Count)
+          </h3>
+          <ul>
+            <ListItem variant="2">Compute the sum of all values.</ListItem>
+            <ListItem variant="2">Find the max value in the grid.</ListItem>
+            <ListItem variant="2">Count how many values are even.</ListItem>
+          </ul>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — Grid Algorithms" />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Row Totals (Weekly Steps)
+          </h3>
+          <ul>
+            <ListItem variant="2">Sum each row separately and print a weekly total per person.</ListItem>
+            <ListItem variant="2">Track the person with the highest total.</ListItem>
+          </ul>
+          <Code code={Task4} frame="code" lang="java" title="Task 4 — Row Totals" />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Gradebook Mini App
+          </h3>
+          <ul>
+            <ListItem variant="2">Compute each student's average (row = student).</ListItem>
+            <ListItem variant="2">Let the user select a student and print their scores.</ListItem>
+          </ul>
+          <Code code={Task5} frame="code" lang="java" title="Task 5 — Gradebook" />
+
+          <hr class="my-4" />
+
+          <!-- Task 6 -->
+          <h3>
+            <span class="text-skynest-theme">Task 6</span>: Seat Map Scanner
+          </h3>
+          <ul>
+            <ListItem variant="2">Count occupied and empty seats.</ListItem>
+            <ListItem variant="2">Print coordinates of all occupied seats.</ListItem>
+            <ListItem variant="2">This is a classic “scan a grid” pattern.</ListItem>
+          </ul>
+          <Code code={Task6} frame="code" lang="java" title="Task 6 — Seat Map" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>Your program output should something similar to the sample output below.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>You may write your reflection answers as comments at the bottom of your code.</p>
+
+          <ol>
+            <li>In a 2D array, what do <strong>rows</strong> and <strong>columns</strong> represent?</li>
+            <li>What is the difference between <code>grid.length</code> and <code>grid[r].length</code>?</li>
+            <li>Why do we use nested loops to traverse a 2D array?</li>
+            <li>In Task 4, why do we reset <code>rowSum</code> back to 0 for each new row?</li>
+            <li>What is one real-world situation where a 2D array makes sense?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate dropbox.
+          </p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
