@@ -8,53 +8,62 @@ import { Code as AstroCode } from "astro:components";
 
 //#region CodeSnippets
 
-// A tiny, rubric-friendly *concept* example (language: JavaScript)
-// This is for Lesson 1 only: students are *not* building the full PT today.
+// Minimal, rubric-friendly *concept* example with REAL user input.
+// Updated: uses ONLY while loops (no for loops).
 const ExampleProgram = `
-// Create PT "Minimum Viable" Example (concept demo)
+// Create PT "Minimum Viable" Example (concept demo) — with input + while loops only
 
 // LIST: stores user answers over time
 let answers = [];
+
+// INPUT: collect 3 answers from the user
+let i = 0;
+while (i < 3)
+{
+  let response = prompt("Question " + (i + 1) + ": Type yes or no").toLowerCase();
+  answers.push(response);
+
+  i++;
+}
 
 // PROCEDURE (student-developed) with a PARAMETER
 function analyzeAnswers(answerList)
 {
   let score = 0;
 
-  // ITERATION
-  for (let i = 0; i < answerList.length; i++)
+  // ITERATION (while loop)
+  let index = 0;
+  while (index < answerList.length)
   {
     // SELECTION
-    if (answerList[i] === "yes")
+    if (answerList[index] === "yes")
     {
       score++;
     }
+
+    index++;
   }
 
   // OUTPUT (return value)
   return score;
 }
 
-// INPUT (simulated here for demo)
-answers.push("yes");
-answers.push("no");
-answers.push("yes");
-
 // CALL THE PROCEDURE
 let result = analyzeAnswers(answers);
 
 // OUTPUT
-console.log("Yes count:", result);
+console.log("You answered 'yes' this many times:", result);
 `;
 
 const ExampleProgramCallouts = `
-✅ LIST: answers
+✅ INPUT: prompt() gathers data from the user
+✅ LIST: answers stores user responses over time
 ✅ PROCEDURE with PARAMETER: analyzeAnswers(answerList)
 ✅ ALGORITHM in the procedure:
-   - Sequencing (top-to-bottom steps)
+   - Sequencing (steps in order)
    - Selection (if)
-   - Iteration (for loop)
-✅ INPUT → PROCESSING → OUTPUT shown
+   - Iteration (while loop)
+✅ OUTPUT: console.log displays the result
 `;
 
 const ExitTicketPrompts = `
@@ -62,7 +71,7 @@ Pick ONE to answer:
 
 1) In your own words: what is the purpose of the list in a Create PT program?
 2) Why does AP require a procedure with a parameter?
-3) Name one thing students often overdo on the Create PT that doesn't help their score.
+3) Name one thing students often overdo on the Create PT that doesn’t help their score.
 `;
 
 //#endregion
@@ -93,19 +102,20 @@ Pick ONE to answer:
             <h3>Create Performance Task</h3>
             <h4 class="text-skynest-theme">Lesson 1: What AP Actually Wants</h4>
             <p class="mt-4">
-              Today's goal: remove confusion, reduce anxiety, and make the task
+              Today’s goal: remove confusion, reduce anxiety, and make the task
               feel <b>doable</b>.
             </p>
           </section>
 
           {/* Slide 2 */}
           <section>
-            <h4>Today's Plan</h4>
+            <h4>Today’s Plan</h4>
             <ul>
               <li>What the Create PT is (plain English)</li>
               <li>What you submit</li>
               <li>The <span class="text-skynest-theme">Big Three</span> required code elements</li>
-              <li>What doesn't matter as much as you think</li>
+              <li>What doesn’t matter as much as you think</li>
+              <li>What counts as <span class="text-skynest-theme">input</span></li>
               <li>A minimum-viable mental model</li>
               <li>Exit check</li>
             </ul>
@@ -153,22 +163,22 @@ Pick ONE to answer:
           {/* Slide 6 */}
           <section>
             <h4>The <span class="text-skynest-theme">Big Three</span> Your Code Must Include</h4>
-            <ol>
+            <ul>
               <li>
-                <b>A List</b> (stores related data in a way that matters)
+                <b>1) A List</b> (stores related data in a way that matters)
               </li>
               <li>
-                <b>A Student-Developed Procedure</b> with a <b>parameter</b>
+                <b>2) A Student-Developed Procedure</b> with a <b>parameter</b>
               </li>
               <li>
-                <b>An Algorithm</b> inside that procedure with:
+                <b>3) An Algorithm</b> inside that procedure with:
                 <ul>
                   <li><b>Sequencing</b></li>
                   <li><b>Selection</b> (<AstroCode code="if" lang="javascript" inline theme="material-theme-ocean" />)</li>
-                  <li><b>Iteration</b> (a loop)</li>
+                  <li><b>Iteration</b> (a <span class="text-skynest-theme">while loop</span>)</li>
                 </ul>
               </li>
-            </ol>
+            </ul>
             <p class="mt-3 text-skynest-theme">
               One strong procedure can satisfy multiple requirements.
             </p>
@@ -183,11 +193,11 @@ Pick ONE to answer:
               <li>You use it meaningfully (read + update)</li>
               <li>The program would be worse without it</li>
             </ul>
-            <p class="mt-3"><b>Often doesn't count when…</b></p>
+            <p class="mt-3"><b>Often doesn’t count when…</b></p>
             <ul>
               <li>You use it once and forget it</li>
               <li>It only holds one value</li>
-              <li>It could be replaced with 2-3 simple variables</li>
+              <li>It could be replaced with 2–3 simple variables</li>
             </ul>
           </section>
 
@@ -209,13 +219,13 @@ Pick ONE to answer:
           <section>
             <h4>What AP Means by “Algorithm”</h4>
             <p>
-              AP's algorithm requirement is about proving you can write logic —
+              AP’s algorithm requirement is about proving you can write logic —
               not about advanced math.
             </p>
             <ul>
               <li><b>Sequencing:</b> steps in order</li>
               <li><b>Selection:</b> decisions using <AstroCode code="if" lang="javascript" inline theme="material-theme-ocean" /></li>
-              <li><b>Iteration:</b> repetition with a loop</li>
+              <li><b>Iteration:</b> repetition with a <span class="text-skynest-theme">while loop</span></li>
             </ul>
             <p class="mt-3 text-skynest-theme">
               The algorithm should live inside your procedure.
@@ -224,7 +234,23 @@ Pick ONE to answer:
 
           {/* Slide 10 */}
           <section>
-            <h4>What Doesn't Matter as Much as You Think</h4>
+            <h4>What Counts as “Input”?</h4>
+            <p>
+              Input is data that comes from <b>outside the program</b> and affects what it does.
+            </p>
+            <ul>
+              <li>Typing into a prompt or text field</li>
+              <li>Clicking a button / selecting a choice</li>
+              <li>Data from a file/dataset or sensor</li>
+            </ul>
+            <p class="mt-3">
+              For our “complete” demo today, we’ll use <AstroCode code="prompt()" lang="javascript" inline theme="material-theme-ocean" />.
+            </p>
+          </section>
+
+          {/* Slide 11 */}
+          <section>
+            <h4>What Doesn’t Matter as Much as You Think</h4>
             <div class="row">
               <div class="col-6">
                 <h5>Students over-focus on…</h5>
@@ -250,80 +276,51 @@ Pick ONE to answer:
             </p>
           </section>
 
-          {/* Slide 11 */}
+          {/* Slide 12 */}
           <section>
             <h4>Minimum-Viable Mental Model</h4>
             <p><b>Example concept:</b> Quiz / Survey Analyzer</p>
             <ol>
-              <li>Ask questions (input)</li>
-              <li>Store answers in a <b>list</b></li>
+              <li>User responds to questions (input)</li>
+              <li>Store responses in a <b>list</b></li>
               <li>Call a <b>procedure(parameter)</b> to analyze</li>
-              <li>Inside the procedure: loop + if (algorithm)</li>
+              <li>Inside the procedure: while loop + if (algorithm)</li>
               <li>Display a result (output)</li>
             </ol>
           </section>
 
-          {/* Slide 12 */}
+          {/* Slide 13 */}
           <section>
-            <h4>Micro-Activity (3-5 min): Evidence Spotting</h4>
+            <h4>Micro-Activity (3–5 min): Evidence Spotting</h4>
             <p>With a partner, answer:</p>
             <ul>
               <li>What could the <b>list</b> store in the quiz example?</li>
               <li>What could the <b>procedure parameter</b> be?</li>
-              <li>Where would the <b>loop</b> and <b>if</b> naturally happen?</li>
+              <li>Where would the <b>while loop</b> and <b>if</b> naturally happen?</li>
             </ul>
             <p class="mt-3">
               You are <b>not</b> writing code yet — just locating evidence.
             </p>
           </section>
 
-          {/* Slide 13 */}
-          <section>
-            <h4>Concept Demo: A Minimal Example</h4>
-            <p>
-              This is not “the Create PT” — it's a tiny example showing the
-              <span class="text-skynest-theme">structure</span>.
-            </p>
-            <Code
-              code={ExampleProgram}
-              frame="code"
-              lang="javascript"
-              title="demo.js"
-              class="text-start"
-            />
-          </section>
-
           {/* Slide 14 */}
-          <section>
-            <h4>Where's the Evidence?</h4>
-            <p>In the demo, we can point to each requirement:</p>
-            <Code
-              code={ExampleProgramCallouts}
-              frame="terminal"
-              lang="txt"
-              title="Checklist"
-              class="text-start"
-            />
-          </section>
-
-          {/* Slide 15 */}
           <section>
             <h4>Common Traps (Preview)</h4>
             <ul>
               <li>Procedure has <b>no parameter</b></li>
               <li>List is used once and forgotten</li>
               <li>Algorithm exists, but not inside the procedure</li>
-              <li>Video doesn't clearly show input and output</li>
+              <li>Video doesn’t clearly show input and output</li>
             </ul>
             <p class="mt-3">
               Next lesson: “counts” vs “looks like it counts.”
             </p>
           </section>
 
-          {/* Slide 16 */}
+          {/* Slide 15 */}
           <section>
             <h4>Exit Ticket</h4>
-            <p>Answer one prompt in 2-3 sentences.</p>
+            <p>Answer one prompt in 2–3 sentences.</p>
             <Code
               code={ExitTicketPrompts}
               frame="terminal"
@@ -339,7 +336,7 @@ Pick ONE to answer:
           <ul>
             <ListItem variant="1">Describe the Create Performance Task in plain English</ListItem>
             <ListItem variant="1">Identify the Big Three required code elements (List, Procedure, Algorithm)</ListItem>
-            <ListItem variant="1">Explain why “simple + explainable” is a winning strategy</ListItem>
+            <ListItem variant="1">Explain what “input” means in a Create PT program</ListItem>
             <ListItem variant="1">Recognize common Create PT traps before they happen</ListItem>
           </ul>
         </section>
@@ -350,15 +347,66 @@ Pick ONE to answer:
           <h2>Activity Tasks</h2>
           <ul>
             <ListItem variant="2">
-              During the micro-activity slide, write down your team's answers for:
-              <b>list idea</b>, <b>procedure parameter</b>, and where the <b>if + loop</b> would go.
+              During the micro-activity slide, write down your team’s answers for:
+              <b>list idea</b>, <b>procedure parameter</b>, and where the <b>while loop + if</b> would go.
             </ListItem>
             <ListItem variant="2">
-              Complete the exit ticket (Slide 16) and submit it in your LMS / on paper.
+              Complete the exit ticket (Slide 15) and submit it in your LMS / on paper.
+            </ListItem>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>
+            <span class="text-skynest-theme">Activity Extension</span>: Minimal Example (Optional, 10–15 min)
+          </h3>
+          <p>
+            If time allows, review the short example program below. This version includes
+            <b>real user input</b> using <AstroCode code="prompt()" lang="javascript" inline theme="material-theme-ocean" /> and uses only
+            <span class="text-skynest-theme">while loops</span>.
+            Your goal is to identify exactly where each Create PT requirement appears.
+          </p>
+
+          <h4 class="mt-3">Example Program (with input + while loops)</h4>
+          <Code
+            code={ExampleProgram}
+            frame="code"
+            lang="javascript"
+            title="demo.js"
+            class="text-start"
+            showLineNumbers
+          />
+
+          <h4 class="mt-4">Checklist</h4>
+          <Code
+            code={ExampleProgramCallouts}
+            frame="terminal"
+            lang="txt"
+            title="Where’s the Evidence?"
+            class="text-start"
+          />
+
+          <ul class="mt-3">
+            <ListItem variant="2">
+              Write the <b>name</b> of the list and the <b>name</b> of the procedure from the example.
             </ListItem>
             <ListItem variant="2">
-              (Optional) Write 2-3 program ideas that fit the “minimum-viable” model:
-              input → list → procedure(parameter) with if + loop → output.
+              Circle the line(s) that show <b>selection</b> and the line(s) that show <b>iteration</b>.
+            </ListItem>
+            <ListItem variant="2">
+              Underline the line(s) that show <b>input</b> and <b>output</b>.
+            </ListItem>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>
+            <span class="text-skynest-theme">Optional Homework</span>: Safe Program Ideas
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              Write 2–3 program ideas that fit:
+              input → list → procedure(parameter) with while loop + if → output.
             </ListItem>
           </ul>
         </section>
@@ -386,7 +434,8 @@ Pick ONE to answer:
         <section id="submission">
           <h2>Submission</h2>
           <p>
-            Submit your exit ticket response (and optional homework ideas if assigned) to the appropriate dropbox.
+            Submit your exit ticket response (and the optional extension notes if assigned)
+            to the appropriate dropbox.
           </p>
         </section>
 
