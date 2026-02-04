@@ -1,0 +1,301 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Divider from "../../components/ui/Divider.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region Prompt Blocks
+
+const PreambleRules = `Rules for this review:
+- Do NOT rewrite, refactor, or generate code.
+- Do NOT suggest specific lines of code to add/change.
+- Only identify whether Create PT requirements are met and explain why or why not.
+- If something is missing, describe the conceptual gap, not how to implement it.
+`;
+
+const Prompt1 = `I am completing the AP CSP Create Performance Task.
+
+Below is my program code.
+
+Your job is to act as a rubric reviewer, not a programmer.
+
+${PreambleRules}
+
+Check the following:
+1. Is there real user input?
+2. Is there a list that manages program state meaningfully?
+3. Is there a student-developed procedure with at least one parameter?
+4. Does that procedure contain sequencing, selection, and iteration?
+5. Is output clearly produced based on input and processing?
+
+Respond in a checklist format with brief explanations.
+
+[PASTE MY CODE BELOW]
+`;
+
+const Prompt2 = `Review ONLY the student-developed procedure in the code below.
+
+${PreambleRules}
+
+Answer these questions:
+1. Does the procedure have at least one parameter?
+2. Is the procedure actually called somewhere in the program?
+3. Does the procedure execute multiple steps top-to-bottom? (sequencing)
+4. Does it contain a conditional decision? (selection)
+5. Does it contain a loop? (iteration)
+6. Are all of these inside the same procedure?
+
+Explain your reasoning in plain English.
+
+[PASTE MY PROCEDURE + THE CALL SITE BELOW]
+`;
+
+const Prompt3 = `Look at the procedure below.
+
+${PreambleRules}
+
+Question:
+Does this procedure execute multiple steps in a clear top-to-bottom order before producing a result?
+
+Explain your answer WITHOUT using AP terminology.
+
+[PASTE MY PROCEDURE BELOW]
+`;
+
+const Prompt4 = `Review how the list is used in the program below.
+
+${PreambleRules}
+
+Answer:
+1. What information does the list store?
+2. How is the list used more than once?
+3. Would the program be harder to write or explain without this list?
+
+If the list does NOT manage complexity, explain why in conceptual terms only.
+
+[PASTE MY CODE BELOW]
+`;
+
+const Prompt5 = `Assume you are a grader watching a Create PT video.
+
+Based on the program below, answer:
+1. What input should be shown in the video?
+2. What processing should be visible?
+3. What output must be clearly shown?
+
+${PreambleRules}
+
+Only describe what must be demonstrated in the video.
+
+[PASTE MY CODE BELOW]
+`;
+
+const Prompt6 = `Below is my Create PT written response draft.
+
+${PreambleRules}
+
+Check:
+1. Do I clearly identify my list?
+2. Do I explain what my procedure does?
+3. Do I explain how the algorithm works?
+4. Do I explain how input affects output?
+
+Respond with:
+- Missing
+- Weak
+- Clear
+
+Include a brief explanation for each.
+
+[PASTE MY WRITTEN RESPONSE BELOW]
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>AI Feedback Prompts</h1>
+        <p class="text-muted">
+          Use AI as a <b>rubric-aware reviewer</b> — not as a code generator.
+        </p>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="purpose">
+          <h2>Purpose</h2>
+          <p>
+            These prompts are designed to help you get <b>constructive feedback</b> and verify that your Create PT
+            meets requirements, <b>without</b> generating or rewriting your code.
+          </p>
+
+          <div class="alert alert-secondary">
+            <b>Rule:</b> AI may help you check requirements and clarity. AI may <b>not</b> write, refactor, or redesign
+            your solution.
+          </div>
+        </section>
+
+        <hr />
+
+        <section id="rules">
+          <h2>Required Rules (Paste This Into Every Prompt)</h2>
+          <p>
+            Copy/paste this block at the top of any prompt you use. This keeps the feedback ethical and keeps you
+            as the author of your work.
+          </p>
+
+          <Code
+            code={PreambleRules}
+            frame="terminal"
+            lang="txt"
+            title="AI Review Rules (Required)"
+            class="text-start"
+          />
+        </section>
+
+        <hr />
+
+        <section id="prompts">
+          <h2>Approved Prompt Library</h2>
+
+          <h3 class="mt-4">
+            1) Full Create PT Compliance Review
+          </h3>
+          <p class="text-muted">
+            Best for: “Am I meeting the requirements?” Use near the middle/end of your build.
+          </p>
+          <Code
+            code={Prompt1}
+            frame="code"
+            lang="txt"
+            title="Prompt 1: Compliance Review"
+            class="text-start"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>
+            2) Procedure + Algorithm Verification (Most Common Failure Point)
+          </h3>
+          <p class="text-muted">
+            Best for: checking the function requirement without changing any code.
+          </p>
+          <Code
+            code={Prompt2}
+            frame="code"
+            lang="txt"
+            title="Prompt 2: Procedure & Algorithm Check"
+            class="text-start"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>
+            3) “Sequencing” Without AP Vocabulary
+          </h3>
+          <p class="text-muted">
+            Best for: avoiding the “sequencing” mental trap.
+          </p>
+          <Code
+            code={Prompt3}
+            frame="code"
+            lang="txt"
+            title="Prompt 3: Straight-Line Logic Check"
+            class="text-start"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>
+            4) List Use / Managing Complexity Check
+          </h3>
+          <p class="text-muted">
+            Best for: proving your list is meaningful, not decorative.
+          </p>
+          <Code
+            code={Prompt4}
+            frame="code"
+            lang="txt"
+            title="Prompt 4: List Justification Review"
+            class="text-start"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>
+            5) Video Readiness Audit (Input → Output Evidence)
+          </h3>
+          <p class="text-muted">
+            Best for: scripting a clean Create PT video without changing your program.
+          </p>
+          <Code
+            code={Prompt5}
+            frame="code"
+            lang="txt"
+            title="Prompt 5: Video Audit"
+            class="text-start"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>
+            6) Written Response Self-Check (No Rewriting)
+          </h3>
+          <p class="text-muted">
+            Best for: checking whether your writing is complete and rubric-aligned.
+          </p>
+          <Code
+            code={Prompt6}
+            frame="code"
+            lang="txt"
+            title="Prompt 6: Written Response Check"
+            class="text-start"
+            showLineNumbers={false}
+          />
+        </section>
+
+        <hr />
+
+        <section id="tips">
+          <h2>Student Tips (Keep It Ethical)</h2>
+          <ul>
+            <li>
+              Ask for <b>yes/no</b> checks and <b>conceptual</b> gaps — not solutions.
+            </li>
+            <li>
+              If AI starts writing code anyway, stop and re-run your prompt with the required rules.
+            </li>
+            <li>
+              You should be able to explain every line in your program without AI.
+            </li>
+          </ul>
+
+          <div class="alert alert-success">
+            <b>Best mindset:</b> treat AI like a code reviewer that can only comment — it cannot commit changes.
+          </div>
+        </section>
+
+        <hr />
+
+        <section id="submission-note">
+          <h2>Reminder</h2>
+          <p>
+            Your Create PT must be your own work. Use these prompts to <b>check</b> and <b>clarify</b>, not to generate
+            solutions.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
