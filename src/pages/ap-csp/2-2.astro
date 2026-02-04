@@ -1,0 +1,256 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import Divider from "../../components/ui/Divider.astro";
+
+//#region Code Snippets
+
+const InputExample = `
+// INPUT: data comes from the user
+let response = prompt("Type yes or no").toLowerCase();
+`;
+
+const ListExample = `
+// LIST: stores multiple related values
+let answers = [];
+
+answers.push("yes");
+answers.push("no");
+`;
+
+const ProcedureExample = `
+// STUDENT-DEVELOPED PROCEDURE with a PARAMETER
+function analyzeAnswers(answerList)
+{
+  let score = 0;
+  return score;
+}
+`;
+
+const AlgorithmExample = `
+// ALGORITHM inside the procedure
+function analyzeAnswers(answerList)
+{
+  let score = 0;
+  let i = 0;
+
+  // ITERATION
+  while (i < answerList.length)
+  {
+    // SELECTION
+    if (answerList[i] === "yes")
+    {
+      score++;
+    }
+
+    i++;
+  }
+
+  return score;
+}
+`;
+
+const OutputExample = `
+// OUTPUT depends on processing
+console.log("Yes count:", result);
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Create Performance Task Checklist</h1>
+        <p class="text-muted">
+          A practical, evidence-based checklist for AP CSP Create PT success.
+        </p>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- HOW TO USE -->
+        <section>
+          <h2>How to Use This Checklist</h2>
+          <ul>
+            <li>Every checkbox should be an honest <b>yes</b>.</li>
+            <li>If you can't point to it in your code, it doesn't count.</li>
+            <li>Simple and explainable beats impressive and confusing.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <!-- INPUT -->
+        <section>
+          <h3>1) Program &amp; Input</h3>
+          <ul class="list-unstyled">
+            <li>☐ My program responds to something the user does.</li>
+            <li>☐ The user's input changes what the program does.</li>
+            <li>☐ I can point to the exact line where input happens.</li>
+          </ul>
+
+          <p class="text-muted">
+            If the user did nothing, the program would behave differently or not work.
+          </p>
+
+          <Code
+            code={InputExample}
+            frame="code"
+            lang="javascript"
+            title="Input Example"
+            class="text-start"
+          />
+        </section>
+
+        <hr />
+
+        <!-- LIST -->
+        <section>
+          <h3>2) List (Array)</h3>
+          <ul class="list-unstyled">
+            <li>☐ I use one list that stores multiple related values.</li>
+            <li>☐ The list is used more than once.</li>
+            <li>☐ The program would be worse without this list.</li>
+            <li>☐ I can explain why this list is better than separate variables.</li>
+          </ul>
+
+          <Code
+            code={ListExample}
+            frame="code"
+            lang="javascript"
+            title="List Example"
+            class="text-start"
+          />
+        </section>
+
+        <hr />
+
+        <!-- PROCEDURE -->
+        <section>
+          <h3>3) Student-Developed Procedure (Function)</h3>
+          <ul class="list-unstyled">
+            <li>☐ I wrote this procedure myself.</li>
+            <li>☐ It has at least one parameter.</li>
+            <li>☐ It is called at least once.</li>
+            <li>☐ It does meaningful work.</li>
+          </ul>
+
+          <p class="text-muted">
+            The procedure does <b>not</b> need to be called more than once.
+          </p>
+
+          <Code
+            code={ProcedureExample}
+            frame="code"
+            lang="javascript"
+            title="Procedure Example"
+            class="text-start"
+          />
+        </section>
+
+        <hr />
+
+        <!-- ALGORITHM -->
+        <section>
+          <h3>4) Algorithm (Inside the Procedure)</h3>
+
+          <h4>Sequencing</h4>
+          <ul class="list-unstyled">
+            <li>☐ The procedure has multiple steps that run in order.</li>
+          </ul>
+
+          <p class="text-muted">
+            If your procedure has more than one line that executes top-to-bottom,
+            you have sequencing.
+          </p>
+
+          <h4>Selection</h4>
+          <ul class="list-unstyled">
+            <li>☐ The procedure uses an <AstroCode code="if" lang="javascript" inline theme="material-theme-ocean" /> statement.</li>
+          </ul>
+
+          <h4>Iteration</h4>
+          <ul class="list-unstyled">
+            <li>☐ The procedure uses a <b>while loop</b>.</li>
+          </ul>
+
+          <p class="text-muted">
+            All three must appear inside the <b>same</b> student-developed procedure.
+          </p>
+
+          <Code
+            code={AlgorithmExample}
+            frame="code"
+            lang="javascript"
+            title="Algorithm Example (while + if)"
+            class="text-start"
+            showLineNumbers
+          />
+        </section>
+
+        <hr />
+
+        <!-- OUTPUT -->
+        <section>
+          <h3>5) Output</h3>
+          <ul class="list-unstyled">
+            <li>☐ The program produces visible output.</li>
+            <li>☐ The output depends on user input and processing.</li>
+          </ul>
+
+          <Code
+            code={OutputExample}
+            frame="code"
+            lang="javascript"
+            title="Output Example"
+            class="text-start"
+          />
+        </section>
+
+        <hr />
+
+        <!-- VIDEO -->
+        <section>
+          <h3>6) Video</h3>
+          <ul class="list-unstyled">
+            <li>☐ Shows user input.</li>
+            <li>☐ Shows the program running.</li>
+            <li>☐ Shows output.</li>
+            <li>☐ No narration required.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <!-- WRITTEN RESPONSES -->
+        <section>
+          <h3>7) Written Responses</h3>
+          <ul class="list-unstyled">
+            <li>☐ I reference my list, procedure, and algorithm.</li>
+            <li>☐ I explain what the code does.</li>
+            <li>☐ I answer exactly what the prompt asks.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <!-- FINAL CHECK -->
+        <section>
+          <h3>8) Final Sanity Check</h3>
+          <ul class="list-unstyled">
+            <li>☐ I can explain my entire program calmly. If you can point to it and explain it calmly, AP will count it.</li>
+            <li>☐ I did not add features "just in case."</li>
+            <li>☐ Every major part of my code exists for a rubric reason.</li>
+          </ul>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</Layout>
