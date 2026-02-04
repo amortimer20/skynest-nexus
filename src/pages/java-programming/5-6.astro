@@ -1,0 +1,871 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+import { Image } from "astro:assets";
+
+//#region CodeSnippets
+
+// ----------------------
+// Presentation snippets (small + informative)
+// ----------------------
+const SlideA = `// Tic-Tac-Toe board as a 2D array (3 rows, 3 columns)
+char[][] board =
+{
+    {'-', '-', '-'},
+    {'-', '-', '-'},
+    {'-', '-', '-'}
+};
+
+// board[row][col] is one cell`;
+
+const SlideB = `// Printing seeable coordinates
+// (r,c) indices:
+// (0,0) (0,1) (0,2)
+// (1,0) (1,1) (1,2)
+// (2,0) (2,1) (2,2)`;
+
+const SlideC = `// Valid move rules
+// 1) row and col must be 0..2
+// 2) chosen cell must be empty ('-')`;
+
+const SlideD = `// Turn switching
+char currentPlayer = 'X';
+
+// after a successful move:
+if (currentPlayer == 'X')
+{
+    currentPlayer = 'O';
+}
+else
+{
+    currentPlayer = 'X';
+}`;
+
+const SlideE = `// Win check idea: a player wins if 3 in a row match
+// Rows: board[r][0], board[r][1], board[r][2]
+// Cols: board[0][c], board[1][c], board[2][c]
+// Diagonals: (0,0)(1,1)(2,2) and (0,2)(1,1)(2,0)`;
+
+const SlideF = `// Example row check (r = 1)
+if (board[1][0] == player &&
+    board[1][1] == player &&
+    board[1][2] == player)
+{
+    return true;
+}`;
+
+const SlideG = `// Tie check idea
+// If no '-' remain and nobody won -> tie`;
+
+// ----------------------
+// Figures
+// ----------------------
+const Figure1 = `// Figure 1 — A printable board method (Allman style)
+public static void printBoard(char[][] board)
+{
+    System.out.println();
+    System.out.println("   0   1   2");
+    System.out.println("  -----------");
+
+    for (int r = 0; r < board.length; r++)
+    {
+        System.out.print(r + " |");
+
+        for (int c = 0; c < board[r].length; c++)
+        {
+            System.out.print(" " + board[r][c] + " |");
+        }
+
+        System.out.println();
+        System.out.println("  -----------");
+    }
+
+    System.out.println();
+}
+`;
+
+const Figure2 = `// Figure 2 — Move validation (Allman style)
+public static boolean isValidMove(char[][] board, int row, int col)
+{
+    if (row < 0 || row >= board.length)
+    {
+        return false;
+    }
+
+    if (col < 0 || col >= board[row].length)
+    {
+        return false;
+    }
+
+    if (board[row][col] != '-')
+    {
+        return false;
+    }
+
+    return true;
+}
+`;
+
+const Figure3 = `// Figure 3 — Win check (Allman style)
+public static boolean checkWin(char[][] board, char player)
+{
+    // Rows
+    for (int r = 0; r < board.length; r++)
+    {
+        if (board[r][0] == player && board[r][1] == player && board[r][2] == player)
+        {
+            return true;
+        }
+    }
+
+    // Columns
+    for (int c = 0; c < board[0].length; c++)
+    {
+        if (board[0][c] == player && board[1][c] == player && board[2][c] == player)
+        {
+            return true;
+        }
+    }
+
+    // Diagonals
+    if (board[0][0] == player && board[1][1] == player && board[2][2] == player)
+    {
+        return true;
+    }
+
+    if (board[0][2] == player && board[1][1] == player && board[2][0] == player)
+    {
+        return true;
+    }
+
+    return false;
+}
+`;
+
+const Figure4 = `// Figure 4 — Tie check (Allman style)
+public static boolean isBoardFull(char[][] board)
+{
+    for (int r = 0; r < board.length; r++)
+    {
+        for (int c = 0; c < board[r].length; c++)
+        {
+            if (board[r][c] == '-')
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+`;
+
+// ----------------------
+// Tasks (students build in stages)
+// ----------------------
+const Task1 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 1 — Build the board + print it
+        //
+        // 1) Create a 3x3 char board filled with '-'
+        // 2) Call printBoard(board) to display it
+        //
+        // Expected: an empty 3x3 grid with row/col labels.
+
+        char[][] board =
+        {
+            {'-', '-', '-'},
+            {'-', '-', '-'},
+            {'-', '-', '-'}
+        };
+
+        printBoard(board);
+    }
+
+    public static void printBoard(char[][] board)
+    {
+        System.out.println();
+        System.out.println("   0   1   2");
+        System.out.println("  -----------");
+
+        for (int r = 0; r < board.length; r++)
+        {
+            System.out.print(r + " |");
+
+            for (int c = 0; c < board[r].length; c++)
+            {
+                System.out.print(" " + board[r][c] + " |");
+            }
+
+            System.out.println();
+            System.out.println("  -----------");
+        }
+
+        System.out.println();
+    }
+}
+`;
+
+const Task2 = `import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 2 — Place a move (single turn)
+        //
+        // 1) Start with an empty board
+        // 2) Ask the user for row and col (0-2)
+        // 3) If the move is valid, place 'X' there
+        // 4) Print the board
+        //
+        // Note: We'll build the full game loop later.
+
+        char[][] board =
+        {
+            {'-', '-', '-'},
+            {'-', '-', '-'},
+            {'-', '-', '-'}
+        };
+
+        Scanner scanner = new Scanner(System.in);
+
+        printBoard(board);
+
+        System.out.print("Enter row (0-2): ");
+        int row = scanner.nextInt();
+
+        System.out.print("Enter col (0-2): ");
+        int col = scanner.nextInt();
+
+        if (isValidMove(board, row, col))
+        {
+            board[row][col] = 'X';
+            System.out.println("Move placed!");
+        }
+        else
+        {
+            System.out.println("Invalid move.");
+        }
+
+        printBoard(board);
+
+        scanner.close();
+    }
+
+    public static void printBoard(char[][] board)
+    {
+        System.out.println();
+        System.out.println("   0   1   2");
+        System.out.println("  -----------");
+
+        for (int r = 0; r < board.length; r++)
+        {
+            System.out.print(r + " |");
+
+            for (int c = 0; c < board[r].length; c++)
+            {
+                System.out.print(" " + board[r][c] + " |");
+            }
+
+            System.out.println();
+            System.out.println("  -----------");
+        }
+
+        System.out.println();
+    }
+
+    public static boolean isValidMove(char[][] board, int row, int col)
+    {
+        if (row < 0 || row >= board.length)
+        {
+            return false;
+        }
+
+        if (col < 0 || col >= board[row].length)
+        {
+            return false;
+        }
+
+        if (board[row][col] != '-')
+        {
+            return false;
+        }
+
+        return true;
+    }
+}
+`;
+
+const Task3 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 3 — Implement checkWin(board, player)
+        //
+        // 1) Copy the board below
+        // 2) Call checkWin(board, 'X') and print the result
+        //
+        // The board below is a win for X on the top row.
+
+        char[][] board =
+        {
+            {'X', 'X', 'X'},
+            {'O', '-', 'O'},
+            {'-', '-', '-'}
+        };
+
+        boolean xWon = checkWin(board, 'X');
+        System.out.println("X won? " + xWon);
+    }
+
+    public static boolean checkWin(char[][] board, char player)
+    {
+        // Rows
+        for (int r = 0; r < board.length; r++)
+        {
+            if (board[r][0] == player && board[r][1] == player && board[r][2] == player)
+            {
+                return true;
+            }
+        }
+
+        // Columns
+        for (int c = 0; c < board[0].length; c++)
+        {
+            if (board[0][c] == player && board[1][c] == player && board[2][c] == player)
+            {
+                return true;
+            }
+        }
+
+        // Diagonals
+        if (board[0][0] == player && board[1][1] == player && board[2][2] == player)
+        {
+            return true;
+        }
+
+        if (board[0][2] == player && board[1][1] == player && board[2][0] == player)
+        {
+            return true;
+        }
+
+        return false;
+    }
+}
+`;
+
+const Task4 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 4 — Implement isBoardFull(board)
+        //
+        // 1) Create two boards:
+        //    A) a full board (no '-')
+        //    B) a not-full board (has '-')
+        // 2) Print isBoardFull(...) for each
+
+        char[][] fullBoard =
+        {
+            {'X', 'O', 'X'},
+            {'X', 'O', 'O'},
+            {'O', 'X', 'X'}
+        };
+
+        char[][] notFullBoard =
+        {
+            {'X', 'O', '-'},
+            {'X', '-', 'O'},
+            {'O', 'X', 'X'}
+        };
+
+        System.out.println("Full board? " + isBoardFull(fullBoard));
+        System.out.println("Full board? " + isBoardFull(notFullBoard));
+    }
+
+    public static boolean isBoardFull(char[][] board)
+    {
+        for (int r = 0; r < board.length; r++)
+        {
+            for (int c = 0; c < board[r].length; c++)
+            {
+                if (board[r][c] == '-')
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
+`;
+
+const Task5 = `import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 5 — Milestone: Full Tic-Tac-Toe Game
+        //
+        // Features:
+        // - 2D char board
+        // - player turns (X then O)
+        // - input validation (row/col in range, cell empty)
+        // - win detection
+        // - tie detection
+        //
+        // Suggested flow:
+        // while (true)
+        //   print board
+        //   prompt move for current player
+        //   if invalid -> message and continue
+        //   place piece
+        //   if win -> print board + winner and break
+        //   if tie -> print board + tie message and break
+        //   switch player
+
+        char[][] board =
+        {
+            {'-', '-', '-'},
+            {'-', '-', '-'},
+            {'-', '-', '-'}
+        };
+
+        Scanner scanner = new Scanner(System.in);
+
+        char currentPlayer = 'X';
+
+        while (true)
+        {
+            printBoard(board);
+
+            System.out.println("Player " + currentPlayer + "'s turn.");
+            System.out.print("Enter row (0-2): ");
+            int row = scanner.nextInt();
+
+            System.out.print("Enter col (0-2): ");
+            int col = scanner.nextInt();
+
+            if (!isValidMove(board, row, col))
+            {
+                System.out.println("Invalid move. Try again.");
+                continue;
+            }
+
+            board[row][col] = currentPlayer;
+
+            if (checkWin(board, currentPlayer))
+            {
+                printBoard(board);
+                System.out.println("Player " + currentPlayer + " wins!");
+                break;
+            }
+
+            if (isBoardFull(board))
+            {
+                printBoard(board);
+                System.out.println("It's a tie!");
+                break;
+            }
+
+            // switch player
+            if (currentPlayer == 'X')
+            {
+                currentPlayer = 'O';
+            }
+            else
+            {
+                currentPlayer = 'X';
+            }
+        }
+
+        scanner.close();
+    }
+
+    public static void printBoard(char[][] board)
+    {
+        System.out.println();
+        System.out.println("   0   1   2");
+        System.out.println("  -----------");
+
+        for (int r = 0; r < board.length; r++)
+        {
+            System.out.print(r + " |");
+
+            for (int c = 0; c < board[r].length; c++)
+            {
+                System.out.print(" " + board[r][c] + " |");
+            }
+
+            System.out.println();
+            System.out.println("  -----------");
+        }
+
+        System.out.println();
+    }
+
+    public static boolean isValidMove(char[][] board, int row, int col)
+    {
+        if (row < 0 || row >= board.length)
+        {
+            return false;
+        }
+
+        if (col < 0 || col >= board[row].length)
+        {
+            return false;
+        }
+
+        if (board[row][col] != '-')
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean checkWin(char[][] board, char player)
+    {
+        // Rows
+        for (int r = 0; r < board.length; r++)
+        {
+            if (board[r][0] == player && board[r][1] == player && board[r][2] == player)
+            {
+                return true;
+            }
+        }
+
+        // Columns
+        for (int c = 0; c < board[0].length; c++)
+        {
+            if (board[0][c] == player && board[1][c] == player && board[2][c] == player)
+            {
+                return true;
+            }
+        }
+
+        // Diagonals
+        if (board[0][0] == player && board[1][1] == player && board[2][2] == player)
+        {
+            return true;
+        }
+
+        if (board[0][2] == player && board[1][1] == player && board[2][0] == player)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isBoardFull(char[][] board)
+    {
+        for (int r = 0; r < board.length; r++)
+        {
+            for (int c = 0; c < board[r].length; c++)
+            {
+                if (board[r][c] == '-')
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
+`;
+
+const SampleOutput = `   0   1   2
+  -----------
+0 | - | - | - |
+  -----------
+1 | - | - | - |
+  -----------
+2 | - | - | - |
+  -----------
+
+Player X's turn.
+Enter row (0-2): 1
+Enter col (0-2): 1
+
+   0   1   2
+  -----------
+0 | - | - | - |
+  -----------
+1 | - | X | - |
+  -----------
+2 | - | - | - |
+  -----------
+
+Player O's turn.
+Enter row (0-2): 0
+Enter col (0-2): 0
+
+... (game continues) ...
+
+Player X wins!
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.6 — Milestone: Tic-Tac-Toe</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.6</h3>
+            <h4 class="text-skynest-theme">Milestone Program: Tic-Tac-Toe</h4>
+          </section>
+
+          <section>
+            <h4>Why this milestone?</h4>
+            <ul>
+              <li>You now know arrays, traversal, and 2D arrays.</li>
+              <li>This game forces you to use <strong>grid thinking</strong>.</li>
+              <li>You’ll practice methods, validation, and algorithms.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Board Model</h4>
+            <ul>
+              <li>We store the board as a 3×3 2D array.</li>
+              <li><code>'-'</code> means empty.</li>
+              <li><code>'X'</code> and <code>'O'</code> are player moves.</li>
+            </ul>
+            <Code code={SlideA} lang="java" />
+          </section>
+
+          <section>
+            <h4>Coordinates</h4>
+            <p>Players choose a <strong>row</strong> and <strong>col</strong> (0–2).</p>
+            <Code code={SlideB} lang="txt" />
+          </section>
+
+          <section>
+            <h4>Move Rules</h4>
+            <ul>
+              <li>Row and col must be within 0–2</li>
+              <li>The cell must be empty</li>
+              <li>If a move is invalid, we ask again</li>
+            </ul>
+            <Code code={SlideC} lang="txt" />
+          </section>
+
+          <section>
+            <h4>Game Loop (what repeats?)</h4>
+            <ul>
+              <li>Print the board</li>
+              <li>Ask current player for a move</li>
+              <li>Validate move</li>
+              <li>Place piece</li>
+              <li>Check win / tie</li>
+              <li>Switch players</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Switching Players</h4>
+            <p>After a valid move, switch turns.</p>
+            <Code code={SlideD} lang="java" />
+          </section>
+
+          <section>
+            <h4>Win Checking</h4>
+            <p>A player wins by making 3 in a row.</p>
+            <Code code={SlideE} lang="txt" />
+            <p class="mt-2">We check rows, columns, and diagonals.</p>
+          </section>
+
+          <section>
+            <h4>Example: Row Win Check</h4>
+            <p>One row check is just comparing three positions.</p>
+            <Code code={SlideF} lang="java" />
+          </section>
+
+          <section>
+            <h4>Tie Checking</h4>
+            <ul>
+              <li>If nobody won and the board has no empty cells, it’s a tie.</li>
+              <li>This requires scanning the entire grid.</li>
+            </ul>
+            <Code code={SlideG} lang="txt" />
+          </section>
+
+          <section>
+            <h4>How you’ll build it</h4>
+            <ul>
+              <li>Start with printing the board</li>
+              <li>Add one move + validation</li>
+              <li>Add win check + tie check as methods</li>
+              <li>Combine into the full game loop</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use a 2D array to represent a 3×3 game board.</ListItem>
+            <ListItem>Traverse and print a grid using nested loops.</ListItem>
+            <ListItem>Validate user input before updating the board.</ListItem>
+            <ListItem>Write methods to check win conditions and ties.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme">Activity5_6_TicTacToe</span>.
+            </ListItem>
+            <ListItem variant="2">Complete Tasks 1–4 first, then build the full game in Task 5.</ListItem>
+            <ListItem variant="2">Use <span class="text-skynest-theme">Allman braces</span> in all code.</ListItem>
+            <ListItem variant="2">Keep your code neat: methods go below <code>main</code>.</ListItem>
+          </ul>
+
+          <h3>
+            <span class="text-skynest-theme">Figures</span>: Reference Methods
+          </h3>
+
+          <Code code={Figure1} frame="code" lang="java" title="Figure 1 — printBoard(board)" class="my-4" />
+          <Code code={Figure2} frame="code" lang="java" title="Figure 2 — isValidMove(board, row, col)" class="my-4" />
+          <Code code={Figure3} frame="code" lang="java" title="Figure 3 — checkWin(board, player)" class="my-4" />
+          <Code code={Figure4} frame="code" lang="java" title="Figure 4 — isBoardFull(board)" class="my-4" />
+
+          <hr class="my-4" />
+
+          <!-- Task 1 -->
+          <h3>
+            <span class="text-skynest-theme">Task 1</span>: Create + Print the Board
+          </h3>
+          <ul>
+            <ListItem variant="2">Create a 3×3 board filled with <code>'-'</code>.</ListItem>
+            <ListItem variant="2">Print it using a nested-loop method.</ListItem>
+            <ListItem variant="2">Your board should include row/col labels.</ListItem>
+          </ul>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — printBoard" />
+
+          <hr class="my-4" />
+
+          <!-- Task 2 -->
+          <h3>
+            <span class="text-skynest-theme">Task 2</span>: Place One Move (with Validation)
+          </h3>
+          <ul>
+            <ListItem variant="2">Ask the user for row and col.</ListItem>
+            <ListItem variant="2">Validate the move, then place an <code>'X'</code>.</ListItem>
+            <ListItem variant="2">Print the board after the attempt.</ListItem>
+          </ul>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — One Turn" />
+
+          <hr class="my-4" />
+
+          <!-- Task 3 -->
+          <h3>
+            <span class="text-skynest-theme">Task 3</span>: Win Checking Method
+          </h3>
+          <ul>
+            <ListItem variant="2">Implement <code>checkWin(board, player)</code>.</ListItem>
+            <ListItem variant="2">Test it using the provided winning board.</ListItem>
+          </ul>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — checkWin" />
+
+          <hr class="my-4" />
+
+          <!-- Task 4 -->
+          <h3>
+            <span class="text-skynest-theme">Task 4</span>: Tie Helper (Board Full)
+          </h3>
+          <ul>
+            <ListItem variant="2">Implement <code>isBoardFull(board)</code>.</ListItem>
+            <ListItem variant="2">Test it using a full and not-full board.</ListItem>
+          </ul>
+          <Code code={Task4} frame="code" lang="java" title="Task 4 — isBoardFull" />
+
+          <hr class="my-4" />
+
+          <!-- Task 5 -->
+          <h3>
+            <span class="text-skynest-theme">Task 5</span>: Full Game (Milestone)
+          </h3>
+          <ul>
+            <ListItem variant="2">Combine everything into a full Tic-Tac-Toe loop.</ListItem>
+            <ListItem variant="2">Players alternate between <code>X</code> and <code>O</code>.</ListItem>
+            <ListItem variant="2">Stop the game on win or tie.</ListItem>
+            <ListItem variant="2">Print helpful messages after each move.</ListItem>
+          </ul>
+          <Code code={Task5} frame="code" lang="java" title="Task 5 — Full Tic-Tac-Toe" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>Your program output should something similar to the sample output below.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>You may write your reflection answers as comments at the bottom of your code.</p>
+
+          <ol>
+            <li>Why is a 2D array a good choice to represent the Tic-Tac-Toe board?</li>
+            <li>What two checks must be true for a move to be valid?</li>
+            <li>Explain (in words) how your <code>checkWin</code> method works.</li>
+            <li>Why is it helpful to move win checking and printing into separate methods?</li>
+            <li>What was the hardest bug you ran into while building the full game loop?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>Submit your activity and reflection answers to the appropriate dropbox.</p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
