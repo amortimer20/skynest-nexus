@@ -1,0 +1,369 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+
+// ----------------------
+// Presentation snippets
+// ----------------------
+const SlideA = `// Enhanced for loop (for-each)
+for (int value : nums)
+{
+    System.out.println(value);
+}
+`;
+
+const SlideB = `// Indexed vs for-each
+// Indexed loop -> you control the index
+// for-each loop -> you only get the value
+`;
+
+const SlideC = `// Aliasing (NOT a copy)
+int[] a = {1, 2, 3};
+int[] b = a;
+
+// a and b refer to the SAME array
+`;
+
+const SlideD = `// True copy using a loop
+int[] copy = new int[a.length];
+
+for (int i = 0; i < a.length; i++)
+{
+    copy[i] = a[i];
+}
+`;
+
+const SlideE = `// Library copy
+import java.util.Arrays;
+
+int[] copy = Arrays.copyOf(a, a.length);
+`;
+
+const SlideF = `// Sorting with Arrays.sort
+import java.util.Arrays;
+
+int[] nums = {4, 1, 9, 2};
+Arrays.sort(nums);
+
+// nums is now {1, 2, 4, 9}
+`;
+
+const Figure1 = `// Figure 1 — Enhanced for loop vs indexed loop
+int[] nums = {3, 6, 9};
+
+// Indexed
+for (int i = 0; i < nums.length; i++)
+{
+    System.out.println(nums[i]);
+}
+
+// For-each
+for (int value : nums)
+{
+    System.out.println(value);
+}
+`;
+
+const Figure2 = `// Figure 2 — Aliasing example
+int[] a = {5, 10, 15};
+int[] b = a;
+
+b[0] = 99;
+
+System.out.println(a[0]); // prints 99
+`;
+
+const Figure3 = `// Figure 3 — Sorting changes the array
+int[] nums = {7, 3, 8, 1};
+
+Arrays.sort(nums);
+
+// nums is now sorted permanently
+`;
+
+const Task1 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 1 — Enhanced For Loop Practice
+        //
+        // 1) Print all values using a for-each loop
+        // 2) Compute the sum using a for-each loop
+        // 3) Try changing a value inside the loop — what happens?
+
+        int[] nums = {4, 7, 2, 9, 5};
+
+        int sum = 0;
+
+        for (int value : nums)
+        {
+            System.out.println(value);
+            sum += value;
+
+            // value = 100; // try this and observe
+        }
+
+        System.out.println("Sum: " + sum);
+    }
+}
+`;
+
+const Task2 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 1 omitted
+
+        // Task 2 — Aliasing vs Copying
+        //
+        // 1) Create an alias array and modify it
+        // 2) Create a true copy and modify it
+        // 3) Observe which changes affect the original
+
+        int[] original = {1, 2, 3};
+
+        int[] alias = original;
+        alias[0] = 99;
+
+        int[] copy = new int[original.length];
+        for (int i = 0; i < original.length; i++)
+        {
+            copy[i] = original[i];
+        }
+
+        copy[1] = 42;
+
+        System.out.println("Original:");
+        for (int v : original)
+        {
+            System.out.print(v + " ");
+        }
+
+        System.out.println("\\nCopy:");
+        for (int v : copy)
+        {
+            System.out.print(v + " ");
+        }
+    }
+}
+`;
+
+const Task3 = `import java.util.Arrays;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // Tasks 1 and 2 omitted
+
+        // Task 3 — Sorting and Reasoning
+        //
+        // 1) Sort the array
+        // 2) Print before and after
+        // 3) Answer the reflection questions
+
+        int[] scores = {88, 73, 95, 67, 81};
+
+        System.out.println("Before sort:");
+        printArray(scores);
+
+        Arrays.sort(scores);
+
+        System.out.println("After sort:");
+        printArray(scores);
+    }
+
+    public static void printArray(int[] arr)
+    {
+        for (int v : arr)
+        {
+            System.out.print(v + " ");
+        }
+        System.out.println();
+    }
+}
+`;
+
+const SampleOutput = `4
+7
+2
+9
+5
+Sum: 27
+
+Original:
+99 2 3 
+Copy:
+99 42 3 
+
+Before sort:
+88 73 95 67 81
+After sort:
+67 73 81 88 95
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.7 — Array Tools & Patterns</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.7</h3>
+            <h4 class="text-skynest-theme">Array Tools & Patterns</h4>
+          </section>
+
+          <section>
+            <h4>Why this lesson?</h4>
+            <ul>
+              <li>These tools appear frequently in AP-style questions.</li>
+              <li>They explain many “weird bugs” students encounter.</li>
+              <li>They prepare you for ArrayLists and file input.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Enhanced For Loop</h4>
+            <p>Used when you want to visit every element.</p>
+            <Code code={SlideA} lang="java" />
+            <ul>
+              <li>You get the value, not the index.</li>
+              <li>You cannot change the array structure.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>When NOT to use for-each</h4>
+            <ul>
+              <li>When you need the index</li>
+              <li>When you need to modify elements</li>
+              <li>When you need partial traversal</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Aliasing vs Copying</h4>
+            <p>Arrays are reference types.</p>
+            <Code code={SlideC} lang="java" />
+            <p class="mt-2">This does NOT create a new array.</p>
+          </section>
+
+          <section>
+            <h4>Making a Real Copy</h4>
+            <Code code={SlideD} lang="java" />
+            <Code code={SlideE} lang="java" />
+          </section>
+
+          <section>
+            <h4>Sorting with Arrays.sort</h4>
+            <Code code={SlideF} lang="java" />
+            <ul>
+              <li>Sorting permanently changes the array.</li>
+              <li>After sorting, indexes refer to different values.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Big Takeaways</h4>
+            <ul>
+              <li>for-each loops are for reading, not modifying</li>
+              <li>Aliasing can cause unexpected changes</li>
+              <li>Sorting changes the meaning of indexes</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use enhanced for loops to traverse arrays.</ListItem>
+            <ListItem>Explain the difference between aliasing and copying.</ListItem>
+            <ListItem>Create a true copy of an array.</ListItem>
+            <ListItem>Sort an array using <code>Arrays.sort</code>.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">Create a project named <span class="text-skynest-theme">Activity5_7_ArrayTools</span>.</ListItem>
+            <ListItem variant="2">Complete Tasks 1–3.</ListItem>
+            <ListItem variant="2">Focus on understanding behavior, not memorization.</ListItem>
+          </ul>
+
+          <h3><span class="text-skynest-theme">Figures</span>: Examples</h3>
+          <Code code={Figure1} frame="code" lang="java" title="Figure 1 — Traversal Styles" />
+          <Code code={Figure2} frame="code" lang="java" title="Figure 2 — Aliasing" />
+          <Code code={Figure3} frame="code" lang="java" title="Figure 3 — Sorting Effect" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 1</span>: Enhanced For Loop</h3>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — for-each loop" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 2</span>: Copy vs Alias</h3>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Aliasing vs Copying" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 3</span>: Sorting</h3>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — Arrays.sort" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection</h2>
+          <ol>
+            <li>Why can’t a for-each loop modify array elements?</li>
+            <li>What problem does aliasing cause?</li>
+            <li>Why should you be careful after sorting an array?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>Submit your code and reflections to the appropriate dropbox.</p>
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
