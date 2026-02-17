@@ -1,0 +1,392 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+
+// ----------------------
+// Presentation snippets
+// ----------------------
+
+const SlideA = `// What does "sorted ascending" mean?
+// Each element is <= the next element.
+
+int[] nums = {2, 4, 7, 9};`;
+
+const SlideB = `// Selection sort idea:
+// 1) Find smallest element
+// 2) Swap it into position 0
+// 3) Repeat for the rest of the array`;
+
+const SlideC = `// Selection sort outer loop
+for (int i = 0; i < arr.length - 1; i++)
+{
+    int minIndex = i;
+    // find smallest from i to end
+}`;
+
+const SlideD = `// Insertion sort idea:
+// Build a sorted section on the left.
+// Insert each new value into correct position.`;
+
+const SlideE = `// Insertion sort outer loop
+for (int i = 1; i < arr.length; i++)
+{
+    int key = arr[i];
+    int j = i - 1;
+
+    // shift larger elements right
+}`;
+
+const SlideF = `// Sorting using library
+import java.util.Arrays;
+
+Arrays.sort(arr);`;
+
+const Figure1 = `// Figure 1 — Selection Sort
+public static void selectionSort(int[] arr)
+{
+    for (int i = 0; i < arr.length - 1; i++)
+    {
+        int minIndex = i;
+
+        for (int j = i + 1; j < arr.length; j++)
+        {
+            if (arr[j] < arr[minIndex])
+            {
+                minIndex = j;
+            }
+        }
+
+        int temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+}
+`;
+
+const Figure2 = `// Figure 2 — Insertion Sort
+public static void insertionSort(int[] arr)
+{
+  for (int i = 1; i < arr.length; i++)
+  {
+    int key = arr[i];
+    int j = i;
+
+    while (j > 0 && key < arr[j - 1])
+    {
+      arr[j] = arr[j - 1];
+      j--;
+    }
+
+    arr[j] = key;
+  }
+}
+`;
+
+const Task1 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 1 — Trace Selection Sort
+        //
+        // Trace the array after each outer loop pass.
+        // Use this array:
+        //
+        // {7, 3, 8, 1}
+
+        int[] nums = {7, 3, 8, 1};
+
+        selectionSort(nums);
+
+        printArray(nums);
+    }
+
+    public static void selectionSort(int[] arr)
+    {
+        for (int i = 0; i < arr.length - 1; i++)
+        {
+            int minIndex = i;
+
+            for (int j = i + 1; j < arr.length; j++)
+            {
+                if (arr[j] < arr[minIndex])
+                {
+                    minIndex = j;
+                }
+            }
+
+            int temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+
+            // Add a print here to observe progress
+        }
+    }
+
+    public static void printArray(int[] arr)
+    {
+        for (int v : arr)
+        {
+            System.out.print(v + " ");
+        }
+        System.out.println();
+    }
+}
+`;
+
+const Task2 = `public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 2 — Implement Insertion Sort
+        //
+        // 1) Copy insertionSort from the figure.
+        // 2) Test on {5, 2, 9, 1, 7}
+        // 3) Print before and after.
+
+        int[] nums = {5, 2, 9, 1, 7};
+
+        System.out.println("Before:");
+        printArray(nums);
+
+        insertionSort(nums);
+
+        System.out.println("After:");
+        printArray(nums);
+    }
+
+    public static void insertionSort(int[] arr)
+    {
+      for (int i = 1; i < arr.length; i++)
+      {
+          int key = arr[i];
+          int j = i;
+
+          while (j > 0 && key < arr[j - 1])
+          {
+              arr[j] = arr[j - 1];
+              j--;
+          }
+
+          arr[j] = key;
+      }
+    }
+
+    public static void printArray(int[] arr)
+    {
+        for (int v : arr)
+        {
+            System.out.print(v + " ");
+        }
+        System.out.println();
+    }
+}
+`;
+
+const Task3 = `import java.util.Arrays;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        // Task 3 — Compare with Arrays.sort
+        //
+        // 1) Create an array.
+        // 2) Copy it.
+        // 3) Sort one using selectionSort.
+        // 4) Sort the other using Arrays.sort.
+        // 5) Compare results.
+
+        int[] nums = {10, 4, 7, 2, 9};
+
+        int[] copy = Arrays.copyOf(nums, nums.length);
+
+        selectionSort(nums);
+        Arrays.sort(copy);
+
+        System.out.println("Selection sort result:");
+        printArray(nums);
+
+        System.out.println("Arrays.sort result:");
+        printArray(copy);
+    }
+
+    public static void selectionSort(int[] arr)
+    {
+        for (int i = 0; i < arr.length - 1; i++)
+        {
+            int minIndex = i;
+
+            for (int j = i + 1; j < arr.length; j++)
+            {
+                if (arr[j] < arr[minIndex])
+                {
+                    minIndex = j;
+                }
+            }
+
+            int temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+    }
+
+    public static void printArray(int[] arr)
+    {
+        for (int v : arr)
+        {
+            System.out.print(v + " ");
+        }
+        System.out.println();
+    }
+}
+`;
+
+const SampleOutput = `Before:
+5 2 9 1 7
+After:
+1 2 5 7 9
+
+Selection sort result:
+2 4 7 9 10
+Arrays.sort result:
+2 4 7 9 10
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.8 — Sorting Algorithms</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.8</h3>
+            <h4 class="text-skynest-theme">Selection Sort & Insertion Sort</h4>
+          </section>
+
+          <section>
+            <h4>What does sorting mean?</h4>
+            <Code code={SlideA} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Selection Sort</h4>
+            <Code code={SlideB} lang="java" class="text-start" />
+            <Code code={SlideC} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Insertion Sort</h4>
+            <Code code={SlideD} lang="java" class="text-start" />
+            <Code code={SlideE} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Library Sorting</h4>
+            <Code code={SlideF} lang="java" class="text-start" />
+            <ul>
+              <li>Preferred in real programs.</li>
+              <li>You should still understand how sorting works.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Key Takeaways</h4>
+            <ul>
+              <li>Sorting rearranges elements in place.</li>
+              <li>Selection sort uses repeated minimum selection.</li>
+              <li>Insertion sort builds a sorted section.</li>
+              <li>Nested loops are essential.</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Trace selection sort step-by-step.</ListItem>
+            <ListItem>Implement insertion sort.</ListItem>
+            <ListItem>Compare manual sorting with Arrays.sort.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">Create a project named <span class="text-skynest-theme">Activity5_8_Sorting</span>.</ListItem>
+            <ListItem variant="2">Complete Tasks 1–3.</ListItem>
+          </ul>
+
+          <h3><span class="text-skynest-theme">Figures</span>: Reference Implementations</h3>
+          <Code code={Figure1} frame="code" lang="java" title="Figure 1 — Selection Sort" />
+          <Code code={Figure2} frame="code" lang="java" title="Figure 2 — Insertion Sort" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 1</span>: Trace Selection Sort</h3>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — Selection Sort Trace" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 2</span>: Implement Insertion Sort</h3>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Insertion Sort" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 3</span>: Compare with Arrays.sort</h3>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — Arrays.sort Comparison" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection</h2>
+          <ol>
+            <li>How does selection sort choose the next element?</li>
+            <li>How is insertion sort different from selection sort?</li>
+            <li>When should you use Arrays.sort instead of writing your own sort?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>Submit your completed activity.</p>
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
