@@ -1,0 +1,556 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+
+const Figure1 = `// Figure 1 — Create an ArrayList and add items
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<String> foods = new ArrayList<String>();
+
+        foods.add("pizza");
+        foods.add("tacos");
+        foods.add("sushi");
+
+        System.out.println(foods);
+    }
+}
+`;
+
+const Figure2 = `// Figure 2 — get, set, size
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> scores = new ArrayList<Integer>();
+
+        scores.add(84);
+        scores.add(91);
+        scores.add(76);
+
+        System.out.println("First score: " + scores.get(0));
+        System.out.println("Count: " + scores.size());
+
+        scores.set(1, 100); // replace value at index 1
+        System.out.println(scores);
+    }
+}
+`;
+
+const Figure3 = `// Figure 3 — Traversal (indexed vs for-each)
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        nums.add(4);
+        nums.add(7);
+        nums.add(2);
+
+        // Indexed loop (best when you need the index)
+        for (int i = 0; i < nums.size(); i++)
+        {
+            System.out.println(i + ": " + nums.get(i));
+        }
+
+        // For-each loop (best when you only need values)
+        for (int value : nums)
+        {
+            System.out.println(value);
+        }
+    }
+}
+`;
+
+const Figure4 = `// Figure 4 — remove shifts elements left
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("Ava");
+        names.add("Ben");
+        names.add("Chris");
+
+        names.remove(1); // removes "Ben"
+
+        // Now "Chris" moved to index 1
+        System.out.println(names);
+    }
+}
+`;
+
+const SlideA = `// Arrays vs ArrayLists (big idea)
+// Arrays: fixed size
+// ArrayLists: size can change
+
+int[] a = new int[3];
+// a.length is always 3
+
+ArrayList<Integer> list = new ArrayList<Integer>();
+// list.size() changes as you add/remove
+`;
+
+const SlideB = `// ArrayList methods you must know
+list.add(value);       // append
+list.get(index);       // read
+list.set(index, value);// replace
+list.remove(index);    // delete by index
+list.size();           // current length
+`;
+
+const SlideC = `// Common pitfall
+// ArrayList uses .size(), not .length
+for (int i = 0; i < list.size(); i++)
+{
+    // ...
+}
+`;
+
+const SlideD = `// Wrapper classes (why Integer, not int?)
+ArrayList<int> list;    // not allowed
+ArrayList<Integer> list; // allowed
+
+// Integer wraps an int so it can be used as an object.
+`;
+
+const Task1 = `// Task 1 — ArrayList Basics (Strings)
+//
+// Create an ArrayList<String> named "movies".
+// 1) Add 5 movie titles.
+// 2) Print the entire list.
+// 3) Print the first movie using get(0).
+// 4) Replace the third movie (index 2) with a new title using set.
+// 5) Print the list again.
+
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<String> movies = new ArrayList<String>();
+
+        movies.add("The Incredibles");
+        movies.add("Spider-Man");
+        movies.add("Toy Story");
+        movies.add("Shrek");
+        movies.add("Star Wars");
+
+        System.out.println("Movies: " + movies);
+        System.out.println("First: " + movies.get(0));
+
+        movies.set(2, "Finding Nemo");
+
+        System.out.println("Updated: " + movies);
+    }
+}
+`;
+
+const Task2 = `// Task 2 — Numeric List + Stats
+//
+// Create an ArrayList<Integer> named "temps".
+// 1) Add 7 temperatures (integers).
+// 2) Compute and print the average.
+// 3) Find and print the max temperature.
+// 4) Count and print how many temps are >= 80.
+//
+// Rules:
+// - Use loops (you choose indexed or for-each).
+// - Average must be a double.
+
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> temps = new ArrayList<Integer>();
+
+        temps.add(72);
+        temps.add(68);
+        temps.add(75);
+        temps.add(70);
+        temps.add(69);
+        temps.add(82);
+        temps.add(84);
+
+        int sum = 0;
+        int max = temps.get(0);
+        int hotCount = 0;
+
+        for (int t : temps)
+        {
+            sum += t;
+
+            if (t > max)
+            {
+                max = t;
+            }
+
+            if (t >= 80)
+            {
+                hotCount++;
+            }
+        }
+
+        double avg = (double) sum / temps.size();
+
+        System.out.println("Temps: " + temps);
+        System.out.println("Average: " + avg);
+        System.out.println("Max: " + max);
+        System.out.println("Count >= 80: " + hotCount);
+    }
+}
+`;
+
+const Task3 = `// Task 3 — Search + Update (Dynamic Scoreboard)
+//
+// Build a "scoreboard" using two parallel ArrayLists:
+// - ArrayList<String> names
+// - ArrayList<Integer> scores
+//
+// 1) Add 5 players and their scores (same index = same player).
+// 2) Print the scoreboard (name: score).
+// 3) Ask the user for a player name.
+//    - If found, add 10 points to their score.
+//    - If not found, print "Player not found."
+// 4) Print the updated scoreboard.
+//
+// Hint: use equalsIgnoreCase for name matching.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<Integer> scores = new ArrayList<Integer>();
+
+        names.add("Ava");
+        scores.add(40);
+
+        names.add("Ben");
+        scores.add(55);
+
+        names.add("Chris");
+        scores.add(20);
+
+        names.add("Dina");
+        scores.add(65);
+
+        names.add("Eli");
+        scores.add(35);
+
+        System.out.println("Scoreboard:");
+        printScoreboard(names, scores);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a player name: ");
+        String target = scanner.nextLine();
+
+        int index = findIndex(names, target);
+
+        if (index == -1)
+        {
+            System.out.println("Player not found.");
+        }
+        else
+        {
+            scores.set(index, scores.get(index) + 10);
+            System.out.println("Added 10 points to " + names.get(index) + "!");
+        }
+
+        System.out.println("Updated scoreboard:");
+        printScoreboard(names, scores);
+
+        scanner.close();
+    }
+
+    public static int findIndex(ArrayList<String> names, String target)
+    {
+        for (int i = 0; i < names.size(); i++)
+        {
+            if (names.get(i).equalsIgnoreCase(target))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public static void printScoreboard(ArrayList<String> names, ArrayList<Integer> scores)
+    {
+        for (int i = 0; i < names.size(); i++)
+        {
+            System.out.println(names.get(i) + ": " + scores.get(i));
+        }
+    }
+}
+`;
+
+const Task4 = `// Task 4 — Remove + Insert (Playlist Editor)
+//
+// Create an ArrayList<String> named "playlist".
+// 1) Add 6 song titles.
+// 2) Remove the song at index 2.
+// 3) Insert a new song at index 0.
+// 4) Print the playlist with indexes like:
+//    0: SongTitle
+//    1: SongTitle
+//    ...
+//
+// Hint:
+// - playlist.add(index, value) inserts and shifts right
+// - playlist.remove(index) removes and shifts left
+
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<String> playlist = new ArrayList<String>();
+
+        playlist.add("Song A");
+        playlist.add("Song B");
+        playlist.add("Song C");
+        playlist.add("Song D");
+        playlist.add("Song E");
+        playlist.add("Song F");
+
+        playlist.remove(2);
+        playlist.add(0, "Intro Track");
+
+        for (int i = 0; i < playlist.size(); i++)
+        {
+            System.out.println(i + ": " + playlist.get(i));
+        }
+    }
+}
+`;
+
+const SampleOutput = `Movies: [The Incredibles, Spider-Man, Toy Story, Shrek, Star Wars]
+First: The Incredibles
+Updated: [The Incredibles, Spider-Man, Finding Nemo, Shrek, Star Wars]
+
+Temps: [72, 68, 75, 70, 69, 82, 84]
+Average: 74.28571428571429
+Max: 84
+Count >= 80: 2
+
+Scoreboard:
+Ava: 40
+Ben: 55
+Chris: 20
+Dina: 65
+Eli: 35
+Enter a player name: Ben
+Added 10 points to Ben!
+Updated scoreboard:
+Ava: 40
+Ben: 65
+Chris: 20
+Dina: 65
+Eli: 35
+
+0: Intro Track
+1: Song A
+2: Song B
+3: Song D
+4: Song E
+5: Song F
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/apcsa/unit-5/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.10 — ArrayLists</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.10</h3>
+            <h4 class="text-skynest-theme">ArrayLists (Dynamic Lists)</h4>
+          </section>
+
+          <section>
+            <h4>Why ArrayLists exist</h4>
+            <ul>
+              <li>Arrays work great… until you don’t know how many items you need.</li>
+              <li>ArrayLists can grow and shrink as your program runs.</li>
+              <li>Same indexing idea as arrays, but flexible size.</li>
+            </ul>
+            <Code code={SlideA} lang="java" />
+          </section>
+
+          <section>
+            <h4>Methods you must know</h4>
+            <Code code={SlideB} lang="java" />
+          </section>
+
+          <section>
+            <h4>Size vs length</h4>
+            <ul>
+              <li>Arrays use <code>.length</code></li>
+              <li>ArrayLists use <code>.size()</code></li>
+            </ul>
+            <Code code={SlideC} lang="java" />
+          </section>
+
+          <section>
+            <h4>Wrapper classes</h4>
+            <p>
+              ArrayLists store <strong>objects</strong>, not primitive types.
+              That’s why we use <code>Integer</code> instead of <code>int</code>.
+            </p>
+            <Code code={SlideD} lang="java" />
+          </section>
+
+          <section>
+            <h4>Traversal options</h4>
+            <ul>
+              <li>Indexed loops are best when you need index positions.</li>
+              <li>For-each loops are best when you only need values.</li>
+              <li>Removing items during traversal needs special care (next activity).</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Remove shifts indexes</h4>
+            <p>When you remove an item, items to the right shift left.</p>
+            <Code code={Figure4} lang="java" />
+          </section>
+
+          <section>
+            <h4>Today’s practice</h4>
+            <ul>
+              <li>Create and modify lists</li>
+              <li>Compute stats from a numeric list</li>
+              <li>Build a dynamic scoreboard using parallel lists</li>
+              <li>Edit a playlist using remove/insert</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Create and modify <code>ArrayList</code> objects using core methods.</ListItem>
+            <ListItem>Traverse ArrayLists using indexed and for-each loops.</ListItem>
+            <ListItem>Use parallel ArrayLists to model related data.</ListItem>
+            <ListItem>Understand how inserting and removing affects indexing.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-skynest-theme">Activity5_10_ArrayLists</span>.
+            </ListItem>
+            <ListItem variant="2">Complete Tasks 1–4.</ListItem>
+            <ListItem variant="2">Use the figures as references when you get stuck.</ListItem>
+          </ul>
+
+          <h3><span class="text-skynest-theme">Figures</span>: Examples</h3>
+          <Code code={Figure1} frame="code" lang="java" title="Figure 1 — Create + add" />
+          <Code code={Figure2} frame="code" lang="java" title="Figure 2 — get, set, size" />
+          <Code code={Figure3} frame="code" lang="java" title="Figure 3 — Traversal" />
+          <Code code={Figure4} frame="code" lang="java" title="Figure 4 — remove shifts" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 1</span>: ArrayList Basics (Strings)</h3>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — Strings list" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 2</span>: Numeric List + Stats</h3>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Stats" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 3</span>: Search + Update (Scoreboard)</h3>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — Parallel ArrayLists" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 4</span>: Remove + Insert (Playlist)</h3>
+          <Code code={Task4} frame="code" lang="java" title="Task 4 — Editing list" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <p>Your program output should something similar to the sample output below.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>You may write your reflection answers as comments at the bottom of your code.</p>
+
+          <ol>
+            <li>Why do ArrayLists use <code>size()</code> instead of <code>length</code>?</li>
+            <li>What does it mean when we say “remove shifts elements left”?</li>
+            <li>Why do we use <code>Integer</code> instead of <code>int</code> in an ArrayList?</li>
+            <li>What is one advantage of an ArrayList over an array?</li>
+            <li>In Task 3, what does “same index = same record” mean for the two lists?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>Submit your activity and reflection answers to the appropriate dropbox.</p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
