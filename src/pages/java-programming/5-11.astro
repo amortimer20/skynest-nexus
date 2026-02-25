@@ -1,0 +1,405 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+
+const Figure1 = `// Figure 1 — Forward removal bug
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        nums.add(2);
+        nums.add(4);
+        nums.add(6);
+        nums.add(7);
+
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (nums.get(i) % 2 == 0)
+            {
+                nums.remove(i);
+            }
+        }
+
+        System.out.println(nums);
+    }
+}
+`;
+
+const Figure2 = `// Figure 2 — Why this skips elements
+// Example: [2, 4, 6, 7]
+//
+// i = 0 → remove 2
+// List becomes [4, 6, 7]
+// i increments to 1
+// 6 is now at index 1
+// 4 was skipped
+`;
+
+const Figure3 = `// Figure 3 — Correct backward traversal
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        nums.add(2);
+        nums.add(4);
+        nums.add(6);
+        nums.add(7);
+
+        for (int i = nums.size() - 1; i >= 0; i--)
+        {
+            if (nums.get(i) % 2 == 0)
+            {
+                nums.remove(i);
+            }
+        }
+
+        System.out.println(nums);
+    }
+}
+`;
+
+const Figure4 = `// Figure 4 — Using remove with for-each (NOT safe)
+// This causes a runtime error.
+
+for (int value : nums)
+{
+    if (value % 2 == 0)
+    {
+        nums.remove(value); // dangerous
+    }
+}
+`;
+
+const SlideA = `// Core idea
+// Removing shifts everything left.
+
+nums.remove(i);
+// element at i+1 moves to index i
+`;
+
+const SlideB = `// Why forward loops fail
+for (int i = 0; i < list.size(); i++)
+{
+    if (condition)
+    {
+        list.remove(i);
+        // Next element shifts into index i
+        // But i will increment!
+    }
+}
+`;
+
+const SlideC = `// Safe removal pattern
+for (int i = list.size() - 1; i >= 0; i--)
+{
+    if (condition)
+    {
+        list.remove(i);
+    }
+}
+`;
+
+const Task1 = `// Task 1 — Trace the Bug
+//
+// Given this list:
+// [2, 4, 6, 7]
+//
+// And this code:
+//
+// for (int i = 0; i < nums.size(); i++)
+// {
+//     if (nums.get(i) % 2 == 0)
+//     {
+//         nums.remove(i);
+//     }
+// }
+//
+// 1) Trace the list step-by-step.
+// 2) What is the final list?
+// 3) Which element was skipped?
+
+// Write your trace as comments below.
+`;
+
+const Task2 = `// Task 2 — Fix the Code
+//
+// Rewrite the loop from Task 1 so that
+// it correctly removes all even numbers.
+//
+// Then test on:
+// [2, 4, 6, 7, 8, 10]
+//
+// Print the final list.
+
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        nums.add(2);
+        nums.add(4);
+        nums.add(6);
+        nums.add(7);
+        nums.add(8);
+        nums.add(10);
+
+        // Write your fixed loop here
+
+        System.out.println(nums);
+    }
+}
+`;
+
+const Task3 = `// Task 3 — Filter App (Practical)
+//
+// Create an ArrayList<String> of words.
+// Add at least 8 words of varying lengths.
+//
+// Remove all words shorter than 4 characters.
+//
+// Print the list before and after filtering.
+//
+// IMPORTANT: Use the safe backward loop pattern.
+
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<String> words = new ArrayList<String>();
+
+        words.add("cat");
+        words.add("house");
+        words.add("sun");
+        words.add("computer");
+        words.add("pen");
+        words.add("keyboard");
+        words.add("tree");
+        words.add("mouse");
+
+        System.out.println("Before: " + words);
+
+        // Remove words shorter than 4 characters
+
+        System.out.println("After: " + words);
+    }
+}
+`;
+
+const Task4 = `// Task 4 — Remove Failing Grades
+//
+// Create an ArrayList<Integer> grades.
+// Add at least 10 grades.
+//
+// Remove all grades below 70.
+//
+// Print:
+// - Original list
+// - Filtered list
+// - How many grades were removed
+//
+// Hint: Keep a counter.
+
+import java.util.ArrayList;
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> grades = new ArrayList<Integer>();
+
+        grades.add(85);
+        grades.add(62);
+        grades.add(90);
+        grades.add(74);
+        grades.add(55);
+        grades.add(88);
+        grades.add(69);
+        grades.add(95);
+        grades.add(72);
+        grades.add(60);
+
+        System.out.println("Original: " + grades);
+
+        int removed = 0;
+
+        // Write safe removal loop here
+
+        System.out.println("Filtered: " + grades);
+        System.out.println("Removed count: " + removed);
+    }
+}
+`;
+
+const SampleOutput = `Before: [cat, house, sun, computer, pen, keyboard, tree, mouse]
+After: [house, computer, keyboard, tree, mouse]
+
+Original: [85, 62, 90, 74, 55, 88, 69, 95, 72, 60]
+Filtered: [85, 90, 74, 88, 95, 72]
+Removed count: 4
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.11 — Modifying ArrayLists Safely</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.11</h3>
+            <h4 class="text-skynest-theme">Safe Removal While Traversing</h4>
+          </section>
+
+          <section>
+            <h4>Core Idea</h4>
+            <ul>
+              <li>Removing shifts elements left.</li>
+              <li>If you loop forward, you can skip elements.</li>
+              <li>This is a common AP exam trap.</li>
+            </ul>
+            <Code code={SlideA} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Why forward loops fail</h4>
+            <Code code={SlideB} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>The Safe Pattern</h4>
+            <Code code={SlideC} lang="java" class="text-start" />
+            <ul>
+              <li>Start at the end.</li>
+              <li>Move backward.</li>
+              <li>Shifting does not affect unvisited elements.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>For-each loops?</h4>
+            <Code code={Figure4} lang="java" class="text-start" />
+            <ul>
+              <li>Modifying inside for-each causes runtime errors.</li>
+              <li>Use indexed loops when removing.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Today's Goals</h4>
+            <ul>
+              <li>Trace the bug.</li>
+              <li>Fix the bug.</li>
+              <li>Build filtering programs safely.</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Explain why forward removal can skip elements.</ListItem>
+            <ListItem>Implement safe backward traversal removal.</ListItem>
+            <ListItem>Apply safe removal in practical filtering programs.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">Create a new project named <span class="text-skynest-theme">Activity5_11_SafeRemoval</span>.</ListItem>
+            <ListItem variant="2">Complete Tasks 1–4.</ListItem>
+            <ListItem variant="2">Test your logic carefully with different data sets.</ListItem>
+          </ul>
+
+          <h3><span class="text-skynest-theme">Figures</span>: Examples</h3>
+          <Code code={Figure1} frame="code" lang="java" title="Forward Removal Bug" />
+          <Code code={Figure3} frame="code" lang="java" title="Safe Backward Removal" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 1</span>: Trace the Bug</h3>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — Trace" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 2</span>: Fix the Code</h3>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Fix" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 3</span>: Word Filter</h3>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — Filter Words" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 4</span>: Remove Failing Grades</h3>
+          <Code code={Task4} frame="code" lang="java" title="Task 4 — Remove Grades" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <ol>
+            <li>Why does forward removal skip elements?</li>
+            <li>Why does backward traversal fix the problem?</li>
+            <li>Why should you avoid removing items inside a for-each loop?</li>
+            <li>What real-world situation might require filtering a list?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>Submit your completed activity.</p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
