@@ -1,0 +1,387 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+
+const SlideA = `// What is recursion?
+// A method that calls itself.
+
+public static void greet(int n)
+{
+    if (n <= 0)
+    {
+        return; // base case
+    }
+
+    System.out.println("Hello");
+    greet(n - 1); // recursive call
+}
+`;
+
+const SlideB = `// Every recursive method needs:
+// 1) Base case (stopping condition)
+// 2) Recursive case (smaller problem)
+
+if (n <= 0)   // base case
+{
+    return;
+}
+
+return n + sum(n - 1); // recursive case
+`;
+
+const SlideC = `// Think of recursion like:
+// "Solve a smaller version of the same problem."
+
+sum(4)
+= 4 + sum(3)
+= 4 + 3 + sum(2)
+= 4 + 3 + 2 + sum(1)
+= 4 + 3 + 2 + 1
+`;
+
+const SlideD = `// What happens without a base case?
+
+public static void bad()
+{
+    bad(); // infinite recursion
+}
+
+// This causes a StackOverflowError.
+`;
+
+const SlideE = `// Recursive array processing idea
+// Instead of using a loop,
+// move through the array using an index.
+
+sum(arr, index)
+{
+    if (index == arr.length)
+        return 0;
+
+    return arr[index] + sum(arr, index + 1);
+}
+`;
+
+const Figure1 = `// Figure 1 — Factorial
+public static int factorial(int n)
+{
+    if (n == 0)
+    {
+        return 1;
+    }
+
+    return n * factorial(n - 1);
+}
+`;
+
+const Figure2 = `// Figure 2 — Sum from 1 to n
+public static int sum(int n)
+{
+    if (n == 0)
+    {
+        return 0;
+    }
+
+    return n + sum(n - 1);
+}
+`;
+
+const Figure3 = `// Figure 3 — Recursive array sum
+public static int sumArray(int[] arr, int index)
+{
+    if (index == arr.length)
+    {
+        return 0;
+    }
+
+    return arr[index] + sumArray(arr, index + 1);
+}
+`;
+
+const Figure4 = `// Figure 4 — Recursive linear search
+public static int search(int[] arr, int target, int index)
+{
+    if (index == arr.length)
+    {
+        return -1;
+    }
+
+    if (arr[index] == target)
+    {
+        return index;
+    }
+
+    return search(arr, target, index + 1);
+}
+`;
+
+const Task1 = `// Task 1 — Write a Recursive Countdown
+//
+// Write a method:
+// countdown(int n)
+//
+// It should print numbers from n down to 1.
+// Use recursion.
+// If n is 0 or less, stop.
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        countdown(5);
+    }
+
+    public static void countdown(int n)
+    {
+        // Write your code here
+    }
+}
+`;
+
+const Task2 = `// Task 2 — Recursive Power
+//
+// Write a method:
+// power(int base, int exponent)
+//
+// Example:
+// power(2, 3) should return 8.
+//
+// Hint:
+// base^0 = 1
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        System.out.println(power(2, 3));
+    }
+
+    public static int power(int base, int exponent)
+    {
+        // Write your code here
+        return 0;
+    }
+}
+`;
+
+const Task3 = `// Task 3 — Recursive Array Max
+//
+// Write a method:
+// max(int[] arr, int index)
+//
+// It should return the largest value in the array.
+// Start by calling: max(arr, 0)
+//
+// Hint:
+// Base case: index == arr.length - 1
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        int[] nums = {4, 7, 2, 9, 5};
+        System.out.println(max(nums, 0));
+    }
+
+    public static int max(int[] arr, int index)
+    {
+        // Write your code here
+        return 0;
+    }
+}
+`;
+
+const Task4 = `// Task 4 — Recursive Search
+//
+// Write a recursive method that returns
+// true if a target exists in the array.
+//
+// Method:
+// contains(int[] arr, int target, int index)
+//
+// Start with index = 0
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        int[] nums = {3, 8, 1, 6, 9};
+
+        System.out.println(contains(nums, 6, 0)); // true
+        System.out.println(contains(nums, 5, 0)); // false
+    }
+
+    public static boolean contains(int[] arr, int target, int index)
+    {
+        // Write your code here
+        return false;
+    }
+}
+`;
+
+const SampleOutput = `Hello
+Hello
+Hello
+Hello
+Hello
+
+120
+
+10
+
+9
+
+true
+false
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.12 — Recursion</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 5.12</h3>
+            <h4 class="text-skynest-theme">Introduction to Recursion</h4>
+          </section>
+
+          <section>
+            <h4>What is recursion?</h4>
+            <Code code={SlideA} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Two Required Parts</h4>
+            <Code code={SlideB} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Thinking Recursively</h4>
+            <Code code={SlideC} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Without a Base Case?</h4>
+            <Code code={SlideD} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Recursion with Arrays</h4>
+            <Code code={SlideE} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Today's Goals</h4>
+            <ul>
+              <li>Understand base vs recursive case.</li>
+              <li>Trace recursive calls.</li>
+              <li>Write simple recursive methods.</li>
+              <li>Apply recursion to arrays.</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Explain the structure of a recursive method.</ListItem>
+            <ListItem>Trace recursive calls step-by-step.</ListItem>
+            <ListItem>Write simple recursive numeric methods.</ListItem>
+            <ListItem>Write recursive methods that process arrays.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">Create a project named <span class="text-skynest-theme">Activity5_12_Recursion</span>.</ListItem>
+            <ListItem variant="2">Complete Tasks 1-4.</ListItem>
+            <ListItem variant="2">Test with multiple inputs.</ListItem>
+          </ul>
+
+          <h3><span class="text-skynest-theme">Figures</span>: Reference Examples</h3>
+          <Code code={Figure1} frame="code" lang="java" title="Figure 1 — Factorial" class="mb-3" />
+          <Code code={Figure2} frame="code" lang="java" title="Figure 2 — Sum 1 to n" class="mb-3" />
+          <Code code={Figure3} frame="code" lang="java" title="Figure 3 — Recursive Array Sum" class="mb-3" />
+          <Code code={Figure4} frame="code" lang="java" title="Figure 4 — Recursive Search" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 1</span>: Recursive Countdown</h3>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — Countdown" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 2</span>: Recursive Power</h3>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Power" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 3</span>: Recursive Array Max</h3>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — Max in Array" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 4</span>: Recursive Search</h3>
+          <Code code={Task4} frame="code" lang="java" title="Task 4 — Contains" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+          <ol>
+            <li>What is the base case in a recursive method?</li>
+            <li>What happens if you forget the base case?</li>
+            <li>How is recursion similar to a loop?</li>
+            <li>How is recursion different from a loop?</li>
+            <li>When might recursion be clearer than iteration?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+          <p>Submit your completed activity.</p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
