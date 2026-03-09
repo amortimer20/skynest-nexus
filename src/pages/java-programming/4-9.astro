@@ -1,0 +1,495 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+
+const Figure1 = `// Figure 1 — Common String methods
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String word = "programming";
+
+        System.out.println(word.length());         // 11
+        System.out.println(word.substring(0, 4)); // prog
+        System.out.println(word.substring(3));    // gramming
+        System.out.println(word.indexOf("g"));    // 3
+        System.out.println(word.toUpperCase());   // PROGRAMMING
+    }
+}
+`;
+
+const Figure2 = `// Figure 2 — Comparing Strings correctly
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String a = "cat";
+        String b = "cat";
+
+        System.out.println(a.equals(b));     // true
+        System.out.println(a.compareTo(b));  // 0
+        System.out.println(a.compareTo("dog")); // negative
+    }
+}
+`;
+
+const Figure3 = `// Figure 3 — Strings are immutable
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String word = "hello";
+
+        word.toUpperCase();
+        System.out.println(word); // still hello
+
+        word = word.toUpperCase();
+        System.out.println(word); // now HELLO
+    }
+}
+`;
+
+const Figure4 = `// Figure 4 — A useful pattern with substring + indexOf
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String fullName = "Ada Lovelace";
+        int spaceIndex = fullName.indexOf(" ");
+
+        String firstName = fullName.substring(0, spaceIndex);
+        String lastName = fullName.substring(spaceIndex + 1);
+
+        System.out.println(firstName);
+        System.out.println(lastName);
+    }
+}
+`;
+
+const SlideA = `// Strings are objects
+String word = "hello";
+
+// Objects have methods
+word.length();
+word.toUpperCase();
+word.substring(1, 3);`;
+
+const SlideB = `// Arrays vs Strings
+arr.length      // array length field
+word.length()   // String length method`;
+
+const SlideC = `// substring(start, end)
+// start is included
+// end is NOT included
+
+String s = "computer";
+System.out.println(s.substring(0, 3)); // com`;
+
+const SlideD = `// indexOf returns the first match
+String s = "banana";
+
+System.out.println(s.indexOf("a"));  // 1
+System.out.println(s.indexOf("na")); // 2
+System.out.println(s.indexOf("z"));  // -1`;
+
+const SlideE = `// equals vs ==
+String a = "cat";
+String b = "cat";
+
+// Use equals for String comparison
+a.equals(b);`;
+
+const SlideF = `// compareTo
+"a".compareTo("b")   // negative
+"b".compareTo("a")   // positive
+"a".compareTo("a")   // 0`;
+
+const SlideG = `// Strings are immutable
+String s = "hello";
+
+s.toUpperCase();      // does NOT change s
+s = s.toUpperCase();  // reassign if you want the change`;
+
+const Task1 = `// Task 1 — String Analyzer
+//
+// Create a String named word.
+// Then print:
+// 1) The word
+// 2) Its length
+// 3) The first character
+// 4) The last character
+// 5) The uppercase version
+//
+// Hint:
+// first character: substring(0, 1)
+// last character: substring(word.length() - 1)
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String word = "computer";
+
+        System.out.println("Word: " + word);
+        System.out.println("Length: " + word.length());
+        System.out.println("First character: " + word.substring(0, 1));
+        System.out.println("Last character: " + word.substring(word.length() - 1));
+        System.out.println("Uppercase: " + word.toUpperCase());
+    }
+}
+`;
+
+const Task2 = `// Task 2 — Initials Generator
+//
+// Create a String fullName with a first and last name.
+// Example: "Grace Hopper"
+//
+// Use indexOf and substring to print the initials like:
+// G.H.
+//
+// Steps:
+// 1) Find the space index
+// 2) Get the first letter of the first name
+// 3) Get the first letter of the last name
+// 4) Print them with periods
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String fullName = "Grace Hopper";
+
+        int spaceIndex = fullName.indexOf(" ");
+
+        String firstInitial = fullName.substring(0, 1);
+        String lastInitial = fullName.substring(spaceIndex + 1, spaceIndex + 2);
+
+        System.out.println(firstInitial + "." + lastInitial + ".");
+    }
+}
+`;
+
+const Task3 = `// Task 3 — Username Generator
+//
+// Create a String fullName.
+// Generate a username using:
+// - the first letter of the first name
+// - the full last name
+// - all lowercase
+//
+// Example:
+// "Ada Lovelace" -> alovelace
+//
+// Use substring, indexOf, and toLowerCase.
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String fullName = "Ada Lovelace";
+
+        int spaceIndex = fullName.indexOf(" ");
+
+        String firstInitial = fullName.substring(0, 1);
+        String lastName = fullName.substring(spaceIndex + 1);
+
+        String username = (firstInitial + lastName).toLowerCase();
+
+        System.out.println("Username: " + username);
+    }
+}
+`;
+
+const Task4 = `// Task 4 — Word Finder
+//
+// Create a sentence String.
+// Use indexOf to search for a target word.
+//
+// Print:
+// 1) The sentence
+// 2) The index of the target word
+// 3) A message saying whether it was found
+//
+// Remember:
+// indexOf returns -1 if the word is not found.
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String sentence = "The quick brown fox jumps over the lazy dog";
+        String target = "fox";
+
+        int index = sentence.indexOf(target);
+
+        System.out.println("Sentence: " + sentence);
+        System.out.println("Index of target: " + index);
+
+        if (index == -1)
+        {
+            System.out.println("Target not found.");
+        }
+        else
+        {
+            System.out.println("Target found.");
+        }
+    }
+}
+`;
+
+const Task5 = `// Task 5 — String Method Practice Mini-Challenge
+//
+// Create two Strings and do all of the following:
+// 1) Check if they are equal using equals
+// 2) Compare them alphabetically using compareTo
+// 3) Print both lowercase
+// 4) Print both uppercase
+//
+// Suggested values:
+// "Apple"
+// "banana"
+
+public class Program
+{
+    public static void main(String[] args)
+    {
+        String a = "Apple";
+        String b = "banana";
+
+        System.out.println("Equals? " + a.equals(b));
+        System.out.println("compareTo: " + a.compareTo(b));
+        System.out.println("a lowercase: " + a.toLowerCase());
+        System.out.println("b lowercase: " + b.toLowerCase());
+        System.out.println("a uppercase: " + a.toUpperCase());
+        System.out.println("b uppercase: " + b.toUpperCase());
+    }
+}
+`;
+
+const SampleOutput = `Word: computer
+Length: 8
+First character: c
+Last character: r
+Uppercase: COMPUTER
+
+G.H.
+
+Username: alovelace
+
+Sentence: The quick brown fox jumps over the lazy dog
+Index of target: 16
+Target found.
+
+Equals? false
+compareTo: -33
+a lowercase: apple
+b lowercase: banana
+a uppercase: APPLE
+b uppercase: BANANA
+`;
+
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 5.14 — String Methods</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 4-9</h3>
+            <h4 class="text-skynest-theme">String Methods</h4>
+          </section>
+
+          <section>
+            <h4>Strings are objects</h4>
+            <ul>
+              <li><code>String</code> is a class.</li>
+              <li>A String variable stores a String object.</li>
+              <li>Objects have methods you can call with dot notation.</li>
+            </ul>
+            <Code code={SlideA} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>One easy confusion</h4>
+            <ul>
+              <li>Arrays use <code>length</code></li>
+              <li>Strings use <code>length()</code></li>
+            </ul>
+            <Code code={SlideB} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4><code>substring</code></h4>
+            <ul>
+              <li><code>substring(start, end)</code> includes the start index.</li>
+              <li>It does <strong>not</strong> include the end index.</li>
+              <li><code>substring(start)</code> goes from start to the end of the string.</li>
+            </ul>
+            <Code code={SlideC} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4><code>indexOf</code></h4>
+            <ul>
+              <li>Finds the first position of a character or substring.</li>
+              <li>If nothing is found, it returns <code>-1</code>.</li>
+            </ul>
+            <Code code={SlideD} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Comparing Strings</h4>
+            <ul>
+              <li>Use <code>equals</code> to test if two strings have the same text.</li>
+              <li>Do <strong>not</strong> use <code>==</code> for String comparison on the AP exam.</li>
+            </ul>
+            <Code code={SlideE} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4><code>compareTo</code></h4>
+            <ul>
+              <li>Used for alphabetical comparison.</li>
+              <li>Negative means “comes before.”</li>
+              <li>Positive means “comes after.”</li>
+              <li>Zero means the strings are equal.</li>
+            </ul>
+            <Code code={SlideF} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Strings are immutable</h4>
+            <ul>
+              <li>String methods do not change the original String.</li>
+              <li>They return a new String instead.</li>
+              <li>If you want the change, assign the result to a variable.</li>
+            </ul>
+            <Code code={SlideG} lang="java" class="text-start" />
+          </section>
+
+          <section>
+            <h4>Today's goals</h4>
+            <ul>
+              <li>Use common AP String methods correctly.</li>
+              <li>Extract pieces of text with <code>substring</code>.</li>
+              <li>Search for text with <code>indexOf</code>.</li>
+              <li>Compare Strings with <code>equals</code> and <code>compareTo</code>.</li>
+            </ul>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem>Use common String methods including <code>length()</code>, <code>substring()</code>, and <code>indexOf()</code>.</ListItem>
+            <ListItem>Compare strings using <code>equals()</code> and <code>compareTo()</code>.</ListItem>
+            <ListItem>Explain why Strings are immutable.</ListItem>
+            <ListItem>Solve small text-processing problems using String methods.</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">Create a new project named <span class="text-skynest-theme">Activity4-9-StringMethods</span>.</ListItem>
+            <ListItem variant="2">Complete Tasks 1-5.</ListItem>
+            <ListItem variant="2">Use the figures as references while you work.</ListItem>
+          </ul>
+
+          <h3><span class="text-skynest-theme">Figures</span>: Reference Examples</h3>
+          <Code code={Figure1} frame="code" lang="java" title="Figure 1 — Common String methods" class="mb-3" />
+          <Code code={Figure2} frame="code" lang="java" title="Figure 2 — Comparing Strings" class="mb-3" />
+          <Code code={Figure3} frame="code" lang="java" title="Figure 3 — Immutability" class="mb-3" />
+          <Code code={Figure4} frame="code" lang="java" title="Figure 4 — substring + indexOf pattern" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 1</span>: String Analyzer</h3>
+          <Code code={Task1} frame="code" lang="java" title="Task 1 — String Analyzer" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 2</span>: Initials Generator</h3>
+          <Code code={Task2} frame="code" lang="java" title="Task 2 — Initials Generator" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 3</span>: Username Generator</h3>
+          <Code code={Task3} frame="code" lang="java" title="Task 3 — Username Generator" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 4</span>: Word Finder</h3>
+          <Code code={Task4} frame="code" lang="java" title="Task 4 — Word Finder" />
+
+          <hr class="my-4" />
+
+          <h3><span class="text-skynest-theme">Task 5</span>: String Comparison Mini-Challenge</h3>
+          <Code code={Task5} frame="code" lang="java" title="Task 5 — Comparison Practice" />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>Your program output should something similar to the sample output below.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>You may write your reflection answers as comments at the bottom of your code.</p>
+
+          <ol>
+            <li>Why should you use <code>equals()</code> instead of <code>==</code> for Strings?</li>
+            <li>What does <code>indexOf()</code> return when the text is not found?</li>
+            <li>Why does <code>substring(0, 3)</code> return only the first three characters?</li>
+            <li>What does it mean that Strings are immutable?</li>
+            <li>How is <code>compareTo()</code> different from <code>equals()</code>?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>Submit your activity and reflection answers to the appropriate dropbox.</p>
+
+          <h1 class="text-center mt-5 text-skynest-theme border border-primary">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
