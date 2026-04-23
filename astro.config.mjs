@@ -10,18 +10,16 @@ export default defineConfig({
     svelte(),
     expressiveCode()
   ],
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: "Orbitron",
-        cssVariable: "--font-orbitron"
-      },
-      {
-        provider: fontProviders.google(),
-        name: "JetBrains Mono",
-        cssVariable: "--font-jetbrains-mono"
-      }
-    ]
-  }
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: "Orbitron",
+      cssVariable: "--font-orbitron"
+    },
+    {
+      provider: fontProviders.google(),
+      name: "JetBrains Mono",
+      cssVariable: "--font-jetbrains-mono"
+    }
+  ]
 });
