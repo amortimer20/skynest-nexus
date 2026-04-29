@@ -12,13 +12,13 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: "Orbitron",
-      cssVariable: "--font-orbitron"
+      name: "Goldman",
+      cssVariable: "--font-goldman"
     },
     {
       provider: fontProviders.google(),
-      name: "JetBrains Mono",
-      cssVariable: "--font-jetbrains-mono"
+      name: "Space Mono",
+      cssVariable: "--font-space-mono"
     }
   ]
 });
