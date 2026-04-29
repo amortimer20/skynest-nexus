@@ -197,7 +197,7 @@ Jordan (Grade 11) — GPA: 0.0
               A <strong>no-arg constructor</strong> provides default values when no 
               information is supplied.
             </p>
-            <Code code={`class Dog {\n    Dog() { /* default values */ }\n}`} lang="java" class="text-start" />
+            <Code code={`class Dog {\n    Dog() { /* default values */ }\n}`} lang="java"  />
           </section>
 
           <section data-auto-animate>
@@ -208,7 +208,7 @@ Jordan (Grade 11) — GPA: 0.0
             <p>
               But there’s a catch: constructor parameters often <em>shadow</em> instance variables.
             </p>
-            <Code code={`Dog(String name) {\n    this.name = name;\n}`} lang="java" class="text-start" />
+            <Code code={`Dog(String name) {\n    this.name = name;\n}`} lang="java"  />
           </section>
 
           <section>
@@ -216,17 +216,17 @@ Jordan (Grade 11) — GPA: 0.0
             <p>
               When parameter names match instance variables:
             </p>
-            <Code code={`Dog(String name) {\n    name = name; // WRONG\n}`} lang="java" class="text-start" />
+            <Code code={`Dog(String name) {\n    name = name; // WRONG\n}`} lang="java"  />
             <p class="fragment">
               This sets the <em>parameter</em> equal to itself, not the instance variable.
             </p>
             <p class="fragment"><strong>Solution:</strong> Use <AstroCode code="this" lang="java" inline /></p>
-            <Code code={`this.name = name;`} lang="java" class="fragment" class="text-start" />
+            <Code code={`this.name = name;`} lang="java" class="fragment"  />
           </section>
 
           <section>
             <h4>Example: Dog Class With Both Constructors</h4>
-            <Code code={FigureDogClass} lang="java" class="text-start" />
+            <Code code={FigureDogClass} lang="java"  />
           </section>
 
           <section>
