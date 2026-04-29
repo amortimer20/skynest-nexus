@@ -44,7 +44,7 @@
     data-bs-auto-close="outside"
     aria-expanded="false"
   >
-    <i class="si-square-fill text-skynest-theme fs-5"></i>
+    <i class="si-square-fill text-sn-theme fs-5"></i>
   </button>
   <ul class="dropdown-menu">
     <li
@@ -53,7 +53,7 @@
         setColorTheme("skynest-cyan");
       }}
     >
-        <i class="si-square-fill text-skynest-cyan fs-5"></i>
+        <i class="si-square-fill text-sn-cyan fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -61,7 +61,7 @@
         setColorTheme("skynest-red");
       }}
     >
-        <i class="si-square-fill text-skynest-red fs-5"></i>
+        <i class="si-square-fill text-sn-red fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -69,7 +69,7 @@
         setColorTheme("skynest-green");
       }}
     >
-        <i class="si-square-fill text-skynest-green fs-5"></i>
+        <i class="si-square-fill text-sn-green fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -77,7 +77,7 @@
         setColorTheme("skynest-blue");
       }}
     >
-        <i class="si-square-fill text-skynest-blue fs-5"></i>
+        <i class="si-square-fill text-sn-blue fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -85,7 +85,7 @@
         setColorTheme("skynest-purple");
       }}
     >
-        <i class="si-square-fill text-skynest-purple fs-5"></i>
+        <i class="si-square-fill text-sn-purple fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -93,7 +93,7 @@
         setColorTheme("skynest-orange");
       }}
     >
-        <i class="si-square-fill text-skynest-orange fs-5"></i>
+        <i class="si-square-fill text-sn-orange fs-5"></i>
     </li>
     <li
       class="dropdown-item"
@@ -101,7 +101,7 @@
         setColorTheme("skynest-yellow");
       }}
     >
-      <i class="si-square-fill text-skynest-yellow fs-5"></i>
+      <i class="si-square-fill text-sn-yellow fs-5"></i>
     </li>
   </ul>
 </div>

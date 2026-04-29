@@ -171,7 +171,7 @@
             >
           </div>
         {/if}
-        <p class="text-skynest-theme">{@html responseHTML}</p>
+        <p class="text-sn-theme">{@html responseHTML}</p>
         <p>Score: {score}/{questions.length}</p>
       </div>
       <div class="card-footer">
