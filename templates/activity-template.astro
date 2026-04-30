@@ -1,0 +1,159 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `INSERT
+`;
+const Task1 = `INSERT
+`;
+const ExampleOutput = `INSERT
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/course-title/unit-title/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity X.X Activity Title</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Lesson Title</h2>
+              <h3 class="text-sn-theme">Subtitle or Essential Idea</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p></p>
+            </section>
+
+            <section>
+              <h2>Slide Heading</h2>
+              <Code code={Figure1} frame="code" lang="txt" />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Term</dt>
+                  <dd>Definition</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>Create a new <b>language</b> project named <b>name</b>.</p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1</h3>
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="txt"
+            title="file"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2</h3>
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="txt"
+            title="INSERT FILE"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
