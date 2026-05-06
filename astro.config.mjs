@@ -12,8 +12,8 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: "Goldman",
-      cssVariable: "--font-goldman"
+      name: "Orbitron",
+      cssVariable: "--font-orbitron"
     },
     {
       provider: fontProviders.google(),
