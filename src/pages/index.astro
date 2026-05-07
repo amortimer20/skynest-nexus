@@ -6,12 +6,10 @@ import Divider from "../components/ui/Divider.astro";
 import ListItem from "../components/ui/ListItem.astro";
 
 // Asset Imports
-import codeChallengesThumbnail from "../assets/courses/code-challenges/img/code-challenges-thumbnail.svg";
-import apcspThumbnail from "../assets/courses/ap-csp/img/ap-csp-thumbnail.svg";
-import electronicsThumbnail from "../assets/courses/electronics/img/electronics-thumbnail.svg";
-import jsThumbnail from "../assets/courses/js-programming/img/js-thumbnail.svg";
-import javaThumbnail from "../assets/courses/java-programming/img/java-thumbnail.svg";
-import pythonThumbnail from "../assets/courses/python-programming/img/python-thumbnail.svg";
+import apCspThumbnail from "../assets/courses/ap-csp/img/ap-csp-thumbnail.svg";
+import apCyberThumbnail from "../assets/courses/ap-cyber/img/ap-cyber-thumbnail.svg";
+import foceThumbnail from "../assets/courses/foce/img/foce-thumbnail.svg";
+import gameDesignThumbnail from "../assets/courses/game-design/img/game-design-thumbnail.svg";
 import SkynestLogo from "../assets/skynest-emblem-green.svg";
 ---
 
@@ -21,12 +19,12 @@ import SkynestLogo from "../assets/skynest-emblem-green.svg";
     <canvas id="matrix" style="position: absolute;"></canvas>
     <h1 class="text-center text-eds-green pt-5 animation-overlay">
       <span class="bg-black p-2 d-inline-block" style="--bs-bg-opacity: .75;"
-        >St. Edward High School</span
+        >ST EDWARD HIGH SCHOOL</span
       >
     </h1>
     <h4 class="text-center text-eds-gold animation-overlay">
       <span class="bg-black p-2 d-inline-block" style="--bs-bg-opacity: .75;"
-        >Computer science and Engineering</span
+        >ENGINEERING AND COMPUTER SCIENCE</span
       >
     </h4>
     <SkynestLogo
@@ -41,47 +39,37 @@ import SkynestLogo from "../assets/skynest-emblem-green.svg";
     <h3 id="course-content" class="text-center py-3">Course Content</h3>
     <div class="row mb-3">
       <div class="col-sm-12 col-md-6 col-lg-4 my-3">
-        <CourseCard link="/ap-csp/" title="Computer Orgranization">
+        <CourseCard link="#" title="Fundamentals of Computer Engineering">
           <Image
-            src={apcspThumbnail}
-            alt="AP Computer Science Principles Thumbnail"
+            src={foceThumbnail}
+            alt="Computer Engineering Thumbnail"
             class="img-fluid"
           />
         </CourseCard>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-4 my-3">
-        <CourseCard link="/js-programming/" title="JavaScript Programming">
-          <Image src={jsThumbnail} alt="JS Thumbnail" class="img-fluid" />
-        </CourseCard>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
-        <CourseCard link="/electronics/" title="Electronics">
+        <CourseCard link="#" title="Fundamentals of Game Design">
           <Image
-            src={electronicsThumbnail}
-            alt="Electronics"
+            src={gameDesignThumbnail}
+            alt="Game Design Thumbnail"
             class="img-fluid"
           />
         </CourseCard>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-4 my-3">
-        <CourseCard link="/code-challenges/" title="Code Challenges">
+        <CourseCard link="#" title="AP Computer Science Principles">
           <Image
-            src={codeChallengesThumbnail}
-            alt="Code Challenges Thumbnail"
+            src={apCspThumbnail}
+            alt="AP CSP Thumbnail"
             class="img-fluid"
           />
         </CourseCard>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-4 my-3">
-        <CourseCard link="/java-programming/" title="Java Programming">
-          <Image src={javaThumbnail} alt="Java Thumbnail" class="img-fluid" />
-        </CourseCard>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 my-3">
-        <CourseCard link="/python-programming/" title="Python Programming">
+        <CourseCard link="#" title="AP Cybersecurity">
           <Image
-            src={pythonThumbnail}
-            alt="Python Programming"
+            src={apCyberThumbnail}
+            alt="AP Cybersecurity Thumbnail"
             class="img-fluid"
           />
         </CourseCard>
@@ -91,34 +79,65 @@ import SkynestLogo from "../assets/skynest-emblem-green.svg";
     <Divider variant="9" />
 
     <!-- Links/Utilities -->
-    <div class="row mb-3">
-      <div class="col-sm-12 col-md-6">
-        <h4 class="text-center py-3">Links</h4>
+    <h3 class="text-center my-5">Links</h3>
 
+    <div class="row mb-3 justify-content-center">
+      <div class="col-sm-12 col-md-5">
         <h5>Programming Languages</h5>
-        <ul>
-          <ListItem>
-            <a href="https://www.python.org/" target="_blank"> Python</a>
-          </ListItem>
-          <ListItem>
-            <a href="https://deno.com/" target="_blank">Deno (JavaScript)</a>
-          </ListItem>
-        </ul>
 
-        <h5>Game Development</h5>
         <ul>
           <ListItem>
-            <a href="https://unity.com" target="_blank"> Unity</a>
+            <a href="https://deno.com/" target="_blank">JavaScript (Deno)</a>
           </ListItem>
           <ListItem>
-            <a href="https://libresprite.github.io/" target="_blank"
-              >LibreSprite</a
+            <a href="https://nodejs.org/" target="_blank"
+              >JavaScript (Node.js)</a
+            >
+          </ListItem>
+          <ListItem>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference" target="_blank"
+              >JavaScript Language Reference</a
+            >
+          </ListItem>
+          <ListItem>
+            <a href="https://www.python.org/" target="_blank">Python Homepage</a
+            >
+          </ListItem>
+          <ListItem>
+            <a
+              href="https://docs.python.org/3/reference/index.html"
+              target="_blank">Python Language Reference</a
+            >
+          </ListItem>
+          <ListItem>
+            <a href="https://www.ruby-lang.org/en/" target="_blank"
+              >Ruby Homepage</a
+            >
+          </ListItem>
+          <ListItem>
+            <a href="https://docs.ruby-lang.org/en/4.0/" target="_blank"
+              >Ruby Language Reference</a
             >
           </ListItem>
         </ul>
 
         <h5>Code Editors</h5>
         <ul>
+          <ListItem>
+            <a href="https://www.arduino.cc/en/software/" target="_blank"
+              >Arduino IDE</a
+            >
+          </ListItem>
+          <ListItem>
+            <a href="https://www.juicemind.com/curriculum" target="_blank"
+              >Juicemind</a
+            >
+          </ListItem>
+          <ListItem>
+            <a href="https://www.arduino.cc/en/software/" target="_blank"
+              >Thonny</a
+            >
+          </ListItem>
           <ListItem>
             <a href="https://visualstudio.microsoft.com" target="_blank">
               Visual Studio 2026 (Purple)</a
@@ -129,28 +148,56 @@ import SkynestLogo from "../assets/skynest-emblem-green.svg";
               >Visual Studio Code (Blue)</a
             >
           </ListItem>
+        </ul>
+      </div>
+      <div class="col-sm-12 col-md-5">
+        <h5>Game Development</h5>
+
+        <ul>
           <ListItem>
-            <a href="https://www.arduino.cc/en/software/" target="_blank"
-              >Arduino IDE</a
+            <a href="https://godotengine.org" target="_blank">Godot</a>
+          </ListItem>
+          <ListItem>
+            <a
+              href="https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html"
+              target="_blank">GDScript Language Reference</a
             >
           </ListItem>
           <ListItem>
-            <a href="https://www.arduino.cc/en/software/" target="_blank"
-              >Thonny</a
+            <a href="https://libresprite.github.io/" target="_blank"
+              >LibreSprite</a
             >
           </ListItem>
           <ListItem>
-            <a href="https://www.juicemind.com/curriculum" target="_blank"
-              >Juicemind</a
+            <a href="https://unity.com" target="_blank">Unity</a>
+          </ListItem>
+        </ul>
+
+        <h5>Development Boards</h5>
+
+        <ul>
+          <ListItem>
+            <a href="https://www.arduino.cc" target="_blank">Arduino</a>
+          </ListItem>
+          <ListItem>
+            <a href="https://www.raspberrypi.com" target="_blank"
+              >Raspberry Pi</a
+            >
+          </ListItem>
+          <ListItem>
+            <a
+              href="https://www.sparkfun.com/sparkfun-iot-redboard-rp2350.html"
+              target="_blank">SparkFun IoT RedBoard RP2350</a
             >
           </ListItem>
         </ul>
-      </div>
-      <div class="col-sm-12 col-md-6">
-        <h4 class="text-center py-3">Utilities</h4>
+        <h5>Libraries/Frameworks</h5>
         <ul>
           <ListItem>
-            <a href="/utilities/color-picker">RGB Color Picker</a>
+            <a href="https://p5js.org" target="_blank">P5.js</a>
+          </ListItem>
+          <ListItem>
+            <a href="https://www.raylib.com" target="_blank">Raylib</a>
           </ListItem>
         </ul>
       </div>
