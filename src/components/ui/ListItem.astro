@@ -6,9 +6,10 @@ import bullet3 from "../../assets/ui/list-icons/li-bullet-3.svg";
 
 export interface Props {
   variant?: string;
+  className?: string;
 }
 
-let { variant = "1" } = Astro.props;
+let { variant = "1", className = "" } = Astro.props;
 
 const bulletImages: Record<string, ImageMetadata> = {
   "1": bullet1,
@@ -17,7 +18,7 @@ const bulletImages: Record<string, ImageMetadata> = {
 };
 ---
 
-<li>
+<li class={className}>
   {
     bulletImages[variant] && (
       <Image src={bulletImages[variant]} class="icon" alt="icon" />
@@ -35,6 +36,7 @@ const bulletImages: Record<string, ImageMetadata> = {
     .icon {
       width: 1.5rem;
       height: 1.5rem;
+      margin: 0.25rem;
       animation: spin 5s linear infinite;
     }
 
