@@ -1,0 +1,131 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import ListItem from "../../../components/ui/ListItem.astro";
+
+import GigaChad from "../../../assets/courses/get-the-edge/img/gigachad.gif";
+import WarningSign from "../../../assets/courses/get-the-edge/img/warning-sign.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="./" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 1: Introduction</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 01</h2>
+              <h3 class="text-sn-theme">Introduction to Summer Camp</h3>
+            </section>
+
+            <section>
+              <h2>Agenda</h2>
+              <ul>
+                <ListItem>About me</ListItem>
+                <ListItem className="fragment">Why build your own PC?</ListItem>
+                <ListItem className="fragment">Procedures and Safety</ListItem>
+                <ListItem className="fragment">Camp overview</ListItem>
+                <ListItem className="fragment">Introduction to computer components</ListItem>
+                <ListItem className="fragment">What we won't be covering</ListItem>
+              </ul>
+            </section>
+
+            <section>
+              <h2>About Me</h2>
+              <ul>
+                <ListItem>
+                  I teach computer science Teacher @ St. Ed's
+                </ListItem>
+                <ListItem className="fragment">I collect vintage computers and video game consoles</ListItem>
+                <ListItem className="fragment">I got my first PC in 1995 at the age of 5</ListItem>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Why Build a PC?</h2>
+              <div class="container-fluid">
+                <div class="row align-items-center">
+                  <div class="col-sm-12 col-md-6">
+                    <ul>
+                      <ListItem>Fun hobby</ListItem>
+                      <ListItem className="fragment">Total customization</ListItem>
+                      <ListItem className="fragment">Easy upgrades over time</ListItem>
+                      <ListItem className="fragment">Sense of accomplishment</ListItem>
+                      <ListItem className="fragment">Know how your stuff works</ListItem>
+                    </ul>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <Image src={GigaChad} alt="Giga Chad" width={256} class={"fragment"} />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2>Procedures and Safety</h2>
+              <ul>
+                <ListItem>8 stations</ListItem>
+                <ListItem className="fragment">Groups of 2 to 3 per station</ListItem>
+                <ListItem className="fragment">Periods 1 and 2, undo your work for the next class</ListItem>
+                <ListItem className="fragment">Have fun, and be respectful</ListItem>
+                <ListItem className="fragment">Follow instruction, and handle components gently</ListItem>
+              </ul>
+
+              <div class="border border-primary mt-3 p-3 fragment">
+                <Image
+                  src={WarningSign}
+                  alt="warning sign"
+                  class="slow-flash"
+                  width={128}
+                />
+                <p>
+                  When you see this symbol, be cautious when performing the
+                  given task.
+                </p>
+              </div>
+            </section>
+
+            <section>
+              <h2>Camp Overview</h2>
+              <ol>
+                <li>Introduction</li>
+                <li class="fragment">CPU, Motherboard, and CPU Cooling</li>
+                <li class="fragment">Primary and Secondary Memory</li>
+                <li class="fragment">Cases and Cooling</li>
+                <li class="fragment">GPU, PSU and Cabling</li>
+                <li class="fragment">Benchmarking</li>
+                <li class="fragment">Shopping for Parts</li>
+              </ol>
+
+              <p class="fragment">
+                By the end of this course, you will have built your own gaming
+                PC from scratch.
+              </p>
+            </section>
+
+            <section>
+              <h2>What's Not Covered</h2>
+              <ul>
+                <ListItem>Installing Windows</ListItem>
+                <ListItem>Monitors</ListItem>
+                <ListItem>Keyboards and Mice</ListItem>
+                <ListItem>Speakers</ListItem>
+                <ListItem>Networking</ListItem>
+              </ul>
+            </section>
+          </Presentation>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
