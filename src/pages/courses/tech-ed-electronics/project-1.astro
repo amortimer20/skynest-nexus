@@ -1,0 +1,87 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+import StoplightCircuitImg from "../../../assets/courses/tech-ed-electronics/img/stoplight-circuit.png";
+
+//#region CodeSnippets
+const ProjectCode = `int red = 13;
+int yellow = 12;
+int green = 11;
+
+void setup() {
+  pinMode(red, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(green, OUTPUT);
+}
+
+void loop() {
+  // Green
+  digitalWrite(green, HIGH);
+  digitalWrite(yellow, LOW);
+  digitalWrite(red, LOW);
+  delay(5000);
+
+  // Yellow
+  digitalWrite(yellow, HIGH);
+  digitalWrite(green, LOW);
+  digitalWrite(red, LOW);
+  delay(2000);
+
+  // Red
+  digitalWrite(red, HIGH);
+  digitalWrite(green, LOW);
+  digitalWrite(yellow, LOW);
+  delay(3000);
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/tech-ed-electronics/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Project 1 Stoplight</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section>
+          <h2>Task 1: Circuit</h2>
+          <span>Required components:</span>
+          <ul>
+            <li>(3) LEDs</li>
+            <li>(3) 330 ohm resistors</li>
+          </ul>
+
+          <img
+            src={StoplightCircuitImg.src}
+            alt="Stoplight circuit"
+            class="img-fluid rounded d-block mx-auto"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Code</h3>
+
+          <Code code={ProjectCode} frame="code" lang="cpp" title="stoplight.ino" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Project Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

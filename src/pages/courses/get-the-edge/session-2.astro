@@ -6,13 +6,20 @@ import Layout from "../../../layouts/Layout.astro";
 import ListItem from "../../../components/ui/ListItem.astro";
 
 import WarningSign from "../../../assets/courses/get-the-edge/img/warning-sign.svg";
+import CPUImg from "../../../assets/courses/get-the-edge/img/cpu.png";
+import MotherboardImg from "../../../assets/courses/get-the-edge/img/motherboard.png";
+import IntelAMDImg from "../../../assets/courses/get-the-edge/img/intel-amd.png";
+import CPUCoolerImg from "../../../assets/courses/get-the-edge/img/cpu-cooler.png";
 ---
 
 <Layout>
   <div class="container my-4">
     <div class="row justify-content-center">
       <div class="col-sm-12 col-md-10">
-        <a href="./" class="btn btn-sm btn-outline-light mb-3">
+        <a
+          href="/courses/get-the-edge/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
           <i class="si-arrow-left"></i> Back
         </a>
 
@@ -30,9 +37,289 @@ import WarningSign from "../../../assets/courses/get-the-edge/img/warning-sign.s
             <section>
               <h2>Agenda</h2>
               <ul>
-                <ListItem>About me</ListItem>
-                <ListItem className="fragment"></ListItem>
+                <ListItem>Introduce CPUs</ListItem>
+                <ListItem className="fragment">Introduce Motherboards</ListItem>
+                <ListItem className="fragment">Install a CPU</ListItem>
+                <ListItem className="fragment">Introduce CPU Coolers</ListItem>
+                <ListItem className="fragment">Install a CPU Cooler</ListItem>
               </ul>
+            </section>
+
+            <section>
+              <h2>The CPU</h2>
+
+              <div class="container-fluid">
+                <div class="row align-items-center">
+                  <div class="col-sm-12 col-md-6">
+                    <p>
+                      A CPU (Central Processing Unit) is the brain of the
+                      computer, responsible for executing instructions and
+                      processing data.
+                    </p>
+                    <p class="fragment">
+                      Processors are made up of billions of components called
+                      transistors, which act as tiny switches that help process
+                      and execute instructions.
+                    </p>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <img src={CPUImg.src} alt="CPU" class="img-fluid" />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2>CPU Characteristics</h2>
+              <ul>
+                <ListItem>Clock Speed (measured in GHz)</ListItem>
+                <ListItem className="fragment">Number of Cores</ListItem>
+                <ListItem className="fragment">Generation (or version)</ListItem
+                >
+                <ListItem className="fragment">Cache</ListItem>
+              </ul>
+              <p class="fragment">
+                <strong>Note:</strong> CPUs can execute billions of instructions per
+                second!
+              </p>
+            </section>
+
+            <section>
+              <h2>Intel and AMD Brands</h2>
+              <div class="container-fluid">
+                <div class="row align-items-center">
+                  <div class="col-sm-12 col-md-6">
+                    <p>
+                      There are two major CPU brands to choose from: <strong
+                        >AMD</strong
+                      > and <strong>Intel</strong>.
+                    </p>
+                    <ul>
+                      <ListItem className="fragment"
+                        >They are fierce rivals, but both make incredible
+                        processors.</ListItem
+                      >
+                      <ListItem className="fragment"
+                        ><strong>The Golden Rule:</strong> They are NOT interchangeable.
+                        An Intel CPU requires an Intel motherboard, and an AMD CPU
+                        requires an AMD motherboard.</ListItem
+                      >
+                    </ul>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <img
+                      src={IntelAMDImg.src}
+                      alt="Intel AMD"
+                      class="img-fluid"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2>PGA vs. LGA Sockets</h2>
+              <p>
+                How the CPU connects to the motherboard depends on the brand and
+                generation:
+              </p>
+              <ul>
+                <ListItem
+                  ><strong>LGA (Land Grid Array):</strong> The delicate pins are on
+                  the <em>motherboard socket</em>. The bottom of the CPU is
+                  flat. (Used by all modern Intel and AMD AM5 CPUs).</ListItem
+                >
+                <ListItem className="fragment"
+                  ><strong>PGA (Pin Grid Array):</strong> The delicate pins are directly
+                  on the <em>bottom of the CPU</em>. (Used by older AMD AM4
+                  CPUs).</ListItem
+                >
+              </ul>
+              <p class="fragment text-sn-theme">
+                🚨 NEVER touch the pins on a motherboard socket or a PGA CPU! 🚨
+              </p>
+            </section>
+
+            <section>
+              <h2>The Motherboard</h2>
+              <div class="container-fluid">
+                <div class="row align-items-center">
+                  <div class="col-sm-12 col-md-6">
+                    <p>
+                      A motherboard is the main circuit board of a computer,
+                      connecting all components like the CPU, RAM, and storage
+                      so they can work together.
+                    </p>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <img
+                      src={MotherboardImg.src}
+                      alt="Motherboard"
+                      class="img-fluid"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2>Motherboard Characteristics</h2>
+              <ul>
+                <ListItem
+                  ><strong>Chipset</strong> - Determines compatibility with processors,
+                  RAM, and storage devices.</ListItem
+                >
+                <ListItem className="fragment"
+                  ><strong>CPU Socket</strong> - The connector that houses the processor.</ListItem
+                >
+                <ListItem className="fragment"
+                  ><strong>RAM Slots</strong> - Provides space for memory modules.</ListItem
+                >
+                <ListItem className="fragment"
+                  ><strong>Expansion Slots</strong> - Includes PCIe slots for graphics
+                  cards, sound cards, and other upgrades.</ListItem
+                >
+                <ListItem className="fragment"
+                  ><strong>Power Connectors</strong> - Delivers power from the PSU
+                  to the board.</ListItem
+                >
+                <ListItem className="fragment"
+                  ><strong>Storage Connectors</strong> - Supports SSDs, HDDs, and
+                  M.2 drives.</ListItem
+                >
+                <ListItem className="fragment"
+                  ><strong>USB & Connectivity Ports</strong></ListItem
+                >
+                <ListItem className="fragment"
+                  ><strong>Form Factor</strong> - Defines the size and shape.</ListItem
+                >
+              </ul>
+            </section>
+
+            <section>
+              <h2>Installing a CPU</h2>
+
+              <div class="border border-primary mt-3 p-3">
+                <Image
+                  src={WarningSign}
+                  alt="warning sign"
+                  class="slow-flash"
+                  width={128}
+                />
+                <p>
+                  This is one of the most delicate tasks of assembling a
+                  computer! Listen carefully to the installation instructions.
+                </p>
+              </div>
+            </section>
+
+            <section>
+              <h2>How to Install a CPU</h2>
+              <ol>
+                <ListItem>Open the socket</ListItem>
+                <ListItem className="fragment"
+                  >Align the CPU to the correct position (look for the
+                  triangles)</ListItem
+                >
+                <ListItem className="fragment"
+                  >Gently seat the CPU into the socket</ListItem
+                >
+                <ListItem className="fragment"
+                  >Lock the CPU in the socket</ListItem
+                >
+              </ol>
+            </section>
+
+            <section>
+              <h2>Hands-On Task</h2>
+              <p>
+                Practice installing a CPU into an LGA socket and an older PGA
+                socket.
+              </p>
+            </section>
+
+            <section>
+              <h2>CPU Cooling</h2>
+              <p>CPUs run very hot!</p>
+              <p class="fragment">
+                Without a cooling fan, a CPU can overheat within seconds to
+                minutes under heavy load.
+              </p>
+            </section>
+
+            <section>
+              <section>
+                <h2>CPU Coolers (Air)</h2>
+
+                <div class="container-fluid">
+                  <div class="row align-items-center">
+                    <div class="col-sm-12 col-md-6">
+                      <ul>
+                        <ListItem
+                          ><strong>Heatsinks:</strong> Draw heat away from the CPU.</ListItem
+                        >
+                        <ListItem className="fragment"
+                          ><strong>Fans:</strong> Push cool air through the heatsink
+                          to cool it down.</ListItem
+                        >
+                      </ul>
+                      <p class="fragment">
+                        ⬇️ <em>Press down for Water Cooling info</em>
+                      </p>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <img
+                      src={CPUCoolerImg.src}
+                      alt="CPU Cooler"
+                      class="img-fluid"
+                    />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <h2>Water Cooling</h2>
+                <p>
+                  Uses a radiator, fluid, a pump, and a metal block to cool the
+                  CPU.
+                </p>
+                <ul>
+                  <ListItem>Better cooling performance</ListItem>
+                  <ListItem className="fragment">Requires maintenance</ListItem>
+                  <ListItem className="fragment"
+                    >Slightly more difficult assembly</ListItem
+                  >
+                </ul>
+              </section>
+            </section>
+
+            <section>
+              <h2>Installing a CPU Cooler</h2>
+              <ol>
+                <ListItem
+                  >Apply fresh thermal paste in a small, pea-sized amount at the
+                  center of the CPU <em>(Skip for GTE Camp Stations)</em
+                  ></ListItem
+                >
+                <ListItem className="fragment"
+                  >Align the new fan and heatsink with the mounting holes on the
+                  motherboard</ListItem
+                >
+                <ListItem className="fragment"
+                  >Secure the heatsink by pressing down or screwing it in place,
+                  ensuring even pressure</ListItem
+                >
+                <ListItem className="fragment"
+                  >Connect the fan cable to the CPU fan header on the
+                  motherboard</ListItem
+                >
+              </ol>
+            </section>
+
+            <section>
+              <h2>Cooler Challenge!</h2>
+              <p>Try installing a cooler other than the one at your station.</p>
             </section>
           </Presentation>
         </section>

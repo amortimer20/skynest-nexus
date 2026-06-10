@@ -1,0 +1,195 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+import SimonCircuitImg from "../../../assets/courses/tech-ed-electronics/img/simon-circuit.png";
+
+//#region CodeSnippets
+const ProjectCode = `// Pin Definitions
+const int ledPins[] = {2, 3, 4, 5};       // Red, Green, Blue, Yellow
+const int buttonPins[] = {8, 9, 10, 11};   // Red, Green, Blue, Yellow
+const int buzzerPin = 6;
+
+// Audio Frequencies for each button (Red, Green, Blue, Yellow)
+const int tones[] = {262, 330, 392, 523}; // C4, E4, G4, C5
+const int loseTone = 120;                  // Sad, low buzz for game over
+
+// Game Variables
+#define MAX_SEQUENCE 100
+int sequence[MAX_SEQUENCE];
+int gameRound = 0;
+
+void setup() {
+  // Initialize LEDs and Buttons
+  for (int i = 0; i < 4; i++) {
+    pinMode(ledPins[i], OUTPUT);
+    pinMode(buttonPins[i], INPUT); // External pull-up, so standard INPUT
+    digitalWrite(ledPins[i], LOW);
+  }
+  pinMode(buzzerPin, OUTPUT);
+  
+  // Seed random generator using noise from unconnected analog pin
+  randomSeed(analogRead(A0));
+  
+  delay(1000); // Brief pause before game starts automatically
+}
+
+void loop() {
+  // 1. Add a new random step to the sequence (0 to 3)
+  sequence[gameRound] = random(0, 4);
+  gameRound++;
+  
+  // 2. Play the current sequence to the player
+  playSequence();
+  
+  // 3. Get and check player inputs
+  if (!getPlayerInput()) {
+    gameOver();
+    // Reset game state
+    gameRound = 0;
+    delay(1500); 
+    return;
+  }
+  
+  delay(600); // Pause before next round starts
+}
+
+// Function to play the stored sequence
+void playSequence() {
+  for (int i = 0; i < gameRound; i++) {
+    int currentStep = sequence[i];
+    
+    digitalWrite(ledPins[currentStep], HIGH);
+    tone(buzzerPin, tones[currentStep], 300);
+    delay(300);
+    digitalWrite(ledPins[currentStep], LOW);
+    delay(1500 / (gameRound + 2)); // Dynamic pacing gets slightly faster
+  }
+}
+
+// Function to capture and validate user input
+bool getPlayerInput() {
+  for (int i = 0; i < gameRound; i++) {
+    int expectedButton = sequence[i];
+    int pressedButton = -1;
+    
+    // Wait until a button is pressed
+    while (pressedButton == -1) {
+      for (int b = 0; b < 4; b++) {
+        // Active LOW due to external pull-ups
+        if (digitalRead(buttonPins[b]) == LOW) {
+          pressedButton = b;
+          
+          // Provide instant feedback for the press
+          digitalWrite(ledPins[b], HIGH);
+          tone(buzzerPin, tones[b]);
+          
+          // Debounce and wait for release
+          delay(50); 
+          while (digitalRead(buttonPins[b]) == LOW); 
+          delay(50);
+          
+          noTone(buzzerPin);
+          digitalWrite(ledPins[b], LOW);
+          break;
+        }
+      }
+    }
+    
+    // Check if the pressed button matches the sequence
+    if (pressedButton != expectedButton) {
+      return false; // Wrong button pressed
+    }
+  }
+  return true; // Whole round cleared successfully
+}
+
+// Game Over Animation and Sound
+void gameOver() {
+  // Low pitch buzz to signify failure
+  tone(buzzerPin, loseTone, 800);
+  
+  // Blink all four LEDs 3 times
+  for (int i = 0; i < 3; i++) {
+    for (int l = 0; l < 4; l++) {
+      digitalWrite(ledPins[l], HIGH);
+    }
+    delay(250);
+    for (int l = 0; l < 4; l++) {
+      digitalWrite(ledPins[l], LOW);
+    }
+    delay(250);
+  }
+  noTone(buzzerPin);
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/tech-ed-electronics/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Simon</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section>
+          <h2>Task 1: Circuit</h2>
+
+          <p>
+            <span class="text-sn-theme">Note:</span> A large breadboard and flat jumper
+            wires are recommended for this project. The circuit diagram was created
+            using a standard breadboard graphic, causing the components to appear
+            more tightly packed than is ideal. When building the circuit, allow additional
+            space between components to improve organization and troubleshooting.
+          </p>
+
+          <span>Required components:</span>
+          <ul>
+            <li>(4) LEDs</li>
+            <li>(4) 330 ohm resistors</li>
+            <li>(4) push buttons</li>
+            <li>(4) 10k ohm resistors</li>
+            <li>(1) buzzer</li>
+          </ul>
+
+          <img
+            src={SimonCircuitImg.src}
+            alt="Simon circuit"
+            class="img-fluid rounded d-block mx-auto"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Code</h3>
+
+          <Code
+            code={ProjectCode}
+            frame="code"
+            lang="cpp"
+            title="simon.ino"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Project Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
