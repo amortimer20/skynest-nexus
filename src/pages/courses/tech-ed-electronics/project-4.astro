@@ -1,0 +1,74 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+import BalanceBeamCircuitImg from "../../../assets/courses/tech-ed-electronics/img/balance-beam-circuit.png";
+
+//#region CodeSnippets
+const ProjectCode = `#include<Servo.h>
+
+Servo myServo;
+int potVal;
+int anglePosition;
+
+void setup() {
+	myServo.attach(9);
+}
+
+void loop() {
+  potVal = analogRead(A0);
+  anglePosition = map(potVal, 0, 1023, 10, 170);
+  myServo.write(anglePosition);
+  delay(20);
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/tech-ed-electronics/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Project 4 Balance Beam</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section>
+          <h2>Task 1: Circuit</h2>
+          <span>Required components:</span>
+          <ul>
+            <li>(1) Potentiometer</li>
+            <li>(1) Servo Motor</li>
+          </ul>
+
+          <img
+            src={BalanceBeamCircuitImg.src}
+            alt="Balance Beam Circuit"
+            class="img-fluid rounded d-block mx-auto"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Code</h3>
+
+          <Code code={ProjectCode} frame="code" lang="cpp" title="balance_beam.ino" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Project Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
