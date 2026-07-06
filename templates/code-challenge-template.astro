@@ -1,0 +1,81 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const SampleOutput = `INSERT
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/course-title/unit-title/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge: Title</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-yellow"></i>
+          <i class="si-star text-sn-red"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>INSERT</p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="tasks">
+          <h2>Tasks</h2>
+
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
