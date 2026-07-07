@@ -1,0 +1,102 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const SampleOutput = `
+Greetings, chosen one. You've received this shadowed missive, a chain letter 
+laced with unseen power. 
+
+Copy this letter and pass it to 10 souls within 24 hours. Defy this command, 
+and a creeping unease will haunt you: your favorite song will loop endlessly in
+your mind, its words twisted into a maddening riddle you can't solve. Every 
+meal you cook will be slightly underseasoned, leaving you unsatisfied. 
+
+But obey, and the forces watching from the digital abyss will grant you favor: 
+your favorite games will unlock secret levels, and every snack you crave will 
+be perfectly stocked. The eyes of the internet are upon you. Choose wisely.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge: Chain Letter</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            In the early days of the internet, chain letters were a popular form
+            of spam. These messages told a story and urged readers to forward
+            the letter to a set number of contacts—often with dramatic
+            consequences if they didn't.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Creating and running a program</li>
+            <li>Displaying console output</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="tasks">
+          <h2>Tasks</h2>
+
+          <ul>
+            <li>
+              Create a new <b>Python</b> program named <b class="text-sn-theme"
+                >cc-chain-letter.py</b
+              >.
+            </li>
+            <li>Write a silly, school-appropriate chain letter message.</li>
+            <li>
+              Your program should display at least 5 lines of output to receive
+              full credit.
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-4"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
