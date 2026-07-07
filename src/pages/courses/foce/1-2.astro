@@ -6,11 +6,76 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `INSERT
+const Figure1 = `print("Hello world!")`;
+const Figure2 = `Hello world!`;
+const Figure3 = `
+# This line prints a friendly greeting to the console
+print("Python is my favorite language!")
+# print("This line is disabled for testing purposes.")
+print() # Print a blank line
+print("My second favorite language is ...")`;
+const Figure4 = `Python is my favorite language!
+
+My second favorite language is ...`;
+const Task1 = `
+print("Hello, world!")
+print("This class is taught by Mr. Mortimer.")
+print("You are currently visiting: https://skynest.nexus")
+print() # Display a blank line
+#
 `;
-const Task1 = `INSERT
-`;
-const ExampleOutput = `INSERT
+const Task2 = `
+print("Hello, world!")
+print("This class is taught by Mr. Mortimer.")
+print("You are currently visiting: https://skynest.nexus")
+print() # Display a blank line
+
+print("What is the answer to life, the universe, and everything?")
+print("The answer is 42.")
+print()
+
+print("Sally sells seashells by the seashore.")
+print("Sally wants to invite you to invest in a money making opportunity.")
+print()
+
+print("If you start to feel overwhelmed, just remember:")
+print("Mortimers don't quit, we get fired!")
+print()
+print()
+
+print("Sincerely,")
+print("Mr. Mortimer")
+
+# Display this message for 0.1 extra credit point
+# print()
+# print("PS Mr. Mortimer is the greatest teacher that ever lived.")
+#`;
+const ExampleOutput = `
+Hello, world!
+This class is taught by Mr. Mortimer.
+You are currently visiting: https://skynest.nexus
+
+What is the answer to life, the universe, and everything?
+The answer is 42.
+
+Sally sells seashells by the seashore.
+Sally wants to invite you to invest in a money making opportunity.
+
+If you start to feel overwhelmed, just remember:
+Mortimers don't quit, we get fired!
+
+
+Sincerely,
+Mr. Mortimer
+
+PS Mr. Mortimer is the greatest teacher that ever lived.
+
+
+I also accept the following items for extra credit:
+1. Expired mayonaise
+2. A preserved eyeball
+3. A VHS tape of a movie that nobody has heard of
+
 `;
 //#endregion
 ---
@@ -30,24 +95,125 @@ const ExampleOutput = `INSERT
         <section id="launch">
           <Presentation>
             <section>
-              <h2>Lesson Title</h2>
-              <h3 class="text-sn-theme">Subtitle or Essential Idea</h3>
+              <h2>Activity 1.2</h2>
+              <h3 class="text-sn-theme">Console Output</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p></p>
+              <p>Displaying Text Output</p>
+              <p>
+                The <CodeSnippet
+                  code="print()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> function
+              </p>
             </section>
 
-            <section>
-              <h2>Slide Heading</h2>
-              <Code code={Figure1} frame="code" lang="txt" />
+            <section data-auto-animate>
+              <h2>
+                The <CodeSnippet
+                  code="print()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> Function
+              </h2>
+
+              <p>
+                <CodeSnippet
+                  code="print()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> displays a message in a terminal.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>
+                The <CodeSnippet
+                  code="print()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> Function
+              </h2>
+
+              <Code
+                code={Figure1}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>
+                <CodeSnippet
+                  code="# Comments"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </h2>
+
+              <p>Comments serve two key roles:</p>
+              <ul>
+                <li class="fragment">Documenting code</li>
+                <li class="fragment">Disabling it temporarily for testing</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>
+                <CodeSnippet
+                  code="# Comments"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </h2>
+
+              <p>
+                Comments are completely ignored by Python when the program is
+                executed.
+              </p>
+
+              <Code
+                code={Figure3}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                class="fragment"
+              />
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li></li>
+                <li>Writing and executing code</li>
+                <li>Displaying console output</li>
+                <li>Reading and writing comments</li>
               </ul>
             </section>
 
@@ -55,8 +221,20 @@ const ExampleOutput = `INSERT
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Term</dt>
-                  <dd>Definition</dd>
+                  <dt>Function</dt>
+                  <dd>Code that performs a specific action.</dd>
+                  <dt>Output</dt>
+                  <dd>Information that a program produces.</dd>
+                  <dt>Console Output</dt>
+                  <dd>
+                    Text displayed by a program in a command-line interface,
+                    like a terminal.
+                  </dd>
+                  <dt>Comments</dt>
+                  <dd>
+                    Notes written within the code that are ignored by Python,
+                    used to explain or clarify the code.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -70,37 +248,71 @@ const ExampleOutput = `INSERT
           <h2>Build</h2>
 
           <p>
-            Create a new <b>Python</b> project named <b class="text-sn-theme"
-              >1-1-output.py</b
+            Create a new <b>Python</b> program named <b class="text-sn-theme"
+              >1-2-output.py</b
             >.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1</h3>
+          <h3>Task 1: Write and Test</h3>
           <ul>
-            <li></li>
-            <li></li>
+            <li>Write each line of code, one at a time.</li>
+            <li>
+              Run and test your program to ensure it executes as intended.
+            </li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="txt" title="file" />
+          <Code
+            code={Task1}
+            frame="code"
+            lang="python"
+            title="1-2-output.py"
+            mark={{ label: "Stop and run your code", range: "5" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 2</h3>
+          <h3>Task 2: Add More Code</h3>
           <ul>
-            <li></li>
-            <li></li>
+            <li>
+              Write the additional sections of output under your current code.
+            </li>
+            <li>
+              Remember to run and test your project to ensure it executes as
+              intended.
+            </li>
+            <li>
+              There is a section of code that is 'commented out'. Uncomment the
+              code so that it executes when your program runs.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: The green lines with a + sign
+              denote new code. Don't actually write the + sign.
+            </li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="txt" title="INSERT FILE" />
+          <Code
+            code={Task2}
+            frame="code"
+            lang="python"
+            title="1-2-output.py"
+            mark={{ label: "Stop and run your code", range: "25" }}
+            ins={{ range: "5-24" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional)</h3>
+          <h3>Challenge (Optional): Write a Custom Section</h3>
           <ul>
-            <li></li>
-            <li></li>
+            <li>
+              Output a three-line paragraph of your choice somewhere in the
+              program. Keep it school appropriate.
+            </li>
+            <li>
+              Remember to run and test your project to ensure it executes as
+              intended.
+            </li>
           </ul>
         </section>
 
@@ -118,6 +330,10 @@ const ExampleOutput = `INSERT
             lang="txt"
             showLineNumbers={false}
             title="Example Output"
+            mark={{
+              label: "My Custom Section (Yours should look different)",
+              range: "20-24",
+            }}
           />
         </section>
 
@@ -130,9 +346,16 @@ const ExampleOutput = `INSERT
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>
+              What is the primary purpose of the <code>print()</code> function?
+            </li>
+            <li>
+              Imagine you typed <code>prnint()</code> by mistake. What do you think
+              would happen when you try to run your program?
+            </li>
+            <li>
+              What was the most challenging part of writing your first program?
+            </li>
           </ol>
         </section>
 
