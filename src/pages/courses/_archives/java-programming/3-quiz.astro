@@ -1,0 +1,28 @@
+---
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+import PracticeQuiz from "../../components/PracticeQuiz.svelte";
+---
+
+<Layout>
+  <div class="container mt-4">
+    <a href="/java-programming/" class="btn btn-sm btn-outline-light">
+      <i class="si-arrow-left"></i> Back
+    </a>
+    <h2 class="text-center mt-5">
+      Module 3 Practice Quiz
+    </h2>
+    <Divider variant="3" classes="my-4" />
+    <div class="row">
+      <div class="col">
+        <h3>Introduction</h3>
+        <p>For each question, provide the correct answer.</p>
+      </div>
+    </div>
+    <div class="row justify-content-center my-5">
+      <div class="col-sm-12 col-md-10">
+        <PracticeQuiz dataUrl="/json/java-module-3.json" isShuffled={false} client:load />
+      </div>
+    </div>
+  </div>
+</Layout>

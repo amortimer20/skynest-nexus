@@ -1,0 +1,187 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Image } from "astro:assets";
+
+import JavaIconAnimation from "../../assets/courses/java-programming/img/hot-coffee.gif";
+
+const Figure1 = `
+public class Main {
+    public static void main(String[] args) {
+
+
+
+    }
+}`;
+const Figure2 = `
+public class Main {
+    public static void main(String[] args) {
+
+      System.out.println("Hello, world!");
+      System.out.println("Great success!");
+
+    }
+}`;
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/java-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.0 Introduction to Computers</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.0</h3>
+            <h4 class="text-sn-theme">Introduction to Computers</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>
+                Computer Software
+                <ul>
+                  <li>Binary Information</li>
+                </ul>
+              </li>
+              <li>
+                Computer Hardware
+                <ul>
+                  <li>CPU</li>
+                  <li>Memory</li>
+                  <li>Peripherals: Storage and I/O</li>
+                </ul>
+              </li>
+              <li>Programming</li>
+              <li>Compilers and Interpreters</li>
+              <li>The Java Programming Language</li>
+              <li>Java Syntax</li>
+            </ul>
+          </section>
+          <section>
+            <section>
+              <h4>Computer Software</h4>
+            </section>
+            <section>
+              <h4>Binary Information</h4>
+            </section>
+          </section>
+          <section>
+            <section>
+              <h4>Computer Hardware</h4>
+            </section>
+            <section>
+              <h4>CPU</h4>
+            </section>
+            <section>
+              <h4>Memory</h4>
+            </section>
+            <section>
+              <h4>Peripherals: Storage</h4>
+            </section>
+            <section>
+              <h4>Peripherals: I/O Devices</h4>
+            </section>
+          </section>
+          <section>
+            <h4>Programming</h4>
+          </section>
+          <section>
+            <h4>Compilers and Interpreters</h4>
+          </section>
+          <section>
+            <h4>The Java Programming Language</h4>
+          </section>
+          <section data-auto-animate>
+            <h4>Entrypoint of a Java Program</h4>
+            <p>
+              Java programs begin execution within the <span
+                class="text-sn-cyan">main method</span
+              >.
+            </p>
+            <div>
+              <Code
+                code={Figure1}
+                frame="code"
+                ins={{ label: "\tCode starts inside these braces", range: "4" }}
+                lang="java"
+                showLineNumbers
+                title="Main.java"
+              />
+            </div>
+          </section>
+          <section data-auto-animate>
+            <h4>Entrypoint of a Java Program</h4>
+            <p>
+              Java programs begin execution within the <span
+                class="text-sn-cyan">main method</span
+              >.
+            </p>
+            <div >
+              <Code
+                code={Figure2}
+                frame="code"
+                lang="java"
+                showLineNumbers
+                title="Main.java"
+              />
+            </div>
+          </section>
+          <section>
+            <h4>Demo</h4>
+            <p>
+              Follow the instructor in creating a new Java project with the
+              software provided.
+            </p>
+            <Image src={JavaIconAnimation} alt="Java Icon Animation" />
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+
+            <dl>
+              <dt>Syntax</dt>
+              <dd>
+                The rules that govern the structure of a valid Java program,
+                much like grammar rules for a language.
+              </dd>
+              <dt>Syntax Highlighting</dt>
+              <dd>
+                A feature in code editors that displays different elements of a
+                program, like keywords and comments, in different colors to make
+                the code easier to read.
+              </dd>
+              <dt>Syntax Error</dt>
+              <dd>
+                A mistake in the structure of a program that prevents the code
+                from being compiled or run.
+              </dd>
+            </dl>
+          </section>
+          <section data-auto-animate>
+            <h4>Key Terms</h4>
+
+            <dl>
+              <dt>Statement</dt>
+              <dd>
+                A command that performs an action, such as printing text to the
+                console.
+              </dd>
+              <dt>Terminate</dt>
+              <dd>
+                The act of ending a statement with a semicolon (;), which
+                signals to the compiler that the command is complete.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+      </div>
+    </div>
+  </div>
+</Layout>

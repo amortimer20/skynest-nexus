@@ -1,0 +1,557 @@
+---
+import Presentation from "../../components/Presentation.astro";
+import Divider from "../../components/ui/Divider.astro";
+import ListItem from "../../components/ui/ListItem.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as AstroCode } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `
+console.log(-1953);
+console.log(1_000_000);
+`;
+const Figure2 = `
+console.log(10 * 10.2);
+console.log(450 / 5);
+console.log(10 % 3);
+`;
+const Task1 = `
+// Addition
+console.log("I'm adding 2 and 1. The result is:");
+console.log(2 + 1);
+console.log();
+
+console.log("Adding $1000 and $500.96 gives us:");
+console.log(1000 + 500.96);
+console.log();
+
+// Subtraction
+console.log("I have 3 apples, and I eat one. Now, I have:");
+console.log(3 - 1);
+console.log();
+//
+`;
+const Task2 = `
+// Addition
+console.log("I'm adding 2 and 1. The result is:");
+console.log(2 + 1);
+console.log();
+
+console.log("Adding $1000 and $500.96 gives us:");
+console.log(1000 + 500.96);
+console.log();
+
+// Subtraction
+console.log("I have 3 apples, and I eat one. Now, I have:");
+console.log(3 - 1);
+console.log();
+
+// Multiplication
+console.log("I'm 30 years old. In months, that's: "); // Replace 30 with your age
+console.log(30 * 12); // Replace 30 with your age
+console.log();
+
+// Division - Quotient and remainder
+console.log("If we divide 8 pizza slices between 2 people, each person gets:");
+console.log(8 / 2);
+console.log();
+
+console.log("Dividing $100 among 6 people gives each person:");
+console.log(100 / 6);
+console.log();
+//
+`;
+const Task3 = `
+// Addition
+console.log("I'm adding 2 and 1. The result is:");
+console.log(2 + 1);
+console.log();
+
+console.log("Adding $1000 and $500.96 gives us:");
+console.log(1000 + 500.96);
+console.log();
+
+// Subtraction
+console.log("I have 3 apples, and I eat one. Now, I have:");
+console.log(3 - 1);
+console.log();
+
+// Multiplication
+console.log("I'm 30 years old. In months, that's: "); // Replace 30 with your age
+console.log(30 * 12); // Replace 30 with your age
+console.log();
+
+// Division - Quotient and remainder
+console.log("If we divide 8 pizza slices between 2 people, each person gets:");
+console.log(8 / 2);
+console.log();
+
+console.log("Dividing $100 among 6 people gives each person:");
+console.log(100 / 6);
+console.log();
+
+// Remainder using the modulus, or mod, operator
+console.log("After dividing $100 among 6 people, the leftover cents are:");
+console.log(100 % 6);
+console.log();
+//
+`;
+const Task4 = `
+// Addition
+console.log("I'm adding 2 and 1. The result is:");
+console.log(2 + 1);
+console.log();
+
+console.log("Adding $1000 and $500.96 gives us:");
+console.log(1000 + 500.96);
+console.log();
+
+// Subtraction
+console.log("I have 3 apples, and I eat one. Now, I have:");
+console.log(3 - 1);
+console.log();
+
+// Multiplication
+console.log("I'm 30 years old. In months, that's: "); // Replace 30 with your age
+console.log(30 * 12); // Replace 30 with your age
+console.log();
+
+// Division - Quotient and remainder
+console.log("If we divide 8 pizza slices between 2 people, each person gets:");
+console.log(8 / 2);
+console.log();
+
+console.log("Dividing $100 among 6 people gives each person:");
+console.log(100 / 6);
+console.log();
+
+// Remainder using the modulus, or mod, operator
+console.log("After dividing $100 among 6 people, the leftover cents are:");
+console.log(100 % 6);
+console.log();
+
+// Order of operations
+console.log("The expression 4 * 10 + 12 equals:");
+console.log(4 * 10 + 12);
+console.log("The expression 4 * (10 + 12); equals:");
+console.log(4 * (10 + 12));
+//
+`;
+const SampleOutput = `
+I'm adding 2 and 1. The result is:
+3
+
+Adding $1000 and $500.96 gives us:
+1500.96
+
+I have 3 apples, and I eat one. Now, I have:
+2
+
+I'm 30 years old. In months, that's:
+360
+
+If we divide 8 pizza slices between 2 people, each person gets:
+4
+
+Dividing $100 among 6 people gives each person:
+16.666666666666668
+
+After dividing $100 among 6 people, the leftover cents are:
+4
+
+The expression 4 * 10 + 12 equals:
+52
+The expression 4 * (10 + 12); equals:
+88
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/js-programming/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.2 Arithmetic</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <h2>Introduction</h2>
+
+        <Presentation>
+          <section>
+            <h3>Activity 1.2</h3>
+            <h4 class="text-sn-theme">Arithmetic</h4>
+          </section>
+          <section>
+            <h4>Topics</h4>
+            <ul>
+              <li>Arithmetic in programming</li>
+              <li>The Number data type</li>
+              <li>Math operators</li>
+              <li>Operator precedence</li>
+            </ul>
+          </section>
+          <section>
+            <p>
+              Any useful program, from video games to online stores, relies on
+              numbers.
+            </p>
+            <p>
+              Whether it's calculating scores, processing transactions, or
+              generating graphics, math is everywhere in software.
+            </p>
+          </section>
+          <section>
+            <h4>
+              The <span class="text-sn-theme">Number</span> Data Type
+            </h4>
+            <p>
+              In JavaScript, the number type represents both integers and
+              floating-point (decimal) values.
+            </p>
+            <AstroCode
+              code={"2.5"}
+              lang="javascript"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"401"}
+              lang="javascript"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"-65"}
+              lang="javascript"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"-123.45"}
+              lang="javascript"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <AstroCode
+              code={"1_000_000"}
+              lang="javascript"
+              theme={"material-theme-ocean"}
+              inline
+            />&nbsp;
+            <i class="text-sn-red si-x"></i><AstroCode
+              code={'"35"'}
+              lang="javascript"
+              theme={"material-theme-ocean"}
+              inline
+            />
+          </section>
+          <section>
+            <h4>
+              <span class="text-sn-theme">Demo</span> Print Some Numbers
+            </h4>
+            <p>
+              Use the <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              /> function to display some numbers on the screen.
+            </p>
+            <Code
+              code={Figure1}
+              frame="code"
+              lang="javascript"
+              title="app.js"
+              
+            />
+          </section>
+          <section>
+            <h4>Math Operators</h4>
+            <dl>
+              <dd>
+                <AstroCode
+                  code="+"
+                  lang={"javascript"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Addition
+              </dd>
+              <dd>
+                <AstroCode
+                  code="-"
+                  lang={"javascript"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Subtraction
+              </dd>
+              <dd>
+                <AstroCode
+                  code="*"
+                  lang={"javascript"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Multiplication
+              </dd>
+              <dd>
+                <AstroCode
+                  code="/"
+                  lang={"javascript"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Division: Divides two numbers and returns the quotient as a decimal.
+              </dd>
+              <dd>
+                <AstroCode
+                  code="%"
+                  lang={"javascript"}
+                  inline
+                  theme={"material-theme-ocean"}
+                /> Modulus (Mod): Divides two numbers and returns the <b
+                  >remainder</b
+                >.
+              </dd>
+            </dl>
+          </section>
+          <section>
+            <h4>Order of Operations</h4>
+            <p>Use parenthesis for operator precedence.</p>
+            <p>
+              <AstroCode
+                code="3 * 4 + 5"
+                lang="javascript"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+            <p>
+              <AstroCode
+                code="3 * (4 + 5)"
+                lang="javascript"
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </p>
+          </section>
+          <section>
+            <h4>Demo: Print Some Math Expressions</h4>
+            <p>
+              Use <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              /> to display the result of some math expressions.
+            </p>
+            <Code
+              code={Figure2}
+              frame="code"
+              lang="javascript"
+              title="app.js"
+              
+            />
+          </section>
+          <section>
+            <h4>Key Terms</h4>
+
+            <dl>
+              <dt>Data Type</dt>
+              <dd>
+                A classification for different kinds of information. It tells
+                you what kind of data is being stored or used.
+              </dd>
+              <dt>Integer</dt>
+              <dd>
+                A data type that stores whole numbers, like 5, 25, or -100.
+              </dd>
+              <dt>Floating-Point Number</dt>
+              <dd>
+                A data type that stores numbers with decimal points, like 3.14
+                or -99.99.
+              </dd>
+            </dl>
+          </section>
+        </Presentation>
+
+        <section id="objectives">
+          <h3>Objectives</h3>
+          <ul>
+            <ListItem variant="1">Write Math Expressions</ListItem>
+            <ListItem variant="1"
+              >Output numeric values with <AstroCode
+                code="console.log()"
+                lang={"javascript"}
+                inline
+                theme={"material-theme-ocean"}
+              /></ListItem
+            >
+            <ListItem variant="1">Document code with comments</ListItem>
+            <ListItem variant="1">Practice order of operations</ListItem>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="mb-4" />
+
+        <section id="activity-tasks">
+          <h2>Activity Tasks</h2>
+          <ul>
+            <ListItem variant="2">
+              Create a new project named <span class="text-sn-theme"
+                >1-2-arithmetic.js</span
+              >.
+            </ListItem>
+            <ListItem variant="2"> Complete each task individually. </ListItem>
+          </ul>
+
+          <h3>
+            <span class="text-sn-theme">Task 1</span>: Addition and
+            Subtraction
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              Display the result of the addition and subtraction expressions
+              using console.log().
+            </ListItem>
+          </ul>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            mark={{ label: "Stop and run your code", range: "14" }}
+            showLineNumbers
+            title="1-2-arithmetic.js"
+          />
+
+          <hr class="my-4" />
+
+          <h3>
+            <span class="text-sn-theme">Task 2</span>: Multiplication and
+            Division
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              Display the result of the multiplication and division expressions
+              using console.log().
+            </ListItem>
+          </ul>
+          <Code
+            code={Task2}
+            frame="code"
+            ins={{ range: "14-27" }}
+            lang="javascript"
+            mark={{ label: "Stop and run your code", range: "28" }}
+            showLineNumbers
+            title="1-2-arithmetic.js"
+          />
+
+          <hr class="my-4" />
+
+          <h3>
+            <span class="text-sn-theme">Task 3</span>: Modulo Operation
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              Use the mod operator to find the remainder portion of the division
+              operation.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task3}
+            frame="code"
+            ins={{ range: "28-32" }}
+            lang="javascript"
+            mark={{ label: "Stop and run your code", range: "33" }}
+            showLineNumbers
+            title="1-2-arithmetic.js"
+          />
+
+          <hr class="my-4" />
+
+          <h3>
+            <span class="text-sn-theme">Task 4</span>: Order of Operations
+          </h3>
+          <ul>
+            <ListItem variant="2">
+              Use parenthesis to control the order in which the operations are
+              calculated.</ListItem
+            >
+          </ul>
+          <Code
+            code={Task4}
+            frame="code"
+            ins={{ range: "33-38" }}
+            lang="javascript"
+            mark={{ label: "Stop and run your code", range: "39" }}
+            showLineNumbers
+            title="1-2-arithmetic.js"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <p>
+            Your program output should something similar to the sample output
+            below.
+          </p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Sample Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="reflection">
+          <h2>Reflection Questions</h2>
+
+          <p>
+            You may write your reflection answers as comments at the bottom of
+            your code.
+          </p>
+
+          <ol>
+            <li>
+              How did the use of parentheses change the result in the order of
+              operations example? Why is that important when writing code?
+            </li>
+            <li>
+              Which math operator did you find most surprising or unfamiliar in
+              JavaScript, and why?
+            </li>
+            <li>
+              Why is it helpful to include spaces around math operators (like +,
+              -, *, /) when writing code, even though JavaScript works without
+              them?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-4" />
+
+        <section id="submission">
+          <h2>Submission</h2>
+
+          <p>
+            Submit your activity and reflection answers to the appropriate
+            dropbox.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary">
+          Activity Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
