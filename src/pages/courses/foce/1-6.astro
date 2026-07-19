@@ -1,0 +1,446 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `
+score = 95
+
+print("You scored", score, "%.")`;
+const Figure2 = `
+You scored 95 %.`;
+const Figure3 = `
+score = 95
+
+print(f"You scored {score}%.")`;
+const Figure4 = `
+You scored 95%.`;
+const Figure5 = `
+health = 100
+damage = 35
+
+print(f"After the attack, you have {health - damage} HP left.")`;
+const Figure6 = `
+After the attack, you have 65 HP left.`;
+const Task1 = `
+name = "Anthony"
+age = 35
+
+print(f"My name is {name} and I am {age} years old.")`;
+const Task2 = `
+name = "Anthony"
+age = 35
+
+print(f"My name is {name} and I am {age} years old.")
+
+score = 40
+bonus = 10
+
+print(f"Your final score is {score + bonus} points.")`;
+const Task3 = `
+name = "Anthony"
+age = 35
+
+print(f"My name is {name} and I am {age} years old.")
+
+score = 40
+bonus = 10
+
+print(f"Your final score is {score + bonus} points.")
+
+favorite_color = "green"
+favorite_number = 7
+
+print(f"My favorite color is {favorite_color} and my favorite number is {favorite_number}.")`;
+const ExampleOutput = `
+My name is Anthony and I am 35 years old.
+Your final score is 50 points.
+My favorite color is green and my favorite number is 7.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.6: String Interpolation</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.6</h2>
+              <h3 class="text-sn-theme">String Interpolation</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Cleaner Way to Combine Text and Variables</p>
+              <p>
+                <CodeSnippet
+                  code={'f"..."'}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> Strings
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Old Way</h2>
+              <p>
+                You've been combining variables into a sentence by passing
+                multiple values to <CodeSnippet
+                  code="print()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />, separated by commas.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Old Way</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                Notice the awkward space before <CodeSnippet
+                  code="%."
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> &mdash; commas always insert a space, whether you want one
+                or not.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>f-Strings</h2>
+              <p>
+                Place an <CodeSnippet
+                  code="f"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> right before the opening quote, then wrap a variable name
+                in curly braces <CodeSnippet
+                  code="{ }"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> to insert its value directly into the string.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>f-Strings</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Expressions Inside Braces</h2>
+              <p>
+                You can put more than a plain variable inside <CodeSnippet
+                  code="{ }"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> &mdash; a full expression works too, and Python evaluates
+                it before inserting the result.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Expressions Inside Braces</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing f-strings</li>
+                <li>Inserting variables into a sentence</li>
+                <li>Embedding expressions directly inside <CodeSnippet
+                    code="{ }"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>f-String</dt>
+                  <dd>
+                    A string prefixed with <CodeSnippet
+                      code="f"
+                      lang={"python"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> that can insert variables or expressions directly
+                    inside it.
+                  </dd>
+                  <dt>Placeholder</dt>
+                  <dd>
+                    The <CodeSnippet
+                      code="{ }"
+                      lang={"python"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> spot inside an f-string where a value gets inserted.
+                  </dd>
+                  <dt>String Interpolation</dt>
+                  <dd>Inserting a variable's value directly into a string.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>Python</b> program named <b class="text-sn-theme"
+              >1-6-interpolation.py</b
+            >.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Introduce Yourself</h3>
+          <ul>
+            <li>
+              Create <CodeSnippet
+                code="name"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and <CodeSnippet
+                code="age"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variables.
+            </li>
+            <li>
+              Print an f-string that introduces yourself using both
+              variables.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="python"
+            title="1-6-interpolation.py"
+            mark={{ label: "Stop and run your code", range: "5" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Do Some Math Inline</h3>
+          <ul>
+            <li>
+              Create <CodeSnippet
+                code="score"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and <CodeSnippet
+                code="bonus"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variables.
+            </li>
+            <li>
+              Print an f-string that adds the two variables together <b
+                >inside</b
+              > the curly braces.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="python"
+            title="1-6-interpolation.py"
+            mark={{ label: "Stop and run your code", range: "10" }}
+            ins={{ range: "6-10" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Multiple Placeholders</h3>
+          <ul>
+            <li>
+              Create <CodeSnippet
+                code="favorite_color"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and <CodeSnippet
+                code="favorite_number"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variables.
+            </li>
+            <li>
+              Print a single f-string that uses both variables in one
+              sentence.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="python"
+            title="1-6-interpolation.py"
+            mark={{ label: "Stop and run your code", range: "15" }}
+            ins={{ range: "11-15" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Refactor an Old Line</h3>
+          <ul>
+            <li>
+              Copy a <CodeSnippet
+                code="print()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> statement from Activity 1.5 and rewrite it as an f-string.
+            </li>
+            <li>Confirm both versions produce the same output.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What is one advantage of an f-string over separating values
+              with commas in <CodeSnippet
+                code="print()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />?
+            </li>
+            <li>
+              What happens when you place an arithmetic expression, like <CodeSnippet
+                code="{score + bonus}"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, inside an f-string's curly braces?
+            </li>
+            <li>
+              If you completed the Challenge, did rewriting your Activity 1.5
+              line as an f-string change its output? Why or why not?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

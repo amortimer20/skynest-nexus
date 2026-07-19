@@ -1,0 +1,222 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `console.log(\`Pizza Hut > Dominos. Fight me.\`);`;
+const Figure2 = `console.log("You scored", score, "%.");`;
+const Figure3 = `console.log(\`You scored \${score}%.\`);`;
+const Figure4 = `console.log(\`I am 35 years old, which is \${35 * 12} months.\`);`;
+const Task1 = `let score = 95;
+
+console.log("You scored", score, "%.");
+console.log(\`You scored \${score}%.\`);
+`;
+const Task2 = `let score = 95;
+
+console.log("You scored", score, "%.");
+console.log(\`You scored \${score}%.\`);
+
+let name = "Ada";
+let age = 16;
+
+console.log(\`\${name} is \${age} years old.\`);
+`;
+const Task3 = `let score = 95;
+
+console.log("You scored", score, "%.");
+console.log(\`You scored \${score}%.\`);
+
+let name = "Ada";
+let age = 16;
+
+console.log(\`\${name} is \${age} years old.\`);
+
+console.log(\`If I take out a $1000 loan, and pay $25 each month, I will pay it off in \${1000 / 25} months.\`);
+console.log(\`A woodchuck could chuck \${32 * 60} wood panels every hour.\`);
+`;
+const SampleOutput = `You scored 95 %.
+You scored 95%.
+Ada is 16 years old.
+If I take out a $1000 loan, and pay $25 each month, I will pay it off in 40 months.
+A woodchuck could chuck 1920 wood panels every hour.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.6: String Interpolation</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.6</h2>
+              <h3 class="text-sn-theme">String Interpolation</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Template Literals</p>
+              <p>Interpolation</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Backtick Strings</h2>
+              <p>
+                Strings can also be written with backticks
+                (<code>`</code>) instead of quotes. On their own, they work
+                exactly the same way.
+              </p>
+              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Problem</h2>
+              <p>Printing a variable alongside text with multiple arguments works, but the spacing gets awkward.</p>
+              <Code code={Figure2} frame="code" lang="javascript" showLineNumbers={false} />
+              <p class="fragment">Output: <code>You scored 95 %.</code> &mdash; notice the extra space before the <code>%</code>.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Template Literals</h2>
+              <p>
+                A backtick string becomes a <b class="text-sn-theme">template
+                literal</b> the moment you drop a variable inside
+                <code>{"${ }"}</code>.
+              </p>
+              <Code code={Figure3} frame="code" lang="javascript" showLineNumbers={false} />
+              <p class="fragment">Output: <code>You scored 95%.</code> &mdash; exactly the spacing you wrote.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Interpolating Expressions</h2>
+              <p>
+                <code>{"${ }"}</code> isn't just for variables &mdash; it can
+                hold any expression, like a calculation.
+              </p>
+              <Code code={Figure4} frame="code" lang="javascript" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing template literals with backticks</li>
+                <li>Interpolating variables into a string with <code>{"${ }"}</code></li>
+                <li>Interpolating expressions into a string</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Template Literal</dt>
+                  <dd>A backtick-quoted string that can have values dropped directly inside it.</dd>
+                  <dt>Interpolation</dt>
+                  <dd>Inserting a variable or expression's value directly into a string.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new JavaScript file named <b class="text-sn-theme">1-6-interpolation.js</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Interpolate a Variable</h3>
+          <ul>
+            <li>Declare a <code>score</code> variable.</li>
+            <li>Print it once with multiple <code>console.log()</code> arguments, and once with a template literal.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="javascript" title="1-6-interpolation.js" mark="4" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Interpolate Multiple Variables</h3>
+          <ul>
+            <li>Declare <code>name</code> and <code>age</code> variables.</li>
+            <li>Interpolate both into a single template literal.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="javascript" title="1-6-interpolation.js" mark="9" ins="6-9" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Interpolate an Expression</h3>
+          <ul>
+            <li>Write a template literal that interpolates an arithmetic expression directly, not just a variable.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="javascript" title="1-6-interpolation.js" mark="11-12" ins="11-12" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What symbol turns a normal backtick string into a template literal with a value inside it?</li>
+            <li>Why did the multi-argument <code>console.log()</code> version have an extra space that the template literal version didn't?</li>
+            <li>Besides a plain variable, what else can go inside <code>{"${ }"}</code>?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

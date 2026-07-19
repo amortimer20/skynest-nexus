@@ -1,0 +1,280 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+
+import GameLoopDiagram from "../../../assets/courses/game-design/img/game-loop-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/game-design/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.1: Getting Started with Godot</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.1</h2>
+              <h3 class="text-sn-theme">Getting Started with Godot</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>What Is a Game Engine?</p>
+              <p>The Game Loop</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Game Loop</h2>
+              <p>
+                Every game, no matter the engine or the genre, runs the same
+                cycle over and over, dozens of times per second.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Game Loop</h2>
+              <Image src={GameLoopDiagram} alt="Diagram showing the game loop cycling through Input, Update, and Render, repeating every frame" width={640} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Input</h2>
+              <p>
+                The engine checks what the player is doing &mdash; keys
+                pressed, buttons clicked, joysticks moved.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Update</h2>
+              <p>
+                The game's logic runs &mdash; positions change, rules are
+                checked, decisions are made. This is where your own code
+                lives.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Render</h2>
+              <p>
+                Everything currently on screen gets redrawn to reflect
+                whatever just changed.
+              </p>
+              <p class="fragment">
+                Then it happens again. And again. Usually 60 times every
+                second.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Introducing Godot</h2>
+              <p>
+                This class uses <b class="text-sn-theme">Godot 4</b>, a free,
+                open-source game engine.
+              </p>
+              <p class="fragment">
+                Godot has a <b>web editor</b> that runs right in a browser
+                &mdash; you can work on your games on a school Chromebook or
+                at home, no install required.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Godot Interface</h2>
+              <ul>
+                <li class="fragment"><b>Scene panel</b> &mdash; the list of everything in your current scene</li>
+                <li class="fragment"><b>Viewport</b> &mdash; the 2D workspace where you arrange things</li>
+                <li class="fragment"><b>Inspector</b> &mdash; the properties of whatever you have selected</li>
+                <li class="fragment"><b>FileSystem panel</b> &mdash; every file in your project</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Nodes &amp; Scenes</h2>
+              <p>
+                Everything you build in Godot is made of small pieces called
+                <b class="text-sn-theme">Nodes</b>, arranged together into a
+                <b class="text-sn-theme">Scene</b>.
+              </p>
+              <p class="fragment">We'll dig into this properly next week &mdash; for now, just know every project starts with one.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Creating a new Godot project</li>
+                <li>Identifying the four main interface panels</li>
+                <li>Building a scene with a Sprite2D and play-testing it</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Game Engine</dt>
+                  <dd>Software that provides the tools and systems (rendering, physics, input) needed to build a game.</dd>
+                  <dt>Game Loop</dt>
+                  <dd>The Input &rarr; Update &rarr; Render cycle every game repeats, many times per second.</dd>
+                  <dt>Node</dt>
+                  <dd>A single building-block object in Godot &mdash; a sprite, a shape, a sound, etc.</dd>
+                  <dt>Scene</dt>
+                  <dd>A tree of Nodes arranged together to form a screen, level, or reusable object.</dd>
+                  <dt>Sprite2D</dt>
+                  <dd>A Node that displays a 2D image (texture) on screen.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>Create your very first Godot project and get it running on screen.</p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Download and Open Godot</h3>
+          <ul>
+            <li><b>Watch:</b> Section 1, Lecture 1.3 &mdash; Downloading Godot (03:48)</li>
+            <li>
+              Open the Godot web editor (or download the desktop editor, if
+              directed by your teacher).
+            </li>
+          </ul>
+
+          <!-- GIF: Opening the Godot editor -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Opening the Godot Editor]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Create Your First Project</h3>
+          <ul>
+            <li><b>Watch:</b> Section 1, Lecture 1.4 &mdash; Creating Our First Project (04:39)</li>
+            <li>Create a new project and name it something you'll recognize, like <b class="text-sn-theme">FirstProject</b>.</li>
+          </ul>
+
+          <!-- GIF: Creating a new Godot project -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Creating a New Project]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Navigate the Interface &amp; Create a Scene</h3>
+          <ul>
+            <li><b>Watch:</b> Section 1, Lecture 1.5 &mdash; Navigating Godot's Interface (10:16)</li>
+            <li>Locate the Scene panel, Viewport, Inspector, and FileSystem panel.</li>
+            <li>Create a new 2D Scene and rename its root node <b class="text-sn-theme">MyLevel</b>.</li>
+          </ul>
+
+          <!-- GIF: Touring the interface and creating a new scene -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Touring the Interface and Creating a Scene]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Add a Sprite and Play Test</h3>
+          <ul>
+            <li><b>Watch:</b> Section 1, Lecture 1.6 &mdash; Sprite2D &amp; Play Testing (09:47) and Lecture 1.7 &mdash; Window Size &amp; Game Tab (05:53)</li>
+            <li>Add a <b class="text-sn-theme">Sprite2D</b> as a child of MyLevel and assign it the Godot icon texture.</li>
+            <li>Set MyLevel as your project's main scene.</li>
+            <li>Press Play and view your sprite in the Game tab.</li>
+          </ul>
+
+          <!-- GIF: Adding a sprite, setting the main scene, and pressing Play -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Adding a Sprite and Play Testing]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>You should see the following when you press Play:</p>
+          <ul>
+            <li>A new window (the Game tab) opens.</li>
+            <li>The Godot icon appears somewhere on screen.</li>
+          </ul>
+
+          <!-- Screenshot: Game tab showing the Godot icon after pressing Play -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Expected Result When Pressing Play]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What are the four main panels of Godot's interface introduced
+              today, and what does each one do?
+            </li>
+            <li>
+              In your own words, what is the game loop, and why does it need
+              to repeat every single frame instead of running just once?
+            </li>
+            <li>
+              What is the difference between editing your scene in the Scene
+              panel and viewing it in the Game tab?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

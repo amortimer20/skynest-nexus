@@ -1,0 +1,397 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `let health = 100;
+console.log("Health:", health);
+console.log("Enemy attacks.");
+health = health - 5;
+console.log("Health:", health);`;
+const Figure2 = `Health: 100
+Enemy attacks.
+Health: 95`;
+const Task1 = `console.log("--- Demo 1 - Battle Demo ---");
+let playerHealth = 100;
+let playerAttack = 25;
+let enemyHealth = 100;
+let enemyAttack = 20;
+let potions = 3;
+
+console.log("Player health:", playerHealth);
+console.log("Enemy health:", enemyHealth);
+console.log();
+
+console.log("Player attacks.");
+enemyHealth = enemyHealth - playerAttack;
+console.log("Enemy health:", enemyHealth);
+console.log();
+
+console.log("Enemy attacks.");
+playerHealth = playerHealth - enemyAttack;
+console.log("Player health:", playerHealth);
+console.log();
+
+console.log("Using potion...");
+playerHealth = playerHealth + 10;
+potions = potions - 1;
+console.log("Player health:", playerHealth);
+console.log("Potions left:", potions);
+console.log();
+`;
+const Task2 = `console.log("--- Demo 1 - Battle Demo ---");
+let playerHealth = 100;
+let playerAttack = 25;
+let enemyHealth = 100;
+let enemyAttack = 20;
+let potions = 3;
+
+console.log("Player health:", playerHealth);
+console.log("Enemy health:", enemyHealth);
+console.log();
+
+console.log("Player attacks.");
+enemyHealth = enemyHealth - playerAttack;
+console.log("Enemy health:", enemyHealth);
+console.log();
+
+console.log("Enemy attacks.");
+playerHealth = playerHealth - enemyAttack;
+console.log("Player health:", playerHealth);
+console.log();
+
+console.log("Using potion...");
+playerHealth = playerHealth + 10;
+potions = potions - 1;
+console.log("Player health:", playerHealth);
+console.log("Potions left:", potions);
+console.log();
+
+console.log("--- Demo 2 - Banking Simulator ---");
+let accountName = "Checking Account";
+let balance = 100.50;
+
+console.log(accountName, "balance:", balance);
+console.log("Depositing 99.01 to", accountName);
+balance = balance + 99.01;
+console.log(accountName, "balance:", balance);
+console.log();
+`;
+const Task3 = `console.log("--- Demo 1 - Battle Demo ---");
+let playerHealth = 100;
+let playerAttack = 25;
+let enemyHealth = 100;
+let enemyAttack = 20;
+let potions = 3;
+
+console.log("Player health:", playerHealth);
+console.log("Enemy health:", enemyHealth);
+console.log();
+
+console.log("Player attacks.");
+enemyHealth = enemyHealth - playerAttack;
+console.log("Enemy health:", enemyHealth);
+console.log();
+
+console.log("Enemy attacks.");
+playerHealth = playerHealth - enemyAttack;
+console.log("Player health:", playerHealth);
+console.log();
+
+console.log("Using potion...");
+playerHealth = playerHealth + 10;
+potions = potions - 1;
+console.log("Player health:", playerHealth);
+console.log("Potions left:", potions);
+console.log();
+
+console.log("--- Demo 2 - Banking Simulator ---");
+let accountName = "Checking Account";
+let balance = 100.50;
+
+console.log(accountName, "balance:", balance);
+console.log("Depositing 99.01 to", accountName);
+balance = balance + 99.01;
+console.log(accountName, "balance:", balance);
+console.log();
+
+console.log("--- Demo 3 - High Score Tracker ---");
+let playerScore = 0;
+
+console.log("Current score:", playerScore);
+console.log("Scored 100 points!");
+playerScore = playerScore + 100;
+console.log("New score:", playerScore);
+console.log("Scored 500 more points for a headshot!");
+playerScore = playerScore + 500;
+console.log("New score:", playerScore);
+console.log();
+`;
+const Task4 = `console.log("--- Demo 1 - Battle Demo ---");
+let playerHealth = 100;
+let playerAttack = 25;
+let enemyHealth = 100;
+let enemyAttack = 20;
+let potions = 3;
+
+console.log("Player health:", playerHealth);
+console.log("Enemy health:", enemyHealth);
+console.log();
+
+console.log("Player attacks.");
+enemyHealth = enemyHealth - playerAttack;
+console.log("Enemy health:", enemyHealth);
+console.log();
+
+console.log("Enemy attacks.");
+playerHealth = playerHealth - enemyAttack;
+console.log("Player health:", playerHealth);
+console.log();
+
+console.log("Using potion...");
+playerHealth = playerHealth + 10;
+potions = potions - 1;
+console.log("Player health:", playerHealth);
+console.log("Potions left:", potions);
+console.log();
+
+console.log("--- Demo 2 - Banking Simulator ---");
+let accountName = "Checking Account";
+let balance = 100.50;
+
+console.log(accountName, "balance:", balance);
+console.log("Depositing 99.01 to", accountName);
+balance = balance + 99.01;
+console.log(accountName, "balance:", balance);
+console.log();
+
+console.log("--- Demo 3 - High Score Tracker ---");
+let playerScore = 0;
+
+console.log("Current score:", playerScore);
+console.log("Scored 100 points!");
+playerScore = playerScore + 100;
+console.log("New score:", playerScore);
+console.log("Scored 500 more points for a headshot!");
+playerScore = playerScore + 500;
+console.log("New score:", playerScore);
+console.log();
+
+console.log("--- Demo 4 - Social Media Analytics ---");
+let likes = 23;
+
+console.log("Post likes:", likes);
+console.log("A friend liked the post!");
+likes = likes + 1;
+console.log("Post likes:", likes);
+console.log("Another 10 people liked the post!");
+likes = likes + 10;
+console.log("Post likes:", likes);
+`;
+const SampleOutput = `--- Demo 1 - Battle Demo ---
+Player health: 100
+Enemy health: 100
+
+Player attacks.
+Enemy health: 75
+
+Enemy attacks.
+Player health: 80
+
+Using potion...
+Player health: 90
+Potions left: 2
+
+--- Demo 2 - Banking Simulator ---
+Checking Account balance: 100.5
+Depositing 99.01 to Checking Account
+Checking Account balance: 199.51
+
+--- Demo 3 - High Score Tracker ---
+Current score: 0
+Scored 100 points!
+New score: 100
+Scored 500 more points for a headshot!
+New score: 600
+
+--- Demo 4 - Social Media Analytics ---
+Post likes: 23
+A friend liked the post!
+Post likes: 24
+Another 10 people liked the post!
+Post likes: 34`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.5: Updating Variables</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.5</h2>
+              <h3 class="text-sn-theme">Updating Variables</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Reassignment</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Reassignment</h2>
+              <p>
+                A variable's value isn't locked in forever &mdash; you can
+                give it a new value at any time by assigning to it again,
+                without <code>let</code>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Using the Old Value</h2>
+              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Using the Old Value</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                <code>health = health - 5;</code> reads the current value of
+                <code>health</code> first, subtracts 5, then stores the
+                result back into <code>health</code>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Reassigning a variable's value</li>
+                <li>Using a variable's own current value to calculate its new value</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Reassignment</dt>
+                  <dd>Giving an existing variable a new value.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new JavaScript file named <b class="text-sn-theme">1-5-updating-variables.js</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Battle Demo</h3>
+          <ul>
+            <li>Track a player's and enemy's health as they attack each other.</li>
+            <li>Use a potion to restore some of the player's health.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="javascript" title="1-5-updating-variables.js" mark="13,18,23-24" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Banking Simulator</h3>
+          <ul>
+            <li>Track an account balance as a deposit is made.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="javascript" title="1-5-updating-variables.js" mark="35" ins="29-37" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: High Score Tracker</h3>
+          <ul>
+            <li>Track a player's score as points are added.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="javascript" title="1-5-updating-variables.js" mark="44,47" ins="39-49" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Social Media Analytics</h3>
+          <ul>
+            <li>Track a post's like count as more people like it.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="javascript" title="1-5-updating-variables.js" mark="56,59" ins="51-60" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What's the difference between declaring a variable and reassigning it?</li>
+            <li>
+              In <code>playerHealth = playerHealth - enemyAttack;</code>,
+              which side of the <code>=</code> is calculated first: the left
+              or the right? Why does that order matter?
+            </li>
+            <li>Pick one of the four demos. What real-world situation could you track the same way, using a variable that changes over time?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

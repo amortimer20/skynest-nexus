@@ -1,0 +1,650 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `answer = input("Would you like to delete your account?")
+
+if answer == "yes":
+    confirm = input("Are you ABSOLUTELY SURE?")
+
+    if confirm == "yes":
+        print("Deleting your account.")
+    else:
+        print("Cancelling your request.")`;
+const Figure2 = `Would you like to delete your account? yes
+Are you ABSOLUTELY SURE? yes
+Deleting your account.`;
+const Figure3 = `if path == "left":
+    pass
+elif path == "right":
+    pass
+else:
+    pass`;
+const Task1 = `# If the player beats one of the levels, set its boolean variable to True
+wolfpack_ending = False
+dragon_ending = False
+gold = 0
+twinkies = 0
+`;
+const Task2 = `# If the player beats one of the levels, set its boolean variable to True
+wolfpack_ending = False
+dragon_ending = False
+gold = 0
+twinkies = 0
+
+# Prologue
+print("Your car crashes into a tree during a thunderstorm in the woods.")
+print("Darkness surrounds you as thunder crashes and rain pours.")
+print("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.")
+print("Inside, you see two shadowy paths diverging deeper into the unknown...")
+
+path = input("Which path do you take? (left or right) ->").lower()
+
+if path == "left" or path == "right":
+    print("As you move forward, you see something glimmering on the ground - a Hostess Twinkie.")
+    print("Do you eat the Twinkie for sustenance, or will you save it for later?")
+
+    twinkie_choice = input("(take or eat) ->").lower()
+
+    if twinkie_choice == "take":
+        print("You slip the Twinkie into your pocket, unsure what awaits in the darkness...")
+        twinkies = twinkies + 1
+    elif twinkie_choice == "eat":
+        print("Feeling uneasy, you eat the Twinkie to keep up your strength.")
+    else:
+        print("You leave the Twinkie untouched, feeling an ominous presence watching.")
+`;
+const Task3 = `# If the player beats one of the levels, set its boolean variable to True
+wolfpack_ending = False
+dragon_ending = False
+gold = 0
+twinkies = 0
+
+# Prologue
+print("Your car crashes into a tree during a thunderstorm in the woods.")
+print("Darkness surrounds you as thunder crashes and rain pours.")
+print("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.")
+print("Inside, you see two shadowy paths diverging deeper into the unknown...")
+
+path = input("Which path do you take? (left or right) ->").lower()
+
+if path == "left" or path == "right":
+    print("As you move forward, you see something glimmering on the ground - a Hostess Twinkie.")
+    print("Do you eat the Twinkie for sustenance, or will you save it for later?")
+
+    twinkie_choice = input("(take or eat) ->").lower()
+
+    if twinkie_choice == "take":
+        print("You slip the Twinkie into your pocket, unsure what awaits in the darkness...")
+        twinkies = twinkies + 1
+    elif twinkie_choice == "eat":
+        print("Feeling uneasy, you eat the Twinkie to keep up your strength.")
+    else:
+        print("You leave the Twinkie untouched, feeling an ominous presence watching.")
+
+# Caves
+# Left -> Wolfpack
+# Right -> Dragon
+# Else -> No path chosen
+if path == "left":
+    pass
+elif path == "right":
+    pass
+else:
+    pass
+`;
+const Task4 = `# If the player beats one of the levels, set its boolean variable to True
+wolfpack_ending = False
+dragon_ending = False
+gold = 0
+twinkies = 0
+
+# Prologue
+print("Your car crashes into a tree during a thunderstorm in the woods.")
+print("Darkness surrounds you as thunder crashes and rain pours.")
+print("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.")
+print("Inside, you see two shadowy paths diverging deeper into the unknown...")
+
+path = input("Which path do you take? (left or right) ->").lower()
+
+if path == "left" or path == "right":
+    print("As you move forward, you see something glimmering on the ground - a Hostess Twinkie.")
+    print("Do you eat the Twinkie for sustenance, or will you save it for later?")
+
+    twinkie_choice = input("(take or eat) ->").lower()
+
+    if twinkie_choice == "take":
+        print("You slip the Twinkie into your pocket, unsure what awaits in the darkness...")
+        twinkies = twinkies + 1
+    elif twinkie_choice == "eat":
+        print("Feeling uneasy, you eat the Twinkie to keep up your strength.")
+    else:
+        print("You leave the Twinkie untouched, feeling an ominous presence watching.")
+
+# Caves
+# Left -> Wolfpack
+# Right -> Dragon
+# Else -> No path chosen
+if path == "left":
+    print("You cautiously take the left path.")
+    print("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.")
+    print("The pack leader, larger and fiercer than the others, steps forward, growling softly...")
+
+    wolf_choice = input("Do you offer the pack leader your hand in peace? (yes or no) ->").lower()
+
+    if wolf_choice == "yes" and twinkies >= 1:
+        print("As you reach out, the wolves smell the Twinkie...")
+        print("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!")
+    elif wolf_choice == "yes":
+        print("The pack leader sniffs your hand and accepts you into the fold.")
+        print("You're given a small satchel of gold as a token of their trust.")
+        print("You settle in with the wolves, awaiting dawn as the storm howls outside...")
+        gold = gold + 5
+        wolfpack_ending = True
+    else:
+        print("Sensing your hesitation, the wolves close in, their teeth bared.")
+        print("You feel their claws sink in, and everything goes black...")
+elif path == "right":
+    pass
+else:
+    pass
+`;
+const Task5 = `# If the player beats one of the levels, set its boolean variable to True
+wolfpack_ending = False
+dragon_ending = False
+gold = 0
+twinkies = 0
+
+# Prologue
+print("Your car crashes into a tree during a thunderstorm in the woods.")
+print("Darkness surrounds you as thunder crashes and rain pours.")
+print("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.")
+print("Inside, you see two shadowy paths diverging deeper into the unknown...")
+
+path = input("Which path do you take? (left or right) ->").lower()
+
+if path == "left" or path == "right":
+    print("As you move forward, you see something glimmering on the ground - a Hostess Twinkie.")
+    print("Do you eat the Twinkie for sustenance, or will you save it for later?")
+
+    twinkie_choice = input("(take or eat) ->").lower()
+
+    if twinkie_choice == "take":
+        print("You slip the Twinkie into your pocket, unsure what awaits in the darkness...")
+        twinkies = twinkies + 1
+    elif twinkie_choice == "eat":
+        print("Feeling uneasy, you eat the Twinkie to keep up your strength.")
+    else:
+        print("You leave the Twinkie untouched, feeling an ominous presence watching.")
+
+# Caves
+# Left -> Wolfpack
+# Right -> Dragon
+# Else -> No path chosen
+if path == "left":
+    print("You cautiously take the left path.")
+    print("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.")
+    print("The pack leader, larger and fiercer than the others, steps forward, growling softly...")
+
+    wolf_choice = input("Do you offer the pack leader your hand in peace? (yes or no) ->").lower()
+
+    if wolf_choice == "yes" and twinkies >= 1:
+        print("As you reach out, the wolves smell the Twinkie...")
+        print("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!")
+    elif wolf_choice == "yes":
+        print("The pack leader sniffs your hand and accepts you into the fold.")
+        print("You're given a small satchel of gold as a token of their trust.")
+        print("You settle in with the wolves, awaiting dawn as the storm howls outside...")
+        gold = gold + 5
+        wolfpack_ending = True
+    else:
+        print("Sensing your hesitation, the wolves close in, their teeth bared.")
+        print("You feel their claws sink in, and everything goes black...")
+elif path == "right":
+    print("You take the right path, deeper into the damp, dark cave.")
+    print("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.")
+    print("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'")
+
+    dragon_choice = input("Do you offer him a treat? (yes or no) ->").lower()
+
+    if dragon_choice == "yes" and twinkies >= 1:
+        print("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.")
+        print("In gratitude, he hands you a pile of gold coins.")
+
+        gold_choice = input("How much gold do you take? ->")
+        gold_amount = int(gold_choice)
+
+        if gold_amount > 0 and gold_amount <= 100:
+            print("The dragon grunts approval, allowing you to take the gold...")
+            gold = gold + gold_amount
+        elif gold_amount > 100:
+            print("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'")
+        else:
+            print("The dragon, impressed by your modesty, lets you take all the gold!")
+            gold = gold + 100000
+
+        dragon_ending = True
+    else:
+        print("The dragon's face darkens, and he lunges towards you!")
+        print("His jaws close around you as everything fades to black...")
+else:
+    pass
+`;
+const Task6 = `# If the player beats one of the levels, set its boolean variable to True
+wolfpack_ending = False
+dragon_ending = False
+gold = 0
+twinkies = 0
+
+# Prologue
+print("Your car crashes into a tree during a thunderstorm in the woods.")
+print("Darkness surrounds you as thunder crashes and rain pours.")
+print("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.")
+print("Inside, you see two shadowy paths diverging deeper into the unknown...")
+
+path = input("Which path do you take? (left or right) ->").lower()
+
+if path == "left" or path == "right":
+    print("As you move forward, you see something glimmering on the ground - a Hostess Twinkie.")
+    print("Do you eat the Twinkie for sustenance, or will you save it for later?")
+
+    twinkie_choice = input("(take or eat) ->").lower()
+
+    if twinkie_choice == "take":
+        print("You slip the Twinkie into your pocket, unsure what awaits in the darkness...")
+        twinkies = twinkies + 1
+    elif twinkie_choice == "eat":
+        print("Feeling uneasy, you eat the Twinkie to keep up your strength.")
+    else:
+        print("You leave the Twinkie untouched, feeling an ominous presence watching.")
+
+# Caves
+# Left -> Wolfpack
+# Right -> Dragon
+# Else -> No path chosen
+if path == "left":
+    print("You cautiously take the left path.")
+    print("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.")
+    print("The pack leader, larger and fiercer than the others, steps forward, growling softly...")
+
+    wolf_choice = input("Do you offer the pack leader your hand in peace? (yes or no) ->").lower()
+
+    if wolf_choice == "yes" and twinkies >= 1:
+        print("As you reach out, the wolves smell the Twinkie...")
+        print("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!")
+    elif wolf_choice == "yes":
+        print("The pack leader sniffs your hand and accepts you into the fold.")
+        print("You're given a small satchel of gold as a token of their trust.")
+        print("You settle in with the wolves, awaiting dawn as the storm howls outside...")
+        gold = gold + 5
+        wolfpack_ending = True
+    else:
+        print("Sensing your hesitation, the wolves close in, their teeth bared.")
+        print("You feel their claws sink in, and everything goes black...")
+elif path == "right":
+    print("You take the right path, deeper into the damp, dark cave.")
+    print("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.")
+    print("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'")
+
+    dragon_choice = input("Do you offer him a treat? (yes or no) ->").lower()
+
+    if dragon_choice == "yes" and twinkies >= 1:
+        print("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.")
+        print("In gratitude, he hands you a pile of gold coins.")
+
+        gold_choice = input("How much gold do you take? ->")
+        gold_amount = int(gold_choice)
+
+        if gold_amount > 0 and gold_amount <= 100:
+            print("The dragon grunts approval, allowing you to take the gold...")
+            gold = gold + gold_amount
+        elif gold_amount > 100:
+            print("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'")
+        else:
+            print("The dragon, impressed by your modesty, lets you take all the gold!")
+            gold = gold + 100000
+
+        dragon_ending = True
+    else:
+        print("The dragon's face darkens, and he lunges towards you!")
+        print("His jaws close around you as everything fades to black...")
+else:
+    print("You hesitate, feeling the storm grow stronger as lightning flashes around you.")
+    print("Suddenly, a bolt strikes nearby, and you fall to the ground, darkness closing in.")
+`;
+const Task7 = `# If the player beats one of the levels, set its boolean variable to True
+wolfpack_ending = False
+dragon_ending = False
+gold = 0
+twinkies = 0
+
+# Prologue
+print("Your car crashes into a tree during a thunderstorm in the woods.")
+print("Darkness surrounds you as thunder crashes and rain pours.")
+print("You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.")
+print("Inside, you see two shadowy paths diverging deeper into the unknown...")
+
+path = input("Which path do you take? (left or right) ->").lower()
+
+if path == "left" or path == "right":
+    print("As you move forward, you see something glimmering on the ground - a Hostess Twinkie.")
+    print("Do you eat the Twinkie for sustenance, or will you save it for later?")
+
+    twinkie_choice = input("(take or eat) ->").lower()
+
+    if twinkie_choice == "take":
+        print("You slip the Twinkie into your pocket, unsure what awaits in the darkness...")
+        twinkies = twinkies + 1
+    elif twinkie_choice == "eat":
+        print("Feeling uneasy, you eat the Twinkie to keep up your strength.")
+    else:
+        print("You leave the Twinkie untouched, feeling an ominous presence watching.")
+
+# Caves
+# Left -> Wolfpack
+# Right -> Dragon
+# Else -> No path chosen
+if path == "left":
+    print("You cautiously take the left path.")
+    print("A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.")
+    print("The pack leader, larger and fiercer than the others, steps forward, growling softly...")
+
+    wolf_choice = input("Do you offer the pack leader your hand in peace? (yes or no) ->").lower()
+
+    if wolf_choice == "yes" and twinkies >= 1:
+        print("As you reach out, the wolves smell the Twinkie...")
+        print("In a frenzy of hunger, they turn on you, and you're surrounded with no escape!")
+    elif wolf_choice == "yes":
+        print("The pack leader sniffs your hand and accepts you into the fold.")
+        print("You're given a small satchel of gold as a token of their trust.")
+        print("You settle in with the wolves, awaiting dawn as the storm howls outside...")
+        gold = gold + 5
+        wolfpack_ending = True
+    else:
+        print("Sensing your hesitation, the wolves close in, their teeth bared.")
+        print("You feel their claws sink in, and everything goes black...")
+elif path == "right":
+    print("You take the right path, deeper into the damp, dark cave.")
+    print("Suddenly, a rotten, smoky smell fills the air. A massive dragon with dull, greedy eyes looms in the shadows.")
+    print("The dragon sniffs the air and sneers, 'Did you bring me something sweet?'")
+
+    dragon_choice = input("Do you offer him a treat? (yes or no) ->").lower()
+
+    if dragon_choice == "yes" and twinkies >= 1:
+        print("The dragon's eyes widen as he devours the Twinkie. 'Delicious!' he roars.")
+        print("In gratitude, he hands you a pile of gold coins.")
+
+        gold_choice = input("How much gold do you take? ->")
+        gold_amount = int(gold_choice)
+
+        if gold_amount > 0 and gold_amount <= 100:
+            print("The dragon grunts approval, allowing you to take the gold...")
+            gold = gold + gold_amount
+        elif gold_amount > 100:
+            print("The dragon's eyes narrow, and he hisses, 'Greed will get you nothing.'")
+        else:
+            print("The dragon, impressed by your modesty, lets you take all the gold!")
+            gold = gold + 100000
+
+        dragon_ending = True
+    else:
+        print("The dragon's face darkens, and he lunges towards you!")
+        print("His jaws close around you as everything fades to black...")
+else:
+    print("You hesitate, feeling the storm grow stronger as lightning flashes around you.")
+    print("Suddenly, a bolt strikes nearby, and you fall to the ground, darkness closing in.")
+
+# Epilogue
+print("-- Ending --")
+
+if wolfpack_ending:
+    print("By cuddling with the wolfpack, you weather out the storm.")
+    print("Upon leaving the cave, they follow you, seeing you as the new pack leader.")
+    print("You survived!!!")
+elif dragon_ending:
+    print("By tempting the dragon with a delicious Hostess snack cake, you avoid his wrath.")
+    print("He flies you back home after the storm, but not after raiding the nearest Hostess factory.")
+    print("You survived!!!")
+else:
+    print("Game Over!")
+
+if gold > 0:
+    print(f"You not only survived, but you found {gold} gold!")
+`;
+const SampleOutput = `Your car crashes into a tree during a thunderstorm in the woods.
+Darkness surrounds you as thunder crashes and rain pours.
+You spot a cave nearby, dimly lit by flashes of lightning, and run towards it for shelter.
+Inside, you see two shadowy paths diverging deeper into the unknown...
+Which path do you take? (left or right) ->left
+As you move forward, you see something glimmering on the ground - a Hostess Twinkie.
+Do you eat the Twinkie for sustenance, or will you save it for later?
+(take or eat) ->take
+You slip the Twinkie into your pocket, unsure what awaits in the darkness...
+You cautiously take the left path.
+A few steps in, you freeze as the piercing eyes of a pack of wolves emerge from the shadows.
+The pack leader, larger and fiercer than the others, steps forward, growling softly...
+Do you offer the pack leader your hand in peace? (yes or no) ->yes
+As you reach out, the wolves smell the Twinkie...
+In a frenzy of hunger, they turn on you, and you're surrounded with no escape!
+-- Ending --
+Game Over!`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.12: Nested Conditionals</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.12</h2>
+              <h3 class="text-sn-theme">Nested Conditionals</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Nesting</p>
+              <p>pass</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Nesting</h2>
+              <p>
+                An <code>if</code> statement can go inside another
+                <code>if</code> statement's block. This is called
+                <b class="text-sn-theme">nesting</b> &mdash; the inner
+                decision only happens if the outer condition was true first.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Nesting</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>pass</h2>
+              <p>
+                Python can't have a truly empty indented block &mdash; if
+                you want to sketch out a structure before filling it in,
+                <b class="text-sn-theme">pass</b> is a placeholder that does
+                nothing.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Today's Project: Dungeon Crawler</h2>
+              <p>
+                A choose-your-own-adventure story, built one branch at a
+                time &mdash; starting with an empty skeleton of nested
+                <code>if</code>/<code>elif</code>/<code>else</code> blocks,
+                filled in one path at a time.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Nesting an <code>if</code> statement inside another</li>
+                <li>Sketching a decision structure with <code>pass</code> before filling it in</li>
+                <li>Tracking a story's state with boolean and numeric variables</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Nesting</dt>
+                  <dd>Placing one code block (like an <code>if</code>) inside another.</dd>
+                  <dt>pass</dt>
+                  <dd>A placeholder statement that does nothing &mdash; used where Python requires a block but you have nothing to put there yet.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-12-dungeon-crawler.py</b>. You'll build this story one branch at a time.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Set Up Your Variables</h3>
+          <ul>
+            <li>Declare the ending flags, gold, and twinkies &mdash; all start false or zero.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-12-dungeon-crawler.py" mark="2-5" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: The Prologue</h3>
+          <ul>
+            <li>Set the scene, then ask the player which path they take.</li>
+            <li>If they chose a real path, offer them the Twinkie.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-12-dungeon-crawler.py" mark="15,19" ins="7-27" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Sketch the Cave Branches</h3>
+          <ul>
+            <li>
+              Add an <code>if</code>/<code>elif</code>/<code>else</code> for
+              the left path, right path, and no-path-chosen case &mdash;
+              using <code>pass</code> to leave each one empty for now.
+            </li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-12-dungeon-crawler.py" mark="33-38" ins="29-38" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: The Wolfpack Path</h3>
+          <ul>
+            <li>Fill in the left path &mdash; the player meets a wolf pack, and the Twinkie changes the outcome.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="1-12-dungeon-crawler.py" mark="34-51" ins="34-51" />
+
+          <hr class="my-4" />
+
+          <h3>Task 5: The Dragon Path</h3>
+          <ul>
+            <li>Fill in the right path &mdash; the player meets a dragon and can choose how much gold to take.</li>
+          </ul>
+
+          <Code code={Task5} frame="code" lang="python" title="1-12-dungeon-crawler.py" mark="52-78" ins="52-78" />
+
+          <hr class="my-4" />
+
+          <h3>Task 6: No Path Chosen</h3>
+          <ul>
+            <li>Fill in what happens if the player never picked left or right.</li>
+          </ul>
+
+          <Code code={Task6} frame="code" lang="python" title="1-12-dungeon-crawler.py" mark="80-81" ins="80-81" />
+
+          <hr class="my-4" />
+
+          <h3>Task 7: The Epilogue</h3>
+          <ul>
+            <li>Print an ending based on which boolean flags got set to <code>True</code>.</li>
+          </ul>
+
+          <Code code={Task7} frame="code" lang="python" title="1-12-dungeon-crawler.py" mark="86-95,97-98" ins="83-98" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Why did the wolf pack and dragon branches need to be nested inside the left/right path check, instead of being separate standalone <code>if</code> statements?</li>
+            <li>What would have happened if you tried to leave the cave branches truly empty in Task 3, without <code>pass</code>?</li>
+            <li>How do the two ending boolean flags decide which epilogue message prints?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

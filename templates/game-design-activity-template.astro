@@ -1,0 +1,177 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `INSERT
+`;
+const Task1 = `INSERT
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/course-title/unit-title/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity X.X: Activity Title</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Lesson Title</h2>
+              <h3 class="text-sn-theme">Subtitle or Essential Idea</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p></p>
+            </section>
+
+            <section>
+              <h2>Slide Heading</h2>
+              <Code code={Figure1} frame="code" lang="gdscript" />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Term</dt>
+                  <dd>Definition</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!--
+          Build
+          Unlike the coding-activity template, tasks here are a mix of two
+          kinds — use whichever fits each step, in any order:
+            1. Editor/GUI steps (add a node, set a property, import an asset)
+               -> a plain instruction list + a GIF/screenshot placeholder.
+            2. Scripting steps (writing/editing GDScript)
+               -> the same Code component pattern as the coding template.
+          Reference the video content directly so students can find their
+          place ("Watch: Section 2, Lecture 14, 4:30-9:00").
+        -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>INSERT project/scene context for this activity.</p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: GUI Step Title</h3>
+          <ul>
+            <li><b>Watch:</b> Section INSERT, Lecture INSERT (INSERT-INSERT)</li>
+            <li></li>
+          </ul>
+
+          <!-- GIF: INSERT description -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; INSERT]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Scripting Step Title</h3>
+          <ul>
+            <li></li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="gdscript" title="INSERT file.gd" />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li></li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!--
+          Checkpoint
+          There's usually no deterministic console output to check here —
+          verification is visual/behavioral. Describe the expected result
+          and leave a placeholder for a screenshot/GIF of it. If the task
+          did involve debug `print()` output, an optional terminal Code
+          block can still follow the description.
+        -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>You should see the following in the Godot editor:</p>
+          <ul>
+            <li></li>
+          </ul>
+
+          <!-- GIF/Screenshot: INSERT description -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; INSERT expected result]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

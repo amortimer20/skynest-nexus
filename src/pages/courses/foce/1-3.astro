@@ -1,0 +1,454 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `
+name = "Anthony"
+age = 35
+
+print(name)
+print(age)`;
+const Figure2 = `
+Anthony
+35`;
+const Figure3 = `
+name = "Anthony"
+age = 35
+height = 5.9
+
+print(type(name))
+print(type(age))
+print(type(height))`;
+const Figure4 = `
+<class 'str'>
+<class 'int'>
+<class 'float'>`;
+const Task1 = `
+name = "Anthony"
+age = 35
+
+print(name)
+print(age)`;
+const Task2 = `
+name = "Anthony"
+age = 35
+
+print(name)
+print(age)
+
+favorite_color = "green"
+favorite_number = 7.5
+
+print("Favorite Color:", favorite_color)
+print("Favorite Number:", favorite_number)`;
+const Task3 = `
+name = "Anthony"
+age = 35
+
+print(name)
+print(age)
+
+favorite_color = "green"
+favorite_number = 7.5
+
+print("Favorite Color:", favorite_color)
+print("Favorite Number:", favorite_number)
+
+print(type(name))
+print(type(age))
+print(type(favorite_color))
+print(type(favorite_number))`;
+const ExampleOutput = `
+Anthony
+35
+Favorite Color: green
+Favorite Number: 7.5
+<class 'str'>
+<class 'int'>
+<class 'str'>
+<class 'float'>`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.3: Variables and Data Types</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.3</h2>
+              <h3 class="text-sn-theme">Variables and Data Types</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Storing Information</p>
+              <p>
+                <CodeSnippet
+                  code="Variables"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> and <CodeSnippet
+                  code="Data Types"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What is a Variable?</h2>
+              <p>
+                A <b>variable</b> stores a value so your program can use it again
+                later.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What is a Variable?</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Data Types</h2>
+              <p>
+                Python automatically figures out what <b>type</b> of data a variable
+                holds.
+              </p>
+              <ul>
+                <li class="fragment">
+                  <CodeSnippet
+                    code="str"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> &mdash; text, wrapped in quotes
+                </li>
+                <li class="fragment">
+                  <CodeSnippet
+                    code="int"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> &mdash; a whole number
+                </li>
+                <li class="fragment">
+                  <CodeSnippet
+                    code="float"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> &mdash; a decimal number
+                </li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Data Types</h2>
+              <p>
+                Use the built-in <CodeSnippet
+                  code="type()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> function to check a variable's data type.
+              </p>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Naming Variables</h2>
+              <ul>
+                <li>Use all lowercase letters</li>
+                <li>Separate words with an underscore, like <CodeSnippet
+                    code="favorite_color"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /></li>
+                <li>Choose descriptive names</li>
+                <li>Names cannot start with a number</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Declaring and assigning variables</li>
+                <li>Displaying variable values</li>
+                <li>Identifying data types with <CodeSnippet
+                    code="type()"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Variable</dt>
+                  <dd>A named location that stores a value for later use.</dd>
+                  <dt>Assignment</dt>
+                  <dd>
+                    Storing a value in a variable using the <CodeSnippet
+                      code="="
+                      lang={"python"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> operator.
+                  </dd>
+                  <dt>Data Type</dt>
+                  <dd>The kind of value a variable holds, such as text or a number.</dd>
+                  <dt>String (str)</dt>
+                  <dd>A data type representing text.</dd>
+                  <dt>Integer (int)</dt>
+                  <dd>A data type representing a whole number.</dd>
+                  <dt>Float (float)</dt>
+                  <dd>A data type representing a decimal number.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>Python</b> program named <b class="text-sn-theme"
+              >1-3-variables.py</b
+            >.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Declare Your Variables</h3>
+          <ul>
+            <li>
+              Create a <CodeSnippet
+                code="name"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variable (a string) and an <CodeSnippet
+                code="age"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variable (an integer).
+            </li>
+            <li>Print each variable on its own line.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="python"
+            title="1-3-variables.py"
+            mark={{ label: "Stop and run your code", range: "6" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Add More Variables</h3>
+          <ul>
+            <li>
+              Create a <CodeSnippet
+                code="favorite_color"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variable (a string) and a <CodeSnippet
+                code="favorite_number"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variable (a float).
+            </li>
+            <li>
+              Print each one using a <b>label</b>, e.g. <CodeSnippet
+                code={'print("Favorite Color:", favorite_color)'}
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: separating two values with a comma
+              inside <CodeSnippet
+                code="print()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> prints them on the same line with a space in between.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="python"
+            title="1-3-variables.py"
+            mark={{ label: "Stop and run your code", range: "12" }}
+            ins={{ range: "7-12" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Check Your Data Types</h3>
+          <ul>
+            <li>
+              Use <CodeSnippet
+                code="type()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to print the data type of each of your four variables.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="python"
+            title="1-3-variables.py"
+            mark={{ label: "Stop and run your code", range: "17" }}
+            ins={{ range: "13-17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Reassign and Recheck</h3>
+          <ul>
+            <li>
+              Reassign one of your variables to a value of a <b>different</b> data
+              type. For example, change <CodeSnippet
+                code={'age = 35'}
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to <CodeSnippet
+                code={'age = "thirty-five"'}
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Print its data type again and compare the result.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What is a variable, and why are variables useful in a program?</li>
+            <li>
+              Python does not require you to announce a variable's data type
+              ahead of time &mdash; it figures the type out automatically. What
+              do you think would happen if you tried to use a variable
+              <i>before</i> assigning it a value?
+            </li>
+            <li>
+              If you completed the optional challenge, what did <CodeSnippet
+                code="type()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> report after you reassigned a variable to a different data
+              type?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

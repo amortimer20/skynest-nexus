@@ -1,0 +1,226 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Task1 = `let name = "Ada";
+
+console.log("Name:", name);
+`;
+const Task2 = `let name = "Ada";
+let age = 16;
+
+console.log("Name:", name);
+console.log("Age:", age);
+`;
+const Task3 = `let name = "Ada";
+let age = 16;
+let favoriteColor = "blue";
+let favoriteNumber = 7;
+
+console.log("Name:", name);
+console.log("Age:", age);
+console.log("Favorite Color:", favoriteColor);
+console.log("Favorite Number:", favoriteNumber);
+`;
+const ExampleOutput = `Name: Ada
+Age: 16
+Favorite Color: blue
+Favorite Number: 7`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.3: Variables and Console Output</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.3</h2>
+              <h3 class="text-sn-theme">Variables and Console Output</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Variables</p>
+              <p>Console Output</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What Is a Variable?</h2>
+              <p>
+                A <b class="text-sn-theme">variable</b> is a named container
+                that holds a value, so you can refer back to it by name
+                instead of retyping the value every time.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Declaring a Variable</h2>
+              <Code code={`let name = "Ada";`} frame="code" lang="javascript" showLineNumbers={false} />
+              <p class="fragment">
+                <b class="text-sn-theme">let</b> declares the variable,
+                <b>name</b> is what we're calling it, and everything after
+                the <b>=</b> is the value we're assigning to it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Naming Variables</h2>
+              <p>
+                JavaScript variable names use
+                <b class="text-sn-theme">camelCase</b> &mdash; the first word
+                lowercase, each word after that capitalized, no spaces or
+                underscores.
+              </p>
+              <p class="fragment"><code>favoriteColor</code>, not <code>favorite_color</code> or <code>FavoriteColor</code>.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Console Output</h2>
+              <p>
+                <b class="text-sn-theme">console.log()</b> prints values to
+                the terminal. It can take more than one thing at a time,
+                separated by commas.
+              </p>
+              <Code code={`console.log("Age:", age);`} frame="code" lang="javascript" showLineNumbers={false} class="fragment" />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Declaring variables with <code>let</code></li>
+                <li>Naming variables using camelCase</li>
+                <li>Printing variable values with <code>console.log()</code></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Variable</dt>
+                  <dd>A named container that holds a value.</dd>
+                  <dt>Declaration</dt>
+                  <dd>Creating a new variable, using <code>let</code>.</dd>
+                  <dt>Assignment</dt>
+                  <dd>Giving a variable a value, using <code>=</code>.</dd>
+                  <dt>camelCase</dt>
+                  <dd>JavaScript's naming convention &mdash; lowercase first word, capitalized words after.</dd>
+                  <dt>console.log()</dt>
+                  <dd>Prints one or more values to the terminal.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new JavaScript file named <b class="text-sn-theme">1-3-variables.js</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Declare Your First Variable</h3>
+          <ul>
+            <li>Declare a variable named <code>name</code> and assign it your name, as a string.</li>
+            <li>Print it with <code>console.log()</code>, including a label.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="javascript" title="1-3-variables.js" mark="1" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Add a Second Variable</h3>
+          <ul>
+            <li>Declare a variable named <code>age</code> and assign it your age, as a number.</li>
+            <li>Print it with a label, just like <code>name</code>.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="javascript" title="1-3-variables.js" mark="2" ins="5" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Add Two More Variables</h3>
+          <ul>
+            <li>Declare <code>favoriteColor</code> and <code>favoriteNumber</code>, using camelCase.</li>
+            <li>Print each one with a label.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="javascript" title="1-3-variables.js" mark="3-4" ins="8-9" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What is a variable, and why do we give it a name instead of just typing the value directly every time?</li>
+            <li>
+              What naming convention did we use for names like
+              <code>favoriteColor</code>? What's it called, and why do you
+              think a consistent convention matters when writing code?
+            </li>
+            <li>
+              What do you think would happen if you tried to
+              <code>console.log()</code> a variable before declaring it?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

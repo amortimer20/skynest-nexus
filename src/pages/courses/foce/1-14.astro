@@ -1,0 +1,217 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `score = 0
+
+while score != -1:
+    score = int(input("Enter a score (-1 to stop):"))
+    # remaining code omitted`;
+const Task1 = `import random
+
+secret_number = random.randint(1, 10)
+guess = 0
+tries = 0
+`;
+const Task2 = `import random
+
+secret_number = random.randint(1, 10)
+guess = 0
+tries = 0
+
+while guess != secret_number:
+    guess = int(input("Guess the number (1-10):"))
+    tries = tries + 1
+
+    if guess == secret_number:
+        print(f"Correct! It took you {tries} tries!")
+    elif guess > secret_number:
+        print("Wrong! Your guess was too high.")
+    elif guess < secret_number:
+        print("Wrong! Your guess was too low.")
+`;
+const Task3 = `import random
+
+secret_number = random.randint(1, 10)
+guess = 0
+tries = 0
+
+while guess != secret_number:
+    guess = int(input("Guess the number (1-10):"))
+    tries = tries + 1
+
+    if guess == secret_number:
+        print(f"Correct! It took you {tries} tries!")
+    elif guess < 1 or guess > 10:
+        print("Your guess was out of range.")
+    elif guess > secret_number:
+        print("Wrong! Your guess was too high.")
+    elif guess < secret_number:
+        print("Wrong! Your guess was too low.")
+`;
+const SampleOutput = `Guess the number (1-10): 6
+Wrong! Your guess was too high.
+Guess the number (1-10): 3
+Wrong! Your guess was too low.
+Guess the number (1-10): 5
+Wrong! Your guess was too high.
+Guess the number (1-10): 4
+Correct! It took you 4 tries!`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.14: Number Guessing Game</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.14</h2>
+              <h3 class="text-sn-theme">Number Guessing Game</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Sentinel-Controlled Loops</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Looping Until the Right Answer</h2>
+              <p>
+                Not every loop counts a fixed number of times &mdash; some
+                keep going until a specific value shows up. That value is
+                called a <b class="text-sn-theme">sentinel</b>.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Today's Project</h2>
+              <p>
+                The computer picks a secret number from 1 to 10. The player
+                keeps guessing &mdash; too high, too low &mdash; until they
+                land on it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Looping until the player guesses correctly</li>
+                <li>Giving feedback with an <code>elif</code> chain each pass through the loop</li>
+                <li>Counting how many tries it took</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Sentinel Value</dt>
+                  <dd>A specific value a loop watches for to know when to stop.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-14-number-guessing-game.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Set Up the Game</h3>
+          <ul>
+            <li>Pick a random secret number from 1 to 10, and set up a guess and a tries counter.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-14-number-guessing-game.py" mark="3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: The Guessing Loop</h3>
+          <ul>
+            <li>Loop until the guess matches the secret number, giving too-high/too-low feedback.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-14-number-guessing-game.py" mark="7" ins="7-16" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Handle Out-of-Range Guesses</h3>
+          <ul>
+            <li>Add a check for guesses outside 1-10, before the too-high/too-low checks.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-14-number-guessing-game.py" mark="13-14" ins="13-14" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What condition does the <code>while</code> loop check to decide whether to keep asking for another guess?</li>
+            <li>Why does <code>guess</code> need to start at a value like <code>0</code>, which could never actually be the secret number?</li>
+            <li>Why didn't this activity need a final <code>else</code> branch to catch invalid input, the way the archive it's based on did?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

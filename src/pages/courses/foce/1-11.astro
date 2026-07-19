@@ -1,0 +1,318 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `password = input("Enter password:")
+secret = "secret123"
+
+if password == secret:
+    print("Access granted.")
+else:
+    print("Access denied.")`;
+const Figure2 = `Enter password: secret123
+Access granted.`;
+const Figure3 = `Enter password: secretpassword
+Access denied.`;
+const Figure4 = `grade = int(input("Enter grade:"))
+
+if grade >= 90:
+    print("A")
+elif grade >= 80:
+    print("B")
+elif grade >= 70:
+    print("C")
+elif grade >= 60:
+    print("D")
+else:
+    print("F")`;
+const Figure5 = `Enter grade: 86
+B`;
+const Figure6 = `Enter grade: 49
+F`;
+const Task1 = `import random
+
+print("--- Chinese Zodiac Calendar ---")
+
+birth_year = int(input("Enter your birth year: "))
+zodiac_number = birth_year % 12
+zodiac_animal = ""  # Assign animal based on birth year
+
+if zodiac_number == 0:
+    zodiac_animal = "monkey"
+elif zodiac_number == 1:
+    zodiac_animal = "rooster"
+elif zodiac_number == 2:
+    zodiac_animal = "dog"
+elif zodiac_number == 3:
+    zodiac_animal = "pig"
+elif zodiac_number == 4:
+    zodiac_animal = "rat"
+elif zodiac_number == 5:
+    zodiac_animal = "ox"
+elif zodiac_number == 6:
+    zodiac_animal = "tiger"
+elif zodiac_number == 7:
+    zodiac_animal = "rabbit"
+elif zodiac_number == 8:
+    zodiac_animal = "dragon"
+elif zodiac_number == 9:
+    zodiac_animal = "snake"
+elif zodiac_number == 10:
+    zodiac_animal = "horse"
+else:
+    zodiac_animal = "sheep"
+
+print(f"Birth year: {birth_year} - You are the year of the...{zodiac_animal}.")
+input("Press enter to continue...")
+`;
+const Task2 = `import random
+
+print("--- Chinese Zodiac Calendar ---")
+
+birth_year = int(input("Enter your birth year: "))
+zodiac_number = birth_year % 12
+zodiac_animal = ""  # Assign animal based on birth year
+
+if zodiac_number == 0:
+    zodiac_animal = "monkey"
+elif zodiac_number == 1:
+    zodiac_animal = "rooster"
+elif zodiac_number == 2:
+    zodiac_animal = "dog"
+elif zodiac_number == 3:
+    zodiac_animal = "pig"
+elif zodiac_number == 4:
+    zodiac_animal = "rat"
+elif zodiac_number == 5:
+    zodiac_animal = "ox"
+elif zodiac_number == 6:
+    zodiac_animal = "tiger"
+elif zodiac_number == 7:
+    zodiac_animal = "rabbit"
+elif zodiac_number == 8:
+    zodiac_animal = "dragon"
+elif zodiac_number == 9:
+    zodiac_animal = "snake"
+elif zodiac_number == 10:
+    zodiac_animal = "horse"
+else:
+    zodiac_animal = "sheep"
+
+print(f"Birth year: {birth_year} - You are the year of the...{zodiac_animal}.")
+input("Press enter to continue...")
+
+print("--- Lottery Game ---")
+print("Rules: Pick two lottery numbers ranging from 0 to 9")
+print("Match two numbers and win BIG!")
+print("Match one number in order and win SMALL!")
+
+lotto_num_1 = int(input("Enter your 1st lottery number (0 to 9): "))
+lotto_num_2 = int(input("Enter your 2nd lottery number (0 to 9): "))
+winning_num_1 = random.randint(0, 9)
+winning_num_2 = random.randint(0, 9)
+
+# Exit the program if either lotto number is out of range
+if lotto_num_1 < 0 or lotto_num_1 > 9 or lotto_num_2 < 0 or lotto_num_2 > 9:
+    print("Error: Your lotto numbers are invalid. Exiting")
+    exit()
+
+print(f"The winning numbers are {winning_num_1} and {winning_num_2}!")
+
+if lotto_num_1 == winning_num_1 and lotto_num_2 == winning_num_2:
+    print("You win BIG!")
+elif lotto_num_1 == winning_num_1 or lotto_num_2 == winning_num_2:
+    print("You win SMALL!")
+else:
+    print("You lose! Better luck next time!")
+`;
+const SampleOutput = `--- Chinese Zodiac Calendar ---
+Enter your birth year: 1990
+Birth year: 1990 - You are the year of the...horse.
+Press enter to continue...
+--- Lottery Game ---
+Rules: Pick two lottery numbers ranging from 0 to 9
+Match two numbers and win BIG!
+Match one number in order and win SMALL!
+Enter your 1st lottery number (0 to 9): 2
+Enter your 2nd lottery number (0 to 9): 4
+The winning numbers are 2 and 6!
+You win SMALL!`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.11: If, Elif, and Else</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.11</h2>
+              <h3 class="text-sn-theme">If, Elif, and Else</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>else</p>
+              <p>elif</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>else</h2>
+              <p>
+                <b class="text-sn-theme">else</b> runs when the
+                <code>if</code> condition was <code>False</code> &mdash;
+                exactly one of the two blocks always runs.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>else</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} class="mt-2" />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Problem with Independent ifs</h2>
+              <p>
+                Last activity's Letter Grade Calculator needed a two-part
+                condition for every range, like
+                <code>grade &gt;= 80 and grade &lt; 90</code>. That gets
+                repetitive fast.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>elif</h2>
+              <p>
+                <b class="text-sn-theme">elif</b> (short for "else if")
+                chains conditions together &mdash; Python checks them in
+                order and runs only the <b>first</b> one that's
+                <code>True</code>.
+              </p>
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>elif</h2>
+              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} />
+              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} class="mt-2" />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing an <code>if</code>/<code>else</code> statement</li>
+                <li>Chaining conditions with <code>elif</code></li>
+                <li>Importing the <code>random</code> module</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>else</dt>
+                  <dd>Runs when every condition before it was <code>False</code>.</dd>
+                  <dt>elif</dt>
+                  <dd>Chains another condition onto an <code>if</code> &mdash; only the first true branch runs.</dd>
+                  <dt>Module</dt>
+                  <dd>A collection of tools not built directly into Python &mdash; you bring it in with <code>import</code>.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-11-if-elif-else.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Chinese Zodiac Calendar</h3>
+          <ul>
+            <li>Use the birth year's remainder after dividing by 12 to determine a zodiac animal, with an <code>elif</code> chain.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-11-if-elif-else.py" mark="9-32" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Lottery Game</h3>
+          <ul>
+            <li>Import the <code>random</code> module to generate two winning numbers.</li>
+            <li>Compare the player's two picks against them with <code>elif</code>.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-11-if-elif-else.py" mark="44-45,54-59" ins="36-59" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>In an <code>if</code>/<code>elif</code>/<code>else</code> chain, how many of the blocks can run at most?</li>
+            <li>Why didn't the Zodiac Calendar need a final <code>elif zodiac_number == 11:</code> check before its <code>else</code>?</li>
+            <li>What is a module, and why did the Lottery Game need to <code>import random</code> when nothing before it needed an import?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

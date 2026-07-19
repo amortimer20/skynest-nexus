@@ -1,0 +1,262 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/game-design/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.1: Building a Scene from Nodes</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.1</h2>
+              <h3 class="text-sn-theme">Building a Scene from Nodes</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Composition</p>
+              <p>Nodes, Scenes &amp; Physics Bodies</p>
+              <p>Instancing</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Composition</h2>
+              <p>
+                Almost nothing in a game is one giant, monolithic object.
+                Complex things are built by combining small, simple pieces
+                &mdash; the same way a LEGO model is built from individual
+                bricks.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What Is a Node?</h2>
+              <p>
+                A <b class="text-sn-theme">Node</b> is the smallest building
+                block in Godot &mdash; a sprite, a shape, a sound, a physics
+                body. Each one does one job.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What Is a Scene?</h2>
+              <p>
+                A <b class="text-sn-theme">Scene</b> is a group of Nodes
+                arranged together and saved as one reusable file &mdash; that's
+                composition in action.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Physics Body + A Picture</h2>
+              <p>
+                A <b>RigidBody2D</b> makes something obey physics. A
+                <b>Sprite2D</b> gives it a picture. Together, as parent and
+                child, they make a visible object that can move and collide.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Physics Needs a Shape</h2>
+              <p>
+                A sprite is just a picture &mdash; the physics engine has no
+                idea what part of it is "solid." A
+                <b class="text-sn-theme">CollisionShape2D</b> defines that
+                explicitly, separate from how the object looks.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Instancing</h2>
+              <p>
+                Once a Scene is saved, you can place it &mdash;
+                <b class="text-sn-theme">instance</b> it &mdash; as many
+                times as you want. Each instance is its own independent copy.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Building a reusable Player scene out of Nodes</li>
+                <li>Giving that scene a physics collision shape</li>
+                <li>Instancing it multiple times into your game</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Node</dt>
+                  <dd>The smallest building block in Godot.</dd>
+                  <dt>Scene</dt>
+                  <dd>A group of Nodes arranged together and saved as one reusable file.</dd>
+                  <dt>RigidBody2D</dt>
+                  <dd>A Node that obeys the physics engine &mdash; forces, gravity, collisions.</dd>
+                  <dt>Sprite2D</dt>
+                  <dd>A Node that displays a 2D image.</dd>
+                  <dt>CollisionShape2D</dt>
+                  <dd>A Node that defines the solid shape a physics body uses for collisions.</dd>
+                  <dt>Instance</dt>
+                  <dd>A placed copy of a saved Scene.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>Build a reusable Player scene, then place it into your game multiple times.</p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Import Your Assets</h3>
+          <ul>
+            <li><b>Watch:</b> Section 2, Lecture 2.2 &mdash; Project Setup (09:20)</li>
+            <li>
+              Import the provided textures and audio (ship, asteroids,
+              planets, star background, hurt sound) into your project's
+              FileSystem panel.
+            </li>
+          </ul>
+
+          <!-- GIF: Importing project assets into the FileSystem panel -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Importing Project Assets]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Build the Player Scene</h3>
+          <ul>
+            <li><b>Watch:</b> Section 2, Lecture 2.3 &mdash; Nodes &amp; Scenes (08:25)</li>
+            <li>Create a new scene with a <b class="text-sn-theme">RigidBody2D</b> root node, renamed "Player".</li>
+            <li>Add a Sprite2D child and assign it the ship texture.</li>
+            <li>Save the scene as <b class="text-sn-theme">player.tscn</b>.</li>
+          </ul>
+
+          <!-- GIF: Creating the Player scene with a RigidBody2D root and Sprite2D child -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Building the Player Scene]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Add a Collision Shape</h3>
+          <ul>
+            <li><b>Watch:</b> Section 2, Lecture 2.4 &mdash; Physics 101 (06:00)</li>
+            <li>Add a CollisionShape2D child to Player.</li>
+            <li>Assign it a Capsule shape, sized to roughly match the ship sprite.</li>
+          </ul>
+
+          <!-- GIF: Adding and sizing a CollisionShape2D -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Adding a Collision Shape]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Instance Your Scene</h3>
+          <ul>
+            <li><b>Watch:</b> Section 2, Lecture 2.5 &mdash; Instancing Scenes (07:24)</li>
+            <li>Open your main Game scene.</li>
+            <li>Instance the Player scene into it 2&ndash;3 times, at different positions.</li>
+          </ul>
+
+          <!-- GIF: Instancing the Player scene multiple times into Game -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Instancing the Player Scene]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>You should see the following in the Godot editor:</p>
+          <ul>
+            <li>Your Game scene contains multiple Player instances.</li>
+            <li>Each instance is a separate copy of the same player.tscn scene.</li>
+            <li>Each has its own Sprite2D and CollisionShape2D.</li>
+          </ul>
+
+          <!-- Screenshot: multiple Player instances in the Game scene -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Multiple Player Instances in Game]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What is the difference between a Node and a Scene?</li>
+            <li>
+              Why does a RigidBody2D need a separate CollisionShape2D instead
+              of just using its Sprite2D's picture as the collision shape?
+            </li>
+            <li>
+              When you instance a scene multiple times, is each instance a
+              completely separate copy, or do they all share the exact same
+              data?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

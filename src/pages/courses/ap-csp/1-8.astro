@@ -1,0 +1,363 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `let score1 = prompt("Enter the score for game 1:");
+let score2 = prompt("Enter the score for game 2:");
+let totalScore = score1 + score2;
+
+console.log(totalScore); // "4564" -- joined as text, not added!`;
+const Figure2 = `let score1 = parseFloat(prompt("Enter the score for game 1:"));
+let score2 = parseFloat(prompt("Enter the score for game 2:"));
+let totalScore = score1 + score2;
+
+console.log(totalScore); // 109 -- correctly added`;
+const Task1 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+
+let age = parseInt(prompt("Enter your age:"));
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+alert("Press enter to continue...");
+`;
+const Task2 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+
+let age = parseInt(prompt("Enter your age:"));
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 2 - Square Area Calculator ---");
+
+let length = parseFloat(prompt("Enter the length of the square:"));
+let area = length * length;
+console.log(\`The area of the square is \${area}\`);
+
+alert("Press enter to continue...");
+`;
+const Task3 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+
+let age = parseInt(prompt("Enter your age:"));
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 2 - Square Area Calculator ---");
+
+let length = parseFloat(prompt("Enter the length of the square:"));
+let area = length * length;
+console.log(\`The area of the square is \${area}\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 3 - Score Calculator ---");
+
+let score1 = parseFloat(prompt("Enter the score for game 1:"));
+let score2 = parseFloat(prompt("Enter the score for game 2:"));
+let score3 = parseFloat(prompt("Enter the score for game 3:"));
+let totalScore = score1 + score2 + score3;
+console.log(\`Your total score for the three games is \${totalScore}!\`);
+
+alert("Press enter to continue...");
+`;
+const Task4 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+
+let age = parseInt(prompt("Enter your age:"));
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 2 - Square Area Calculator ---");
+
+let length = parseFloat(prompt("Enter the length of the square:"));
+let area = length * length;
+console.log(\`The area of the square is \${area}\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 3 - Score Calculator ---");
+
+let score1 = parseFloat(prompt("Enter the score for game 1:"));
+let score2 = parseFloat(prompt("Enter the score for game 2:"));
+let score3 = parseFloat(prompt("Enter the score for game 3:"));
+let totalScore = score1 + score2 + score3;
+console.log(\`Your total score for the three games is \${totalScore}!\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 4 - Shopping Cart Subtotal ---");
+
+let item1Price = parseFloat(prompt("Enter the price of the first item:"));
+let item2Price = parseFloat(prompt("Enter the price of the second item:"));
+let subtotal = item1Price + item2Price;
+console.log(\`The subtotal for your two items is $\${subtotal}.\`);
+
+alert("Press enter to continue...");
+`;
+const Task5 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+
+let age = parseInt(prompt("Enter your age:"));
+console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 2 - Square Area Calculator ---");
+
+let length = parseFloat(prompt("Enter the length of the square:"));
+let area = length * length;
+console.log(\`The area of the square is \${area}\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 3 - Score Calculator ---");
+
+let score1 = parseFloat(prompt("Enter the score for game 1:"));
+let score2 = parseFloat(prompt("Enter the score for game 2:"));
+let score3 = parseFloat(prompt("Enter the score for game 3:"));
+let totalScore = score1 + score2 + score3;
+console.log(\`Your total score for the three games is \${totalScore}!\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 4 - Shopping Cart Subtotal ---");
+
+let item1Price = parseFloat(prompt("Enter the price of the first item:"));
+let item2Price = parseFloat(prompt("Enter the price of the second item:"));
+let subtotal = item1Price + item2Price;
+console.log(\`The subtotal for your two items is $\${subtotal}.\`);
+
+alert("Press enter to continue...");
+
+console.log("--- Demo 5 - Hours to Minutes Converter ---");
+
+let hours = parseFloat(prompt("Enter a number of hours:"));
+let minutes = hours * 60;
+console.log(\`\${hours} hours is equal to \${minutes} minutes.\`);
+`;
+const SampleOutput = `--- Demo 1 - Age to Months Calculator ---
+Enter your age: 35
+You are 35 years old. That's 420 months old!
+Press enter to continue... [Enter]
+
+--- Demo 2 - Square Area Calculator ---
+Enter the length of the square: 11.5
+The area of the square is 132.25
+Press enter to continue... [Enter]
+
+--- Demo 3 - Score Calculator ---
+Enter the score for game 1: 45
+Enter the score for game 2: 64
+Enter the score for game 3: 99
+Your total score for the three games is 208!
+Press enter to continue... [Enter]
+
+--- Demo 4 - Shopping Cart Subtotal ---
+Enter the price of the first item: 12.50
+Enter the price of the second item: 10
+The subtotal for your two items is $22.5.
+Press enter to continue... [Enter]
+
+--- Demo 5 - Hours to Minutes Converter ---
+Enter a number of hours: 12
+12 hours is equal to 720 minutes.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.8: Numeric Input</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.8</h2>
+              <h3 class="text-sn-theme">Numeric Input</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Type Casting</p>
+              <p>parseInt() and parseFloat()</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Problem</h2>
+              <p><code>prompt()</code> always returns a string &mdash; even if the user types a number.</p>
+              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
+              <p class="fragment">
+                <code>+</code> is used for both adding numbers and joining
+                text, so when both sides are strings, JavaScript joins them
+                instead of adding.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Fix: Type Casting</h2>
+              <p>
+                <b class="text-sn-theme">parseInt()</b> and
+                <b class="text-sn-theme">parseFloat()</b> convert a string
+                into an actual number &mdash; a whole number, or one with
+                decimals.
+              </p>
+              <Code code={Figure2} frame="code" lang="javascript" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Word of Caution</h2>
+              <p>
+                If the user types something that isn't a number,
+                <code>parseInt()</code>/<code>parseFloat()</code> won't
+                crash your program &mdash; they'll silently return
+                <b class="text-sn-theme">NaN</b> ("Not a Number"), and any
+                math done with it becomes <code>NaN</code> too.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Converting <code>prompt()</code> input into numbers</li>
+                <li>Choosing between <code>parseInt()</code> and <code>parseFloat()</code></li>
+                <li>Doing math on converted input</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Type Casting</dt>
+                  <dd>Converting a value from one type to another, like a string to a number.</dd>
+                  <dt>parseInt()</dt>
+                  <dd>Converts a string into a whole number.</dd>
+                  <dt>parseFloat()</dt>
+                  <dd>Converts a string into a number that can have decimals.</dd>
+                  <dt>NaN</dt>
+                  <dd>"Not a Number" &mdash; the result of trying to convert something that isn't a valid number.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new JavaScript file named <b class="text-sn-theme">1-8-numeric-input.js</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Age to Months Calculator</h3>
+          <ul>
+            <li>Ask the user's age, converting it with <code>parseInt()</code>.</li>
+            <li>Print their age in months.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="javascript" title="1-8-numeric-input.js" mark="3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Square Area Calculator</h3>
+          <ul>
+            <li>Ask for the length of a square's side, converting it with <code>parseFloat()</code>.</li>
+            <li>Print the square's area.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="javascript" title="1-8-numeric-input.js" mark="10" ins="8-14" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Score Calculator</h3>
+          <ul>
+            <li>Ask for three game scores, converting each with <code>parseFloat()</code>.</li>
+            <li>Print their total.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="javascript" title="1-8-numeric-input.js" mark="18-20" ins="16-24" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Shopping Cart Subtotal</h3>
+          <ul>
+            <li>Ask for the prices of two items, converting each with <code>parseFloat()</code>.</li>
+            <li>Print their subtotal.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="javascript" title="1-8-numeric-input.js" mark="28-29" ins="26-33" />
+
+          <hr class="my-4" />
+
+          <h3>Task 5: Hours to Minutes Converter</h3>
+          <ul>
+            <li>Ask for a number of hours, converting it with <code>parseFloat()</code>.</li>
+            <li>Print the equivalent number of minutes.</li>
+          </ul>
+
+          <Code code={Task5} frame="code" lang="javascript" title="1-8-numeric-input.js" mark="37" ins="35-39" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Why does <code>prompt()</code> always give back a string, even if the user types a number?</li>
+            <li>What's the difference between <code>parseInt()</code> and <code>parseFloat()</code>? When would you use one over the other?</li>
+            <li>What do you think <code>parseFloat("banana")</code> would return? What might happen if you tried to do math with that result?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

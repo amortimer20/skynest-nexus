@@ -1,0 +1,392 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `let name = prompt("Enter your name:");
+console.log(\`Hello \${name}!\`);`;
+const Figure2 = `console.log("Section 1");
+alert("Press enter to continue");
+console.log("Section 2");`;
+const Task1 = `console.log("--- Demo 1 - Simple To-Do List ---");
+console.log("Let's add a few tasks to your list.");
+
+let task1 = prompt("Task 1:");
+let task2 = prompt("Task 2:");
+let task3 = prompt("Task 3:");
+
+console.log();
+console.log("Your To-Do List:");
+console.log(\`1. \${task1}\`);
+console.log(\`2. \${task2}\`);
+console.log(\`3. \${task3}\`);
+alert("Press enter to continue...");
+`;
+const Task2 = `console.log("--- Demo 1 - Simple To-Do List ---");
+console.log("Let's add a few tasks to your list.");
+
+let task1 = prompt("Task 1:");
+let task2 = prompt("Task 2:");
+let task3 = prompt("Task 3:");
+
+console.log();
+console.log("Your To-Do List:");
+console.log(\`1. \${task1}\`);
+console.log(\`2. \${task2}\`);
+console.log(\`3. \${task3}\`);
+alert("Press enter to continue...");
+
+console.log("--- Demo 2 - User Profile Setup ---");
+console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
+
+let username = prompt("Enter your username:");
+let subject = prompt("What's your favorite subject in school?");
+
+console.log("Choose your preferred after-school activity:");
+console.log("- Sports");
+console.log("- Music");
+console.log("- Gaming");
+console.log("- Volunteering");
+let activity = prompt("->");
+
+console.log();
+console.log("- Creating your profile -");
+console.log(\`NAME: \${username}\`);
+console.log(\`FAVORITE SUBJECT: \${subject}\`);
+console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
+alert("Press enter to continue...");
+`;
+const Task3 = `console.log("--- Demo 1 - Simple To-Do List ---");
+console.log("Let's add a few tasks to your list.");
+
+let task1 = prompt("Task 1:");
+let task2 = prompt("Task 2:");
+let task3 = prompt("Task 3:");
+
+console.log();
+console.log("Your To-Do List:");
+console.log(\`1. \${task1}\`);
+console.log(\`2. \${task2}\`);
+console.log(\`3. \${task3}\`);
+alert("Press enter to continue...");
+
+console.log("--- Demo 2 - User Profile Setup ---");
+console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
+
+let username = prompt("Enter your username:");
+let subject = prompt("What's your favorite subject in school?");
+
+console.log("Choose your preferred after-school activity:");
+console.log("- Sports");
+console.log("- Music");
+console.log("- Gaming");
+console.log("- Volunteering");
+let activity = prompt("->");
+
+console.log();
+console.log("- Creating your profile -");
+console.log(\`NAME: \${username}\`);
+console.log(\`FAVORITE SUBJECT: \${subject}\`);
+console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
+alert("Press enter to continue...");
+
+console.log("--- Demo 3 - Simple Survey ---");
+console.log("We'd love to get your feedback!");
+
+let favoriteColor = prompt("What is your favorite color?");
+let favoriteFood = prompt("What is your favorite food?");
+let travelDestination = prompt("Where is a place you would like to travel?");
+
+console.log();
+console.log("- Survey Results -");
+console.log(\`Favorite Color: \${favoriteColor}\`);
+console.log(\`Favorite Food: \${favoriteFood}\`);
+console.log(\`Travel Destination: \${travelDestination}\`);
+alert("Press enter to continue...");
+`;
+const Task4 = `console.log("--- Demo 1 - Simple To-Do List ---");
+console.log("Let's add a few tasks to your list.");
+
+let task1 = prompt("Task 1:");
+let task2 = prompt("Task 2:");
+let task3 = prompt("Task 3:");
+
+console.log();
+console.log("Your To-Do List:");
+console.log(\`1. \${task1}\`);
+console.log(\`2. \${task2}\`);
+console.log(\`3. \${task3}\`);
+alert("Press enter to continue...");
+
+console.log("--- Demo 2 - User Profile Setup ---");
+console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
+
+let username = prompt("Enter your username:");
+let subject = prompt("What's your favorite subject in school?");
+
+console.log("Choose your preferred after-school activity:");
+console.log("- Sports");
+console.log("- Music");
+console.log("- Gaming");
+console.log("- Volunteering");
+let activity = prompt("->");
+
+console.log();
+console.log("- Creating your profile -");
+console.log(\`NAME: \${username}\`);
+console.log(\`FAVORITE SUBJECT: \${subject}\`);
+console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
+alert("Press enter to continue...");
+
+console.log("--- Demo 3 - Simple Survey ---");
+console.log("We'd love to get your feedback!");
+
+let favoriteColor = prompt("What is your favorite color?");
+let favoriteFood = prompt("What is your favorite food?");
+let travelDestination = prompt("Where is a place you would like to travel?");
+
+console.log();
+console.log("- Survey Results -");
+console.log(\`Favorite Color: \${favoriteColor}\`);
+console.log(\`Favorite Food: \${favoriteFood}\`);
+console.log(\`Travel Destination: \${travelDestination}\`);
+alert("Press enter to continue...");
+
+console.log("--- Demo 4 - Fantasy Story Builder ---");
+console.log("Let's create a fantasy story!");
+
+let mainCharacter = prompt("Name your main character:");
+let magicalCreature = prompt("Name a magical creature:");
+let aMagicalPlace = prompt("Name a magical place:");
+
+console.log();
+console.log("- Your Story -");
+console.log(\`Once upon a time, there was a hero named \${mainCharacter}.\`);
+console.log(\`\${mainCharacter} traveled to the \${aMagicalPlace} to seek the legendary \${magicalCreature}.\`);
+console.log("Their quest was just beginning...");
+`;
+const SampleOutput = `--- Demo 1 - Simple To-Do List ---
+Let's add a few tasks to your list.
+Task 1: Do Homework
+Task 2: Cook Dinner
+Task 3: Clean Bedroom
+
+Your To-Do List:
+1. Do Homework
+2. Cook Dinner
+3. Clean Bedroom
+Press enter to continue... [Enter]
+
+--- Demo 2 - User Profile Setup ---
+WELCOME! LET'S SET UP YOUR PROFILE...
+Enter your username: amortimer
+What's your favorite subject in school? Computer Science
+Choose your preferred after-school activity:
+- Sports
+- Music
+- Gaming
+- Volunteering
+-> Gaming
+
+- Creating your profile -
+NAME: amortimer
+FAVORITE SUBJECT: Computer Science
+AFTER-SCHOOL ACTIVITY: Gaming
+Press enter to continue... [Enter]
+
+--- Demo 3 - Simple Survey ---
+We'd love to get your feedback!
+What is your favorite color? purple
+What is your favorite food? pizza
+Where is a place you would like to travel? Japan
+
+- Survey Results -
+Favorite Color: purple
+Favorite Food: pizza
+Travel Destination: Japan
+Press enter to continue... [Enter]
+
+--- Demo 4 - Fantasy Story Builder ---
+Let's create a fantasy story!
+Name your main character: Ada
+Name a magical creature: Griffin
+Name a magical place: Cleveland
+
+- Your Story -
+Once upon a time, there was a hero named Ada.
+Ada traveled to the Cleveland to seek the legendary Griffin.
+Their quest was just beginning...`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.7: Console Input</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.7</h2>
+              <h3 class="text-sn-theme">Console Input</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>prompt()</p>
+              <p>alert()</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Getting Input</h2>
+              <p>
+                <b class="text-sn-theme">prompt()</b> asks the user a
+                question and gives back whatever they type as a string.
+              </p>
+              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Pausing with alert()</h2>
+              <p>
+                When a program runs several demos back to back,
+                <b class="text-sn-theme">alert()</b> pauses execution until
+                the user presses enter &mdash; giving them a chance to read
+                the output before it moves on.
+              </p>
+              <Code code={Figure2} frame="code" lang="javascript" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Gathering input from the user with <code>prompt()</code></li>
+                <li>Interpolating that input into output</li>
+                <li>Pausing between demos with <code>alert()</code></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>prompt()</dt>
+                  <dd>Asks the user a question and returns what they typed, as a string.</dd>
+                  <dt>alert()</dt>
+                  <dd>Pauses the program until the user presses enter.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new JavaScript file named <b class="text-sn-theme">1-7-console-input.js</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Simple To-Do List</h3>
+          <ul>
+            <li>Ask the user for three tasks.</li>
+            <li>Print them back as a numbered list.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="javascript" title="1-7-console-input.js" mark="4-6" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: User Profile Setup</h3>
+          <ul>
+            <li>Ask the user for a username, favorite subject, and after-school activity.</li>
+            <li>Print a short profile summary.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="javascript" title="1-7-console-input.js" mark="18-19,26" ins="15-33" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Simple Survey</h3>
+          <ul>
+            <li>Ask the user three survey questions.</li>
+            <li>Print the results.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="javascript" title="1-7-console-input.js" mark="38-40" ins="35-47" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Fantasy Story Builder</h3>
+          <ul>
+            <li>Ask the user for a main character, a magical creature, and a magical place.</li>
+            <li>Interpolate their answers into a short story.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="javascript" title="1-7-console-input.js" mark="52-54" ins="49-60" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What does <code>prompt()</code> give back to your program &mdash; and what type of value is it, always?</li>
+            <li>Why does this program use <code>alert()</code> between demos instead of just letting all four run back to back?</li>
+            <li>Pick one of the four demos. What's one other question you could add to make it more interesting?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

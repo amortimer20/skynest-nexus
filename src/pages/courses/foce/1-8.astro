@@ -1,0 +1,494 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `
+age = input("How old are you? ")
+print(age + 1)`;
+const Figure2 = `
+How old are you? 16
+TypeError: can only concatenate str (not "int") to str`;
+const Figure3 = `
+age = input("How old are you? ")
+age = int(age)
+
+print(age + 1)`;
+const Figure4 = `
+How old are you? 16
+17`;
+const Figure5 = `
+age = int(input("How old are you? "))
+
+print(age + 1)`;
+const Figure6 = `
+How old are you? 16
+17`;
+const Task1 = `
+age = int(input("How old are you? "))
+months = age * 12
+
+print(f"You are approximately {months} months old.")`;
+const Task2 = `
+age = int(input("How old are you? "))
+months = age * 12
+
+print(f"You are approximately {months} months old.")
+
+length = float(input("What is the length of the rectangle? "))
+width = float(input("What is the width of the rectangle? "))
+area = length * width
+
+print(f"The area of the rectangle is {area}.")`;
+const Task3 = `
+age = int(input("How old are you? "))
+months = age * 12
+
+print(f"You are approximately {months} months old.")
+
+length = float(input("What is the length of the rectangle? "))
+width = float(input("What is the width of the rectangle? "))
+area = length * width
+
+print(f"The area of the rectangle is {area}.")
+
+score1 = int(input("Enter your first quiz score: "))
+score2 = int(input("Enter your second quiz score: "))
+average = (score1 + score2) / 2
+
+print(f"Your average quiz score is {average}.")`;
+const ExampleOutput = `
+How old are you? 16
+You are approximately 192 months old.
+What is the length of the rectangle? 4.5
+What is the width of the rectangle? 2
+The area of the rectangle is 9.0.
+Enter your first quiz score: 88
+Enter your second quiz score: 94
+Your average quiz score is 91.0.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.8: Console Input and Type Casting</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.8</h2>
+              <h3 class="text-sn-theme">Console Input and Type Casting</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Turning Text Into Numbers</p>
+              <p>
+                <CodeSnippet
+                  code="int()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> and <CodeSnippet
+                  code="float()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Problem</h2>
+              <p>
+                <CodeSnippet
+                  code="input()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> always returns a string &mdash; even if the user types a
+                number. Python won't let you do math with a string.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Problem</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Type Casting</h2>
+              <p>
+                Wrap a string in <CodeSnippet
+                  code="int()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> to convert it to a whole number, so it can be used in math.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Type Casting</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Nesting Function Calls</h2>
+              <p>
+                Instead of casting on a separate line, you can nest <CodeSnippet
+                  code="input()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> directly inside <CodeSnippet
+                  code="int()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> to do it in one step.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Nesting Function Calls</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>
+                <CodeSnippet
+                  code="int()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> vs. <CodeSnippet
+                  code="float()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </h2>
+              <ul>
+                <li>
+                  Use <CodeSnippet
+                    code="int()"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> for whole numbers.
+                </li>
+                <li>
+                  Use <CodeSnippet
+                    code="float()"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> for decimal numbers.
+                </li>
+                <li>
+                  Typing something that isn't a number, like <CodeSnippet
+                    code="int('abc')"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  />, crashes the program with a <CodeSnippet
+                    code="ValueError"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> &mdash; be sure to type valid numbers when testing.
+                </li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Converting input to a number with <CodeSnippet
+                    code="int()"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> and <CodeSnippet
+                    code="float()"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /></li>
+                <li>Nesting <CodeSnippet
+                    code="input()"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> inside a casting function</li>
+                <li>Using converted input in arithmetic</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Type Casting</dt>
+                  <dd>Converting a value from one data type to another.</dd>
+                  <dt>int()</dt>
+                  <dd>Converts a value into a whole number.</dd>
+                  <dt>float()</dt>
+                  <dd>Converts a value into a decimal number.</dd>
+                  <dt>Nested Function Call</dt>
+                  <dd>A function call placed inside another function call, evaluated from the inside out.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>Python</b> program named <b class="text-sn-theme"
+              >1-8-type-casting.py</b
+            >.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Note</b>: since we haven't learned how to
+            handle input errors yet, make sure you type actual numbers when
+            testing your program. Typing letters into <CodeSnippet
+              code="int()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> or <CodeSnippet
+              code="float()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> will crash your program.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Age in Months</h3>
+          <ul>
+            <li>Ask the user for their age, cast it to an <CodeSnippet
+                code="int"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.</li>
+            <li>
+              Multiply it by 12 and print the result in months using an
+              f-string.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="python"
+            title="1-8-type-casting.py"
+            mark={{ label: "Stop and run your code", range: "5" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Rectangle Area</h3>
+          <ul>
+            <li>
+              Ask the user for a rectangle's length and width, casting each to
+              a <CodeSnippet
+                code="float"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Multiply them together and print the area using an f-string.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="python"
+            title="1-8-type-casting.py"
+            mark={{ label: "Stop and run your code", range: "11" }}
+            ins={{ range: "6-11" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Quiz Average</h3>
+          <ul>
+            <li>
+              Ask the user for two quiz scores, casting each to an <CodeSnippet
+                code="int"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Print their average using an f-string.</li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="python"
+            title="1-8-type-casting.py"
+            mark={{ label: "Stop and run your code", range: "17" }}
+            ins={{ range: "12-17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Hours to Minutes</h3>
+          <ul>
+            <li>
+              Ask the user for a number of hours, cast it appropriately, and
+              print the equivalent number of minutes using an f-string.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What happens if you try to add <CodeSnippet
+                code="1"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> directly to the result of <CodeSnippet
+                code="input()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> without casting it first?
+            </li>
+            <li>
+              When would you choose <CodeSnippet
+                code="int()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> over <CodeSnippet
+                code="float()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, or vice versa?
+            </li>
+            <li>
+              What do you think would happen if a user typed a word instead of
+              a number into one of your programs? What might a program want to
+              do instead of crashing?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

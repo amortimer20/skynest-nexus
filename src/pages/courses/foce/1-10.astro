@@ -1,0 +1,390 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `age = int(input("Enter your age: "))
+
+if age >= 16:
+    print("You can drive!")`;
+const Figure2 = `if age >= 16:
+    print("You can drive!")`;
+const Figure3 = `Enter your age: 17
+You can drive!`;
+const Figure4 = `Enter your age: 12
+[No output]`;
+const Task1 = `print("--- Demo 1 - Age Validator ---")
+
+user_age = int(input("Enter your age:"))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    full_name = input("Enter your full name:")
+    election_year = input("What year will you run?")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')?")
+
+    print(f"{nick_name} {full_name} for president in {election_year}!")
+
+input("Press enter to continue...")
+`;
+const Task2 = `print("--- Demo 1 - Age Validator ---")
+
+user_age = int(input("Enter your age:"))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    full_name = input("Enter your full name:")
+    election_year = input("What year will you run?")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')?")
+
+    print(f"{nick_name} {full_name} for president in {election_year}!")
+
+input("Press enter to continue...")
+
+print("--- Demo 2 - Simple Score Calculator ---")
+
+score = int(input("Enter your score (0-100):"))
+
+if score >= 60:
+    print("You passed!")
+
+if score < 60:
+    print("You did not pass. Keep studying!")
+
+input("Press enter to continue...")
+`;
+const Task3 = `print("--- Demo 1 - Age Validator ---")
+
+user_age = int(input("Enter your age:"))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    full_name = input("Enter your full name:")
+    election_year = input("What year will you run?")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')?")
+
+    print(f"{nick_name} {full_name} for president in {election_year}!")
+
+input("Press enter to continue...")
+
+print("--- Demo 2 - Simple Score Calculator ---")
+
+score = int(input("Enter your score (0-100):"))
+
+if score >= 60:
+    print("You passed!")
+
+if score < 60:
+    print("You did not pass. Keep studying!")
+
+input("Press enter to continue...")
+
+print("--- Demo 3 - Temperature Check ---")
+
+current_temp = int(input("What is the current temperature in Fahrenheit?"))
+
+if current_temp <= 32:
+    print("Brrr! It's freezing. Don't forget your coat!")
+
+# The 'and' operator lets us check if two conditions are true at the same time.
+if current_temp > 32 and current_temp <= 65:
+    print("It's a bit chilly. A light jacket should be perfect.")
+
+if current_temp > 65:
+    print("It's warm outside. Enjoy the nice weather!")
+
+input("Press enter to continue...")
+`;
+const Task4 = `print("--- Demo 1 - Age Validator ---")
+
+user_age = int(input("Enter your age:"))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    full_name = input("Enter your full name:")
+    election_year = input("What year will you run?")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')?")
+
+    print(f"{nick_name} {full_name} for president in {election_year}!")
+
+input("Press enter to continue...")
+
+print("--- Demo 2 - Simple Score Calculator ---")
+
+score = int(input("Enter your score (0-100):"))
+
+if score >= 60:
+    print("You passed!")
+
+if score < 60:
+    print("You did not pass. Keep studying!")
+
+input("Press enter to continue...")
+
+print("--- Demo 3 - Temperature Check ---")
+
+current_temp = int(input("What is the current temperature in Fahrenheit?"))
+
+if current_temp <= 32:
+    print("Brrr! It's freezing. Don't forget your coat!")
+
+# The 'and' operator lets us check if two conditions are true at the same time.
+if current_temp > 32 and current_temp <= 65:
+    print("It's a bit chilly. A light jacket should be perfect.")
+
+if current_temp > 65:
+    print("It's warm outside. Enjoy the nice weather!")
+
+input("Press enter to continue...")
+
+print("--- Demo 4 - Letter Grade Calculator ---")
+
+final_grade = int(input("Enter your final grade percentage (0-100):"))
+
+if final_grade >= 90:
+    print("You got an A! Excellent work!")
+if final_grade >= 80 and final_grade < 90:
+    print("You got a B! Great job!")
+if final_grade >= 70 and final_grade < 80:
+    print("You got a C. Solid effort.")
+if final_grade >= 60 and final_grade < 70:
+    print("You got a D. You passed, but there's room to improve.")
+if final_grade < 60:
+    print("You got an F. Let's review the material and try again.")
+`;
+const SampleOutput = `--- Demo 1 - Age Validator ---
+Enter your age: 35
+Time to hit the road! You've earned your driving permit.
+Adulting 101: You can now vote and live independently.
+Please exit your mom's basement.
+You're old enough to run for president.
+Enter your full name: Anthony Mortimer
+What year will you run? 2028
+What's your nickname (e.g., 'The Awesome')? Sleepy
+Sleepy Anthony Mortimer for president in 2028!
+Press enter to continue...
+--- Demo 2 - Simple Score Calculator ---
+Enter your score (0-100): 76
+You passed!
+Press enter to continue...
+--- Demo 3 - Temperature Check ---
+What is the current temperature in Fahrenheit? 76
+It's warm outside. Enjoy the nice weather!
+Press enter to continue...
+--- Demo 4 - Letter Grade Calculator ---
+Enter your final grade percentage (0-100): 66
+You got a D. You passed, but there's room to improve.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.10: If Statements</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.10</h2>
+              <h3 class="text-sn-theme">If Statements</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>The if Statement</p>
+              <p>Code Blocks</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The if Statement</h2>
+              <p>
+                An <b class="text-sn-theme">if statement</b> runs a block of
+                code only when its condition is <code>True</code>.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Indentation Defines the Block</h2>
+              <p>
+                Python doesn't use curly braces to mark a code block &mdash;
+                it uses a colon and <b>indentation</b>. Every indented line
+                right after the <code>if</code> belongs to it.
+              </p>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Only Runs When True</h2>
+              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
+              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} class="mt-2" />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Multiple Independent Checks</h2>
+              <p>
+                You can write several <code>if</code> statements in a row
+                &mdash; each one is checked independently, so more than one
+                can run.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing an <code>if</code> statement</li>
+                <li>Using indentation to define a code block</li>
+                <li>Writing several independent <code>if</code> checks in one program</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>if Statement</dt>
+                  <dd>Runs a block of code only when its condition is <code>True</code>.</dd>
+                  <dt>Condition</dt>
+                  <dd>The boolean expression an <code>if</code> statement checks.</dd>
+                  <dt>Code Block</dt>
+                  <dd>A group of statements, marked in Python by indentation.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-10-if-statements.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Age Validator</h3>
+          <ul>
+            <li>Check the user's age against three independent milestones (16, 18, 35).</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-10-if-statements.py" mark="5-6,8-10,12-18" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Simple Score Calculator</h3>
+          <ul>
+            <li>Check whether a score of 0-100 passes or fails.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-10-if-statements.py" mark="26-27,29-30" ins="22-32" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Temperature Check</h3>
+          <ul>
+            <li>Check a Fahrenheit temperature against three ranges, using <code>and</code> for the middle range.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-10-if-statements.py" mark="42-43" ins="34-48" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Letter Grade Calculator</h3>
+          <ul>
+            <li>Check a grade percentage against five independent letter-grade ranges.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="1-10-if-statements.py" mark="54-63" ins="50-63" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>How does Python know which lines belong inside an <code>if</code> statement's block?</li>
+            <li>In the Letter Grade Calculator, why does each range (like the B range) need two conditions joined by <code>and</code>?</li>
+            <li>What would happen to the Age Validator if you entered an age of 10? Which messages, if any, would print?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

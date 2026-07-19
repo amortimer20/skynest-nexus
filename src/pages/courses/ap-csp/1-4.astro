@@ -1,0 +1,312 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `console.log(-1953);
+console.log(1_000_000);`;
+const Figure2 = `console.log(10 * 10.2);
+console.log(450 / 5);
+console.log(10 % 3);`;
+const Task1 = `let amount1 = 1000;
+let amount2 = 500.96;
+
+console.log("Adding 1000 and 500.96:");
+console.log(amount1 + amount2);
+
+let apples = 3;
+
+console.log("Apples after eating one:");
+console.log(apples - 1);
+`;
+const Task2 = `let amount1 = 1000;
+let amount2 = 500.96;
+
+console.log("Adding 1000 and 500.96:");
+console.log(amount1 + amount2);
+
+let apples = 3;
+
+console.log("Apples after eating one:");
+console.log(apples - 1);
+
+let age = 30;
+
+console.log("Age in months:");
+console.log(age * 12);
+
+let pizzaSlices = 8;
+let people = 2;
+
+console.log("Pizza slices per person:");
+console.log(pizzaSlices / people);
+`;
+const Task3 = `let amount1 = 1000;
+let amount2 = 500.96;
+
+console.log("Adding 1000 and 500.96:");
+console.log(amount1 + amount2);
+
+let apples = 3;
+
+console.log("Apples after eating one:");
+console.log(apples - 1);
+
+let age = 30;
+
+console.log("Age in months:");
+console.log(age * 12);
+
+let pizzaSlices = 8;
+let people = 2;
+
+console.log("Pizza slices per person:");
+console.log(pizzaSlices / people);
+
+let totalDollars = 100;
+let numPeople = 6;
+
+console.log("Leftover dollars after splitting evenly:");
+console.log(totalDollars % numPeople);
+`;
+const Task4 = `let amount1 = 1000;
+let amount2 = 500.96;
+
+console.log("Adding 1000 and 500.96:");
+console.log(amount1 + amount2);
+
+let apples = 3;
+
+console.log("Apples after eating one:");
+console.log(apples - 1);
+
+let age = 30;
+
+console.log("Age in months:");
+console.log(age * 12);
+
+let pizzaSlices = 8;
+let people = 2;
+
+console.log("Pizza slices per person:");
+console.log(pizzaSlices / people);
+
+let totalDollars = 100;
+let numPeople = 6;
+
+console.log("Leftover dollars after splitting evenly:");
+console.log(totalDollars % numPeople);
+
+let x = 4;
+let y = 10;
+let z = 12;
+
+console.log("x * y + z equals:");
+console.log(x * y + z);
+console.log("x * (y + z) equals:");
+console.log(x * (y + z));
+`;
+const SampleOutput = `Adding 1000 and 500.96:
+1500.96
+Apples after eating one:
+2
+Age in months:
+360
+Pizza slices per person:
+4
+Leftover dollars after splitting evenly:
+4
+x * y + z equals:
+52
+x * (y + z) equals:
+88`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.4: Arithmetic Operations</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.4</h2>
+              <h3 class="text-sn-theme">Arithmetic Operations</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Arithmetic Operators</p>
+              <p>Order of Operations</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Numbers in JavaScript</h2>
+              <p>Numbers can be negative, and long numbers can use underscores to stay readable.</p>
+              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Arithmetic Operators</h2>
+              <ul>
+                <li class="fragment"><CodeSnippet code="+" lang="javascript" theme="material-theme-ocean" inline /> Addition</li>
+                <li class="fragment"><CodeSnippet code="-" lang="javascript" theme="material-theme-ocean" inline /> Subtraction</li>
+                <li class="fragment"><CodeSnippet code="*" lang="javascript" theme="material-theme-ocean" inline /> Multiplication</li>
+                <li class="fragment"><CodeSnippet code="/" lang="javascript" theme="material-theme-ocean" inline /> Division</li>
+                <li class="fragment"><CodeSnippet code="%" lang="javascript" theme="material-theme-ocean" inline /> Modulus (remainder)</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Modulus</h2>
+              <p>The <CodeSnippet code="%" lang="javascript" theme="material-theme-ocean" inline /> operator gives you the <b class="text-sn-theme">remainder</b> left over after division.</p>
+              <Code code={Figure2} frame="code" lang="javascript" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Order of Operations</h2>
+              <p>
+                JavaScript follows the same order of operations you use in
+                math class &mdash; multiplication and division happen before
+                addition and subtraction, unless parentheses say otherwise.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Using arithmetic operators on variables</li>
+                <li>Using the modulus operator to find a remainder</li>
+                <li>Controlling order of operations with parentheses</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Operator</dt>
+                  <dd>A symbol that performs an operation on values, like <code>+</code> or <code>*</code>.</dd>
+                  <dt>Modulus</dt>
+                  <dd>The remainder left over after division, using <code>%</code>.</dd>
+                  <dt>Order of Operations</dt>
+                  <dd>The rules that decide which operations happen first in an expression.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new JavaScript file named <b class="text-sn-theme">1-4-arithmetic.js</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Addition and Subtraction</h3>
+          <ul>
+            <li>Declare two variables and add them together.</li>
+            <li>Declare a variable and subtract from it.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="javascript" title="1-4-arithmetic.js" mark="1-2" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Multiplication and Division</h3>
+          <ul>
+            <li>Use multiplication to convert an age in years to months.</li>
+            <li>Use division to split a number of pizza slices evenly among people.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="javascript" title="1-4-arithmetic.js" mark="12,17-18" ins="12-21" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Modulus</h3>
+          <ul>
+            <li>Use the modulus operator to find how many dollars are left over after splitting a total evenly among a group.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="javascript" title="1-4-arithmetic.js" mark="23-24" ins="23-27" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Order of Operations</h3>
+          <ul>
+            <li>Write an expression that relies on order of operations, and another that uses parentheses to change the result.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="javascript" title="1-4-arithmetic.js" mark="29-31" ins="29-36" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What does the modulus operator (<code>%</code>) actually calculate?</li>
+            <li>
+              What is the result of <code>4 * 10 + 12</code>? What about
+              <code>4 * (10 + 12)</code>? Why are they different?
+            </li>
+            <li>Why is it useful to store values in variables before doing arithmetic on them, instead of typing the raw numbers directly?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

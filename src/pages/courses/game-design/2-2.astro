@@ -1,0 +1,262 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+
+import SceneTreeDiagram from "../../../assets/courses/game-design/img/scene-tree-diagram.svg";
+import CoordinateSystemDiagram from "../../../assets/courses/game-design/img/2d-coordinate-system-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/game-design/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.2: The Scene Tree, Coordinate Space, and Draw Order</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.2</h2>
+              <h3 class="text-sn-theme">The Scene Tree, Coordinate Space, and Draw Order</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>The Scene Tree</p>
+              <p>2D Coordinate Systems</p>
+              <p>Parent &amp; Child Nodes</p>
+              <p>Draw Order</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Scene Tree</h2>
+              <p>
+                Every scene you build is really a small tree of Nodes. When
+                your game runs, all of those smaller trees plug together into
+                one big <b class="text-sn-theme">Scene Tree</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Scene Tree</h2>
+              <Image src={SceneTreeDiagram} alt="Diagram showing a Game root node with Player and Asteroids as children, and three Asteroid instances nested under Asteroids" width={680} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>2D Coordinate Systems</h2>
+              <p>
+                Every 2D game needs a way to describe where things are.
+                Godot's isn't quite the same as the graph you'd draw in math
+                class.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>2D Coordinate Systems</h2>
+              <Image src={CoordinateSystemDiagram} alt="Diagram showing Godot's 2D coordinate system with the origin at the top-left corner, X increasing to the right, and Y increasing downward" width={520} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Parent &amp; Child Nodes</h2>
+              <p>
+                A parent Node can hold child Nodes purely for organization
+                &mdash; grouping related objects together under one empty
+                Node2D keeps a busy scene tree readable.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Draw Order &amp; Z Index</h2>
+              <p>
+                By default, Nodes later in the tree draw on top of Nodes
+                earlier in the tree. <b class="text-sn-theme">Z Index</b>
+                lets you override that, regardless of tree order.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Adding a second reusable scene (Asteroid) alongside Player</li>
+                <li>Reading and reasoning about Godot's coordinate system</li>
+                <li>Organizing nodes with an empty parent Node2D</li>
+                <li>Controlling what draws on top with Z Index</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Scene Tree</dt>
+                  <dd>The full hierarchy of every Node in a running game.</dd>
+                  <dt>Coordinate System</dt>
+                  <dd>The way a game represents position &mdash; in Godot, the origin (0, 0) is the top-left corner.</dd>
+                  <dt>Parent Node</dt>
+                  <dd>A Node that contains other Nodes as children.</dd>
+                  <dt>Child Node</dt>
+                  <dd>A Node contained within a parent Node.</dd>
+                  <dt>Z Index</dt>
+                  <dd>A value controlling draw order, independent of a Node's position in the tree.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>Continue working in the project from last activity.</p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Add an Asteroid Scene</h3>
+          <ul>
+            <li><b>Watch:</b> Section 2, Lecture 2.6 &mdash; The Scene Tree (05:45)</li>
+            <li>
+              Build a new Asteroid scene &mdash; same pattern as Player:
+              RigidBody2D root, Sprite2D child, CollisionShape2D child.
+            </li>
+            <li>Instance a few Asteroids into your Game scene alongside your Players.</li>
+          </ul>
+
+          <!-- GIF: Building the Asteroid scene and instancing it into Game -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Building and Instancing the Asteroid Scene]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Explore the Coordinate System</h3>
+          <ul>
+            <li><b>Watch:</b> Section 2, Lecture 2.7 &mdash; 2D Coordinate System (05:07)</li>
+            <li>
+              Drag your Player and Asteroid instances around the Viewport,
+              watching their Position values change in the Inspector.
+            </li>
+            <li>Note which direction increases X, and which direction increases Y.</li>
+          </ul>
+
+          <!-- GIF: Dragging nodes and watching Position values in the Inspector -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Exploring Position in the Inspector]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Group with Parent and Child Nodes</h3>
+          <ul>
+            <li><b>Watch:</b> Section 2, Lecture 2.8 &mdash; Parent &amp; Child Nodes (06:41)</li>
+            <li>Add an empty Node2D to your Game scene, named "Asteroids".</li>
+            <li>Move your Asteroid instances so they become children of "Asteroids" instead of children of "Game".</li>
+          </ul>
+
+          <!-- GIF: Grouping Asteroid instances under an empty Node2D -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Grouping with a Parent Node]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Control Draw Order</h3>
+          <ul>
+            <li><b>Watch:</b> Section 2, Lecture 2.9 &mdash; Draw Order &amp; Z Index (06:04)</li>
+            <li>Give your "Asteroids" group a Z Index of 50.</li>
+            <li>Give your Player instances a Z Index of 100, so Player always draws on top.</li>
+          </ul>
+
+          <!-- GIF: Setting Z Index on Asteroids and Player -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Setting Z Index]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>You should see the following in the Godot editor:</p>
+          <ul>
+            <li>The Scene panel shows "Asteroids" as a parent node, with your Asteroid instances nested inside it as children.</li>
+            <li>Your Player instances always render on top of any overlapping asteroids, regardless of tree order.</li>
+          </ul>
+
+          <!-- Screenshot: the Scene panel hierarchy and the resulting draw order -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Final Scene Hierarchy and Draw Order]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              In Godot's coordinate system, which direction does the Y-axis
+              increase &mdash; up or down? How is that different from a
+              graph in math class?
+            </li>
+            <li>
+              What's one advantage of grouping several nodes under an empty
+              parent Node2D, instead of leaving them all as direct children
+              of the root?
+            </li>
+            <li>
+              If two overlapping sprites are siblings in the scene tree,
+              which one draws on top by default &mdash; and how can Z Index
+              change that?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,396 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `
+health = 100
+print(health)
+
+health = 50
+print(health)`;
+const Figure2 = `
+100
+50`;
+const Figure3 = `
+health = 100
+print(health)
+
+health = health - 20
+print(health)`;
+const Figure4 = `
+100
+80`;
+const Task1 = `
+health = 100
+score = 0
+
+print("Health:", health)
+print("Score:", score)`;
+const Task2 = `
+health = 100
+score = 0
+
+print("Health:", health)
+print("Score:", score)
+
+health = health - 30
+print("Health:", health)`;
+const Task3 = `
+health = 100
+score = 0
+
+print("Health:", health)
+print("Score:", score)
+
+health = health - 30
+print("Health:", health)
+
+score = score + 50
+print("Score:", score)
+
+score = score + 25
+print("Score:", score)`;
+const ExampleOutput = `
+Health: 100
+Score: 0
+Health: 70
+Score: 50
+Score: 75`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.5: Variable Reassignment</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.5</h2>
+              <h3 class="text-sn-theme">Variable Reassignment</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Changing Values Over Time</p>
+              <p>Reassignment and Self-Referential Updates</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Reassigning a Variable</h2>
+              <p>
+                Once a variable exists, you can give it a new value at any
+                time &mdash; just write the variable name and a new value.
+                No <CodeSnippet
+                  code="let"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> or special keyword needed in Python.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Reassigning a Variable</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Self-Referential Updates</h2>
+              <p>
+                A variable can even appear on <b>both sides</b> of the <CodeSnippet
+                  code="="
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> sign. Python evaluates the right side first using the
+                <b>old</b> value, then stores the result as the <b>new</b> value.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Self-Referential Updates</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Reassigning a variable's value</li>
+                <li>Updating a variable based on its own current value</li>
+                <li>Tracking a value as it changes over time</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Reassignment</dt>
+                  <dd>Giving an existing variable a new value.</dd>
+                  <dt>Self-Referential Update</dt>
+                  <dd>
+                    An assignment where a variable's current value is used to
+                    compute its new value, like <CodeSnippet
+                      code="health = health - 20"
+                      lang={"python"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />.
+                  </dd>
+                  <dt>State</dt>
+                  <dd>The current value(s) a program is keeping track of at a given moment.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>Python</b> program named <b class="text-sn-theme"
+              >1-5-reassignment.py</b
+            >.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Start With a Value</h3>
+          <ul>
+            <li>
+              Create a <CodeSnippet
+                code="health"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variable set to <CodeSnippet
+                code="100"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and a <CodeSnippet
+                code="score"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variable set to <CodeSnippet
+                code="0"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Print each variable with a label.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="python"
+            title="1-5-reassignment.py"
+            mark={{ label: "Stop and run your code", range: "6" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Take Damage</h3>
+          <ul>
+            <li>
+              Reassign <CodeSnippet
+                code="health"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to itself minus <CodeSnippet
+                code="30"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Print the updated value with a label.</li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="python"
+            title="1-5-reassignment.py"
+            mark={{ label: "Stop and run your code", range: "9" }}
+            ins={{ range: "7-9" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Earn Points</h3>
+          <ul>
+            <li>
+              Reassign <CodeSnippet
+                code="score"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to itself plus <CodeSnippet
+                code="50"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, then print it.
+            </li>
+            <li>
+              Reassign <CodeSnippet
+                code="score"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to itself plus <CodeSnippet
+                code="25"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> a second time, then print it again.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="python"
+            title="1-5-reassignment.py"
+            mark={{ label: "Stop and run your code", range: "15" }}
+            ins={{ range: "10-15" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Heal Up</h3>
+          <ul>
+            <li>
+              Reassign <CodeSnippet
+                code="health"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> one more time to represent healing (add some points back),
+              then print the updated value.
+            </li>
+            <li>Compare the final value to the value you started with.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What is the difference between declaring a variable and
+              reassigning it?
+            </li>
+            <li>
+              In <CodeSnippet
+                code="health = health - 30"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, which value does Python use to compute the right side of the
+              <CodeSnippet
+                code="="
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> &mdash; the old value or the new value?
+            </li>
+            <li>
+              Why might a program need to update the same variable more than
+              once while it's running?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

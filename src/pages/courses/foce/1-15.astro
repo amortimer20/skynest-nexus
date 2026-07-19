@@ -1,0 +1,367 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `round = 5  # Shadows Python's built-in round() function!
+round_num = 5  # Better -- doesn't collide with anything`;
+const Figure2 = `elif (
+    (player == "rock" and computer == "scissors")
+    or (player == "paper" and computer == "rock")
+    or (player == "scissors" and computer == "paper")
+):
+    print("-YOU WIN-")`;
+const Figure3 = `play_again = input("Play again? (y/n):").lower()
+playing = play_again == "y"`;
+const Task1 = `import random
+
+wins = 0
+losses = 0
+round_num = 1
+playing = True
+player = ""
+computer = ""
+
+# Rules:
+# Rock smashes Scissors
+# Paper covers Rock
+# Scissors cuts Paper
+
+print("--- Rock, Paper, Scissors ---")
+`;
+const Task2 = `import random
+
+wins = 0
+losses = 0
+round_num = 1
+playing = True
+player = ""
+computer = ""
+
+# Rules:
+# Rock smashes Scissors
+# Paper covers Rock
+# Scissors cuts Paper
+
+print("--- Rock, Paper, Scissors ---")
+
+while playing:
+    print(f"Round {round_num}")
+    print(f"W: {wins} - L: {losses}")
+
+    player = input("(rock, paper, scissors):").lower()
+
+    random_num = random.randint(0, 2)
+
+    if random_num == 0:
+        computer = "rock"
+    elif random_num == 1:
+        computer = "paper"
+    else:
+        computer = "scissors"
+
+    print(f"Computer chooses {computer}!")
+`;
+const Task3 = `import random
+
+wins = 0
+losses = 0
+round_num = 1
+playing = True
+player = ""
+computer = ""
+
+# Rules:
+# Rock smashes Scissors
+# Paper covers Rock
+# Scissors cuts Paper
+
+print("--- Rock, Paper, Scissors ---")
+
+while playing:
+    print(f"Round {round_num}")
+    print(f"W: {wins} - L: {losses}")
+
+    player = input("(rock, paper, scissors):").lower()
+
+    random_num = random.randint(0, 2)
+
+    if random_num == 0:
+        computer = "rock"
+    elif random_num == 1:
+        computer = "paper"
+    else:
+        computer = "scissors"
+
+    print(f"Computer chooses {computer}!")
+
+    if player == computer:
+        print("-TIE-")
+    elif (
+        (player == "rock" and computer == "scissors")
+        or (player == "paper" and computer == "rock")
+        or (player == "scissors" and computer == "paper")
+    ):
+        print("-YOU WIN-")
+        wins = wins + 1
+    else:
+        print("-YOU LOSE-")
+        losses = losses + 1
+
+    round_num = round_num + 1
+
+    play_again = input("Play again? (y/n):").lower()
+    playing = play_again == "y"
+`;
+const Task4 = `import random
+
+wins = 0
+losses = 0
+round_num = 1
+playing = True
+player = ""
+computer = ""
+
+# Rules:
+# Rock smashes Scissors
+# Paper covers Rock
+# Scissors cuts Paper
+
+print("--- Rock, Paper, Scissors ---")
+
+while playing:
+    print(f"Round {round_num}")
+    print(f"W: {wins} - L: {losses}")
+
+    player = input("(rock, paper, scissors):").lower()
+
+    random_num = random.randint(0, 2)
+
+    if random_num == 0:
+        computer = "rock"
+    elif random_num == 1:
+        computer = "paper"
+    else:
+        computer = "scissors"
+
+    print(f"Computer chooses {computer}!")
+
+    if player == computer:
+        print("-TIE-")
+    elif (
+        (player == "rock" and computer == "scissors")
+        or (player == "paper" and computer == "rock")
+        or (player == "scissors" and computer == "paper")
+    ):
+        print("-YOU WIN-")
+        wins = wins + 1
+    else:
+        print("-YOU LOSE-")
+        losses = losses + 1
+
+    round_num = round_num + 1
+
+    play_again = input("Play again? (y/n):").lower()
+    playing = play_again == "y"
+
+print("--- Final Score ---")
+print(f"Wins: {wins} - Losses: {losses}")
+print("Thanks for playing!")
+`;
+const SampleOutput = `--- Rock, Paper, Scissors ---
+Round 1
+W: 0 - L: 0
+(rock, paper, scissors): rock
+Computer chooses scissors!
+-YOU WIN-
+Play again? (y/n): y
+Round 2
+W: 1 - L: 0
+(rock, paper, scissors): paper
+Computer chooses paper!
+-TIE-
+Play again? (y/n): y
+Round 3
+W: 1 - L: 0
+(rock, paper, scissors): scissors
+Computer chooses rock!
+-YOU LOSE-
+Play again? (y/n): n
+--- Final Score ---
+Wins: 1 - Losses: 1
+Thanks for playing!`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.15: Rock, Paper, Scissors</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.15</h2>
+              <h3 class="text-sn-theme">Rock, Paper, Scissors</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Multi-Line Conditions</p>
+              <p>Playing Again</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Watch Your Variable Names</h2>
+              <p>
+                Python has a built-in <code>round()</code> function &mdash;
+                naming a variable <code>round</code> would hide it.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Breaking a Long Condition Into Multiple Lines</h2>
+              <p>
+                Wrapping a condition in parentheses lets you spread it
+                across several lines &mdash; handy once it gets long.
+              </p>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Playing Again</h2>
+              <p>
+                To ask "play again?" we ask a question and turn the answer
+                into a boolean ourselves.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Looping a game until the player chooses to stop</li>
+                <li>Picking a random computer move</li>
+                <li>Checking a win condition with a multi-line <code>elif</code></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Built-in Function</dt>
+                  <dd>A function Python already provides, like <code>round()</code> &mdash; avoid naming variables the same thing.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-15-rock-paper-scissors.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Set Up the Game</h3>
+          <ul>
+            <li>Declare the score, round counter, and player/computer choices.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-15-rock-paper-scissors.py" mark="3-8" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Pick a Random Computer Move</h3>
+          <ul>
+            <li>Loop while playing, asking the player for a move and picking a random one for the computer.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-15-rock-paper-scissors.py" mark="23,25-30" ins="17-32" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Check the Winner and Play Again</h3>
+          <ul>
+            <li>Compare the two moves to decide a winner, then ask if the player wants another round.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-15-rock-paper-scissors.py" mark="34-40" ins="33-50" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Final Score</h3>
+          <ul>
+            <li>Print the final win/loss record once the player stops playing.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="1-15-rock-paper-scissors.py" mark="52-54" ins="52-54" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Why does <code>round_num</code> use that name instead of just <code>round</code>?</li>
+            <li>How does <code>playing = play_again == "y"</code> turn a typed answer into a boolean?</li>
+            <li>Why does the win condition need three separate <code>and</code> pairs joined by <code>or</code>, instead of one simple comparison?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

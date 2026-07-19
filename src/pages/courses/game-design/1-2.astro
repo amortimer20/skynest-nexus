@@ -1,0 +1,258 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/game-design/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.2: Transforms and Your First Scene</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.2</h2>
+              <h3 class="text-sn-theme">Transforms and Your First Scene</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Transforms</p>
+              <p>MeshInstance2D &amp; Modulate</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Transforms</h2>
+              <p>
+                Every object in a 2D (or 3D) scene shares the same three
+                basic properties for how it sits in the world.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Position</h2>
+              <p>Where the object is.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Rotation</h2>
+              <p>Which way the object is facing.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Scale</h2>
+              <p>How big or small the object is.</p>
+              <p class="fragment">
+                Together, <b class="text-sn-theme">position</b>,
+                <b class="text-sn-theme">rotation</b>, and
+                <b class="text-sn-theme">scale</b> are called a
+                <b>transform</b>. This idea shows up in every game engine,
+                not just Godot.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>MeshInstance2D</h2>
+              <p>
+                Not everything on screen has to be a picture. A
+                <b class="text-sn-theme">MeshInstance2D</b> draws a simple
+                shape &mdash; a quad, a circle, a capsule &mdash; without
+                needing any texture at all.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Modulate</h2>
+              <p>
+                The <b class="text-sn-theme">Modulate</b> property tints a
+                Node's color without changing its actual texture or mesh
+                &mdash; useful for quick color variations.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Building a Scene</h2>
+              <p>
+                A handful of Sprite2D and MeshInstance2D nodes, each with its
+                own transform and color, can be arranged together into one
+                composed picture.
+              </p>
+              <p class="fragment">
+                Next week we'll dig into exactly how Godot organizes these
+                pieces &mdash; for now, just have fun arranging them.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Moving, rotating, and scaling a Sprite2D</li>
+                <li>Adding a MeshInstance2D and using Modulate</li>
+                <li>Combining several nodes into one composed scene</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Transform</dt>
+                  <dd>A Node's position, rotation, and scale together.</dd>
+                  <dt>Position</dt>
+                  <dd>Where a Node is located in the scene.</dd>
+                  <dt>Rotation</dt>
+                  <dd>Which direction a Node is facing.</dd>
+                  <dt>Scale</dt>
+                  <dd>How large or small a Node appears.</dd>
+                  <dt>MeshInstance2D</dt>
+                  <dd>A Node that draws a simple shape without a texture.</dd>
+                  <dt>Modulate</dt>
+                  <dd>A property that tints a Node's color.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>Continue working in the project you created last activity.</p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Move, Rotate, and Scale a Sprite</h3>
+          <ul>
+            <li><b>Watch:</b> Section 1, Lecture 1.8 &mdash; Move, Rotate, Scale! (07:54)</li>
+            <li>Select your Sprite2D from last activity.</li>
+            <li>
+              Use the Move, Rotate, and Scale toolbar tools (or type exact
+              values into the Inspector's Transform section) to change its
+              position, rotation, and scale.
+            </li>
+          </ul>
+
+          <!-- GIF: Using the Move, Rotate, and Scale toolbar tools -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Move, Rotate, and Scale Toolbar Tools]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Add a MeshInstance2D and Use Modulate</h3>
+          <ul>
+            <li><b>Watch:</b> Section 1, Lecture 1.9 &mdash; MeshInstance2D &amp; Modulate (06:49)</li>
+            <li>
+              Add a <b class="text-sn-theme">MeshInstance2D</b> node and
+              assign it a primitive Mesh (Quad, Capsule, or Sphere).
+            </li>
+            <li>Use the Modulate property in the Inspector to give it a color.</li>
+          </ul>
+
+          <!-- GIF: Adding a MeshInstance2D and setting Modulate -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Adding a MeshInstance2D and Setting Modulate]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Build a Scene</h3>
+          <ul>
+            <li><b>Watch:</b> Section 1, Lecture 1.10 &mdash; Let's Create A Scene! (11:51)</li>
+            <li>
+              Add several more Sprite2D and MeshInstance2D nodes, each with
+              its own position, rotation, scale, and color.
+            </li>
+            <li>
+              Arrange them into a simple picture of your choosing &mdash; a
+              face, a robot, a landscape, anything you like.
+            </li>
+          </ul>
+
+          <!-- GIF: Arranging multiple nodes into a composed scene -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Arranging a Composed Scene]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>You should see the following in the Godot editor:</p>
+          <ul>
+            <li>Several Sprite2D and/or MeshInstance2D nodes in your scene.</li>
+            <li>Each one with a different position, rotation, scale, or color.</li>
+            <li>The pieces arranged together into one recognizable picture.</li>
+          </ul>
+
+          <!-- Screenshot: the finished composed scene -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Finished Composed Scene]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which of position, rotation, or scale did you find most useful
+              for arranging your scene? Why?
+            </li>
+            <li>What is the difference between a Sprite2D and a MeshInstance2D?</li>
+            <li>
+              How does the Modulate property change how a node looks without
+              changing its actual texture or mesh?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

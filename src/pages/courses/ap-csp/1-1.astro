@@ -3,27 +3,21 @@ import { Image } from "astro:assets";
 import Presentation from "../../../components/Presentation.astro";
 import Divider from "../../../components/ui/Divider.astro";
 import Layout from "../../../layouts/Layout.astro";
-import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
-import IoModelDiagram from "../../../assets/courses/foce/img/io-model-diagram.svg";
-import BinaryByteDiagram from "../../../assets/courses/foce/img/binary-byte-diagram.svg";
-
-//#region CodeSnippets
-const HelloWorld = `print("Hello, world!")`;
-const ExampleOutput = `Hello, world!`;
-//#endregion
+import IoModelDiagram from "../../../assets/courses/ap-csp/img/io-model-diagram.svg";
+import BinaryByteDiagram from "../../../assets/courses/ap-csp/img/binary-byte-diagram.svg";
 ---
 
 <Layout>
   <div class="container my-4">
     <div class="row justify-content-center">
       <div class="col-sm-12 col-md-10">
-        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.1: Computer Architecture</h1>
+        <h1>Activity 1.1: Computer Systems</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -31,13 +25,14 @@ const ExampleOutput = `Hello, world!`;
           <Presentation>
             <section>
               <h2>Activity 1.1</h2>
-              <h3 class="text-sn-theme">Computer Architecture</h3>
+              <h3 class="text-sn-theme">Computer Systems</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
               <p>How a Computer Works</p>
               <p>Input, Processing, Output, and Memory</p>
+              <p>Binary</p>
             </section>
 
             <section data-auto-animate>
@@ -109,12 +104,12 @@ const ExampleOutput = `Hello, world!`;
               <p class="fragment">
                 We represent those two states as <CodeSnippet
                   code="1"
-                  lang={"python"}
+                  lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
                 /> and <CodeSnippet
                   code="0"
-                  lang={"python"}
+                  lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
                 />. Each one is called a <b>bit</b>.
@@ -129,53 +124,11 @@ const ExampleOutput = `Hello, world!`;
               </p>
             </section>
 
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Programming Languages</h2>
-              <p>
-                A <b>programming language</b> lets us write instructions in a
-                form that's easier for humans to read and write, which then
-                gets translated down into the binary a computer actually
-                runs.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>Programming Languages</h2>
-              <p>There are many programming languages, each with its own rules:</p>
-              <ul>
-                <li class="fragment">Python</li>
-                <li class="fragment">JavaScript</li>
-                <li class="fragment">Java</li>
-                <li class="fragment">C++</li>
-              </ul>
-              <p class="fragment">
-                This course uses <b class="text-sn-theme">Python</b>.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Code Editors</h2>
-              <p>
-                A <b>code editor</b> is a specialized text editor built for
-                writing and running code &mdash; it can highlight syntax,
-                catch errors, and run your programs, all in one place.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>Code Editors</h2>
-              <p>
-                We'll be using <b class="text-sn-theme">Visual Studio Code</b>
-                (VS Code) all year.
-              </p>
-            </section>
-
             <section>
               <h2>Today's Objectives</h2>
               <ul>
                 <li>Identifying input, processing, output, and memory</li>
                 <li>Understanding binary as a computer's "language"</li>
-                <li>Opening VS Code and running your first Python program</li>
               </ul>
             </section>
 
@@ -197,10 +150,6 @@ const ExampleOutput = `Hello, world!`;
                   <dd>A single binary digit, either 0 or 1.</dd>
                   <dt>Byte</dt>
                   <dd>A group of eight bits.</dd>
-                  <dt>Programming Language</dt>
-                  <dd>A structured set of rules for writing instructions a computer can run.</dd>
-                  <dt>Code Editor</dt>
-                  <dd>A program built for writing, testing, and running code.</dd>
                 </dl>
               </div>
             </section>
@@ -213,86 +162,26 @@ const ExampleOutput = `Hello, world!`;
         <section id="build">
           <h2>Build</h2>
 
-          <p>
-            Set up your development environment and write your very first
-            Python program.
-          </p>
+          <p>No coding yet &mdash; today is about recognizing these ideas in the devices you already use.</p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Open VS Code</h3>
+          <h3>Task 1: Find the Four Functions in a Real Device</h3>
           <ul>
-            <li>Launch Visual Studio Code.</li>
+            <li>Pick a device you use every day (phone, laptop, game console, car, microwave).</li>
+            <li>List at least one real example of that device's input, output, processing, and memory.</li>
           </ul>
 
-          <!-- GIF: Opening VS Code -->
-          <div
-            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-            style="border-style: dashed !important;"
-          >
-            [GIF PLACEHOLDER &mdash; Opening VS Code]
-          </div>
-
           <hr class="my-4" />
 
-          <h3>Task 2: Create Your Project Folder</h3>
+          <h3>Task 2: Spot the Bits</h3>
           <ul>
             <li>
-              Create a folder to hold all of your work for this class, and
-              open that folder in VS Code.
+              Look at the byte diagram from the presentation
+              (<CodeSnippet code="01000001" lang="txt" theme="material-theme-ocean" inline />).
             </li>
+            <li>Count how many total on/off combinations are possible in one byte, and write down how you figured it out.</li>
           </ul>
-
-          <!-- GIF: Creating and opening the project folder in VS Code -->
-          <div
-            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-            style="border-style: dashed !important;"
-          >
-            [GIF PLACEHOLDER &mdash; Creating and Opening Your Project Folder]
-          </div>
-
-          <hr class="my-4" />
-
-          <h3>Task 3: Create Your First Python Script</h3>
-          <ul>
-            <li>
-              Inside your project folder, create a new file named <b
-                class="text-sn-theme">1-1-hello.py</b
-              >.
-            </li>
-          </ul>
-
-          <!-- GIF: Creating a new Python file in VS Code -->
-          <div
-            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-            style="border-style: dashed !important;"
-          >
-            [GIF PLACEHOLDER &mdash; Creating a New Python File]
-          </div>
-
-          <hr class="my-4" />
-
-          <h3>Task 4: Write and Run Hello World</h3>
-          <ul>
-            <li>Type the following line of code into your file.</li>
-            <li>Run your program and check the terminal for the output.</li>
-          </ul>
-
-          <Code
-            code={HelloWorld}
-            frame="code"
-            lang="python"
-            title="1-1-hello.py"
-            showLineNumbers={false}
-          />
-
-          <!-- GIF: Running the Python file and viewing terminal output -->
-          <div
-            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-            style="border-style: dashed !important;"
-          >
-            [GIF PLACEHOLDER &mdash; Running Your Program]
-          </div>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -301,15 +190,11 @@ const ExampleOutput = `Hello, world!`;
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
-
-          <Code
-            code={ExampleOutput}
-            frame="terminal"
-            lang="txt"
-            showLineNumbers={false}
-            title="Example Output"
-          />
+          <p>You should be able to explain, in your own words:</p>
+          <ul>
+            <li>One real example each of input, processing, output, and memory from your chosen device.</li>
+            <li>Why a byte can represent 256 different values.</li>
+          </ul>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -331,8 +216,9 @@ const ExampleOutput = `Hello, world!`;
               of the decimal numbers people use every day?
             </li>
             <li>
-              What is the difference between a programming language and a
-              code editor?
+              Pick one device from Task 1 that surprised you once you broke
+              it down into input/processing/output/memory. What surprised
+              you about it?
             </li>
           </ol>
         </section>

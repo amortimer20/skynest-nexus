@@ -1,16 +1,12 @@
 ---
-import { Image } from "astro:assets";
 import Presentation from "../../../components/Presentation.astro";
 import Divider from "../../../components/ui/Divider.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
-import IoModelDiagram from "../../../assets/courses/foce/img/io-model-diagram.svg";
-import BinaryByteDiagram from "../../../assets/courses/foce/img/binary-byte-diagram.svg";
-
 //#region CodeSnippets
-const HelloWorld = `print("Hello, world!")`;
+const HelloWorld = `console.log("Hello, world!");`;
 const ExampleOutput = `Hello, world!`;
 //#endregion
 ---
@@ -19,123 +15,77 @@ const ExampleOutput = `Hello, world!`;
   <div class="container my-4">
     <div class="row justify-content-center">
       <div class="col-sm-12 col-md-10">
-        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.1: Computer Architecture</h1>
+        <h1>Activity 1.2: Welcome to AP CSP</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
-              <h2>Activity 1.1</h2>
-              <h3 class="text-sn-theme">Computer Architecture</h3>
+              <h2>Activity 1.2</h2>
+              <h3 class="text-sn-theme">Welcome to AP CSP</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>How a Computer Works</p>
-              <p>Input, Processing, Output, and Memory</p>
+              <p>What Is AP CSP?</p>
+              <p>Computing's Impact</p>
+              <p>Programming Languages &amp; Code Editors</p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Four Basic Functions</h2>
+              <h2>What Is AP CSP?</h2>
               <p>
-                Every computer, from a laptop to a microwave, performs the
-                same four basic functions.
+                AP Computer Science Principles looks at computing through
+                five big lenses, all year long.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Four Basic Functions</h2>
-              <Image src={IoModelDiagram} alt="Diagram showing Input flowing into Processing (CPU), Processing flowing into Output, and Memory connected to Processing" width={640} />
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Input</h2>
-              <p>Information a computer receives from the outside world.</p>
+              <h2>The 5 Big Ideas</h2>
               <ul>
-                <li class="fragment">Keyboard and mouse</li>
-                <li class="fragment">Microphone and camera</li>
-                <li class="fragment">Sensors (temperature, motion, light)</li>
+                <li class="fragment">Creative Development</li>
+                <li class="fragment">Data</li>
+                <li class="fragment">Algorithms &amp; Programming</li>
+                <li class="fragment">Computer Systems &amp; Networks</li>
+                <li class="fragment">Impact of Computing</li>
               </ul>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Output</h2>
-              <p>Information a computer sends back out to the world.</p>
-              <ul>
-                <li class="fragment">Monitor and speakers</li>
-                <li class="fragment">Printer</li>
-                <li class="fragment">LEDs and motors</li>
-              </ul>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Processing</h2>
+              <h2>Computing's Impact</h2>
               <p>
-                The <b class="text-sn-theme">CPU</b> (Central Processing Unit)
-                is the "brain" of the computer. It carries out instructions
-                and makes decisions, one step at a time.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Memory</h2>
-              <p>
-                Computers need somewhere to hold data while they work, and
-                somewhere to keep it long-term.
-              </p>
-              <ul>
-                <li class="fragment">
-                  <b>RAM</b> &mdash; temporary, cleared when the power turns
-                  off
-                </li>
-                <li class="fragment">
-                  <b>Storage</b> (like a hard drive or SSD) &mdash; permanent,
-                  kept even after the power turns off
-                </li>
-              </ul>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Binary</h2>
-              <p>
-                Underneath everything a computer does, it only understands two
-                states: <b class="text-sn-theme">on</b> and <b class="text-sn-theme">off</b>.
+                Computing touches nearly everything &mdash; social media,
+                medical devices, self-driving cars, how elections are run.
               </p>
               <p class="fragment">
-                We represent those two states as <CodeSnippet
-                  code="1"
-                  lang={"python"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> and <CodeSnippet
-                  code="0"
-                  lang={"python"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />. Each one is called a <b>bit</b>.
+                All year, we'll keep coming back to one question:
+                <b class="text-sn-theme">what benefits and risks does each
+                new technology bring?</b>
               </p>
             </section>
 
-            <section data-auto-animate>
-              <h2>Binary</h2>
-              <Image src={BinaryByteDiagram} alt="Diagram showing eight bits, 01000001, grouped together as one byte representing the letter A" width={620} />
-              <p class="fragment">
-                Eight bits grouped together make one <b>byte</b>.
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>This Year's Toolkit</h2>
+              <p>
+                We'll write real code all year &mdash; starting in
+                <b class="text-sn-theme">JavaScript</b>, first in the
+                console, later moving to graphics and your own game-style
+                project.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
               <h2>Programming Languages</h2>
               <p>
-                A <b>programming language</b> lets us write instructions in a
-                form that's easier for humans to read and write, which then
-                gets translated down into the binary a computer actually
-                runs.
+                A <b class="text-sn-theme">programming language</b> lets us
+                write instructions in a form that's easier for humans to
+                read and write, which then gets translated down into the
+                binary a computer actually runs.
               </p>
             </section>
 
@@ -143,13 +93,23 @@ const ExampleOutput = `Hello, world!`;
               <h2>Programming Languages</h2>
               <p>There are many programming languages, each with its own rules:</p>
               <ul>
-                <li class="fragment">Python</li>
                 <li class="fragment">JavaScript</li>
+                <li class="fragment">Python</li>
                 <li class="fragment">Java</li>
                 <li class="fragment">C++</li>
               </ul>
               <p class="fragment">
-                This course uses <b class="text-sn-theme">Python</b>.
+                This course uses <b class="text-sn-theme">JavaScript</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What Is Deno?</h2>
+              <p>
+                <b class="text-sn-theme">Deno</b> runs JavaScript outside a
+                web browser &mdash; no setup beyond installing it once, and
+                it comes with handy built-in tools like
+                <CodeSnippet code="prompt()" lang="javascript" theme="material-theme-ocean" inline /> for asking the user something right from the console.
               </p>
             </section>
 
@@ -173,9 +133,9 @@ const ExampleOutput = `Hello, world!`;
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Identifying input, processing, output, and memory</li>
-                <li>Understanding binary as a computer's "language"</li>
-                <li>Opening VS Code and running your first Python program</li>
+                <li>Installing Deno</li>
+                <li>Creating a project folder</li>
+                <li>Writing and running your first JavaScript program</li>
               </ul>
             </section>
 
@@ -183,22 +143,16 @@ const ExampleOutput = `Hello, world!`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Input</dt>
-                  <dd>Information a computer receives from the outside world.</dd>
-                  <dt>Output</dt>
-                  <dd>Information a computer sends back out to the world.</dd>
-                  <dt>Processing (CPU)</dt>
-                  <dd>The part of the computer that carries out instructions.</dd>
-                  <dt>Memory</dt>
-                  <dd>Where a computer holds data, either temporarily (RAM) or long-term (storage).</dd>
-                  <dt>Binary</dt>
-                  <dd>A system of representing information using only two states, on and off.</dd>
-                  <dt>Bit</dt>
-                  <dd>A single binary digit, either 0 or 1.</dd>
-                  <dt>Byte</dt>
-                  <dd>A group of eight bits.</dd>
+                  <dt>Big Idea</dt>
+                  <dd>One of the five major themes AP CSP is organized around.</dd>
                   <dt>Programming Language</dt>
                   <dd>A structured set of rules for writing instructions a computer can run.</dd>
+                  <dt>JavaScript</dt>
+                  <dd>The programming language used throughout this course.</dd>
+                  <dt>Deno</dt>
+                  <dd>A JavaScript runtime that lets us run code outside a web browser, with useful tools built in.</dd>
+                  <dt>Runtime</dt>
+                  <dd>The program that actually executes your code.</dd>
                   <dt>Code Editor</dt>
                   <dd>A program built for writing, testing, and running code.</dd>
                 </dl>
@@ -213,24 +167,21 @@ const ExampleOutput = `Hello, world!`;
         <section id="build">
           <h2>Build</h2>
 
-          <p>
-            Set up your development environment and write your very first
-            Python program.
-          </p>
+          <p>Set up your development environment and write your very first JavaScript program.</p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Open VS Code</h3>
+          <h3>Task 1: Install Deno</h3>
           <ul>
-            <li>Launch Visual Studio Code.</li>
+            <li>Follow your teacher's instructions to install Deno.</li>
           </ul>
 
-          <!-- GIF: Opening VS Code -->
+          <!-- GIF: Installing Deno -->
           <div
             class="border border-secondary rounded p-4 my-3 text-center text-secondary"
             style="border-style: dashed !important;"
           >
-            [GIF PLACEHOLDER &mdash; Opening VS Code]
+            [GIF PLACEHOLDER &mdash; Installing Deno]
           </div>
 
           <hr class="my-4" />
@@ -253,21 +204,21 @@ const ExampleOutput = `Hello, world!`;
 
           <hr class="my-4" />
 
-          <h3>Task 3: Create Your First Python Script</h3>
+          <h3>Task 3: Create Your First Script</h3>
           <ul>
             <li>
               Inside your project folder, create a new file named <b
-                class="text-sn-theme">1-1-hello.py</b
+                class="text-sn-theme">1-2-hello.js</b
               >.
             </li>
           </ul>
 
-          <!-- GIF: Creating a new Python file in VS Code -->
+          <!-- GIF: Creating a new JavaScript file in VS Code -->
           <div
             class="border border-secondary rounded p-4 my-3 text-center text-secondary"
             style="border-style: dashed !important;"
           >
-            [GIF PLACEHOLDER &mdash; Creating a New Python File]
+            [GIF PLACEHOLDER &mdash; Creating a New JavaScript File]
           </div>
 
           <hr class="my-4" />
@@ -275,18 +226,20 @@ const ExampleOutput = `Hello, world!`;
           <h3>Task 4: Write and Run Hello World</h3>
           <ul>
             <li>Type the following line of code into your file.</li>
-            <li>Run your program and check the terminal for the output.</li>
+            <li>
+              Run your program with <b class="text-sn-theme">deno run 1-2-hello.js</b> and check the terminal for the output.
+            </li>
           </ul>
 
           <Code
             code={HelloWorld}
             frame="code"
-            lang="python"
-            title="1-1-hello.py"
+            lang="javascript"
+            title="1-2-hello.js"
             showLineNumbers={false}
           />
 
-          <!-- GIF: Running the Python file and viewing terminal output -->
+          <!-- GIF: Running the script with Deno and viewing terminal output -->
           <div
             class="border border-secondary rounded p-4 my-3 text-center text-secondary"
             style="border-style: dashed !important;"
@@ -322,13 +275,12 @@ const ExampleOutput = `Hello, world!`;
 
           <ol>
             <li>
-              Which of the four basic functions (input, processing, output,
-              memory) do you think is most similar to a human's brain?
-              Explain your reasoning.
+              What are the 5 Big Ideas this course is built around, and which
+              one are you most curious about?
             </li>
             <li>
-              Why do you think computers only use binary (0s and 1s) instead
-              of the decimal numbers people use every day?
+              Give one example of how computing has changed something in
+              your own life, for better or worse.
             </li>
             <li>
               What is the difference between a programming language and a

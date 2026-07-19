@@ -1,0 +1,416 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `
+a = 10
+b = 3
+
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)`;
+const Figure2 = `
+13
+7
+30
+3.3333333333333335`;
+const Figure3 = `
+a = 10
+b = 3
+
+print(a // b)
+print(a % b)
+print(a ** b)`;
+const Figure4 = `
+3
+1
+1000`;
+const Figure5 = `
+print(4 * 10 + 12)
+print(4 * (10 + 12))`;
+const Figure6 = `
+52
+88`;
+const Task1 = `
+side1 = 8
+side2 = 5
+
+print("Sum:", side1 + side2)
+print("Difference:", side1 - side2)
+print("Product:", side1 * side2)
+print("Quotient:", side1 / side2)`;
+const Task2 = `
+side1 = 8
+side2 = 5
+
+print("Sum:", side1 + side2)
+print("Difference:", side1 - side2)
+print("Product:", side1 * side2)
+print("Quotient:", side1 / side2)
+print("Floor Division:", side1 // side2)
+print("Modulus:", side1 % side2)`;
+const Task3 = `
+side1 = 8
+side2 = 5
+
+print("Sum:", side1 + side2)
+print("Difference:", side1 - side2)
+print("Product:", side1 * side2)
+print("Quotient:", side1 / side2)
+print("Floor Division:", side1 // side2)
+print("Modulus:", side1 % side2)
+print("Exponent:", side1 ** side2)`;
+const ExampleOutput = `
+Sum: 13
+Difference: 3
+Product: 40
+Quotient: 1.6
+Floor Division: 1
+Modulus: 3
+Exponent: 32768`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.4: Arithmetic Operations</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.4</h2>
+              <h3 class="text-sn-theme">Arithmetic Operations</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Doing Math in Python</p>
+              <p>Operators, Expressions, and Order of Operations</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Basic Operators</h2>
+              <ul>
+                <li class="fragment">
+                  <CodeSnippet code="+" lang={"python"} theme={"material-theme-ocean"} inline /> Addition
+                </li>
+                <li class="fragment">
+                  <CodeSnippet code="-" lang={"python"} theme={"material-theme-ocean"} inline /> Subtraction
+                </li>
+                <li class="fragment">
+                  <CodeSnippet code="*" lang={"python"} theme={"material-theme-ocean"} inline /> Multiplication
+                </li>
+                <li class="fragment">
+                  <CodeSnippet code="/" lang={"python"} theme={"material-theme-ocean"} inline /> Division
+                </li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Basic Operators</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>More Operators</h2>
+              <ul>
+                <li class="fragment">
+                  <CodeSnippet code="//" lang={"python"} theme={"material-theme-ocean"} inline /> Floor Division (drops the decimal)
+                </li>
+                <li class="fragment">
+                  <CodeSnippet code="%" lang={"python"} theme={"material-theme-ocean"} inline /> Modulus (the remainder)
+                </li>
+                <li class="fragment">
+                  <CodeSnippet code="**" lang={"python"} theme={"material-theme-ocean"} inline /> Exponent (raises to a power)
+                </li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>More Operators</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Order of Operations</h2>
+              <p>
+                Python follows the same order of operations you use in math
+                class. Use parentheses <CodeSnippet
+                  code="()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> to control what happens first.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Order of Operations</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Performing arithmetic on variables</li>
+                <li>Using floor division, modulus, and exponents</li>
+                <li>Controlling order of operations with parentheses</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Operator</dt>
+                  <dd>A symbol that performs an operation, such as <CodeSnippet code="+" lang={"python"} theme={"material-theme-ocean"} inline /> or <CodeSnippet code="*" lang={"python"} theme={"material-theme-ocean"} inline />.</dd>
+                  <dt>Operand</dt>
+                  <dd>A value an operator works on.</dd>
+                  <dt>Expression</dt>
+                  <dd>A combination of values and operators that produces a result.</dd>
+                  <dt>Floor Division</dt>
+                  <dd>Division that drops any decimal remainder, using <CodeSnippet code="//" lang={"python"} theme={"material-theme-ocean"} inline />.</dd>
+                  <dt>Modulus</dt>
+                  <dd>The remainder left over after division, using <CodeSnippet code="%" lang={"python"} theme={"material-theme-ocean"} inline />.</dd>
+                  <dt>Order of Operations</dt>
+                  <dd>The rules that decide which part of an expression is evaluated first.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>Python</b> program named <b class="text-sn-theme"
+              >1-4-arithmetic.py</b
+            >.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Basic Operators</h3>
+          <ul>
+            <li>
+              Create two number variables, <CodeSnippet
+                code="side1"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and <CodeSnippet
+                code="side2"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Print the sum, difference, product, and quotient of the two
+              variables, each with a label.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="python"
+            title="1-4-arithmetic.py"
+            mark={{ label: "Stop and run your code", range: "8" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Floor Division and Modulus</h3>
+          <ul>
+            <li>
+              Print the floor division (<CodeSnippet
+                code="//"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />) and modulus (<CodeSnippet
+                code="%"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />) of your two variables, each with a label.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="python"
+            title="1-4-arithmetic.py"
+            mark={{ label: "Stop and run your code", range: "10" }}
+            ins={{ range: "9-10" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Exponents</h3>
+          <ul>
+            <li>
+              Print your first variable raised to the power of your second
+              variable (<CodeSnippet
+                code="**"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />), with a label.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="python"
+            title="1-4-arithmetic.py"
+            mark={{ label: "Stop and run your code", range: "11" }}
+            ins={{ range: "11" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Order of Operations</h3>
+          <ul>
+            <li>
+              Print the result of an expression that combines addition and
+              multiplication two different ways &mdash; once without
+              parentheses, and once with parentheses placed so the result
+              changes.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What is the difference between <CodeSnippet
+                code="/"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and <CodeSnippet
+                code="//"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> in Python?
+            </li>
+            <li>
+              Why did adding parentheses change the result in the Challenge
+              task?
+            </li>
+            <li>
+              Which operator was the least familiar to you before this
+              activity?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

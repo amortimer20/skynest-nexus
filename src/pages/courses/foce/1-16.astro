@@ -1,0 +1,222 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `i = 0
+
+while i < 5:
+    print(i)
+    i = i + 1`;
+const Figure2 = `for i in range(5):
+    print(i)`;
+const Figure3 = `0
+1
+2
+3
+4`;
+const Figure4 = `for i in range(1, 11):
+    print(i)`;
+const Figure5 = `for i in range(10, 0, -1):
+    print(i)`;
+const Task1 = `number = int(input("Choose a number: "))
+count = int(input("List how many multiples of the number? "))
+
+total = number  # Tracks the current multiple
+
+for i in range(count):
+    print(total)
+    total = total + number
+
+input("Press enter to continue...")
+`;
+const Task2 = `number = int(input("Choose a number: "))
+count = int(input("List how many multiples of the number? "))
+
+total = number  # Tracks the current multiple
+
+for i in range(count):
+    print(total, end=" ")
+    total = total + number
+
+print()
+input("Press enter to continue...")
+`;
+const SampleOutput = `Choose a number: 3
+List how many multiples of the number? 5
+3 6 9 12 15
+Press enter to continue...`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.16: For Loops</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.16</h2>
+              <h3 class="text-sn-theme">For Loops</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>The for Loop</p>
+              <p>range()</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Counting a Known Number of Times</h2>
+              <p>
+                When you already know how many times to repeat something,
+                a <code>while</code> loop needs some bookkeeping.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The for Loop</h2>
+              <p>
+                A <b class="text-sn-theme">for</b> loop does that counting
+                for you.
+              </p>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">Same result as the <code>while</code> version &mdash; no counter variable to manage yourself.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The for Loop</h2>
+              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>range()</h2>
+              <p>
+                <code>range(5)</code> counts <code>0</code> through
+                <code>4</code> &mdash; 5 numbers, starting at 0.
+                <code>range(start, stop)</code> lets you pick both ends.
+              </p>
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">Counts 1 through 10.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Counting Backwards</h2>
+              <p>A third number in <code>range()</code> sets the step &mdash; negative counts down.</p>
+              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">Counts 10 down to 1.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a <code>for</code> loop with <code>range()</code></li>
+                <li>Choosing between <code>range(n)</code> and <code>range(start, stop)</code></li>
+                <li>Printing on the same line with <code>end=" "</code></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>for Loop</dt>
+                  <dd>Repeats its block once for each value in a sequence.</dd>
+                  <dt>range()</dt>
+                  <dd>Generates a sequence of numbers for a <code>for</code> loop to count through.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-16-for-loops.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Counting Multiples</h3>
+          <ul>
+            <li>Ask for a number and a count, then print that many multiples of it, one per line.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-16-for-loops.py" mark="6-8" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Display on One Line</h3>
+          <ul>
+            <li>Change the loop to print the multiples on a single line, separated by spaces.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-16-for-loops.py" mark="7,10" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What does <code>range(count)</code> actually produce, and what does the loop use it for if <code>i</code> is never printed?</li>
+            <li>Why doesn't a <code>for</code> loop need you to write your own counter variable and increment it, the way a <code>while</code> loop does?</li>
+            <li>What does <code>end=" "</code> change about how <code>print()</code> behaves?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

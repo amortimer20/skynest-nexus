@@ -1,0 +1,383 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `
+name = input("What is your name? ")
+print(f"Nice to meet you, {name}!")`;
+const Figure2 = `
+What is your name? Anthony
+Nice to meet you, Anthony!`;
+const Figure3 = `
+age = input("How old are you? ")
+print(type(age))`;
+const Figure4 = `
+How old are you? 16
+<class 'str'>`;
+const Task1 = `
+name = input("What is your name? ")
+favorite_animal = input("What is your favorite animal? ")
+
+print(f"Nice to meet you, {name}! {favorite_animal}s are pretty cool.")`;
+const Task2 = `
+name = input("What is your name? ")
+favorite_animal = input("What is your favorite animal? ")
+
+print(f"Nice to meet you, {name}! {favorite_animal}s are pretty cool.")
+
+favorite_food = input("What is your favorite food? ")
+hobby = input("What is a hobby you enjoy? ")
+
+print(f"I heard you like {favorite_food} and enjoy {hobby} in your free time.")`;
+const Task3 = `
+name = input("What is your name? ")
+favorite_animal = input("What is your favorite animal? ")
+
+print(f"Nice to meet you, {name}! {favorite_animal}s are pretty cool.")
+
+favorite_food = input("What is your favorite food? ")
+hobby = input("What is a hobby you enjoy? ")
+
+print(f"I heard you like {favorite_food} and enjoy {hobby} in your free time.")
+
+adjective = input("Give me an adjective: ")
+place = input("Give me a place: ")
+
+print(f"One day, a {adjective} adventure began at the {place}.")`;
+const ExampleOutput = `
+What is your name? Anthony
+What is your favorite animal? Dog
+Nice to meet you, Anthony! Dogs are pretty cool.
+What is your favorite food? pizza
+What is a hobby you enjoy? gaming
+I heard you like pizza and enjoy gaming in your free time.
+Give me an adjective: mysterious
+Give me a place: library
+One day, a mysterious adventure began at the library.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.7: Console Input</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.7</h2>
+              <h3 class="text-sn-theme">Console Input</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Getting Information From the User</p>
+              <p>
+                The <CodeSnippet
+                  code="input()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> function
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>
+                The <CodeSnippet
+                  code="input()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> Function
+              </h2>
+              <p>
+                <CodeSnippet
+                  code="input()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> displays a message, waits for the user to type something and
+                press Enter, then returns whatever they typed.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>
+                The <CodeSnippet
+                  code="input()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> Function
+              </h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Result is Always a String</h2>
+              <p>
+                No matter what the user types &mdash; even a number &mdash; <CodeSnippet
+                  code="input()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> always hands your program back a <CodeSnippet
+                  code="str"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Result is Always a String</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="demo.py"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Collecting input from the user</li>
+                <li>Storing input in a variable</li>
+                <li>Combining input with f-strings</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Console Input</dt>
+                  <dd>Text a user types into the terminal while a program is running.</dd>
+                  <dt>input()</dt>
+                  <dd>
+                    A function that displays a message and returns whatever
+                    the user types, as a string.
+                  </dd>
+                  <dt>Prompt</dt>
+                  <dd>The message shown to the user asking for input.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>Python</b> program named <b class="text-sn-theme"
+              >1-7-input.py</b
+            >.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Ask for Basic Info</h3>
+          <ul>
+            <li>
+              Ask the user for their <CodeSnippet
+                code="name"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and their <CodeSnippet
+                code="favorite_animal"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Print an f-string that greets them using both answers.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="python"
+            title="1-7-input.py"
+            mark={{ label: "Stop and run your code", range: "5" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Ask a Few More Questions</h3>
+          <ul>
+            <li>
+              Ask the user for their <CodeSnippet
+                code="favorite_food"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and a <CodeSnippet
+                code="hobby"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> they enjoy.
+            </li>
+            <li>Print an f-string that combines both new answers.</li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="python"
+            title="1-7-input.py"
+            mark={{ label: "Stop and run your code", range: "10" }}
+            ins={{ range: "6-10" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Build a Short Story</h3>
+          <ul>
+            <li>
+              Ask the user for an <CodeSnippet
+                code="adjective"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and a <CodeSnippet
+                code="place"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Print a one-sentence story using both answers.</li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="python"
+            title="1-7-input.py"
+            mark={{ label: "Stop and run your code", range: "15" }}
+            ins={{ range: "11-15" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): One More Question</h3>
+          <ul>
+            <li>
+              Ask one more question of your choice, and work the answer into
+              your story sentence too.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What data type does <CodeSnippet
+                code="input()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> always return, no matter what the user types?
+            </li>
+            <li>
+              Why is it useful to write the question directly inside <CodeSnippet
+                code="input()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> instead of printing it separately first?
+            </li>
+            <li>
+              What was tricky, if anything, about building the short story in
+              Task 3?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

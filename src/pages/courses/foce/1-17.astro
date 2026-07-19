@@ -1,0 +1,198 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `for row in range(1, 4):
+    for col in range(1, 4):
+        print(f"(Row {row}, Col {col})", end="  ")
+    print()`;
+const Figure2 = `(Row 1, Col 1)  (Row 1, Col 2)  (Row 1, Col 3)
+(Row 2, Col 1)  (Row 2, Col 2)  (Row 2, Col 3)
+(Row 3, Col 1)  (Row 3, Col 2)  (Row 3, Col 3)`;
+const Task1 = `for row in range(1, 4):
+    for col in range(1, 4):
+        print(f"(Row {row}, Col {col})", end="  ")
+    print()
+`;
+const Task2 = `for row in range(1, 4):
+    for col in range(1, 4):
+        print(f"(Row {row}, Col {col})", end="  ")
+    print()
+
+print()
+size = int(input("Enter the size of the table: "))
+
+for num1 in range(1, size + 1):
+    for num2 in range(1, size + 1):
+        product = num1 * num2
+        print(product, end="   ")
+    print()
+`;
+const SampleOutput = `(Row 1, Col 1)  (Row 1, Col 2)  (Row 1, Col 3)
+(Row 2, Col 1)  (Row 2, Col 2)  (Row 2, Col 3)
+(Row 3, Col 1)  (Row 3, Col 2)  (Row 3, Col 3)
+
+Enter the size of the table: 3
+1   2   3
+2   4   6
+3   6   9`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.17: Nested Loops</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.17</h2>
+              <h3 class="text-sn-theme">Nested Loops</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Nested Loops</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Loop Inside a Loop</h2>
+              <p>
+                Just like an <code>if</code> can nest inside another
+                <code>if</code>, a <code>for</code> loop can nest inside
+                another <code>for</code> loop &mdash; the inner loop runs
+                all the way through for <b>every single pass</b> of the
+                outer loop.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Loop Inside a Loop</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">3 rows &times; 3 columns each = 9 total prints.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Today's Project: Grids</h2>
+              <p>
+                Grids, tables, and boards all share this same shape: an
+                outer loop for rows, an inner loop for columns.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Nesting one <code>for</code> loop inside another</li>
+                <li>Tracing how many times the inner loop runs in total</li>
+                <li>Building a multiplication table from nested loops</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Nested Loop</dt>
+                  <dd>A loop written inside the body of another loop.</dd>
+                  <dt>Outer Loop</dt>
+                  <dd>The loop that contains another loop inside it.</dd>
+                  <dt>Inner Loop</dt>
+                  <dd>The loop nested inside another &mdash; it completes fully for every pass of the outer loop.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-17-nested-loops.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Row and Column Grid</h3>
+          <ul>
+            <li>Print a label for every row/column combination in a 3x3 grid.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-17-nested-loops.py" mark="1-4" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Multiplication Table</h3>
+          <ul>
+            <li>Ask for a size, then print a multiplication table of that size using nested loops.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-17-nested-loops.py" mark="9-13" ins="6-13" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>In the Row and Column Grid, how many total times does <code>print()</code> run inside the nested loop?</li>
+            <li>In the multiplication table, what does <code>num1</code> represent, and what does <code>num2</code> represent?</li>
+            <li>Why does <code>print()</code> (with nothing inside it) appear after the inner loop, but not inside it?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
