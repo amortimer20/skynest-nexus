@@ -1,0 +1,229 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 9: Tolerance Concepts</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 9</h2>
+              <h3 class="text-sn-theme">Tolerance Concepts</h3>
+            </section>
+
+            <section>
+              <h2>A Question We Keep Asking</h2>
+              <p>Does all variation matter the same?</p>
+              <p class="fragment">
+                Today's answer: <b class="text-sn-theme">no.</b> Here's the
+                vocabulary for exactly how much is okay.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Reading a Real Spec Sheet</h2>
+              <p>A real spec doesn't just give one number.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Reading a Real Spec Sheet</h2>
+              <p>
+                It gives a <b class="text-sn-theme">target</b> and an <b
+                  class="text-sn-theme">allowed range</b
+                > around it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Nominal</h2>
+              <p>The target, intended value.</p>
+              <p class="fragment">A bolt labeled 1/4 in is <i>nominally</i> 1/4 in.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Tolerance</h2>
+              <p>
+                How far from nominal is still acceptable &mdash; usually
+                written as &plusmn;.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Min and Max</h2>
+              <ul>
+                <li class="fragment">Minimum = nominal &minus; tolerance</li>
+                <li class="fragment">Maximum = nominal + tolerance</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Worked Example</h2>
+              <p>Spec: <code>0.250 in &plusmn; 0.005 in</code></p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Worked Example</h2>
+              <ul>
+                <li>Nominal: 0.250 in</li>
+                <li>Tolerance: &plusmn;0.005 in</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Worked Example</h2>
+              <ul>
+                <li>Minimum: 0.250 &minus; 0.005 = <b class="text-sn-theme">0.245 in</b></li>
+                <li>Maximum: 0.250 + 0.005 = <b class="text-sn-theme">0.255 in</b></li>
+              </ul>
+              <p class="fragment">Any part measuring between 0.245 and 0.255 in passes.</p>
+            </section>
+
+            <section>
+              <h2>Why Tolerance Exists</h2>
+              <p>
+                Remember Session 6: even careful measuring has natural
+                variation.
+              </p>
+              <p class="fragment">
+                Tolerance is that variation, planned for on purpose &mdash;
+                instead of pretending every part comes out exactly nominal.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Tighter tolerance isn't automatically "better."</b></p>
+              <p class="fragment">
+                A tighter tolerance means harder and more expensive to make
+                &mdash; you only spec it that tight when the part actually
+                needs it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Tolerance is a range, not a guarantee of "perfect."</b></p>
+              <p class="fragment">
+                A part measuring exactly at min or exactly at max still
+                passes &mdash; it's not almost failing.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 10: The Mismatch Activity</p>
+              <p class="fragment">
+                Two parts, each within their own tolerance. Do they actually
+                fit together?
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Nominal + Tolerance &rarr; Min/Max</h3>
+          <p>For each spec, calculate the minimum and maximum:</p>
+          <ol>
+            <li>0.500 in &plusmn; 0.010 in</li>
+            <li>12.00 mm &plusmn; 0.05 mm</li>
+            <li>1.750 in &plusmn; 0.002 in</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Min/Max &rarr; Nominal + Tolerance</h3>
+          <p>For each pair, work backward to find the nominal value and the tolerance:</p>
+          <ol>
+            <li>Min: 9.95 mm, Max: 10.05 mm</li>
+            <li>Min: 0.370 in, Max: 0.380 in</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Spec Sheet Reading</h3>
+          <p>
+            For the spec <code>M6 &times; 1.0, 6.00 mm &plusmn; 0.02 mm</code>,
+            identify the nominal diameter, the tolerance, and the min/max a
+            passing bolt could measure.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>
+            Before you move on, explain out loud (or in writing, in your own
+            words): if a tolerance is tightened &mdash; the &plusmn; number
+            gets smaller &mdash; do min and max get closer together or
+            farther apart? Why?
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Why might a tolerance be very tight for one part and very loose
+              for another, even in the same shop?
+            </li>
+            <li>
+              Think back to Session 6's caliper data. Was the spread in the
+              class's measurements bigger or smaller than a typical
+              manufacturing tolerance like &plusmn;0.005 in? What does that
+              tell you about hand-measurement versus machine-made parts?
+            </li>
+            <li>
+              Session 10 introduces two parts that are each within their own
+              tolerance but might not fit together. Can you guess why that
+              might happen, even though both parts "passed"?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your tolerance calculations and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

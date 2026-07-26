@@ -5,141 +5,205 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `password = input("Enter password:")
-secret = "secret123"
+const Figure1 = `age = int(input("Enter your age: "))
 
-if password == secret:
-    print("Access granted.")
-else:
-    print("Access denied.")`;
-const Figure2 = `Enter password: secret123
-Access granted.`;
-const Figure3 = `Enter password: secretpassword
-Access denied.`;
-const Figure4 = `grade = int(input("Enter grade:"))
+if age >= 16:
+    print("You can drive!")`;
+const Figure2 = `if age >= 16:
+    print("You can drive!")`;
+const Figure3 = `Enter your age: 17
+You can drive!`;
+const Figure4 = `Enter your age: 12
+[No output]`;
+const Task1 = `print("--- Demo 1 - Age Validator ---")
 
-if grade >= 90:
-    print("A")
-elif grade >= 80:
-    print("B")
-elif grade >= 70:
-    print("C")
-elif grade >= 60:
-    print("D")
-else:
-    print("F")`;
-const Figure5 = `Enter grade: 86
-B`;
-const Figure6 = `Enter grade: 49
-F`;
-const Task1 = `import random
+user_age = int(input("Enter your age:"))
 
-print("--- Chinese Zodiac Calendar ---")
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
 
-birth_year = int(input("Enter your birth year: "))
-zodiac_number = birth_year % 12
-zodiac_animal = ""  # Assign animal based on birth year
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
 
-if zodiac_number == 0:
-    zodiac_animal = "monkey"
-elif zodiac_number == 1:
-    zodiac_animal = "rooster"
-elif zodiac_number == 2:
-    zodiac_animal = "dog"
-elif zodiac_number == 3:
-    zodiac_animal = "pig"
-elif zodiac_number == 4:
-    zodiac_animal = "rat"
-elif zodiac_number == 5:
-    zodiac_animal = "ox"
-elif zodiac_number == 6:
-    zodiac_animal = "tiger"
-elif zodiac_number == 7:
-    zodiac_animal = "rabbit"
-elif zodiac_number == 8:
-    zodiac_animal = "dragon"
-elif zodiac_number == 9:
-    zodiac_animal = "snake"
-elif zodiac_number == 10:
-    zodiac_animal = "horse"
-else:
-    zodiac_animal = "sheep"
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    full_name = input("Enter your full name:")
+    election_year = input("What year will you run?")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')?")
 
-print(f"Birth year: {birth_year} - You are the year of the...{zodiac_animal}.")
+    print(f"{nick_name} {full_name} for president in {election_year}!")
+
 input("Press enter to continue...")
 `;
-const Task2 = `import random
+const Task2 = `print("--- Demo 1 - Age Validator ---")
 
-print("--- Chinese Zodiac Calendar ---")
+user_age = int(input("Enter your age:"))
 
-birth_year = int(input("Enter your birth year: "))
-zodiac_number = birth_year % 12
-zodiac_animal = ""  # Assign animal based on birth year
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
 
-if zodiac_number == 0:
-    zodiac_animal = "monkey"
-elif zodiac_number == 1:
-    zodiac_animal = "rooster"
-elif zodiac_number == 2:
-    zodiac_animal = "dog"
-elif zodiac_number == 3:
-    zodiac_animal = "pig"
-elif zodiac_number == 4:
-    zodiac_animal = "rat"
-elif zodiac_number == 5:
-    zodiac_animal = "ox"
-elif zodiac_number == 6:
-    zodiac_animal = "tiger"
-elif zodiac_number == 7:
-    zodiac_animal = "rabbit"
-elif zodiac_number == 8:
-    zodiac_animal = "dragon"
-elif zodiac_number == 9:
-    zodiac_animal = "snake"
-elif zodiac_number == 10:
-    zodiac_animal = "horse"
-else:
-    zodiac_animal = "sheep"
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
 
-print(f"Birth year: {birth_year} - You are the year of the...{zodiac_animal}.")
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    full_name = input("Enter your full name:")
+    election_year = input("What year will you run?")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')?")
+
+    print(f"{nick_name} {full_name} for president in {election_year}!")
+
 input("Press enter to continue...")
 
-print("--- Lottery Game ---")
-print("Rules: Pick two lottery numbers ranging from 0 to 9")
-print("Match two numbers and win BIG!")
-print("Match one number in order and win SMALL!")
+print("--- Demo 2 - Simple Score Calculator ---")
 
-lotto_num_1 = int(input("Enter your 1st lottery number (0 to 9): "))
-lotto_num_2 = int(input("Enter your 2nd lottery number (0 to 9): "))
-winning_num_1 = random.randint(0, 9)
-winning_num_2 = random.randint(0, 9)
+score = int(input("Enter your score (0-100):"))
 
-# Exit the program if either lotto number is out of range
-if lotto_num_1 < 0 or lotto_num_1 > 9 or lotto_num_2 < 0 or lotto_num_2 > 9:
-    print("Error: Your lotto numbers are invalid. Exiting")
-    exit()
+if score >= 60:
+    print("You passed!")
 
-print(f"The winning numbers are {winning_num_1} and {winning_num_2}!")
+if score < 60:
+    print("You did not pass. Keep studying!")
 
-if lotto_num_1 == winning_num_1 and lotto_num_2 == winning_num_2:
-    print("You win BIG!")
-elif lotto_num_1 == winning_num_1 or lotto_num_2 == winning_num_2:
-    print("You win SMALL!")
-else:
-    print("You lose! Better luck next time!")
+input("Press enter to continue...")
 `;
-const SampleOutput = `--- Chinese Zodiac Calendar ---
-Enter your birth year: 1990
-Birth year: 1990 - You are the year of the...horse.
+const Task3 = `print("--- Demo 1 - Age Validator ---")
+
+user_age = int(input("Enter your age:"))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    full_name = input("Enter your full name:")
+    election_year = input("What year will you run?")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')?")
+
+    print(f"{nick_name} {full_name} for president in {election_year}!")
+
+input("Press enter to continue...")
+
+print("--- Demo 2 - Simple Score Calculator ---")
+
+score = int(input("Enter your score (0-100):"))
+
+if score >= 60:
+    print("You passed!")
+
+if score < 60:
+    print("You did not pass. Keep studying!")
+
+input("Press enter to continue...")
+
+print("--- Demo 3 - Temperature Check ---")
+
+current_temp = int(input("What is the current temperature in Fahrenheit?"))
+
+if current_temp <= 32:
+    print("Brrr! It's freezing. Don't forget your coat!")
+
+# The 'and' operator lets us check if two conditions are true at the same time.
+if current_temp > 32 and current_temp <= 65:
+    print("It's a bit chilly. A light jacket should be perfect.")
+
+if current_temp > 65:
+    print("It's warm outside. Enjoy the nice weather!")
+
+input("Press enter to continue...")
+`;
+const Task4 = `print("--- Demo 1 - Age Validator ---")
+
+user_age = int(input("Enter your age:"))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    full_name = input("Enter your full name:")
+    election_year = input("What year will you run?")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')?")
+
+    print(f"{nick_name} {full_name} for president in {election_year}!")
+
+input("Press enter to continue...")
+
+print("--- Demo 2 - Simple Score Calculator ---")
+
+score = int(input("Enter your score (0-100):"))
+
+if score >= 60:
+    print("You passed!")
+
+if score < 60:
+    print("You did not pass. Keep studying!")
+
+input("Press enter to continue...")
+
+print("--- Demo 3 - Temperature Check ---")
+
+current_temp = int(input("What is the current temperature in Fahrenheit?"))
+
+if current_temp <= 32:
+    print("Brrr! It's freezing. Don't forget your coat!")
+
+# The 'and' operator lets us check if two conditions are true at the same time.
+if current_temp > 32 and current_temp <= 65:
+    print("It's a bit chilly. A light jacket should be perfect.")
+
+if current_temp > 65:
+    print("It's warm outside. Enjoy the nice weather!")
+
+input("Press enter to continue...")
+
+print("--- Demo 4 - Letter Grade Calculator ---")
+
+final_grade = int(input("Enter your final grade percentage (0-100):"))
+
+if final_grade >= 90:
+    print("You got an A! Excellent work!")
+if final_grade >= 80 and final_grade < 90:
+    print("You got a B! Great job!")
+if final_grade >= 70 and final_grade < 80:
+    print("You got a C. Solid effort.")
+if final_grade >= 60 and final_grade < 70:
+    print("You got a D. You passed, but there's room to improve.")
+if final_grade < 60:
+    print("You got an F. Let's review the material and try again.")
+`;
+const SampleOutput = `--- Demo 1 - Age Validator ---
+Enter your age: 35
+Time to hit the road! You've earned your driving permit.
+Adulting 101: You can now vote and live independently.
+Please exit your mom's basement.
+You're old enough to run for president.
+Enter your full name: Anthony Mortimer
+What year will you run? 2028
+What's your nickname (e.g., 'The Awesome')? Sleepy
+Sleepy Anthony Mortimer for president in 2028!
 Press enter to continue...
---- Lottery Game ---
-Rules: Pick two lottery numbers ranging from 0 to 9
-Match two numbers and win BIG!
-Match one number in order and win SMALL!
-Enter your 1st lottery number (0 to 9): 2
-Enter your 2nd lottery number (0 to 9): 4
-The winning numbers are 2 and 6!
-You win SMALL!`;
+--- Demo 2 - Simple Score Calculator ---
+Enter your score (0-100): 76
+You passed!
+Press enter to continue...
+--- Demo 3 - Temperature Check ---
+What is the current temperature in Fahrenheit? 76
+It's warm outside. Enjoy the nice weather!
+Press enter to continue...
+--- Demo 4 - Letter Grade Calculator ---
+Enter your final grade percentage (0-100): 66
+You got a D. You passed, but there's room to improve.`;
 //#endregion
 ---
 
@@ -151,7 +215,7 @@ You win SMALL!`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.11: If, Elif, and Else</h1>
+        <h1>Activity 1.11: If Statements</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -159,64 +223,55 @@ You win SMALL!`;
           <Presentation>
             <section>
               <h2>Activity 1.11</h2>
-              <h3 class="text-sn-theme">If, Elif, and Else</h3>
+              <h3 class="text-sn-theme">If Statements</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>else</p>
-              <p>elif</p>
+              <p>The if Statement</p>
+              <p>Code Blocks</p>
             </section>
 
             <section data-auto-animate>
-              <h2>else</h2>
+              <h2>The if Statement</h2>
               <p>
-                <b class="text-sn-theme">else</b> runs when the
-                <code>if</code> condition was <code>False</code> &mdash;
-                exactly one of the two blocks always runs.
+                An <b class="text-sn-theme">if statement</b> runs a block of
+                code only when its condition is <code>True</code>.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
-            <section data-auto-animate>
-              <h2>else</h2>
-              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
-              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} class="mt-2" />
-            </section>
-
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The Problem with Independent ifs</h2>
+              <h2>Indentation Defines the Block</h2>
               <p>
-                Last activity's Letter Grade Calculator needed a two-part
-                condition for every range, like
-                <code>grade &gt;= 80 and grade &lt; 90</code>. That gets
-                repetitive fast.
+                Python doesn't use curly braces to mark a code block &mdash;
+                it uses a colon and <b>indentation</b>. Every indented line
+                right after the <code>if</code> belongs to it.
               </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>elif</h2>
-              <p>
-                <b class="text-sn-theme">elif</b> (short for "else if")
-                chains conditions together &mdash; Python checks them in
-                order and runs only the <b>first</b> one that's
-                <code>True</code>.
-              </p>
-              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>elif</h2>
-              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} />
-              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} class="mt-2" />
+              <h2>Only Runs When True</h2>
+              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
+              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} class="mt-2" />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Multiple Independent Checks</h2>
+              <p>
+                You can write several <code>if</code> statements in a row
+                &mdash; each one is checked independently, so more than one
+                can run.
+              </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing an <code>if</code>/<code>else</code> statement</li>
-                <li>Chaining conditions with <code>elif</code></li>
-                <li>Importing the <code>random</code> module</li>
+                <li>Writing an <code>if</code> statement</li>
+                <li>Using indentation to define a code block</li>
+                <li>Writing several independent <code>if</code> checks in one program</li>
               </ul>
             </section>
 
@@ -224,12 +279,12 @@ You win SMALL!`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>else</dt>
-                  <dd>Runs when every condition before it was <code>False</code>.</dd>
-                  <dt>elif</dt>
-                  <dd>Chains another condition onto an <code>if</code> &mdash; only the first true branch runs.</dd>
-                  <dt>Module</dt>
-                  <dd>A collection of tools not built directly into Python &mdash; you bring it in with <code>import</code>.</dd>
+                  <dt>if Statement</dt>
+                  <dd>Runs a block of code only when its condition is <code>True</code>.</dd>
+                  <dt>Condition</dt>
+                  <dd>The boolean expression an <code>if</code> statement checks.</dd>
+                  <dt>Code Block</dt>
+                  <dd>A group of statements, marked in Python by indentation.</dd>
                 </dl>
               </div>
             </section>
@@ -243,27 +298,44 @@ You win SMALL!`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-11-if-elif-else.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-11-if-statements.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Chinese Zodiac Calendar</h3>
+          <h3>Task 1: Age Validator</h3>
           <ul>
-            <li>Use the birth year's remainder after dividing by 12 to determine a zodiac animal, with an <code>elif</code> chain.</li>
+            <li>Check the user's age against three independent milestones (16, 18, 35).</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-11-if-elif-else.py" mark="9-32" />
+          <Code code={Task1} frame="code" lang="python" title="1-11-if-statements.py" mark="5-6,8-10,12-18" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Lottery Game</h3>
+          <h3>Task 2: Simple Score Calculator</h3>
           <ul>
-            <li>Import the <code>random</code> module to generate two winning numbers.</li>
-            <li>Compare the player's two picks against them with <code>elif</code>.</li>
+            <li>Check whether a score of 0-100 passes or fails.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-11-if-elif-else.py" mark="44-45,54-59" ins="36-59" />
+          <Code code={Task2} frame="code" lang="python" title="1-11-if-statements.py" mark="26-27,29-30" ins="22-32" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Temperature Check</h3>
+          <ul>
+            <li>Check a Fahrenheit temperature against three ranges, using <code>and</code> for the middle range.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-11-if-statements.py" mark="42-43" ins="34-48" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Letter Grade Calculator</h3>
+          <ul>
+            <li>Check a grade percentage against five independent letter-grade ranges.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="1-11-if-statements.py" mark="54-63" ins="50-63" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -292,9 +364,9 @@ You win SMALL!`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>In an <code>if</code>/<code>elif</code>/<code>else</code> chain, how many of the blocks can run at most?</li>
-            <li>Why didn't the Zodiac Calendar need a final <code>elif zodiac_number == 11:</code> check before its <code>else</code>?</li>
-            <li>What is a module, and why did the Lottery Game need to <code>import random</code> when nothing before it needed an import?</li>
+            <li>How does Python know which lines belong inside an <code>if</code> statement's block?</li>
+            <li>In the Letter Grade Calculator, why does each range (like the B range) need two conditions joined by <code>and</code>?</li>
+            <li>What would happen to the Age Validator if you entered an age of 10? Which messages, if any, would print?</li>
           </ol>
         </section>
 

@@ -1,0 +1,272 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `questions = [
+    "What planet is known as the Red Planet?",
+    "How many bits are in a byte?",
+    "What language have we been learning?",
+]
+
+answers = [
+    "mars",
+    "8",
+    "python",
+]`;
+const Figure2 = `for i in range(len(questions)):
+    print(questions[i])
+    print(answers[i])`;
+const Figure3 = `What planet is known as the Red Planet?
+mars
+How many bits are in a byte?
+8
+What language have we been learning?
+python`;
+const Task1 = `questions = [
+    "What planet is known as the Red Planet?",
+    "How many bits are in a byte?",
+    "What language have we been learning?",
+]
+
+answers = [
+    "mars",
+    "8",
+    "python",
+]
+`;
+const Task2 = `questions = [
+    "What planet is known as the Red Planet?",
+    "How many bits are in a byte?",
+    "What language have we been learning?",
+]
+
+answers = [
+    "mars",
+    "8",
+    "python",
+]
+
+score = 0
+
+for i in range(len(questions)):
+    response = input(questions[i] + " ").lower()
+
+    if response == answers[i]:
+        print("Correct!")
+        score = score + 1
+    else:
+        print(f"Incorrect. The correct answer was {answers[i]}.")
+`;
+const Task3 = `questions = [
+    "What planet is known as the Red Planet?",
+    "How many bits are in a byte?",
+    "What language have we been learning?",
+]
+
+answers = [
+    "mars",
+    "8",
+    "python",
+]
+
+score = 0
+
+for i in range(len(questions)):
+    response = input(questions[i] + " ").lower()
+
+    if response == answers[i]:
+        print("Correct!")
+        score = score + 1
+    else:
+        print(f"Incorrect. The correct answer was {answers[i]}.")
+
+print(f"You scored {score} out of {len(questions)}.")
+
+if score == len(questions):
+    print("Perfect score!")
+else:
+    print("Keep practicing!")
+`;
+const SampleOutput = `What planet is known as the Red Planet? mars
+Correct!
+How many bits are in a byte? 8
+Correct!
+What language have we been learning? javascript
+Incorrect. The correct answer was python.
+You scored 2 out of 3.
+Keep practicing!`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.24: Parallel Lists</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.24</h2>
+              <h3 class="text-sn-theme">Parallel Lists</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Parallel Lists</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Lists, Same Positions</h2>
+              <p>
+                <b class="text-sn-theme">Parallel lists</b> are two separate
+                lists where the same index refers to related data in both
+                &mdash; here, <code>questions[i]</code> and
+                <code>answers[i]</code> always go together.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Walking Both Lists Together</h2>
+              <p>
+                This only works with index-based traversal &mdash;
+                <code>for i in range(len(questions)):</code> &mdash; since
+                you need the same <code>i</code> for both lists.
+              </p>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Walking Both Lists Together</h2>
+              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Today's Project: Trivia Game</h2>
+              <p>
+                Ask each question, compare the player's answer to the
+                matching entry in <code>answers</code>, and keep score
+                &mdash; combining everything from this unit into one
+                program.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Keeping two lists lined up by index</li>
+                <li>Comparing a player's answer to a parallel list</li>
+                <li>Tracking a score with the accumulator pattern</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Parallel Lists</dt>
+                  <dd>Two or more lists where the same index refers to related values across all of them.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-24-trivia-game.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Set Up the Trivia Data</h3>
+          <ul>
+            <li>Create a <code>questions</code> list and a parallel <code>answers</code> list &mdash; keep them the same length.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-24-trivia-game.py" mark="1-10" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Ask Each Question</h3>
+          <ul>
+            <li>Loop through both lists by index, comparing the player's answer to the matching entry in <code>answers</code>, and track a score.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-24-trivia-game.py" mark="12-19" ins="12-19" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Report the Final Score</h3>
+          <ul>
+            <li>After the loop, print the score out of the total number of questions, with a perfect-score message.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-24-trivia-game.py" mark="21-24" ins="21-24" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Why must <code>questions</code> and <code>answers</code> stay the same length for this program to work?</li>
+            <li>Why does this activity use <code>for i in range(len(questions)):</code> instead of <code>for question in questions:</code>?</li>
+            <li>Which earlier activity's accumulator pattern did the score tracker reuse?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

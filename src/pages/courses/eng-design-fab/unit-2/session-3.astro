@@ -1,0 +1,285 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 3: Additive Manufacturing</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 1</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 3</h2>
+              <h3 class="text-sn-theme">Additive Manufacturing</h3>
+            </section>
+
+            <section>
+              <h2>Two Ways to Make a Part</h2>
+              <p>Session 2 was all subtractive &mdash; start with material, cut away everything that isn't the part.</p>
+              <p class="fragment">
+                Today's process does the opposite: start with nothing, and
+                build the part up.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>How FDM Actually Works</h2>
+              <p>Filament &mdash; a spool of solid plastic &mdash; feeds into a heated nozzle.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>How FDM Actually Works</h2>
+              <p>
+                The nozzle melts it and deposits it in a thin path, one
+                layer at a time, bottom to top &mdash; following a 3D model
+                that's been "sliced" into hundreds of flat layers.
+              </p>
+            </section>
+
+            <section>
+              <h2>Three Common Filaments</h2>
+              <table class="table table-dark table-sm">
+                <thead>
+                  <tr><th></th><th>PLA</th><th>PETG</th><th>ABS</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Ease of printing</td><td>Easiest</td><td>Moderate</td><td>Hardest</td></tr>
+                  <tr><td>Strength/toughness</td><td>Rigid, brittle</td><td>Tougher, less brittle</td><td>Strong, impact-resistant</td></tr>
+                  <tr><td>Heat resistance</td><td>Low</td><td>Moderate</td><td>High</td></tr>
+                  <tr><td>Warping risk</td><td>Low</td><td>Low&ndash;moderate</td><td>High &mdash; often needs an enclosure</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Slicer Vocabulary</h2>
+              <p><b>Layer height</b> &mdash; thinner = smoother surface, but slower to print.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Slicer Vocabulary</h2>
+              <p><b>Infill</b> &mdash; most prints aren't solid inside. A percentage and pattern fill the interior &mdash; more infill means stronger, heavier, and slower.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Slicer Vocabulary</h2>
+              <p><b>Supports</b> &mdash; temporary scaffolding printed under overhangs that would otherwise droop mid-print, removed once printing is done.</p>
+            </section>
+
+            <section>
+              <h2>Orientation Changes Strength</h2>
+              <p>
+                Layers bond well to the layer below them, but not nearly as
+                well when you try to pull them apart sideways.
+              </p>
+              <p class="fragment">
+                A part printed the wrong way up can look identical and still
+                snap under a load a differently-oriented print would survive.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Your Printer</h2>
+              <p>
+                Dremel's education printers are FDM machines with a heated
+                bed and an all-metal hotend.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Your Printer</h2>
+              <p class="fragment">
+                <b class="text-sn-theme">[VERIFY]</b> &mdash; confirm your
+                specific model's exact build volume, max nozzle/bed
+                temperature, and which materials it's actually rated for
+                before relying on any of that in a real design.
+              </p>
+            </section>
+
+            <section>
+              <h2>So When Do You Print Instead of Route?</h2>
+              <p>Three questions to ask about any given part:</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Question 1</h2>
+              <p>Is it a large, mostly flat shape &mdash; or small and geometrically complex?</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Question 2</h2>
+              <p>Does it need to bear real structural load, or just hold its own shape?</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Question 3</h2>
+              <p>Do you need it fast and cheap in sheet form, or is one custom-fit piece worth the print time?</p>
+            </section>
+
+            <section>
+              <h2>Neither Answer Is "Better"</h2>
+              <p>
+                A large flat side panel and a custom joystick bezel have
+                different answers to all three questions &mdash; that's
+                exactly why this project uses both processes.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Print orientation is a real design decision.</b></p>
+              <p class="fragment">
+                Decide it based on how the part will actually be loaded, not
+                whatever orientation looks easiest to print.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Additive doesn't replace subtractive here &mdash; it complements it.</b></p>
+              <p class="fragment">
+                CNC/CAM stays the required, safety-gated core skill of this
+                unit. Printing is a real option for the right part, not a
+                shortcut around learning CAM.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 4: CNC Safety Certification</p>
+              <p class="fragment">
+                Before anyone touches the router, the hard gate this whole
+                project runs through.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Filament Comparison</h3>
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr><th></th><th>PLA</th><th>PETG</th><th>ABS</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Ease of printing</td><td>Easiest</td><td>Moderate</td><td>Hardest</td></tr>
+              <tr><td>Strength/toughness</td><td>Rigid, brittle</td><td>Tougher, less brittle</td><td>Strong, impact-resistant</td></tr>
+              <tr><td>Heat resistance</td><td>Low</td><td>Moderate</td><td>High</td></tr>
+              <tr><td>Warping risk</td><td>Low</td><td>Low&ndash;moderate</td><td>High</td></tr>
+            </tbody>
+          </table>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Route It or Print It?</h3>
+          <p>
+            For each arcade cabinet component below, decide subtractive
+            (CNC-routed sheet material) or additive (3D printed), and justify
+            with <b class="text-sn-theme">at least one of the three
+            questions</b> from today's slides &mdash; not just a guess.
+          </p>
+          <ul>
+            <li><b>Side panel</b></li>
+            <li><b>Joystick/button mounting bezel</b></li>
+            <li><b>Marquee light mount bracket</b></li>
+            <li><b>Control panel base</b></li>
+            <li><b>Cable management clip</b></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Propose Slicer Settings</h3>
+          <p>
+            For whichever component above you chose to 3D print, propose a
+            layer height, an infill percentage, and whether it needs
+            supports &mdash; and justify each based on what that specific
+            part actually needs to do.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, check your work against these two questions.</p>
+
+          <div class="text-start">
+            <dl>
+              <dt>Did you justify with a real property?</dt>
+              <dd>
+                "Because printing is cool" isn't a justification &mdash;
+                point to geometry, load, or quantity/cost instead.
+              </dd>
+              <dt>Did you consider orientation for any printed part that bears load?</dt>
+              <dd>
+                A bracket or mount that holds real weight needs its print
+                orientation reasoned about, not left to default.
+              </dd>
+            </dl>
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which arcade cabinet component are you most confident should be
+              3D printed, and why?
+            </li>
+            <li>
+              Is there a component where you're genuinely unsure whether to
+              route or print it? What information would help you decide?
+            </li>
+            <li>
+              Session 4 begins hands-on machine work. Which process &mdash;
+              subtractive or additive &mdash; do you expect your team to
+              actually use more during the real build in Weeks 5&ndash;8?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your route-or-print decisions with justifications, your proposed slicer settings, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

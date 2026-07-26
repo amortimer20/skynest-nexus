@@ -1,0 +1,223 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+
+import ToolpathTypesDiagram from "../../../../assets/courses/eng-design-fab/img/toolpath-types-diagram.svg";
+import ProfileOffsetDiagram from "../../../../assets/courses/eng-design-fab/img/profile-offset-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 7: Toolpath Types &amp; Profile Offset</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 3</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 7</h2>
+              <h3 class="text-sn-theme">Toolpath Types &amp; Profile Offset</h3>
+            </section>
+
+            <section>
+              <h2>You Have a Model. Now What?</h2>
+              <p>
+                CAM Studio takes your flat panel's shape and turns it into
+                an actual path the router bit follows.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Three Toolpath Types</h2>
+              <Image
+                src={ToolpathTypesDiagram}
+                alt="Diagram showing three toolpath types side by side: Profile (cuts along an outline), Pocket (clears an interior area with a raster pattern), and Drill (plunges straight down at a point)"
+                width={720}
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Profile</h2>
+              <p>Cuts along a drawn outline &mdash; the toolpath you'll use to cut a panel free from stock.</p>
+            </section>
+
+            <section>
+              <h2>The Bit Has a Diameter</h2>
+              <p>
+                It's not a mathematical line &mdash; it's a spinning
+                cylinder with real width.
+              </p>
+              <p class="fragment">
+                Cut exactly on your drawn line, and the bit removes material
+                on <i>both</i> sides of it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Profile Offset</h2>
+              <Image
+                src={ProfileOffsetDiagram}
+                alt="Diagram showing three profile offset options — Outside, On-Path, and Inside — with a dashed line showing the drawn boundary and a teal line showing where the bit's center actually travels for each option"
+                width={720}
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Cutting a Part: Use Outside</h2>
+              <p>
+                The bit runs outside your line, so the material it removes
+                is all waste &mdash; your part comes out full size.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Cutting a Hole: Use Inside</h2>
+              <p>
+                The bit runs inside your line, so the hole ends up exactly
+                the size you drew &mdash; not slightly small.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>This Is a Tolerance Problem</h2>
+              <p>
+                The wrong offset choice makes a perfectly modeled,
+                in-tolerance part come out of the machine the wrong size.
+              </p>
+              <p class="fragment">
+                Same idea as Unit 1 Session 9 &mdash; a spec on a screen
+                doesn't guarantee a correct real part.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Ask "am I keeping this or removing it?" before choosing an offset.</b></p>
+              <p class="fragment">
+                That question alone tells you Outside or Inside almost every
+                time.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">On-Path is rarely what you actually want.</b></p>
+              <p class="fragment">
+                It ignores the bit's width entirely &mdash; both a cut part
+                and a cut hole come out wrong-sized.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 8: Pockets, Step-Over &amp; Step-Down</p>
+              <p class="fragment">
+                Clearing out material instead of just cutting along a line.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Identify Toolpath Type</h3>
+          <p>For each of the following, name which toolpath type (Profile, Pocket, or Drill) you'd use:</p>
+          <ol>
+            <li>Cutting a rectangular panel free from a full sheet</li>
+            <li>Clearing a recessed tray area into a panel's face</li>
+            <li>A mounting hole for a bolt</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Choose the Right Offset</h3>
+          <p>For each scenario, decide Outside, Inside, or On-Path, and justify using the "am I keeping this or removing it?" question:</p>
+          <ol>
+            <li>Cutting your control panel's outer shape free from a sheet</li>
+            <li>Cutting a joystick's mounting hole to its exact drawn size</li>
+            <li>A test cut where dimensional accuracy genuinely doesn't matter</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Predict the Error</h3>
+          <p>
+            If you accidentally used Inside offset instead of Outside when
+            cutting a part free from stock, would the part come out too big
+            or too small? Explain using the bit-diameter idea from today.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, confirm you can answer this out loud, in your own words:</p>
+
+          <p>
+            Why does the same drawn line need a different offset depending
+            on whether you're cutting a part out or cutting a hole into it?
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which offset choice do you think would be easiest to get
+              backward by accident &mdash; Outside, Inside, or On-Path? Why?
+            </li>
+            <li>
+              How is today's offset problem similar to Unit 1's tolerance
+              work, even though the vocabulary is different?
+            </li>
+            <li>
+              Session 8 covers pockets. Based on today, what do you expect
+              is different about programming a pocket compared to a profile
+              cut?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your toolpath identifications, your offset choices with justifications, your error prediction, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

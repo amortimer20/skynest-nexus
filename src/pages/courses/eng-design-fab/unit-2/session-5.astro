@@ -1,0 +1,217 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 5: CAD Leveling-Up I &mdash; Assemblies</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 2</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 5</h2>
+              <h3 class="text-sn-theme">CAD Leveling-Up I: Assemblies</h3>
+            </section>
+
+            <section>
+              <h2>Certified. Now What?</h2>
+              <p>You're cleared on the machine. There's nothing to cut yet.</p>
+              <p class="fragment">
+                Before any toolpath, you need a model &mdash; and a cabinet
+                isn't one part.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What You Already Know</h2>
+              <p>
+                Sketches, extrudes, single-part modeling &mdash; from
+                freshman year OnShape.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What's New: Assemblies</h2>
+              <p>
+                A side panel, a front, a back, a control panel &mdash; each
+                is its own part. An <b class="text-sn-theme">assembly</b> is
+                where you relate them to each other.
+              </p>
+            </section>
+
+            <section>
+              <h2>Part Studio vs. Assembly</h2>
+              <ul>
+                <li class="fragment"><b>Part Studio</b> &mdash; where you model one part (or a few related parts)</li>
+                <li class="fragment"><b>Assembly</b> &mdash; where you insert finished parts and position them relative to each other</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Mates</h2>
+              <p>
+                A mate tells two parts how they relate &mdash; touching,
+                aligned, at a fixed distance.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Mate You'll Use Most: Fastened</h2>
+              <p>
+                Locks two parts rigidly together, as if welded &mdash;
+                exactly what a screwed-together cabinet panel joint actually
+                is.
+              </p>
+            </section>
+
+            <section>
+              <h2>Worked Example</h2>
+              <p>
+                Two flat panels, each modeled separately, joined at a 90&deg;
+                corner &mdash; the same joint a cabinet's side meets its
+                front at.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Model real thickness, not a guess.</b></p>
+              <p class="fragment">
+                If your panels are 3/4 in stock, model them at 3/4 in &mdash;
+                not a round number that's close enough. Corners won't meet
+                cleanly otherwise.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">An assembly is still a design decision, not just clicking parts together.</b></p>
+              <p class="fragment">
+                Where two panels meet, and how, is exactly the kind of thing
+                your Session 2 material choice was already anticipating.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 6: CAD Leveling-Up II</p>
+              <p class="fragment">
+                Building a full practice assembly, and preparing flat panels
+                for CAM.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Model Two Panels</h3>
+          <p>
+            In a Part Studio, model two simple rectangular panels at a real
+            stock thickness (use 3/4 in, or whatever thickness your instructor
+            specifies). Give them different lengths so the corner joint is
+            easy to check visually.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Create an Assembly</h3>
+          <p>
+            Start a new Assembly and insert both panels into it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Mate Them at a Corner</h3>
+          <p>
+            Using Fastened mates, position the two panels so they meet at a
+            90&deg; corner &mdash; the way two sides of a box would.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Verify the Joint</h3>
+          <p>
+            Zoom into the corner. Confirm there's no gap and no overlap where
+            the two panels meet. If there is, check whether your modeled
+            thickness actually matches on both parts.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, confirm:</p>
+
+          <ul>
+            <li>Both panels are modeled at a real, specific stock thickness &mdash; not a rounded guess</li>
+            <li>The corner joint has no visible gap or overlap</li>
+            <li>You used a Fastened mate, not just visual positioning</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What felt genuinely different about assembling two parts
+              compared to modeling a single part on its own?
+            </li>
+            <li>
+              If your corner joint didn't meet cleanly on the first try,
+              what was the actual CAD reason? If it did meet cleanly on the
+              first try, what do you think you'd check first if it hadn't?
+            </li>
+            <li>
+              A real cabinet has more than two panels meeting at more than
+              one corner. What do you expect to be harder about that, based
+              on today?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your two-panel assembly file and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

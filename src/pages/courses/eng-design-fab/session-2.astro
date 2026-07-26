@@ -1,0 +1,460 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+
+import ProblemFramingDiagram from "../../../assets/courses/eng-design-fab/img/problem-framing-diagram.svg";
+import NotebookEntryDiagram from "../../../assets/courses/eng-design-fab/img/notebook-entry-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 2: Problem Framing &amp; Notebook Setup</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 2</h2>
+              <h3 class="text-sn-theme">Problem Framing</h3>
+            </section>
+
+            <section>
+              <h2>The Most Skipped Step</h2>
+              <p>
+                Problem framing is the <b class="text-sn-theme"
+                  >most commonly skipped competency</b
+                > in engineering education.
+              </p>
+              <p class="fragment">It is also the one that matters most.</p>
+            </section>
+
+            <section>
+              <h2>Quick Poll</h2>
+              <p>"Build a robot."</p>
+              <p class="fragment">
+                If I handed you this as your whole assignment, what would you
+                need to know before you could start?
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What's Missing?</h2>
+              <p>None of these have answers yet:</p>
+              <ul>
+                <li class="fragment">Who is it for?</li>
+                <li class="fragment">What do they actually need it to do?</li>
+                <li class="fragment">
+                  What can't it cost, weigh, or take longer than?
+                </li>
+                <li class="fragment">How would you know if you'd succeeded?</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The 4-Part Framework</h2>
+              <ul>
+                <li class="fragment">
+                  <b>User</b> &mdash; a specific person or group, not "people"
+                </li>
+                <li class="fragment">
+                  <b>Need</b> &mdash; stated as a problem, not a solution
+                </li>
+                <li class="fragment">
+                  <b>Constraints</b> &mdash; cost, size, materials, time
+                </li>
+                <li class="fragment">
+                  <b>Success Criteria</b> &mdash; how you'd know it worked
+                </li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The 4-Part Framework</h2>
+              <Image
+                src={ProblemFramingDiagram}
+                alt="Diagram showing four boxes — User, Need, Constraints, Success Criteria — with arrows converging down into a single box labeled Problem Statement"
+                width={720}
+              />
+            </section>
+
+            <section>
+              <h2>Worked Example</h2>
+              <p><b>VAGUE:</b> "Build a robot."</p>
+              <p class="fragment">
+                <b class="text-sn-theme">PRECISE:</b> "Design a device that lets a
+                user with limited hand mobility press an Xbox controller trigger independently."
+              </p>
+            </section>
+
+            <section>
+              <h2>What Does This Sentence Actually Cover?</h2>
+              <ul>
+                <li class="fragment"><b>User</b> &mdash; named: a person with limited hand mobility</li>
+                <li class="fragment"><b>Need</b> &mdash; named: press a trigger independently</li>
+                <li class="fragment">
+                  <b>Constraints &amp; Success Criteria</b> &mdash; only
+                  <i>implied</i> so far &mdash; still need to be spelled out
+                  (cost, size relative to the controller, must not interfere
+                  with other buttons, must work one-handed)
+                </li>
+              </ul>
+              <p class="fragment">
+                Even a good-sounding sentence can still be missing two of the
+                four parts.
+              </p>
+            </section>
+
+            <section>
+              <h2>Guided Rewrite #1</h2>
+              <p>"Make something to help someone."</p>
+              <p class="fragment">
+                Let's fill in all four parts together, as a class.
+              </p>
+            </section>
+
+            <section>
+              <h2>Guided Rewrite #2</h2>
+              <p>"Design a better backpack."</p>
+              <p class="fragment">
+                A second rep, faster this time, before groups work on their own
+                &mdash; protects students who needed to see it twice.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Small-Group Practice</h2>
+              <p>Choose 2 of these prompts:</p>
+              <ol>
+                <li>"Build a robot."</li>
+                <li>"Create a tool that makes life easier."</li>
+                <li>"Design a better backpack."</li>
+                <li>Or another vague prompt approved by your instructor</li>
+              </ol>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Small-Group Practice</h2>
+              <p>For each one:</p>
+              <ol>
+                <li class="fragment">Draft all four parts separately</li>
+                <li class="fragment">Combine them into a real sentence</li>
+                <li class="fragment">
+                  Trade with another group &mdash; stress-test their weakest
+                  part
+                </li>
+                <li class="fragment">Revise before you share out</li>
+              </ol>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Share &amp; Critique</h2>
+              <ul>
+                <li class="fragment">
+                  <b>User check</b> &mdash; specific person/group, or still vague?
+                </li>
+                <li class="fragment">
+                  <b>Need check</b> &mdash; actually a need, or a solution in disguise?
+                </li>
+                <li class="fragment">
+                  <b>Constraints + Success checks</b> &mdash; concrete and checkable?
+                </li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Common Traps</h2>
+              <ul>
+                <li class="fragment">
+                  Restating the prompt with extra adjectives ("a really useful
+                  robot")
+                </li>
+                <li class="fragment">
+                  Writing a solution instead of a need ("needs a claw arm")
+                </li>
+                <li class="fragment">
+                  Constraints too vague to check ("cheap," "fast")
+                </li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>One More Thing: Start Your Notebook</h2>
+              <p>
+                Engineers document the <b class="text-sn-theme">process</b>,
+                not just the final result.
+              </p>
+              <p class="fragment">
+                Today's rewrite is your first entry.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Every Entry Needs</h2>
+              <ul>
+                <li class="fragment">A <b>date</b></li>
+                <li class="fragment">Your problem statement</li>
+                <li class="fragment">A sketch of the problem &mdash; not a solution yet</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Every Entry Needs</h2>
+              <Image
+                src={NotebookEntryDiagram}
+                alt="Diagram of a design notebook page with three labeled sections: Date, Problem Statement, and Sketch, plus a smaller unlabeled Notes section at the bottom"
+                width={380}
+              />
+            </section>
+
+            <section>
+              <h2>Format</h2>
+              <p>
+                Physical notebook or shared digital doc &mdash; your
+                instructor will tell you which this class uses.
+              </p>
+              <p class="fragment">
+                Either way, every entry follows the same structure, and every
+                entry gets a date. No exceptions.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 3: Design &amp; Ideation</p>
+              <p class="fragment">
+                Time to sketch actual solutions to the problem you just
+                documented.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            In your group, choose <b>2</b> of the vague prompts below. For each one,
+            work through all four steps below &mdash; don't jump straight to a final
+            sentence.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Prompts</h3>
+          <ol>
+            <li>"Build a robot."</li>
+            <li>"Create a tool that makes life easier."</li>
+            <li>"Design a better backpack."</li>
+            <li>Or another vague prompt approved by your instructor</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Step 1: Draft Each Part Separately</h3>
+          <p>
+            Before combining anything, write a short phrase for each of the four
+            parts:
+          </p>
+          <ul>
+            <li><b>User</b> &mdash; who, specifically?</li>
+            <li>
+              <b>Need</b> &mdash; what problem, stated without naming a solution?
+            </li>
+            <li>
+              <b>Constraints</b> &mdash; what concrete limits apply (cost, size, materials,
+              time)?
+            </li>
+            <li>
+              <b>Success criteria</b> &mdash; how would you check, concretely, that
+              it worked?
+            </li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Combine Into a Problem Statement</h3>
+          <p>
+            Merge your four parts into <b class="text-sn-theme"
+              >1&ndash;2 full sentences</b
+            >, not a bullet list &mdash; you should be able to read it aloud and
+            have it make sense as a real design brief.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Peer Stress-Test</h3>
+          <p>
+            Trade your rewritten statements with another group. For each one you
+            receive, find <b>one weak part</b> &mdash; a vague user, a disguised solution,
+            an uncheckable constraint, or unclear success criteria &mdash; and hand
+            it back with that one critique.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Revise</h3>
+          <p>
+            Use your peer group's critique to strengthen your weakest part
+            before the whole-class share-out.
+          </p>
+
+          <p>
+            Be ready to share one of your two rewrites with the class and defend
+            each of your four parts.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 5: Start Your Design Notebook</h3>
+          <p>
+            Your instructor will tell you whether this class uses a
+            <b>physical notebook</b> or a <b>shared digital doc</b>. Set it
+            up now, labeled with your name and this class period &mdash;
+            every student keeps one, even though today's problem statement
+            came from your group.
+          </p>
+          <p>Write your first entry with all three required parts:</p>
+          <ul>
+            <li><b class="text-sn-theme">Date</b> &mdash; today's date</li>
+            <li>
+              <b class="text-sn-theme">Problem Statement</b> &mdash; the
+              rewrite you just shared or revised, copied into your own
+              notebook
+            </li>
+            <li>
+              <b class="text-sn-theme">Sketch</b> &mdash; a quick drawing of
+              the <i>situation</i> your problem statement describes &mdash;
+              not a solution. Just a picture of the problem itself.
+            </li>
+          </ul>
+          <p>None of this needs to be neat. It needs to be honest and dated.</p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>
+            Before you share out, check your own rewrite against these four
+            questions &mdash; the same ones the class will use to critique it.
+          </p>
+
+          <div class="text-start">
+            <dl>
+              <dt>User check</dt>
+              <dd>
+                Is this a specific person/group, or still vague ("people,"
+                "someone")?
+              </dd>
+              <dt>Need check</dt>
+              <dd>
+                Is this actually a need, or does it sneak in a solution already?
+              </dd>
+              <dt>Constraints check</dt>
+              <dd>
+                Are these concrete and checkable, or vague adjectives ("cheap,"
+                "easy")?
+              </dd>
+              <dt>Success criteria check</dt>
+              <dd>
+                Could two different people look at the finished project and
+                agree on whether it succeeded?
+              </dd>
+            </dl>
+          </div>
+
+          <p>
+            If a part is missing or vague, fix it now &mdash; you'll get one
+            chance to patch it live if the class catches it during share-out,
+            but it's better to catch it yourself first.
+          </p>
+
+          <hr class="my-4" />
+
+          <p>Then check your notebook entry for all three required parts.</p>
+
+          <div class="text-start">
+            <dl>
+              <dt>Dated?</dt>
+              <dd>Today's date is written at the top of the entry.</dd>
+              <dt>Problem Statement?</dt>
+              <dd>Your rewrite is copied in, in full.</dd>
+              <dt>Sketch?</dt>
+              <dd>A drawing of the problem's situation &mdash; not a solution idea yet.</dd>
+            </dl>
+          </div>
+
+          <p>
+            This entry is graded on completeness only, not quality &mdash;
+            all three parts present is a full score.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What weak part did the peer group find in your rewrite during the
+              stress-test, and how did you fix it?
+            </li>
+            <li>
+              Which of the four parts &mdash; User, Need, Constraints, Success
+              Criteria &mdash; do you think is hardest to get right, and why?
+            </li>
+            <li>
+              Why do you think engineers date every entry instead of keeping
+              one big undated file?
+            </li>
+            <li>
+              Do you already have a solution in mind for your problem, even
+              though we haven't started Design yet? Session 3 is where
+              you'll test that instinct &mdash; are you willing to consider
+              other ideas before committing to it?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Submit your group's rewrite, your first notebook entry, and your
+            individual reflection.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

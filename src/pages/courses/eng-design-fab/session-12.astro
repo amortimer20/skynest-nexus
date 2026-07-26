@@ -1,0 +1,273 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 12: Functions in Sheets</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 12</h2>
+              <h3 class="text-sn-theme">Functions in Sheets</h3>
+            </section>
+
+            <section>
+              <h2>Last Session's Question</h2>
+              <p>
+                Which of your weights' 3 trials would you most want averaged
+                automatically?
+              </p>
+              <p class="fragment">Today, Sheets does that math for you.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Structure First</h2>
+              <p>
+                Quick recap from what you already know: clearly labeled
+                headers, units included right in each header, one row per
+                weight.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Structure First</h2>
+              <p>
+                Transfer your Session 11 data into Sheets this way before
+                anything else today.
+              </p>
+            </section>
+
+            <section>
+              <h2>From Manual to Automatic</h2>
+              <p>
+                You could add up three trials and divide by 3 yourself.
+              </p>
+              <p class="fragment">
+                Or you could write one formula that does it &mdash; and
+                keeps doing it correctly if a number changes.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Meet AVERAGE</h2>
+              <p><code>=AVERAGE(range)</code></p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Meet AVERAGE</h2>
+              <p>
+                Select the cell where you want the result, type the formula,
+                select the range of trial cells, press enter.
+              </p>
+            </section>
+
+            <section>
+              <h2>Worked Example</h2>
+              <p>Trials of 12, 14, and 13 in cells B2:D2:</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Worked Example</h2>
+              <p><code>=AVERAGE(B2:D2)</code></p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Worked Example</h2>
+              <p><code>=AVERAGE(B2:D2) &rarr; 13</code></p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Meet MIN and MAX</h2>
+              <ul>
+                <li class="fragment"><code>=MIN(range)</code> &mdash; your smallest trial</li>
+                <li class="fragment"><code>=MAX(range)</code> &mdash; your largest trial</li>
+              </ul>
+              <p class="fragment">Together, they show the spread at a glance.</p>
+            </section>
+
+            <section>
+              <h2>Why a Formula, Not a Typed Number</h2>
+              <p>
+                If you catch a typo in one of your trial cells and fix it,
+                a formula recalculates instantly.
+              </p>
+              <p class="fragment">
+                A number you typed in by hand just sits there, quietly wrong.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">A formula is smarter than a number.</b></p>
+              <p class="fragment">
+                It reflects your actual data, even after your data changes.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Reference the cells. Don't retype the values.</b></p>
+              <p class="fragment">
+                <code>=AVERAGE(B2:D2)</code> stays correct. Typing "13" does
+                not, the moment B2:D2 changes.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 13: Conditional Formatting &amp; Data Quality</p>
+              <p class="fragment">
+                Now that you have averages, let's automatically flag
+                anything that looks off.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Structure Your Table</h3>
+          <p>
+            Transfer your Session 11 data into Sheets: clearly labeled
+            headers with units included (e.g., <code>Weight (g)</code>,
+            <code>Trial 1 (mm)</code>), one row per weight.
+          </p>
+
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Building the Header Row]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Add an Average Column</h3>
+          <p>
+            For each weight's row, use <code>=AVERAGE(range)</code> to
+            compute the average of its 3 trials. Reference the actual trial
+            cells &mdash; don't type in a number you calculated by hand.
+          </p>
+
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Typing the AVERAGE Formula]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Add Min and Max Columns</h3>
+          <p>
+            For each row, add <code>=MIN(range)</code> and
+            <code>=MAX(range)</code> for the same 3 trial cells.
+          </p>
+
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr>
+                <th>Weight</th>
+                <th>Trial 1</th>
+                <th>Trial 2</th>
+                <th>Trial 3</th>
+                <th>Average</th>
+                <th>Min</th>
+                <th>Max</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Sanity Check</h3>
+          <p>
+            For every row, confirm your Average falls between your Min and
+            Max. If it doesn't, one of your three formulas is referencing
+            the wrong cells.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, confirm all of the following:</p>
+
+          <ul>
+            <li>Average, Min, and Max are actual formulas &mdash; not typed-in numbers</li>
+            <li>Average falls between Min and Max for every single row</li>
+            <li>Headers still include units, from your Session 11&ndash;12 structure</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Pick one row. By how much does its Max differ from its Min?
+              Does that spread feel large or small to you?
+            </li>
+            <li>
+              Why might a formula-based average be more trustworthy than one
+              you calculated by hand and typed in?
+            </li>
+            <li>
+              Session 13 will automatically flag rows whose trials disagree
+              with each other too much. Based on your Min/Max columns, which
+              weight's trials do you think are least consistent?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your Sheets table with working Average, Min, and Max formulas, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

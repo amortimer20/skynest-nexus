@@ -1,0 +1,154 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Sessions 21&ndash;23: Test &amp; Calibrate</h1>
+        <p class="text-sn-theme">Racquet Ball Launcher Project &mdash; Milestone 3 of 6</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <h2>This Is the Actual Point of the Project</h2>
+          <p>
+            A working launcher isn't the deliverable. Turning it into a
+            trustworthy predictive tool is. A team that says "it works,
+            we're done" without a real calibration curve hasn't finished the
+            assignment.
+          </p>
+
+          <p>
+            This is the exact same workflow from Sessions 11&ndash;14 &mdash;
+            repeated trials, structured logging, functions, conditional
+            formatting, charting a trendline and reading R&sup2; &mdash; just
+            with your own launcher instead of a spring, and real stakes
+            instead of practice.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Bungee safety still applies every
+            session.</b> Every pull, every time, no exceptions.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Test Across a Range of Settings</h3>
+          <p>
+            Run your independent variable across a range of settings, with
+            multiple trials at each setting. Push for enough distinct
+            points across your intended range to actually trust
+            interpolation &mdash; 2&ndash;3 points stretched across the
+            whole range isn't enough.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Log Every Trial in Sheets</h3>
+          <p>
+            Structure your table the way you learned in Session 12: labeled
+            headers with units, one row per setting. Add Average, Min, and
+            Max columns with real formulas, and a Spread column with
+            conditional formatting flagging any setting where your trials
+            disagreed too much &mdash; the same as Session 13.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Plot and Fit a Curve</h3>
+          <p>
+            Scatter plot your IV vs. landing distance, add a trendline,
+            display the equation and R&sup2; &mdash; direct payoff of
+            Session 14. If R&sup2; is weak, diagnose it the same way: a
+            measurement problem, or a real non-linearity in this range?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: State Your Usable Range</h3>
+          <p>
+            Based on your actual data, state the span of distances you're
+            confident predicting within the &plusmn;3 yard margin. This
+            isn't a guess &mdash; it has to be justified by what you
+            measured.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your submitted calibration file must include all of the following:</p>
+
+          <ul>
+            <li>Enough distinct settings tested, with multiple trials each, to support real interpolation</li>
+            <li>Every trial logged, with working Average/Min/Max/Spread formulas</li>
+            <li>Scatter plot, trendline, and R&sup2; displayed</li>
+            <li>A usable range that's actually justified by your data, not asserted</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Is your R&sup2; strong or weak? If weak, is that measurement
+              noise or a real effect &mdash; and how would you actually tell
+              the difference at these higher stakes?
+            </li>
+            <li>
+              Did your conditional formatting flag any setting? What did you
+              do about it?
+            </li>
+            <li>
+              Sessions 24&ndash;25 ask for a small, targeted improvement, not
+              a redesign. Looking at your data, where is your model weakest
+              or least precise right now?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Submit your calibration dataset, fitted curve, stated usable
+            range, and your reflection.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Milestone Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

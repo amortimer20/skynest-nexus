@@ -1,0 +1,243 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 13: Conditional Formatting &amp; Data Quality</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 13</h2>
+              <h3 class="text-sn-theme">Conditional Formatting &amp; Data Quality</h3>
+            </section>
+
+            <section>
+              <h2>Last Session's Question</h2>
+              <p>Which weight's trials did you think were least consistent?</p>
+              <p class="fragment">
+                Today, let's stop guessing and make Sheets tell us.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>One More Value: Spread</h2>
+              <p>Max minus Min, for a row.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>One More Value: Spread</h2>
+              <p>
+                How much your three trials disagreed with each other &mdash;
+                a single number you can actually compare across rows.
+              </p>
+            </section>
+
+            <section>
+              <h2>Worked Example</h2>
+              <p>If Max is in F2 and Min is in E2:</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Worked Example</h2>
+              <p><code>=F2-E2</code></p>
+            </section>
+
+            <section>
+              <h2>Conditional Formatting</h2>
+              <p>
+                A rule that changes how a cell <i>looks</i>, automatically,
+                based on its value.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Setting Up the Rule</h2>
+              <ol>
+                <li class="fragment">Select your Spread column</li>
+                <li class="fragment">Format &rarr; Conditional formatting</li>
+                <li class="fragment">Format cells if&hellip; Greater than</li>
+                <li class="fragment">Enter your threshold value</li>
+              </ol>
+            </section>
+
+            <section>
+              <h2>Choosing a Threshold</h2>
+              <p>
+                This is a judgment call &mdash; the same kind you made back
+                in Session 9 with tolerance.
+              </p>
+              <p class="fragment">
+                Too tight, and normal variation gets flagged constantly. Too
+                loose, and real problems slip through.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What a Flag Means</h2>
+              <p>Not automatically bad data.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What a Flag Means</h2>
+              <p>
+                A prompt to look closer &mdash; the same "diagnostic, not a
+                verdict" idea you'll see again with R&sup2; next session.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">A flag is a question, not a verdict.</b></p>
+              <p class="fragment">
+                Look at the flagged row and decide: measurement noise, or
+                something else?
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Conditional formatting only works if the formula feeding it is right.</b></p>
+              <p class="fragment">
+                A wrong Spread formula will confidently highlight the wrong
+                things.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 14: Charting &amp; Trendlines</p>
+              <p class="fragment">
+                Time to turn all this structured, checked data into a plot.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Add a Spread Column</h3>
+          <p>
+            Using your Session 12 Min and Max columns, add a new column that
+            calculates <code>Max &minus; Min</code> for each row.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Choose a Threshold</h3>
+          <p>
+            Decide, as a class or with your instructor, what counts as "too
+            much" spread for this experiment. Write down the number you land
+            on and one sentence for why.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Apply Conditional Formatting</h3>
+          <p>Select your Spread column and set up a rule that highlights any value greater than your threshold.</p>
+
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Setting Up a Conditional Formatting Rule]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Investigate Any Flagged Row</h3>
+          <p>
+            For any row your rule highlights, write one sentence: do you
+            think this is measurement noise, or something real about that
+            weight? If nothing gets flagged, write one sentence on whether
+            that surprises you.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Stretch (Optional): Flag the Actual Trial</h3>
+          <p>
+            Instead of flagging the whole row, try a <b>custom formula</b>
+            conditional formatting rule that highlights just the one trial
+            cell furthest from that row's average &mdash; ask your
+            instructor if you want to attempt this.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, confirm all of the following:</p>
+
+          <ul>
+            <li>Your Spread column uses a formula, not typed-in numbers</li>
+            <li>Your conditional formatting rule is actually applied and visibly working</li>
+            <li>Any flagged row has a written note explaining your read on it</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What threshold did you land on for "too much spread," and why
+              that number?
+            </li>
+            <li>
+              For any row that got flagged, do you think it's measurement
+              noise or something real? How would you actually find out for
+              sure?
+            </li>
+            <li>
+              Session 14 turns this data into a plot. Do you expect a
+              flagged row to stand out as an outlier on the scatter plot
+              too?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your Spread column, your conditional formatting rule, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

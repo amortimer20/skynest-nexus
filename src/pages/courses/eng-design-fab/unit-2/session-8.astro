@@ -1,0 +1,228 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+
+import PocketStepoverDiagram from "../../../../assets/courses/eng-design-fab/img/pocket-stepover-diagram.svg";
+import StepdownDiagram from "../../../../assets/courses/eng-design-fab/img/stepdown-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 8: Pockets, Step-Over &amp; Step-Down</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 3</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 8</h2>
+              <h3 class="text-sn-theme">Pockets, Step-Over &amp; Step-Down</h3>
+            </section>
+
+            <section>
+              <h2>Last Time</h2>
+              <p>Profile cuts follow a line. A pocket clears out an entire area.</p>
+              <p class="fragment">
+                That's a different problem &mdash; the bit can't just trace
+                an outline once.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Clearing an Area Takes Many Passes</h2>
+              <p>The bit sweeps back and forth, slightly overlapping each time, until the whole area is clear.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Step-Over</h2>
+              <Image
+                src={PocketStepoverDiagram}
+                alt="Diagram comparing an even step-over, where overlapping passes clear the entire pocket area, against a step-over set too wide, which leaves ridges of uncut material between passes"
+                width={720}
+              />
+            </section>
+
+            <section>
+              <h2>Too Wide a Step-Over</h2>
+              <p>
+                Leaves thin ridges of material standing between passes
+                &mdash; the pocket looks clear from above but isn't.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Different Problem: Depth</h2>
+              <p>Cutting a thick panel to full depth in one plunge stresses the bit hard.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Step-Down</h2>
+              <Image
+                src={StepdownDiagram}
+                alt="Cross-section diagram of material being cut in three progressively deeper passes before reaching final depth, with an arrow labeling the step-down distance between passes"
+                width={720}
+              />
+            </section>
+
+            <section>
+              <h2>Why Shallow Passes Instead of One</h2>
+              <ul>
+                <li class="fragment">Less heat and stress on the bit &mdash; lower breakage risk</li>
+                <li class="fragment">Cleaner chip clearing at each depth</li>
+                <li class="fragment">A broken bit mid-cut is worse than a slower job</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>One More Thing: Tabs</h2>
+              <p>
+                When a Profile cut fully separates a part from the stock,
+                what's holding it in place at that final moment?
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Tabs</h2>
+              <p>
+                Small, deliberately uncut bridges that hold the part to the
+                stock until you remove them by hand after the job finishes.
+              </p>
+            </section>
+
+            <section>
+              <h2>No Tabs, No Warning</h2>
+              <p>
+                A fully-cut part can shift or come loose mid-job &mdash;
+                right next to a spinning bit.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Step-over and step-down solve different problems.</b></p>
+              <p class="fragment">
+                Step-over is about area (side to side). Step-down is about
+                depth (top to bottom). Don't confuse which one fixes which
+                issue.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Tabs are a safety feature as much as a practical one.</b></p>
+              <p class="fragment">
+                A part that's still attached can't become a projectile
+                mid-cut.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 9: Apply CAM to a Practice Piece</p>
+              <p class="fragment">
+                Everything from these two sessions, programmed for real in
+                OnShape.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Diagnose a Bad Pocket</h3>
+          <p>
+            A pocket cut with too-wide a step-over comes out with visible
+            ridges still standing. Explain, in your own words, why this
+            happens even though the toolpath ran the whole area.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Step-Over or Step-Down?</h3>
+          <p>For each problem below, name which one (step-over or step-down) is the actual fix:</p>
+          <ol>
+            <li>A pocket comes out with thin uncut ridges between passes</li>
+            <li>A bit snaps partway through cutting a thick panel to full depth</li>
+            <li>A pocket's bottom is rough and uneven, even though the sides look fine</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Why Tabs?</h3>
+          <p>
+            Explain what would actually happen, step by step, if a Profile
+            cut fully separated a part from stock with no tabs, while the
+            job was still running.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, confirm you can explain, out loud, the actual difference between what step-over fixes and what step-down fixes.</p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which of today's three concepts &mdash; step-over, step-down,
+              or tabs &mdash; do you think would be easiest to forget under
+              real time pressure? Why?
+            </li>
+            <li>
+              A pocket toolpath is really many overlapping profile-like
+              passes. How does that change how you'd think about setting it
+              up, compared to Session 7's single profile cut?
+            </li>
+            <li>
+              Session 9 has you apply all of this for real. What's the one
+              thing from these two sessions you're least confident about
+              actually setting correctly?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your pocket diagnosis, your step-over/step-down answers, your tabs explanation, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

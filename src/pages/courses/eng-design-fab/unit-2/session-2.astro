@@ -1,0 +1,254 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 2: Materials for Subtractive Manufacturing</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 1</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 2</h2>
+              <h3 class="text-sn-theme">Materials for Subtractive Manufacturing</h3>
+            </section>
+
+            <section>
+              <h2>Last Time: Who You're Building For</h2>
+              <p>Today: what you're actually going to build it out of.</p>
+              <p class="fragment">
+                Before a single toolpath gets programmed, material choice is
+                already shaping what's possible.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Not All Sheet Goods Are the Same</h2>
+              <p>Three common CNC-router materials, three very different personalities.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Three Options</h2>
+              <ul>
+                <li class="fragment"><b>Baltic birch plywood</b> &mdash; many thin plies, minimal voids</li>
+                <li class="fragment"><b>Standard plywood</b> &mdash; fewer, thicker plies, cheaper, less consistent</li>
+                <li class="fragment"><b>MDF</b> &mdash; no grain at all, engineered from wood fiber</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Grain Direction &amp; Tear-Out</h2>
+              <p>
+                Plywood has a grain. Cutting across it, instead of with it,
+                is far more likely to chip and tear the edge.
+              </p>
+              <p class="fragment">
+                MDF has no grain at all &mdash; it cuts consistently in every
+                direction, which is exactly why it's a CNC favorite despite
+                its other weaknesses.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Screw-Holding</h2>
+              <p>
+                Not all materials hold a screw the same way &mdash; and an
+                arcade cabinet gets opened for service, not just built once.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Screw-Holding</h2>
+              <ul>
+                <li class="fragment">Plywood holds screws reasonably well, especially face-on</li>
+                <li class="fragment">MDF holds a screw the <i>first</i> time &mdash; strip it once and the hole is often ruined</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Weight, Cost, Moisture</h2>
+              <p>
+                MDF is denser (heavier) and cheaper than either plywood.
+                None of these three are meant for outdoor moisture exposure
+                &mdash; but they don't all fail the same way or the same speed.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Property Comparison</h2>
+              <table class="table table-dark table-sm">
+                <thead>
+                  <tr><th></th><th>Baltic Birch</th><th>Standard Plywood</th><th>MDF</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Edge quality when routed</td><td>Excellent</td><td>Fair</td><td>Excellent</td></tr>
+                  <tr><td>Screw-holding</td><td>Good</td><td>Good</td><td>Poor (edge), fine (face, once)</td></tr>
+                  <tr><td>Weight</td><td>Moderate</td><td>Moderate</td><td>Heavy</td></tr>
+                  <tr><td>Cost</td><td>Highest</td><td>Middle</td><td>Lowest</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section>
+              <h2>Your Cabinet Isn't One Material</h2>
+              <p>
+                A side panel, a control panel, and a back access panel don't
+                have the same demands &mdash; there's no reason they should
+                use the same material by default.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">"Cheapest" isn't the same question as "best."</b></p>
+              <p class="fragment">
+                A material choice should point back to a specific property
+                that specific part actually needs.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">A part that gets serviced needs to survive being unscrewed.</b></p>
+              <p class="fragment">
+                This is exactly why screw-holding matters more for some
+                panels than others.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 3: Additive Manufacturing</p>
+              <p class="fragment">
+                A completely different process, with its own material rules
+                &mdash; and its own place in this project.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: The Property Comparison</h3>
+          <p>Use this table for your reasoning below &mdash; don't just go with a gut feeling.</p>
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr><th></th><th>Baltic Birch</th><th>Standard Plywood</th><th>MDF</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Edge quality when routed</td><td>Excellent</td><td>Fair</td><td>Excellent</td></tr>
+              <tr><td>Screw-holding</td><td>Good</td><td>Good</td><td>Poor (edge), fine (face, once)</td></tr>
+              <tr><td>Weight</td><td>Moderate</td><td>Moderate</td><td>Heavy</td></tr>
+              <tr><td>Cost</td><td>Highest</td><td>Middle</td><td>Lowest</td></tr>
+            </tbody>
+          </table>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Choose a Material for Three Components</h3>
+          <p>
+            For each component below, choose Baltic birch, standard plywood,
+            or MDF, and justify it using <b class="text-sn-theme">at least
+            two specific properties</b> from the table &mdash; not just cost.
+          </p>
+          <ul>
+            <li><b>Side panel</b> &mdash; structural, holds the cabinet's shape and any leg levelers/casters</li>
+            <li><b>Control panel</b> &mdash; where joysticks and buttons mount, takes repeated physical impact</li>
+            <li><b>Back access panel</b> &mdash; removed and reattached whenever the electronics need servicing</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Defend Your Weakest Choice</h3>
+          <p>
+            Of your three choices, which one are you least sure about?
+            Write one sentence on what would change your mind.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, check your work against these two questions.</p>
+
+          <div class="text-start">
+            <dl>
+              <dt>Did you use at least two properties per choice?</dt>
+              <dd>
+                "It's cheaper" alone isn't a complete justification for any of
+                the three components.
+              </dd>
+              <dt>Would this make sense to a client?</dt>
+              <dd>
+                Your reasoning should hold up even to someone who's never
+                heard the word "MDF" before today.
+              </dd>
+            </dl>
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which single property &mdash; edge quality, screw-holding,
+              weight, or cost &mdash; mattered most across your three
+              choices?
+            </li>
+            <li>
+              Did any two of your three components end up with the same
+              material, but for different reasons? What were they?
+            </li>
+            <li>
+              Session 3 covers additive manufacturing. Is there any component
+              of an arcade cabinet you'd consider 3D printing instead of
+              routing from sheet material? Why?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your three material choices with justifications, your weakest-choice defense, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

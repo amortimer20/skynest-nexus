@@ -1,0 +1,225 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 10: Post-Processing &amp; Troubleshooting</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 3</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 10</h2>
+              <h3 class="text-sn-theme">Post-Processing &amp; Troubleshooting</h3>
+            </section>
+
+            <section>
+              <h2>A Clean Simulation Isn't the Finish Line</h2>
+              <p>
+                OnShape's simulation shows the toolpath. Your machine needs
+                its own language to actually run it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Post-Processor</h2>
+              <p>
+                Translates CAM Studio's generic toolpath into the specific
+                code your exact machine's controller understands.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Different Machines, Different Language</h2>
+              <p>
+                A ShopBot and a Makera don't read the same code &mdash; the
+                wrong post-processor produces code your machine can't run
+                correctly, even from an identical simulated toolpath.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Your Machine</h2>
+              <p class="fragment">
+                <b class="text-sn-theme">[VERIFY]</b> &mdash; confirm the
+                exact post-processor selection for your specific machine
+                with your instructor before running anything for real.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Diagnostic Clinic</h2>
+              <p>From here on, most problems show up as a symptom first &mdash; you work backward to the cause.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Symptom: Didn't Cut All the Way Through</h2>
+              <p>Likely cause: stock thickness entered wrong, or final depth set short.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Symptom: Part Came Out Undersized</h2>
+              <p>Likely cause: wrong profile offset &mdash; Session 7's exact problem.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Symptom: Part Shifted or Came Loose Mid-Job</h2>
+              <p>Likely cause: no tabs, or tabs too small &mdash; Session 8's exact problem.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Symptom: Bit Broke</h2>
+              <p>Likely cause: step-down too aggressive for the material.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Symptom: Machine Errored or Moved Strangely at Startup</h2>
+              <p>Likely cause: wrong post-processor, or zero point not actually verified &mdash; Session 4's protocol.</p>
+            </section>
+
+            <section>
+              <h2>Notice the Pattern</h2>
+              <p>
+                Every one of today's symptoms traces back to something
+                already taught &mdash; nothing here is a brand-new idea,
+                just the same ideas showing up as real-world failures.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">A symptom rarely has just one possible cause.</b></p>
+              <p class="fragment">
+                Check the most likely explanation first, but don't stop
+                looking if it turns out wrong.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">A pre-cut checklist beats fixing mistakes after material's already ruined.</b></p>
+              <p class="fragment">
+                Everything on today's list is cheaper to check before
+                pressing start than after.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Up</h2>
+              <p><b class="text-sn-theme">Week 4: The Practice Build.</b></p>
+              <p class="fragment">
+                Design a small item, program it, actually cut it &mdash;
+                everything from these four weeks, in one small project.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Match Symptom to Likely Cause</h3>
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr><th>Symptom</th><th>Likely Cause</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Cut didn't go all the way through the material</td><td></td></tr>
+              <tr><td>Part came out noticeably undersized</td><td></td></tr>
+              <tr><td>Part shifted mid-job</td><td></td></tr>
+              <tr><td>Bit broke partway through a deep cut</td><td></td></tr>
+              <tr><td>Machine behaved strangely right at startup</td><td></td></tr>
+            </tbody>
+          </table>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Write Out One Real Fix</h3>
+          <p>
+            Pick one symptom above. Write the actual fix &mdash; not just
+            the cause, but the specific correction you'd make in the CAM
+            setup.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Build Your Pre-Cut Checklist</h3>
+          <p>
+            Write a personal checklist of everything you'd verify before
+            pressing start on a real job. Pull from all four weeks so far
+            &mdash; safety protocols, offset choice, tabs, step-down,
+            post-processor, zero point. You'll use this checklist for real
+            in Week 4.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, confirm your pre-cut checklist includes at least one item from each of: safety (Session 4), CAD/offset (Session 7), and pocket/tabs (Session 8).</p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which symptom from today's list do you think would be most
+              confusing to diagnose in the moment, without today's session
+              to reference? Why?
+            </li>
+            <li>
+              Every symptom today traced back to something from an earlier
+              session. What does that tell you about how these skills
+              actually connect, rather than existing as separate topics?
+            </li>
+            <li>
+              Looking at your own pre-cut checklist, which item are you most
+              likely to forget under real time pressure?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your symptom-matching table, your written fix, your pre-cut checklist, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

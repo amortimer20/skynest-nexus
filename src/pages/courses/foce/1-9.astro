@@ -3,209 +3,74 @@ import Presentation from "../../../components/Presentation.astro";
 import Divider from "../../../components/ui/Divider.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
-import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `is_raining = True
-has_umbrella = False`;
-const Figure2 = `health = 100
-is_alive = health > 0`;
-const Task1 = `# Initialize variables
-name = "Mr. Mortimer"
-age = 30
-balance = 150.00
-is_teacher = True
-is_millionaire = False
+const Figure1 = `radius = float(input("Enter radius: "))
+circumference = 2 * math.pi * radius
 
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
-can_drive = age >= 16
-can_buy_car = balance > 31000
-is_senior = age >= 65
+print(f"Circumference: {circumference}")`;
+const Figure2 = `Enter radius: 42
+Circumference: 263.89378290154264`;
+const Figure3 = `print(round(263.8938))
+print(round(263.8938, 2))`;
+const Figure4 = `264
+263.89`;
+const Figure5 = `side = 2
+
+print(side ** 3)
+print(math.pow(side, 3))`;
+const Figure6 = `8
+8.0`;
+const Figure7 = `print(math.sqrt(45))`;
+const Figure8 = `6.708203932499369`;
+const Task1 = `import math
+
+radius = float(input("Enter radius: "))
+circumference = 2 * math.pi * radius
+
+print(f"Circumference: {circumference}")
+print(f"Rounded: {round(circumference, 2)}")
 `;
-const Task2 = `# Initialize variables
-name = "Mr. Mortimer"
-age = 30
-balance = 150.00
-is_teacher = True
-is_millionaire = False
+const Task2 = `import math
 
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
-can_drive = age >= 16
-can_buy_car = balance > 31000
-is_senior = age >= 65
+radius = float(input("Enter radius: "))
+circumference = 2 * math.pi * radius
 
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
+print(f"Circumference: {circumference}")
+print(f"Rounded: {round(circumference, 2)}")
+
+side = float(input("Enter a side length: "))
+exponent = int(input("Enter an exponent: "))
+
+print(f"{side} ** {exponent} is {side ** exponent}")
+print(f"math.pow({side}, {exponent}) is {math.pow(side, exponent)}")
 `;
-const Task3 = `# Initialize variables
-name = "Mr. Mortimer"
-age = 30
-balance = 150.00
-is_teacher = True
-is_millionaire = False
+const Task3 = `import math
 
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
-can_drive = age >= 16
-can_buy_car = balance > 31000
-is_senior = age >= 65
+radius = float(input("Enter radius: "))
+circumference = 2 * math.pi * radius
 
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
+print(f"Circumference: {circumference}")
+print(f"Rounded: {round(circumference, 2)}")
 
-print("-Age-Related Checks-")
-print(f"Am I old enough to drive? {can_drive}")
-can_rent_car = age >= 25
-print(f"Am I old enough to rent a car? {can_rent_car}")
-print(f"Am I eligible for a senior citizen discount? {is_senior}")
-input("Press enter to continue...")
+side = float(input("Enter a side length: "))
+exponent = int(input("Enter an exponent: "))
+
+print(f"{side} ** {exponent} is {side ** exponent}")
+print(f"math.pow({side}, {exponent}) is {math.pow(side, exponent)}")
+
+number = float(input("Enter a positive number: "))
+print(f"Square root of {number} is {math.sqrt(number)}")
 `;
-const Task4 = `# Initialize variables
-name = "Mr. Mortimer"
-age = 30
-balance = 150.00
-is_teacher = True
-is_millionaire = False
-
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
-can_drive = age >= 16
-can_buy_car = balance > 31000
-is_senior = age >= 65
-
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
-
-print("-Age-Related Checks-")
-print(f"Am I old enough to drive? {can_drive}")
-can_rent_car = age >= 25
-print(f"Am I old enough to rent a car? {can_rent_car}")
-print(f"Am I eligible for a senior citizen discount? {is_senior}")
-input("Press enter to continue...")
-
-print("-Bank Account Checks-")
-print(f"Do I have enough to buy a Dodge Challenger? {can_buy_car}")
-has_funds = balance > 0
-print(f"Do I have a positive bank balance? {has_funds}")
-input("Press enter to continue...")
-`;
-const Task5 = `# Initialize variables
-name = "Mr. Mortimer"
-age = 30
-balance = 150.00
-is_teacher = True
-is_millionaire = False
-
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
-can_drive = age >= 16
-can_buy_car = balance > 31000
-is_senior = age >= 65
-
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
-
-print("-Age-Related Checks-")
-print(f"Am I old enough to drive? {can_drive}")
-can_rent_car = age >= 25
-print(f"Am I old enough to rent a car? {can_rent_car}")
-print(f"Am I eligible for a senior citizen discount? {is_senior}")
-input("Press enter to continue...")
-
-print("-Bank Account Checks-")
-print(f"Do I have enough to buy a Dodge Challenger? {can_buy_car}")
-has_funds = balance > 0
-print(f"Do I have a positive bank balance? {has_funds}")
-input("Press enter to continue...")
-
-print("-Boolean Checks-")
-print(f"{name} is a teacher: {is_teacher}")
-print(f"{name} is a millionaire: {is_millionaire}")
-not_millionaire = not is_millionaire
-print(f"So, {name} isn't a millionaire? {not_millionaire}")
-input("Press enter to continue...")
-`;
-const Task6 = `# Initialize variables
-name = "Mr. Mortimer"
-age = 30
-balance = 150.00
-is_teacher = True
-is_millionaire = False
-
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
-can_drive = age >= 16
-can_buy_car = balance > 31000
-is_senior = age >= 65
-
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
-
-print("-Age-Related Checks-")
-print(f"Am I old enough to drive? {can_drive}")
-can_rent_car = age >= 25
-print(f"Am I old enough to rent a car? {can_rent_car}")
-print(f"Am I eligible for a senior citizen discount? {is_senior}")
-input("Press enter to continue...")
-
-print("-Bank Account Checks-")
-print(f"Do I have enough to buy a Dodge Challenger? {can_buy_car}")
-has_funds = balance > 0
-print(f"Do I have a positive bank balance? {has_funds}")
-input("Press enter to continue...")
-
-print("-Boolean Checks-")
-print(f"{name} is a teacher: {is_teacher}")
-print(f"{name} is a millionaire: {is_millionaire}")
-not_millionaire = not is_millionaire
-print(f"So, {name} isn't a millionaire? {not_millionaire}")
-input("Press enter to continue...")
-
-print("-Logical Operator Examples-")
-can_drive_and_buy = can_drive and can_buy_car
-print(f"Am I old enough to drive AND have enough to buy a Dodge Challenger? {can_drive_and_buy}")
-can_drive_or_buy = can_drive or can_buy_car
-print(f"Am I old enough to drive OR have enough to buy a Dodge Challenger? {can_drive_or_buy}")
-`;
-const SampleOutput = `-Name Checks-
-Is my name Mr. Mortimer? True
-Is my name Mr. Mertens? False
-My name is not Mr. Merriman: True
-Press enter to continue...
--Age-Related Checks-
-Am I old enough to drive? True
-Am I old enough to rent a car? True
-Am I eligible for a senior citizen discount? False
-Press enter to continue...
--Bank Account Checks-
-Do I have enough to buy a Dodge Challenger? False
-Do I have a positive bank balance? True
-Press enter to continue...
--Boolean Checks-
-Mr. Mortimer is a teacher: True
-Mr. Mortimer is a millionaire: False
-So, Mr. Mortimer isn't a millionaire? True
-Press enter to continue...
--Logical Operator Examples-
-Am I old enough to drive AND have enough to buy a Dodge Challenger? False
-Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
+const SampleOutput = `Enter radius: 42
+Circumference: 263.89378290154264
+Rounded: 263.89
+Enter a side length: 2
+Enter an exponent: 3
+2.0 ** 3 is 8.0
+math.pow(2.0, 3) is 8.0
+Enter a positive number: 45
+Square root of 45.0 is 6.708203932499369`;
 //#endregion
 ---
 
@@ -217,7 +82,7 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.9: Boolean Logic</h1>
+        <h1>Activity 1.9: Math Functions</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -225,61 +90,103 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
           <Presentation>
             <section>
               <h2>Activity 1.9</h2>
-              <h3 class="text-sn-theme">Boolean Logic</h3>
+              <h3 class="text-sn-theme">Math Functions</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Booleans</p>
-              <p>Comparison Operators</p>
-              <p>Logical Operators</p>
+              <p>Modules</p>
+              <p>The <code>math</code> module</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Booleans</h2>
+              <h2>Not Everything Is Built In</h2>
               <p>
-                A <b class="text-sn-theme">boolean</b> is a value that's
-                either <CodeSnippet code="True" lang="python" theme="material-theme-ocean" inline /> or <CodeSnippet code="False" lang="python" theme="material-theme-ocean" inline /> &mdash; nothing else.
+                Some tools aren't part of core Python &mdash; you bring
+                them in with <code>import</code>. A collection of tools you
+                import like this is called a <b class="text-sn-theme">module</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Today's Module: math</h2>
+              <p>
+                Constants and functions for more advanced math than
+                <code>+</code>, <code>-</code>, <code>*</code>, and
+                <code>/</code> can do alone.
+              </p>
+              <p class="fragment"><code>import math</code></p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>math.pi</h2>
+              <p>
+                A constant &mdash; no parentheses, because you're not
+                calling a function, just reading a stored value.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
+            <section data-auto-animate>
+              <h2>math.pi</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Comparison Operators</h2>
-              <p>Comparing two values always produces a boolean.</p>
-              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+              <h2>That Number Is Ugly. Fix It With round()</h2>
+              <p>
+                <code>round()</code> is built in &mdash; no <code>math.</code>
+                needed. One argument rounds to a whole number; a second
+                argument rounds to that many decimal places.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>Comparison Operators</h2>
-              <ul>
-                <li class="fragment"><CodeSnippet code="==" lang="python" theme="material-theme-ocean" inline /> Equal to</li>
-                <li class="fragment"><CodeSnippet code="!=" lang="python" theme="material-theme-ocean" inline /> Not equal to</li>
-                <li class="fragment"><CodeSnippet code=">" lang="python" theme="material-theme-ocean" inline /> Greater than</li>
-                <li class="fragment"><CodeSnippet code="<" lang="python" theme="material-theme-ocean" inline /> Less than</li>
-                <li class="fragment"><CodeSnippet code=">=" lang="python" theme="material-theme-ocean" inline /> Greater than or equal to</li>
-                <li class="fragment"><CodeSnippet code="<=" lang="python" theme="material-theme-ocean" inline /> Less than or equal to</li>
-              </ul>
+              <h2>That Number Is Ugly. Fix It With round()</h2>
+              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Logical Operators</h2>
+              <h2>Wait &mdash; Haven't We Done Exponents Already?</h2>
               <p>
-                Logical operators combine booleans together. Python spells
-                these out as words, not symbols.
+                Activity 1.4 taught <code>**</code> for exponents.
+                <code>math.pow()</code> does the exact same job.
               </p>
-              <ul>
-                <li class="fragment"><CodeSnippet code="and" lang="python" theme="material-theme-ocean" inline /> &mdash; true only if both sides are true</li>
-                <li class="fragment"><CodeSnippet code="or" lang="python" theme="material-theme-ocean" inline /> &mdash; true if either side is true</li>
-                <li class="fragment"><CodeSnippet code="not" lang="python" theme="material-theme-ocean" inline /> &mdash; flips a boolean to its opposite</li>
-              </ul>
+              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Real Difference</h2>
+              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                <code>math.pow()</code> always returns a <code>float</code>,
+                even when the answer is a whole number. <code>**</code>
+                doesn't. In your own code, <code>**</code> is still the more
+                common choice &mdash; but you'll see <code>math.pow()</code>
+                in other people's code, so it's worth recognizing.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>math.sqrt()</h2>
+              <p>Square roots &mdash; no exponent trick required.</p>
+              <Code code={Figure7} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>math.sqrt()</h2>
+              <Code code={Figure8} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing boolean expressions with comparison operators</li>
-                <li>Combining booleans with <code>and</code>, <code>or</code>, and <code>not</code></li>
+                <li>Importing a module for the first time</li>
+                <li>Using the <code>math.pi</code> constant</li>
+                <li>Rounding with <code>round()</code></li>
+                <li>Comparing <code>math.pow()</code> to <code>**</code></li>
+                <li>Calculating square roots with <code>math.sqrt()</code></li>
               </ul>
             </section>
 
@@ -287,12 +194,16 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Boolean</dt>
-                  <dd>A value that is either <code>True</code> or <code>False</code>.</dd>
-                  <dt>Comparison Operator</dt>
-                  <dd>An operator like <code>==</code> or <code>&gt;=</code> that compares two values and produces a boolean.</dd>
-                  <dt>Logical Operator</dt>
-                  <dd><code>and</code>, <code>or</code>, and <code>not</code> &mdash; combine or invert booleans.</dd>
+                  <dt>Module</dt>
+                  <dd>A collection of tools not built directly into Python &mdash; you bring it in with <code>import</code>.</dd>
+                  <dt>Constant</dt>
+                  <dd>A named value, like <code>math.pi</code>, that doesn't change &mdash; read directly, not called with <code>()</code>.</dd>
+                  <dt>round()</dt>
+                  <dd>Built-in function that rounds a number, optionally to a specific number of decimal places.</dd>
+                  <dt>math.pow()</dt>
+                  <dd>Raises a number to a power, same job as <code>**</code>, but always returns a <code>float</code>.</dd>
+                  <dt>math.sqrt()</dt>
+                  <dd>Returns the square root of a non-negative number.</dd>
                 </dl>
               </div>
             </section>
@@ -306,62 +217,49 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-9-boolean-logic.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-9-math-functions.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Boolean Expressions</h3>
+          <h3>Task 1: Circumference Calculator</h3>
           <ul>
-            <li>Declare the variables shown, then write four boolean expressions comparing them.</li>
+            <li>Import the <code>math</code> module.</li>
+            <li>Ask the user for a radius, then calculate and print the circumference using <code>math.pi</code>.</li>
+            <li>Print the circumference again, rounded to 2 decimal places with <code>round()</code>.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-9-boolean-logic.py" mark="9-12" />
+          <Code code={Task1} frame="code" lang="python" title="1-9-math-functions.py" mark="8" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Name Checks</h3>
+          <h3>Task 2: ** vs. math.pow()</h3>
           <ul>
-            <li>Print the results of the name-related boolean expressions.</li>
+            <li>Ask for a side length and an exponent.</li>
+            <li>Print the result using <code>**</code>, then print the result using <code>math.pow()</code>, each labeled.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-9-boolean-logic.py" mark="14-17" ins="14-18" />
+          <Code code={Task2} frame="code" lang="python" title="1-9-math-functions.py" mark="13-14" ins="10-14" />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Age-Related Checks</h3>
+          <h3>Task 3: Square Roots</h3>
           <ul>
-            <li>Print whether the person can drive, rent a car, and get a senior discount.</li>
+            <li>Ask for a positive number and print its square root using <code>math.sqrt()</code>.</li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="python" title="1-9-boolean-logic.py" mark="21-23" ins="20-25" />
+          <Code code={Task3} frame="code" lang="python" title="1-9-math-functions.py" mark="17" ins="16-17" />
 
           <hr class="my-4" />
 
-          <h3>Task 4: Bank Account Checks</h3>
+          <h3>Challenge (Optional): Ceiling and Floor</h3>
           <ul>
-            <li>Print whether the person can afford the car, and whether their balance is positive.</li>
+            <li>
+              Look up <code>math.ceil()</code> and <code>math.floor()</code>
+              in the <a href="https://docs.python.org/3/library/math.html" target="_blank" rel="noopener">Python docs</a>.
+            </li>
+            <li>Print a decimal number three ways: rounded, ceiling, and floor, and compare all three.</li>
           </ul>
-
-          <Code code={Task4} frame="code" lang="python" title="1-9-boolean-logic.py" mark="28-29" ins="27-31" />
-
-          <hr class="my-4" />
-
-          <h3>Task 5: Boolean Checks</h3>
-          <ul>
-            <li>Print the teacher/millionaire booleans directly, then use <code>not</code> to flip one.</li>
-          </ul>
-
-          <Code code={Task5} frame="code" lang="python" title="1-9-boolean-logic.py" mark="34-37" ins="33-38" />
-
-          <hr class="my-4" />
-
-          <h3>Task 6: Logical Operator Examples</h3>
-          <ul>
-            <li>Combine <code>can_drive</code> and <code>can_buy_car</code> with both <code>and</code> and <code>or</code>.</li>
-          </ul>
-
-          <Code code={Task6} frame="code" lang="python" title="1-9-boolean-logic.py" mark="41,43" ins="40-44" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -390,9 +288,9 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What are the only two values a boolean can hold?</li>
-            <li>What's the difference between <code>and</code> and <code>or</code>?</li>
-            <li>If <code>can_drive</code> is <code>True</code> and <code>can_buy_car</code> is <code>False</code>, what does <code>not can_buy_car</code> evaluate to?</li>
+            <li>What is a module, and why does <code>math</code> need to be imported when <code>round()</code> doesn't?</li>
+            <li>What's the one real difference between <code>**</code> and <code>math.pow()</code>, since they do the same job?</li>
+            <li>Why does <code>math.pi</code> get used without parentheses, while <code>math.sqrt()</code> needs them?</li>
           </ol>
         </section>
 

@@ -1,0 +1,220 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 9: Apply CAM to a Practice Piece</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 3</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 9</h2>
+              <h3 class="text-sn-theme">Apply CAM to a Practice Piece</h3>
+            </section>
+
+            <section>
+              <h2>Two Sessions of Vocabulary</h2>
+              <p>Profile, offset, pocket, step-over, step-down, tabs.</p>
+              <p class="fragment">
+                Today, all of it, programmed for real &mdash; on one small
+                shape, not the real project yet.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Meet the Test Coupon</h2>
+              <p>
+                A small practice shape that includes a bit of everything:
+                an outer boundary, an interior pocket, and a hole.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Meet the Test Coupon</h2>
+              <p>
+                A real, standard manufacturing practice &mdash; verify your
+                setup on something small and cheap before committing to the
+                real part.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Job Has Three Toolpaths</h2>
+              <ol>
+                <li class="fragment">Profile &mdash; cut the outer boundary free (Outside offset)</li>
+                <li class="fragment">Pocket &mdash; clear the interior recess (step-over set)</li>
+                <li class="fragment">Drill &mdash; the hole</li>
+              </ol>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Order Matters</h2>
+              <p>
+                Cut the pocket and drill the hole <i>before</i> the profile
+                cut frees the part &mdash; not after.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Order Matters</h2>
+              <p>
+                Once the profile cut separates the part (tabs aside), it's
+                far less securely held for any further operation.
+              </p>
+            </section>
+
+            <section>
+              <h2>Simulate Before You Trust It</h2>
+              <p>
+                Run the simulation and actually look at it &mdash; check
+                that all three operations ran, in the order you intended,
+                without the toolpaths colliding with each other.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Sequence is part of the program, not an afterthought.</b></p>
+              <p class="fragment">
+                Which operation runs first can matter as much as getting
+                each individual one right.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">A simulation that looks right still needs a human check.</b></p>
+              <p class="fragment">
+                Don't just glance at it &mdash; confirm each toolpath did
+                what you actually intended.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 10: Post-Processing &amp; Troubleshooting</p>
+              <p class="fragment">
+                Turning this simulated job into real code your machine can
+                run &mdash; and catching mistakes before they cost material.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Set Up the Job</h3>
+          <p>
+            Using the test coupon shape your instructor provides (or the one
+            you design, per their instructions), create a CAM Studio Job and
+            select the part and stock.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Program the Pocket</h3>
+          <p>
+            Set up a Pocket toolpath for the interior recess. Choose a
+            step-over and step-down, and be ready to justify both.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Program the Drill</h3>
+          <p>Add a Drill toolpath for the hole.</p>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Program the Profile</h3>
+          <p>
+            Add a Profile toolpath for the outer boundary, using Outside
+            offset. Confirm it's sequenced <b class="text-sn-theme">after</b>
+            the pocket and drill operations.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 5: Simulate and Check</h3>
+          <p>
+            Run the simulation. Confirm all three toolpaths ran, in the
+            right order, with no collisions or unexpected gouges.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, confirm:</p>
+
+          <ul>
+            <li>Pocket and drill are both sequenced before the profile cut</li>
+            <li>Your step-over and step-down choices are ones you can justify, not defaults left unexamined</li>
+            <li>The simulation ran clean, and you actually watched it, not just glanced at the result</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Did you get the toolpath order right on your first attempt?
+              If not, what tipped you off that something was wrong?
+            </li>
+            <li>
+              Which single parameter (offset, step-over, or step-down) did
+              you spend the most time reconsidering? Why that one?
+            </li>
+            <li>
+              Session 10 covers turning this simulation into real machine
+              code. What do you think could still go wrong even after a
+              clean simulation?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your CAM Studio file with all three toolpaths and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,267 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `cities = ["Cleveland", "Chicago", "New York"]
+
+for city in cities:
+    print(city)`;
+const Figure2 = `Cleveland
+Chicago
+New York`;
+const Figure3 = `cities = ["Cleveland", "Chicago", "New York"]
+
+for i in range(len(cities)):
+    print(i, cities[i])`;
+const Figure4 = `0 Cleveland
+1 Chicago
+2 New York`;
+const Figure5 = `tasks = []
+
+tasks.append("Practice lists")
+tasks.append("Finish homework")
+
+print(tasks)`;
+const Figure6 = `['Practice lists', 'Finish homework']`;
+const Task1 = `cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"]
+
+for city in cities:
+    print(city)
+`;
+const Task2 = `cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"]
+
+for i in range(len(cities)):
+    print(f"{i}: {cities[i]}")
+`;
+const Task3 = `tasks = []
+choice = ""
+
+while choice != "3":
+    print("1) Add task")
+    print("2) List tasks")
+    print("3) Exit")
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        new_task = input("Enter a task: ")
+        tasks.append(new_task)
+        print(f"{new_task} added.")
+    elif choice == "2":
+        for task in tasks:
+            print(f"- {task}")
+    elif choice == "3":
+        print("Exiting.")
+    else:
+        print("Invalid option.")
+`;
+const SampleOutput = `1) Add task
+2) List tasks
+3) Exit
+Choose an option: 1
+Enter a task: Practice lists
+Practice lists added.
+1) Add task
+2) List tasks
+3) Exit
+Choose an option: 1
+Enter a task: Finish homework
+Finish homework added.
+1) Add task
+2) List tasks
+3) Exit
+Choose an option: 2
+- Practice lists
+- Finish homework
+1) Add task
+2) List tasks
+3) Exit
+Choose an option: 3
+Exiting.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.21: Traversal and append()</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.21</h2>
+              <h3 class="text-sn-theme">Traversal and append()</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Traversal</p>
+              <p>append()</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A New for Loop Shape</h2>
+              <p>
+                Activity 1.17's <code>for</code> loops counted through
+                <code>range()</code>. A <code>for</code> loop can also walk
+                directly through a list, one element at a time &mdash; this
+                is called <b class="text-sn-theme">traversal</b>.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>A New for Loop Shape</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>When You Also Need the Index</h2>
+              <p>
+                <code>for city in cities:</code> gives you each value, but
+                not its position. When you need both, loop through
+                <code>range(len(cities))</code> instead.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>When You Also Need the Index</h2>
+              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Growing a List With append()</h2>
+              <p>
+                Lists don't have to start full. <code>append()</code> adds
+                a new value to the <b>end</b> of a list &mdash; useful for
+                building up a list one piece at a time.
+              </p>
+              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Growing a List With append()</h2>
+              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Traversing a list with <code>for item in list:</code></li>
+                <li>Traversing with both index and value using <code>range(len(list))</code></li>
+                <li>Growing a list with <code>append()</code></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Traversal</dt>
+                  <dd>Visiting every element of a list, one at a time.</dd>
+                  <dt>append()</dt>
+                  <dd>Adds a new element to the end of a list.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-21-list-traversal-and-append.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Traverse Cities</h3>
+          <ul>
+            <li>Use <code>for city in cities:</code> to print every city, one per line.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="3-4" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Number the Cities</h3>
+          <ul>
+            <li>Use <code>for i in range(len(cities)):</code> to print each city with its index.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="3-4" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Task List App</h3>
+          <ul>
+            <li>Build a menu-driven app: add a task with <code>append()</code>, list all tasks by traversal, or exit.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="10,15-16" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What's the difference between <code>for city in cities:</code> and <code>for i in range(len(cities)):</code>? When would you need the second one?</li>
+            <li>What does <code>append()</code> do to a list, and where does the new item get added?</li>
+            <li>In the task list app, why does listing tasks use a <code>for</code> loop instead of a <code>while</code> loop?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

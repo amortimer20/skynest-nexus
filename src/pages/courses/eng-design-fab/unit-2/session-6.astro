@@ -1,0 +1,204 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 6: CAD Leveling-Up II &mdash; A Full Practice Assembly</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 2</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 6</h2>
+              <h3 class="text-sn-theme">CAD Leveling-Up II</h3>
+            </section>
+
+            <section>
+              <h2>Two Panels Was the Easy Case</h2>
+              <p>One corner, one mate, easy to check by eye.</p>
+              <p class="fragment">
+                A real cabinet has several panels meeting at several corners
+                &mdash; today, scale up.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Today's Build: An Open-Top Box</h2>
+              <p>Front, back, two sides, and a bottom &mdash; five panels, four corner joints.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Same Skill, More of It</h2>
+              <p>
+                Every joint uses the exact same Fastened-mate technique from
+                Session 5. Nothing new to learn &mdash; just more places for
+                a small error to hide.
+              </p>
+            </section>
+
+            <section>
+              <h2>Name Your Parts</h2>
+              <p>
+                "Part 3" tells you nothing three steps later. "Front Panel,"
+                "Left Side" does.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>One More Idea: Flat Panels Are What CAM Sees</h2>
+              <p>
+                Each panel is modeled as a 3D part, but for a flat panel,
+                what CAM Studio actually needs is the 2D outline.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>One More Idea: Flat Panels Are What CAM Sees</h2>
+              <p>
+                Thickness matters for the assembly fitting together.
+                <b class="text-sn-theme">Shape</b> is what next week's CAM
+                work is actually about.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">More parts means more places to check, not a harder technique.</b></p>
+              <p class="fragment">
+                If one joint fails, isolate it. Don't assume the whole
+                assembly is wrong.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">A clean-looking assembly can still hide a bad joint.</b></p>
+              <p class="fragment">
+                Zoom into every corner individually &mdash; don't trust a
+                glance at the whole box.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 7: Toolpath Types &amp; Profile Offset</p>
+              <p class="fragment">
+                CAM Studio begins &mdash; turning a flat panel's shape into
+                an actual cutting path.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Model Five Panels</h3>
+          <p>
+            Front, back, two sides, and a bottom &mdash; all at the same
+            real stock thickness from Session 5. Name each part clearly
+            (e.g., "Front Panel," "Left Side," "Bottom").
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Assemble and Mate All Four Corners</h3>
+          <p>
+            Using Fastened mates, build an open-top box. Every corner should
+            use the same technique from Session 5 &mdash; just applied four
+            times instead of once.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Verify Every Joint Individually</h3>
+          <p>
+            Zoom into each of the four corners separately. A box that
+            "looks right" from a distance can still have one bad joint
+            hiding in it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Note Any Fix You Had to Make</h3>
+          <p>
+            If any joint needed correcting, write down what was wrong and
+            what you changed.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, confirm:</p>
+
+          <ul>
+            <li>All five panels are clearly named, not left as default part names</li>
+            <li>All four corner joints are individually verified &mdash; no gaps, no overlaps</li>
+            <li>Every joint uses a real Fastened mate</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Did any of your four joints need fixing? What was actually
+              wrong with it?
+            </li>
+            <li>
+              Session 6's box has 5 flat panels. Which one do you think
+              would be hardest to actually cut on the CNC, and why?
+            </li>
+            <li>
+              What's the difference between a panel's thickness mattering
+              and a panel's shape mattering &mdash; and where does each one
+              actually get used?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your five-panel box assembly and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

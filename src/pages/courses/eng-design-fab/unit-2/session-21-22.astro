@@ -1,0 +1,149 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Sessions 21&ndash;22: CAM Programming</h1>
+        <p class="text-sn-theme">The Arcade Cabinet Project &mdash; Milestone 3 of 5</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <h2>Nothing New to Learn Here</h2>
+          <p>
+            Every skill this milestone needs already exists from Weeks
+            3&ndash;4: toolpath types, offset, pocket/step-over,
+            step-down, tabs, sequencing, and your own pre-cut checklist.
+          </p>
+
+          <p>
+            The difference is scale &mdash; your real cabinet has several
+            panels, not one small test coupon. Each one needs its own job,
+            programmed with the same discipline Session 9 and Session 12
+            already established.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Bungee cords aren't part of this
+            project</b> &mdash; but every CNC safety protocol from Session 4
+            still applies to every panel you program and every test cut you
+            run.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: List Every Panel That Needs a CAM Job</h3>
+          <p>
+            Go through your Milestone 2 assembly and list every distinct
+            flat panel that will be CNC-cut. Note which toolpath types
+            (profile, pocket, drill) each one actually needs &mdash; not
+            every panel needs all three.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Program Each Panel's Job</h3>
+          <p>
+            For each panel, set up a CAM Studio job: pocket and drill
+            operations first, profile cut last, with tabs. Use Outside
+            offset for panels being cut free, Inside for any interior
+            holes cut to exact size.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Simulate Every Job</h3>
+          <p>
+            Run the simulation for each panel individually. Confirm
+            sequencing, offsets, and step-over/step-down choices before
+            moving to the next panel.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Run Your Pre-Cut Checklist, Per Panel</h3>
+          <p>
+            Apply your Session 10 checklist to each panel's job
+            individually &mdash; a checklist run once for the whole project
+            isn't the same as checking each actual job.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before Milestone 4 begins, confirm for every panel:</p>
+
+          <ul>
+            <li>Toolpath order is pocket/drill, then profile</li>
+            <li>Offset choice is justified for that specific panel</li>
+            <li>Tabs are included wherever a profile cut fully separates the part</li>
+            <li>Your pre-cut checklist has been run against that panel's actual job</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which panel took the most CAM setup decisions, and why &mdash;
+              geometry, number of features, or something else?
+            </li>
+            <li>
+              Did programming multiple real panels change how you think
+              about the pre-cut checklist, compared to applying it to just
+              Sessions 12&ndash;13's single practice piece?
+            </li>
+            <li>
+              Milestone 4 is the actual fabrication and build phase. Which
+              panel are you most looking forward to seeing cut for real?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Submit your CAM Studio files for every panel, your per-panel
+            checklist run-throughs, and your reflection.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Milestone Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

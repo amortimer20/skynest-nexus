@@ -1,0 +1,318 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+
+import ProblemFramingDiagram from "../../../../assets/courses/eng-design-fab/img/problem-framing-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 1: Welcome to Digital Manufacturing</h1>
+        <p class="text-sn-theme">Unit 2 &mdash; Manufacturing Foundations, Week 1</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Unit 2</h2>
+              <h3 class="text-sn-theme">Digital Manufacturing</h3>
+            </section>
+
+            <section>
+              <h2>For the Next 8 Weeks</h2>
+              <p>You're not just students in a shop class.</p>
+              <p class="fragment">
+                You're an engineering team, hired to design and build
+                something real for a client.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Arc</h2>
+              <table class="table table-dark table-sm">
+                <thead>
+                  <tr><th>Weeks</th><th>Phase</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1&ndash;4</td><td>Manufacturing Foundations</td></tr>
+                  <tr><td>5&ndash;8</td><td>The Arcade Cabinet Project</td></tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Manufacturing Foundations (Weeks 1&ndash;4)</h2>
+              <ul>
+                <li class="fragment">Working with a real client's brief</li>
+                <li class="fragment">Materials &amp; manufacturing processes</li>
+                <li class="fragment">CAD, leveled up</li>
+                <li class="fragment">CAM &mdash; programming a CNC machine</li>
+                <li class="fragment">A small practice build, start to finish</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Then: The Real Project</h2>
+              <p>
+                Weeks 5&ndash;8, you'll get an actual client brief and build a
+                genuinely unique arcade cabinet from it &mdash; CNC-cut
+                panels, real electronics, your own design.
+              </p>
+              <p class="fragment">
+                Everything these first 4 weeks teach you gets spent for real
+                there.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today: Working With a Client</h2>
+              <p>
+                Before any CAD, CAM, or materials &mdash; the skill this
+                whole unit starts with.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Session 2 Gave You a Clean Prompt</h2>
+              <p>"Build a robot." Vague, but written for a classroom.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Real Clients Don't Write for Engineers</h2>
+              <p>
+                They describe what they want in their own words &mdash; not
+                yours. Translating that is a real, separate skill.
+              </p>
+            </section>
+
+            <section>
+              <h2>Same 4-Part Framework</h2>
+              <Image
+                src={ProblemFramingDiagram}
+                alt="Diagram showing four boxes — User, Need, Constraints, Success Criteria — with arrows converging down into a single box labeled Problem Statement"
+                width={720}
+              />
+              <p class="fragment">
+                The framework from Session 2 doesn't change. What changes is
+                how much digging it takes to fill it in.
+              </p>
+            </section>
+
+            <section>
+              <h2>Practice Client Ask</h2>
+              <p>
+                "The bus stop by the park doesn't have anywhere to sit, and
+                people are stuck waiting in the rain."
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What's Actually In This Sentence?</h2>
+              <p>Read it again. Notice what it doesn't tell you.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What's Actually In This Sentence?</h2>
+              <ul>
+                <li class="fragment"><b>User</b> &mdash; "people," but which people? Daily commuters? Elderly riders? Parents with strollers?</li>
+                <li class="fragment"><b>Need</b> &mdash; "somewhere to sit" and "stuck in the rain" name two problems, but is the real need comfort, safety, or something else?</li>
+                <li class="fragment"><b>Constraints</b> &mdash; not mentioned at all. City budget? Sidewalk space? Can't block foot traffic?</li>
+                <li class="fragment"><b>Success Criteria</b> &mdash; not stated. Fewer complaints? Higher ridership? A survey?</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>When It's Not Written Down</h2>
+              <p>You don't guess. You ask.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Bad Clarifying Question</h2>
+              <p>"What do you want?"</p>
+              <p class="fragment">Too broad &mdash; makes the client do your job for you.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Good Clarifying Question</h2>
+              <p>"Is this mainly for everyday commuters, or is accessibility for elderly or disabled riders the bigger concern?"</p>
+              <p class="fragment">Specific enough that a non-technical person can actually answer it.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">A vague ask isn't a bad ask.</b></p>
+              <p class="fragment">
+                It's normal &mdash; real clients aren't engineers. Translating
+                it is your job, not a flaw in their brief.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Don't design before you've finished asking.</b></p>
+              <p class="fragment">
+                Jumping to a solution before Constraints and Success Criteria
+                are pinned down is the same mistake Session 1 warned about
+                &mdash; skipping Design and going straight to Build.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 2: Materials for Subtractive Manufacturing</p>
+              <p class="fragment">
+                Before you can design anything for a client, you need to know
+                what you're actually building it out of.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            The practice client ask below is unrelated to the real Week 5
+            project on purpose &mdash; today is about practicing the skill,
+            not pre-solving the actual brief you'll get later.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 1: Read and Draft (Individually)</h3>
+          <p>Practice client ask:</p>
+          <blockquote class="border-start border-primary ps-3">
+            "The bus stop by the park doesn't have anywhere to sit, and
+            people are stuck waiting in the rain."
+          </blockquote>
+          <p>
+            Draft your own read of all four parts. For each one, mark
+            whether it's <b class="text-sn-theme">explicit</b> (actually
+            stated), <b class="text-sn-theme">implied</b> (a reasonable
+            guess), or <b class="text-sn-theme">missing entirely</b>.
+          </p>
+          <ul>
+            <li>User &mdash; who, specifically?</li>
+            <li>Need &mdash; what problem, not what solution?</li>
+            <li>Constraints &mdash; budget, space, timeline, anything else?</li>
+            <li>Success Criteria &mdash; how would you actually measure it?</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Compare With a Partner</h3>
+          <p>
+            Trade drafts. Where did you interpret the ask differently? Any
+            disagreement here is exactly the kind of ambiguity a clarifying
+            question would resolve &mdash; it's not a sign either of you read
+            it wrong.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Write 3 Clarifying Questions</h3>
+          <p>
+            Write 3 questions you'd actually ask this client before starting
+            design work. Each one should be specific enough that a
+            non-technical person could answer it &mdash; not "what do you
+            want?"
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Role-Play (With Your Partner)</h3>
+          <p>
+            One of you plays the client &mdash; answer only in plain,
+            non-technical language, improvising reasonable answers. The other
+            asks their 3 clarifying questions live, then revises their 4-part
+            breakdown based on the answers. Switch roles if time allows.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, check your work against these two questions.</p>
+
+          <div class="text-start">
+            <dl>
+              <dt>Did you separate stated fact from assumption?</dt>
+              <dd>
+                Your draft should clearly mark what the client actually said
+                versus what you filled in yourself.
+              </dd>
+              <dt>Are your clarifying questions actually answerable?</dt>
+              <dd>
+                A non-technical client should be able to answer each one
+                without needing to think like an engineer first.
+              </dd>
+            </dl>
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which of the four parts was hardest to pin down from this
+              vague, non-technical ask, compared to Session 2's cleaner
+              classroom prompts?
+            </li>
+            <li>
+              Was there a moment you started imagining a solution before
+              you'd finished clarifying the actual need? What caught it, if
+              anything?
+            </li>
+            <li>
+              In Week 5, you'll receive an actual client brief for the
+              arcade project. What's one thing you'll do differently this
+              time, now that you've practiced?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Submit your initial draft, your 3 clarifying questions, your
+            revised breakdown from the role-play, and your reflection.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

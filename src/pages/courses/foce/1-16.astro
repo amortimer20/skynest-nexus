@@ -5,49 +5,193 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `i = 0
+const Figure1 = `round = 5  # Shadows Python's built-in round() function!
+round_num = 5  # Better -- doesn't collide with anything`;
+const Figure2 = `elif (
+    (player == "rock" and computer == "scissors")
+    or (player == "paper" and computer == "rock")
+    or (player == "scissors" and computer == "paper")
+):
+    print("-YOU WIN-")`;
+const Figure3 = `play_again = input("Play again? (y/n):").lower()
+playing = play_again == "y"`;
+const Task1 = `import random
 
-while i < 5:
-    print(i)
-    i = i + 1`;
-const Figure2 = `for i in range(5):
-    print(i)`;
-const Figure3 = `0
-1
-2
-3
-4`;
-const Figure4 = `for i in range(1, 11):
-    print(i)`;
-const Figure5 = `for i in range(10, 0, -1):
-    print(i)`;
-const Task1 = `number = int(input("Choose a number: "))
-count = int(input("List how many multiples of the number? "))
+wins = 0
+losses = 0
+round_num = 1
+playing = True
+player = ""
+computer = ""
 
-total = number  # Tracks the current multiple
+# Rules:
+# Rock smashes Scissors
+# Paper covers Rock
+# Scissors cuts Paper
 
-for i in range(count):
-    print(total)
-    total = total + number
-
-input("Press enter to continue...")
+print("--- Rock, Paper, Scissors ---")
 `;
-const Task2 = `number = int(input("Choose a number: "))
-count = int(input("List how many multiples of the number? "))
+const Task2 = `import random
 
-total = number  # Tracks the current multiple
+wins = 0
+losses = 0
+round_num = 1
+playing = True
+player = ""
+computer = ""
 
-for i in range(count):
-    print(total, end=" ")
-    total = total + number
+# Rules:
+# Rock smashes Scissors
+# Paper covers Rock
+# Scissors cuts Paper
 
-print()
-input("Press enter to continue...")
+print("--- Rock, Paper, Scissors ---")
+
+while playing:
+    print(f"Round {round_num}")
+    print(f"W: {wins} - L: {losses}")
+
+    player = input("(rock, paper, scissors):").lower()
+
+    random_num = random.randint(0, 2)
+
+    if random_num == 0:
+        computer = "rock"
+    elif random_num == 1:
+        computer = "paper"
+    else:
+        computer = "scissors"
+
+    print(f"Computer chooses {computer}!")
 `;
-const SampleOutput = `Choose a number: 3
-List how many multiples of the number? 5
-3 6 9 12 15
-Press enter to continue...`;
+const Task3 = `import random
+
+wins = 0
+losses = 0
+round_num = 1
+playing = True
+player = ""
+computer = ""
+
+# Rules:
+# Rock smashes Scissors
+# Paper covers Rock
+# Scissors cuts Paper
+
+print("--- Rock, Paper, Scissors ---")
+
+while playing:
+    print(f"Round {round_num}")
+    print(f"W: {wins} - L: {losses}")
+
+    player = input("(rock, paper, scissors):").lower()
+
+    random_num = random.randint(0, 2)
+
+    if random_num == 0:
+        computer = "rock"
+    elif random_num == 1:
+        computer = "paper"
+    else:
+        computer = "scissors"
+
+    print(f"Computer chooses {computer}!")
+
+    if player == computer:
+        print("-TIE-")
+    elif (
+        (player == "rock" and computer == "scissors")
+        or (player == "paper" and computer == "rock")
+        or (player == "scissors" and computer == "paper")
+    ):
+        print("-YOU WIN-")
+        wins = wins + 1
+    else:
+        print("-YOU LOSE-")
+        losses = losses + 1
+
+    round_num = round_num + 1
+
+    play_again = input("Play again? (y/n):").lower()
+    playing = play_again == "y"
+`;
+const Task4 = `import random
+
+wins = 0
+losses = 0
+round_num = 1
+playing = True
+player = ""
+computer = ""
+
+# Rules:
+# Rock smashes Scissors
+# Paper covers Rock
+# Scissors cuts Paper
+
+print("--- Rock, Paper, Scissors ---")
+
+while playing:
+    print(f"Round {round_num}")
+    print(f"W: {wins} - L: {losses}")
+
+    player = input("(rock, paper, scissors):").lower()
+
+    random_num = random.randint(0, 2)
+
+    if random_num == 0:
+        computer = "rock"
+    elif random_num == 1:
+        computer = "paper"
+    else:
+        computer = "scissors"
+
+    print(f"Computer chooses {computer}!")
+
+    if player == computer:
+        print("-TIE-")
+    elif (
+        (player == "rock" and computer == "scissors")
+        or (player == "paper" and computer == "rock")
+        or (player == "scissors" and computer == "paper")
+    ):
+        print("-YOU WIN-")
+        wins = wins + 1
+    else:
+        print("-YOU LOSE-")
+        losses = losses + 1
+
+    round_num = round_num + 1
+
+    play_again = input("Play again? (y/n):").lower()
+    playing = play_again == "y"
+
+print("--- Final Score ---")
+print(f"Wins: {wins} - Losses: {losses}")
+print("Thanks for playing!")
+`;
+const SampleOutput = `--- Rock, Paper, Scissors ---
+Round 1
+W: 0 - L: 0
+(rock, paper, scissors): rock
+Computer chooses scissors!
+-YOU WIN-
+Play again? (y/n): y
+Round 2
+W: 1 - L: 0
+(rock, paper, scissors): paper
+Computer chooses paper!
+-TIE-
+Play again? (y/n): y
+Round 3
+W: 1 - L: 0
+(rock, paper, scissors): scissors
+Computer chooses rock!
+-YOU LOSE-
+Play again? (y/n): n
+--- Final Score ---
+Wins: 1 - Losses: 1
+Thanks for playing!`;
 //#endregion
 ---
 
@@ -59,7 +203,7 @@ Press enter to continue...`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.16: For Loops</h1>
+        <h1>Activity 1.16: Rock, Paper, Scissors</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -67,63 +211,48 @@ Press enter to continue...`;
           <Presentation>
             <section>
               <h2>Activity 1.16</h2>
-              <h3 class="text-sn-theme">For Loops</h3>
+              <h3 class="text-sn-theme">Rock, Paper, Scissors</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>The for Loop</p>
-              <p>range()</p>
+              <p>Multi-Line Conditions</p>
+              <p>Playing Again</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Counting a Known Number of Times</h2>
+              <h2>Watch Your Variable Names</h2>
               <p>
-                When you already know how many times to repeat something,
-                a <code>while</code> loop needs some bookkeeping.
+                Python has a built-in <code>round()</code> function &mdash;
+                naming a variable <code>round</code> would hide it.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The for Loop</h2>
+              <h2>Breaking a Long Condition Into Multiple Lines</h2>
               <p>
-                A <b class="text-sn-theme">for</b> loop does that counting
-                for you.
+                Wrapping a condition in parentheses lets you spread it
+                across several lines &mdash; handy once it gets long.
               </p>
               <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
-              <p class="fragment">Same result as the <code>while</code> version &mdash; no counter variable to manage yourself.</p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>The for Loop</h2>
-              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>range()</h2>
+              <h2>Playing Again</h2>
               <p>
-                <code>range(5)</code> counts <code>0</code> through
-                <code>4</code> &mdash; 5 numbers, starting at 0.
-                <code>range(start, stop)</code> lets you pick both ends.
+                To ask "play again?" we ask a question and turn the answer
+                into a boolean ourselves.
               </p>
-              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
-              <p class="fragment">Counts 1 through 10.</p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Counting Backwards</h2>
-              <p>A third number in <code>range()</code> sets the step &mdash; negative counts down.</p>
-              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
-              <p class="fragment">Counts 10 down to 1.</p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing a <code>for</code> loop with <code>range()</code></li>
-                <li>Choosing between <code>range(n)</code> and <code>range(start, stop)</code></li>
-                <li>Printing on the same line with <code>end=" "</code></li>
+                <li>Looping a game until the player chooses to stop</li>
+                <li>Picking a random computer move</li>
+                <li>Checking a win condition with a multi-line <code>elif</code></li>
               </ul>
             </section>
 
@@ -131,10 +260,8 @@ Press enter to continue...`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>for Loop</dt>
-                  <dd>Repeats its block once for each value in a sequence.</dd>
-                  <dt>range()</dt>
-                  <dd>Generates a sequence of numbers for a <code>for</code> loop to count through.</dd>
+                  <dt>Built-in Function</dt>
+                  <dd>A function Python already provides, like <code>round()</code> &mdash; avoid naming variables the same thing.</dd>
                 </dl>
               </div>
             </section>
@@ -148,26 +275,44 @@ Press enter to continue...`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-16-for-loops.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-16-rock-paper-scissors.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Counting Multiples</h3>
+          <h3>Task 1: Set Up the Game</h3>
           <ul>
-            <li>Ask for a number and a count, then print that many multiples of it, one per line.</li>
+            <li>Declare the score, round counter, and player/computer choices.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-16-for-loops.py" mark="6-8" />
+          <Code code={Task1} frame="code" lang="python" title="1-16-rock-paper-scissors.py" mark="3-8" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Display on One Line</h3>
+          <h3>Task 2: Pick a Random Computer Move</h3>
           <ul>
-            <li>Change the loop to print the multiples on a single line, separated by spaces.</li>
+            <li>Loop while playing, asking the player for a move and picking a random one for the computer.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-16-for-loops.py" mark="7,10" />
+          <Code code={Task2} frame="code" lang="python" title="1-16-rock-paper-scissors.py" mark="23,25-30" ins="17-32" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Check the Winner and Play Again</h3>
+          <ul>
+            <li>Compare the two moves to decide a winner, then ask if the player wants another round.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-16-rock-paper-scissors.py" mark="34-40" ins="33-50" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Final Score</h3>
+          <ul>
+            <li>Print the final win/loss record once the player stops playing.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="1-16-rock-paper-scissors.py" mark="52-54" ins="52-54" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -196,9 +341,9 @@ Press enter to continue...`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What does <code>range(count)</code> actually produce, and what does the loop use it for if <code>i</code> is never printed?</li>
-            <li>Why doesn't a <code>for</code> loop need you to write your own counter variable and increment it, the way a <code>while</code> loop does?</li>
-            <li>What does <code>end=" "</code> change about how <code>print()</code> behaves?</li>
+            <li>Why does <code>round_num</code> use that name instead of just <code>round</code>?</li>
+            <li>How does <code>playing = play_again == "y"</code> turn a typed answer into a boolean?</li>
+            <li>Why does the win condition need three separate <code>and</code> pairs joined by <code>or</code>, instead of one simple comparison?</li>
           </ol>
         </section>
 
