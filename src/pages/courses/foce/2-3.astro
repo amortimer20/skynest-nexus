@@ -1,0 +1,271 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+import LedGpioCircuitDiagram from "../../../assets/courses/foce/img/led-gpio-circuit-diagram.svg";
+
+//#region CodeSnippets
+const Figure1 = `from machine import Pin
+
+led = Pin(0, Pin.OUT)
+led.value(1)`;
+const Task1 = `from machine import Pin
+
+led = Pin(0, Pin.OUT)
+led.value(1)
+`;
+const Task2 = `from machine import Pin
+import time
+
+led = Pin(0, Pin.OUT)
+led.value(1)
+time.sleep(1)
+led.value(0)
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.3: Ohm's Law and Meet the Microcontroller</h1>
+        <p class="text-sn-theme">Electronics Primer &mdash; Day 3 of 3</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.3</h2>
+              <h3 class="text-sn-theme">Ohm's Law and Meet the Microcontroller</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Ohm's Law</p>
+              <p>GPIO Pins</p>
+              <p>Objects &amp; Pin()</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Yesterday's Circuit, One Question</h2>
+              <p>
+                Why <b class="text-sn-theme">330&Omega;</b>, specifically?
+                Would a different resistor have worked? Today's math
+                answers that.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Ohm's Law</h2>
+              <p>
+                Voltage, current, and resistance aren't independent &mdash;
+                they're locked together by one equation:
+              </p>
+              <p class="fragment"><b class="text-sn-theme">V = I &times; R</b></p>
+              <p class="fragment">Voltage (volts) = Current (amps) &times; Resistance (ohms)</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Rearranging the Formula</h2>
+              <p>Same equation, solved for a different variable:</p>
+              <p class="fragment"><b>I = V &divide; R</b> &mdash; solve for current</p>
+              <p class="fragment"><b>R = V &divide; I</b> &mdash; solve for resistance</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Worked Example: Checking Yesterday's Resistor</h2>
+              <p>
+                3.3V source, 330&Omega; resistor. How much current flows?
+              </p>
+              <p class="fragment">I = V &divide; R = 3.3 &divide; 330 = <b class="text-sn-theme">0.01A (10mA)</b></p>
+              <p class="fragment">
+                That's a safe, small current for an LED &mdash; which is
+                exactly why 330&Omega; gets picked so often, not because
+                it's the only option.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Meet the RedBoard RP2350</h2>
+              <div
+                class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+                style="border-style: dashed !important;"
+              >
+                [PHOTO PLACEHOLDER &mdash; SparkFun IoT RedBoard RP2350, Labeled Pinout]
+              </div>
+              <p>
+                The board you'll use the rest of this unit. Its
+                <b class="text-sn-theme">GPIO pins</b> (General Purpose
+                Input/Output) can be controlled entirely by code.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Digital Pins: On or Off</h2>
+              <p>
+                A digital pin has exactly two states: <b>HIGH</b>
+                (on, about 3.3V) or <b>LOW</b> (off, 0V). No in-between
+                &mdash; that comes later, with analog pins.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Meet Your First Object</h2>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <code>Pin(0, Pin.OUT)</code> creates an
+                <b class="text-sn-theme">object</b> &mdash; something that
+                bundles together information (which pin, which direction)
+                and actions you can perform on it.
+                <code>led.value(1)</code> calls one of those actions,
+                called a <b class="text-sn-theme">method</b>, using a dot.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Calculating voltage, current, or resistance with Ohm's Law</li>
+                <li>Explaining what a GPIO pin is and its two digital states</li>
+                <li>Writing your first line of code to control a real LED</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Ohm's Law</dt>
+                  <dd>The relationship V = I &times; R between voltage, current, and resistance.</dd>
+                  <dt>GPIO</dt>
+                  <dd>General Purpose Input/Output &mdash; a microcontroller pin that code can control.</dd>
+                  <dt>Digital Pin</dt>
+                  <dd>A pin with exactly two states: HIGH (on) or LOW (off).</dd>
+                  <dt>Object</dt>
+                  <dd>Something that bundles data and actions together &mdash; like a Pin, which knows its number and direction, and has actions you can call on it.</dd>
+                  <dt>Method</dt>
+                  <dd>An action you call on an object using dot notation, like <code>led.value(1)</code>.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Ohm's Law Practice</h3>
+          <ul>
+            <li>A circuit has 3.3V across a 330&Omega; resistor. What's the current?</li>
+            <li>A circuit has 3.3V, and you want exactly 3.3mA (0.0033A) of current. What resistance do you need?</li>
+            <li>A circuit has a 220&Omega; resistor with 10mA (0.01A) flowing through it. What's the voltage?</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Rewire to a GPIO Pin</h3>
+          <ul>
+            <li>Move your LED and resistor from yesterday's fixed 3.3V pin to GPIO pin 0, keeping GND the same.</li>
+            <li>The LED should now be off &mdash; a GPIO pin starts LOW until code says otherwise.</li>
+          </ul>
+
+          <Image src={LedGpioCircuitDiagram} alt="Circuit diagram showing the resistor and LED now wired to GPIO pin 0 instead of the fixed 3.3V pin" width={560} class="my-3" />
+
+          <!-- PHOTO: circuit rewired to GPIO 0, LED off -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 2: Circuit Rewired to GPIO 0, LED Off]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Your First Code</h3>
+          <ul>
+            <li>Create a new MicroPython script named <b class="text-sn-theme">2-3-first-blink.py</b>.</li>
+            <li>Import <code>Pin</code>, create a <code>Pin</code> object for GPIO 0 set as output, and turn it on.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="2-3-first-blink.py" mark="4" />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Turn It Off (and Blink Once)</h3>
+          <ul>
+            <li>Import <code>time</code>, wait one second after turning the LED on, then turn it off.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="2-3-first-blink.py" mark="6-7" ins="2,6-7" />
+
+          <!-- PHOTO: LED lit while the script runs -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 3/4: LED Lit Under Code Control]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>When you run your script, the LED should:</p>
+
+          <ul>
+            <li>Turn on immediately</li>
+            <li>Stay on for about one second</li>
+            <li>Turn off, and the script should end</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Walk through the math: given a 3.3V source and a 330&Omega; resistor, what's the current, and how did you calculate it?</li>
+            <li>In <code>led = Pin(0, Pin.OUT)</code>, what is <code>led</code>, and what does calling <code>led.value(1)</code> actually do?</li>
+            <li>Why did you move the LED from the 3.3V/GND rail to a GPIO pin before writing any code &mdash; what did that change make possible?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
