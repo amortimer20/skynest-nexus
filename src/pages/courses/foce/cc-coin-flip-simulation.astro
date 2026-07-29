@@ -1,0 +1,122 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const SampleOutput = `
+Enter the number of times to flip the coin: 10 [Enter]
+Flip 1: Heads
+Flip 2: Tails
+Flip 3: Heads
+Flip 4: Heads
+Flip 5: Tails
+Flip 6: Heads
+Flip 7: Tails
+Flip 8: Tails
+Flip 9: Heads
+Flip 10: Heads
+
+Results:
+Heads: 6 (60.0%)
+Tails: 4 (40.0%)
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge: Coin Flip Simulation</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Flip a coin as many times as the user asks, then report how many heads
+            and tails came up and what percentage each was.
+          </p>
+
+          <p>
+            Heads or Tails was a game. This is an <i>experiment</i> &mdash; the
+            interesting part is whether 1000 flips really do land near 50/50. Try
+            it and find out.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>
+              Repeating an action a set number of times with <code>range()</code>
+            </li>
+            <li>Generating a random result</li>
+            <li>Using counter variables</li>
+            <li>Calculating a percentage</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="tasks">
+          <h2>Tasks</h2>
+
+          <ul>
+            <li>
+              Create a new <b>Python</b> program named <b class="text-sn-theme"
+                >cc-coin-flip-simulation.py</b
+              >.
+            </li>
+            <li>Prompt the user for how many times to flip the coin.</li>
+            <li>
+              Use a loop to flip that many times, showing the result of each flip.
+            </li>
+            <li>Count how many heads and how many tails occurred.</li>
+            <li>
+              Calculate what percentage of the flips were heads, and what
+              percentage were tails.
+            </li>
+            <li>Display the totals and the percentages.</li>
+          </ul>
+
+          <p class="mt-3">
+            Once it works, run it with 10 flips, then 100, then 1000. The
+            percentages should settle closer to 50/50 the more flips you do.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

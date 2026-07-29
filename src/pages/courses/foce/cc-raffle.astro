@@ -1,0 +1,113 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const SampleOutput = `
+Enter a name to add to the raffle (or type 'done'): Alice [Enter]
+Enter a name to add to the raffle (or type 'done'): Bob [Enter]
+Enter a name to add to the raffle (or type 'done'): Charlie [Enter]
+Enter a name to add to the raffle (or type 'done'): done [Enter]
+
+Drawing a winner...
+Congratulations, Bob! You are the winner of the raffle!
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge: Raffle</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Collect raffle entries until the user is finished, then draw a winner
+            at random.
+          </p>
+
+          <p>
+            You do not know in advance how many names there will be, which is
+            exactly why this needs a list instead of a fixed set of variables.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Building a list from user input</li>
+            <li>Looping until a sentinel value is entered</li>
+            <li>Choosing a random index from a list</li>
+            <li>Using <code>len()</code> to stay in bounds</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="tasks">
+          <h2>Tasks</h2>
+
+          <ul>
+            <li>
+              Create a new <b>Python</b> program named <b class="text-sn-theme"
+                >cc-raffle.py</b
+              >.
+            </li>
+            <li>
+              Keep asking for a name, adding each one to a list, until the user
+              types <code>done</code>.
+            </li>
+            <li>
+              The word <code>done</code> must <b>not</b> end up in the list.
+            </li>
+            <li>Pick a random entry from the list and announce the winner.</li>
+            <li>
+              Your random index needs to land between 0 and <code
+                >len(names) - 1</code
+              >.
+            </li>
+            <li>
+              <b>Stretch:</b> let someone enter the same name twice for two chances,
+              then check that it really does double their odds.
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

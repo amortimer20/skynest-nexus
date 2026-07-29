@@ -1,0 +1,169 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const SampleOutput = `
+The vending machine hums as you drop in your last quarter.
+Nothing comes out. The front panel slides open instead.
+Inside, two dimly lit tunnels lead away from you...
+
+Which tunnel do you take? (left or right) -> LEFT [Enter]
+
+You squeeze left. Something crunches underfoot - a bag of chips.
+Do you take it, or eat it now? (take or eat) -> take [Enter]
+
+You pocket the chips. The tunnel opens into a room full of coin slots.
+A rusted robot blocks the exit. It looks hungry.
+
+Do you offer the chips, or run? (offer or run) -> offer [Enter]
+
+The robot accepts your tribute and rolls aside.
+You escape into the daylight, 3 quarters richer.
+
+--- THE END ---
+Escaped the machine: True
+Befriended the robot: True
+Quarters collected: 3
+Snacks remaining: 0
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge: Build Your Own Dungeon Crawler</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            In Activity 1.12 you built <i>my</i> dungeon crawler &mdash; the
+            thunderstorm, the cave, the Twinkie, the wolfpack and the dragon.
+          </p>
+
+          <p>
+            Now build <b>your own</b>. Same machinery, completely different story.
+            Set it wherever you like: a haunted school, a space station, a sunken
+            ship, the inside of a vending machine. The only thing you are keeping
+            is the <i>structure</i>.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Nesting conditionals several levels deep</li>
+            <li>Planning branches before writing code</li>
+            <li>Tracking state with boolean flags and counters</li>
+            <li>Handling input that does not match any option</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="tasks">
+          <h2>Tasks</h2>
+
+          <ul>
+            <li>
+              Create a new <b>Python</b> program named <b class="text-sn-theme"
+                >cc-build-your-own-dungeon-crawler.py</b
+              >.
+            </li>
+            <li>
+              <b>Plan it first.</b> Sketch your branches on paper before you type
+              anything &mdash; every choice, and what each answer leads to.
+            </li>
+            <li>
+              Write an <b>opening</b> that sets the scene and ends in the player's
+              first choice.
+            </li>
+            <li>
+              Offer <b>at least two different paths</b> from that first choice.
+            </li>
+            <li>
+              Nest <b>at least two levels deep</b> &mdash; a choice inside a
+              choice, the way the Twinkie sat inside whichever path you picked.
+            </li>
+            <li>
+              Include <b>one item or resource</b> the player can pick up, and make
+              it matter later. Keys, batteries, snacks, whatever fits your story.
+            </li>
+            <li>
+              Track how the story ended with <b>boolean flags</b>, the way{" "}
+              <code>wolfpack_ending</code> and <code>dragon_ending</code> did.
+            </li>
+            <li>
+              Write an <b>ending</b> that reports what happened, based on those
+              flags and anything the player collected.
+            </li>
+            <li>
+              Every choice needs an <code>else</code> for input you did not expect.
+              Do not let one typo silently skip your whole story.
+            </li>
+            <li>
+              Call <code>.lower()</code> on your inputs so <b>LEFT</b>,{" "}
+              <b>Left</b>, and <b>left</b> all work.
+            </li>
+          </ul>
+
+          <p class="mt-3">
+            Build it the way Activity 1.12 taught: sketch the skeleton with{" "}
+            <code>pass</code> in every empty branch first, confirm the shape runs
+            without crashing, <i>then</i> fill the branches in one at a time.
+            Writing a whole branching story top to bottom in one go is how you end
+            up with indentation you cannot untangle.
+          </p>
+
+          <h4 class="mt-4">Stretch Goals</h4>
+
+          <ul>
+            <li>Three or more endings instead of two.</li>
+            <li>An ending only reachable if the player collected the right item.</li>
+            <li>A choice that looks appealing and quietly ends the story early.</li>
+          </ul>
+
+          <p>
+            Keep it school-appropriate. The sample below shows the <i>shape</i> only
+            &mdash; do not reuse the story.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
