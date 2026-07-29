@@ -5,44 +5,48 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `score1 = 84
-score2 = 91
-score3 = 76
-score4 = 88
-score5 = 95`;
-const Figure2 = `scores = [84, 91, 76, 88, 95]`;
-const Figure3 = `scores = [84, 91, 76, 88, 95]
+const Figure1 = `scores = [84, 91, 76, 88, 95]
 
-print(scores[0])
-print(scores[2])`;
-const Figure4 = `84
-76`;
-const Figure5 = `scores = [84, 91, 76, 88, 95]
+print(scores[4])`;
+const Figure2 = `scores = [84, 91, 76, 88, 95]
 
-scores[1] = 100
-print(scores)`;
-const Figure6 = `[84, 100, 76, 88, 95]`;
-const Task1 = `foods = ["pizza", "tacos", "sushi", "pasta", "burgers"]
+print(len(scores))`;
+const Figure3 = `5`;
+const Figure4 = `scores = [84, 91, 76, 88, 95]
 
-print(f"First food: {foods[0]}")
-print(f"Third food: {foods[2]}")
-print(f"Last food: {foods[4]}")
+last_index = len(scores) - 1
+print(scores[last_index])`;
+const Figure5 = `95`;
+const Figure6 = `scores = [84, 91, 76, 88, 95]
+
+print(scores[len(scores)])`;
+const Figure7 = `IndexError: list index out of range`;
+const Task1 = `scores = [84, 91, 76, 88, 95]
+
+print(f"Number of scores: {len(scores)}")
 `;
-const Task2 = `foods = ["pizza", "tacos", "sushi", "pasta", "burgers"]
+const Task2 = `scores = [84, 91, 76, 88, 95]
 
-print(f"First food: {foods[0]}")
-print(f"Third food: {foods[2]}")
-print(f"Last food: {foods[4]}")
+print(f"Number of scores: {len(scores)}")
 
-foods[0] = "ramen"
-foods[4] = "waffles"
-
-print(f"Updated foods: {foods}")
+last_index = len(scores) - 1
+print(f"Last score: {scores[last_index]}")
 `;
-const SampleOutput = `First food: pizza
-Third food: sushi
-Last food: burgers
-Updated foods: ['ramen', 'tacos', 'sushi', 'pasta', 'waffles']`;
+const Task3 = `scores = [84, 91, 76, 88, 95]
+
+print(f"Number of scores: {len(scores)}")
+
+last_index = len(scores) - 1
+print(f"Last score: {scores[last_index]}")
+
+scores[0] = 100
+scores[last_index] = 100
+
+print(f"Updated scores: {scores}")
+`;
+const SampleOutput = `Number of scores: 5
+Last score: 95
+Updated scores: [100, 91, 76, 88, 100]`;
 //#endregion
 ---
 
@@ -54,78 +58,88 @@ Updated foods: ['ramen', 'tacos', 'sushi', 'pasta', 'waffles']`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.19: Intro to Lists</h1>
+        <h1>Activity 1.20: len() and Safe Access</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
-              <h2>Activity 1.19</h2>
-              <h3 class="text-sn-theme">Intro to Lists</h3>
+              <h2>Activity 1.20</h2>
+              <h3 class="text-sn-theme">len() and Safe Access</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Lists</p>
-              <p>Indexing</p>
+              <p>len()</p>
+              <p>Safe Last-Index Access</p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The Problem With Separate Variables</h2>
+              <h2>Hardcoding Is Fragile</h2>
               <p>
-                Storing five related scores as five separate variables
-                works &mdash; but what about 30 scores? Or 100?
+                Activity 1.19 accessed the last food with
+                <code>foods[4]</code> &mdash; but that only works because
+                the list has exactly 5 elements. Add or remove one, and
+                <code>4</code> is wrong.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Lists: One Variable, Many Values</h2>
+              <h2>len()</h2>
               <p>
-                A <b class="text-sn-theme">list</b> stores many related
-                values under one variable name, in order, using square
-                brackets.
+                <code>len()</code> returns how many elements a list has
+                &mdash; right now, not whenever you last counted.
               </p>
               <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Accessing by Index</h2>
-              <p>
-                Each value in a list has a position called an
-                <b class="text-sn-theme">index</b>. Python is
-                <b class="text-sn-theme">zero-based</b> &mdash; the first
-                value is at index <code>0</code>, not <code>1</code>.
-              </p>
-              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
-            </section>
-
             <section data-auto-animate>
-              <h2>Accessing by Index</h2>
-              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
+              <h2>len()</h2>
+              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Updating an Element</h2>
+              <h2>The Last Valid Index</h2>
               <p>
-                Assigning to <code>list[index]</code> replaces the value
-                already there.
+                A list of length 5 has valid indexes <code>0</code> through
+                <code>4</code> &mdash; so the last index is always
+                <code>len(list) - 1</code>, no matter how long the list is.
               </p>
-              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>Updating an Element</h2>
-              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} />
+              <h2>The Last Valid Index</h2>
+              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Off-by-One Mistake</h2>
+              <p>
+                Forget the <code>- 1</code>, and you're asking for one
+                index past the end of the list &mdash; Python won't guess
+                what you meant.
+              </p>
+              <Code code={Figure6} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Off-by-One Mistake</h2>
+              <Code code={Figure7} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                A crash, not a quiet wrong answer &mdash; which makes this
+                particular mistake easy to catch.
+              </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Creating a list with <code>[ ]</code></li>
-                <li>Accessing elements by index, starting at <code>0</code></li>
-                <li>Updating an element by assigning to its index</li>
+                <li>Finding a list's length with <code>len()</code></li>
+                <li>Computing the last valid index without hardcoding it</li>
+                <li>Recognizing the off-by-one mistake before it happens</li>
               </ul>
             </section>
 
@@ -133,14 +147,10 @@ Updated foods: ['ramen', 'tacos', 'sushi', 'pasta', 'waffles']`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>List</dt>
-                  <dd>A single variable that stores multiple values in order.</dd>
-                  <dt>Element</dt>
-                  <dd>One value stored inside a list.</dd>
-                  <dt>Index</dt>
-                  <dd>The position of an element in a list.</dd>
-                  <dt>Zero-Based Indexing</dt>
-                  <dd>The first element of a list is at index <code>0</code>, not <code>1</code>.</dd>
+                  <dt>len()</dt>
+                  <dd>Built-in function that returns how many elements a list has.</dd>
+                  <dt>Off-by-One Error</dt>
+                  <dd>A mistake where an index is one too high or one too low &mdash; often from forgetting <code>len(list) - 1</code>.</dd>
                 </dl>
               </div>
             </section>
@@ -154,28 +164,35 @@ Updated foods: ['ramen', 'tacos', 'sushi', 'pasta', 'waffles']`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-19-intro-to-lists.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-20-len-and-safe-access.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Create + Access</h3>
+          <h3>Task 1: Find the Length</h3>
           <ul>
-            <li>Create a list named <code>foods</code> with 5 favorite foods.</li>
-            <li>Print the first, third, and last foods, each with a label.</li>
+            <li>Create a list of 5 quiz scores and print how many scores it has, using <code>len()</code>.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-19-intro-to-lists.py" mark="3-5" />
+          <Code code={Task1} frame="code" lang="python" title="1-20-len-and-safe-access.py" mark="3" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Update Elements</h3>
+          <h3>Task 2: Access the Last Element Safely</h3>
           <ul>
-            <li>Update the first and last foods to new values.</li>
-            <li>Print the whole updated list.</li>
+            <li>Compute the last valid index with <code>len(scores) - 1</code>, then print the last score.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-19-intro-to-lists.py" mark="7-8" ins="7-10" />
+          <Code code={Task2} frame="code" lang="python" title="1-20-len-and-safe-access.py" mark="5-6" ins="5-6" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Update Without Hardcoding</h3>
+          <ul>
+            <li>Update the first and last scores using <code>0</code> and <code>last_index</code> &mdash; no hardcoded numbers.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-20-len-and-safe-access.py" mark="8-9" ins="8-11" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -204,9 +221,9 @@ Updated foods: ['ramen', 'tacos', 'sushi', 'pasta', 'waffles']`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What is an index? What is an element?</li>
-            <li>Why does the first food live at index <code>0</code> instead of index <code>1</code>?</li>
-            <li>If a list has 5 elements, what is the index of the last one?</li>
+            <li>Why is <code>len(scores) - 1</code> the last valid index instead of <code>len(scores)</code>?</li>
+            <li>What happens if you try to access <code>scores[len(scores)]</code>?</li>
+            <li>Why is using <code>len()</code> better than hardcoding an index number like <code>4</code>?</li>
           </ol>
         </section>
 

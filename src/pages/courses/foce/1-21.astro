@@ -5,81 +5,92 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `cities = ["Cleveland", "Chicago", "New York"]
+const Figure1 = `scores = [84, 91, 76, 88, 95]
+total = 0
 
-for city in cities:
-    print(city)`;
-const Figure2 = `Cleveland
-Chicago
-New York`;
-const Figure3 = `cities = ["Cleveland", "Chicago", "New York"]
+for score in scores:
+    total = total + score
 
-for i in range(len(cities)):
-    print(i, cities[i])`;
-const Figure4 = `0 Cleveland
-1 Chicago
-2 New York`;
-const Figure5 = `tasks = []
+print(total)`;
+const Figure2 = `434`;
+const Figure3 = `average = total / len(scores)
+print(average)`;
+const Figure4 = `86.8`;
+const Figure5 = `count = 0
 
-tasks.append("Practice lists")
-tasks.append("Finish homework")
+for score in scores:
+    if score >= 90:
+        count = count + 1
 
-print(tasks)`;
-const Figure6 = `['Practice lists', 'Finish homework']`;
-const Task1 = `cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"]
+print(count)`;
+const Figure6 = `2`;
+const Task1 = `count = int(input("How many scores? "))
+scores = []
 
-for city in cities:
-    print(city)
+for i in range(count):
+    score = int(input("Enter a score: "))
+    scores.append(score)
+
+total = 0
+
+for score in scores:
+    total = total + score
+
+print(f"Total: {total}")
 `;
-const Task2 = `cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"]
+const Task2 = `count = int(input("How many scores? "))
+scores = []
 
-for i in range(len(cities)):
-    print(f"{i}: {cities[i]}")
+for i in range(count):
+    score = int(input("Enter a score: "))
+    scores.append(score)
+
+total = 0
+
+for score in scores:
+    total = total + score
+
+print(f"Total: {total}")
+
+average = total / len(scores)
+print(f"Average: {average}")
 `;
-const Task3 = `tasks = []
-choice = ""
+const Task3 = `count = int(input("How many scores? "))
+scores = []
 
-while choice != "3":
-    print("1) Add task")
-    print("2) List tasks")
-    print("3) Exit")
-    choice = input("Choose an option: ")
+for i in range(count):
+    score = int(input("Enter a score: "))
+    scores.append(score)
 
-    if choice == "1":
-        new_task = input("Enter a task: ")
-        tasks.append(new_task)
-        print(f"{new_task} added.")
-    elif choice == "2":
-        for task in tasks:
-            print(f"- {task}")
-    elif choice == "3":
-        print("Exiting.")
-    else:
-        print("Invalid option.")
+total = 0
+
+for score in scores:
+    total = total + score
+
+print(f"Total: {total}")
+
+average = total / len(scores)
+print(f"Average: {average}")
+
+passing_score = int(input("Enter the passing score: "))
+passing_count = 0
+
+for score in scores:
+    if score >= passing_score:
+        passing_count = passing_count + 1
+
+print(f"Scores at or above {passing_score}: {passing_count}")
 `;
-const SampleOutput = `1) Add task
-2) List tasks
-3) Exit
-Choose an option: 1
-Enter a task: Practice lists
-Practice lists added.
-1) Add task
-2) List tasks
-3) Exit
-Choose an option: 1
-Enter a task: Finish homework
-Finish homework added.
-1) Add task
-2) List tasks
-3) Exit
-Choose an option: 2
-- Practice lists
-- Finish homework
-1) Add task
-2) List tasks
-3) Exit
-Choose an option: 3
-Exiting.`;
+const SampleOutput = `How many scores? 5
+Enter a score: 84
+Enter a score: 91
+Enter a score: 76
+Enter a score: 88
+Enter a score: 95
+Total: 434
+Average: 86.8
+Enter the passing score: 80
+Scores at or above 80: 3`;
 //#endregion
 ---
 
@@ -91,75 +102,71 @@ Exiting.`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.21: Traversal and append()</h1>
+        <h1>Activity 1.22: Processing Lists</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
-              <h2>Activity 1.21</h2>
-              <h3 class="text-sn-theme">Traversal and append()</h3>
+              <h2>Activity 1.22</h2>
+              <h3 class="text-sn-theme">Processing Lists</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Traversal</p>
-              <p>append()</p>
+              <p>The Accumulator Pattern</p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>A New for Loop Shape</h2>
+              <h2>Adding Up a List</h2>
               <p>
-                Activity 1.17's <code>for</code> loops counted through
-                <code>range()</code>. A <code>for</code> loop can also walk
-                directly through a list, one element at a time &mdash; this
-                is called <b class="text-sn-theme">traversal</b>.
+                A variable that starts at <code>0</code> and grows a little
+                on every pass through a loop is called an
+                <b class="text-sn-theme">accumulator</b>.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>A New for Loop Shape</h2>
+              <h2>Adding Up a List</h2>
               <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>When You Also Need the Index</h2>
+              <h2>From Total to Average</h2>
               <p>
-                <code>for city in cities:</code> gives you each value, but
-                not its position. When you need both, loop through
-                <code>range(len(cities))</code> instead.
+                Once you have a total, the average is one more line &mdash;
+                divide by how many values there were.
               </p>
               <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>When You Also Need the Index</h2>
+              <h2>From Total to Average</h2>
               <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Growing a List With append()</h2>
+              <h2>Counting Instead of Summing</h2>
               <p>
-                Lists don't have to start full. <code>append()</code> adds
-                a new value to the <b>end</b> of a list &mdash; useful for
-                building up a list one piece at a time.
+                The same pattern counts things too &mdash; instead of adding
+                each value, add <code>1</code> only when a condition is true.
               </p>
               <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>Growing a List With append()</h2>
+              <h2>Counting Instead of Summing</h2>
               <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Traversing a list with <code>for item in list:</code></li>
-                <li>Traversing with both index and value using <code>range(len(list))</code></li>
-                <li>Growing a list with <code>append()</code></li>
+                <li>Summing a list with the accumulator pattern</li>
+                <li>Calculating an average from a total</li>
+                <li>Counting elements that meet a condition</li>
               </ul>
             </section>
 
@@ -167,10 +174,8 @@ Exiting.`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Traversal</dt>
-                  <dd>Visiting every element of a list, one at a time.</dd>
-                  <dt>append()</dt>
-                  <dd>Adds a new element to the end of a list.</dd>
+                  <dt>Accumulator</dt>
+                  <dd>A variable that starts at a base value and builds up a result across a loop, like a running total or a count.</dd>
                 </dl>
               </div>
             </section>
@@ -184,35 +189,35 @@ Exiting.`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-21-list-traversal-and-append.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-22-processing-lists.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Traverse Cities</h3>
+          <h3>Task 1: Build a List and Total It</h3>
           <ul>
-            <li>Use <code>for city in cities:</code> to print every city, one per line.</li>
+            <li>Ask how many scores to enter, collect them into a list with <code>append()</code>, then total them.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="3-4" />
+          <Code code={Task1} frame="code" lang="python" title="1-22-processing-lists.py" mark="9-13" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Number the Cities</h3>
+          <h3>Task 2: Calculate the Average</h3>
           <ul>
-            <li>Use <code>for i in range(len(cities)):</code> to print each city with its index.</li>
+            <li>Divide the total by <code>len(scores)</code> to find the average.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="3-4" />
+          <Code code={Task2} frame="code" lang="python" title="1-22-processing-lists.py" mark="16-17" ins="16-17" />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Task List App</h3>
+          <h3>Task 3: Count the Passing Scores</h3>
           <ul>
-            <li>Build a menu-driven app: add a task with <code>append()</code>, list all tasks by traversal, or exit.</li>
+            <li>Ask for a passing score, then count how many scores are at or above it.</li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="10,15-16" />
+          <Code code={Task3} frame="code" lang="python" title="1-22-processing-lists.py" mark="19-25" ins="19-25" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -241,9 +246,9 @@ Exiting.`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What's the difference between <code>for city in cities:</code> and <code>for i in range(len(cities)):</code>? When would you need the second one?</li>
-            <li>What does <code>append()</code> do to a list, and where does the new item get added?</li>
-            <li>In the task list app, why does listing tasks use a <code>for</code> loop instead of a <code>while</code> loop?</li>
+            <li>What does the accumulator pattern actually do to the variable each time the loop runs?</li>
+            <li>Why does calculating the average need <code>total / len(scores)</code> instead of just <code>total</code>?</li>
+            <li>How does the counting accumulator in Task 3 differ from the summing accumulator in Task 1?</li>
           </ol>
         </section>
 

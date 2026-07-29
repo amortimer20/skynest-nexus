@@ -5,48 +5,81 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `scores = [84, 91, 76, 88, 95]
+const Figure1 = `cities = ["Cleveland", "Chicago", "New York"]
 
-print(scores[4])`;
-const Figure2 = `scores = [84, 91, 76, 88, 95]
+for city in cities:
+    print(city)`;
+const Figure2 = `Cleveland
+Chicago
+New York`;
+const Figure3 = `cities = ["Cleveland", "Chicago", "New York"]
 
-print(len(scores))`;
-const Figure3 = `5`;
-const Figure4 = `scores = [84, 91, 76, 88, 95]
+for i in range(len(cities)):
+    print(i, cities[i])`;
+const Figure4 = `0 Cleveland
+1 Chicago
+2 New York`;
+const Figure5 = `tasks = []
 
-last_index = len(scores) - 1
-print(scores[last_index])`;
-const Figure5 = `95`;
-const Figure6 = `scores = [84, 91, 76, 88, 95]
+tasks.append("Practice lists")
+tasks.append("Finish homework")
 
-print(scores[len(scores)])`;
-const Figure7 = `IndexError: list index out of range`;
-const Task1 = `scores = [84, 91, 76, 88, 95]
+print(tasks)`;
+const Figure6 = `['Practice lists', 'Finish homework']`;
+const Task1 = `cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"]
 
-print(f"Number of scores: {len(scores)}")
+for city in cities:
+    print(city)
 `;
-const Task2 = `scores = [84, 91, 76, 88, 95]
+const Task2 = `cities = ["Cleveland", "Chicago", "New York", "Dallas", "Seattle"]
 
-print(f"Number of scores: {len(scores)}")
-
-last_index = len(scores) - 1
-print(f"Last score: {scores[last_index]}")
+for i in range(len(cities)):
+    print(f"{i}: {cities[i]}")
 `;
-const Task3 = `scores = [84, 91, 76, 88, 95]
+const Task3 = `tasks = []
+choice = ""
 
-print(f"Number of scores: {len(scores)}")
+while choice != "3":
+    print("1) Add task")
+    print("2) List tasks")
+    print("3) Exit")
+    choice = input("Choose an option: ")
 
-last_index = len(scores) - 1
-print(f"Last score: {scores[last_index]}")
-
-scores[0] = 100
-scores[last_index] = 100
-
-print(f"Updated scores: {scores}")
+    if choice == "1":
+        new_task = input("Enter a task: ")
+        tasks.append(new_task)
+        print(f"{new_task} added.")
+    elif choice == "2":
+        for task in tasks:
+            print(f"- {task}")
+    elif choice == "3":
+        print("Exiting.")
+    else:
+        print("Invalid option.")
 `;
-const SampleOutput = `Number of scores: 5
-Last score: 95
-Updated scores: [100, 91, 76, 88, 100]`;
+const SampleOutput = `1) Add task
+2) List tasks
+3) Exit
+Choose an option: 1
+Enter a task: Practice lists
+Practice lists added.
+1) Add task
+2) List tasks
+3) Exit
+Choose an option: 1
+Enter a task: Finish homework
+Finish homework added.
+1) Add task
+2) List tasks
+3) Exit
+Choose an option: 2
+- Practice lists
+- Finish homework
+1) Add task
+2) List tasks
+3) Exit
+Choose an option: 3
+Exiting.`;
 //#endregion
 ---
 
@@ -58,88 +91,75 @@ Updated scores: [100, 91, 76, 88, 100]`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.20: len() and Safe Access</h1>
+        <h1>Activity 1.21: Traversal and append()</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
-              <h2>Activity 1.20</h2>
-              <h3 class="text-sn-theme">len() and Safe Access</h3>
+              <h2>Activity 1.21</h2>
+              <h3 class="text-sn-theme">Traversal and append()</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>len()</p>
-              <p>Safe Last-Index Access</p>
+              <p>Traversal</p>
+              <p>append()</p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Hardcoding Is Fragile</h2>
+              <h2>A New for Loop Shape</h2>
               <p>
-                Activity 1.19 accessed the last food with
-                <code>foods[4]</code> &mdash; but that only works because
-                the list has exactly 5 elements. Add or remove one, and
-                <code>4</code> is wrong.
+                Activity 1.17's <code>for</code> loops counted through
+                <code>range()</code>. A <code>for</code> loop can also walk
+                directly through a list, one element at a time &mdash; this
+                is called <b class="text-sn-theme">traversal</b>.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>len()</h2>
-              <p>
-                <code>len()</code> returns how many elements a list has
-                &mdash; right now, not whenever you last counted.
-              </p>
-              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
-            </section>
-
             <section data-auto-animate>
-              <h2>len()</h2>
-              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
+              <h2>A New for Loop Shape</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The Last Valid Index</h2>
+              <h2>When You Also Need the Index</h2>
               <p>
-                A list of length 5 has valid indexes <code>0</code> through
-                <code>4</code> &mdash; so the last index is always
-                <code>len(list) - 1</code>, no matter how long the list is.
+                <code>for city in cities:</code> gives you each value, but
+                not its position. When you need both, loop through
+                <code>range(len(cities))</code> instead.
               </p>
-              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>The Last Valid Index</h2>
-              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} />
+              <h2>When You Also Need the Index</h2>
+              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The Off-by-One Mistake</h2>
+              <h2>Growing a List With append()</h2>
               <p>
-                Forget the <code>- 1</code>, and you're asking for one
-                index past the end of the list &mdash; Python won't guess
-                what you meant.
+                Lists don't have to start full. <code>append()</code> adds
+                a new value to the <b>end</b> of a list &mdash; useful for
+                building up a list one piece at a time.
               </p>
-              <Code code={Figure6} frame="code" lang="python" showLineNumbers={false} />
+              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>The Off-by-One Mistake</h2>
-              <Code code={Figure7} frame="terminal" lang="txt" showLineNumbers={false} />
-              <p class="fragment">
-                A crash, not a quiet wrong answer &mdash; which makes this
-                particular mistake easy to catch.
-              </p>
+              <h2>Growing a List With append()</h2>
+              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Finding a list's length with <code>len()</code></li>
-                <li>Computing the last valid index without hardcoding it</li>
-                <li>Recognizing the off-by-one mistake before it happens</li>
+                <li>Traversing a list with <code>for item in list:</code></li>
+                <li>Traversing with both index and value using <code>range(len(list))</code></li>
+                <li>Growing a list with <code>append()</code></li>
               </ul>
             </section>
 
@@ -147,10 +167,10 @@ Updated scores: [100, 91, 76, 88, 100]`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>len()</dt>
-                  <dd>Built-in function that returns how many elements a list has.</dd>
-                  <dt>Off-by-One Error</dt>
-                  <dd>A mistake where an index is one too high or one too low &mdash; often from forgetting <code>len(list) - 1</code>.</dd>
+                  <dt>Traversal</dt>
+                  <dd>Visiting every element of a list, one at a time.</dd>
+                  <dt>append()</dt>
+                  <dd>Adds a new element to the end of a list.</dd>
                 </dl>
               </div>
             </section>
@@ -164,35 +184,35 @@ Updated scores: [100, 91, 76, 88, 100]`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-20-len-and-safe-access.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-21-list-traversal-and-append.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Find the Length</h3>
+          <h3>Task 1: Traverse Cities</h3>
           <ul>
-            <li>Create a list of 5 quiz scores and print how many scores it has, using <code>len()</code>.</li>
+            <li>Use <code>for city in cities:</code> to print every city, one per line.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-20-len-and-safe-access.py" mark="3" />
+          <Code code={Task1} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="3-4" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Access the Last Element Safely</h3>
+          <h3>Task 2: Number the Cities</h3>
           <ul>
-            <li>Compute the last valid index with <code>len(scores) - 1</code>, then print the last score.</li>
+            <li>Use <code>for i in range(len(cities)):</code> to print each city with its index.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-20-len-and-safe-access.py" mark="5-6" ins="5-6" />
+          <Code code={Task2} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="3-4" />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Update Without Hardcoding</h3>
+          <h3>Task 3: Task List App</h3>
           <ul>
-            <li>Update the first and last scores using <code>0</code> and <code>last_index</code> &mdash; no hardcoded numbers.</li>
+            <li>Build a menu-driven app: add a task with <code>append()</code>, list all tasks by traversal, or exit.</li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="python" title="1-20-len-and-safe-access.py" mark="8-9" ins="8-11" />
+          <Code code={Task3} frame="code" lang="python" title="1-21-list-traversal-and-append.py" mark="10,15-16" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -221,9 +241,9 @@ Updated scores: [100, 91, 76, 88, 100]`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>Why is <code>len(scores) - 1</code> the last valid index instead of <code>len(scores)</code>?</li>
-            <li>What happens if you try to access <code>scores[len(scores)]</code>?</li>
-            <li>Why is using <code>len()</code> better than hardcoding an index number like <code>4</code>?</li>
+            <li>What's the difference between <code>for city in cities:</code> and <code>for i in range(len(cities)):</code>? When would you need the second one?</li>
+            <li>What does <code>append()</code> do to a list, and where does the new item get added?</li>
+            <li>In the task list app, why does listing tasks use a <code>for</code> loop instead of a <code>while</code> loop?</li>
           </ol>
         </section>
 

@@ -5,49 +5,40 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `i = 0
-
-while i < 5:
-    print(i)
-    i = i + 1`;
-const Figure2 = `for i in range(5):
-    print(i)`;
-const Figure3 = `0
-1
-2
-3
-4`;
-const Figure4 = `for i in range(1, 11):
-    print(i)`;
-const Figure5 = `for i in range(10, 0, -1):
-    print(i)`;
-const Task1 = `number = int(input("Choose a number: "))
-count = int(input("List how many multiples of the number? "))
-
-total = number  # Tracks the current multiple
-
-for i in range(count):
-    print(total)
-    total = total + number
-
-input("Press enter to continue...")
+const Figure1 = `for row in range(1, 4):
+    for col in range(1, 4):
+        print(f"(Row {row}, Col {col})", end="  ")
+    print()`;
+const Figure2 = `(Row 1, Col 1)  (Row 1, Col 2)  (Row 1, Col 3)
+(Row 2, Col 1)  (Row 2, Col 2)  (Row 2, Col 3)
+(Row 3, Col 1)  (Row 3, Col 2)  (Row 3, Col 3)`;
+const Task1 = `for row in range(1, 4):
+    for col in range(1, 4):
+        print(f"(Row {row}, Col {col})", end="  ")
+    print()
 `;
-const Task2 = `number = int(input("Choose a number: "))
-count = int(input("List how many multiples of the number? "))
-
-total = number  # Tracks the current multiple
-
-for i in range(count):
-    print(total, end=" ")
-    total = total + number
+const Task2 = `for row in range(1, 4):
+    for col in range(1, 4):
+        print(f"(Row {row}, Col {col})", end="  ")
+    print()
 
 print()
-input("Press enter to continue...")
+size = int(input("Enter the size of the table: "))
+
+for num1 in range(1, size + 1):
+    for num2 in range(1, size + 1):
+        product = num1 * num2
+        print(product, end="   ")
+    print()
 `;
-const SampleOutput = `Choose a number: 3
-List how many multiples of the number? 5
-3 6 9 12 15
-Press enter to continue...`;
+const SampleOutput = `(Row 1, Col 1)  (Row 1, Col 2)  (Row 1, Col 3)
+(Row 2, Col 1)  (Row 2, Col 2)  (Row 2, Col 3)
+(Row 3, Col 1)  (Row 3, Col 2)  (Row 3, Col 3)
+
+Enter the size of the table: 3
+1   2   3
+2   4   6
+3   6   9`;
 //#endregion
 ---
 
@@ -59,71 +50,54 @@ Press enter to continue...`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.17: For Loops</h1>
+        <h1>Activity 1.18: Nested Loops</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
-              <h2>Activity 1.17</h2>
-              <h3 class="text-sn-theme">For Loops</h3>
+              <h2>Activity 1.18</h2>
+              <h3 class="text-sn-theme">Nested Loops</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>The for Loop</p>
-              <p>range()</p>
+              <p>Nested Loops</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Counting a Known Number of Times</h2>
+              <h2>A Loop Inside a Loop</h2>
               <p>
-                When you already know how many times to repeat something,
-                a <code>while</code> loop needs some bookkeeping.
+                Just like an <code>if</code> can nest inside another
+                <code>if</code>, a <code>for</code> loop can nest inside
+                another <code>for</code> loop &mdash; the inner loop runs
+                all the way through for <b>every single pass</b> of the
+                outer loop.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>The for Loop</h2>
-              <p>
-                A <b class="text-sn-theme">for</b> loop does that counting
-                for you.
-              </p>
-              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
-              <p class="fragment">Same result as the <code>while</code> version &mdash; no counter variable to manage yourself.</p>
-            </section>
-
             <section data-auto-animate>
-              <h2>The for Loop</h2>
-              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
+              <h2>A Loop Inside a Loop</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">3 rows &times; 3 columns each = 9 total prints.</p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>range()</h2>
+              <h2>Today's Project: Grids</h2>
               <p>
-                <code>range(5)</code> counts <code>0</code> through
-                <code>4</code> &mdash; 5 numbers, starting at 0.
-                <code>range(start, stop)</code> lets you pick both ends.
+                Grids, tables, and boards all share this same shape: an
+                outer loop for rows, an inner loop for columns.
               </p>
-              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
-              <p class="fragment">Counts 1 through 10.</p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Counting Backwards</h2>
-              <p>A third number in <code>range()</code> sets the step &mdash; negative counts down.</p>
-              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
-              <p class="fragment">Counts 10 down to 1.</p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing a <code>for</code> loop with <code>range()</code></li>
-                <li>Choosing between <code>range(n)</code> and <code>range(start, stop)</code></li>
-                <li>Printing on the same line with <code>end=" "</code></li>
+                <li>Nesting one <code>for</code> loop inside another</li>
+                <li>Tracing how many times the inner loop runs in total</li>
+                <li>Building a multiplication table from nested loops</li>
               </ul>
             </section>
 
@@ -131,10 +105,12 @@ Press enter to continue...`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>for Loop</dt>
-                  <dd>Repeats its block once for each value in a sequence.</dd>
-                  <dt>range()</dt>
-                  <dd>Generates a sequence of numbers for a <code>for</code> loop to count through.</dd>
+                  <dt>Nested Loop</dt>
+                  <dd>A loop written inside the body of another loop.</dd>
+                  <dt>Outer Loop</dt>
+                  <dd>The loop that contains another loop inside it.</dd>
+                  <dt>Inner Loop</dt>
+                  <dd>The loop nested inside another &mdash; it completes fully for every pass of the outer loop.</dd>
                 </dl>
               </div>
             </section>
@@ -148,26 +124,26 @@ Press enter to continue...`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-17-for-loops.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-18-nested-loops.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Counting Multiples</h3>
+          <h3>Task 1: Row and Column Grid</h3>
           <ul>
-            <li>Ask for a number and a count, then print that many multiples of it, one per line.</li>
+            <li>Print a label for every row/column combination in a 3x3 grid.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-17-for-loops.py" mark="6-8" />
+          <Code code={Task1} frame="code" lang="python" title="1-18-nested-loops.py" mark="1-4" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Display on One Line</h3>
+          <h3>Task 2: Multiplication Table</h3>
           <ul>
-            <li>Change the loop to print the multiples on a single line, separated by spaces.</li>
+            <li>Ask for a size, then print a multiplication table of that size using nested loops.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-17-for-loops.py" mark="7,10" />
+          <Code code={Task2} frame="code" lang="python" title="1-18-nested-loops.py" mark="9-13" ins="6-13" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -196,9 +172,9 @@ Press enter to continue...`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What does <code>range(count)</code> actually produce, and what does the loop use it for if <code>i</code> is never printed?</li>
-            <li>Why doesn't a <code>for</code> loop need you to write your own counter variable and increment it, the way a <code>while</code> loop does?</li>
-            <li>What does <code>end=" "</code> change about how <code>print()</code> behaves?</li>
+            <li>In the Row and Column Grid, how many total times does <code>print()</code> run inside the nested loop?</li>
+            <li>In the multiplication table, what does <code>num1</code> represent, and what does <code>num2</code> represent?</li>
+            <li>Why does <code>print()</code> (with nothing inside it) appear after the inner loop, but not inside it?</li>
           </ol>
         </section>
 

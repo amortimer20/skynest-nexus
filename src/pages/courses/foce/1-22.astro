@@ -5,92 +5,66 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `scores = [84, 91, 76, 88, 95]
-total = 0
+const Figure1 = `fruits = ["apple", "banana", "cherry"]
 
-for score in scores:
-    total = total + score
+print("banana" in fruits)
+print("grape" in fruits)`;
+const Figure2 = `True
+False`;
+const Figure3 = `guess = input("Guess a fruit: ").lower()
 
-print(total)`;
-const Figure2 = `434`;
-const Figure3 = `average = total / len(scores)
-print(average)`;
-const Figure4 = `86.8`;
-const Figure5 = `count = 0
+if guess in fruits:
+    print("Yes, that's on the list!")
+else:
+    print("Nope, try again.")`;
+const Figure4 = `fruits = ["apple", "banana", "cherry"]
 
-for score in scores:
-    if score >= 90:
-        count = count + 1
+print(fruits.index("banana"))`;
+const Figure5 = `1`;
+const Task1 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
 
-print(count)`;
-const Figure6 = `2`;
-const Task1 = `count = int(input("How many scores? "))
-scores = []
+name = input("Enter a name: ").lower()
 
-for i in range(count):
-    score = int(input("Enter a score: "))
-    scores.append(score)
-
-total = 0
-
-for score in scores:
-    total = total + score
-
-print(f"Total: {total}")
+if name in roster:
+    print(f"{name} is on the roster.")
+else:
+    print(f"{name} is not on the roster.")
 `;
-const Task2 = `count = int(input("How many scores? "))
-scores = []
+const Task2 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
 
-for i in range(count):
-    score = int(input("Enter a score: "))
-    scores.append(score)
+name = input("Enter a name: ").lower()
 
-total = 0
-
-for score in scores:
-    total = total + score
-
-print(f"Total: {total}")
-
-average = total / len(scores)
-print(f"Average: {average}")
+if name in roster:
+    position = roster.index(name)
+    print(f"{name} is on the roster at position {position}.")
+else:
+    print(f"{name} is not on the roster.")
 `;
-const Task3 = `count = int(input("How many scores? "))
-scores = []
+const Task3 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
 
-for i in range(count):
-    score = int(input("Enter a score: "))
-    scores.append(score)
+name = ""
+present_count = 0
 
-total = 0
+while name != "done":
+    name = input("Enter a name (or 'done' to finish): ").lower()
 
-for score in scores:
-    total = total + score
-
-print(f"Total: {total}")
-
-average = total / len(scores)
-print(f"Average: {average}")
-
-passing_score = int(input("Enter the passing score: "))
-passing_count = 0
-
-for score in scores:
-    if score >= passing_score:
-        passing_count = passing_count + 1
-
-print(f"Scores at or above {passing_score}: {passing_count}")
+    if name == "done":
+        print(f"Checked in {present_count} students.")
+    elif name in roster:
+        position = roster.index(name)
+        print(f"{name} is on the roster at position {position}.")
+        present_count = present_count + 1
+    else:
+        print(f"{name} is not on the roster.")
 `;
-const SampleOutput = `How many scores? 5
-Enter a score: 84
-Enter a score: 91
-Enter a score: 76
-Enter a score: 88
-Enter a score: 95
-Total: 434
-Average: 86.8
-Enter the passing score: 80
-Scores at or above 80: 3`;
+const SampleOutput = `Enter a name (or 'done' to finish): blake
+blake is on the roster at position 1.
+Enter a name (or 'done' to finish): morgan
+morgan is not on the roster.
+Enter a name (or 'done' to finish): elliot
+elliot is on the roster at position 4.
+Enter a name (or 'done' to finish): done
+Checked in 2 students.`;
 //#endregion
 ---
 
@@ -102,71 +76,72 @@ Scores at or above 80: 3`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.22: Processing Lists</h1>
+        <h1>Activity 1.23: Checking Membership</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
-              <h2>Activity 1.22</h2>
-              <h3 class="text-sn-theme">Processing Lists</h3>
+              <h2>Activity 1.23</h2>
+              <h3 class="text-sn-theme">Checking Membership</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>The Accumulator Pattern</p>
+              <p>The in Operator</p>
+              <p>.index()</p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Adding Up a List</h2>
+              <h2>Is It in the List?</h2>
               <p>
-                A variable that starts at <code>0</code> and grows a little
-                on every pass through a loop is called an
-                <b class="text-sn-theme">accumulator</b>.
+                The <code>in</code> operator checks whether a value exists
+                somewhere in a list, and hands back a boolean &mdash; no
+                loop required.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>Adding Up a List</h2>
+              <h2>Is It in the List?</h2>
               <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>From Total to Average</h2>
+              <h2>Using in Inside an if</h2>
               <p>
-                Once you have a total, the average is one more line &mdash;
-                divide by how many values there were.
+                Since <code>in</code> produces <code>True</code> or
+                <code>False</code>, it drops directly into a condition.
               </p>
               <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
-            <section data-auto-animate>
-              <h2>From Total to Average</h2>
-              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
-            </section>
-
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Counting Instead of Summing</h2>
+              <h2>Finding the Position With .index()</h2>
               <p>
-                The same pattern counts things too &mdash; instead of adding
-                each value, add <code>1</code> only when a condition is true.
+                <code>in</code> only tells you yes or no. When you also
+                need <b>where</b> a value is, use <code>.index()</code>.
               </p>
-              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>Counting Instead of Summing</h2>
-              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} />
+              <h2>Finding the Position With .index()</h2>
+              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                <code>.index()</code> crashes if the value isn't in the
+                list at all &mdash; that's why you check with
+                <code>in</code> first.
+              </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Summing a list with the accumulator pattern</li>
-                <li>Calculating an average from a total</li>
-                <li>Counting elements that meet a condition</li>
+                <li>Checking membership with the <code>in</code> operator</li>
+                <li>Finding a value's position with <code>.index()</code></li>
+                <li>Guarding <code>.index()</code> with an <code>in</code> check first</li>
               </ul>
             </section>
 
@@ -174,8 +149,10 @@ Scores at or above 80: 3`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Accumulator</dt>
-                  <dd>A variable that starts at a base value and builds up a result across a loop, like a running total or a count.</dd>
+                  <dt>in Operator</dt>
+                  <dd>Checks whether a value exists in a list, returning <code>True</code> or <code>False</code>.</dd>
+                  <dt>.index()</dt>
+                  <dd>Returns the position of a value in a list &mdash; crashes if the value isn't found.</dd>
                 </dl>
               </div>
             </section>
@@ -189,35 +166,35 @@ Scores at or above 80: 3`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-22-processing-lists.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-23-checking-membership.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Build a List and Total It</h3>
+          <h3>Task 1: Roster Check</h3>
           <ul>
-            <li>Ask how many scores to enter, collect them into a list with <code>append()</code>, then total them.</li>
+            <li>Check whether a name the user enters is on the roster, using <code>in</code>.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-22-processing-lists.py" mark="9-13" />
+          <Code code={Task1} frame="code" lang="python" title="1-23-checking-membership.py" mark="5" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Calculate the Average</h3>
+          <h3>Task 2: Find the Position</h3>
           <ul>
-            <li>Divide the total by <code>len(scores)</code> to find the average.</li>
+            <li>If the name is on the roster, also report its position with <code>.index()</code>.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-22-processing-lists.py" mark="16-17" ins="16-17" />
+          <Code code={Task2} frame="code" lang="python" title="1-23-checking-membership.py" mark="6-7" ins="6-7" />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Count the Passing Scores</h3>
+          <h3>Task 3: Check In Multiple Students</h3>
           <ul>
-            <li>Ask for a passing score, then count how many scores are at or above it.</li>
+            <li>Loop until the user types <code>"done"</code>, checking each name against the roster and counting how many were found.</li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="python" title="1-22-processing-lists.py" mark="19-25" ins="19-25" />
+          <Code code={Task3} frame="code" lang="python" title="1-23-checking-membership.py" mark="4,9-16" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -246,9 +223,9 @@ Scores at or above 80: 3`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What does the accumulator pattern actually do to the variable each time the loop runs?</li>
-            <li>Why does calculating the average need <code>total / len(scores)</code> instead of just <code>total</code>?</li>
-            <li>How does the counting accumulator in Task 3 differ from the summing accumulator in Task 1?</li>
+            <li>What does the <code>in</code> operator return, and what data type is that?</li>
+            <li>Why did Task 2 need to check <code>in</code> before calling <code>.index()</code>?</li>
+            <li>How did Task 3 combine the <code>in</code> operator with the accumulator pattern from Activity 1.22?</li>
           </ol>
         </section>
 

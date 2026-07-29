@@ -5,66 +5,99 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `fruits = ["apple", "banana", "cherry"]
+const Figure1 = `questions = [
+    "What planet is known as the Red Planet?",
+    "How many bits are in a byte?",
+    "What language have we been learning?",
+]
 
-print("banana" in fruits)
-print("grape" in fruits)`;
-const Figure2 = `True
-False`;
-const Figure3 = `guess = input("Guess a fruit: ").lower()
+answers = [
+    "mars",
+    "8",
+    "python",
+]`;
+const Figure2 = `for i in range(len(questions)):
+    print(questions[i])
+    print(answers[i])`;
+const Figure3 = `What planet is known as the Red Planet?
+mars
+How many bits are in a byte?
+8
+What language have we been learning?
+python`;
+const Task1 = `questions = [
+    "What planet is known as the Red Planet?",
+    "How many bits are in a byte?",
+    "What language have we been learning?",
+]
 
-if guess in fruits:
-    print("Yes, that's on the list!")
-else:
-    print("Nope, try again.")`;
-const Figure4 = `fruits = ["apple", "banana", "cherry"]
-
-print(fruits.index("banana"))`;
-const Figure5 = `1`;
-const Task1 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
-
-name = input("Enter a name: ").lower()
-
-if name in roster:
-    print(f"{name} is on the roster.")
-else:
-    print(f"{name} is not on the roster.")
+answers = [
+    "mars",
+    "8",
+    "python",
+]
 `;
-const Task2 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
+const Task2 = `questions = [
+    "What planet is known as the Red Planet?",
+    "How many bits are in a byte?",
+    "What language have we been learning?",
+]
 
-name = input("Enter a name: ").lower()
+answers = [
+    "mars",
+    "8",
+    "python",
+]
 
-if name in roster:
-    position = roster.index(name)
-    print(f"{name} is on the roster at position {position}.")
-else:
-    print(f"{name} is not on the roster.")
-`;
-const Task3 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
+score = 0
 
-name = ""
-present_count = 0
+for i in range(len(questions)):
+    response = input(questions[i] + " ").lower()
 
-while name != "done":
-    name = input("Enter a name (or 'done' to finish): ").lower()
-
-    if name == "done":
-        print(f"Checked in {present_count} students.")
-    elif name in roster:
-        position = roster.index(name)
-        print(f"{name} is on the roster at position {position}.")
-        present_count = present_count + 1
+    if response == answers[i]:
+        print("Correct!")
+        score = score + 1
     else:
-        print(f"{name} is not on the roster.")
+        print(f"Incorrect. The correct answer was {answers[i]}.")
 `;
-const SampleOutput = `Enter a name (or 'done' to finish): blake
-blake is on the roster at position 1.
-Enter a name (or 'done' to finish): morgan
-morgan is not on the roster.
-Enter a name (or 'done' to finish): elliot
-elliot is on the roster at position 4.
-Enter a name (or 'done' to finish): done
-Checked in 2 students.`;
+const Task3 = `questions = [
+    "What planet is known as the Red Planet?",
+    "How many bits are in a byte?",
+    "What language have we been learning?",
+]
+
+answers = [
+    "mars",
+    "8",
+    "python",
+]
+
+score = 0
+
+for i in range(len(questions)):
+    response = input(questions[i] + " ").lower()
+
+    if response == answers[i]:
+        print("Correct!")
+        score = score + 1
+    else:
+        print(f"Incorrect. The correct answer was {answers[i]}.")
+
+print(f"You scored {score} out of {len(questions)}.")
+
+if score == len(questions):
+    print("Perfect score!")
+else:
+    print("Keep practicing!")
+`;
+const SampleOutput = `What planet is known as the Red Planet? mars
+Correct!
+How many bits are in a byte? 8
+Correct!
+What language have we been learning? javascript
+Incorrect. The correct answer was python.
+You scored 2 out of 3.
+Keep practicing!`;
 //#endregion
 ---
 
@@ -76,72 +109,64 @@ Checked in 2 students.`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.23: Checking Membership</h1>
+        <h1>Activity 1.24: Parallel Lists</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
-              <h2>Activity 1.23</h2>
-              <h3 class="text-sn-theme">Checking Membership</h3>
+              <h2>Activity 1.24</h2>
+              <h3 class="text-sn-theme">Parallel Lists</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>The in Operator</p>
-              <p>.index()</p>
+              <p>Parallel Lists</p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Is It in the List?</h2>
+              <h2>Two Lists, Same Positions</h2>
               <p>
-                The <code>in</code> operator checks whether a value exists
-                somewhere in a list, and hands back a boolean &mdash; no
-                loop required.
+                <b class="text-sn-theme">Parallel lists</b> are two separate
+                lists where the same index refers to related data in both
+                &mdash; here, <code>questions[i]</code> and
+                <code>answers[i]</code> always go together.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
-            <section data-auto-animate>
-              <h2>Is It in the List?</h2>
-              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
-            </section>
-
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Using in Inside an if</h2>
+              <h2>Walking Both Lists Together</h2>
               <p>
-                Since <code>in</code> produces <code>True</code> or
-                <code>False</code>, it drops directly into a condition.
+                This only works with index-based traversal &mdash;
+                <code>for i in range(len(questions)):</code> &mdash; since
+                you need the same <code>i</code> for both lists.
               </p>
-              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Finding the Position With .index()</h2>
-              <p>
-                <code>in</code> only tells you yes or no. When you also
-                need <b>where</b> a value is, use <code>.index()</code>.
-              </p>
-              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
             </section>
 
             <section data-auto-animate>
-              <h2>Finding the Position With .index()</h2>
-              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} />
-              <p class="fragment">
-                <code>.index()</code> crashes if the value isn't in the
-                list at all &mdash; that's why you check with
-                <code>in</code> first.
+              <h2>Walking Both Lists Together</h2>
+              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Today's Project: Trivia Game</h2>
+              <p>
+                Ask each question, compare the player's answer to the
+                matching entry in <code>answers</code>, and keep score
+                &mdash; combining everything from this unit into one
+                program.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Checking membership with the <code>in</code> operator</li>
-                <li>Finding a value's position with <code>.index()</code></li>
-                <li>Guarding <code>.index()</code> with an <code>in</code> check first</li>
+                <li>Keeping two lists lined up by index</li>
+                <li>Comparing a player's answer to a parallel list</li>
+                <li>Tracking a score with the accumulator pattern</li>
               </ul>
             </section>
 
@@ -149,10 +174,8 @@ Checked in 2 students.`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>in Operator</dt>
-                  <dd>Checks whether a value exists in a list, returning <code>True</code> or <code>False</code>.</dd>
-                  <dt>.index()</dt>
-                  <dd>Returns the position of a value in a list &mdash; crashes if the value isn't found.</dd>
+                  <dt>Parallel Lists</dt>
+                  <dd>Two or more lists where the same index refers to related values across all of them.</dd>
                 </dl>
               </div>
             </section>
@@ -166,35 +189,35 @@ Checked in 2 students.`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-23-checking-membership.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-24-trivia-game.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Roster Check</h3>
+          <h3>Task 1: Set Up the Trivia Data</h3>
           <ul>
-            <li>Check whether a name the user enters is on the roster, using <code>in</code>.</li>
+            <li>Create a <code>questions</code> list and a parallel <code>answers</code> list &mdash; keep them the same length.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-23-checking-membership.py" mark="5" />
+          <Code code={Task1} frame="code" lang="python" title="1-24-trivia-game.py" mark="1-10" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Find the Position</h3>
+          <h3>Task 2: Ask Each Question</h3>
           <ul>
-            <li>If the name is on the roster, also report its position with <code>.index()</code>.</li>
+            <li>Loop through both lists by index, comparing the player's answer to the matching entry in <code>answers</code>, and track a score.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-23-checking-membership.py" mark="6-7" ins="6-7" />
+          <Code code={Task2} frame="code" lang="python" title="1-24-trivia-game.py" mark="12-19" ins="12-19" />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Check In Multiple Students</h3>
+          <h3>Task 3: Report the Final Score</h3>
           <ul>
-            <li>Loop until the user types <code>"done"</code>, checking each name against the roster and counting how many were found.</li>
+            <li>After the loop, print the score out of the total number of questions, with a perfect-score message.</li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="python" title="1-23-checking-membership.py" mark="4,9-16" />
+          <Code code={Task3} frame="code" lang="python" title="1-24-trivia-game.py" mark="21-24" ins="21-24" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -223,9 +246,9 @@ Checked in 2 students.`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What does the <code>in</code> operator return, and what data type is that?</li>
-            <li>Why did Task 2 need to check <code>in</code> before calling <code>.index()</code>?</li>
-            <li>How did Task 3 combine the <code>in</code> operator with the accumulator pattern from Activity 1.22?</li>
+            <li>Why must <code>questions</code> and <code>answers</code> stay the same length for this program to work?</li>
+            <li>Why does this activity use <code>for i in range(len(questions)):</code> instead of <code>for question in questions:</code>?</li>
+            <li>Which earlier activity's accumulator pattern did the score tracker reuse?</li>
           </ol>
         </section>
 
