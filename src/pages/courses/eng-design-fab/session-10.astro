@@ -15,7 +15,7 @@ import Layout from "../../../layouts/Layout.astro";
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Session 10: The Mismatch Activity</h1>
+        <h1>Session 10: The Mismatch Activity + Debrief</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -64,6 +64,44 @@ import Layout from "../../../layouts/Layout.astro";
               <p>
                 A spec sheet check on each part, alone, doesn't guarantee the
                 assembly works.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>This Isn't Bad Luck</h2>
+              <p>
+                Look at those two specs again. The peg and the hole were
+                given the <b class="text-sn-theme">same nominal</b> &mdash;
+                0.250 in.
+              </p>
+              <p class="fragment">
+                So the peg is too big any time it lands above whatever the
+                hole landed at. That's not a rare edge case &mdash; it's
+                close to a coin flip.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Fix: Clearance</h2>
+              <p>
+                Engineers don't hope the worst case doesn't happen. They
+                design so that even the worst case still fits.
+              </p>
+              <p class="fragment">
+                Make the hole's nominal <i>bigger</i> than the peg's. The gap
+                you deliberately leave is called
+                <b class="text-sn-theme">clearance</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Fix: Clearance</h2>
+              <p>Peg: 0.245 in &plusmn; 0.005 (max 0.250)</p>
+              <p>Hole: 0.260 in &plusmn; 0.005 (min 0.255)</p>
+              <p class="fragment">
+                Biggest possible peg: 0.250. Smallest possible hole: 0.255.
+                It fits &mdash; <b class="text-sn-theme">every time</b>, not
+                most of the time.
               </p>
             </section>
 
@@ -163,6 +201,22 @@ import Layout from "../../../layouts/Layout.astro";
             If your prediction didn't match reality, use your measured
             numbers to explain why &mdash; not just "it didn't fit."
           </p>
+          <p>
+            Whether it fit or not, answer this with your actual numbers:
+            <b class="text-sn-theme">was the hole bigger than the peg, and by
+            how much?</b> That difference is the clearance you actually got.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 5: Respec It</h3>
+          <p>
+            Your pair was specced with the same nominal for both parts, which
+            is why mismatches happen. Rewrite both specs &mdash; a nominal and
+            a &plusmn; for the peg and for the hole &mdash; so that even the
+            biggest allowed peg still fits the smallest allowed hole.
+          </p>
+          <p>Show the two worst-case numbers that prove it works.</p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -177,6 +231,7 @@ import Layout from "../../../layouts/Layout.astro";
             <li>You measured <b>both</b> parts, not just one</li>
             <li>You wrote your prediction down before the physical test, not after</li>
             <li>Your recorded result is honest, whether or not it matches your prediction</li>
+            <li>Your respec in Step 5 works at <b>worst case</b> &mdash; biggest allowed peg, smallest allowed hole &mdash; not just at nominal</li>
           </ul>
         </section>
 
@@ -186,25 +241,11 @@ import Layout from "../../../layouts/Layout.astro";
         <section id="reflection">
           <h2>Reflection</h2>
 
-          <p>Answer the following questions before submitting your work.</p>
+          <p>Answer these on your own. Reflections are individual, even when the rest of the session was team work.</p>
 
           <ol>
-            <li>
-              Did your pair fit as predicted? If not, what does the mismatch
-              tell you about how the two parts' individual tolerances
-              interacted?
-            </li>
-            <li>
-              Why is a measured, tested result more reliable than a spec
-              sheet's theoretical assumption?
-            </li>
-            <li>
-              This exact idea &mdash; trust your measured data over a
-              theoretical prediction &mdash; comes back later, during the
-              launcher project's calibration phase. Why do you think an
-              empirically-tested model might beat a theoretical prediction
-              there too?
-            </li>
+            <li>A classmate says their pair fit because “both parts came out really close to nominal.” Is that actually the reason a pair fits? Use your own numbers to argue for or against.</li>
+            <li>This exact idea — trust your measured data over a theoretical prediction — comes back later, during the launcher project's calibration phase. Why do you think an empirically-tested model might beat a theoretical prediction there too?</li>
           </ol>
         </section>
 

@@ -81,6 +81,57 @@ import Layout from "../../../layouts/Layout.astro";
               <p class="fragment">Different problems, different fixes.</p>
             </section>
 
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Now Actually Use It</h2>
+              <p>
+                A trendline you only look at is a picture. A trendline you
+                <b class="text-sn-theme">predict with</b> is a tool.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now Actually Use It</h2>
+              <p>Your equation looks something like:</p>
+              <p><code>y = 0.8x + 2</code></p>
+              <p class="fragment">
+                <b>Forward:</b> pick a weight you never tested, plug it in
+                for <code>x</code>, and you get a predicted displacement.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Harder Direction</h2>
+              <p>
+                Calibration usually runs <i>backwards</i>. You don't ask
+                "what happens at this setting" &mdash; you ask
+                <b class="text-sn-theme">"what setting do I need to hit
+                this?"</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Harder Direction</h2>
+              <p>Want a displacement of 10? Solve for <code>x</code>:</p>
+              <p><code>10 = 0.8x + 2</code></p>
+              <p class="fragment"><code>8 = 0.8x</code> &rarr; <code>x = 10</code></p>
+              <p class="fragment">
+                That's the entire skill Field Test Day runs on. Practice it
+                today, on a spring, where nothing's at stake.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Then Check Yourself</h2>
+              <p>
+                Predicting isn't the last step. <b class="text-sn-theme">Go
+                measure it</b> and see how close you actually got.
+              </p>
+              <p class="fragment">
+                That gap &mdash; predicted vs. actual &mdash; is the only
+                honest measure of whether your model is any good.
+              </p>
+            </section>
+
             <section data-auto-animate>
               <h2>You Could Also Compute This Directly</h2>
               <p><code>=SLOPE(y-range, x-range)</code></p>
@@ -165,10 +216,54 @@ import Layout from "../../../layouts/Layout.astro";
 
           <hr class="my-4" />
 
-          <h3>Step 4: Write Your Diagnostic Note</h3>
+          <h3>Step 4: Predict Forward</h3>
+          <p>
+            Pick a weight you <b>never tested</b>, somewhere inside the range
+            you did test. Use your trendline equation &mdash; not your eyes on
+            the chart &mdash; to predict its displacement. Write the
+            prediction down.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 5: Predict Backward</h3>
+          <p>
+            Now the direction calibration actually uses. Pick a displacement
+            you never measured, inside your tested range. Solve your equation
+            for <code>x</code> to find the weight that should produce it.
+            Write down both the target and the weight you calculated.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 6: Test Both Predictions</h3>
+          <p>
+            Actually hang both weights and measure what you get. Record
+            predicted vs. actual for each, and the difference.
+          </p>
+
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr>
+                <th>Prediction</th>
+                <th>Predicted</th>
+                <th>Actual</th>
+                <th>Off by</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Step 4 (forward)</td><td></td><td></td><td></td></tr>
+              <tr><td>Step 5 (backward)</td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <hr class="my-4" />
+
+          <h3>Step 7: Write Your Diagnostic Note</h3>
           <p>
             One sentence: is your fit strong or weak, and if weak, do you
-            think that's from measurement noise or a real effect?
+            think that's from measurement noise or a real effect? Reference
+            how close your two predictions actually landed.
           </p>
         </section>
 
@@ -185,11 +280,21 @@ import Layout from "../../../layouts/Layout.astro";
             <li>Scatter plot of weight vs. displacement</li>
             <li>Trendline with displayed equation and R&sup2; value</li>
             <li>
+              Both predictions &mdash; forward and backward &mdash; with
+              predicted vs. actual recorded, and how far off each was
+            </li>
+            <li>
               One-sentence diagnostic note: is your fit strong or weak, and
               if weak, do you think that's from measurement noise or a real
               effect?
             </li>
           </ul>
+
+          <p>
+            The backward prediction is the one that matters most &mdash; it's
+            the exact operation Field Test Day will ask you to do under
+            pressure, with a target you've never seen.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -198,24 +303,11 @@ import Layout from "../../../layouts/Layout.astro";
         <section id="reflection">
           <h2>Reflection</h2>
 
-          <p>Answer the following questions before submitting your work.</p>
+          <p>Answer these on your own. Reflections are individual, even when the rest of the session was team work.</p>
 
           <ol>
-            <li>
-              Is your fit strong or weak? Do you think that's from
-              measurement noise or a real effect, and why?
-            </li>
-            <li>
-              What would it take to convince you your fit was actually wrong,
-              even if R&sup2; looked good?
-            </li>
-            <li>
-              This is the last new skill in Foundations. Looking back at
-              Define, Design, Notebook, Safety, Measurement, Functions, Data
-              Quality, Conversion, Tolerance, and now Charting &mdash; which
-              one do you think you'll rely on most once the Launcher Project
-              starts?
-            </li>
+            <li>What would it take to convince you your fit was actually wrong, even if R² looked good?</li>
+            <li>This is the last new skill in Foundations. Looking back at Define, Design, Notebook, Safety, Measurement, Functions, Data Quality, Conversion, Tolerance, and now Charting — which one do you think you'll rely on most once the Launcher Project starts?</li>
           </ol>
         </section>
 
