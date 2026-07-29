@@ -1,59 +1,52 @@
 ---
-import { Image } from "astro:assets";
-import bullet1 from "../../assets/ui/list-icons/li-bullet-1.svg";
-import bullet2 from "../../assets/ui/list-icons/li-bullet-2.svg";
-import bullet3 from "../../assets/ui/list-icons/li-bullet-3.svg";
-
 export interface Props {
-  variant?: string;
+  href: string;
+  icon?: string;
+  srLabel?: string;
   className?: string;
-  /** Short label shown as a badge after the item, e.g. "Optional" or "Extra Credit". */
+  /** Short label shown as a badge after the item, e.g. "Extra Credit". */
   tag?: string;
   /** Badge colour: "muted" (default) or "gold". */
   tone?: "muted" | "gold";
 }
 
-let {
-  variant = "1",
+const {
+  href,
+  icon = "si-puzzle",
+  srLabel = "Code challenge",
   className = "",
   tag = "",
   tone = "muted",
 } = Astro.props;
-
-const bulletImages: Record<string, ImageMetadata> = {
-  "1": bullet1,
-  "2": bullet2,
-  "3": bullet3
-};
 ---
 
-<li class={className}>
-  {
-    bulletImages[variant] && (
-      <Image src={bulletImages[variant]} class="icon" alt="icon" />
-    )
-  }
-  <slot />
+<li class={`challenge-item ${className}`}>
+  <i class={`${icon} icon`} aria-hidden="true"></i>
+  <a href={href}>
+    <span class="visually-hidden">{srLabel}: </span><slot />
+  </a>
   {tag && <span class:list={["item-tag", tone]}>{tag}</span>}
 </li>
 
 <style>
-  li {
+  .challenge-item {
     list-style: none;
     width: fit-content;
     font-size: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
 
     .icon {
-      width: 1.5rem;
-      height: 1.5rem;
-      margin: 0.25rem;
-      animation: spin 5s linear infinite;
+      font-size: 1.1rem;
+      margin: 0.25rem 0.5rem 0.25rem 0.25rem;
+      color: var(--skynest-purple-lighten);
+      flex-shrink: 0;
+      transition: transform 0.2s ease-out;
     }
 
-    &:hover {
-      .icon {
-        animation: spin 1s linear infinite;
-      }
+    &:hover .icon {
+      transform: rotate(-15deg) scale(1.15);
     }
 
     .item-tag {
@@ -67,7 +60,6 @@ const bulletImages: Record<string, ImageMetadata> = {
       letter-spacing: 0.04em;
       text-transform: uppercase;
       white-space: nowrap;
-      vertical-align: 0.1em;
       opacity: 0.85;
 
       &.muted {

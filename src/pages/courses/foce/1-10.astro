@@ -10,202 +10,279 @@ const Figure1 = `is_raining = True
 has_umbrella = False`;
 const Figure2 = `health = 100
 is_alive = health > 0`;
-const Task1 = `# Initialize variables
+const Figure3 = `age = int(input("Enter your age: "))
+
+if age >= 16:
+    print("You can drive!")`;
+const Figure4 = `Enter your age: 17
+You can drive!`;
+const Figure5 = `Enter your age: 12
+[No output]`;
+const Task1 = `print("--- Booleans Are Values ---")
+
 name = "Mr. Mortimer"
 age = 30
 balance = 150.00
 is_teacher = True
-is_millionaire = False
 
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
 can_drive = age >= 16
 can_buy_car = balance > 31000
-is_senior = age >= 65
-`;
-const Task2 = `# Initialize variables
-name = "Mr. Mortimer"
-age = 30
-balance = 150.00
-is_teacher = True
-is_millionaire = False
 
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
-can_drive = age >= 16
-can_buy_car = balance > 31000
-is_senior = age >= 65
-
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
-`;
-const Task3 = `# Initialize variables
-name = "Mr. Mortimer"
-age = 30
-balance = 150.00
-is_teacher = True
-is_millionaire = False
-
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
-can_drive = age >= 16
-can_buy_car = balance > 31000
-is_senior = age >= 65
-
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
-
-print("-Age-Related Checks-")
+print(f"Is my name Mr. Mortimer? {name == 'Mr. Mortimer'}")
 print(f"Am I old enough to drive? {can_drive}")
-can_rent_car = age >= 25
-print(f"Am I old enough to rent a car? {can_rent_car}")
-print(f"Am I eligible for a senior citizen discount? {is_senior}")
-input("Press enter to continue...")
-`;
-const Task4 = `# Initialize variables
+print(f"Can I afford the car? {can_buy_car}")
+print(f"Am I a teacher? {is_teacher}")
+print(f"Am I NOT a teacher? {not is_teacher}")
+
+input("Press enter to continue...")`;
+const Task2 = `print("--- Booleans Are Values ---")
+
 name = "Mr. Mortimer"
 age = 30
 balance = 150.00
 is_teacher = True
-is_millionaire = False
 
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
 can_drive = age >= 16
 can_buy_car = balance > 31000
-is_senior = age >= 65
 
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
-
-print("-Age-Related Checks-")
+print(f"Is my name Mr. Mortimer? {name == 'Mr. Mortimer'}")
 print(f"Am I old enough to drive? {can_drive}")
-can_rent_car = age >= 25
-print(f"Am I old enough to rent a car? {can_rent_car}")
-print(f"Am I eligible for a senior citizen discount? {is_senior}")
+print(f"Can I afford the car? {can_buy_car}")
+print(f"Am I a teacher? {is_teacher}")
+print(f"Am I NOT a teacher? {not is_teacher}")
+
 input("Press enter to continue...")
 
-print("-Bank Account Checks-")
-print(f"Do I have enough to buy a Dodge Challenger? {can_buy_car}")
-has_funds = balance > 0
-print(f"Do I have a positive bank balance? {has_funds}")
-input("Press enter to continue...")
-`;
-const Task5 = `# Initialize variables
+print("--- Age Validator ---")
+
+user_age = int(input("Enter your age: "))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')? ")
+    print(f"{nick_name} for president!")
+
+input("Press enter to continue...")`;
+const Task3 = `print("--- Booleans Are Values ---")
+
 name = "Mr. Mortimer"
 age = 30
 balance = 150.00
 is_teacher = True
-is_millionaire = False
 
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
 can_drive = age >= 16
 can_buy_car = balance > 31000
-is_senior = age >= 65
 
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
-
-print("-Age-Related Checks-")
+print(f"Is my name Mr. Mortimer? {name == 'Mr. Mortimer'}")
 print(f"Am I old enough to drive? {can_drive}")
-can_rent_car = age >= 25
-print(f"Am I old enough to rent a car? {can_rent_car}")
-print(f"Am I eligible for a senior citizen discount? {is_senior}")
+print(f"Can I afford the car? {can_buy_car}")
+print(f"Am I a teacher? {is_teacher}")
+print(f"Am I NOT a teacher? {not is_teacher}")
+
 input("Press enter to continue...")
 
-print("-Bank Account Checks-")
-print(f"Do I have enough to buy a Dodge Challenger? {can_buy_car}")
-has_funds = balance > 0
-print(f"Do I have a positive bank balance? {has_funds}")
+print("--- Age Validator ---")
+
+user_age = int(input("Enter your age: "))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')? ")
+    print(f"{nick_name} for president!")
+
 input("Press enter to continue...")
 
-print("-Boolean Checks-")
-print(f"{name} is a teacher: {is_teacher}")
-print(f"{name} is a millionaire: {is_millionaire}")
-not_millionaire = not is_millionaire
-print(f"So, {name} isn't a millionaire? {not_millionaire}")
-input("Press enter to continue...")
-`;
-const Task6 = `# Initialize variables
+print("--- Score Calculator ---")
+
+score = int(input("Enter your score (0-100): "))
+
+if score >= 60:
+    print("You passed!")
+
+if score < 60:
+    print("You did not pass. Keep studying!")
+
+input("Press enter to continue...")`;
+const Task4 = `print("--- Booleans Are Values ---")
+
 name = "Mr. Mortimer"
 age = 30
 balance = 150.00
 is_teacher = True
-is_millionaire = False
 
-# Boolean expressions
-name_is_mortimer = name == "Mr. Mortimer"
 can_drive = age >= 16
 can_buy_car = balance > 31000
-is_senior = age >= 65
 
-print("-Name Checks-")
-print(f"Is my name Mr. Mortimer? {name_is_mortimer}")
-print(f"Is my name Mr. Mertens? {name == 'Mr. Mertens'}")
-print(f"My name is not Mr. Merriman: {name != 'Mr. Merriman'}")
-input("Press enter to continue...")
-
-print("-Age-Related Checks-")
+print(f"Is my name Mr. Mortimer? {name == 'Mr. Mortimer'}")
 print(f"Am I old enough to drive? {can_drive}")
-can_rent_car = age >= 25
-print(f"Am I old enough to rent a car? {can_rent_car}")
-print(f"Am I eligible for a senior citizen discount? {is_senior}")
+print(f"Can I afford the car? {can_buy_car}")
+print(f"Am I a teacher? {is_teacher}")
+print(f"Am I NOT a teacher? {not is_teacher}")
+
 input("Press enter to continue...")
 
-print("-Bank Account Checks-")
-print(f"Do I have enough to buy a Dodge Challenger? {can_buy_car}")
-has_funds = balance > 0
-print(f"Do I have a positive bank balance? {has_funds}")
+print("--- Age Validator ---")
+
+user_age = int(input("Enter your age: "))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')? ")
+    print(f"{nick_name} for president!")
+
 input("Press enter to continue...")
 
-print("-Boolean Checks-")
-print(f"{name} is a teacher: {is_teacher}")
-print(f"{name} is a millionaire: {is_millionaire}")
-not_millionaire = not is_millionaire
-print(f"So, {name} isn't a millionaire? {not_millionaire}")
+print("--- Score Calculator ---")
+
+score = int(input("Enter your score (0-100): "))
+
+if score >= 60:
+    print("You passed!")
+
+if score < 60:
+    print("You did not pass. Keep studying!")
+
 input("Press enter to continue...")
 
-print("-Logical Operator Examples-")
-can_drive_and_buy = can_drive and can_buy_car
-print(f"Am I old enough to drive AND have enough to buy a Dodge Challenger? {can_drive_and_buy}")
-can_drive_or_buy = can_drive or can_buy_car
-print(f"Am I old enough to drive OR have enough to buy a Dodge Challenger? {can_drive_or_buy}")
-`;
-const SampleOutput = `-Name Checks-
+print("--- Temperature Check ---")
+
+current_temp = int(input("What is the current temperature in Fahrenheit? "))
+
+if current_temp <= 32:
+    print("Brrr! It's freezing. Don't forget your coat!")
+
+if current_temp > 32 and current_temp <= 65:
+    print("It's a bit chilly. A light jacket should be perfect.")
+
+if current_temp > 65:
+    print("It's warm outside. Enjoy the nice weather!")
+
+input("Press enter to continue...")`;
+const Task5 = `print("--- Booleans Are Values ---")
+
+name = "Mr. Mortimer"
+age = 30
+balance = 150.00
+is_teacher = True
+
+can_drive = age >= 16
+can_buy_car = balance > 31000
+
+print(f"Is my name Mr. Mortimer? {name == 'Mr. Mortimer'}")
+print(f"Am I old enough to drive? {can_drive}")
+print(f"Can I afford the car? {can_buy_car}")
+print(f"Am I a teacher? {is_teacher}")
+print(f"Am I NOT a teacher? {not is_teacher}")
+
+input("Press enter to continue...")
+
+print("--- Age Validator ---")
+
+user_age = int(input("Enter your age: "))
+
+if user_age >= 16:
+    print("Time to hit the road! You've earned your driving permit.")
+
+if user_age >= 18:
+    print("Adulting 101: You can now vote and live independently.")
+    print("Please exit your mom's basement.")
+
+if user_age >= 35:
+    print("You're old enough to run for president.")
+    nick_name = input("What's your nickname (e.g., 'The Awesome')? ")
+    print(f"{nick_name} for president!")
+
+input("Press enter to continue...")
+
+print("--- Score Calculator ---")
+
+score = int(input("Enter your score (0-100): "))
+
+if score >= 60:
+    print("You passed!")
+
+if score < 60:
+    print("You did not pass. Keep studying!")
+
+input("Press enter to continue...")
+
+print("--- Temperature Check ---")
+
+current_temp = int(input("What is the current temperature in Fahrenheit? "))
+
+if current_temp <= 32:
+    print("Brrr! It's freezing. Don't forget your coat!")
+
+if current_temp > 32 and current_temp <= 65:
+    print("It's a bit chilly. A light jacket should be perfect.")
+
+if current_temp > 65:
+    print("It's warm outside. Enjoy the nice weather!")
+
+input("Press enter to continue...")
+
+print("--- Letter Grade Calculator ---")
+
+final_grade = int(input("Enter your final grade percentage (0-100): "))
+
+if final_grade >= 90:
+    print("You got an A! Excellent work!")
+if final_grade >= 80 and final_grade < 90:
+    print("You got a B! Great job!")
+if final_grade >= 70 and final_grade < 80:
+    print("You got a C. Solid effort.")
+if final_grade >= 60 and final_grade < 70:
+    print("You got a D. You passed, but there's room to improve.")
+if final_grade < 60:
+    print("You got an F. Let's review the material and try again.")`;
+const SampleOutput = `--- Booleans Are Values ---
 Is my name Mr. Mortimer? True
-Is my name Mr. Mertens? False
-My name is not Mr. Merriman: True
-Press enter to continue...
--Age-Related Checks-
 Am I old enough to drive? True
-Am I old enough to rent a car? True
-Am I eligible for a senior citizen discount? False
+Can I afford the car? False
+Am I a teacher? True
+Am I NOT a teacher? False
 Press enter to continue...
--Bank Account Checks-
-Do I have enough to buy a Dodge Challenger? False
-Do I have a positive bank balance? True
+--- Age Validator ---
+Enter your age: 35
+Time to hit the road! You've earned your driving permit.
+Adulting 101: You can now vote and live independently.
+Please exit your mom's basement.
+You're old enough to run for president.
+What's your nickname (e.g., 'The Awesome')? Sleepy
+Sleepy for president!
 Press enter to continue...
--Boolean Checks-
-Mr. Mortimer is a teacher: True
-Mr. Mortimer is a millionaire: False
-So, Mr. Mortimer isn't a millionaire? True
+--- Score Calculator ---
+Enter your score (0-100): 76
+You passed!
 Press enter to continue...
--Logical Operator Examples-
-Am I old enough to drive AND have enough to buy a Dodge Challenger? False
-Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
+--- Temperature Check ---
+What is the current temperature in Fahrenheit? 50
+It's a bit chilly. A light jacket should be perfect.
+Press enter to continue...
+--- Letter Grade Calculator ---
+Enter your final grade percentage (0-100): 66
+You got a D. You passed, but there's room to improve.`;
 //#endregion
 ---
 
@@ -217,7 +294,7 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.10: Boolean Logic</h1>
+        <h1>Activity 1.10: Booleans and If Statements</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -225,13 +302,14 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
           <Presentation>
             <section>
               <h2>Activity 1.10</h2>
-              <h3 class="text-sn-theme">Boolean Logic</h3>
+              <h3 class="text-sn-theme">Booleans and If Statements</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Booleans</p>
-              <p>Comparison Operators</p>
+              <p>Booleans and Comparison Operators</p>
+              <p>The if Statement</p>
+              <p>Code Blocks</p>
               <p>Logical Operators</p>
             </section>
 
@@ -239,7 +317,8 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
               <h2>Booleans</h2>
               <p>
                 A <b class="text-sn-theme">boolean</b> is a value that's
-                either <CodeSnippet code="True" lang="python" theme="material-theme-ocean" inline /> or <CodeSnippet code="False" lang="python" theme="material-theme-ocean" inline /> &mdash; nothing else.
+                either <CodeSnippet code="True" lang="python" theme="material-theme-ocean" inline /> or{" "}
+                <CodeSnippet code="False" lang="python" theme="material-theme-ocean" inline /> &mdash; nothing else.
               </p>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
             </section>
@@ -262,11 +341,58 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
               </ul>
             </section>
 
+            <section>
+              <h2>So What Is a Boolean For?</h2>
+              <p>
+                On its own, a boolean isn't much use &mdash; you just printed
+                <CodeSnippet code="True" lang="python" theme="material-theme-ocean" inline /> or{" "}
+                <CodeSnippet code="False" lang="python" theme="material-theme-ocean" inline /> to the screen.
+              </p>
+              <p class="fragment">
+                Its real job is to answer a yes-or-no question that your
+                program then <b class="text-sn-theme">acts on</b>.
+              </p>
+              <p class="fragment">That's an if statement.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The if Statement</h2>
+              <p>
+                An <b class="text-sn-theme">if statement</b> runs a block of
+                code only when its condition is <code>True</code>.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Indentation Defines the Block</h2>
+              <p>
+                Python doesn't use curly braces to mark a code block &mdash;
+                it uses a colon and <b>indentation</b>. Every indented line
+                right after the <code>if</code> belongs to it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Only Runs When True</h2>
+              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
+              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} class="mt-2" />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Multiple Independent Checks</h2>
+              <p>
+                You can write several <code>if</code> statements in a row
+                &mdash; each one is checked independently, so more than one
+                can run.
+              </p>
+            </section>
+
             <section data-auto-animate data-auto-animate-restart>
               <h2>Logical Operators</h2>
               <p>
-                Logical operators combine booleans together. Python spells
-                these out as words, not symbols.
+                Sometimes one comparison isn't enough. Logical operators
+                combine booleans, and Python spells them out as words.
               </p>
               <ul>
                 <li class="fragment"><CodeSnippet code="and" lang="python" theme="material-theme-ocean" inline /> &mdash; true only if both sides are true</li>
@@ -275,11 +401,22 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
               </ul>
             </section>
 
+            <section data-auto-animate>
+              <h2>Logical Operators</h2>
+              <p>
+                You'll need <code>and</code> today to check whether a number
+                falls <b class="text-sn-theme">between</b> two values &mdash;
+                that takes two comparisons at once.
+              </p>
+            </section>
+
             <section>
               <h2>Today's Objectives</h2>
               <ul>
                 <li>Writing boolean expressions with comparison operators</li>
-                <li>Combining booleans with <code>and</code>, <code>or</code>, and <code>not</code></li>
+                <li>Writing an <code>if</code> statement</li>
+                <li>Using indentation to define a code block</li>
+                <li>Combining conditions with <code>and</code>, <code>or</code>, and <code>not</code></li>
               </ul>
             </section>
 
@@ -291,6 +428,12 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
                   <dd>A value that is either <code>True</code> or <code>False</code>.</dd>
                   <dt>Comparison Operator</dt>
                   <dd>An operator like <code>==</code> or <code>&gt;=</code> that compares two values and produces a boolean.</dd>
+                  <dt>if Statement</dt>
+                  <dd>Runs a block of code only when its condition is <code>True</code>.</dd>
+                  <dt>Condition</dt>
+                  <dd>The boolean expression an <code>if</code> statement checks.</dd>
+                  <dt>Code Block</dt>
+                  <dd>A group of statements, marked in Python by indentation.</dd>
                   <dt>Logical Operator</dt>
                   <dd><code>and</code>, <code>or</code>, and <code>not</code> &mdash; combine or invert booleans.</dd>
                 </dl>
@@ -306,62 +449,65 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
           <h2>Build</h2>
 
           <p>
-            Create a new Python script named <b class="text-sn-theme">1-10-boolean-logic.py</b>.
+            Create a new Python script named <b class="text-sn-theme">1-10-conditionals.py</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Boolean Expressions</h3>
+          <h3>Task 1: Booleans Are Values</h3>
           <ul>
-            <li>Declare the variables shown, then write four boolean expressions comparing them.</li>
+            <li>Declare the variables shown, then write two boolean expressions.</li>
+            <li>Print each result, including one flipped with <code>not</code>.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="1-10-boolean-logic.py" mark="9-12" />
+          <Code code={Task1} frame="code" lang="python" title="1-10-conditionals.py" mark="8-9,15" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Name Checks</h3>
+          <h3>Task 2: Your First if &mdash; Age Validator</h3>
           <ul>
-            <li>Print the results of the name-related boolean expressions.</li>
+            <li>Check the user's age against three independent milestones (16, 18, 35).</li>
+            <li>Notice that entering 35 runs all three blocks, and entering 12 runs none.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="1-10-boolean-logic.py" mark="14-17" ins="14-18" />
+          <Code code={Task2} frame="code" lang="python" title="1-10-conditionals.py" mark="22-23,25-27,29-32" ins="18-35" />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Age-Related Checks</h3>
+          <h3>Task 3: Score Calculator</h3>
           <ul>
-            <li>Print whether the person can drive, rent a car, and get a senior discount.</li>
+            <li>Check whether a score out of 100 passes or fails.</li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="python" title="1-10-boolean-logic.py" mark="21-23" ins="20-25" />
+          <Code code={Task3} frame="code" lang="python" title="1-10-conditionals.py" mark="39-40,42-43" ins="36-47" />
 
           <hr class="my-4" />
 
-          <h3>Task 4: Bank Account Checks</h3>
+          <h3>Task 4: Temperature Check &mdash; Using <code>and</code></h3>
           <ul>
-            <li>Print whether the person can afford the car, and whether their balance is positive.</li>
+            <li>Check a Fahrenheit temperature against three ranges.</li>
+            <li>
+              The middle range needs <b class="text-sn-theme">two</b> comparisons
+              joined by <code>and</code>, because "between 32 and 65" is really
+              two conditions at once.
+            </li>
           </ul>
 
-          <Code code={Task4} frame="code" lang="python" title="1-10-boolean-logic.py" mark="28-29" ins="27-31" />
+          <Code code={Task4} frame="code" lang="python" title="1-10-conditionals.py" mark="53-54" ins="48-62" />
 
           <hr class="my-4" />
 
-          <h3>Task 5: Boolean Checks</h3>
+          <h3>Task 5: Letter Grade Calculator</h3>
           <ul>
-            <li>Print the teacher/millionaire booleans directly, then use <code>not</code> to flip one.</li>
+            <li>Check a grade percentage against five letter-grade ranges.</li>
+            <li>
+              Every middle range needs its own <code>and</code>. Keep an eye on
+              how repetitive this gets &mdash; the next activity fixes exactly
+              that.
+            </li>
           </ul>
 
-          <Code code={Task5} frame="code" lang="python" title="1-10-boolean-logic.py" mark="34-37" ins="33-38" />
-
-          <hr class="my-4" />
-
-          <h3>Task 6: Logical Operator Examples</h3>
-          <ul>
-            <li>Combine <code>can_drive</code> and <code>can_buy_car</code> with both <code>and</code> and <code>or</code>.</li>
-          </ul>
-
-          <Code code={Task6} frame="code" lang="python" title="1-10-boolean-logic.py" mark="41,43" ins="40-44" />
+          <Code code={Task5} frame="code" lang="python" title="1-10-conditionals.py" mark="66-71" ins="63-77" />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -390,9 +536,15 @@ Am I old enough to drive OR have enough to buy a Dodge Challenger? True`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What are the only two values a boolean can hold?</li>
-            <li>What's the difference between <code>and</code> and <code>or</code>?</li>
-            <li>If <code>can_drive</code> is <code>True</code> and <code>can_buy_car</code> is <code>False</code>, what does <code>not can_buy_car</code> evaluate to?</li>
+            <li>How does Python know which lines belong inside an <code>if</code> statement's block?</li>
+            <li>
+              In Task 2, what would happen if you entered an age of 10? Which
+              messages, if any, would print &mdash; and why?
+            </li>
+            <li>
+              In the Letter Grade Calculator, why does the B range need two
+              conditions joined by <code>and</code> instead of just one?
+            </li>
           </ol>
         </section>
 

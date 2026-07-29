@@ -1,0 +1,252 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `price = 19.99
+quantity = 3
+print("Total:", price * quantity`;
+
+const Bug2 = `length = 12
+width = 8
+print("Area:", length + width)`;
+
+const Bug3 = `score1 = 88
+score2 = 92
+score3 = 79
+print("Average:", score1 + score2 + score3 / 3)`;
+
+const Bug4 = `cents = 1250
+print("Dollars:", cents / 100)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Syntax &amp; Arithmetic</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four short programs. Every one of them is broken. Your job is to
+            find the mistake, say <i>what kind</i> of mistake it is, and fix
+            it.
+          </p>
+
+          <p>
+            You did not write these, which is the point. Reading someone
+            else's broken code is a different skill from writing your own, and
+            it is the one you will use most.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Reading an error message</li>
+            <li>Telling a broken program from a wrong program</li>
+            <li>Order of operations</li>
+            <li>Choosing between <b>/</b> and <b>//</b></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="kinds-of-mistakes">
+          <h2>Two Kinds of Mistakes</h2>
+
+          <p>
+            Not every bug looks the same, and the difference matters because
+            it changes how you hunt for it.
+          </p>
+
+          <ul>
+            <li>
+              A <b class="text-sn-theme">syntax error</b> means Python cannot
+              even read your program. Nothing runs. You get an error message
+              instead of output.
+            </li>
+            <li>
+              A <b class="text-sn-theme">logic error</b> means Python read your
+              program just fine and did exactly what you told it to &mdash;
+              but what you told it was wrong. It runs, it prints something, and
+              the something is incorrect. <b
+                >There is no error message at all.</b
+              >
+            </li>
+          </ul>
+
+          <p>
+            Logic errors are the dangerous ones, because nothing warns you. The
+            only way to catch them is to know what the answer <i>should</i> be
+            and notice that it isn't.
+          </p>
+
+          <h4 class="mt-4">One Warning About Line Numbers</h4>
+
+          <p>
+            When Python reports a syntax error, it tells you the line where it{" "}
+            <i>noticed</i> something was wrong &mdash; not always the line
+            where you made the mistake. Those are often different lines, and
+            sometimes Python blames a line number that doesn't even exist in
+            your file.
+          </p>
+
+          <p>
+            So treat the line number as a starting point, not an answer. Look
+            at the line it names, then look <i>upward</i>.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <p>
+            For each one, copy it into a Python file and run it. Then write
+            down:
+          </p>
+
+          <ul>
+            <li>Is it a <b>syntax error</b> or a <b>logic error</b>?</li>
+            <li>What is actually wrong?</li>
+            <li>The corrected line.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            <b>Symptom:</b> this program refuses to run at all.
+          </p>
+
+          <Code
+            code={Bug1}
+            frame="code"
+            lang="python"
+            title="bug-1.py"
+            showLineNumbers={true}
+          />
+
+          <p class="mt-3">
+            Extra question, and it is the important one:{" "}
+            <b
+              >which line number does Python blame, and is that the line where
+              the mistake actually is?</b
+            >
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            <b>Symptom:</b> it runs and prints <b class="text-sn-red"
+              >Area: 20</b
+            >. The rectangle is 12 by 8, so the area should be <b
+              class="text-sn-green">96</b
+            >.
+          </p>
+
+          <Code
+            code={Bug2}
+            frame="code"
+            lang="python"
+            title="bug-2.py"
+            showLineNumbers={true}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            <b>Symptom:</b> it runs and prints <b class="text-sn-red"
+              >Average: 206.33333333333334</b
+            >. The average of 88, 92, and 79 should be about <b
+              class="text-sn-green">86.33</b
+            >.
+          </p>
+
+          <Code
+            code={Bug3}
+            frame="code"
+            lang="python"
+            title="bug-3.py"
+            showLineNumbers={true}
+          />
+
+          <p class="mt-3">
+            Hint: the number it printed is far too big. Which part of that line
+            does Python do <i>first</i>?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            <b>Symptom:</b> it runs and prints <b class="text-sn-red"
+              >Dollars: 12.5</b
+            >. This program is supposed to report how many <i>whole</i> dollars
+            are inside 1250 cents, which is <b class="text-sn-green">12</b>.
+          </p>
+
+          <Code
+            code={Bug4}
+            frame="code"
+            lang="python"
+            title="bug-4.py"
+            showLineNumbers={true}
+          />
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each of the four bugs, submit:</p>
+
+          <ul>
+            <li>The kind of mistake &mdash; syntax or logic</li>
+            <li>One sentence on what was wrong</li>
+            <li>The corrected line of code</li>
+          </ul>
+
+          <p>
+            Plus your answer to Bug 1's extra question about the line number.
+          </p>
+
+          <p>
+            <b>Three of these four are logic errors.</b> If you found yourself
+            waiting for an error message on those, that is exactly the habit
+            this challenge is meant to break.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
