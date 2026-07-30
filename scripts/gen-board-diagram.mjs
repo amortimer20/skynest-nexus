@@ -65,7 +65,7 @@ for (const [from, to] of Object.entries(ALIASES)) PIN_IDS[from] = PIN_IDS[to];
  * Bounding boxes in source user units, measured off a real render. Only the
  * header rows are recorded because that is all the annotation layer needs.
  * Pitch is not quite uniform -- Header20 sits 134.62 from Header19 where every
- * other neighbour pair is 154.56 apart -- so these are measured, not derived.
+ * other neighbor pair is 154.56 apart -- so these are measured, not derived.
  */
 const PIN_X = {
   Header31: 1268.36, Header30: 1422.92, Header29: 1577.48, Header28: 1732.04,
@@ -170,13 +170,25 @@ const CARD_H = bare ? PCB.h + BARE_MARGIN * 2 : 4740;
 const VIEW_X = bare ? PCB.x - BARE_MARGIN : 0;
 const VIEW_Y = bare ? PCB.y - BARE_MARGIN : 0;
 
-const title = flags.title ?? "SparkFun IoT RedBoard RP2350";
-const label = flags.label ?? (pins.length > 1
+// Caller-supplied text lands inside SVG <text> elements, so it has to be
+// XML-escaped -- otherwise a perfectly reasonable title like "Ohm's Law & GPIO"
+// produces invalid XML and gets rejected by the validation step below.
+const xmlEscape = (s) => String(s)
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;");
+
+const titleRaw = flags.title ?? "SparkFun IoT RedBoard RP2350";
+const labelRaw = flags.label ?? (pins.length > 1
   ? `GPIO ${pins[0]}–${pins[pins.length - 1]}`
   : `GPIO ${pins[0]}`);
 
-// Callout box, horizontally centred over the highlight where there is room.
-const CALLOUT_W = Math.max(900, label.length * 108 + 220);
+const title = xmlEscape(titleRaw);
+const label = xmlEscape(labelRaw);
+
+// Callout box, horizontally centered over the highlight where there is room.
+// Sized from the unescaped text: "&" measures as one glyph, not five.
+const CALLOUT_W = Math.max(900, labelRaw.length * 108 + 220);
 const CALLOUT_H = 250;
 const calloutX = Math.min(Math.max(boxMidX - CALLOUT_W / 2, 170), CARD_W - 170 - CALLOUT_W);
 const calloutY = 330;
@@ -229,7 +241,7 @@ const out = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     </marker>
   </defs>
 
-  <!-- Opaque background in the site body colour. The other diagrams in this
+  <!-- Opaque background in the site body color. The other diagrams in this
        folder are white-on-transparent, which only works because they are always
        composited on the dark page; a pin card gets printed, so it carries its
        own background. This is the skynest-dark value, so it stays seamless
