@@ -1,0 +1,351 @@
+---
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `# This is not autonomy. It is a guess with a timer.
+drive(SPEED, SPEED)
+time.sleep(3)
+drive(-SPEED, SPEED)
+time.sleep(0.5)
+drive(SPEED, SPEED)
+time.sleep(3)`;
+const Figure2 = `# This is autonomy. It reads the world and decides.
+while True:
+    cm = read_distance()
+    if cm > 0 and cm < STOP_CM:
+        back_away()
+    else:
+        drive(SPEED, SPEED)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Group Project 2: Autonomous Rover</h1>
+        <p class="text-sn-theme">End-of-Quarter Summative</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Group Project 2</h2>
+              <h3 class="text-sn-theme">Autonomous Rover</h3>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>You Already Built the Hard Parts</h2>
+              <p>
+                Motors that obey. A sensor that measures. A screen that
+                reports. A loop that decides.
+              </p>
+              <p class="fragment">
+                Ten sessions from here, your team has a robot that gets itself
+                across a room without anyone touching it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Events</h2>
+              <p>
+                <b class="text-sn-theme">The Obstacle Course</b> &mdash; timed
+                runs on a marked course. This is the one that is graded,
+                because it produces real numbers about your own robot.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">The Sumo Ring</b> &mdash; head to
+                head, last one in the circle wins. Not graded. Purely for the
+                glory.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Trap</h2>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                This might finish the course. Once. On a good day. It is not
+                autonomous &mdash; it is a <b>guess with a timer</b>, and it
+                does not meet the bar.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Bar</h2>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                Your rover has to <b class="text-sn-theme">read the world and
+                decide</b>. Move the obstacles and it should still work,
+                because it was never relying on where they used to be.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Where the Design Choices Are</h2>
+              <ul>
+                <li><b>Chassis</b> &mdash; the shape decides what it can push and shove past</li>
+                <li><b>Sensor placement</b> &mdash; where it looks decides what it can see</li>
+                <li><b>Strategy</b> &mdash; careful and slow, or fast and reactive</li>
+                <li><b>Extras</b> &mdash; screen, sound, lights, team colors</li>
+              </ul>
+              <p class="fragment">
+                Two teams with identical parts should not end up with the same
+                robot.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Nobody Will Tell You the Numbers</h2>
+              <p>
+                How close is too close. How long to reverse. How far to turn.
+                How fast to go.
+              </p>
+              <p class="fragment">
+                You will find them the way you found a light threshold in
+                2.10: try, watch, change one thing, try again. And you will{" "}
+                <b class="text-sn-theme">write down what you tried</b>, because
+                that record is a graded part of this project.
+              </p>
+            </section>
+
+            <section>
+              <h2>What Gets Graded</h2>
+              <ul>
+                <li>Your design packet &mdash; research, chassis drawing, feature plan</li>
+                <li>The rover itself, and whether it does what you said it would</li>
+                <li>Your obstacle course data, and what you concluded from it</li>
+                <li>Your task journal, kept as you go</li>
+                <li>Your own individual reflection</li>
+              </ul>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The two events -->
+        <section id="events">
+          <h2>The Two Events</h2>
+
+          <h3>Event 1: The Obstacle Course &mdash; graded</h3>
+          <ul>
+            <li>A marked lane with obstacles placed across it, and a finish line.</li>
+            <li>Your rover starts on a button press and runs with nobody touching it.</li>
+            <li>Several teams run at once, so you get plenty of attempts rather than one nervous go.</li>
+            <li>Recorded each run: whether it finished, how long it took, and how many times it made contact with an obstacle.</li>
+          </ul>
+
+          <p>
+            <b>Obstacles get moved between rounds.</b> A rover that memorized
+            the course will fail, and that is the point &mdash; the event is
+            testing whether it senses, not whether it remembers.
+          </p>
+
+          <h3 class="mt-4">Event 2: The Sumo Ring &mdash; not graded</h3>
+          <ul>
+            <li>Two rovers, one circle. Last one still inside wins.</li>
+            <li>Refereed by hand. No line sensors needed.</li>
+            <li>Run after the graded event, on the last day.</li>
+          </ul>
+
+          <p>
+            This is deliberately not part of your grade. Whether you win a
+            wrestling match depends mostly on who you were drawn against,
+            which is a poor way to measure your engineering. Build for the
+            course; enjoy the ring.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Success criteria -->
+        <section id="success-criteria">
+          <h2>Writing Your Success Criteria</h2>
+
+          <p>
+            Every team writes its own. A success criterion has to be something
+            you can <b class="text-sn-theme">check and get a yes or no</b>{" "}
+            &mdash; not an opinion about how good the robot is.
+          </p>
+
+          <p>Not success criteria:</p>
+          <ul>
+            <li>"The rover works well"</li>
+            <li>"It avoids obstacles"</li>
+            <li>"It is fast"</li>
+          </ul>
+
+          <p>Success criteria:</p>
+          <ul>
+            <li>"The rover does not move until the button is pressed"</li>
+            <li>"It stops before touching an obstacle in at least 8 of 10 approaches"</li>
+            <li>"Placed in a corner, it gets out within 15 seconds"</li>
+            <li>"It crosses the course in under 45 seconds with no contacts"</li>
+            <li>"The screen always shows whether it is driving or blocked"</li>
+          </ul>
+
+          <p>
+            The difference is that you can run the rover and <i>find out</i>.
+            That is what makes Event 1 gradeable, and it is what your final
+            evaluation gets measured against &mdash; so write criteria you are
+            willing to be judged on.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Complexity bar -->
+        <section id="complexity">
+          <h2>The Complexity Bar</h2>
+
+          <p>
+            Your rover&#39;s program must genuinely use what this unit taught.
+            Specifically, all four of these:
+          </p>
+
+          <ul>
+            <li><b>A sense&ndash;decide&ndash;act loop.</b> The rover reads the distance and chooses what to do, every time round.</li>
+            <li><b>Sensing that actually drives the decision.</b> Moving an obstacle changes the behavior.</li>
+            <li><b>Functions with parameters</b> &mdash; <code>drive(left, right)</code>, <code>read_distance()</code>, and at least one behavior of your own like <code>back_away()</code>.</li>
+            <li><b>Named constants you tuned</b>, with the tuning recorded in your journal.</li>
+          </ul>
+
+          <p>
+            <b>A rover that drives a fixed timed sequence does not meet this
+            bar</b>, however neatly it is written and however often it happens
+            to finish. Neither does one whose sensor is read but ignored. If
+            moving the obstacles does not change what your robot does, it is
+            not sensing.
+          </p>
+
+          <p>
+            One specific thing to get right: your distance function returns{" "}
+            <code>-1</code> when nothing is in range, and <code>-1</code> is
+            less than any threshold you pick. Guard it, or your rover will
+            back away from empty space forever.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- MYP criteria -->
+        <section id="criteria">
+          <h2>The MYP Criteria, In This Project</h2>
+
+          <ul>
+            <li>
+              <b>A &mdash; Inquiring and Analysing:</b> what your rover needs
+              to do and why, three real robot drive or sensing approaches you
+              looked at, and your success criteria.
+            </li>
+            <li>
+              <b>B &mdash; Developing Ideas:</b> more than one chassis idea
+              considered, the one you chose and why, and an accurate drawing of
+              it &mdash; your cutting file counts.
+            </li>
+            <li>
+              <b>C &mdash; Creating the Solution:</b> the build and the code,
+              your work plan, and an honest account of what you changed once
+              real testing started.
+            </li>
+            <li>
+              <b>D &mdash; Evaluating:</b> your obstacle course data measured
+              against your own success criteria, what you would change, and
+              your individual reflection.
+            </li>
+          </ul>
+
+          <p>
+            Criterion B is where a laser-cut chassis earns real marks: a vector
+            drawing with dimensions is exactly the kind of planning artifact the
+            criterion asks for. Criterion D is where Event 1 earns them &mdash;
+            you will have actual numbers rather than an impression.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Journal -->
+        <section id="journal">
+          <h2>Task Journal</h2>
+
+          <p>
+            One entry per work session: what you did, who did it, what went
+            wrong, what is next. Fill it in <b>as you go</b>. A journal
+            reconstructed the night before is obvious to read and worth very
+            little.
+          </p>
+
+          <p>
+            This project has one extra journal requirement. Every time you
+            change a tuning constant, log the old value, the new value, and{" "}
+            <b class="text-sn-theme">what actually happened</b>. Change one at
+            a time. Four interacting numbers changed together tell you nothing
+            about which one mattered.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Timeline -->
+        <section id="timeline">
+          <h2>Timeline</h2>
+
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr><th>Session</th><th>What happens</th><th>Criterion</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Launch, teams, success criteria</td><td>A</td></tr>
+              <tr><td>2</td><td>Research three real approaches; concept sketches</td><td>A, B</td></tr>
+              <tr><td>3</td><td>Chassis design and cutting file &mdash; <b>design packet checkpoint</b></td><td>B</td></tr>
+              <tr><td>4</td><td>Assembly: motors, wheels, battery, secure the wiring</td><td>C</td></tr>
+              <tr><td>5</td><td>Drive testing and calibration</td><td>C</td></tr>
+              <tr><td>6</td><td>Mount the sensor; tune detection distance</td><td>C</td></tr>
+              <tr><td>7</td><td>Autonomy: the sense&ndash;decide loop on your robot</td><td>C</td></tr>
+              <tr><td>8</td><td>Showcase features and practice runs</td><td>C</td></tr>
+              <tr><td>9</td><td><b>Event 1: Obstacle Course</b> &mdash; graded runs</td><td>D</td></tr>
+              <tr><td>10</td><td><b>Event 2: Sumo Tournament</b>, then final reflection</td><td>D</td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            The stock baseplate from the kit is a perfectly good chassis. A
+            custom cut one is an upgrade, not a requirement &mdash; so a cutting
+            problem in session 3 or 4 cannot sink your project.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submission -->
+        <section id="submission">
+          <h2>What You&#39;ll Turn In</h2>
+
+          <ul>
+            <li><b>Design packet</b> &mdash; problem and need, the three approaches you researched, success criteria, chassis drawing, feature plan</li>
+            <li><b>Your code</b>, as the file that actually ran in Event 1</li>
+            <li><b>Obstacle course data</b> &mdash; your runs, times, and contacts, checked against your success criteria</li>
+            <li><b>Tuning log</b> &mdash; what you changed, and what it did</li>
+            <li><b>Task journal</b> &mdash; kept throughout, one entry per session</li>
+            <li><b>Individual reflection</b> &mdash; written by you, not by your group</li>
+          </ul>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Commence Project
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
