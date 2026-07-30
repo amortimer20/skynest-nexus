@@ -1,0 +1,649 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+import ButtonPulldownCircuitDiagram from "../../../assets/courses/foce/img/button-pulldown-circuit-diagram.svg";
+import RedBoardPin33 from "../../../assets/courses/foce/img/redboard-rp2350-pin-33.svg";
+
+//#region CodeSnippets
+const Figure1 = `led.value(1)             # setting: turn this pin on
+state = button.value()   # reading: what is this pin right now?`;
+const Figure2 = `button = Pin(33, Pin.IN, Pin.PULL_DOWN)`;
+const Figure3 = `start = time.ticks_ms()
+# ... something happens ...
+stop = time.ticks_ms()
+
+print(time.ticks_diff(stop, start), "ms")`;
+const Figure4 = `def measure_reaction(leds, button):
+    ...
+    return time.ticks_diff(stop, start)
+
+
+result = measure_reaction(leds, button)`;
+const Task1 = `from machine import Pin
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+button = Pin(33, Pin.IN, Pin.PULL_DOWN)
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+while True:
+    if button.value() == 1:
+        all_on(leds)
+    else:
+        all_off(leds)
+`;
+const Task2 = `from machine import Pin
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+button = Pin(33, Pin.IN, Pin.PULL_DOWN)
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+while True:
+    if button.value() == 1:
+        start = time.ticks_ms()
+        all_on(leds)
+        while button.value() == 1:
+            pass
+        stop = time.ticks_ms()
+        all_off(leds)
+        print("You held it for", time.ticks_diff(stop, start), "ms")
+`;
+const Task3 = `from machine import Pin
+import time
+import random
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+button = Pin(33, Pin.IN, Pin.PULL_DOWN)
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+all_off(leds)
+print("Get ready...")
+time.sleep(random.uniform(2, 5))
+
+all_on(leds)
+start = time.ticks_ms()
+while button.value() == 0:
+    pass
+stop = time.ticks_ms()
+all_off(leds)
+
+print("Reaction time:", time.ticks_diff(stop, start), "ms")
+`;
+const Task4 = `from machine import Pin
+import time
+import random
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+button = Pin(33, Pin.IN, Pin.PULL_DOWN)
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+def wait_for_release(button):
+    while button.value() == 1:
+        pass
+
+
+def measure_reaction(leds, button):
+    all_off(leds)
+    wait_for_release(button)
+    print("Get ready...")
+    time.sleep(random.uniform(2, 5))
+    all_on(leds)
+    start = time.ticks_ms()
+    while button.value() == 0:
+        pass
+    stop = time.ticks_ms()
+    all_off(leds)
+    return time.ticks_diff(stop, start)
+
+
+print("Reaction time:", measure_reaction(leds, button), "ms")
+`;
+const Task5 = `from machine import Pin
+import time
+import random
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+button = Pin(33, Pin.IN, Pin.PULL_DOWN)
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+def wait_for_release(button):
+    while button.value() == 1:
+        pass
+
+
+def measure_reaction(leds, button):
+    all_off(leds)
+    wait_for_release(button)
+    print("Get ready...")
+    time.sleep(random.uniform(2, 5))
+    all_on(leds)
+    start = time.ticks_ms()
+    while button.value() == 0:
+        pass
+    stop = time.ticks_ms()
+    all_off(leds)
+    return time.ticks_diff(stop, start)
+
+
+times = []
+attempt = 1
+while attempt <= 5:
+    print()
+    print("Attempt", attempt)
+    result = measure_reaction(leds, button)
+    print("Reaction time:", result, "ms")
+    times.append(result)
+    attempt = attempt + 1
+
+print()
+best = times[0]
+total = 0
+for t in times:
+    total = total + t
+    if t < best:
+        best = t
+print("Best:", best, "ms")
+print("Average:", total // len(times), "ms")
+`;
+const Task6 = `from machine import Pin
+import time
+import random
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+button = Pin(33, Pin.IN, Pin.PULL_DOWN)
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+def wait_for_release(button):
+    while button.value() == 1:
+        pass
+
+
+def pressed_early(button, seconds):
+    steps = int(seconds * 100)
+    for i in range(steps):
+        if button.value() == 1:
+            return True
+        time.sleep(0.01)
+    return False
+
+
+def measure_reaction(leds, button):
+    all_off(leds)
+    wait_for_release(button)
+    print("Get ready...")
+    if pressed_early(button, random.uniform(2, 5)):
+        return -1
+    all_on(leds)
+    start = time.ticks_ms()
+    while button.value() == 0:
+        pass
+    stop = time.ticks_ms()
+    all_off(leds)
+    return time.ticks_diff(stop, start)
+
+
+times = []
+attempt = 1
+while attempt <= 5:
+    print()
+    print("Attempt", attempt)
+    result = measure_reaction(leds, button)
+    if result == -1:
+        print("Too early! That one does not count.")
+    else:
+        print("Reaction time:", result, "ms")
+        times.append(result)
+        attempt = attempt + 1
+
+print()
+best = times[0]
+total = 0
+for t in times:
+    total = total + t
+    if t < best:
+        best = t
+print("Best:", best, "ms")
+print("Average:", total // len(times), "ms")
+`;
+const Output1 = `Attempt 1
+Get ready...
+Reaction time: 210 ms
+
+Attempt 2
+Get ready...
+Too early! That one does not count.
+
+Attempt 2
+Get ready...
+Reaction time: 260 ms
+
+Best: 210 ms
+Average: 235 ms`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.7: Reaction Timer</h1>
+        <p class="text-sn-theme">Digital Input &amp; Timing &mdash; Day 1 of 2</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.7</h2>
+              <h3 class="text-sn-theme">Reaction Timer</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Digital Input</p>
+              <p>Measuring Time</p>
+              <p>Returning a Value</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Everything So Far Has Been Output</h2>
+              <p>
+                Five activities of telling pins what to do. Today the board
+                starts <b class="text-sn-theme">listening</b> &mdash; and
+                once it can listen, it can react, and once it can react, you
+                can time it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>One Method, Two Jobs</h2>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <code>.value()</code> with a number <b>sets</b> the pin.{" "}
+                <code>.value()</code> with empty parentheses{" "}
+                <b class="text-sn-theme">reads</b> it, and hands you back{" "}
+                <code>0</code> or <code>1</code>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>An Input Pin Needs a Default</h2>
+              <p>
+                A pin with nothing connected does not read <code>0</code>
+                &mdash; it reads whatever electrical noise is nearby. So an
+                input pin needs something holding it at a known value when
+                the button is <i>not</i> pressed.
+              </p>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <code>Pin.PULL_DOWN</code> switches on a resistor{" "}
+                <i>inside the board</i> that quietly holds the pin at{" "}
+                <code>0</code>. Press the button and 3V3 overrules it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>So: Pressed Means 1</h2>
+              <p>
+                Not pressed &rarr; <code>0</code>. Pressed &rarr;{" "}
+                <code>1</code>. The same as an LED: <code>1</code> is the
+                active state.
+              </p>
+              <p class="fragment">
+                You will meet <code>PULL_UP</code> elsewhere, which does the
+                opposite &mdash; pressed reads <code>0</code>. Same idea,
+                inverted. Worth knowing when you read other people's code.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Measuring Milliseconds</h2>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <code>time.ticks_ms()</code> is a running count of
+                milliseconds. Read it twice and compare.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Why Not Just Subtract?</h2>
+              <p>
+                That millisecond counter eventually runs out of digits and
+                rolls back to zero, the way an odometer would. If it rolls
+                over between your two readings, plain subtraction gives a
+                nonsense answer.
+              </p>
+              <p class="fragment">
+                <code>time.ticks_diff(stop, start)</code> handles the
+                rollover for you. Use it instead of <code>-</code> whenever
+                you subtract two tick readings.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Functions That Hand Something Back</h2>
+              <p>
+                Every function you wrote in 2.5 and 2.6 <i>did</i> something.
+                None of them <b class="text-sn-theme">gave you a value</b>.
+              </p>
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <code>return</code> ends the function and hands its answer
+                back to whoever called it &mdash; so you can store it,
+                print it, or put it in a list.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Wiring a button and reading it as a digital input</li>
+                <li>Using an internal pull-down so an unpressed pin reads <code>0</code></li>
+                <li>Measuring elapsed time with <code>ticks_ms()</code> and <code>ticks_diff()</code></li>
+                <li>Returning a value from a function so the caller can use it</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Digital Input</dt>
+                  <dd>A pin the board reads instead of drives, giving <code>0</code> or <code>1</code>.</dd>
+                  <dt>Pull-Down Resistor</dt>
+                  <dd>A resistor holding an input pin at 0 when nothing else is driving it. The board has one built in, switched on with <code>Pin.PULL_DOWN</code>.</dd>
+                  <dt>Return Value</dt>
+                  <dd>The value a function hands back to whoever called it, using <code>return</code>.</dd>
+                  <dt>False Start</dt>
+                  <dd>Pressing before the signal &mdash; an attempt that must not be counted as a reaction time.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Keep Activity 2.6's five-LED array wired exactly as it is. Create
+            a new MicroPython script named{" "}
+            <b class="text-sn-theme">2-7-reaction-timer.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Wire the Button and Read It</h3>
+          <ul>
+            <li>Wire one push button between the <code>3V3</code> pin and GPIO 33.</li>
+            <li>Create the button as an input pin with an internal pull-down.</li>
+            <li>Light the whole array while the button is held, and turn it off when released.</li>
+          </ul>
+
+          <p>
+            GPIO 33 is the last pin in the block you have been using &mdash;
+            immediately to the left of 32:
+          </p>
+
+          <Image src={RedBoardPin33} alt="The SparkFun IoT RedBoard RP2350 with the pin labeled 33 outlined on the top header" width={620} class="my-3" />
+
+          <p>
+            No extra resistor is needed. The board already contains one, and{" "}
+            <code>Pin.PULL_DOWN</code> is how you switch it on:
+          </p>
+
+          <Image src={ButtonPulldownCircuitDiagram} alt="Circuit diagram showing a push button between the 3V3 pin and GPIO 33, with a dashed outline indicating the internal pull-down resistor inside the board holding the pin at 0 when the button is open" width={560} class="my-3" />
+
+          <!-- PHOTO: button wired alongside the five-LED array -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 1: Button Wired Beside the Five-LED Array]
+          </div>
+
+          <Code code={Task1} frame="code" lang="python" title="2-7-reaction-timer.py" mark={{ range: "11,24" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Time the Press</h3>
+          <ul>
+            <li>Import <code>time</code>.</li>
+            <li>When the button goes down, record the tick count. When it comes back up, record it again.</li>
+            <li>Print how many milliseconds the button was held.</li>
+          </ul>
+
+          <p>
+            The inner <code>while</code> loop does nothing at all on purpose
+            &mdash; <code>pass</code> just means "keep checking." The program
+            sits there until the button comes back up.
+          </p>
+
+          <Code code={Task2} frame="code" lang="python" title="2-7-reaction-timer.py" mark={{ range: "26,30,32" }} ins={{ range: "2,26,28-30,32" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: The Reaction Test</h3>
+          <ul>
+            <li>Import <code>random</code>.</li>
+            <li>Replace the held-button loop with a single test: wait a random 2&ndash;5 seconds, then light the whole array as the <b>GO</b> signal.</li>
+            <li>Start timing at GO, stop when the button is pressed, and print the reaction time.</li>
+          </ul>
+
+          <p>
+            The delay has to be random. A fixed pause lets you anticipate the
+            GO, and then you are measuring your counting, not your reflexes.
+          </p>
+
+          <Code code={Task3} frame="code" lang="python" title="2-7-reaction-timer.py" mark={{ range: "27,29-34" }} ins={{ range: "3,25-27,29-34,36" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Return the Time</h3>
+          <ul>
+            <li>Move the whole test into a function <code>measure_reaction(leds, button)</code>.</li>
+            <li>Instead of printing inside the function, <code>return</code> the measured time so the caller decides what to do with it.</li>
+            <li>Add <code>wait_for_release(button)</code> at the start, so a still-held button from the last go does not ruin the next one.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="2-7-reaction-timer.py" mark={{ range: "41" }} ins={{ range: "25-27,30-41,44" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 5: Five Attempts</h3>
+          <ul>
+            <li>Run five attempts in a loop, collecting each reaction time in a list.</li>
+            <li>After the fifth, report the <b>best</b> time and the <b>average</b>.</li>
+          </ul>
+
+          <p>
+            This is the accumulator pattern from Activity 1.21, with one
+            addition: tracking the smallest value you have seen so far.
+          </p>
+
+          <Code code={Task5} frame="code" lang="python" title="2-7-reaction-timer.py" mark={{ range: "44-52" }} ins={{ range: "44-52,54-62" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 6: Catch the False Start</h3>
+          <ul>
+            <li>Write <code>pressed_early(button, seconds)</code> that waits the given time but reports back immediately if the button is pressed during it.</li>
+            <li>If the player jumps early, return <code>-1</code> instead of a time, print a warning, and make them redo that attempt.</li>
+          </ul>
+
+          <p>
+            Notice why this has to be a <code>while</code> loop and not a{" "}
+            <code>for</code> loop: a false start must <i>not</i> use up one
+            of the five attempts, so the counter only moves forward on a
+            real result.
+          </p>
+
+          <Code code={Task6} frame="code" lang="python" title="2-7-reaction-timer.py" mark={{ range: "30-36,43-44,60-65" }} ins={{ range: "30-36,43-44,60-65" }} />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Two-Player Duel</h3>
+          <ul>
+            <li>Add a second button on GPIO 34 and light the array as before &mdash; whoever presses first wins the round.</li>
+            <li>Report both reaction times and the margin between them.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your finished program should behave like this:</p>
+
+          <Code code={Output1} frame="terminal" lang="txt" showLineNumbers={false} />
+
+          <ul>
+            <li>The array stays dark during "Get ready..." and lights all at once as the GO signal</li>
+            <li>Reaction times land somewhere around 150&ndash;400 ms &mdash; a reading of 2 ms means you were already holding the button</li>
+            <li>Pressing before GO prints the warning and repeats the same attempt number</li>
+            <li>After five real attempts, the best and average are reported</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What does <code>Pin.PULL_DOWN</code> do, and what would an unpressed input pin read without it?</li>
+            <li>Your functions in Activities 2.5 and 2.6 never used <code>return</code>. Why did <code>measure_reaction()</code> need one?</li>
+            <li>A false start does not use up one of the five attempts. Explain how the <code>while</code> loop makes that possible, and why a <code>for</code> loop would have made it harder.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
