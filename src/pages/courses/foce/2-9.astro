@@ -1,0 +1,460 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+import Tmp36CircuitDiagram from "../../../assets/courses/foce/img/tmp36-circuit-diagram.svg";
+import RedBoardPinA1 from "../../../assets/courses/foce/img/redboard-rp2350-pin-a1.svg";
+
+//#region CodeSnippets
+const Figure1 = `14299`;
+const Figure2 = `14312
+14098
+14401
+14205
+14388`;
+const Figure3 = `total = total + sensor.read_u16()
+...
+return total // samples`;
+const Figure4 = `volts   = reading / 65535 * 3.3
+celsius = (volts - 0.5) * 100`;
+const Task1 = `from machine import Pin, ADC
+import time
+
+temp_sensor = ADC(Pin(41))
+
+while True:
+    print(temp_sensor.read_u16())
+    time.sleep(0.2)
+`;
+const Task2 = `from machine import Pin, ADC
+import time
+
+temp_sensor = ADC(Pin(41))
+
+
+def read_average(sensor, samples):
+    total = 0
+    for i in range(samples):
+        total = total + sensor.read_u16()
+        time.sleep(0.01)
+    return total // samples
+
+
+while True:
+    print("one sample:", temp_sensor.read_u16(), "   average of 20:", read_average(temp_sensor, 20))
+    time.sleep(0.5)
+`;
+const Task3 = `from machine import Pin, ADC
+import time
+
+temp_sensor = ADC(Pin(41))
+
+
+def read_average(sensor, samples):
+    total = 0
+    for i in range(samples):
+        total = total + sensor.read_u16()
+        time.sleep(0.01)
+    return total // samples
+
+
+def to_volts(reading):
+    return reading / 65535 * 3.3
+
+
+def to_celsius(volts):
+    return (volts - 0.5) * 100
+
+
+while True:
+    raw = read_average(temp_sensor, 20)
+    volts = to_volts(raw)
+    print("raw:", raw, "  volts:", round(volts, 3), "  C:", round(to_celsius(volts), 1))
+    time.sleep(1)
+`;
+const Task4 = `from machine import Pin, ADC
+import time
+
+temp_sensor = ADC(Pin(41))
+
+OFFSET = 0.0
+
+
+def read_average(sensor, samples):
+    total = 0
+    for i in range(samples):
+        total = total + sensor.read_u16()
+        time.sleep(0.01)
+    return total // samples
+
+
+def to_volts(reading):
+    return reading / 65535 * 3.3
+
+
+def to_celsius(volts):
+    return (volts - 0.5) * 100
+
+
+while True:
+    raw = read_average(temp_sensor, 20)
+    celsius = to_celsius(to_volts(raw)) + OFFSET
+    print("raw:", raw, "  volts:", round(to_volts(raw), 3), "  C:", round(celsius, 1))
+    time.sleep(1)
+`;
+const Task5 = `from machine import Pin, ADC
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+temp_sensor = ADC(Pin(41))
+
+OFFSET = 0.0
+COOL = 18
+WARM = 30
+
+
+def read_average(sensor, samples):
+    total = 0
+    for i in range(samples):
+        total = total + sensor.read_u16()
+        time.sleep(0.01)
+    return total // samples
+
+
+def to_volts(reading):
+    return reading / 65535 * 3.3
+
+
+def to_celsius(volts):
+    return (volts - 0.5) * 100
+
+
+def scale(value, low, high, steps):
+    if value <= low:
+        return 0
+    if value >= high:
+        return steps
+    return int((value - low) / (high - low) * (steps + 1))
+
+
+def show_bar(leds, count):
+    for i in range(len(leds)):
+        if i < count:
+            leds[i].value(1)
+        else:
+            leds[i].value(0)
+
+
+while True:
+    raw = read_average(temp_sensor, 20)
+    celsius = to_celsius(to_volts(raw)) + OFFSET
+    show_bar(leds, scale(celsius, COOL, WARM, len(leds)))
+    print("C:", round(celsius, 1), "  bar:", scale(celsius, COOL, WARM, len(leds)))
+    time.sleep(1)
+`;
+const Output1 = `raw: 14298   volts: 0.72   C: 22.0
+raw: 14301   volts: 0.72   C: 22.0
+raw: 14522   volts: 0.731   C: 23.1`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.9: Sensors Lie</h1>
+        <p class="text-sn-theme">The Messy Real World &mdash; Day 2 of 4</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.9</h2>
+              <h3 class="text-sn-theme">Sensors Lie</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Calibration</p>
+              <p>Averaging</p>
+              <p>Unit Conversion</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Yesterday's Knob Was Honest</h2>
+              <p>
+                A potentiometer has no units. It reports a position, and{" "}
+                <i>you</i> decided what that meant &mdash; a bar height, a
+                pause length. Whatever you chose was correct by definition.
+              </p>
+              <p class="fragment">
+                Today's sensor claims to measure something real. That makes it
+                possible for it to be <b class="text-sn-theme">wrong</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>This Is Not a Temperature</h2>
+              <Code code={Figure1} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                It is a count from the ADC, exactly like yesterday's. Nothing
+                about it is in degrees yet. Converting it is your job, not the
+                sensor's.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>And It Will Not Hold Still</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>Five readings. Nothing moved. Nothing got warmer.</p>
+              <p class="fragment">
+                One degree is worth about <b class="text-sn-theme">198
+                counts</b> on this sensor. So a 300-count wobble is{" "}
+                <b class="text-sn-theme">1.5&deg;C</b> of nonsense.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Averaging</h2>
+              <p>
+                The wobble is random, so it cancels. Take twenty readings in
+                quick succession and divide by twenty.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                The accumulator pattern from Activity 1.21, doing real work on
+                real hardware.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Conversions</h2>
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                Counts to volts is arithmetic you can derive: the full range
+                of 65535 spans 3.3V.
+              </p>
+              <p class="fragment">
+                Volts to degrees you cannot derive &mdash; it comes from the{" "}
+                <b class="text-sn-theme">datasheet</b>. This sensor puts out
+                10mV per degree, offset by 500mV so it can report
+                temperatures below zero.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Now Check It Against Reality</h2>
+              <p>
+                Your program will confidently print a temperature. There is a
+                thermometer on the wall.
+              </p>
+              <p class="fragment">
+                If they disagree, <b class="text-sn-theme">one of them is
+                wrong and you do not yet know which</b>. Finding out is
+                engineering.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Reading a temperature sensor on an analog pin</li>
+                <li>Averaging several samples to steady a jittery reading</li>
+                <li>Converting raw ADC counts into real units</li>
+                <li>Checking a calculated value against reality</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Calibration</dt>
+                  <dd>Comparing what a sensor reports against a known reference, and correcting the difference.</dd>
+                  <dt>Averaging</dt>
+                  <dd>Taking several readings and using their mean, so random wobble cancels out.</dd>
+                  <dt>Datasheet</dt>
+                  <dd>The manufacturer&#39;s document describing exactly how a component behaves &mdash; where the volts-to-degrees rule comes from.</dd>
+                  <dt>Offset</dt>
+                  <dd>A fixed amount added to a reading to correct a consistent error.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Leave the five-LED array and the potentiometer wired. Create a new
+            MicroPython script named{" "}
+            <b class="text-sn-theme">2-9-temperature.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Read the Raw Sensor</h3>
+          <ul>
+            <li>Wire the TMP36 to <code>A1</code>, with its outer legs on <code>3V3</code> and <code>GND</code>.</li>
+            <li>Print the raw reading in a loop.</li>
+            <li>Do not touch anything. Watch the number change anyway.</li>
+          </ul>
+
+          <p>
+            <b>Check the orientation twice before you plug in the power.</b> A
+            TMP36 wired backwards gets hot enough to burn your fingers. The
+            flat face tells you which way round it goes.
+          </p>
+
+          <Image src={RedBoardPinA1} alt="The SparkFun IoT RedBoard RP2350 with the pin labeled A1 outlined on the bottom header" width={620} class="my-3" />
+
+          <Image src={Tmp36CircuitDiagram} alt="Circuit diagram of a TMP36 temperature sensor with its outer legs on 3V3 and GND and its middle leg connected to analog pin A1, with a warning about checking orientation before powering up" width={560} class="my-3" />
+
+          <!-- PHOTO: TMP36 wired, flat face visible -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 1: TMP36 Wired, Flat Face Visible]
+          </div>
+
+          <Code code={Task1} frame="code" lang="python" title="2-9-temperature.py" mark={{ range: "4,7" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Steady It</h3>
+          <ul>
+            <li>Write <code>read_average(sensor, samples)</code> that adds up several readings and returns their mean.</li>
+            <li>Print one raw sample and the twenty-sample average side by side.</li>
+            <li>Watch which one holds still.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="2-9-temperature.py" mark={{ range: "7-12" }} ins={{ range: "7-12,16-17" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Turn Counts Into Degrees</h3>
+          <ul>
+            <li>Write <code>to_volts(reading)</code>, using the fact that 65535 counts spans 3.3V.</li>
+            <li>Write <code>to_celsius(volts)</code> from the sensor&#39;s rule: 10mV per degree, with a 500mV offset.</li>
+            <li>Print all three numbers together, so you can see the chain.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="2-9-temperature.py" mark={{ range: "15-20" }} ins={{ range: "15-16,19-20,24-27" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Argue With the Wall</h3>
+          <ul>
+            <li>Compare your number against a real thermometer in the room. Write both down.</li>
+            <li>If they disagree, work out by how much, and put that correction in <code>OFFSET</code>.</li>
+            <li>Re-run and check that you now agree.</li>
+          </ul>
+
+          <p>
+            An offset is a blunt instrument &mdash; it assumes your sensor is
+            wrong by the same amount at every temperature, which may not be
+            true. It is still what real instruments do, and it is honest as
+            long as you know that is the assumption you made.
+          </p>
+
+          <Code code={Task4} frame="code" lang="python" title="2-9-temperature.py" mark={{ range: "6,27" }} ins={{ range: "6,27-28" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 5: Temperature on the Bar</h3>
+          <ul>
+            <li>Bring the array and <code>show_bar()</code> back in from Activity 2.8.</li>
+            <li>Write a more general <code>scale(value, low, high, steps)</code> that works on any range, not just 0&ndash;65535.</li>
+            <li>Pick a <code>COOL</code> and <code>WARM</code> temperature to span, and drive the bar from the reading.</li>
+            <li>Warm the sensor with your fingers and watch the bar climb.</li>
+          </ul>
+
+          <Code code={Task5} frame="code" lang="python" title="2-9-temperature.py" mark={{ range: "13-15,34-39" }} ins={{ range: "4-10,14-15,34-39,42-47,53-54" }} />
+
+          <!-- PHOTO: bar climbing as the sensor is warmed by hand -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 5: Bar Climbing as the Sensor Is Warmed by Hand]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Highest and Lowest of the Day</h3>
+          <ul>
+            <li>Track the warmest and coolest temperatures seen since the program started, the way you tracked your knob&#39;s range in 2.8.</li>
+            <li>Print all three: now, high, low.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your finished program should print something close to this, and hold steady:</p>
+
+          <Code code={Output1} frame="terminal" lang="txt" showLineNumbers={false} />
+
+          <ul>
+            <li>The averaged reading changes by only a count or two when nothing is happening</li>
+            <li>Your temperature agrees with a real thermometer to within a degree or so</li>
+            <li>Pinching the sensor makes the number climb within a few seconds, then fall again when released</li>
+            <li>The bar climbs as the sensor warms and never goes below empty or above full</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Yesterday the knob had no units and you decided what its reading meant. The TMP36 claims to measure something real. Explain why that makes the raw number <i>less</i> trustworthy rather than more.</li>
+            <li>One degree is worth about 198 counts, and a still sensor wobbles by a few hundred. Use those two numbers to explain why averaging twenty samples was worth doing.</li>
+            <li>Your calculated temperature probably disagreed with the wall thermometer. Name two different things that could cause that, and describe how you would tell which one it was.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

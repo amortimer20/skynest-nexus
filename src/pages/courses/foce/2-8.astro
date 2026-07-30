@@ -1,0 +1,400 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../components/Presentation.astro";
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+import PotentiometerCircuitDiagram from "../../../assets/courses/foce/img/potentiometer-circuit-diagram.svg";
+import RedBoardPinA0 from "../../../assets/courses/foce/img/redboard-rp2350-pin-a0.svg";
+
+//#region CodeSnippets
+const Figure1 = `button.value()   # 0 or 1. Nothing else.
+pot.read_u16()   # 0, 1, 2, ... all the way to 65535`;
+const Figure2 = `pot = ADC(Pin(40))
+reading = pot.read_u16()`;
+const Figure3 = `# 65536 possible readings, 5 LEDs.
+height = reading * (5 + 1) // 65536`;
+const Figure4 = `for led in leds:      # every LED, same treatment
+    led.value(1)
+
+leds[i].value(1)      # this one, by position`;
+const Task1 = `from machine import Pin, ADC
+import time
+
+pot = ADC(Pin(40))
+
+while True:
+    print(pot.read_u16())
+    time.sleep(0.2)
+`;
+const Task2 = `from machine import Pin, ADC
+import time
+
+pot = ADC(Pin(40))
+
+lowest = 65535
+highest = 0
+
+while True:
+    reading = pot.read_u16()
+    if reading < lowest:
+        lowest = reading
+    if reading > highest:
+        highest = reading
+    print("now:", reading, "  lowest:", lowest, "  highest:", highest)
+    time.sleep(0.2)
+`;
+const Task3 = `from machine import Pin, ADC
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+pot = ADC(Pin(40))
+
+
+def bar_height(reading, led_count):
+    return reading * (led_count + 1) // 65536
+
+
+while True:
+    reading = pot.read_u16()
+    print("reading:", reading, "  bar:", bar_height(reading, len(leds)))
+    time.sleep(0.2)
+`;
+const Task4 = `from machine import Pin, ADC
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+pot = ADC(Pin(40))
+
+
+def bar_height(reading, led_count):
+    return reading * (led_count + 1) // 65536
+
+
+def show_bar(leds, count):
+    for i in range(len(leds)):
+        if i < count:
+            leds[i].value(1)
+        else:
+            leds[i].value(0)
+
+
+while True:
+    reading = pot.read_u16()
+    height = bar_height(reading, len(leds))
+    show_bar(leds, height)
+    print("reading:", reading, "  bar:", height)
+    time.sleep(0.1)
+`;
+const Output1 = `reading: 148     bar: 0
+reading: 11302   bar: 1
+reading: 24907   bar: 2
+reading: 38455   bar: 3
+reading: 51100   bar: 4
+reading: 65216   bar: 5`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.8: Analog Input</h1>
+        <p class="text-sn-theme">The Messy Real World &mdash; Day 1 of 4</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.8</h2>
+              <h3 class="text-sn-theme">Analog Input</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Analog Input</p>
+              <p>Scaling a Range</p>
+              <p>Position in a List</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Activity 2.3 Told You a Half-Truth</h2>
+              <p>
+                "A digital pin has exactly two states. No in-between."
+              </p>
+              <p class="fragment">
+                True &mdash; of <i>digital</i> pins. Today you meet the other
+                kind, which reports a whole{" "}
+                <b class="text-sn-theme">range</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Kinds of Answer</h2>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                A button is a yes-or-no question. A knob is a{" "}
+                <i>how much</i> question, and the board answers with a number
+                from <code>0</code> to <code>65535</code>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Reading an Analog Pin</h2>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <code>ADC</code> stands for{" "}
+                <b class="text-sn-theme">analog-to-digital converter</b>
+                &mdash; the circuit inside the board that turns a voltage into
+                a number your code can use.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What the Knob Actually Does</h2>
+              <p>
+                A potentiometer is a strip of resistive material with a slider
+                on it. One end sits at 3.3V, the other at 0V, and the middle
+                leg picks off whatever voltage is at the slider's position.
+              </p>
+              <p class="fragment">
+                Turn the knob, move the slider, change the voltage. The ADC
+                turns that voltage into your number.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Too Big a Number</h2>
+              <p>
+                65,536 possible readings. Five LEDs. Those do not line up, so
+                the reading has to be <b class="text-sn-theme">scaled</b> down
+                before it can mean anything to the array.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                Six buckets, because "no LEDs" is a valid answer too. Integer
+                division from Activity 1.4 does the whole job.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Now You Need Positions</h2>
+              <p>
+                Every animation in 2.6 treated all five LEDs the same way. A
+                bar graph does not &mdash; it lights the <i>first three</i>
+                and leaves the rest dark.
+              </p>
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <code>for led in leds:</code> cannot express "the first
+                three." Asking for <code>leds[i]</code> by{" "}
+                <b class="text-sn-theme">position</b> can.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Reading a potentiometer with <code>ADC</code> and <code>read_u16()</code></li>
+                <li>Explaining how an analog pin differs from a digital one</li>
+                <li>Scaling a 0&ndash;65535 reading down onto a smaller range</li>
+                <li>Lighting the first N LEDs to show a value as a bar</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Analog Input</dt>
+                  <dd>A pin that reports a range of values rather than just on or off.</dd>
+                  <dt>ADC</dt>
+                  <dd>Analog-to-digital converter &mdash; the circuit that turns a voltage into a number.</dd>
+                  <dt>Potentiometer</dt>
+                  <dd>A knob that divides a voltage; its middle leg reports the slider's position.</dd>
+                  <dt>Scaling</dt>
+                  <dd>Converting a value from one range into another, here 0&ndash;65535 down to 0&ndash;5.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Leave Activity 2.6's five-LED array exactly as it is. Create a new
+            MicroPython script named{" "}
+            <b class="text-sn-theme">2-8-analog-input.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Read the Knob</h3>
+          <ul>
+            <li>Wire the potentiometer: its two outer legs to <code>3V3</code> and <code>GND</code>, its middle leg to <code>A0</code>.</li>
+            <li>Create it as an <code>ADC</code> and print the reading in a loop.</li>
+            <li>Turn the knob slowly and watch the numbers move.</li>
+          </ul>
+
+          <p>
+            The analog pins are the six on the bottom header, labeled{" "}
+            <code>A0</code> through <code>A5</code>. <code>A0</code> is at the
+            far right:
+          </p>
+
+          <Image src={RedBoardPinA0} alt="The SparkFun IoT RedBoard RP2350 with the pin labeled A0 outlined on the bottom header" width={620} class="my-3" />
+
+          <p>
+            It does not matter which outer leg goes to <code>3V3</code> and
+            which to <code>GND</code> &mdash; swapping them just reverses which
+            way you turn the knob to get a bigger number.
+          </p>
+
+          <Image src={PotentiometerCircuitDiagram} alt="Circuit diagram of a potentiometer with its outer legs on 3V3 and GND and its wiper connected to analog pin A0" width={560} class="my-3" />
+
+          <!-- PHOTO: potentiometer wired beside the five-LED array -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 1: Potentiometer Wired Beside the Five-LED Array]
+          </div>
+
+          <Code code={Task1} frame="code" lang="python" title="2-8-analog-input.py" mark={{ range: "1,4,7" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Find Its Real Range</h3>
+          <ul>
+            <li>Track the lowest and highest readings you have seen, the same way you tracked your best reaction time in 2.7.</li>
+            <li>Turn the knob all the way in both directions.</li>
+            <li><b>Write down the two numbers you actually get.</b> You will need them next session.</li>
+          </ul>
+
+          <p>
+            Do not assume the answer. A knob turned fully one way may not read{" "}
+            <code>0</code>, and fully the other way may not read{" "}
+            <code>65535</code>. Find out what <i>your</i> knob does.
+          </p>
+
+          <Code code={Task2} frame="code" lang="python" title="2-8-analog-input.py" mark={{ range: "10-15" }} ins={{ range: "6-7,10-15" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Scale the Reading</h3>
+          <ul>
+            <li>Bring the five-LED array into this script.</li>
+            <li>Write <code>bar_height(reading, led_count)</code> that converts a reading into a whole number of LEDs.</li>
+            <li>Print the reading and the height side by side, and check the height climbs 0, 1, 2, 3, 4, 5 as you turn.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="2-8-analog-input.py" mark={{ range: "14-15" }} ins={{ range: "4-10,14-15,20" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Light the Bar</h3>
+          <ul>
+            <li>Write <code>show_bar(leds, count)</code> that lights the first <code>count</code> LEDs and turns the rest off.</li>
+            <li>Call it every time round the loop, so the bar follows the knob live.</li>
+          </ul>
+
+          <p>
+            This is the function that needs <code>leds[i]</code>. Work out for
+            yourself why <code>for led in leds:</code> cannot do it before you
+            read the code below.
+          </p>
+
+          <Code code={Task4} frame="code" lang="python" title="2-8-analog-input.py" mark={{ range: "18-23" }} ins={{ range: "18-23,28-31" }} />
+
+          <!-- PHOTO: bar graph mid-range, three LEDs lit -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 4: Bar Graph at Mid-Range, Three LEDs Lit]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): The Knob Sets the Speed</h3>
+          <ul>
+            <li>Bring your <code>chase()</code> function over from Activity 2.6.</li>
+            <li>Use the knob to set the pause length instead of the bar height, so turning it speeds the animation up and slows it down.</li>
+            <li>A pause between about <code>0.02</code> and <code>0.5</code> seconds works well &mdash; scale the reading into that range.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Turning the knob from one end to the other should print something like this, and move the bar with it:</p>
+
+          <Code code={Output1} frame="terminal" lang="txt" showLineNumbers={false} />
+
+          <ul>
+            <li>The bar follows the knob smoothly, with no jumps of more than one LED</li>
+            <li>Fully one way gives no LEDs lit; fully the other gives all five</li>
+            <li>The printed height never goes below 0 or above 5</li>
+            <li>Holding the knob still leaves the reading roughly &mdash; but perhaps not exactly &mdash; steady</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Activity 2.3 said a digital pin has exactly two states. How is an analog pin different, and why did the reading have to be scaled before the LED array could show it?</li>
+            <li>Every animation in 2.6 used <code>for led in leds:</code>, but <code>show_bar()</code> needs <code>leds[i]</code>. Explain what the bar graph asks for that a plain traversal cannot give.</li>
+            <li>In Task 2 you recorded your knob's real lowest and highest readings. Were they exactly 0 and 65535? What would go wrong in a program that simply assumed they were?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
