@@ -1,0 +1,111 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Morse Code Transmitter</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <h4 class="text-sn-theme">Optional &mdash; Extra Credit</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Hold the button briefly for a dot, hold it longer for a dash. Build up
+            a letter, then let the board tell you which letter you sent.
+          </p>
+
+          <p>
+            You already know how to time a button press &mdash; that was Activity
+            2.7. The new part is deciding what a duration <i>means</i>, and then
+            looking the answer up.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="needs">
+          <h2>What You&#39;ll Need</h2>
+
+          <ul>
+            <li>One button, from <code>3V3</code> with <code>Pin.PULL_DOWN</code></li>
+            <li>The OLED, or just the terminal if you prefer</li>
+            <li>Optional: the speaker, so you hear the dots and dashes as you send them</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <ol>
+            <li><b>Time a press.</b> Start the clock when the button goes down, stop it when it comes up. Print the duration in milliseconds.</li>
+            <li><b>Pick your cutoff.</b> Press the button a lot of times, some short and some long, and look at the numbers. Choose a threshold that separates them for <i>your</i> thumb &mdash; nobody else can tell you what it is.</li>
+            <li><b>Turn a press into a symbol.</b> Below the cutoff is a dot, above it is a dash. Build up a string like <code>".-"</code> as the presses come in.</li>
+            <li><b>Decide when a letter is finished.</b> If nothing is pressed for a second or so, the letter is done.</li>
+            <li><b>Look the letter up.</b> Two lists that line up by position &mdash; one of Morse patterns, one of letters &mdash; exactly like Activity 1.23.</li>
+            <li><b>Handle a pattern that is not in your list</b> without crashing.</li>
+          </ol>
+
+          <p>
+            You do not need all 26 letters. Start with five you can test quickly
+            &mdash; E is a single dot, T is a single dash, A is dot-dash, N is
+            dash-dot, and S is three dots.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <pre class="bg-sn-darker p-3 rounded"><code>.  (120 ms)
+-  (410 ms)
+   letter: A
+
+.  (95 ms)
+.  (110 ms)
+.  (105 ms)
+   letter: S</code></pre>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li>Add the rest of the alphabet</li>
+            <li>Collect letters into whole words, with a longer pause meaning a space</li>
+            <li>Beep the dots and dashes as you send them</li>
+            <li>Go the other way: type a letter and have the board flash it at you</li>
+          </ul>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Project
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
