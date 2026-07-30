@@ -6,6 +6,7 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 import ThreeLedCountdownCircuitDiagram from "../../../assets/courses/foce/img/three-led-countdown-circuit-diagram.svg";
+import RedBoardPins28To30 from "../../../assets/courses/foce/img/redboard-rp2350-pins-28-30.svg";
 
 //#region CodeSnippets
 const Figure1 = `for i in range(3):
@@ -163,10 +164,17 @@ led3.value(0)
 
           <p>
             All three sit next to each other in the block of eight pins on the
-            top header. Note that the board prints them right to left, so
-            reading along that block you will find{" "}
-            <code>30</code>, then <code>29</code>, then <code>28</code> &mdash;
-            the diagram below is a schematic, not a picture of the board.
+            top header, but the board prints them right to left &mdash; reading
+            along that block you will find <code>30</code>, then{" "}
+            <code>29</code>, then <code>28</code>:
+          </p>
+
+          <Image src={RedBoardPins28To30} alt="The SparkFun IoT RedBoard RP2350 with the three pins labeled 30, 29, and 28 outlined together on the top header" width={620} class="my-3" />
+
+          <p>
+            The circuit diagram below is a schematic, not a picture of the
+            board, so its pins are drawn in the order that makes the wiring
+            clearest rather than the order they appear above.
           </p>
 
           <Image src={ThreeLedCountdownCircuitDiagram} alt="Circuit diagram showing three LEDs, each with its own resistor, wired to GPIO 28, 29, and 30, sharing a common GND" width={560} class="my-3" />
@@ -179,7 +187,7 @@ led3.value(0)
             [PHOTO PLACEHOLDER &mdash; Task 1: Three LEDs Wired, Countdown Lit]
           </div>
 
-          <Code code={Task1} frame="code" lang="python" title="2-4-launch-countdown.py" mark="8-13" />
+          <Code code={Task1} frame="code" lang="python" title="2-4-launch-countdown.py" mark={{ range: "8-13" }} />
 
           <hr class="my-4" />
 
@@ -188,7 +196,7 @@ led3.value(0)
             <li>Once all three LEDs are lit, blink all three together rapidly 5 times, then turn everything off.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="2-4-launch-countdown.py" mark="15-23" ins="15-25" />
+          <Code code={Task2} frame="code" lang="python" title="2-4-launch-countdown.py" mark={{ range: "15-23" }} ins={{ range: "15-27" }} />
 
           <hr class="my-4" />
 

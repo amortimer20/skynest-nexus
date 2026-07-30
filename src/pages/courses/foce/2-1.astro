@@ -1,7 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import Presentation from "../../../components/Presentation.astro";
 import Divider from "../../../components/ui/Divider.astro";
 import Layout from "../../../layouts/Layout.astro";
+
+import RedBoard from "../../../assets/courses/foce/img/redboard-rp2350.svg";
 ---
 
 <Layout>
@@ -117,7 +120,7 @@ import Layout from "../../../layouts/Layout.astro";
 
             <section data-auto-animate data-auto-animate-restart>
               <h2>Coming Up: The Microcontroller</h2>
-              <!-- PHOTO PLACEHOLDER: SparkFun IoT RedBoard RP2350 -->
+              <Image src={RedBoard} alt="The SparkFun IoT RedBoard RP2350, an Arduino-shaped red circuit board with header sockets along both long edges" width={560} />
               <p>
                 A <b class="text-sn-theme">microcontroller</b> is a tiny
                 computer that can control voltage and current in a circuit
@@ -221,7 +224,7 @@ import Layout from "../../../layouts/Layout.astro";
           <ol>
             <li>In your own words, explain the water-pipe analogy for voltage, current, and resistance.</li>
             <li>Why do circuit diagrams still show current flowing from + to &minus;, even though we now know electrons move the opposite direction?</li>
-            <li>Predict: if you doubled the voltage in a circuit but kept the resistance the same, what would happen to the current, and why?</li>
+            <li>The water analogy is a model, not the real thing. Name one thing about electricity you think it does <i>not</i> explain well, or one question it leaves you with.</li>
           </ol>
         </section>
 

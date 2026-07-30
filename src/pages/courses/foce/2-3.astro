@@ -6,6 +6,8 @@ import Layout from "../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 import LedGpioCircuitDiagram from "../../../assets/courses/foce/img/led-gpio-circuit-diagram.svg";
+import RedBoardPinCard from "../../../assets/courses/foce/img/redboard-rp2350-pin-card.svg";
+import RedBoardPins28To33 from "../../../assets/courses/foce/img/redboard-rp2350-pins-28-33.svg";
 
 //#region CodeSnippets
 const Figure1 = `from machine import Pin
@@ -96,16 +98,12 @@ led.value(0)
 
             <section data-auto-animate data-auto-animate-restart>
               <h2>Meet the RedBoard RP2350</h2>
-              <div
-                class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-                style="border-style: dashed !important;"
-              >
-                [PHOTO PLACEHOLDER &mdash; SparkFun IoT RedBoard RP2350, Labeled Pinout]
-              </div>
+              <Image src={RedBoardPins28To33} alt="The SparkFun IoT RedBoard RP2350 with the block of six pins labeled 33 through 28 outlined on the top header" width={620} />
               <p>
                 The board you'll use the rest of this unit. Its{" "}
                 <b class="text-sn-theme">GPIO pins</b> (General Purpose
-                Input/Output) can be controlled entirely by code.
+                Input/Output) can be controlled entirely by code. The six
+                outlined above are the ones you'll wire to.
               </p>
             </section>
 
@@ -125,7 +123,7 @@ led.value(0)
                 <code>Pin(28, Pin.OUT)</code> creates an{" "}
                 <b class="text-sn-theme">object</b> &mdash; something that
                 bundles together information (which pin, which direction)
-                and actions you can perform on it.
+                and actions you can perform on it.{" "}
                 <code>led.value(1)</code> calls one of those actions,
                 called a <b class="text-sn-theme">method</b>, using a dot.
               </p>
@@ -184,14 +182,14 @@ led.value(0)
           </ul>
 
           <p>
-            <b>Finding GPIO 28 on the board:</b> the numbers printed beside the
-            headers are GPIO numbers, not positions, so they do not run in order.
-            Look along the block of eight pins on the top header for the one
-            marked{" "}
-            <code>28</code> &mdash; its neighbours are <code>29</code> on one
-            side and{" "}
-            <code>0/TXD</code> on the other.
+            <b>Finding GPIO 28 on the board:</b> look along the block of eight
+            pins on the top header for the one marked <code>28</code> &mdash;
+            its neighbors are <code>29</code> on one side and{" "}
+            <code>0/TXD</code> on the other. Keep this card handy; you will be
+            hunting for pins all unit.
           </p>
+
+          <Image src={RedBoardPinCard} alt="Reference card for the SparkFun IoT RedBoard RP2350, with the six pins labeled 33 through 28 outlined on the top header, and a note that the printed numbers are GPIO numbers rather than positions" width={620} class="my-3" />
 
           <Image src={LedGpioCircuitDiagram} alt="Circuit diagram showing the resistor and LED now wired to GPIO 28 instead of the fixed 3.3V pin" width={560} class="my-3" />
 
@@ -211,7 +209,7 @@ led.value(0)
             <li>Import <code>Pin</code>, create a <code>Pin</code> object for GPIO 28 set as output, and turn it on.</li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="python" title="2-3-first-blink.py" mark="4" />
+          <Code code={Task1} frame="code" lang="python" title="2-3-first-blink.py" mark={{ range: "4" }} />
 
           <hr class="my-4" />
 
@@ -220,7 +218,7 @@ led.value(0)
             <li>Import <code>time</code>, wait one second after turning the LED on, then turn it off.</li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="python" title="2-3-first-blink.py" mark="6-7" ins="2,6-7" />
+          <Code code={Task2} frame="code" lang="python" title="2-3-first-blink.py" mark={{ range: "6-7" }} ins={{ range: "2,6-7" }} />
 
           <!-- PHOTO: LED lit while the script runs -->
           <div
