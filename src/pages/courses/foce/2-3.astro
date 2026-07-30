@@ -10,17 +10,17 @@ import LedGpioCircuitDiagram from "../../../assets/courses/foce/img/led-gpio-cir
 //#region CodeSnippets
 const Figure1 = `from machine import Pin
 
-led = Pin(0, Pin.OUT)
+led = Pin(28, Pin.OUT)
 led.value(1)`;
 const Task1 = `from machine import Pin
 
-led = Pin(0, Pin.OUT)
+led = Pin(28, Pin.OUT)
 led.value(1)
 `;
 const Task2 = `from machine import Pin
 import time
 
-led = Pin(0, Pin.OUT)
+led = Pin(28, Pin.OUT)
 led.value(1)
 time.sleep(1)
 led.value(0)
@@ -122,7 +122,7 @@ led.value(0)
               <h2>Meet Your First Object</h2>
               <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
               <p class="fragment">
-                <code>Pin(0, Pin.OUT)</code> creates an{" "}
+                <code>Pin(28, Pin.OUT)</code> creates an{" "}
                 <b class="text-sn-theme">object</b> &mdash; something that
                 bundles together information (which pin, which direction)
                 and actions you can perform on it.
@@ -179,18 +179,28 @@ led.value(0)
 
           <h3>Task 2: Rewire to a GPIO Pin</h3>
           <ul>
-            <li>Move your LED and resistor from yesterday's fixed 3.3V pin to GPIO pin 0, keeping GND the same.</li>
+            <li>Move your LED and resistor from yesterday's fixed 3.3V pin to GPIO 28, keeping GND the same.</li>
             <li>The LED should now be off &mdash; a GPIO pin starts LOW until code says otherwise.</li>
           </ul>
 
-          <Image src={LedGpioCircuitDiagram} alt="Circuit diagram showing the resistor and LED now wired to GPIO pin 0 instead of the fixed 3.3V pin" width={560} class="my-3" />
+          <p>
+            <b>Finding GPIO 28 on the board:</b> the numbers printed beside the
+            headers are GPIO numbers, not positions, so they do not run in order.
+            Look along the block of eight pins on the top header for the one
+            marked{" "}
+            <code>28</code> &mdash; its neighbours are <code>29</code> on one
+            side and{" "}
+            <code>0/TXD</code> on the other.
+          </p>
 
-          <!-- PHOTO: circuit rewired to GPIO 0, LED off -->
+          <Image src={LedGpioCircuitDiagram} alt="Circuit diagram showing the resistor and LED now wired to GPIO 28 instead of the fixed 3.3V pin" width={560} class="my-3" />
+
+          <!-- PHOTO: circuit rewired to GPIO 28, LED off -->
           <div
             class="border border-secondary rounded p-4 my-3 text-center text-secondary"
             style="border-style: dashed !important;"
           >
-            [PHOTO PLACEHOLDER &mdash; Task 2: Circuit Rewired to GPIO 0, LED Off]
+            [PHOTO PLACEHOLDER &mdash; Task 2: Circuit Rewired to GPIO 28, LED Off]
           </div>
 
           <hr class="my-4" />
@@ -198,7 +208,7 @@ led.value(0)
           <h3>Task 3: Your First Code</h3>
           <ul>
             <li>Create a new MicroPython script named <b class="text-sn-theme">2-3-first-blink.py</b>.</li>
-            <li>Import <code>Pin</code>, create a <code>Pin</code> object for GPIO 0 set as output, and turn it on.</li>
+            <li>Import <code>Pin</code>, create a <code>Pin</code> object for GPIO 28 set as output, and turn it on.</li>
           </ul>
 
           <Code code={Task1} frame="code" lang="python" title="2-3-first-blink.py" mark="4" />
@@ -246,7 +256,7 @@ led.value(0)
 
           <ol>
             <li>Walk through the math: given a 3.3V source and a 330&Omega; resistor, what's the current, and how did you calculate it?</li>
-            <li>In <code>led = Pin(0, Pin.OUT)</code>, what is <code>led</code>, and what does calling <code>led.value(1)</code> actually do?</li>
+            <li>In <code>led = Pin(28, Pin.OUT)</code>, what is <code>led</code>, and what does calling <code>led.value(1)</code> actually do?</li>
             <li>Why did you move the LED from the 3.3V/GND rail to a GPIO pin before writing any code &mdash; what did that change make possible?</li>
           </ol>
         </section>

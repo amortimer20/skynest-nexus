@@ -16,9 +16,9 @@ Beep`;
 const Task1 = `from machine import Pin
 import time
 
-led1 = Pin(0, Pin.OUT)
-led2 = Pin(1, Pin.OUT)
-led3 = Pin(2, Pin.OUT)
+led1 = Pin(28, Pin.OUT)
+led2 = Pin(29, Pin.OUT)
+led3 = Pin(30, Pin.OUT)
 
 led1.value(1)
 time.sleep(1)
@@ -30,9 +30,9 @@ time.sleep(1)
 const Task2 = `from machine import Pin
 import time
 
-led1 = Pin(0, Pin.OUT)
-led2 = Pin(1, Pin.OUT)
-led3 = Pin(2, Pin.OUT)
+led1 = Pin(28, Pin.OUT)
+led2 = Pin(29, Pin.OUT)
+led3 = Pin(30, Pin.OUT)
 
 led1.value(1)
 time.sleep(1)
@@ -157,11 +157,19 @@ led3.value(0)
 
           <h3>Task 1: The Countdown</h3>
           <ul>
-            <li>Wire three LEDs (with resistors) to GPIO pins 0, 1, and 2.</li>
+            <li>Wire three LEDs (with resistors) to GPIO 28, 29, and 30.</li>
             <li>Turn them on one at a time, in sequence &mdash; without turning any of the previous ones off.</li>
           </ul>
 
-          <Image src={ThreeLedCountdownCircuitDiagram} alt="Circuit diagram showing three LEDs, each with its own resistor, wired to GPIO pins 0, 1, and 2, sharing a common GND" width={560} class="my-3" />
+          <p>
+            All three sit next to each other in the block of eight pins on the
+            top header. Note that the board prints them right to left, so
+            reading along that block you will find{" "}
+            <code>30</code>, then <code>29</code>, then <code>28</code> &mdash;
+            the diagram below is a schematic, not a picture of the board.
+          </p>
+
+          <Image src={ThreeLedCountdownCircuitDiagram} alt="Circuit diagram showing three LEDs, each with its own resistor, wired to GPIO 28, 29, and 30, sharing a common GND" width={560} class="my-3" />
 
           <!-- PHOTO: all three LEDs wired and lit in sequence -->
           <div

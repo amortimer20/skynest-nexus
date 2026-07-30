@@ -6,7 +6,7 @@
     </marker>
   </defs>
 
-  <!-- Top wire: GPIO 0 -> resistor -> LED -> top-right corner -->
+  <!-- Top wire: GPIO 28 -> resistor -> LED -> top-right corner -->
   <line x1="60" y1="60" x2="140" y2="60" stroke="white" stroke-width="3" />
   <path d="M 140 60 L 152 42 L 166 78 L 180 42 L 194 78 L 208 60" fill="none" stroke="white" stroke-width="3" />
   <line x1="208" y1="60" x2="280" y2="60" stroke="white" stroke-width="3" />
@@ -22,8 +22,8 @@
   <!-- Right wire down -->
   <line x1="420" y1="60" x2="420" y2="220" stroke="white" stroke-width="3" />
 
-  <!-- Bottom wire -->
-  <line x1="420" y1="220" x2="60" y2="220" stroke="white" stroke-width="3" />
+  <!-- Bottom wire: right corner leftward to the GND stub, and no further -->
+  <line x1="420" y1="220" x2="200" y2="220" stroke="white" stroke-width="3" />
 
   <!-- Ground, hanging off the bottom wire -->
   <line x1="200" y1="220" x2="200" y2="250" stroke="white" stroke-width="3" />
@@ -32,13 +32,10 @@
   <line x1="192" y1="270" x2="208" y2="270" stroke="white" stroke-width="3" />
   <text x="200" y="292" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">GND</text>
 
-  <!-- Left wire up, back to GPIO 0 -->
-  <line x1="60" y1="220" x2="60" y2="60" stroke="white" stroke-width="3" />
-
-  <!-- GPIO 0 node -->
+  <!-- GPIO 28 node -->
   <circle cx="60" cy="60" r="5" fill="rgb(27,212,215)" />
-  <text x="8" y="45" fill="rgb(27,212,215)" font-size="20" font-family="sans-serif">GPIO 0</text>
-  <text x="8" y="20" fill="rgb(27,212,215)" font-size="15" font-family="sans-serif">Pin(0, Pin.OUT)</text>
+  <text x="8" y="45" fill="rgb(27,212,215)" font-size="20" font-family="sans-serif">GPIO 28</text>
+  <text x="8" y="20" fill="rgb(27,212,215)" font-size="15" font-family="sans-serif">Pin(28, Pin.OUT)</text>
 
   <text x="280" y="138" text-anchor="middle" fill="white" font-size="16" font-family="sans-serif">Same circuit as 2.2 &#8212; now on a GPIO pin,</text>
   <text x="280" y="160" text-anchor="middle" fill="white" font-size="16" font-family="sans-serif">controlled by code instead of always on</text>
