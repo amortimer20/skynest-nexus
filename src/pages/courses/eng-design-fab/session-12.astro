@@ -15,7 +15,7 @@ import Layout from "../../../layouts/Layout.astro";
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Session 12: Functions in Sheets</h1>
+        <h1>Session 12: Functions &amp; Data Quality in Sheets</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -23,7 +23,7 @@ import Layout from "../../../layouts/Layout.astro";
           <Presentation>
             <section>
               <h2>Session 12</h2>
-              <h3 class="text-sn-theme">Functions in Sheets</h3>
+              <h3 class="text-sn-theme">Functions &amp; Data Quality in Sheets</h3>
             </section>
 
             <section>
@@ -128,12 +128,49 @@ import Layout from "../../../layouts/Layout.astro";
               </p>
             </section>
 
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>One More Value: Spread</h2>
+              <p>
+                <code>Max &minus; Min</code> &mdash; how much your three
+                trials disagreed with each other, as a single number you can
+                compare across rows.
+              </p>
+            </section>
+
+            <section>
+              <h2>Conditional Formatting</h2>
+              <p>
+                A rule that changes how a cell <i>looks</i>, automatically,
+                based on its value.
+              </p>
+              <ol>
+                <li class="fragment">Select your Spread column</li>
+                <li class="fragment">Format &rarr; Conditional formatting</li>
+                <li class="fragment">Format cells if&hellip; Greater than</li>
+                <li class="fragment">Enter your threshold value</li>
+              </ol>
+            </section>
+
+            <section>
+              <h2>Choosing a Threshold</h2>
+              <p>
+                A judgment call &mdash; the same kind you made in Session 9
+                with tolerance. Too tight and normal variation gets flagged
+                constantly; too loose and real problems slip through.
+              </p>
+              <p class="fragment">
+                And a flag is <b class="text-sn-theme">a question, not a
+                verdict</b> &mdash; a prompt to look closer. You will meet
+                that same idea again next session with R&sup2;.
+              </p>
+            </section>
+
             <section>
               <h2>Next Time</h2>
-              <p>Session 13: Conditional Formatting &amp; Data Quality</p>
+              <p>Session 13: Charting &amp; Trendlines</p>
               <p class="fragment">
-                Now that you have averages, let's automatically flag
-                anything that looks off.
+                Now that your data is clean and checked, let's turn it into
+                a plot.
               </p>
             </section>
           </Presentation>
@@ -211,6 +248,51 @@ import Layout from "../../../layouts/Layout.astro";
             Max. If it doesn't, one of your three formulas is referencing
             the wrong cells.
           </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 5: Add a Spread Column</h3>
+          <p>
+            Add one more column calculating <code>Max &minus; Min</code> for
+            each row. If Max is in F2 and Min is in E2, that is{" "}
+            <code>=F2-E2</code>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 6: Choose a Threshold and Flag It</h3>
+          <p>
+            Decide, with your instructor, what counts as "too much" spread
+            for this experiment. Write down the number and one sentence for
+            why. Then select your Spread column and set a conditional
+            formatting rule that highlights anything greater than it.
+          </p>
+
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Setting Up a Conditional Formatting Rule]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Step 7: Investigate Any Flagged Row</h3>
+          <p>
+            For any row your rule highlights, write one sentence: measurement
+            noise, or something real about that weight? If nothing gets
+            flagged, write one sentence on whether that surprises you.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Stretch (Optional): Flag the Actual Trial</h3>
+          <p>
+            Instead of flagging the whole row, try a <b>custom formula</b>{" "}
+            conditional formatting rule that highlights just the one trial
+            cell furthest from that row's average &mdash; ask your instructor
+            if you want to attempt this.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -224,7 +306,10 @@ import Layout from "../../../layouts/Layout.astro";
           <ul>
             <li>Average, Min, and Max are actual formulas &mdash; not typed-in numbers</li>
             <li>Average falls between Min and Max for every single row</li>
-            <li>Headers still include units, from your Session 11&ndash;12 structure</li>
+            <li>Headers still include units, from your Session 11 structure</li>
+            <li>Your Spread column uses a formula, not typed-in numbers</li>
+            <li>Your conditional formatting rule is applied and visibly working</li>
+            <li>Any flagged row has a written note explaining your read on it</li>
           </ul>
         </section>
 
@@ -238,7 +323,8 @@ import Layout from "../../../layouts/Layout.astro";
 
           <ol>
             <li>Why might a formula-based average be more trustworthy than one you calculated by hand and typed in?</li>
-            <li>Session 13 will automatically flag rows whose trials disagree with each other too much. Based on your Min/Max columns, which weight's trials do you think are least consistent?</li>
+            <li>For any row that got flagged, do you think it is measurement noise or something real about that weight? How would you actually find out?</li>
+            <li>Next session turns this data into a plot. Do you expect a flagged row to stand out as an outlier on the scatter plot too?</li>
           </ol>
         </section>
 
@@ -248,7 +334,7 @@ import Layout from "../../../layouts/Layout.astro";
         <section id="submit">
           <h2>Submit</h2>
 
-          <p>Submit your Sheets table with working Average, Min, and Max formulas, and your reflection.</p>
+          <p>Submit your Sheets table with working Average, Min, Max, and Spread formulas, your conditional formatting rule, and your reflection.</p>
 
           <h1
             class="text-center mt-5 text-sn-theme border border-primary slow-flash"
