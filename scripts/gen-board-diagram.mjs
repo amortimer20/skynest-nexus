@@ -6,14 +6,15 @@
  * Affinity export in which every header pin is its own <g>. Those groups are
  * named Header, Header1 ... Header31 with no indication of which physical pin
  * each one is, so PIN_IDS below records the mapping. It was verified by
- * recolouring each group by id in a browser and reading which silkscreen label
- * the recoloured pin landed under, for all 32 pins.
+ * recoloring each group by id in a browser and reading which silkscreen label
+ * the recolored pin landed under, for all 32 pins.
  *
  * If the board art is ever re-exported from Affinity, re-check PIN_IDS and
  * PIN_X: both depend on the exporter's group naming and nested transforms.
  *
  * Usage:
- *   node scripts/gen-board-diagram.mjs <out-name> <pin> [pin ...] [--title=..] [--label=..]
+ *   node scripts/gen-board-diagram.mjs <out-name> <pin> [pin ...] [options]
+ *   options: --bare  --title=..  --subtitle=..  --label=..
  *
  * Examples:
  *   node scripts/gen-board-diagram.mjs redboard-rp2350-pin-card 28 29 30 31 32 33
@@ -97,7 +98,7 @@ const flags = {};
 const positional = [];
 // Whitelisted so a typo like --bear is a hard error rather than being silently
 // ignored, which would quietly emit a full card where a bare one was wanted.
-const KNOWN_FLAGS = new Set(["bare", "title", "label"]);
+const KNOWN_FLAGS = new Set(["bare", "title", "subtitle", "label"]);
 
 for (const a of argv) {
   // Accept both --key=value and bare boolean --key.
@@ -110,7 +111,7 @@ for (const a of argv) {
     }
     flags[m[1]] = m[2] ?? true;
   } else if (a.startsWith("-")) {
-    console.error(`unrecognised option: ${a}`);
+    console.error(`unrecognized option: ${a}`);
     process.exit(1);
   } else positional.push(a);
 }
@@ -119,11 +120,12 @@ const outName = positional.shift();
 const pins = positional;
 if (!outName || pins.length === 0) {
   console.error("usage: gen-board-diagram.mjs <out-name> <pin> [pin ...] [options]");
-  console.error("  --bare         board and highlight only, cropped to the PCB, no");
-  console.error("                 title/callout/caption. For slides and inline figures,");
-  console.error("                 where the surrounding page already gives the context.");
-  console.error("  --title=TEXT   card heading (full mode only)");
-  console.error("  --label=TEXT   callout text (full mode only)");
+  console.error("  --bare            board and highlight only, cropped to the PCB, no");
+  console.error("                    title/callout/caption. For slides and inline figures,");
+  console.error("                    where the surrounding page already gives the context.");
+  console.error("  --title=TEXT      card heading (full mode only)");
+  console.error("  --subtitle=TEXT   line under the heading (full mode only)");
+  console.error("  --label=TEXT      callout text (full mode only)");
   process.exit(1);
 }
 
@@ -179,11 +181,15 @@ const xmlEscape = (s) => String(s)
   .replaceAll(">", "&gt;");
 
 const titleRaw = flags.title ?? "SparkFun IoT RedBoard RP2350";
+// Deliberately not "in this unit": the rover build later uses 20-22, 34 and 35,
+// so a card showing 28-33 cannot claim to cover the whole unit.
+const subtitleRaw = flags.subtitle ?? "The pins you will wire to first";
 const labelRaw = flags.label ?? (pins.length > 1
   ? `GPIO ${pins[0]}–${pins[pins.length - 1]}`
   : `GPIO ${pins[0]}`);
 
 const title = xmlEscape(titleRaw);
+const subtitle = xmlEscape(subtitleRaw);
 const label = xmlEscape(labelRaw);
 
 // Callout box, horizontally centered over the highlight where there is room.
@@ -198,7 +204,7 @@ const inner = src.slice(src.indexOf(">", src.indexOf("<svg")) + 1, src.lastIndex
 
 const chrome = bare ? "" : `
   <text x="170" y="150" fill="white" font-size="132" font-family="sans-serif" font-weight="bold">${title}</text>
-  <text x="170" y="268" fill="rgb(170,170,180)" font-size="96" font-family="sans-serif">The pins you will wire to in this unit</text>
+  <text x="170" y="268" fill="rgb(170,170,180)" font-size="96" font-family="sans-serif">${subtitle}</text>
 
   <!-- Callout, pointing down at the highlighted block -->
   <rect x="${calloutX.toFixed(2)}" y="${calloutY}" width="${CALLOUT_W}" height="${CALLOUT_H}"
