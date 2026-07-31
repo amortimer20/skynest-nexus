@@ -30,7 +30,7 @@ import Layout from "../../../../layouts/Layout.astro";
             <section>
               <h2>A Clean Simulation Isn't the Finish Line</h2>
               <p>
-                OnShape's simulation shows the toolpath. Your machine needs
+                Fusion's simulation shows the toolpath. Your machine needs
                 its own language to actually run it.
               </p>
             </section>
@@ -38,7 +38,7 @@ import Layout from "../../../../layouts/Layout.astro";
             <section data-auto-animate>
               <h2>The Post-Processor</h2>
               <p>
-                Translates CAM Studio's generic toolpath into the specific
+                Translates Fusion's generic toolpath into the specific
                 code your exact machine's controller understands.
               </p>
             </section>
@@ -52,12 +52,30 @@ import Layout from "../../../../layouts/Layout.astro";
               </p>
             </section>
 
+            <section>
+              <h2>Where It Lives in Fusion</h2>
+              <p>
+                <b class="text-sn-theme">Actions &rarr; Post Process.</b> Pick
+                the post configuration for your machine, set an output folder
+                and filename, and Fusion writes the file the controller
+                actually reads.
+              </p>
+              <p class="fragment">
+                A ShopBot post writes{" "}
+                <b class="text-sn-theme">.sbp</b>, not the{" "}
+                <b>.nc</b> G-code you may have heard of. Different machine,
+                different file extension &mdash; that alone tells you the
+                post did something real.
+              </p>
+            </section>
+
             <section data-auto-animate>
               <h2>Your Machine</h2>
               <p class="fragment">
-                <b class="text-sn-theme">[VERIFY]</b> &mdash; confirm the
-                exact post-processor selection for your specific machine
-                with your instructor before running anything for real.
+                <b class="text-sn-theme">[VERIFY]</b> &mdash; Fusion ships
+                more than one ShopBot post. Confirm which one your specific
+                machine and controller take, with your instructor, before
+                running anything for real.
               </p>
             </section>
 
@@ -164,9 +182,17 @@ import Layout from "../../../../layouts/Layout.astro";
           <p>
             Write a personal checklist of everything you'd verify before
             pressing start on a real job. Pull from all four weeks so far
-            &mdash; safety protocols, offset choice, tabs, step-down,
-            post-processor, zero point. You'll use this checklist for real
-            in Week 4.
+            &mdash; safety protocols, offset direction, tabs, step-down,
+            stock thickness, WCS origin, post-processor choice, zero point.
+            You'll use this checklist for real in Week 4.
+          </p>
+          <p>
+            Two of those are new as of today and easy to forget, so write
+            them in explicitly: <b class="text-sn-theme">did I post with the
+            right configuration</b>, and{" "}
+            <b class="text-sn-theme">does the machine's zero match the WCS
+            origin I set in Fusion?</b> A perfect toolpath posted against the
+            wrong origin cuts a perfect part in the wrong place.
           </p>
         </section>
 

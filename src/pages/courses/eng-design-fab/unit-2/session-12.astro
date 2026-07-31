@@ -113,28 +113,44 @@ import Layout from "../../../../layouts/Layout.astro";
         <section id="build">
           <h2>Build</h2>
 
-          <h3>Step 1: Set Up the Job</h3>
-          <p>Create a CAM Studio Job for your Session 11 part. Select the correct stock and material.</p>
+          <h3>Step 1: Export and Set Up</h3>
+          <p>
+            Export your Session 11 part from OnShape as{" "}
+            <b class="text-sn-theme">STEP</b>, open it in Fusion, and switch
+            to the <b>Manufacture</b> workspace. Create a Setup with your{" "}
+            <b>WCS origin on a findable corner</b> and your{" "}
+            <b>stock set to real material thickness</b> &mdash; the same
+            three checks as Session 9.
+          </p>
 
           <hr class="my-4" />
 
           <h3>Step 2: Program Pocket and Drill</h3>
-          <p>Set up your pocket (with justified step-over/step-down) and drill toolpaths first.</p>
+          <p>
+            <b>2D Pocket</b> first &mdash; set <b>Stepover</b> and, under{" "}
+            <b>Multiple Depths</b>, <b>Maximum Roughing Stepdown</b>, both
+            justified. Then <b>Drill</b> for your hole, after confirming it
+            matches your bit diameter.
+          </p>
 
           <hr class="my-4" />
 
           <h3>Step 3: Program the Profile, With Tabs</h3>
           <p>
-            Add your profile cut last, using Outside offset. Add tabs so the
-            part doesn't come loose at the moment it's fully cut free.
+            Add a <b>2D Contour</b> last. Confirm the offset arrow points
+            outside your line, and tick <b class="text-sn-theme">Tabs</b> so
+            the part doesn't come loose at the moment it's fully cut free.
           </p>
 
           <hr class="my-4" />
 
           <h3>Step 4: Simulate and Run Your Pre-Cut Checklist</h3>
           <p>
-            Simulate the full job. Then go through your Session 10 pre-cut
-            checklist against this actual job, item by item.
+            Right-click the Setup and <b>Simulate</b> with <b>Stock</b>
+            turned on, watching it run rather than skipping to the end. Then
+            go through your Session 10 pre-cut checklist against this actual
+            job, item by item &mdash; including the two new ones: right post
+            configuration, and machine zero matching your WCS origin.
           </p>
         </section>
 
@@ -173,7 +189,7 @@ import Layout from "../../../../layouts/Layout.astro";
         <section id="submit">
           <h2>Submit</h2>
 
-          <p>Submit your CAM Studio file with all toolpaths, your completed checklist run-through, and your reflection.</p>
+          <p>Submit your Fusion file with all toolpaths, your completed checklist run-through, and your reflection.</p>
 
           <h1
             class="text-center mt-5 text-sn-theme border border-primary slow-flash"

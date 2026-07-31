@@ -122,47 +122,93 @@ import Layout from "../../../../layouts/Layout.astro";
         <section id="build">
           <h2>Build</h2>
 
-          <h3>Step 1: Set Up the Job</h3>
+          <h3>Step 1: Get the Part Into Fusion</h3>
           <p>
-            Using the test coupon shape your instructor provides (or the one
-            you design, per their instructions), create a CAM Studio Job and
-            select the part and stock.
+            Export the test coupon from OnShape as a{" "}
+            <b class="text-sn-theme">STEP</b> file, then open it in Fusion.
+            Remember from Session 7: the shape crosses over, the design
+            history does not.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Step 2: Program the Pocket</h3>
+          <h3>Step 2: Create the Setup</h3>
           <p>
-            Set up a Pocket toolpath for the interior recess. Choose a
-            step-over and step-down, and be ready to justify both.
+            Switch to the <b class="text-sn-theme">Manufacture</b> workspace,
+            then create a new <b>Setup</b>. Three things to get right before
+            you program anything:
+          </p>
+          <ul>
+            <li>
+              <b>Operation type</b> &mdash; Milling
+            </li>
+            <li>
+              <b>Work Coordinate System</b> &mdash; put the origin somewhere
+              you can actually find on the real stock. A corner of the
+              material is far easier to zero to than the middle of a curve.
+            </li>
+            <li>
+              <b>Stock</b> &mdash; set it to your real material thickness,
+              not a guess. Everything Session 8 taught about step-down is
+              measured against this number.
+            </li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Program the Pocket</h3>
+          <p>
+            Add a <b class="text-sn-theme">2D Pocket</b> operation for the
+            interior recess. Select the pocket face, then open the{" "}
+            <b>Passes</b> tab and set your <b>Stepover</b>, tick{" "}
+            <b>Multiple Depths</b>, and set{" "}
+            <b>Maximum Roughing Stepdown</b>. Be ready to justify both
+            numbers &mdash; defaults left unexamined are not an answer.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Step 3: Program the Drill</h3>
+          <h3>Step 4: Program the Drill</h3>
           <p>
-            Add a Drill toolpath for the hole. First, do the check from
-            Session 7: <b class="text-sn-theme">is this hole the same
-            diameter as your bit?</b> The coupon's hole is sized so that it
-            is &mdash; which is exactly why a Drill toolpath works here. If
-            it weren't, this would have to be a pocket instead.
+            Add a <b class="text-sn-theme">Drill</b> operation and select the
+            hole. First, do the check from Session 7:{" "}
+            <b class="text-sn-theme">is this hole the same diameter as your
+            bit?</b> The coupon's hole is sized so that it is &mdash; which
+            is exactly why a Drill works here. If it weren't, this would have
+            to be a pocket instead.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Step 4: Program the Profile</h3>
+          <h3>Step 5: Program the Profile, With Tabs</h3>
           <p>
-            Add a Profile toolpath for the outer boundary, using Outside
-            offset. Confirm it's sequenced <b class="text-sn-theme">after</b>
-            the pocket and drill operations.
+            Add a <b class="text-sn-theme">2D Contour</b> operation for the
+            outer boundary. On the <b>Geometry</b> tab, confirm the red
+            offset arrow points{" "}
+            <b class="text-sn-theme">outside</b> the line &mdash; that is
+            Session 7's offset decision, made visible &mdash; and tick{" "}
+            <b>Tabs</b> so the part doesn't come loose mid-cut.
+          </p>
+          <p>
+            Confirm this operation is sequenced{" "}
+            <b class="text-sn-theme">after</b> the pocket and drill in the
+            browser tree. Order is the whole point of today.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Step 5: Simulate and Check</h3>
+          <h3>Step 6: Simulate and Check</h3>
           <p>
-            Run the simulation. Confirm all three toolpaths ran, in the
+            Right-click your Setup and choose{" "}
+            <b class="text-sn-theme">Simulate</b>. Turn on{" "}
+            <b>Stock</b> so you can watch material actually disappear, then
+            play it start to finish. Confirm all three operations ran, in the
             right order, with no collisions or unexpected gouges.
+          </p>
+          <p>
+            Watch it, don't skip to the end. A wrong order still produces a
+            finished-looking result &mdash; the error is only visible while
+            it runs.
           </p>
         </section>
 
@@ -201,7 +247,7 @@ import Layout from "../../../../layouts/Layout.astro";
         <section id="submit">
           <h2>Submit</h2>
 
-          <p>Submit your CAM Studio file with all three toolpaths and your reflection.</p>
+          <p>Submit your Fusion file with all three toolpaths and your reflection.</p>
 
           <h1
             class="text-center mt-5 text-sn-theme border border-primary slow-flash"
