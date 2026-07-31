@@ -1,0 +1,249 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `fruits = ["apple", "banana", "cherry"]
+
+print("banana" in fruits)
+print("grape" in fruits)`;
+const Figure2 = `True
+False`;
+const Figure3 = `guess = input("Guess a fruit: ").lower()
+
+if guess in fruits:
+    print("Yes, that's on the list!")
+else:
+    print("Nope, try again.")`;
+const Figure4 = `fruits = ["apple", "banana", "cherry"]
+
+print(fruits.index("banana"))`;
+const Figure5 = `1`;
+const Task1 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
+
+name = input("Enter a name: ").lower()
+
+if name in roster:
+    print(f"{name} is on the roster.")
+else:
+    print(f"{name} is not on the roster.")
+`;
+const Task2 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
+
+name = input("Enter a name: ").lower()
+
+if name in roster:
+    position = roster.index(name)
+    print(f"{name} is on the roster at position {position}.")
+else:
+    print(f"{name} is not on the roster.")
+`;
+const Task3 = `roster = ["avery", "blake", "carter", "drew", "elliot"]
+
+name = ""
+present_count = 0
+
+while name != "done":
+    name = input("Enter a name (or 'done' to finish): ").lower()
+
+    if name == "done":
+        print(f"Checked in {present_count} students.")
+    elif name in roster:
+        position = roster.index(name)
+        print(f"{name} is on the roster at position {position}.")
+        present_count = present_count + 1
+    else:
+        print(f"{name} is not on the roster.")
+`;
+const SampleOutput = `Enter a name (or 'done' to finish): blake
+blake is on the roster at position 1.
+Enter a name (or 'done' to finish): morgan
+morgan is not on the roster.
+Enter a name (or 'done' to finish): elliot
+elliot is on the roster at position 4.
+Enter a name (or 'done' to finish): done
+Checked in 2 students.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.22: Checking Membership</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.22</h2>
+              <h3 class="text-sn-theme">Checking Membership</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>The in Operator</p>
+              <p>.index()</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Is It in the List?</h2>
+              <p>
+                The <code>in</code> operator checks whether a value exists
+                somewhere in a list, and hands back a boolean &mdash; no
+                loop required.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Is It in the List?</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Using in Inside an if</h2>
+              <p>
+                Since <code>in</code> produces <code>True</code> or{" "}
+                <code>False</code>, it drops directly into a condition.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Finding the Position With .index()</h2>
+              <p>
+                <code>in</code> only tells you yes or no. When you also
+                need <b>where</b> a value is, use <code>.index()</code>.
+              </p>
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Finding the Position With .index()</h2>
+              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                <code>.index()</code> crashes if the value isn't in the
+                list at all &mdash; that's why you check with{" "}
+                <code>in</code> first.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Checking membership with the <code>in</code> operator</li>
+                <li>Finding a value's position with <code>.index()</code></li>
+                <li>Guarding <code>.index()</code> with an <code>in</code> check first</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>in Operator</dt>
+                  <dd>Checks whether a value exists in a list, returning <code>True</code> or <code>False</code>.</dd>
+                  <dt>.index()</dt>
+                  <dd>Returns the position of a value in a list &mdash; crashes if the value isn't found.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-22-checking-membership.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Roster Check</h3>
+          <ul>
+            <li>Check whether a name the user enters is on the roster, using <code>in</code>.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-22-checking-membership.py" mark={{ range: "5" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Find the Position</h3>
+          <ul>
+            <li>If the name is on the roster, also report its position with <code>.index()</code>.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-22-checking-membership.py" mark={{ range: "6-7" }} ins={{ range: "6-7" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Check In Multiple Students</h3>
+          <ul>
+            <li>Loop until the user types <code>"done"</code>, checking each name against the roster and counting how many were found.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-22-checking-membership.py" mark={{ range: "4,9-16" }} />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What does the <code>in</code> operator return, and what data type is that?</li>
+            <li>Why did Task 2 need to check <code>in</code> before calling <code>.index()</code>?</li>
+            <li>How did Task 3 combine the <code>in</code> operator with the accumulator pattern from Activity 1.21?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

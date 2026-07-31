@@ -1,0 +1,280 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+
+import ConceptConvergenceDiagram from "../../../../assets/courses/eng-design-fab/img/concept-convergence-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 3: Design &amp; Ideation</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 3</h2>
+              <h3 class="text-sn-theme">Design &amp; Ideation</h3>
+            </section>
+
+            <section>
+              <h2>You Already Have an Idea</h2>
+              <p>
+                Last session, we asked if you already had a solution in mind
+                for your problem &mdash; before we'd even started Design.
+              </p>
+              <p class="fragment">
+                Jumping straight to that idea isn't Design. It's skipping
+                Design and going straight to Build.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Your First Idea</h2>
+              <p>Is rarely your best idea.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Your First Idea</h2>
+              <p>It's just your <b class="text-sn-theme">fastest</b> idea.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Divergent Thinking</h2>
+              <ul>
+                <li class="fragment"><b>Quantity first</b> &mdash; aim for 3 real concepts</li>
+                <li class="fragment"><b>No judging yet</b> &mdash; every idea counts while sketching</li>
+                <li class="fragment">
+                  <b>Genuinely different</b> &mdash; not the same idea in a
+                  different color
+                </li>
+              </ul>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Generate, Then Decide</h2>
+              <Image
+                src={ConceptConvergenceDiagram}
+                alt="Diagram showing three boxes labeled Concept A, B, and C with arrows converging into a box labeled Decision Matrix, which then leads into a final box labeled Chosen Concept"
+                width={720}
+              />
+            </section>
+
+            <section>
+              <h2>Sketch 3 Concepts</h2>
+              <p>
+                Use your Session 2 problem statement &mdash; and the sketch
+                of the problem from your notebook entry &mdash; as your
+                starting point.
+              </p>
+              <p class="fragment">
+                Three genuinely different ways you could solve it. Rough is
+                fine. Fast is fine.
+              </p>
+            </section>
+
+            <section>
+              <h2>Now Choose: The Decision Matrix</h2>
+              <p>
+                Not a vote. Not a gut feeling. Score each concept against the
+                same criteria, side by side.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Scoring Categories (1&ndash;3 each)</h2>
+              <ul>
+                <li class="fragment"><b>Cost</b></li>
+                <li class="fragment"><b>Feasibility</b></li>
+                <li class="fragment"><b>Time</b></li>
+                <li class="fragment">
+                  <b>Alignment with Success Criteria</b> &mdash; from your
+                  Session 2 problem statement
+                </li>
+              </ul>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Quantity isn't wasted effort.</b></p>
+              <p class="fragment">
+                The goal of sketching three concepts is options, not a
+                finished design on the first try.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">The matrix doesn't decide for you.</b></p>
+              <p class="fragment">
+                It makes your reasoning visible, so you can defend the
+                concept you pick &mdash; even if it isn't the flashiest one.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 4: Makerspace Safety I</p>
+              <p class="fragment">
+                You've picked a direction. Before anyone touches a tool, we
+                cover how to stay safe doing it.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Sketch 3 Concepts</h3>
+          <p>
+            Starting from your Session 2 problem statement, sketch <b
+              >three genuinely different</b
+            > ways you could solve it. Follow these ground rules:
+          </p>
+          <ul>
+            <li><b class="text-sn-theme">Quantity first</b> &mdash; get to 3 real concepts</li>
+            <li><b class="text-sn-theme">No judging yet</b> &mdash; don't rule anything out while sketching</li>
+            <li>
+              <b class="text-sn-theme">Genuinely different</b> &mdash; different
+              mechanisms or approaches, not the same idea with a color swap
+            </li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Build Your Decision Matrix</h3>
+          <p>
+            Score each of your 3 concepts, 1 (weakest) to 3 (strongest), on
+            each category. Here's a worked example for a different problem
+            &mdash; a backpack strap that digs into your shoulder:
+          </p>
+
+          <div class="text-start">
+            <table class="table table-dark table-sm">
+              <thead>
+                <tr>
+                  <th>Concept</th>
+                  <th>Cost</th>
+                  <th>Feasibility</th>
+                  <th>Time</th>
+                  <th>Alignment</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A: Add extra padding</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>2</td>
+                  <td><b class="text-sn-theme">11</b></td>
+                </tr>
+                <tr>
+                  <td>B: Widen the strap</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>C: Swiveling attachment point</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Notice: Concept C tied for the best <i>alignment</i> score, but
+            came in with the lowest total &mdash; it's one of the most direct
+            fixes, but also the most expensive and hardest to build in the
+            time you have. The matrix surfaces that trade-off instead of
+            hiding it.
+          </p>
+
+          <p>
+            Now build your own matrix for your own 3 concepts, scored against
+            your own Session 2 success criteria.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, check your work against these two questions.</p>
+
+          <div class="text-start">
+            <dl>
+              <dt>Are your 3 concepts genuinely different?</dt>
+              <dd>
+                If you covered up the labels, could someone still tell them
+                apart as different approaches &mdash; not just different
+                colors or sizes of the same idea?
+              </dd>
+              <dt>Did you score honestly?</dt>
+              <dd>
+                Scoring your favorite concept a 3 across every category,
+                every time, is a sign you picked first and scored second
+                &mdash; not the other way around.
+              </dd>
+            </dl>
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these on your own. Reflections are individual, even when the rest of the session was team work.</p>
+
+          <ol>
+            <li>Which concept scored highest? Does that match which one you'd have picked by gut feeling alone? If not, what's the difference?</li>
+            <li>Does your chosen concept require any tool or material you haven't used before? Session 4 starts shop safety — it's worth knowing now what you'll need to learn.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your 3 concept sketches, your decision matrix, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

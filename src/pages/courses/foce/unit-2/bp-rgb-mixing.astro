@@ -1,0 +1,95 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: RGB Color Mixing</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <h4 class="text-sn-theme">Optional &mdash; Extra Credit</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            One LED, three colors inside it, and every shade in between. Mix them
+            with three knobs, or cycle them in code.
+          </p>
+
+          <p>
+            This is the shortest project on the list and the one that explains
+            something the rest of the unit never gets to: how a screen makes
+            colors. Three channels, and brightness is just PWM.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="needs">
+          <h2>What You&#39;ll Need</h2>
+
+          <ul>
+            <li>The tricolor RGB LED, with a resistor on <i>each</i> of its three color legs</li>
+            <li>Three free GPIO pins &mdash; any three you are not using</li>
+            <li>Optional: the potentiometer, if you want to mix by hand</li>
+          </ul>
+
+          <p>
+            An RGB LED is really three LEDs sharing one package and one common
+            leg. Find out whether yours is <b>common cathode</b> (the shared leg
+            goes to <code>GND</code>) or <b>common anode</b> (it goes to{" "}
+            <code>3V3</code>) before you wire it &mdash; on a common anode part,
+            a higher duty makes it <i>dimmer</i>.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <ol>
+            <li><b>Light one color at a time.</b> Red on its own, then green, then blue. Confirm which leg is which.</li>
+            <li><b>Dim one channel</b> with <code>PWM</code> duty, the same way you set motor power in Activity 2.12.</li>
+            <li><b>Write <code>set_color(r, g, b)</code></b> taking three brightness values, so the rest of your program thinks in colors rather than pins.</li>
+            <li><b>Make the secondary colors.</b> Red plus green is yellow, green plus blue is cyan, all three is white. Check them against a screen if you like.</li>
+            <li><b>Fade between two colors</b> smoothly, rather than jumping.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li>Use the knob to sweep through the rainbow</li>
+            <li>Show temperature as a color instead of a bar &mdash; blue when cool, red when warm</li>
+            <li>Fade the onboard RGB LED on GPIO 3 the same way and compare</li>
+            <li>Use it as the rover&#39;s team color in the Sumo tournament</li>
+          </ul>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Project
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

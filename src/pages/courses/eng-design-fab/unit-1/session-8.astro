@@ -1,0 +1,219 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 8: Unit Conversion II</h1>
+        <p class="text-sn-theme">Applied Dimensional Analysis</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 8</h2>
+              <h3 class="text-sn-theme">Unit Conversion II</h3>
+            </section>
+
+            <section>
+              <h2>Last Session</h2>
+              <p>One conversion factor. One step.</p>
+              <p class="fragment">Real specs are rarely that clean.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Problem With One Step</h2>
+              <p>
+                Not every conversion has a direct factor you'd memorize.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Problem With One Step</h2>
+              <p>
+                Sometimes you have to pass through a <b class="text-sn-theme"
+                  >middle unit</b
+                > to get where you're going.
+              </p>
+            </section>
+
+            <section>
+              <h2>Chaining Factors</h2>
+              <p>
+                Like a relay race &mdash; each conversion factor hands off to
+                the next, until you reach the finish-line unit.
+              </p>
+            </section>
+
+            <section>
+              <h2>Worked Example: 8 Feet to Millimeters</h2>
+              <p>No direct feet-to-mm factor memorized. Chain through inches.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Worked Example: 8 Feet to Millimeters</h2>
+              <p>
+                <code>8 ft &times; (12 in / 1 ft) &times; (25.4 mm / 1 in)</code>
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Worked Example: 8 Feet to Millimeters</h2>
+              <p>
+                <code>8 <s>ft</s> &times; (12 <s>in</s> / 1 <s>ft</s>) &times; (25.4 mm / 1 <s>in</s>) = 2438.4 mm</code>
+              </p>
+              <p class="fragment">"ft" cancels first, then "in" cancels. Only "mm" is left.</p>
+            </section>
+
+            <section>
+              <h2>Mixed Units</h2>
+              <p>
+                A spec like "5 ft 6 in" isn't one number &mdash; it's two
+                units added together.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Worked Example: 5 ft 6 in to Millimeters</h2>
+              <p>Step 1: convert the feet part to inches.</p>
+              <p><code>5 ft &times; (12 in / 1 ft) = 60 in</code></p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Worked Example: 5 ft 6 in to Millimeters</h2>
+              <p>Step 2: add the leftover 6 inches, then convert the total.</p>
+              <p><code>60 in + 6 in = 66 in</code></p>
+              <p class="fragment"><code>66 in &times; (25.4 mm / 1 in) = 1676.4 mm</code></p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Chain as many factors as you need.</b></p>
+              <p class="fragment">
+                There's no limit &mdash; two, three, however many it takes to
+                land on the unit you actually want.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Combine mixed units before your final conversion.</b></p>
+              <p class="fragment">
+                Don't convert the feet and inches separately and add a
+                feet-number to an inches-number &mdash; that's not a real
+                unit.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 9: Tolerance Concepts</p>
+              <p class="fragment">
+                Measurement and conversion are solid. Now: how much variation
+                is actually okay?
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Today's assessment is a summative quiz on this same skill,
+            administered separately by your instructor. Use these practice
+            problems to get ready for it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Practice Problems</h3>
+          <p>For each one, show every conversion factor in the chain, show units canceling at each step, and state your final answer with units.</p>
+
+          <ol>
+            <li>A shelf needs to span 6 ft 3 in. Convert that to millimeters.</li>
+            <li>
+              A rod is 450 mm long. Convert that to feet and inches (a whole
+              number of feet, plus the remaining inches).
+            </li>
+            <li>
+              A workbench needs to be exactly 2 ft 10 in tall to meet the
+              shop's accessibility guideline. Convert that height to
+              millimeters.
+            </li>
+            <li>
+              <b class="text-sn-theme">Your own data.</b> Pull one of your
+              three caliper measurements from Session 6. If you recorded it
+              in millimeters, convert it to decimal inches; if you recorded
+              it in inches, convert it to millimeters. Then say whether your
+              answer passes the sanity check below.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you move on, check each problem for all three:</p>
+
+          <ul>
+            <li>Every conversion factor in the chain is written out, with units</li>
+            <li>Units visibly cancel at each step, not just at the end</li>
+            <li>
+              Your final answer passes a rough sanity check &mdash; converting
+              feet to millimeters should give you a much <i>bigger</i> number,
+              not a smaller one
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these on your own. Reflections are individual, even when the rest of the session was team work.</p>
+
+          <ol>
+            <li>How could you sanity-check a multi-step answer without redoing the whole calculation?</li>
+            <li>Session 9 asks how much measurement variation is actually okay for a part to still work. Based on Session 6's caliper data, do you think that answer is the same for every part, or does it depend on what the part is for?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your practice problems and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

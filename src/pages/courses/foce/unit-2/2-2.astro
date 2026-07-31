@@ -1,0 +1,254 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+
+import SchematicSymbolsReference from "../../../../assets/courses/foce/img/schematic-symbols-reference.svg";
+import BreadboardAnatomyDiagram from "../../../../assets/courses/foce/img/breadboard-anatomy-diagram.svg";
+import LedResistor3v3CircuitDiagram from "../../../../assets/courses/foce/img/led-resistor-3v3-circuit-diagram.svg";
+import LedReversedComparisonDiagram from "../../../../assets/courses/foce/img/led-reversed-comparison-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.2: Reading Circuits</h1>
+        <p class="text-sn-theme">Electronics Primer &mdash; Day 2 of 3</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.2</h2>
+              <h3 class="text-sn-theme">Reading Circuits</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Schematic Symbols</p>
+              <p>Breadboards</p>
+              <p>Resistors &amp; LEDs</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Why Read a Diagram?</h2>
+              <p>
+                A <b class="text-sn-theme">schematic</b> describes a
+                circuit using symbols instead of a photo &mdash; the same
+                way sheet music describes a song instead of a recording.
+                Anyone who knows the symbols can build the exact same
+                circuit from one.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Common Schematic Symbols</h2>
+              <Image src={SchematicSymbolsReference} alt="Reference sheet of schematic symbols: power source, resistor, LED, switch, and ground" width={640} />
+              <p>
+                Five symbols you'll see constantly: a{" "}
+                <b>power source</b>, a <b>resistor</b>, an{" "}
+                <b>LED</b>, a <b>switch</b>, and <b>ground</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Breadboard: Rows and Rails</h2>
+              <Image src={BreadboardAnatomyDiagram} alt="Diagram of a breadboard showing that short rows connect internally, the center gap does not connect across, and the outer power rails run the full length of the board" width={640} />
+              <p>
+                Under the plastic, short rows of holes are electrically
+                connected to each other &mdash; but not to the row next to
+                them. The long outer rails run the full length of the
+                board, for power and ground.
+              </p>
+              <p class="fragment">
+                Plugging two things into the same short row connects them.
+                Plugging them into different rows doesn't &mdash; even if
+                they look close together.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Resistors: What They Actually Do</h2>
+              <p>
+                A resistor limits how much current flows through part of a
+                circuit &mdash; mainly, protecting other components (like
+                an LED) from more current than they can safely handle.
+              </p>
+              <p class="fragment">
+                Resistors are often marked with color bands instead of
+                printed numbers. You won't need to memorize the color code
+                for this course &mdash; we'll always tell you the value you
+                need &mdash; but it's worth knowing that's why a resistor
+                has stripes on it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>LEDs: Polarity Matters</h2>
+              <p>
+                An LED only lets current flow <b>one direction</b>. The
+                longer leg is the <b class="text-sn-theme">anode</b>
+                (positive side); the shorter leg is the{" "}
+                <b class="text-sn-theme">cathode</b> (negative side). Wire
+                it backwards, and it simply won't light &mdash; it won't
+                damage anything.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Today's Circuit</h2>
+              <Image src={LedResistor3v3CircuitDiagram} alt="Circuit diagram showing a resistor and LED in series between the RedBoard's 3.3V pin and GND" width={560} />
+              <p>
+                A single LED and resistor, wired directly across the
+                RedBoard's <b>3.3V</b> and <b>GND</b> pins &mdash; no code
+                today. If it's wired correctly, it lights up the instant
+                you connect it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Reading a schematic's power source, resistor, LED, switch, and ground symbols</li>
+                <li>Explaining how a breadboard's rows and rails connect internally</li>
+                <li>Building a working LED circuit directly from a schematic</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Schematic</dt>
+                  <dd>A diagram describing a circuit using standardized symbols.</dd>
+                  <dt>Breadboard</dt>
+                  <dd>A reusable prototyping board whose short rows (and long outer rails) connect groups of holes electrically.</dd>
+                  <dt>Resistor</dt>
+                  <dd>A component that limits current flow, often to protect other components.</dd>
+                  <dt>Anode / Cathode</dt>
+                  <dd>The positive (anode, longer leg) and negative (cathode, shorter leg) sides of an LED.</dd>
+                  <dt>Ground (GND)</dt>
+                  <dd>The circuit's reference point, where current returns to complete the loop.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Today's build uses no code &mdash; just the schematic, your
+            breadboard, and the RedBoard's fixed 3.3V and GND pins.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Read the Schematic</h3>
+          <ul>
+            <li>Identify each symbol in today's circuit diagram: power source, resistor, LED, and ground.</li>
+            <li>Label which leg of the LED is the anode and which is the cathode.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Build the Circuit</h3>
+          <ul>
+            <li>Wire the LED and resistor in series on your breadboard, matching the schematic.</li>
+            <li>Connect the circuit to the RedBoard's 3.3V and GND pins. If everything's correct, the LED lights up immediately &mdash; no code required.</li>
+          </ul>
+
+          <p>
+            <b>Finding those two pins:</b> the board abbreviates its labels, so
+            the 3.3V pin is printed <code>3V3</code> &mdash; not "3.3V". Both it
+            and <code>GND</code> are on the bottom header.
+          </p>
+
+          <Image src={LedResistor3v3CircuitDiagram} alt="Circuit diagram showing a resistor and LED in series between the RedBoard's 3.3V pin and GND" width={560} class="my-3" />
+
+          <!-- PHOTO: the built circuit, LED lit, wired to 3.3V/GND -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 2: Built Circuit, LED Lit]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Reverse the LED</h3>
+          <ul>
+            <li>Flip the LED around in the breadboard and observe what happens.</li>
+            <li>Flip it back to the correct orientation before moving on.</li>
+          </ul>
+
+          <Image src={LedReversedComparisonDiagram} alt="Comparison diagram showing a correctly-oriented LED lighting up next to a reversed LED that stays dark" width={560} class="my-3" />
+
+          <!-- PHOTO: the circuit with the LED reversed, dark -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 3: LED Reversed, Dark]
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your LED should be glowing steadily. If it's not:</p>
+
+          <ul>
+            <li>Check the LED's orientation &mdash; flip it around</li>
+            <li>Check the resistor is actually in the circuit, in series with the LED</li>
+            <li>Check both ends of every wire are fully seated in the breadboard</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What does each symbol in today's schematic represent: the power source, the resistor, the LED, and ground?</li>
+            <li>Why did the LED need a specific orientation, and what happened when you reversed it?</li>
+            <li>What do you predict would happen to the LED if the resistor were removed entirely? Don't actually try it &mdash; just explain your reasoning.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,461 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+import Hcsr04CircuitDiagram from "../../../../assets/courses/foce/img/hcsr04-circuit-diagram.svg";
+
+//#region CodeSnippets
+const Figure1 = `2.7:  ticks_ms()      milliseconds, for human reflexes
+2.13: time_pulse_us() microseconds, for the speed of sound`;
+const Figure2 = `sound travels 0.0343 cm every microsecond
+the echo goes out AND back, so divide by 2
+
+    cm = microseconds / 58`;
+const Figure3 = `duration = time_pulse_us(echo, 1, TIMEOUT_US)
+if duration < 0:
+    return -1          # nothing came back`;
+const Task1 = `from machine import Pin, time_pulse_us
+import time
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+
+while True:
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, 30000)
+    print("echo lasted", duration, "microseconds")
+    time.sleep(0.5)
+`;
+const Task2 = `from machine import Pin, time_pulse_us
+import time
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+
+while True:
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, 30000)
+    print(duration // 58, "cm")
+    time.sleep(0.5)
+`;
+const Task3 = `from machine import Pin, time_pulse_us
+import time
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+
+TIMEOUT_US = 30000
+
+
+def read_distance():
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, TIMEOUT_US)
+    if duration < 0:
+        return -1
+    return duration // 58
+
+
+while True:
+    cm = read_distance()
+    if cm < 0:
+        print("nothing in range")
+    else:
+        print(cm, "cm")
+    time.sleep(0.5)
+`;
+const Task4 = `from machine import Pin, time_pulse_us
+import time
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+
+TIMEOUT_US = 30000
+
+
+def read_distance():
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, TIMEOUT_US)
+    if duration < 0:
+        return -1
+    return duration // 58
+
+
+def read_average_distance(samples):
+    total = 0
+    good = 0
+    for i in range(samples):
+        cm = read_distance()
+        if cm > 0:
+            total = total + cm
+            good = good + 1
+        time.sleep(0.02)
+    if good == 0:
+        return -1
+    return total // good
+
+
+while True:
+    cm = read_average_distance(5)
+    if cm < 0:
+        print("nothing in range")
+    else:
+        print(cm, "cm")
+    time.sleep(0.3)
+`;
+const Task5 = `from machine import Pin, time_pulse_us
+import qwiic_large_oled
+import time
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+
+TIMEOUT_US = 30000
+
+oled = qwiic_large_oled.QwiicLargeOled()
+oled.begin()
+
+
+def read_distance():
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, TIMEOUT_US)
+    if duration < 0:
+        return -1
+    return duration // 58
+
+
+def read_average_distance(samples):
+    total = 0
+    good = 0
+    for i in range(samples):
+        cm = read_distance()
+        if cm > 0:
+            total = total + cm
+            good = good + 1
+        time.sleep(0.02)
+    if good == 0:
+        return -1
+    return total // good
+
+
+def show(oled, line1, line2):
+    oled.clear(oled.PAGE)
+    oled.print(line1)
+    oled.print(line2)
+    oled.display()
+
+
+while True:
+    cm = read_average_distance(5)
+    if cm < 0:
+        show(oled, "Distance", "out of range")
+    else:
+        show(oled, "Distance", str(cm) + " cm")
+    time.sleep(0.3)
+`;
+const Output1 = `24 cm
+23 cm
+nothing in range
+41 cm`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.13: Ultrasonic Distance</h1>
+        <p class="text-sn-theme">Motion &amp; Autonomy &mdash; Day 3 of 4</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.13</h2>
+              <h3 class="text-sn-theme">Ultrasonic Distance</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Timing a Pulse</p>
+              <p>Unit Conversion</p>
+              <p>Out-of-Range Values</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Your Robot Moves. It Cannot See.</h2>
+              <p>
+                Last session it drove wherever you told it to, straight into
+                whatever was there. Today it gets a way to find out.
+              </p>
+              <p class="fragment">
+                Not with a camera. By <b class="text-sn-theme">shouting and
+                timing the echo</b>, exactly like a bat.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Send a Pulse, Time What Comes Back</h2>
+              <p>
+                One pin gives the sensor a brief nudge &mdash; ten microseconds
+                is enough. The sensor emits a chirp too high to hear, then
+                holds a second pin HIGH for exactly as long as the echo takes
+                to return.
+              </p>
+              <p class="fragment">
+                So the distance is not measured. It is{" "}
+                <b class="text-sn-theme">timed</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>You Have Timed Something Before</h2>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                A reaction time was a couple of hundred milliseconds. An echo
+                from across the room takes about three thousand{" "}
+                <i>micro</i>seconds &mdash; a thousand times finer, so it needs
+                a finer clock.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Microseconds Into Centimeters</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                The same shape as Activity 2.9: a raw number that means nothing
+                until you convert it. There the datasheet gave you the rule.
+                Here <b class="text-sn-theme">physics does</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Sometimes Nothing Comes Back</h2>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                Too far away, or angled so the echo bounces off sideways. The
+                sensor simply never answers, and the timer gives up.
+              </p>
+              <p class="fragment">
+                A negative <b class="text-sn-theme">sentinel</b> again &mdash;
+                the same trick as the false start in Activity 2.7, because a
+                real distance is never negative.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today&#39;s Objectives</h2>
+              <ul>
+                <li>Wiring the HC-SR04 and sending a trigger pulse</li>
+                <li>Timing the echo with <code>time_pulse_us()</code></li>
+                <li>Converting a pulse duration into centimeters</li>
+                <li>Handling readings where nothing comes back</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Ultrasonic</dt>
+                  <dd>Sound above the range of human hearing &mdash; what the sensor emits.</dd>
+                  <dt>Trigger and Echo</dt>
+                  <dd>Two pins: one tells the sensor to chirp, the other reports how long the echo took.</dd>
+                  <dt>Microsecond</dt>
+                  <dd>A millionth of a second. A thousand of them make one millisecond.</dd>
+                  <dt>Timeout</dt>
+                  <dd>Giving up on a measurement that never arrives, rather than waiting forever.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Keep the motor driver wired &mdash; session 16 needs both. Create a
+            new MicroPython script named{" "}
+            <b class="text-sn-theme">2-13-distance.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Time the Echo</h3>
+          <ul>
+            <li>Wire the sensor: <code>VCC</code> to <code>3V3</code>, <code>GND</code> to <code>GND</code>, <code>Trig</code> to GPIO 22, <code>Echo</code> to GPIO 20.</li>
+            <li>Send a 10-microsecond pulse on <code>Trig</code>, then time how long <code>Echo</code> stays HIGH.</li>
+            <li>Print the raw number of microseconds and move your hand towards and away from the sensor.</li>
+          </ul>
+
+          <p>
+            Power it from <code>3V3</code> rather than <code>5V</code>. These
+            GPIO pins expect 3.3V signals, and the <code>Echo</code> pin
+            answers at whatever voltage the sensor runs on.
+          </p>
+
+          <Image src={Hcsr04CircuitDiagram} alt="Hookup diagram for the HC-SR04 ultrasonic sensor showing VCC to 3V3, Trig to GPIO 22, Echo to GPIO 20, and GND to ground" width={560} class="my-3" />
+
+          <!-- PHOTO: ultrasonic sensor mounted facing forward -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 1: Ultrasonic Sensor Mounted Facing Forward]
+          </div>
+
+          <Code code={Task1} frame="code" lang="python" title="2-13-distance.py" mark={{ range: "8-12,13" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Into Centimeters</h3>
+          <ul>
+            <li>Divide the duration by 58 and print centimeters instead.</li>
+            <li>Check it against a ruler. Hold something at 20cm and see what you get.</li>
+          </ul>
+
+          <p>
+            Work out where 58 comes from before you accept it. Sound covers
+            0.0343cm per microsecond, and the echo travels the distance twice.
+          </p>
+
+          <Code code={Task2} frame="code" lang="python" title="2-13-distance.py" mark={{ range: "14" }} ins={{ range: "14" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: When Nothing Comes Back</h3>
+          <ul>
+            <li>Point the sensor at the ceiling. The reading will be nonsense or the program will stall.</li>
+            <li>Move the whole measurement into <code>read_distance()</code>, and return <code>-1</code> when the timer gives up.</li>
+            <li>Print a readable message instead of a meaningless number.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="2-13-distance.py" mark={{ range: "10,16-19" }} ins={{ range: "7,10,16-19,22-27" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Steady the Reading</h3>
+          <ul>
+            <li>Write <code>read_average_distance(samples)</code> that takes several readings and averages the good ones.</li>
+            <li>Skip the failures rather than letting a <code>-1</code> drag the average down.</li>
+            <li>Return <code>-1</code> only if <i>every</i> reading failed.</li>
+          </ul>
+
+          <p>
+            Same idea as the temperature sensor in 2.9, with one new wrinkle:
+            here some readings are not merely noisy but entirely absent, so you
+            have to count how many were usable.
+          </p>
+
+          <Code code={Task4} frame="code" lang="python" title="2-13-distance.py" mark={{ range: "22-33" }} ins={{ range: "22-33,37,42" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 5: Put It on the Screen</h3>
+          <ul>
+            <li>Bring the OLED and <code>show()</code> back from Activity 2.11.</li>
+            <li>Display the distance on the glass so you can read it while walking around with the robot.</li>
+          </ul>
+
+          <Code code={Task5} frame="code" lang="python" title="2-13-distance.py" mark={{ range: "50-53" }} ins={{ range: "2,10-11,40-44,50,52" }} />
+
+          <!-- PHOTO: OLED showing a live distance reading -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 5: OLED Showing a Live Distance Reading]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Find the Blind Spots</h3>
+          <ul>
+            <li>Work out the closest and furthest distances your sensor reports reliably.</li>
+            <li>Try a soft object like a jumper, and a hard flat one like a book. Try holding the book at an angle.</li>
+            <li>Write down what fools it. The Final Project will thank you.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Moving your hand towards and away from the sensor should print something like:</p>
+
+          <Code code={Output1} frame="terminal" lang="txt" showLineNumbers={false} />
+
+          <ul>
+            <li>A book held at 20cm reads within a couple of centimeters of 20</li>
+            <li>Moving your hand closer makes the number fall smoothly</li>
+            <li>Pointing at the ceiling reports out of range rather than a wild number</li>
+            <li>The program never stalls, whatever you point it at</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Explain where the number 58 comes from, using the speed of sound and the path the echo takes.</li>
+            <li>Activity 2.7 timed a reaction in milliseconds; this activity times an echo in microseconds. Explain why the finer unit is necessary here and was not there.</li>
+            <li><code>read_average_distance()</code> counts how many readings were usable instead of just dividing by <code>samples</code>. Explain what would go wrong with the simpler version.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

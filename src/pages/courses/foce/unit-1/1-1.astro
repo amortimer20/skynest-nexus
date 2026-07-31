@@ -1,0 +1,429 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+import IoModelDiagram from "../../../../assets/courses/foce/img/io-model-diagram.svg";
+import BinaryByteDiagram from "../../../../assets/courses/foce/img/binary-byte-diagram.svg";
+
+//#region CodeSnippets
+const HelloWorld = `print("Hello, world!")`;
+const ExampleOutput = `Hello, world!`;
+const PseudocodeExample = `INPUT the person's name
+SET greeting to "Hello, " joined with the name
+DISPLAY greeting`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.1: Computer Architecture</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.1</h2>
+              <h3 class="text-sn-theme">Computer Architecture</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>How a Computer Works</p>
+              <p>Input, Processing, Output, and Memory</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Four Basic Functions</h2>
+              <p>
+                Every computer, from a laptop to a microwave, performs the
+                same four basic functions.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Four Basic Functions</h2>
+              <Image src={IoModelDiagram} alt="Diagram showing Input flowing into Processing (CPU), Processing flowing into Output, and Memory connected to Processing" width={640} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Input</h2>
+              <p>Information a computer receives from the outside world.</p>
+              <ul>
+                <li class="fragment">Keyboard and mouse</li>
+                <li class="fragment">Microphone and camera</li>
+                <li class="fragment">Sensors (temperature, motion, light)</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Output</h2>
+              <p>Information a computer sends back out to the world.</p>
+              <ul>
+                <li class="fragment">Monitor and speakers</li>
+                <li class="fragment">Printer</li>
+                <li class="fragment">LEDs and motors</li>
+              </ul>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Processing</h2>
+              <p>
+                The <b class="text-sn-theme">CPU</b> (Central Processing Unit)
+                is the "brain" of the computer. It carries out instructions
+                and makes decisions, one step at a time.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Memory</h2>
+              <p>
+                Computers need somewhere to hold data while they work, and
+                somewhere to keep it long-term.
+              </p>
+              <ul>
+                <li class="fragment">
+                  <b>RAM</b> &mdash; temporary, cleared when the power turns
+                  off
+                </li>
+                <li class="fragment">
+                  <b>Storage</b> (like a hard drive or SSD) &mdash; permanent,
+                  kept even after the power turns off
+                </li>
+              </ul>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Binary</h2>
+              <p>
+                Underneath everything a computer does, it only understands two
+                states: <b class="text-sn-theme">on</b> and <b class="text-sn-theme">off</b>.
+              </p>
+              <p class="fragment">
+                We represent those two states as <CodeSnippet
+                  code="1"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> and <CodeSnippet
+                  code="0"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />. Each one is called a <b>bit</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Binary</h2>
+              <Image src={BinaryByteDiagram} alt="Diagram showing eight bits, 01000001, grouped together as one byte representing the letter A" width={620} />
+              <p class="fragment">
+                Eight bits grouped together make one <b>byte</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Programming Languages</h2>
+              <p>
+                A <b>programming language</b> lets us write instructions in a
+                form that's easier for humans to read and write, which then
+                gets translated down into the binary a computer actually
+                runs.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Programming Languages</h2>
+              <p>There are many programming languages, each with its own rules:</p>
+              <ul>
+                <li class="fragment">Python</li>
+                <li class="fragment">JavaScript</li>
+                <li class="fragment">Java</li>
+                <li class="fragment">C++</li>
+              </ul>
+              <p class="fragment">
+                This course uses <b class="text-sn-theme">Python</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Code Editors</h2>
+              <p>
+                A <b>code editor</b> is a specialized text editor built for
+                writing and running code &mdash; it can highlight syntax,
+                catch errors, and run your programs, all in one place.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Code Editors</h2>
+              <p>
+                We'll be using <b class="text-sn-theme">Visual Studio Code</b>
+                (VS Code) all year.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Identifying input, processing, output, and memory</li>
+                <li>Understanding binary as a computer's "language"</li>
+                <li>Opening VS Code and running your first Python program</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Input</dt>
+                  <dd>Information a computer receives from the outside world.</dd>
+                  <dt>Output</dt>
+                  <dd>Information a computer sends back out to the world.</dd>
+                  <dt>Processing (CPU)</dt>
+                  <dd>The part of the computer that carries out instructions.</dd>
+                  <dt>Memory</dt>
+                  <dd>Where a computer holds data, either temporarily (RAM) or long-term (storage).</dd>
+                  <dt>Binary</dt>
+                  <dd>A system of representing information using only two states, on and off.</dd>
+                  <dt>Bit</dt>
+                  <dd>A single binary digit, either 0 or 1.</dd>
+                  <dt>Byte</dt>
+                  <dd>A group of eight bits.</dd>
+                  <dt>Programming Language</dt>
+                  <dd>A structured set of rules for writing instructions a computer can run.</dd>
+                  <dt>Code Editor</dt>
+                  <dd>A program built for writing, testing, and running code.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Set up your development environment and write your very first
+            Python program.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Open VS Code</h3>
+          <ul>
+            <li>Launch Visual Studio Code.</li>
+          </ul>
+
+          <!-- GIF: Opening VS Code -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Opening VS Code]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Create Your Project Folder</h3>
+          <ul>
+            <li>
+              Create a folder to hold all of your work for this class, and
+              open that folder in VS Code.
+            </li>
+          </ul>
+
+          <!-- GIF: Creating and opening the project folder in VS Code -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Creating and Opening Your Project Folder]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Create Your First Python Script</h3>
+          <ul>
+            <li>
+              Inside your project folder, create a new file named <b
+                class="text-sn-theme">1-1-hello.py</b
+              >.
+            </li>
+          </ul>
+
+          <!-- GIF: Creating a new Python file in VS Code -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Creating a New Python File]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Write and Run Hello World</h3>
+          <ul>
+            <li>Type the following line of code into your file.</li>
+            <li>Run your program and check the terminal for the output.</li>
+          </ul>
+
+          <Code
+            code={HelloWorld}
+            frame="code"
+            lang="python"
+            title="1-1-hello.py"
+            showLineNumbers={false}
+          />
+
+          <!-- GIF: Running the Python file and viewing terminal output -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [GIF PLACEHOLDER &mdash; Running Your Program]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 5: Plan a Program &mdash; No Code Yet</h3>
+
+          <p>
+            You just ran a one-line program. Real programs are longer, and the
+            hardest part is usually not the typing &mdash; it is working out{" "}
+            <i>what the steps are and what order they go in</i>.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Pseudocode</b> is how programmers plan
+            that out. You write the steps in plain language, in order, with no
+            programming syntax at all. No quotes, no parentheses, nothing to
+            get wrong. For this class, use these three words:
+          </p>
+
+          <ul>
+            <li><b class="text-sn-cyan">INPUT</b> &mdash; something comes in from the user</li>
+            <li><b class="text-sn-cyan">SET</b> &mdash; the computer works something out and remembers it</li>
+            <li><b class="text-sn-cyan">DISPLAY</b> &mdash; something goes out to the screen</li>
+          </ul>
+
+          <p>Here is a plan for a program that greets someone by name:</p>
+
+          <Code
+            code={PseudocodeExample}
+            frame="none"
+            lang="txt"
+            title="Pseudocode &mdash; greeting a person"
+            showLineNumbers={true}
+          />
+
+          <p>
+            Notice that those three words line up with three of the four basic
+            functions from today: <b>Input</b>, <b>Processing</b>, and{" "}
+            <b>Output</b>.
+          </p>
+
+          <h4 class="mt-4">Your Turn</h4>
+
+          <p>
+            Write the pseudocode for a program that takes{" "}
+            <b>three quiz scores</b> and displays their <b>average</b>. You
+            will actually build this program in Activity 1.8 &mdash; today you
+            are only planning it.
+          </p>
+
+          <ul>
+            <li>Use only <b>INPUT</b>, <b>SET</b>, and <b>DISPLAY</b>.</li>
+            <li>One step per line, in the order they must happen.</li>
+            <li>
+              Next to each line, label it <b>Input</b>, <b>Processing</b>, or{" "}
+              <b>Output</b>.
+            </li>
+            <li>
+              Then answer this in one sentence: <b
+                >could the computer work out the average before all three
+                scores have been entered?</b
+              > Why or why not?
+            </li>
+          </ul>
+
+          <p>
+            There is no Python to write and nothing to run for this task. If
+            you catch yourself typing a parenthesis, you have drifted into
+            code &mdash; go back to plain words.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Which of the four basic functions (input, processing, output,
+              memory) do you think is most similar to a human's brain?
+              Explain your reasoning.
+            </li>
+            <li>
+              Why do you think computers only use binary (0s and 1s) instead
+              of the decimal numbers people use every day?
+            </li>
+            <li>
+              What is the difference between a programming language and a
+              code editor?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

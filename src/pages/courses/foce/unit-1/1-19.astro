@@ -1,0 +1,247 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `scores = [84, 91, 76, 88, 95]
+
+print(scores[4])`;
+const Figure2 = `scores = [84, 91, 76, 88, 95]
+
+print(len(scores))`;
+const Figure3 = `5`;
+const Figure4 = `scores = [84, 91, 76, 88, 95]
+
+last_index = len(scores) - 1
+print(scores[last_index])`;
+const Figure5 = `95`;
+const Figure6 = `scores = [84, 91, 76, 88, 95]
+
+print(scores[len(scores)])`;
+const Figure7 = `IndexError: list index out of range`;
+const Task1 = `scores = [84, 91, 76, 88, 95]
+
+print(f"Number of scores: {len(scores)}")
+`;
+const Task2 = `scores = [84, 91, 76, 88, 95]
+
+print(f"Number of scores: {len(scores)}")
+
+last_index = len(scores) - 1
+print(f"Last score: {scores[last_index]}")
+`;
+const Task3 = `scores = [84, 91, 76, 88, 95]
+
+print(f"Number of scores: {len(scores)}")
+
+last_index = len(scores) - 1
+print(f"Last score: {scores[last_index]}")
+
+scores[0] = 100
+scores[last_index] = 100
+
+print(f"Updated scores: {scores}")
+`;
+const SampleOutput = `Number of scores: 5
+Last score: 95
+Updated scores: [100, 91, 76, 88, 100]`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.19: len() and Safe Access</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.19</h2>
+              <h3 class="text-sn-theme">len() and Safe Access</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>len()</p>
+              <p>Safe Last-Index Access</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Hardcoding Is Fragile</h2>
+              <p>
+                Activity 1.18 accessed the last food with{" "}
+                <code>foods[4]</code> &mdash; but that only works because
+                the list has exactly 5 elements. Add or remove one, and{" "}
+                <code>4</code> is wrong.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>len()</h2>
+              <p>
+                <code>len()</code> returns how many elements a list has
+                &mdash; right now, not whenever you last counted.
+              </p>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>len()</h2>
+              <Code code={Figure3} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Last Valid Index</h2>
+              <p>
+                A list of length 5 has valid indexes <code>0</code> through{" "}
+                <code>4</code> &mdash; so the last index is always{" "}
+                <code>len(list) - 1</code>, no matter how long the list is.
+              </p>
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Last Valid Index</h2>
+              <Code code={Figure5} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Off-by-One Mistake</h2>
+              <p>
+                Forget the <code>- 1</code>, and you're asking for one
+                index past the end of the list &mdash; Python won't guess
+                what you meant.
+              </p>
+              <Code code={Figure6} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Off-by-One Mistake</h2>
+              <Code code={Figure7} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                A crash, not a quiet wrong answer &mdash; which makes this
+                particular mistake easy to catch.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Finding a list's length with <code>len()</code></li>
+                <li>Computing the last valid index without hardcoding it</li>
+                <li>Recognizing the off-by-one mistake before it happens</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>len()</dt>
+                  <dd>Built-in function that returns how many elements a list has.</dd>
+                  <dt>Off-by-One Error</dt>
+                  <dd>A mistake where an index is one too high or one too low &mdash; often from forgetting <code>len(list) - 1</code>.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-19-len-and-safe-access.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Find the Length</h3>
+          <ul>
+            <li>Create a list of 5 quiz scores and print how many scores it has, using <code>len()</code>.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-19-len-and-safe-access.py" mark={{ range: "3" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Access the Last Element Safely</h3>
+          <ul>
+            <li>Compute the last valid index with <code>len(scores) - 1</code>, then print the last score.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-19-len-and-safe-access.py" mark={{ range: "5-6" }} ins={{ range: "5-6" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Update Without Hardcoding</h3>
+          <ul>
+            <li>Update the first and last scores using <code>0</code> and <code>last_index</code> &mdash; no hardcoded numbers.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-19-len-and-safe-access.py" mark={{ range: "8-9" }} ins={{ range: "8-11" }} />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Why is <code>len(scores) - 1</code> the last valid index instead of <code>len(scores)</code>?</li>
+            <li>What happens if you try to access <code>scores[len(scores)]</code>?</li>
+            <li>Why is using <code>len()</code> better than hardcoding an index number like <code>4</code>?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

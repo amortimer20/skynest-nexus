@@ -1,0 +1,106 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Mini Cyclone</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <h4 class="text-sn-theme">Optional &mdash; Extra Credit</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            A light races along the row. Hit the button when it is on the target
+            LED. Miss, and it speeds up to mock you.
+          </p>
+
+          <p>
+            The quickest bonus project here &mdash; it needs no new parts at all,
+            just the five-LED array and one button you already had wired for
+            Activity 2.8.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="needs">
+          <h2>What You&#39;ll Need</h2>
+
+          <ul>
+            <li>The five-LED array from Activity 2.6</li>
+            <li>One button, from <code>3V3</code> with <code>Pin.PULL_DOWN</code></li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <ol>
+            <li><b>Race the light.</b> Move a single lit LED along the row and wrap around to the start when it reaches the end.</li>
+            <li><b>Pick a target</b> at random and remember which position it is.</li>
+            <li><b>Stop on the press</b> and work out which LED was lit at that moment.</li>
+            <li><b>Compare the two positions.</b> Hit or miss?</li>
+            <li><b>Speed up on a hit, slow down on a miss</b>, so the game finds the player&#39;s limit on its own.</li>
+          </ol>
+
+          <p>
+            This is the project that needs positions rather than traversal. You
+            cannot compare &quot;where the light is&quot; against &quot;where the
+            target is&quot; without asking the list <i>which</i> LED, so{" "}
+            <code>leds[i]</code> and the index <code>i</code> both matter here.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <pre class="bg-sn-darker p-3 rounded"><code>Target: LED 3
+HIT!   speeding up
+Target: LED 1
+miss   slowing down
+Target: LED 4
+HIT!   speeding up</code></pre>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li>Flash the whole row on a hit</li>
+            <li>Beep differently for a hit and a miss</li>
+            <li>Play best-of-five and report a score</li>
+            <li>Mark the target by flashing it before the round starts</li>
+          </ul>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Project
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

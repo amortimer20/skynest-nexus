@@ -1,0 +1,114 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const SampleOutput = `
+Enter your head size in inches: 23 [Enter]
+Hat size: Large
+Roomy for big ideas.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge: Hat Size Checker</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Ask the user for their head circumference in inches and report the
+            matching hat size and message.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Prompting a user for input</li>
+            <li>Casting input to a decimal number</li>
+            <li>Writing boolean expressions with ranges</li>
+            <li>
+              Branching with <code>if</code> / <code>elif</code> / <code>else</code>
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="tasks">
+          <h2>Tasks</h2>
+
+          <ul>
+            <li>
+              Create a new <b>Python</b> program named <b class="text-sn-theme"
+                >cc-hat-size-checker.py</b
+              >.
+            </li>
+            <li>
+              Prompt for a head size in inches. Decimals are allowed, so cast
+              accordingly.
+            </li>
+            <li>Use the reference table below to pick a size.</li>
+            <li>Display the hat size and its message.</li>
+          </ul>
+
+          <table class="table table-sm table-dark w-auto mt-4">
+            <thead>
+              <tr><th>Circumference</th><th>Hat Size</th><th>Message</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>20&ndash;21</td><td>Small</td><td>Snug fit for speedy thinkers</td></tr>
+              <tr><td>21&ndash;22.5</td><td>Medium</td><td>Balanced and brilliant</td></tr>
+              <tr><td>22.5&ndash;24</td><td>Large</td><td>Roomy for big ideas</td></tr>
+              <tr><td>24 and up</td><td>Extra Large</td><td>Legendary noggin detected</td></tr>
+            </tbody>
+          </table>
+
+          <p class="mt-3">
+            Notice the bands share their edges &mdash; 22.5 appears on two rows.
+            An <code>elif</code> chain settles that for you, because only the first
+            matching branch runs. Work out which size 22.5 ends up as, and decide
+            whether that is the one you wanted.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

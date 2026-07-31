@@ -1,0 +1,267 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `from machine import Pin
+import time
+
+led = Pin(28, Pin.OUT)
+
+while True:
+    led.value(1)
+    time.sleep(0.5)
+    led.value(0)
+    time.sleep(0.5)
+`;
+const Bug2 = `from machine import Pin
+import time
+
+button = Pin(33, Pin.IN)
+
+while True:
+    print(button.value())
+    time.sleep(0.2)
+`;
+const Bug3 = `from machine import Pin
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+
+for led in leds:
+    led.value(1)
+    time.sleep(0.4)
+`;
+const Bug4 = `from machine import Pin, PWM
+import time
+
+a_in1 = Pin(31, Pin.OUT)
+a_in2 = Pin(32, Pin.OUT)
+a_pwm = PWM(Pin(33))
+a_pwm.freq(1000)
+
+a_in1.value(1)
+a_in2.value(0)
+a_pwm.duty_u16(40000)
+time.sleep(2)
+a_pwm.duty_u16(0)
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Circuits</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <h4 class="text-sn-theme">Optional &mdash; Extra Credit</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four programs. <b class="text-sn-theme">All four are correct.</b>{" "}
+            Every one of them has been run on a board that does the wrong thing
+            anyway.
+          </p>
+
+          <p>
+            Every debug challenge you have done so far had the bug in the code.
+            These have the bug in the <b>wiring</b> &mdash; which is a different
+            kind of hunt, because reading the program harder will never find it.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Deciding whether a fault is in the code or on the board</li>
+            <li>Reading a symptom for what it rules out</li>
+            <li>Checking polarity, power, and ground before suspecting logic</li>
+            <li>Knowing which mistakes produce silence and which produce nonsense</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="method">
+          <h2>How to Work These</h2>
+
+          <p>
+            For each one, answer two questions: <b>what is wrong on the
+            board</b>, and <b>how would you confirm it</b> without just
+            rewiring everything and hoping.
+          </p>
+
+          <p>
+            Read the symptom carefully first. A part that does nothing at all is
+            telling you something different from a part that does the wrong
+            thing, and both are different again from a part that works but
+            badly.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Boards</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            <b>Symptom:</b> the program runs. No error appears. The LED{" "}
+            <b class="text-sn-red">never lights at all</b>, not even faintly. A
+            different LED swapped into the same holes works fine.
+          </p>
+
+          <Code code={Bug1} frame="code" lang="python" title="bug-1.py" showLineNumbers={true} />
+
+          <!-- PHOTO: the miswired board for Bug 1 -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Bug 1: The Board As Wired]
+          </div>
+
+          <p class="mt-3">
+            The last sentence of the symptom is the clue. If a fresh LED works in
+            the same holes, the holes are fine and the pin is fine. So what is
+            different about the first one?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            <b>Symptom:</b> prints a mixture of{" "}
+            <b class="text-sn-red">0s and 1s at random</b> with nobody touching
+            the button. Pressing it does make 1s more likely, but releasing it
+            does not reliably give 0.
+          </p>
+
+          <Code code={Bug2} frame="code" lang="python" title="bug-2.py" showLineNumbers={true} />
+
+          <!-- PHOTO: the miswired board for Bug 2 -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Bug 2: The Board As Wired]
+          </div>
+
+          <p class="mt-3">
+            This one is half a code problem and half a wiring problem, which is
+            why it is here. Compare line 4 against how you created every button
+            in Activity 2.7, then ask what is holding that pin at a known value
+            when the button is open. Nothing is.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            <b>Symptom:</b> all five LEDs light in turn, as intended. But they
+            are <b class="text-sn-red">dim</b>, and each one gets{" "}
+            <b class="text-sn-red">dimmer as the next one joins</b>. By the fifth
+            they are barely visible.
+          </p>
+
+          <Code code={Bug3} frame="code" lang="python" title="bug-3.py" showLineNumbers={true} />
+
+          <!-- PHOTO: the miswired board for Bug 3 -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Bug 3: The Board As Wired]
+          </div>
+
+          <p class="mt-3">
+            Nothing is broken and nothing is backwards &mdash; the circuit works,
+            it just works badly. The behavior changing as <i>more</i> LEDs come
+            on is the whole clue. What could five LEDs be sharing that they
+            should each have had one of?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            <b>Symptom:</b> the program runs and finishes. No error. The motor
+            does <b class="text-sn-red">absolutely nothing</b> &mdash; no
+            movement, no sound, no twitch. The battery pack is fresh and the
+            motor works when touched directly to it.
+          </p>
+
+          <Code code={Bug4} frame="code" lang="python" title="bug-4.py" showLineNumbers={true} />
+
+          <!-- PHOTO: the miswired board for Bug 4 -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Bug 4: The Board As Wired]
+          </div>
+
+          <p class="mt-3">
+            The motor is fine and the battery is fine, so the fault is between
+            them. There are two classic culprits on this driver, and both produce
+            exactly this silence: one is a pin that has to be HIGH before the
+            chip will listen to anything, and the other is a connection two
+            separate parts of the circuit both need to share.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each of the four, write down:</p>
+
+          <ol>
+            <li>What is wrong on the board</li>
+            <li>How you would confirm it, in one step, before rewiring anything</li>
+            <li>Which of the four could have been found by reading the code &mdash; and which could not</li>
+          </ol>
+
+          <p>
+            That last question is the point of the whole exercise. Getting used to
+            asking <i>is this even a code problem?</i> will save you more time
+            than any single fix.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

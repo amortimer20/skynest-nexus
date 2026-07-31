@@ -1,0 +1,288 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 7: Unit Conversion I</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 7</h2>
+              <h3 class="text-sn-theme">Unit Conversion I</h3>
+            </section>
+
+            <section>
+              <h2>Your Caliper Has a Switch</h2>
+              <p>Inches on one side, millimeters on the other.</p>
+              <p class="fragment">
+                Real hardware doesn't always come in the unit you're thinking
+                in.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Why This Matters</h2>
+              <p>
+                Ordering the wrong size fastener. Misreading a spec sheet.
+                Real consequences &mdash; not an abstract math worksheet.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Why This Matters</h2>
+              <p>
+                Every conversion in this course uses <b class="text-sn-theme"
+                  >real shop specs</b
+                >, not km-to-miles style problems.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Conversion Factor</h2>
+              <p>
+                A fraction that equals <b class="text-sn-theme">1</b> &mdash;
+                like <code>25.4 mm / 1 in</code>.
+              </p>
+              <p class="fragment">
+                Multiplying by it changes the units, not the actual size.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Setting It Up</h2>
+              <p>
+                Orient the fraction so the unit you <i>don't</i> want cancels
+                out, leaving the unit you <i>do</i> want.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>First, One Prerequisite</h2>
+              <p>
+                Shop measurements show up as fractions &mdash; 3/8 in, 1/2 in,
+                3/4 in. Tape measures, drill bits, plywood, fasteners.
+              </p>
+              <p class="fragment">Conversion math needs decimals.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>First, One Prerequisite</h2>
+              <p>
+                A fraction <i>is</i> a division problem. Top divided by
+                bottom.
+              </p>
+              <p class="fragment"><code>3/8 in &rarr; 3 &divide; 8 = 0.375 in</code></p>
+              <p class="fragment">
+                Do this before you touch the conversion factor, not in your
+                head halfway through.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Careful: Two Different Fractions</h2>
+              <p>
+                Today has two kinds, and they behave differently.
+              </p>
+              <p class="fragment">
+                The <b class="text-sn-theme">measurement</b> fraction
+                (3/8 in) gets divided out into a decimal.
+              </p>
+              <p class="fragment">
+                The <b class="text-sn-theme">conversion factor</b> fraction
+                (25.4 mm / 1 in) <i>stays</i> a fraction &mdash; that's how
+                its units cancel.
+              </p>
+            </section>
+
+            <section>
+              <h2>Worked Example</h2>
+              <p>
+                Let's put a number on Session 1's ramp: say it used <b
+                  class="text-sn-theme">3/8 in</b
+                > plywood. What's that in millimeters?
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Worked Example</h2>
+              <p><code>3/8 in &rarr; 3 &divide; 8 = 0.375 in</code></p>
+              <p class="fragment">
+                <code>0.375 in &times; (25.4 mm / 1 in)</code>
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Worked Example</h2>
+              <p>
+                <code>0.375 <s>in</s> &times; (25.4 mm / 1 <s>in</s>) = 9.525 mm</code>
+              </p>
+              <p class="fragment">The "in" units cancel. Only "mm" is left.</p>
+            </section>
+
+            <section>
+              <h2>It's Not Just the Number</h2>
+              <p>
+                Show your conversion factor and your units at every step.
+              </p>
+              <p class="fragment">
+                A correct final answer with no shown work doesn't count as
+                done correctly &mdash; setup matters as much as the number.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Units cancel like fractions.</b></p>
+              <p class="fragment">
+                If you can't visually cross out the unit you started with,
+                your setup isn't finished yet.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Things to Remember</h2>
+              <p><b class="text-sn-theme">Wrong units left over means the factor is upside down.</b></p>
+              <p class="fragment">
+                Flip the fraction and try again &mdash; don't just force the
+                division.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Time</h2>
+              <p>Session 8: Unit Conversion II</p>
+              <p class="fragment">
+                Chaining multiple conversions together in one problem.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Worked Example, Full Setup</h3>
+          <p>3/8 in plywood, converted to millimeters:</p>
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr>
+                <th>Step</th>
+                <th>Work</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Start</td>
+                <td>3/8 in</td>
+              </tr>
+              <tr>
+                <td>Fraction &rarr; decimal</td>
+                <td>3 &divide; 8 = 0.375 in</td>
+              </tr>
+              <tr>
+                <td>Conversion factor</td>
+                <td>&times; (25.4 mm / 1 in)</td>
+              </tr>
+              <tr>
+                <td>Units cancel</td>
+                <td>in cancels, mm remains</td>
+              </tr>
+              <tr>
+                <td>Answer</td>
+                <td><b class="text-sn-theme">9.525 mm</b></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr class="my-4" />
+
+          <h3>Your Turn: Real Shop Conversions</h3>
+          <p>
+            For each problem: if the measurement starts as a fraction, show
+            the fraction-to-decimal step first. Then show your conversion
+            factor, show your units canceling, and state your final answer
+            with units.
+          </p>
+
+          <ol>
+            <li>A bolt spec calls for a 1/2 in diameter. What's that in millimeters?</li>
+            <li>A hex key is labeled 10 mm. What's that in inches (decimal)?</li>
+            <li>
+              A different sheet of plywood is 3/4 in thick &mdash; twice the
+              thickness of the ramp's. What's that in millimeters?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you submit, check each problem for all three:</p>
+
+          <ul>
+            <li>If your measurement started as a fraction, the fraction-to-decimal step is shown</li>
+            <li>Your conversion factor is written as a fraction &mdash; like <code>25.4 mm / 1 in</code> &mdash; with units</li>
+            <li>The unit you started with is visibly canceled, not just dropped</li>
+            <li>Your final answer includes the correct remaining unit</li>
+          </ul>
+
+          <p>
+            A right number with no shown setup, or a setup with the units
+            canceling backward, isn't complete &mdash; even if the final
+            number happens to look reasonable.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these on your own. Reflections are individual, even when the rest of the session was team work.</p>
+
+          <ol>
+            <li>Can you get lucky and land on the right final number with a wrong setup? What would that actually look like?</li>
+            <li>Session 8 chains multiple conversions together in one problem. Can you think of a shop situation where you'd need to convert through two different units to get your answer, not just one?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your conversion problem set and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

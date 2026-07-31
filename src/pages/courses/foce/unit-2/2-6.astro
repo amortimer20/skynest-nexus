@@ -1,0 +1,506 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+import FiveLedArrayCircuitDiagram from "../../../../assets/courses/foce/img/five-led-array-circuit-diagram.svg";
+import RedBoardPins28To32 from "../../../../assets/courses/foce/img/redboard-rp2350-pins-28-32.svg";
+
+//#region CodeSnippets
+const Figure1 = `led1 = Pin(28, Pin.OUT)
+led2 = Pin(29, Pin.OUT)
+led3 = Pin(30, Pin.OUT)
+led4 = Pin(31, Pin.OUT)
+led5 = Pin(32, Pin.OUT)`;
+const Figure2 = `leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+]`;
+const Figure3 = `for led in leds:
+    led.value(1)`;
+const Figure4 = `def blink_all(leds, wait, times):
+    for i in range(times):
+        all_on(leds)
+        time.sleep(wait)
+        all_off(leds)
+        time.sleep(wait)`;
+const Task1 = `from machine import Pin
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+
+for led in leds:
+    led.value(1)
+`;
+const Task2 = `from machine import Pin
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+
+for led in leds:
+    led.value(1)
+    time.sleep(0.1)
+    led.value(0)
+`;
+const Task3 = `from machine import Pin
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+def chase(leds, wait):
+    for led in leds:
+        led.value(1)
+        time.sleep(wait)
+        led.value(0)
+
+
+def fill(leds, wait):
+    for led in leds:
+        led.value(1)
+        time.sleep(wait)
+    all_off(leds)
+
+
+chase(leds, 0.1)
+fill(leds, 0.2)
+`;
+const Task4 = `from machine import Pin
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+def chase(leds, wait):
+    for led in leds:
+        led.value(1)
+        time.sleep(wait)
+        led.value(0)
+
+
+def fill(leds, wait):
+    for led in leds:
+        led.value(1)
+        time.sleep(wait)
+    all_off(leds)
+
+
+def blink_all(leds, wait, times):
+    for i in range(times):
+        all_on(leds)
+        time.sleep(wait)
+        all_off(leds)
+        time.sleep(wait)
+
+
+chase(leds, 0.1)
+fill(leds, 0.2)
+blink_all(leds, 0.2, 5)
+`;
+const Task5 = `from machine import Pin
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+def chase(leds, wait):
+    for led in leds:
+        led.value(1)
+        time.sleep(wait)
+        led.value(0)
+
+
+def fill(leds, wait):
+    for led in leds:
+        led.value(1)
+        time.sleep(wait)
+    all_off(leds)
+
+
+def blink_all(leds, wait, times):
+    for i in range(times):
+        all_on(leds)
+        time.sleep(wait)
+        all_off(leds)
+        time.sleep(wait)
+
+
+all_off(leds)
+
+running = True
+while running:
+    print()
+    print("1 - Chase")
+    print("2 - Fill")
+    print("3 - Blink All")
+    print("q - Quit")
+    choice = input("Pick an animation: ")
+
+    if choice == "1":
+        chase(leds, 0.1)
+    elif choice == "2":
+        fill(leds, 0.2)
+    elif choice == "3":
+        blink_all(leds, 0.2, 5)
+    elif choice == "q":
+        running = False
+    else:
+        print("Not an option.")
+
+all_off(leds)
+print("Goodbye.")
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.6: LED Array Animation</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.6</h2>
+              <h3 class="text-sn-theme">LED Array Animation</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Lists of Objects</p>
+              <p>Functions Calling Functions</p>
+              <p>Animation</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two More LEDs</h2>
+              <p>
+                Activity 2.4 used three LEDs. Today you add two more and make
+                the whole row <b class="text-sn-theme">animate</b> &mdash;
+                lights that move, fill, and flash on command.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Problem With Five Variables</h2>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                Five separate names. To do anything to all of them you write
+                five lines &mdash; and to make a light <i>move</i>, you write
+                a lot more than five.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>You Have Seen This Problem Before</h2>
+              <p>
+                Back in Activity 1.18, <code>score1</code>,{" "}
+                <code>score2</code>, and <code>score3</code> became a{" "}
+                <b class="text-sn-theme">list</b>. The same fix works here.
+              </p>
+              <Code code={Figure2} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                A list can hold <i>anything</i> &mdash; numbers, strings, and{" "}
+                <b class="text-sn-theme">objects</b>, like the{" "}
+                <code>Pin</code> objects you have been making since 2.3.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>One Loop, Every LED</h2>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                Exactly the traversal loop from Activity 1.20 &mdash; except
+                each <code>led</code> is a real pin on a real board, so this
+                loop lights up hardware.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What Is an Animation, Really?</h2>
+              <p>
+                An <b class="text-sn-theme">animation</b> is nothing more than
+                a pattern of on and off, separated by pauses. Change the
+                pattern and you change the effect:
+              </p>
+              <ul>
+                <li><b>Chase</b> &mdash; one light on at a time, moving down the row</li>
+                <li><b>Fill</b> &mdash; each light joins the ones before it</li>
+                <li><b>Blink All</b> &mdash; the whole row together</li>
+              </ul>
+              <p class="fragment">
+                You already built Fill in 2.4. It was the countdown.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Functions Calling Functions</h2>
+              <Code code={Figure4} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <code>blink_all()</code> does not touch a single pin itself
+                &mdash; it calls <code>all_on()</code> and{" "}
+                <code>all_off()</code>. Small functions stack into bigger
+                ones.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Note the Unused Loop Variable</h2>
+              <p>
+                <code>for i in range(times):</code> &mdash; and{" "}
+                <code>i</code> is never used, exactly like the liftoff blink
+                in Activity 2.4. The loop is counting repetitions, nothing
+                more.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Storing a group of <code>Pin</code> objects in a list</li>
+                <li>Traversing the array with a <code>for</code> loop to build an animation</li>
+                <li>Calling one function from inside another</li>
+                <li>Letting the user pick an animation from a menu</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>LED Array</dt>
+                  <dd>A row of LEDs treated as one group instead of as separate lights.</dd>
+                  <dt>List of Objects</dt>
+                  <dd>A list whose elements are objects rather than plain numbers or strings &mdash; here, one <code>Pin</code> per LED.</dd>
+                  <dt>Animation</dt>
+                  <dd>A pattern of on/off states separated by pauses, producing the illusion of movement.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new MicroPython script named <b class="text-sn-theme">2-6-led-array.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Wire the Array and Light It Up</h3>
+          <ul>
+            <li>Keep Activity 2.4's three LEDs and add two more, with their own resistors, on GPIO 31 and 32.</li>
+            <li>Store all five <code>Pin</code> objects in one list named <code>leds</code>.</li>
+            <li>Turn every LED on with a single <code>for</code> loop, to prove all five are wired correctly.</li>
+          </ul>
+
+          <p>
+            The two new pins sit immediately to the left of 30 in the same
+            block on the top header, so the five you need run{" "}
+            <code>32</code>, <code>31</code>, <code>30</code>,{" "}
+            <code>29</code>, <code>28</code> reading left to right:
+          </p>
+
+          <Image src={RedBoardPins28To32} alt="The SparkFun IoT RedBoard RP2350 with the five pins labeled 32, 31, 30, 29, and 28 outlined together on the top header" width={620} class="my-3" />
+
+          <Image src={FiveLedArrayCircuitDiagram} alt="Circuit diagram showing five LEDs, each with its own resistor, wired to GPIO 28 through 32 and sharing a common ground, labeled with their list positions leds[0] through leds[4]" width={640} class="my-3" />
+
+          <p>
+            <b>Plug them in physically left to right in list order.</b> The
+            order the LEDs sit in your breadboard is the order the animation
+            appears to move. If your chase looks like it is jumping around
+            instead of sweeping, the wiring order does not match the list
+            order &mdash; the code is probably fine.
+          </p>
+
+          <!-- PHOTO: five LEDs wired in a row, all lit -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 1: Five LEDs Wired in a Row, All Lit]
+          </div>
+
+          <Code code={Task1} frame="code" lang="python" title="2-6-led-array.py" mark={{ range: "4-10" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: The Chase</h3>
+          <ul>
+            <li>Change the loop so each LED turns on, pauses briefly, then turns off before the next one lights.</li>
+            <li>Adjust the pause until the movement reads as a single light traveling down the row.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="2-6-led-array.py" mark={{ range: "12-15" }} ins={{ range: "14-15" }} />
+
+          <!-- PHOTO: chase animation mid-sweep, one LED lit -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 2: Chase Mid-Sweep, One LED Lit]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Two Animations, Two Functions</h3>
+          <ul>
+            <li>Write <code>all_off(leds)</code>, which turns every LED off.</li>
+            <li>Move your chase into a function <code>chase(leds, wait)</code>.</li>
+            <li>Add a second animation <code>fill(leds, wait)</code>, where each LED stays lit as the next joins &mdash; then clears.</li>
+            <li>Run one after the other.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="2-6-led-array.py" mark={{ range: "32-33" }} ins={{ range: "13-15,18-22,25-29,32-33" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Blink All</h3>
+          <ul>
+            <li>Write <code>all_on(leds)</code> to match <code>all_off(leds)</code>.</li>
+            <li>Write <code>blink_all(leds, wait, times)</code> that flashes the whole row a given number of times &mdash; by calling <code>all_on()</code> and <code>all_off()</code>, not by touching pins directly.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="2-6-led-array.py" mark={{ range: "37-42" }} ins={{ range: "13-15,37-42,47" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 5: The Animation Menu</h3>
+          <ul>
+            <li>Replace the three fixed calls with a menu that prints the options and reads the user's choice.</li>
+            <li>Run the matching animation, then show the menu again &mdash; the same sentinel <code>while</code> pattern you used for the task-list app in Activity 1.20.</li>
+            <li>Quit cleanly on <code>q</code>, turning every LED off on the way out.</li>
+          </ul>
+
+          <Code code={Task5} frame="code" lang="python" title="2-6-led-array.py" mark={{ range: "47-65" }} ins={{ range: "45,47-54,56-65,67-68" }} />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Bounce</h3>
+          <ul>
+            <li>Add a fourth animation that sweeps down the row and then back again, without repeating the LED at each end twice.</li>
+            <li>You will need to walk the list <i>backwards</i>, which means reaching for a position number instead of <code>for led in leds:</code> &mdash; look at <code>leds[0]</code> and <code>leds[4]</code> on the circuit diagram above.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>When you run your script:</p>
+
+          <ul>
+            <li>The menu should appear, listing three animations and a quit option</li>
+            <li><b>Chase</b> should show one light sweeping cleanly from one end of the row to the other</li>
+            <li><b>Fill</b> should light each LED in turn, each staying on, then clear the whole row</li>
+            <li><b>Blink All</b> should flash all five together five times</li>
+            <li>An unrecognized choice should print a message and show the menu again, not crash</li>
+            <li><code>q</code> should turn every LED off and end the program</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What did putting the five <code>Pin</code> objects in a list let you do that five separate variables would not?</li>
+            <li><code>blink_all()</code> never calls <code>.value()</code> itself. Explain what it does instead, and why that is easier to read than turning five pins on and off inside it.</li>
+            <li>Your <code>chase()</code> and <code>fill()</code> functions contain almost the same loop. What single difference makes one look like a moving light and the other look like a bar filling up?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

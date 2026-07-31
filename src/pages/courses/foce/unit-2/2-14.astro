@@ -1,0 +1,609 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `while True:
+    cm = read_distance()      # SENSE
+    if cm < STOP_CM:          # DECIDE
+        stop()                # ACT
+    else:
+        drive(SPEED, SPEED)`;
+const Figure2 = `cm = -1        # nothing in range
+
+-1 < 20        # True. Which is not what you meant.`;
+const Figure3 = `if cm > 0 and cm < STOP_CM:`;
+const Task1 = `from machine import Pin, PWM, time_pulse_us
+import time
+
+a_in1 = Pin(31, Pin.OUT)
+a_in2 = Pin(32, Pin.OUT)
+a_pwm = PWM(Pin(33))
+a_pwm.freq(1000)
+
+b_in1 = Pin(21, Pin.OUT)
+b_in2 = Pin(35, Pin.OUT)
+b_pwm = PWM(Pin(34))
+b_pwm.freq(1000)
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+
+SPEED = 40000
+STOP_CM = 20
+TIMEOUT_US = 30000
+
+
+def motor(in1, in2, pwm, speed):
+    if speed > 0:
+        in1.value(1)
+        in2.value(0)
+        pwm.duty_u16(speed)
+    elif speed < 0:
+        in1.value(0)
+        in2.value(1)
+        pwm.duty_u16(-speed)
+    else:
+        in1.value(0)
+        in2.value(0)
+        pwm.duty_u16(0)
+
+
+def drive(left, right):
+    motor(b_in1, b_in2, b_pwm, left)
+    motor(a_in1, a_in2, a_pwm, right)
+
+
+def stop():
+    drive(0, 0)
+
+
+def read_distance():
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, TIMEOUT_US)
+    if duration < 0:
+        return -1
+    return duration // 58
+
+
+while True:
+    cm = read_distance()
+    if cm > 0 and cm < STOP_CM:
+        stop()
+    else:
+        drive(SPEED, SPEED)
+    time.sleep(0.05)
+`;
+const Task2 = `from machine import Pin, PWM, time_pulse_us
+import time
+
+a_in1 = Pin(31, Pin.OUT)
+a_in2 = Pin(32, Pin.OUT)
+a_pwm = PWM(Pin(33))
+a_pwm.freq(1000)
+
+b_in1 = Pin(21, Pin.OUT)
+b_in2 = Pin(35, Pin.OUT)
+b_pwm = PWM(Pin(34))
+b_pwm.freq(1000)
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+
+SPEED = 40000
+STOP_CM = 20
+BACK_TIME = 0.4
+TURN_TIME = 0.5
+TIMEOUT_US = 30000
+
+
+def motor(in1, in2, pwm, speed):
+    if speed > 0:
+        in1.value(1)
+        in2.value(0)
+        pwm.duty_u16(speed)
+    elif speed < 0:
+        in1.value(0)
+        in2.value(1)
+        pwm.duty_u16(-speed)
+    else:
+        in1.value(0)
+        in2.value(0)
+        pwm.duty_u16(0)
+
+
+def drive(left, right):
+    motor(b_in1, b_in2, b_pwm, left)
+    motor(a_in1, a_in2, a_pwm, right)
+
+
+def stop():
+    drive(0, 0)
+
+
+def read_distance():
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, TIMEOUT_US)
+    if duration < 0:
+        return -1
+    return duration // 58
+
+
+def back_away():
+    stop()
+    time.sleep(0.2)
+    drive(-SPEED, -SPEED)
+    time.sleep(BACK_TIME)
+    drive(SPEED, -SPEED)
+    time.sleep(TURN_TIME)
+
+
+while True:
+    cm = read_distance()
+    if cm > 0 and cm < STOP_CM:
+        back_away()
+    else:
+        drive(SPEED, SPEED)
+    time.sleep(0.05)
+`;
+const Task3 = `from machine import Pin, PWM, time_pulse_us
+import time
+
+a_in1 = Pin(31, Pin.OUT)
+a_in2 = Pin(32, Pin.OUT)
+a_pwm = PWM(Pin(33))
+a_pwm.freq(1000)
+
+b_in1 = Pin(21, Pin.OUT)
+b_in2 = Pin(35, Pin.OUT)
+b_pwm = PWM(Pin(34))
+b_pwm.freq(1000)
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+button = Pin(28, Pin.IN, Pin.PULL_DOWN)
+
+SPEED = 40000
+STOP_CM = 20
+BACK_TIME = 0.4
+TURN_TIME = 0.5
+TIMEOUT_US = 30000
+
+
+def motor(in1, in2, pwm, speed):
+    if speed > 0:
+        in1.value(1)
+        in2.value(0)
+        pwm.duty_u16(speed)
+    elif speed < 0:
+        in1.value(0)
+        in2.value(1)
+        pwm.duty_u16(-speed)
+    else:
+        in1.value(0)
+        in2.value(0)
+        pwm.duty_u16(0)
+
+
+def drive(left, right):
+    motor(b_in1, b_in2, b_pwm, left)
+    motor(a_in1, a_in2, a_pwm, right)
+
+
+def stop():
+    drive(0, 0)
+
+
+def read_distance():
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, TIMEOUT_US)
+    if duration < 0:
+        return -1
+    return duration // 58
+
+
+def back_away():
+    stop()
+    time.sleep(0.2)
+    drive(-SPEED, -SPEED)
+    time.sleep(BACK_TIME)
+    drive(SPEED, -SPEED)
+    time.sleep(TURN_TIME)
+
+
+print("Press the button to start.")
+while button.value() == 0:
+    pass
+
+while True:
+    cm = read_distance()
+    if cm > 0 and cm < STOP_CM:
+        back_away()
+    else:
+        drive(SPEED, SPEED)
+    time.sleep(0.05)
+`;
+const Task4 = `from machine import Pin, PWM, time_pulse_us
+import qwiic_large_oled
+import time
+
+a_in1 = Pin(31, Pin.OUT)
+a_in2 = Pin(32, Pin.OUT)
+a_pwm = PWM(Pin(33))
+a_pwm.freq(1000)
+
+b_in1 = Pin(21, Pin.OUT)
+b_in2 = Pin(35, Pin.OUT)
+b_pwm = PWM(Pin(34))
+b_pwm.freq(1000)
+
+trigger = Pin(22, Pin.OUT)
+echo = Pin(20, Pin.IN)
+button = Pin(28, Pin.IN, Pin.PULL_DOWN)
+
+SPEED = 40000
+STOP_CM = 20
+BACK_TIME = 0.4
+TURN_TIME = 0.5
+TIMEOUT_US = 30000
+
+oled = qwiic_large_oled.QwiicLargeOled()
+oled.begin()
+
+
+def motor(in1, in2, pwm, speed):
+    if speed > 0:
+        in1.value(1)
+        in2.value(0)
+        pwm.duty_u16(speed)
+    elif speed < 0:
+        in1.value(0)
+        in2.value(1)
+        pwm.duty_u16(-speed)
+    else:
+        in1.value(0)
+        in2.value(0)
+        pwm.duty_u16(0)
+
+
+def drive(left, right):
+    motor(b_in1, b_in2, b_pwm, left)
+    motor(a_in1, a_in2, a_pwm, right)
+
+
+def stop():
+    drive(0, 0)
+
+
+def read_distance():
+    trigger.value(0)
+    time.sleep_us(2)
+    trigger.value(1)
+    time.sleep_us(10)
+    trigger.value(0)
+    duration = time_pulse_us(echo, 1, TIMEOUT_US)
+    if duration < 0:
+        return -1
+    return duration // 58
+
+
+def back_away():
+    stop()
+    time.sleep(0.2)
+    drive(-SPEED, -SPEED)
+    time.sleep(BACK_TIME)
+    drive(SPEED, -SPEED)
+    time.sleep(TURN_TIME)
+
+
+def show(oled, line1, line2):
+    oled.clear(oled.PAGE)
+    oled.print(line1)
+    oled.print(line2)
+    oled.display()
+
+
+show(oled, "Rover ready", "press to start")
+while button.value() == 0:
+    pass
+
+while True:
+    cm = read_distance()
+    if cm < 0:
+        reading = "clear"
+    else:
+        reading = str(cm) + " cm"
+    if cm > 0 and cm < STOP_CM:
+        show(oled, "BLOCKED", reading)
+        back_away()
+    else:
+        show(oled, "Driving", reading)
+        drive(SPEED, SPEED)
+    time.sleep(0.05)
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.14: Sense and Decide</h1>
+        <p class="text-sn-theme">Motion &amp; Autonomy &mdash; Day 4 of 4</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.14</h2>
+              <h3 class="text-sn-theme">Sense and Decide</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>The Control Loop</p>
+              <p>Tuning by Testing</p>
+              <p>Guarding a Sentinel</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Nothing New Today</h2>
+              <p>
+                No new components. No new functions from the library. Every
+                piece of this activity you have already built.
+              </p>
+              <p class="fragment">
+                Today you <b class="text-sn-theme">join</b> them &mdash; and
+                that turns a machine that obeys into one that{" "}
+                <b class="text-sn-theme">decides</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Three Steps, Forever</h2>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                Sense, decide, act. Round and round, many times a second. This
+                shape runs thermostats, cruise control, elevators, and every
+                robot you have ever seen.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Look at That Code Again</h2>
+              <p>
+                It has a bug. Not a typo &mdash; a <i>reasoning</i> bug, and it
+                comes from something you built deliberately last session.
+              </p>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                <code>-1</code> means <i>nothing in range</i>. An empty
+                corridor. And <code>-1</code> is less than 20, so the robot
+                stops dead in front of wide open space.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Guard the Sentinel</h2>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                A sentinel value is only safe while every comparison remembers
+                it exists. Yours is negative for exactly this reason &mdash;
+                one extra test separates <i>close</i> from{" "}
+                <i>unknown</i>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Then There Are the Numbers</h2>
+              <p>
+                How close is too close? How long should it reverse? How far
+                should it turn?
+              </p>
+              <p class="fragment">
+                Nothing tells you. You pick something, run the robot, watch it
+                fail, and change it &mdash; the same method you used to choose
+                a threshold in 2.10, now with four numbers instead of one.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today&#39;s Objectives</h2>
+              <ul>
+                <li>Combining a sensor reading and a motor command in one loop</li>
+                <li>Writing an obstacle-avoidance behavior</li>
+                <li>Guarding against an out-of-range reading</li>
+                <li>Tuning thresholds and timings by testing rather than guessing</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Control Loop</dt>
+                  <dd>Sense, decide, act, repeated indefinitely. The basic shape of every automatic machine.</dd>
+                  <dt>Autonomous</dt>
+                  <dd>Choosing what to do from its own sensor readings, with nobody steering.</dd>
+                  <dt>Tuning</dt>
+                  <dd>Adjusting numbers by testing, because no reference tells you the right values.</dd>
+                  <dt>Guarding</dt>
+                  <dd>Checking a value is real before comparing it, so a sentinel is not mistaken for a measurement.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Everything stays wired from 2.12 and 2.13. Create a new MicroPython
+            script named <b class="text-sn-theme">2-14-rover.py</b>.
+          </p>
+
+          <p>
+            <b>Work on the floor, not the desk.</b> The robot moves on its own
+            from Task 1 onward.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Sense and Stop</h3>
+          <ul>
+            <li>Bring your <code>drive()</code>, <code>stop()</code> and <code>read_distance()</code> functions into one script.</li>
+            <li>Drive forward while the way is clear, and stop when something is closer than <code>STOP_CM</code>.</li>
+            <li>Walk towards the robot and watch it stop.</li>
+          </ul>
+
+          <p>
+            Note the <code>cm &gt; 0</code> in the condition. Without it, an
+            out-of-range reading of <code>-1</code> counts as "too close" and
+            the robot refuses to move in an empty room. Try removing it once,
+            deliberately, so you have seen it happen.
+          </p>
+
+          <!-- PHOTO: rover stopping in front of an obstacle -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 1: Rover Stopping in Front of an Obstacle]
+          </div>
+
+          <Code code={Task1} frame="code" lang="python" title="2-14-rover.py" mark={{ range: "58-64" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Back Away and Turn</h3>
+          <ul>
+            <li>Stopping is not enough &mdash; it just sits there. Write <code>back_away()</code> that reverses briefly, then spins.</li>
+            <li>Put the reverse and turn durations in named constants so they are easy to change.</li>
+            <li>Set the robot down in a corner and let it work its way out.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="2-14-rover.py" mark={{ range: "60-66" }} ins={{ range: "19-20,60-66,72" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Start on a Button Press</h3>
+          <ul>
+            <li>A robot that drives the instant you plug it in is impossible to work with.</li>
+            <li>Wait for a button press before entering the loop.</li>
+          </ul>
+
+          <p>
+            The wait is a loop whose body does nothing at all &mdash; the same{" "}
+            <code>pass</code> trick you used to wait for a reaction in 2.7.
+          </p>
+
+          <Code code={Task3} frame="code" lang="python" title="2-14-rover.py" mark={{ range: "70-72" }} ins={{ range: "16,70-72" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Say What It Is Thinking</h3>
+          <ul>
+            <li>Put the OLED back in and show the state and the current distance.</li>
+            <li>Translate <code>-1</code> into something a human wants to read. Nobody should see the sentinel.</li>
+            <li>Now you can debug the robot while it drives, without a laptop.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="2-14-rover.py" mark={{ range: "87-96" }} ins={{ range: "2,25-26,74-78,81,87-90,92,95" }} />
+
+          <!-- PHOTO: rover driving with BLOCKED on the screen -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 4: Rover Driving With Its Status on Screen]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 5: Tune It</h3>
+          <ul>
+            <li>No new code. Run the robot at an obstacle repeatedly and change one constant at a time.</li>
+            <li>Find a <code>STOP_CM</code> that stops without bumping, and a <code>TURN_TIME</code> that reliably faces somewhere new.</li>
+            <li>Record what you tried and what happened. Changing two things at once teaches you nothing.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Look Both Ways</h3>
+          <ul>
+            <li>Instead of always turning the same direction, back up, turn a little each way, measure, and go whichever is clearer.</li>
+            <li>This is the difference between escaping a corner by luck and escaping it on purpose.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>The robot sits still until the button is pressed</li>
+            <li>It drives forward in open space and does not stop for nothing</li>
+            <li>It stops before touching an obstacle, then reverses and turns</li>
+            <li>Placed in a corner, it gets itself out within a few attempts</li>
+            <li>The screen shows what it is doing and never displays <code>-1</code></li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Describe the sense&ndash;decide&ndash;act loop in your own words, naming which line of your program does each part. Why does it have to repeat rather than run once?</li>
+            <li>Leaving out <code>cm &gt; 0</code> makes the robot refuse to move in an empty room. Explain how a value you invented on purpose in 2.13 became a bug in 2.14, and what that suggests about using special values.</li>
+            <li>Nothing told you what <code>STOP_CM</code> or <code>TURN_TIME</code> should be. Describe how you found yours, and why changing one number at a time mattered.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

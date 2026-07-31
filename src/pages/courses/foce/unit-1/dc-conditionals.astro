@@ -1,0 +1,213 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `age = 18
+
+if age = 18:
+    print("You are exactly 18.")`;
+
+const Bug2 = `day = 7
+
+if day == 6 or 7:
+    print("It's the weekend!")
+else:
+    print("It's a school day.")`;
+
+const Bug3 = `score = 95
+
+if score >= 60:
+    print("You passed.")
+elif score >= 90:
+    print("You got an A!")`;
+
+const Bug4 = `age = 12
+
+if age >= 16:
+    print("You can drive!")
+print("Here are the keys.")`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Conditionals</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four broken conditionals. Only one of them crashes &mdash; the other
+            three run happily and give you the wrong answer.
+          </p>
+
+          <p>
+            This is the debug challenge closest to real programming. Conditional
+            bugs almost never announce themselves; the program just quietly does
+            the wrong thing.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Tracing which branch actually runs</li>
+            <li>Spotting an unreachable branch</li>
+            <li>Reading indentation as meaning, not decoration</li>
+            <li>Writing a condition that says what you meant</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <p>
+            For each one, write down which kind of mistake it is, what is actually
+            wrong, and the corrected line. Trace it in your head first, then run it
+            and see whether you were right.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            <b>Symptom:</b> refuses to run at all. Python complains about line 3.
+          </p>
+
+          <Code
+            code={Bug1}
+            frame="code"
+            lang="python"
+            title="bug-1.py"
+            showLineNumbers={true}
+          />
+
+          <p class="mt-3">
+            The fix is a <b>one-character</b> change. Ask yourself what line 3 is
+            currently telling Python to <i>do</i>, versus what it should be asking
+            Python to <i>check</i>.
+          </p>
+
+          <p>
+            Newer versions of Python add a hint to this error suggesting what to
+            use instead. Older ones just say <b>invalid syntax</b> and leave you to
+            it &mdash; so do not count on the hint being there.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            <b>Symptom:</b> prints <b class="text-sn-red">It's the weekend!</b>
+            &mdash; which looks right, since day 7 is Sunday. But change{" "}
+            <code>day</code> to <b>3</b> and it <i>still</i> says it's the weekend.
+          </p>
+
+          <Code
+            code={Bug2}
+            frame="code"
+            lang="python"
+            title="bug-2.py"
+            showLineNumbers={true}
+          />
+
+          <p class="mt-3">
+            That condition reads like English and does not mean what the English
+            means. Python sees two separate things either side of{" "}
+            <code>or</code> &mdash; what is the second one, on its own?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            <b>Symptom:</b> a score of 95 prints{" "}
+            <b class="text-sn-red">You passed.</b> It never once prints{" "}
+            <b class="text-sn-green">You got an A!</b> for any score at all.
+          </p>
+
+          <Code
+            code={Bug3}
+            frame="code"
+            lang="python"
+            title="bug-3.py"
+            showLineNumbers={true}
+          />
+
+          <p class="mt-3">
+            Both conditions are written correctly. Nothing is misspelled. The bug
+            is in the <b>order</b> &mdash; explain why the second branch can never
+            be reached.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            <b>Symptom:</b> a 12-year-old is correctly told they cannot drive, and
+            is then handed <b class="text-sn-red">the keys anyway</b>.
+          </p>
+
+          <Code
+            code={Bug4}
+            frame="code"
+            lang="python"
+            title="bug-4.py"
+            showLineNumbers={true}
+          />
+
+          <p class="mt-3">
+            Nothing here is misspelled either, and Python reports no error. The
+            whole bug is <b>one line's worth of whitespace</b>. This is the kind of
+            mistake that makes indentation worth taking seriously.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <ul>
+            <li>Which kind of mistake each one is</li>
+            <li>One sentence on what was wrong</li>
+            <li>The corrected line</li>
+          </ul>
+
+          <p>
+            Then one more, in a sentence: <b
+              >which of these four would be hardest to find in a 200-line program,
+              and why?</b
+            >
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

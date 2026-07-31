@@ -1,0 +1,331 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/eng-design-fab/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Session 13: Charting &amp; Trendlines</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Session 13</h2>
+              <h3 class="text-sn-theme">Charting &amp; Trendlines</h3>
+              <p><i>(Last session of the Foundations unit)</i></p>
+            </section>
+
+            <section>
+              <h2>Why Plot?</h2>
+              <p>
+                A table of numbers can hide a lot &mdash; an outlier, a
+                pattern, data that doesn't behave quite the way you expected.
+              </p>
+              <p class="fragment">A plot makes it visible at a glance.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Building the Plot</h2>
+              <ol>
+                <li class="fragment">Scatter plot: weight vs. displacement</li>
+                <li class="fragment">Add a linear trendline</li>
+                <li class="fragment">Display the equation</li>
+                <li class="fragment">Display R&sup2;</li>
+              </ol>
+            </section>
+
+            <section>
+              <h2>The Slope Tells You the Relationship</h2>
+              <p>
+                The slope of this line tells you the rate one thing changes
+                relative to the other.
+              </p>
+              <p class="fragment">
+                For a launcher, that's the whole idea behind calibration.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>R&sup2; &mdash; What It Tells You</h2>
+              <p>Closer to 1 = tighter fit.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>R&sup2; &mdash; What It Tells You</h2>
+              <p>
+                It's <b class="text-sn-theme">diagnostic information</b>, not
+                a pass/fail grade &mdash; same idea as last session's
+                conditional-formatting flags.
+              </p>
+            </section>
+
+            <section>
+              <h2>If R&sup2; Is Low &mdash; Don't Just Move On</h2>
+              <p>Ask:</p>
+              <ul>
+                <li class="fragment">Were a couple trials noisy? (measurement problem)</li>
+                <li class="fragment">Does the data genuinely behave non-linearly here? (real effect)</li>
+              </ul>
+              <p class="fragment">Different problems, different fixes.</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Now Actually Use It</h2>
+              <p>
+                A trendline you only look at is a picture. A trendline you{" "}
+                <b class="text-sn-theme">predict with</b> is a tool.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now Actually Use It</h2>
+              <p>Your equation looks something like:</p>
+              <p><code>y = 0.8x + 2</code></p>
+              <p class="fragment">
+                <b>Forward:</b> pick a weight you never tested, plug it in
+                for <code>x</code>, and you get a predicted displacement.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Harder Direction</h2>
+              <p>
+                Calibration usually runs <i>backwards</i>. You don't ask
+                "what happens at this setting" &mdash; you ask{" "}
+                <b class="text-sn-theme">"what setting do I need to hit
+                this?"</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Harder Direction</h2>
+              <p>Want a displacement of 10? Solve for <code>x</code>:</p>
+              <p><code>10 = 0.8x + 2</code></p>
+              <p class="fragment"><code>8 = 0.8x</code> &rarr; <code>x = 10</code></p>
+              <p class="fragment">
+                That's the entire skill Field Test Day runs on. Practice it
+                today, on a spring, where nothing's at stake.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Then Check Yourself</h2>
+              <p>
+                Predicting isn't the last step. <b class="text-sn-theme">Go
+                measure it</b> and see how close you actually got.
+              </p>
+              <p class="fragment">
+                That gap &mdash; predicted vs. actual &mdash; is the only
+                honest measure of whether your model is any good.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>You Could Also Compute This Directly</h2>
+              <p><code>=SLOPE(y-range, x-range)</code></p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>You Could Also Compute This Directly</h2>
+              <p><code>=RSQ(y-range, x-range)</code></p>
+              <p class="fragment">
+                The chart isn't magic &mdash; it's the same functions skill
+                from Session 12, just drawn as a picture.
+              </p>
+            </section>
+
+            <section>
+              <h2>Submit Today</h2>
+              <p>
+                Data table + plot + trendline + R&sup2; + a one-sentence
+                diagnostic note on your fit quality.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Watch Out For</h2>
+              <ul>
+                <li class="fragment">Treating R&sup2; as a grade instead of information</li>
+                <li class="fragment">Assuming low R&sup2; always means "redo the experiment"</li>
+                <li class="fragment">Confusing the trendline's slope with individual data points</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>That's the Last New Skill in This Unit</h2>
+              <p>
+                Define, Design, Notebook, Safety, Measurement, Functions,
+                Data Quality, Conversion, Tolerance, and now Charting &mdash;
+                all of it was building toward one thing.
+              </p>
+            </section>
+
+            <section>
+              <h2>Next Up</h2>
+              <p><b class="text-sn-theme">The Launcher Project begins.</b></p>
+              <p class="fragment">
+                Same measure &rarr; log &rarr; chart workflow. Real stakes.
+                Your own launcher.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3>Step 1: Build the Plot</h3>
+          <p>
+            Using your Session 11&ndash;13 data, create a scatter plot of
+            weight vs. displacement in Sheets.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 2: Add the Trendline</h3>
+          <p>
+            Fit a linear trendline. Display its equation and its R&sup2;
+            value.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 3: Diagnose Your Fit</h3>
+          <p>
+            If your R&sup2; is low, don't just move on &mdash; decide whether
+            it looks like a measurement problem (a couple of noisy trials) or
+            a real effect (the data genuinely isn't linear across this
+            range). If Session 12 flagged a row, check whether it's the
+            source of any weakness in your fit.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 4: Predict Forward</h3>
+          <p>
+            Pick a weight you <b>never tested</b>, somewhere inside the range
+            you did test. Use your trendline equation &mdash; not your eyes on
+            the chart &mdash; to predict its displacement. Write the
+            prediction down.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 5: Predict Backward</h3>
+          <p>
+            Now the direction calibration actually uses. Pick a displacement
+            you never measured, inside your tested range. Solve your equation
+            for <code>x</code> to find the weight that should produce it.
+            Write down both the target and the weight you calculated.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Step 6: Test Both Predictions</h3>
+          <p>
+            Actually hang both weights and measure what you get. Record
+            predicted vs. actual for each, and the difference.
+          </p>
+
+          <table class="table table-dark table-sm">
+            <thead>
+              <tr>
+                <th>Prediction</th>
+                <th>Predicted</th>
+                <th>Actual</th>
+                <th>Off by</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Step 4 (forward)</td><td></td><td></td><td></td></tr>
+              <tr><td>Step 5 (backward)</td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <hr class="my-4" />
+
+          <h3>Step 7: Write Your Diagnostic Note</h3>
+          <p>
+            One sentence: is your fit strong or weak, and if weak, do you
+            think that's from measurement noise or a real effect? Reference
+            how close your two predictions actually landed.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your submitted Sheets file must include all of the following:</p>
+
+          <ul>
+            <li>Raw data table (from Sessions 11&ndash;13) &mdash; trials, weights, displacements, units</li>
+            <li>Scatter plot of weight vs. displacement</li>
+            <li>Trendline with displayed equation and R&sup2; value</li>
+            <li>
+              Both predictions &mdash; forward and backward &mdash; with
+              predicted vs. actual recorded, and how far off each was
+            </li>
+            <li>
+              One-sentence diagnostic note: is your fit strong or weak, and
+              if weak, do you think that's from measurement noise or a real
+              effect?
+            </li>
+          </ul>
+
+          <p>
+            The backward prediction is the one that matters most &mdash; it's
+            the exact operation Field Test Day will ask you to do under
+            pressure, with a target you've never seen.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these on your own. Reflections are individual, even when the rest of the session was team work.</p>
+
+          <ol>
+            <li>What would it take to convince you your fit was actually wrong, even if R² looked good?</li>
+            <li>This is the last new skill in Foundations. Looking back at Define, Design, Notebook, Safety, Measurement, Functions, Data Quality, Conversion, Tolerance, and now Charting — which one do you think you'll rely on most once the Launcher Project starts?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your data table, plot, trendline, R&sup2;, and diagnostic note.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

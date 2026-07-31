@@ -1,0 +1,457 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+import PhotocellSpeakerCircuitDiagram from "../../../../assets/courses/foce/img/photocell-speaker-circuit-diagram.svg";
+import RedBoardPinA2 from "../../../../assets/courses/foce/img/redboard-rp2350-pin-a2.svg";
+
+//#region CodeSnippets
+const Figure1 = `if light < DARK:
+    # something is in the way`;
+const Figure2 = `bright room : 41200
+covered     :  3800
+                    -> pick something in between`;
+const Figure3 = `speaker.freq(880)         # 880 times a second = the pitch
+speaker.duty_u16(32768)   # half on, half off = sound
+speaker.duty_u16(0)       # never on = silence`;
+const Task1 = `from machine import Pin, ADC
+import time
+
+light_sensor = ADC(Pin(42))
+
+while True:
+    print(light_sensor.read_u16())
+    time.sleep(0.2)
+`;
+const Task2 = `from machine import Pin, ADC
+import time
+
+light_sensor = ADC(Pin(42))
+
+
+def read_average(sensor, samples):
+    total = 0
+    for i in range(samples):
+        total = total + sensor.read_u16()
+        time.sleep(0.01)
+    return total // samples
+
+
+while True:
+    print("light:", read_average(light_sensor, 10))
+    time.sleep(0.3)
+`;
+const Task3 = `from machine import Pin, ADC, PWM
+import time
+
+light_sensor = ADC(Pin(42))
+speaker = PWM(Pin(23))
+
+
+def read_average(sensor, samples):
+    total = 0
+    for i in range(samples):
+        total = total + sensor.read_u16()
+        time.sleep(0.01)
+    return total // samples
+
+
+def beep(speaker, hz, seconds):
+    speaker.freq(hz)
+    speaker.duty_u16(32768)
+    time.sleep(seconds)
+    speaker.duty_u16(0)
+
+
+beep(speaker, 440, 0.3)
+beep(speaker, 660, 0.3)
+beep(speaker, 880, 0.3)
+`;
+const Task4 = `from machine import Pin, ADC, PWM
+import time
+
+light_sensor = ADC(Pin(42))
+speaker = PWM(Pin(23))
+
+DARK = 12000
+ALARM_HZ = 880
+
+
+def read_average(sensor, samples):
+    total = 0
+    for i in range(samples):
+        total = total + sensor.read_u16()
+        time.sleep(0.01)
+    return total // samples
+
+
+def beep(speaker, hz, seconds):
+    speaker.freq(hz)
+    speaker.duty_u16(32768)
+    time.sleep(seconds)
+    speaker.duty_u16(0)
+
+
+while True:
+    light = read_average(light_sensor, 10)
+    if light < DARK:
+        print("Beam broken!")
+        beep(speaker, ALARM_HZ, 0.2)
+    time.sleep(0.05)
+`;
+const Task5 = `from machine import Pin, ADC, PWM
+import time
+
+leds = [
+    Pin(28, Pin.OUT),
+    Pin(29, Pin.OUT),
+    Pin(30, Pin.OUT),
+    Pin(31, Pin.OUT),
+    Pin(32, Pin.OUT),
+]
+light_sensor = ADC(Pin(42))
+speaker = PWM(Pin(23))
+button = Pin(33, Pin.IN, Pin.PULL_DOWN)
+
+DARK = 12000
+ALARM_HZ = 880
+
+
+def read_average(sensor, samples):
+    total = 0
+    for i in range(samples):
+        total = total + sensor.read_u16()
+        time.sleep(0.01)
+    return total // samples
+
+
+def beep(speaker, hz, seconds):
+    speaker.freq(hz)
+    speaker.duty_u16(32768)
+    time.sleep(seconds)
+    speaker.duty_u16(0)
+
+
+def all_on(leds):
+    for led in leds:
+        led.value(1)
+
+
+def all_off(leds):
+    for led in leds:
+        led.value(0)
+
+
+armed = True
+all_off(leds)
+print("Armed.")
+
+while True:
+    light = read_average(light_sensor, 10)
+    if armed:
+        if light < DARK:
+            print("Beam broken!")
+            armed = False
+    else:
+        all_on(leds)
+        beep(speaker, ALARM_HZ, 0.2)
+        all_off(leds)
+        time.sleep(0.1)
+        if button.value() == 1:
+            armed = True
+            print("Re-armed.")
+    time.sleep(0.05)
+`;
+const Output1 = `Armed.
+Beam broken!
+Re-armed.
+Beam broken!`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.10: Thresholds and Alarms</h1>
+        <p class="text-sn-theme">The Messy Real World &mdash; Day 3 of 4</p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.10</h2>
+              <h3 class="text-sn-theme">Thresholds and Alarms</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Thresholds</p>
+              <p>PWM and Pitch</p>
+              <p>Voltage Dividers</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>From Measuring to Deciding</h2>
+              <p>
+                Activity 2.9 worked hard to get an accurate number. Today you
+                throw most of that precision away on purpose.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                An alarm does not care whether the light is 4,000 or 4,200. It
+                cares about one thing: <b class="text-sn-theme">has it crossed
+                the line?</b>
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Where Does the Line Go?</h2>
+              <p>
+                Nowhere in the datasheet. Nobody can tell you the right number
+                for <i>your</i> room, your sensor, and your lighting.
+              </p>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="fragment">
+                You <b class="text-sn-theme">measure both ends and pick the
+                middle</b>. That is the whole method, and it is how real
+                sensor thresholds get chosen.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Photocell Is Half a Divider</h2>
+              <p>
+                A photocell is a resistor that changes with light. On its own
+                a changing resistance does nothing you can read &mdash; the
+                board only measures <i>voltage</i>.
+              </p>
+              <p class="fragment">
+                Pair it with a fixed 10K resistor and you get the same
+                arrangement as the potentiometer in 2.8: two resistors in
+                series, and you read the point between them. Light moves the
+                voltage instead of your hand.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Sound Is Just a Fast Square Wave</h2>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+              <p class="fragment">
+                <b class="text-sn-theme">PWM</b> switches a pin on and off very
+                fast. Set how <i>often</i> it switches and you set the pitch.
+                Set the fraction of time it is on and you set whether there is
+                any sound at all.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Remember This Pin Trick</h2>
+              <p>
+                Frequency is pitch. You will meet PWM again in Activity 2.12,
+                where the same tool controls how fast a{" "}
+                <b class="text-sn-theme">motor</b> turns &mdash; but there it
+                is the on-fraction that matters, not the rate.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today&#39;s Objectives</h2>
+              <ul>
+                <li>Reading a photocell as a light sensor</li>
+                <li>Choosing a threshold from measured readings rather than guessing</li>
+                <li>Sounding the speaker with <code>PWM</code>, where frequency is pitch</li>
+                <li>Triggering an alarm when a reading crosses the line</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Threshold</dt>
+                  <dd>A chosen value that turns a range of readings into a yes-or-no decision.</dd>
+                  <dt>Voltage Divider</dt>
+                  <dd>Two resistors in series; the voltage at the point between them depends on their ratio.</dd>
+                  <dt>PWM</dt>
+                  <dd>Pulse-width modulation &mdash; switching a pin on and off rapidly. Its rate sets pitch; its on-fraction sets power.</dd>
+                  <dt>Latch</dt>
+                  <dd>Remembering that something happened, so an alarm keeps sounding after the cause has passed.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Leave everything from 2.8 and 2.9 wired. Create a new MicroPython
+            script named <b class="text-sn-theme">2-10-alarm.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Read the Light</h3>
+          <ul>
+            <li>Wire the photocell and a 10K resistor in series between <code>3V3</code> and <code>GND</code>, with <code>A2</code> connected to the point between them.</li>
+            <li>Print the raw reading and wave your hand over the sensor.</li>
+          </ul>
+
+          <Image src={RedBoardPinA2} alt="The SparkFun IoT RedBoard RP2350 with the pin labeled A2 outlined on the bottom header" width={620} class="my-3" />
+
+          <Image src={PhotocellSpeakerCircuitDiagram} alt="Circuit diagram showing a photocell and 10K resistor forming a voltage divider read by analog pin A2, alongside a speaker driven through a 330 ohm resistor from GPIO 23" width={580} class="my-3" />
+
+          <!-- PHOTO: photocell and speaker added to the breadboard -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 1: Photocell and Speaker Added to the Breadboard]
+          </div>
+
+          <Code code={Task1} frame="code" lang="python" title="2-10-alarm.py" mark={{ range: "4" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Measure Both Ends</h3>
+          <ul>
+            <li>Reuse <code>read_average()</code> from 2.9 so the reading holds still.</li>
+            <li><b>Write down two numbers:</b> the reading in normal room light, and the reading with the sensor fully covered.</li>
+            <li>Pick a threshold somewhere between them and write that down too.</li>
+          </ul>
+
+          <p>
+            Put your threshold nearer the covered value than the bright one. An
+            alarm that fires when someone walks past the window is worse than
+            one that needs a proper blocking.
+          </p>
+
+          <Code code={Task2} frame="code" lang="python" title="2-10-alarm.py" mark={{ range: "7-12" }} ins={{ range: "7-12,16-17" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Make a Noise</h3>
+          <ul>
+            <li>Wire the speaker through a 330&#8486; resistor to <code>GPIO 23</code>.</li>
+            <li>Write <code>beep(speaker, hz, seconds)</code> that sets a pitch, turns the sound on, waits, then silences it.</li>
+            <li>Play three different pitches to prove it works.</li>
+          </ul>
+
+          <p>
+            The resistor matters. A speaker connected straight to a pin will
+            try to draw far more current than the pin can give.
+          </p>
+
+          <Code code={Task3} frame="code" lang="python" title="2-10-alarm.py" mark={{ range: "16-20" }} ins={{ range: "1,5,16-20,23-25" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Sound the Alarm</h3>
+          <ul>
+            <li>Put your measured threshold in a named constant, <code>DARK</code>.</li>
+            <li>Beep whenever the reading falls below it.</li>
+            <li>Test it by covering the sensor.</li>
+          </ul>
+
+          <Code code={Task4} frame="code" lang="python" title="2-10-alarm.py" mark={{ range: "7-8,26-31" }} ins={{ range: "7-8,26-31" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 5: Latch It, Then Reset It</h3>
+          <ul>
+            <li>An alarm that stops the moment the intruder moves on is useless. Make it <b>keep</b> sounding once triggered.</li>
+            <li>Flash the LED array along with the beep.</li>
+            <li>Press the button to re-arm.</li>
+          </ul>
+
+          <p>
+            The trick is a variable that remembers. <code>armed</code> starts{" "}
+            <code>True</code>, becomes <code>False</code> when the beam breaks,
+            and only the button puts it back.
+          </p>
+
+          <Code code={Task5} frame="code" lang="python" title="2-10-alarm.py" mark={{ range: "44,50-61" }} ins={{ range: "4-10,13,34-36,39-41,44-46,50-55,57-61" }} />
+
+          <!-- PHOTO: alarm triggered, array lit -->
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [PHOTO PLACEHOLDER &mdash; Task 5: Alarm Triggered, Array Lit]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): A Real Trip-Wire</h3>
+          <ul>
+            <li>Aim a laser diode across the room at the photocell instead of relying on room light.</li>
+            <li>Re-measure both ends &mdash; a laser on the sensor reads far brighter than a lit room, so your threshold will need to change.</li>
+            <li><b>Never aim the laser at anyone&#39;s eyes.</b> Point it at the wall, then bring the sensor to the beam.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your finished program should behave like this:</p>
+
+          <Code code={Output1} frame="terminal" lang="txt" showLineNumbers={false} />
+
+          <ul>
+            <li>Nothing happens in normal room light, however long you leave it running</li>
+            <li>Covering the sensor triggers the alarm within about a second</li>
+            <li>The alarm keeps sounding after you uncover the sensor</li>
+            <li>Pressing the button silences it and re-arms</li>
+            <li>Walking past the sensor does not set it off</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>Activity 2.9 worked hard to get an accurate temperature. This activity throws most of that precision away. Explain what a threshold does to a reading, and why an alarm does not need the exact value.</li>
+            <li>Nobody could tell you what number to use for <code>DARK</code>. Describe how you actually chose yours, and why the same number would not work in a different room.</li>
+            <li>Without the <code>armed</code> variable, the alarm stops as soon as the sensor is uncovered. Explain how one <code>True</code>/<code>False</code> variable changes the behavior, and why that is what an alarm should do.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

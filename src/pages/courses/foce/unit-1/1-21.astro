@@ -1,0 +1,272 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `scores = [84, 91, 76, 88, 95]
+total = 0
+
+for score in scores:
+    total = total + score
+
+print(total)`;
+const Figure2 = `434`;
+const Figure3 = `average = total / len(scores)
+print(average)`;
+const Figure4 = `86.8`;
+const Figure5 = `count = 0
+
+for score in scores:
+    if score >= 90:
+        count = count + 1
+
+print(count)`;
+const Figure6 = `2`;
+const Task1 = `count = int(input("How many scores? "))
+scores = []
+
+for i in range(count):
+    score = int(input("Enter a score: "))
+    scores.append(score)
+
+total = 0
+
+for score in scores:
+    total = total + score
+
+print(f"Total: {total}")
+`;
+const Task2 = `count = int(input("How many scores? "))
+scores = []
+
+for i in range(count):
+    score = int(input("Enter a score: "))
+    scores.append(score)
+
+total = 0
+
+for score in scores:
+    total = total + score
+
+print(f"Total: {total}")
+
+average = total / len(scores)
+print(f"Average: {average}")
+`;
+const Task3 = `count = int(input("How many scores? "))
+scores = []
+
+for i in range(count):
+    score = int(input("Enter a score: "))
+    scores.append(score)
+
+total = 0
+
+for score in scores:
+    total = total + score
+
+print(f"Total: {total}")
+
+average = total / len(scores)
+print(f"Average: {average}")
+
+passing_score = int(input("Enter the passing score: "))
+passing_count = 0
+
+for score in scores:
+    if score >= passing_score:
+        passing_count = passing_count + 1
+
+print(f"Scores at or above {passing_score}: {passing_count}")
+`;
+const SampleOutput = `How many scores? 5
+Enter a score: 84
+Enter a score: 91
+Enter a score: 76
+Enter a score: 88
+Enter a score: 95
+Total: 434
+Average: 86.8
+Enter the passing score: 80
+Scores at or above 80: 3`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.21: Processing Lists</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.21</h2>
+              <h3 class="text-sn-theme">Processing Lists</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>The Accumulator Pattern</p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Adding Up a List</h2>
+              <p>
+                A variable that starts at <code>0</code> and grows a little
+                on every pass through a loop is called an{" "}
+                <b class="text-sn-theme">accumulator</b>.
+              </p>
+              <Code code={Figure1} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Adding Up a List</h2>
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>From Total to Average</h2>
+              <p>
+                Once you have a total, the average is one more line &mdash;
+                divide by how many values there were.
+              </p>
+              <Code code={Figure3} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>From Total to Average</h2>
+              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Counting Instead of Summing</h2>
+              <p>
+                The same pattern counts things too &mdash; instead of adding
+                each value, add <code>1</code> only when a condition is true.
+              </p>
+              <Code code={Figure5} frame="code" lang="python" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Counting Instead of Summing</h2>
+              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Summing a list with the accumulator pattern</li>
+                <li>Calculating an average from a total</li>
+                <li>Counting elements that meet a condition</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Accumulator</dt>
+                  <dd>A variable that starts at a base value and builds up a result across a loop, like a running total or a count.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new Python script named <b class="text-sn-theme">1-21-processing-lists.py</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Build a List and Total It</h3>
+          <ul>
+            <li>Ask how many scores to enter, collect them into a list with <code>append()</code>, then total them.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="python" title="1-21-processing-lists.py" mark={{ range: "9-13" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Calculate the Average</h3>
+          <ul>
+            <li>Divide the total by <code>len(scores)</code> to find the average.</li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="python" title="1-21-processing-lists.py" mark={{ range: "16-17" }} ins={{ range: "16-17" }} />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Count the Passing Scores</h3>
+          <ul>
+            <li>Ask for a passing score, then count how many scores are at or above it.</li>
+          </ul>
+
+          <Code code={Task3} frame="code" lang="python" title="1-21-processing-lists.py" mark={{ range: "19-25" }} ins={{ range: "19-25" }} />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>What does the accumulator pattern actually do to the variable each time the loop runs?</li>
+            <li>Why does calculating the average need <code>total / len(scores)</code> instead of just <code>total</code>?</li>
+            <li>How does the counting accumulator in Task 3 differ from the summing accumulator in Task 1?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
