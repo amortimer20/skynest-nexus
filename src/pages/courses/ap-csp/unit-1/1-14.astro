@@ -1,0 +1,532 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let oxygen = 88;
+let coolant = 18;
+let power = 132;
+
+let anyLow = oxygen < 25 || coolant < 25 || power < 25;
+
+console.log("Warning:", anyLow);`;
+const Figure2 = `Warning: true`;
+const Figure3 = `let age = 16;
+let hasPermit = true;
+
+if (age >= 16 && hasPermit) {
+  console.log("May drive.");
+} else {
+  console.log("May not drive.");
+}`;
+const Figure4 = `let isWeekend = false;
+
+if (!isWeekend) {
+  console.log("Go to school.");
+}`;
+const Figure5 = `let day = 3;
+
+if (day === 6 || 7) {
+  console.log("Weekend!");
+}`;
+const Figure6 = `Weekend!`;
+const NotationJs = `let canLaunch = fuelOk && crewOk;
+let anyFault = fuelLow || powerLow;
+let allClear = !anyFault;`;
+const NotationPseudo = `canLaunch ← fuelOk AND crewOk
+anyFault ← fuelLow OR powerLow
+allClear ← NOT anyFault`;
+const Task1 = `let oxygen = 88;
+let coolant = 18;
+let power = 132;
+
+let anyLow = oxygen < 25 || coolant < 25 || power < 25;
+let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
+
+console.log("Any system low:", anyLow);
+console.log("All systems fine:", allFine);
+`;
+const Task2 = `let oxygen = 88;
+let coolant = 18;
+let power = 132;
+
+let anyLow = oxygen < 25 || coolant < 25 || power < 25;
+let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
+
+console.log("Any system low:", anyLow);
+console.log("All systems fine:", allFine);
+console.log("Not all fine:", !allFine);
+console.log("");
+
+if (anyLow) {
+  console.log("STATUS: attention required");
+} else {
+  console.log("STATUS: nominal");
+}
+
+if (oxygen >= 25 && power >= 130) {
+  console.log("Cleared for long haul.");
+} else {
+  console.log("Short trips only.");
+}
+`;
+const Task3 = `let oxygen = 88;
+let coolant = 18;
+let power = 132;
+
+let anyLow = oxygen < 25 || coolant < 25 || power < 25;
+let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
+
+console.log("Any system low:", anyLow);
+console.log("All systems fine:", allFine);
+console.log("Not all fine:", !allFine);
+console.log("");
+
+if (anyLow) {
+  console.log("STATUS: attention required");
+} else {
+  console.log("STATUS: nominal");
+}
+
+if (oxygen >= 25 && power >= 130) {
+  console.log("Cleared for long haul.");
+} else {
+  console.log("Short trips only.");
+}
+
+console.log("");
+
+// Ask for a crew size and cast it
+// Ask for a cargo mass and cast it
+// A launch is allowed only if the crew is at least 2 AND the mass is under 500
+// If it is not allowed, say so when either one is the problem
+`;
+const ExampleOutput = `Any system low: true
+All systems fine: false
+Not all fine: true
+
+STATUS: attention required
+Cleared for long haul.
+
+Crew size? 1
+Cargo mass? 300
+LAUNCH DENIED
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.14: Combining Conditions</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.14</h2>
+              <h3 class="text-sn-theme">Combining Conditions</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>AND, OR, NOT</p>
+              <p>Reading a Compound Condition</p>
+              <p>The Trap</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Unfinished Business</h2>
+              <p>
+                Activity 1.13 asked for a warning light that came on if{" "}
+                <i>any</i> of three systems was low &mdash; and told you the easy
+                tools were not available yet.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Unfinished Business</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">One line. That is what today buys you.</p>
+            </section>
+
+            <section>
+              <h2>Three Operators</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>
+                    <CodeSnippet code="&&" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; AND
+                  </dt>
+                  <dd>true only when <b>both</b> sides are true</dd>
+                  <dt>
+                    <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; OR
+                  </dt>
+                  <dd>true when <b>either</b> side is true, or both</dd>
+                  <dt>
+                    <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; NOT
+                  </dt>
+                  <dd>flips true to false and false to true</dd>
+                </dl>
+              </div>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>AND</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Both must hold. Sixteen with no permit fails. A permit at
+                fifteen fails.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>NOT</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Read <CodeSnippet code="!isWeekend" lang={"javascript"} theme={"material-theme-ocean"} inline /> aloud as "not weekend." If the
+                name reads like a question, the <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> version reads
+                like the opposite question.
+              </p>
+            </section>
+
+            <section>
+              <h2>OR Is Not "Either But Not Both"</h2>
+              <p>
+                In everyday speech, "soup or salad" means pick one. In
+                programming, <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline /> is true when{" "}
+                <b class="text-sn-theme">either or both</b> are true.
+              </p>
+              <p class="fragment">
+                Only <CodeSnippet code="false || false" lang={"javascript"} theme={"material-theme-ocean"} inline /> gives false.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Trap</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo — day is 3"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Trap</h2>
+              <p>
+                It printed <i>Weekend!</i> for a Wednesday, and it will print it
+                for every day of the week.
+              </p>
+              <p class="fragment">
+                <CodeSnippet code="day === 6 || 7" lang={"javascript"} theme={"material-theme-ocean"} inline /> does not mean "day is 6 or 7."
+                It means "is day 6?" <b>or</b> "is 7 a thing?" &mdash; and a
+                plain 7 always counts as true.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  Each side of an operator needs its own complete comparison:
+                </b>{" "}
+                <CodeSnippet code="day === 6 || day === 7" lang={"javascript"} theme={"material-theme-ocean"} inline />
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Combining conditions with AND and OR</li>
+                <li>Reversing a condition with NOT</li>
+                <li>Storing a compound condition in a well-named variable</li>
+                <li>Writing a complete comparison on each side</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Logical operator</dt>
+                  <dd>
+                    An operator that combines or reverses boolean values:{" "}
+                    <CodeSnippet code="&&" lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                  </dd>
+                  <dt>Compound condition</dt>
+                  <dd>A condition built from two or more simpler conditions.</dd>
+                  <dt>Negation</dt>
+                  <dd>Reversing a boolean value.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-14-combining</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Any, and All</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              Read the two conditions carefully. They are opposites, so their
+              answers should never match.
+            </li>
+            <li>
+              Set all three readings above 25 and run again. Both answers should
+              flip.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Combining Conditions"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: NOT, and Two Decisions</h3>
+          <ul>
+            <li>
+              Add a <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> line and two if/else blocks.
+            </li>
+            <li>
+              The second condition uses AND with two different thresholds. Work
+              out on paper what it should say before you run it.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Combining Conditions"
+            ins={{ range: "10-11, 13-23" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Gate a Launch</h3>
+          <ul>
+            <li>
+              The comments describe a launch gate with two requirements. Write
+              the code under them.
+            </li>
+            <li>Cast both inputs.</li>
+            <li>
+              The approval needs <b>both</b> conditions. The denial happens when{" "}
+              <i>either</i> fails &mdash; which is what the <CodeSnippet code="else" lang={"javascript"} theme={"material-theme-ocean"} inline /> already handles for you.
+            </li>
+            <li>
+              Test all four combinations: both good, crew too small, mass too
+              heavy, and both wrong.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Combining Conditions"
+            ins={{ range: "25-30" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Say Which One Failed</h3>
+          <ul>
+            <li>
+              "LAUNCH DENIED" does not tell the crew what to fix. Improve it so
+              the program says whether the problem is the crew, the cargo, or
+              both.
+            </li>
+            <li>
+              You will need more than one condition inside the failure path.
+              Think about what goes inside the <CodeSnippet code="else" lang={"javascript"} theme={"material-theme-ocean"} inline /> block.
+            </li>
+            <li>
+              This is the idea Activity 1.15 is built on, so a partial answer is
+              fine.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            This one is a straight word swap, and the words are the easy part
+            &mdash; they say exactly what they mean.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>JavaScript</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>&amp;&amp;</code></td><td><code>AND</code></td></tr>
+                <tr><td><code>||</code></td><td><code>OR</code></td></tr>
+                <tr><td><code>!</code></td><td><code>NOT</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>The one thing to watch:</b> <code>NOT</code> goes in front of the
+            condition just like <code>!</code> does, with a space. You will see{" "}
+            <code>NOT (a = b)</code> more often than <code>a ≠ b</code> in some
+            questions, even though they mean the same thing.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={{
+              label: "Crew of 1 fails, even though the mass is fine",
+              range: "8-10",
+            }}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              In everyday speech, "or" usually means one or the other. How is{" "}
+              <code>||</code> different, and why might that cause a bug?
+            </li>
+            <li>
+              <code>day === 6 || 7</code> looked reasonable and was always true.
+              Explain what JavaScript actually did with that line.
+            </li>
+            <li>
+              <code>anyLow</code> and <code>allFine</code> are opposites. Rewrite
+              one of them using <code>!</code> and the other variable, and say
+              which version you find easier to read.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

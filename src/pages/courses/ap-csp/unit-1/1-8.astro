@@ -3,165 +3,104 @@ import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let score1 = prompt("Enter the score for game 1:");
-let score2 = prompt("Enter the score for game 2:");
-let totalScore = score1 + score2;
+const Figure1 = `let a = prompt("First number?");
+let b = prompt("Second number?");
 
-console.log(totalScore); // "4564" -- joined as text, not added!`;
-const Figure2 = `let score1 = parseFloat(prompt("Enter the score for game 1:"));
-let score2 = parseFloat(prompt("Enter the score for game 2:"));
-let totalScore = score1 + score2;
+console.log("Sum:", a + b);
+console.log("Product:", a * b);`;
+const Figure2 = `First number? 45
+Second number? 64
+Sum: 4564
+Product: 2880`;
+const Figure3 = `let a = Number(prompt("First number?"));
+let b = Number(prompt("Second number?"));
 
-console.log(totalScore); // 109 -- correctly added`;
-const Task1 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+console.log("Sum:", a + b);
+console.log("Product:", a * b);`;
+const Figure4 = `First number? 45
+Second number? 64
+Sum: 109
+Product: 2880`;
+const Figure5 = `console.log(Number("42"));
+console.log(Number("3.5"));
+console.log(Number("banana"));`;
+const Figure6 = `42
+3.5
+NaN`;
+const Figure7 = `let raw = prompt("How many crates?");
+let crates = Number(raw);
 
-let age = parseInt(prompt("Enter your age:"));
-console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+console.log("Crates:", crates);
+console.log("Doubled:", crates * 2);`;
+const Figure8 = `let subtotal = 42.50;
+let tip = subtotal * 0.18;
 
-alert("Press enter to continue...");
+console.log("Tip:", tip);`;
+const Figure9 = `Tip: 7.6499999999999995`;
+const Figure10 = `console.log("Tip: $" + tip.toFixed(2));`;
+const Figure11 = `Tip: $7.65`;
+const Figure12 = `let price = 12.5;
+
+console.log(price.toFixed(2));
+console.log(price.toFixed(2) + 5);`;
+const Figure13 = `12.50
+12.505`;
+const Task1 = `let first = prompt("First number?");
+let second = prompt("Second number?");
+
+console.log("Added with no casting:", first + second);
+console.log("Multiplied with no casting:", first * second);
 `;
-const Task2 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+const Task2 = `let first = Number(prompt("First number?"));
+let second = Number(prompt("Second number?"));
 
-let age = parseInt(prompt("Enter your age:"));
-console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
-
-alert("Press enter to continue...");
-
-console.log("--- Demo 2 - Square Area Calculator ---");
-
-let length = parseFloat(prompt("Enter the length of the square:"));
-let area = length * length;
-console.log(\`The area of the square is \${area}\`);
-
-alert("Press enter to continue...");
+console.log("Sum:", first + second);
+console.log("Difference:", first - second);
+console.log("Product:", first * second);
+console.log("Quotient:", first / second);
 `;
-const Task3 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+const Task3 = `let first = Number(prompt("First number?"));
+let second = Number(prompt("Second number?"));
 
-let age = parseInt(prompt("Enter your age:"));
-console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+console.log("Sum:", first + second);
+console.log("Difference:", first - second);
+console.log("Product:", first * second);
+console.log("Quotient:", first / second);
+console.log("");
 
-alert("Press enter to continue...");
-
-console.log("--- Demo 2 - Square Area Calculator ---");
-
-let length = parseFloat(prompt("Enter the length of the square:"));
-let area = length * length;
-console.log(\`The area of the square is \${area}\`);
-
-alert("Press enter to continue...");
-
-console.log("--- Demo 3 - Score Calculator ---");
-
-let score1 = parseFloat(prompt("Enter the score for game 1:"));
-let score2 = parseFloat(prompt("Enter the score for game 2:"));
-let score3 = parseFloat(prompt("Enter the score for game 3:"));
-let totalScore = score1 + score2 + score3;
-console.log(\`Your total score for the three games is \${totalScore}!\`);
-
-alert("Press enter to continue...");
+// Ask how many boxes there are, cast it to a number
+// Ask how many fit per crate, cast it to a number
+// Show the number of full crates and the boxes left over
 `;
-const Task4 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+const Task4 = `let subtotal = 42.50;
+let tipRate = 0.18;
 
-let age = parseInt(prompt("Enter your age:"));
-console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+let tip = subtotal * tipRate;
+let total = subtotal + tip;
 
-alert("Press enter to continue...");
-
-console.log("--- Demo 2 - Square Area Calculator ---");
-
-let length = parseFloat(prompt("Enter the length of the square:"));
-let area = length * length;
-console.log(\`The area of the square is \${area}\`);
-
-alert("Press enter to continue...");
-
-console.log("--- Demo 3 - Score Calculator ---");
-
-let score1 = parseFloat(prompt("Enter the score for game 1:"));
-let score2 = parseFloat(prompt("Enter the score for game 2:"));
-let score3 = parseFloat(prompt("Enter the score for game 3:"));
-let totalScore = score1 + score2 + score3;
-console.log(\`Your total score for the three games is \${totalScore}!\`);
-
-alert("Press enter to continue...");
-
-console.log("--- Demo 4 - Shopping Cart Subtotal ---");
-
-let item1Price = parseFloat(prompt("Enter the price of the first item:"));
-let item2Price = parseFloat(prompt("Enter the price of the second item:"));
-let subtotal = item1Price + item2Price;
-console.log(\`The subtotal for your two items is $\${subtotal}.\`);
-
-alert("Press enter to continue...");
+console.log("Subtotal: $" + subtotal.toFixed(2));
+console.log("Tip: $" + tip.toFixed(2));
+console.log("Total: $" + total.toFixed(2));
 `;
-const Task5 = `console.log("--- Demo 1 - Age to Months Calculator ---");
+const ExampleOutput = `First number? 45
+Second number? 64
+Sum: 109
+Difference: -19
+Product: 2880
+Quotient: 0.703125
 
-let age = parseInt(prompt("Enter your age:"));
-console.log(\`You are \${age} years old. That's \${age * 12} months old!\`);
+How many boxes? 47
+How many fit per crate? 6
+Full crates: 7
+Left over: 5
 
-alert("Press enter to continue...");
-
-console.log("--- Demo 2 - Square Area Calculator ---");
-
-let length = parseFloat(prompt("Enter the length of the square:"));
-let area = length * length;
-console.log(\`The area of the square is \${area}\`);
-
-alert("Press enter to continue...");
-
-console.log("--- Demo 3 - Score Calculator ---");
-
-let score1 = parseFloat(prompt("Enter the score for game 1:"));
-let score2 = parseFloat(prompt("Enter the score for game 2:"));
-let score3 = parseFloat(prompt("Enter the score for game 3:"));
-let totalScore = score1 + score2 + score3;
-console.log(\`Your total score for the three games is \${totalScore}!\`);
-
-alert("Press enter to continue...");
-
-console.log("--- Demo 4 - Shopping Cart Subtotal ---");
-
-let item1Price = parseFloat(prompt("Enter the price of the first item:"));
-let item2Price = parseFloat(prompt("Enter the price of the second item:"));
-let subtotal = item1Price + item2Price;
-console.log(\`The subtotal for your two items is $\${subtotal}.\`);
-
-alert("Press enter to continue...");
-
-console.log("--- Demo 5 - Hours to Minutes Converter ---");
-
-let hours = parseFloat(prompt("Enter a number of hours:"));
-let minutes = hours * 60;
-console.log(\`\${hours} hours is equal to \${minutes} minutes.\`);
+Subtotal: $42.50
+Tip: $7.65
+Total: $50.15
 `;
-const SampleOutput = `--- Demo 1 - Age to Months Calculator ---
-Enter your age: 35
-You are 35 years old. That's 420 months old!
-Press enter to continue... [Enter]
-
---- Demo 2 - Square Area Calculator ---
-Enter the length of the square: 11.5
-The area of the square is 132.25
-Press enter to continue... [Enter]
-
---- Demo 3 - Score Calculator ---
-Enter the score for game 1: 45
-Enter the score for game 2: 64
-Enter the score for game 3: 99
-Your total score for the three games is 208!
-Press enter to continue... [Enter]
-
---- Demo 4 - Shopping Cart Subtotal ---
-Enter the price of the first item: 12.50
-Enter the price of the second item: 10
-The subtotal for your two items is $22.5.
-Press enter to continue... [Enter]
-
---- Demo 5 - Hours to Minutes Converter ---
-Enter a number of hours: 12
-12 hours is equal to 720 minutes.`;
 //#endregion
 ---
 
@@ -173,7 +112,7 @@ Enter a number of hours: 12
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.8: Numeric Input</h1>
+        <h1>Activity 1.8: Type Casting</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -181,54 +120,342 @@ Enter a number of hours: 12
           <Presentation>
             <section>
               <h2>Activity 1.8</h2>
-              <h3 class="text-sn-theme">Numeric Input</h3>
+              <h3 class="text-sn-theme">Type Casting</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Type Casting</p>
-              <p>parseInt() and parseFloat()</p>
+              <p>The Bug From Last Activity</p>
+              <p>Converting Text to a Number</p>
+              <p>When Conversion Fails</p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Problem</h2>
-              <p><code>prompt()</code> always returns a string &mdash; even if the user types a number.</p>
-              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
+              <h2>The Bug</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Bug</h2>
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+              />
               <p class="fragment">
-                <code>+</code> is used for both adding numbers and joining
-                text, so when both sides are strings, JavaScript joins them
-                instead of adding.
+                45 plus 64 is not 4564. But 45 times 64 <i>is</i> 2880.
+              </p>
+            </section>
+
+            <section>
+              <h2>Only One of Them Broke</h2>
+              <p>
+                This is the confusing part, and it is worth slowing down for.
+              </p>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="*"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />, <CodeSnippet
+                      code="-"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />, and <CodeSnippet
+                      code="/"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> only mean one thing, so JavaScript quietly treats the text
+                    as numbers
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="+"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> means <i>two</i> things &mdash; add numbers, or join text
+                  </li>
+                  <li class="fragment">
+                    Given text, it picks joining. Every time.
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2>Why That Is Dangerous</h2>
+              <p>
+                Three of your four operators appear to work. You will assume the
+                whole program is fine.
+              </p>
+              <p class="fragment">
+                Then one addition somewhere produces nonsense, with no error
+                message pointing at it.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The Fix: Type Casting</h2>
-              <p>
-                <b class="text-sn-theme">parseInt()</b> and{" "}
-                <b class="text-sn-theme">parseFloat()</b> convert a string
-                into an actual number &mdash; a whole number, or one with
-                decimals.
-              </p>
-              <Code code={Figure2} frame="code" lang="javascript" showLineNumbers={false} />
+              <h2>The Fix</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
             </section>
 
             <section data-auto-animate>
-              <h2>A Word of Caution</h2>
+              <h2>The Fix</h2>
               <p>
-                If the user types something that isn't a number,{" "}
-                <code>parseInt()</code>/<code>parseFloat()</code> won't
-                crash your program &mdash; they'll silently return{" "}
-                <b class="text-sn-theme">NaN</b> ("Not a Number"), and any
-                math done with it becomes <code>NaN</code> too.
+                <CodeSnippet
+                  code="Number()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> converts text into an actual number. Wrapping the{" "}
+                <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> means the variable holds a number from the start.
+              </p>
+              <p class="fragment">
+                Converting a value from one type to another is called{" "}
+                <b class="text-sn-theme">casting</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Reading Nested Calls</h2>
+              <Code
+                code={Figure7}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Two lines instead of one, doing the same job. If{" "}
+                <CodeSnippet
+                  code="Number(prompt(...))"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> is hard to read, write it this way instead.
+              </p>
+            </section>
+
+            <section>
+              <h2>Inside Out</h2>
+              <p>
+                When one call sits inside another, the inner one runs first.
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> collects the text, then <CodeSnippet
+                  code="Number()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> converts it, then the result gets stored.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>When It Cannot Convert</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>NaN</h2>
+              <p>
+                <CodeSnippet
+                  code="NaN"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> means <b>Not a Number</b>. It is what you get when a
+                conversion fails.
+              </p>
+              <p class="fragment">
+                The program <b class="text-sn-theme">does not stop</b>. It keeps
+                running and every calculation from that point on is also{" "}
+                <CodeSnippet
+                  code="NaN"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />.
+              </p>
+              <p class="fragment">
+                Seeing <CodeSnippet
+                  code="NaN"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> in your output almost always means a cast failed earlier than
+                where you noticed.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Going the Other Way</h2>
+              <p>
+                You have converted text into a number. Sometimes you need a
+                number turned into <i>readable text</i>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Money Is Where This Bites</h2>
+              <Code
+                code={Figure8}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure9}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                Eighteen percent of $42.50 is $7.65. Computers store decimals
+                approximately, and the error surfaces the moment you show it to
+                someone.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>toFixed()</h2>
+              <Code
+                code={Figure10}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure11}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                <CodeSnippet code="toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> rounds to two decimal places, and it{" "}
+                <b class="text-sn-theme">pads with zeros</b> &mdash; so $12.50
+                stays $12.50 rather than collapsing to $12.5.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>But Look What It Gives Back</h2>
+              <Code
+                code={Figure12}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure13}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>But Look What It Gives Back</h2>
+              <p>
+                <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline /> returns <b class="text-sn-theme">a
+                string</b>, not a number. So <CodeSnippet code="+ 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> joined instead of
+                adding &mdash; the exact bug from the start of this activity,
+                back again.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  Do all your arithmetic first. Format only at the moment you
+                  display.
+                </b>
+              </p>
+              <p class="fragment">
+                And notice that using <CodeSnippet code="+" lang={"javascript"} theme={"material-theme-ocean"} inline /> to attach a{" "}
+                <CodeSnippet code='"$"' lang={"javascript"} theme={"material-theme-ocean"} inline /> is now the <i>right</i> choice, because
+                joining text is exactly what you want there.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Converting <code>prompt()</code> input into numbers</li>
-                <li>Choosing between <code>parseInt()</code> and <code>parseFloat()</code></li>
-                <li>Doing math on converted input</li>
+                <li>Explaining why input arrives as text</li>
+                <li>
+                  Explaining why only <CodeSnippet
+                    code="+"
+                    lang={"javascript"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> visibly breaks
+                </li>
+                <li>Casting text to a number before doing arithmetic</li>
+                <li>Recognizing NaN and tracing it back to its cause</li>
+                <li>Formatting a number for display with toFixed()</li>
               </ul>
             </section>
 
@@ -236,14 +463,30 @@ Enter a number of hours: 12
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Type Casting</dt>
-                  <dd>Converting a value from one type to another, like a string to a number.</dd>
-                  <dt>parseInt()</dt>
-                  <dd>Converts a string into a whole number.</dd>
-                  <dt>parseFloat()</dt>
-                  <dd>Converts a string into a number that can have decimals.</dd>
+                  <dt>Casting</dt>
+                  <dd>Converting a value from one data type to another.</dd>
+                  <dt>Type coercion</dt>
+                  <dd>
+                    When a language converts a type automatically, without being
+                    asked.
+                  </dd>
                   <dt>NaN</dt>
-                  <dd>"Not a Number" &mdash; the result of trying to convert something that isn't a valid number.</dd>
+                  <dd>
+                    "Not a Number" &mdash; the result of a numeric conversion
+                    that failed.
+                  </dd>
+                  <dt>Silent failure</dt>
+                  <dd>
+                    A bug that produces a wrong answer instead of an error
+                    message.
+                  </dd>
+                  <dt>
+                    <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>
+                    Formats a number to a set number of decimal places, and
+                    returns it as a <b>string</b>.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -257,58 +500,143 @@ Enter a number of hours: 12
           <h2>Build</h2>
 
           <p>
-            Create a new JavaScript program named <b class="text-sn-theme">1-8-numeric-input</b>.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-8-casting</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Age to Months Calculator</h3>
+          <h3>Task 1: See It Break</h3>
           <ul>
-            <li>Ask the user's age, converting it with <code>parseInt()</code>.</li>
-            <li>Print their age in months.</li>
+            <li>Write the code below and run it with 45 and 64.</li>
+            <li>
+              Read both results carefully. One is right and one is not. Make sure
+              you can say which before moving on.
+            </li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="javascript" title="Numeric Input" mark={{ range: "3" }} />
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Type Casting"
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Square Area Calculator</h3>
+          <h3>Task 2: Cast the Input</h3>
           <ul>
-            <li>Ask for the length of a square's side, converting it with <code>parseFloat()</code>.</li>
-            <li>Print the square's area.</li>
+            <li>
+              Wrap both prompts in <CodeSnippet
+                code="Number()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and display all four operations.
+            </li>
+            <li>Run it with 45 and 64 again. The sum should now be 109.</li>
+            <li>
+              Then run it once with the word <i>banana</i> as an answer and see
+              what happens. Nothing crashes.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="javascript" title="Numeric Input" mark={{ range: "10" }} ins={{ range: "8-14" }} />
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Type Casting"
+            ins={{ range: "1-2, 4-7" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Score Calculator</h3>
+          <h3>Task 3: Plan, Then Rebuild the Crate Problem</h3>
           <ul>
-            <li>Ask for three game scores, converting each with <code>parseFloat()</code>.</li>
-            <li>Print their total.</li>
+            <li>
+              The three comments describe the crate calculation from Activity
+              1.4, except the numbers now come from the user.
+            </li>
+            <li>
+              Cast both answers. If you forget, the remainder still works and the
+              subtraction still works &mdash; which is exactly what makes it hard
+              to spot.
+            </li>
+            <li>
+              Test it with 47 boxes and 6 per crate. You already know the answer
+              is 7 crates with 5 left over.
+            </li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="javascript" title="Numeric Input" mark={{ range: "18-20" }} ins={{ range: "16-24" }} />
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Type Casting"
+            ins={{ range: "8-12" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 4: Shopping Cart Subtotal</h3>
+          <h3>Task 4: Money</h3>
           <ul>
-            <li>Ask for the prices of two items, converting each with <code>parseFloat()</code>.</li>
-            <li>Print their subtotal.</li>
+            <li>
+              Add a tip calculator at the bottom. Run it{" "}
+              <b>without</b> the <CodeSnippet code=".toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> calls first, so you
+              see what the raw numbers look like.
+            </li>
+            <li>
+              Then add them back. The tip should go from{" "}
+              <CodeSnippet code="7.6499999999999995" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
+              <CodeSnippet code="7.65" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </li>
+            <li>
+              Note that the arithmetic happens on the plain numbers, and{" "}
+              <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline /> is only used inside the{" "}
+              <CodeSnippet code="console.log" lang={"javascript"} theme={"material-theme-ocean"} inline />. Never calculate with a formatted value.
+            </li>
+            <li>
+              <b class="text-sn-theme">Try this:</b> change{" "}
+              <CodeSnippet code="let total = subtotal + tip;" lang={"javascript"} theme={"material-theme-ocean"} inline /> to use{" "}
+              <CodeSnippet code="tip.toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of{" "}
+              <CodeSnippet code="tip" lang={"javascript"} theme={"material-theme-ocean"} inline />, and see what the total becomes. Change it back.
+            </li>
           </ul>
 
-          <Code code={Task4} frame="code" lang="javascript" title="Numeric Input" mark={{ range: "28-29" }} ins={{ range: "26-33" }} />
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            title="Type Casting"
+            showLineNumbers={false}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 5: Hours to Minutes Converter</h3>
+          <h3>Challenge (Optional): Make NaN Spread</h3>
           <ul>
-            <li>Ask for a number of hours, converting it with <code>parseFloat()</code>.</li>
-            <li>Print the equivalent number of minutes.</li>
+            <li>
+              Run your finished program and answer one of the crate questions
+              with a word instead of a number.
+            </li>
+            <li>
+              Write a comment listing which output lines became{" "}
+              <CodeSnippet
+                code="NaN"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and which survived.
+            </li>
+            <li>
+              Then explain, in that comment, why a wrong answer with no error
+              message is worse than a crash.
+            </li>
           </ul>
-
-          <Code code={Task5} frame="code" lang="javascript" title="Numeric Input" mark={{ range: "37" }} ins={{ range: "35-39" }} />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -317,14 +645,20 @@ Enter a number of hours: 12
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>
+            Verify your program works correctly, using 45 and 64, then 47 and 6.
+          </p>
 
           <Code
-            code={SampleOutput}
+            code={ExampleOutput}
             frame="terminal"
             lang="txt"
             showLineNumbers={false}
             title="Example Output"
+            mark={[
+              { label: "109, not 4564 — the cast is working", range: "3" },
+              { label: "Formatted only at display time", range: "13-15" },
+            ]}
           />
         </section>
 
@@ -337,9 +671,21 @@ Enter a number of hours: 12
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>Why does <code>prompt()</code> always give back a string, even if the user types a number?</li>
-            <li>What's the difference between <code>parseInt()</code> and <code>parseFloat()</code>? When would you use one over the other?</li>
-            <li>What do you think <code>parseFloat("banana")</code> would return? What might happen if you tried to do math with that result?</li>
+            <li>
+              Why does <code>*</code> appear to work on uncast input while{" "}
+              <code>+</code> does not? Answer in terms of what each symbol can
+              mean.
+            </li>
+            <li>
+              <code>Number("banana")</code> gives <code>NaN</code> instead of
+              stopping the program. Give one advantage and one disadvantage of
+              behaving that way.
+            </li>
+            <li>
+              You have now met three bugs that produce a wrong answer with no
+              error message: uncast addition, NaN spreading, and arithmetic on a{" "}
+              <code>toFixed()</code> result. What do all three have in common?
+            </li>
           </ol>
         </section>
 

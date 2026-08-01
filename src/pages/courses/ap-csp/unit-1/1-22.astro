@@ -1,0 +1,601 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let reading1 = 4;
+let reading2 = -8;
+let reading3 = 12;
+let reading4 = -3;
+let reading5 = 7;`;
+const Figure2 = `let readings = [4, -8, 12, -3, 7];
+
+console.log(readings);
+console.log(readings[0]);
+console.log(readings[2]);`;
+const Figure3 = `[ 4, -8, 12, -3, 7 ]
+4
+12`;
+const Figure4 = `index:    0    1    2    3    4
+value:    4   -8   12   -3    7`;
+const Figure5 = `let crew = ["Ada", "Bo", "Cy"];
+
+crew[1] = "Max";
+
+console.log(crew);`;
+const Figure6 = `[ 'Ada', 'Max', 'Cy' ]`;
+const Figure7 = `let a = [1, 2, 3];
+let b = a;
+
+b[0] = 99;
+
+console.log("b[0] is", b[0]);
+console.log("a[0] is", a[0]);`;
+const Figure8 = `b[0] is 99
+a[0] is 99`;
+const NotationJs = `let scores = [10, 20, 30];
+let first = scores[0];
+let copy = scores;`;
+const NotationPseudo = `scores ← [10, 20, 30]
+first ← scores[1]
+copy ← scores`;
+const Task1 = `let readings = [4, -8, 12, -3, 7];
+
+console.log("All readings:", readings);
+console.log("First:", readings[0]);
+console.log("Third:", readings[2]);
+console.log("Last:", readings[4]);
+`;
+const Task2 = `let readings = [4, -8, 12, -3, 7];
+let crew = ["Ada", "Bo", "Cy"];
+
+console.log("All readings:", readings);
+console.log("First:", readings[0]);
+console.log("Third:", readings[2]);
+console.log("Last:", readings[4]);
+console.log("");
+
+console.log("Crew:", crew);
+
+crew[1] = "Max";
+readings[0] = 99;
+
+console.log("After changes");
+console.log("Crew:", crew);
+console.log("Readings:", readings);
+`;
+const Task3 = `let readings = [4, -8, 12, -3, 7];
+let crew = ["Ada", "Bo", "Cy"];
+
+console.log("All readings:", readings);
+console.log("First:", readings[0]);
+console.log("Third:", readings[2]);
+console.log("Last:", readings[4]);
+console.log("");
+
+console.log("Crew:", crew);
+
+crew[1] = "Max";
+readings[0] = 99;
+
+console.log("After changes");
+console.log("Crew:", crew);
+console.log("Readings:", readings);
+console.log("");
+
+// Make a second name that refers to the crew list
+// Change one element using the SECOND name only
+// Display both names, and see whether the first one changed too
+`;
+const ExampleOutput = `All readings: [ 4, -8, 12, -3, 7 ]
+First: 4
+Third: 12
+Last: 7
+
+Crew: [ 'Ada', 'Bo', 'Cy' ]
+After changes
+Crew: [ 'Ada', 'Max', 'Cy' ]
+Readings: [ 99, -8, 12, -3, 7 ]
+
+Changed backupCrew[0] to "Zed"
+crew: [ 'Zed', 'Max', 'Cy' ]
+backupCrew: [ 'Zed', 'Max', 'Cy' ]
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.22: Arrays</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.22</h2>
+              <h3 class="text-sn-theme">Arrays</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Many Values, One Name</p>
+              <p>Counting From Zero</p>
+              <p>Two Names, One Array</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>This Does Not Scale</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Now imagine a hundred readings. Or a number of readings you do
+                not know until the program runs.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>An Array</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure3}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>One Name, Many Values</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">Square brackets make the array</li>
+                  <li class="fragment">Commas separate the values</li>
+                  <li class="fragment">
+                    Square brackets <i>after the name</i> pick one out
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                The number in the brackets is called the{" "}
+                <b class="text-sn-theme">index</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Counting From Zero</h2>
+              <Code
+                code={Figure4}
+                frame="none"
+                lang="txt"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <b class="text-sn-theme">The first element is at index 0</b>, not
+                1. Five elements means indexes 0 through 4.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Counting From Zero</h2>
+              <p>
+                This feels wrong for about a week and then never again.
+              </p>
+              <p class="fragment">
+                It is also why Activity 1.18 taught{" "}
+                <CodeSnippet code="for (let i = 0; i < n; i++)" lang={"javascript"} theme={"material-theme-ocean"} inline /> rather than starting at
+                1. That loop was built for this.
+              </p>
+              <p class="fragment">
+                <b>The AP exam counts from 1.</b> We will deal with that at the
+                bottom of this page, and it matters.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Changing an Element</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                An element behaves like a variable. You can read it or assign to
+                it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Now the Strange Part</h2>
+              <Code
+                code={Figure7}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Nothing touched <CodeSnippet code="a" lang={"javascript"} theme={"material-theme-ocean"} inline />. Predict the output before the
+                next slide.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now the Strange Part</h2>
+              <Code
+                code={Figure8}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  There is only one array. Both names point at it.
+                </b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Two Labels on One Box</h2>
+              <p>
+                With a plain number, <CodeSnippet code="let b = a" lang={"javascript"} theme={"material-theme-ocean"} inline /> copies the value.
+                With an array, it copies the <i>label</i>, not the contents.
+              </p>
+              <p class="fragment">
+                This is invisible until something changes. Then it is a bug that
+                appears far away from the line that caused it.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  The AP exam's notation does the opposite &mdash; it copies.
+                </b>{" "}
+                See the panel below.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Creating an array and reading its elements</li>
+                <li>Explaining why the first index is 0</li>
+                <li>Assigning a new value to an element</li>
+                <li>Recognizing that two names can share one array</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Array</dt>
+                  <dd>An ordered collection of values stored under one name.</dd>
+                  <dt>Element</dt>
+                  <dd>One value inside an array.</dd>
+                  <dt>Index</dt>
+                  <dd>
+                    The position of an element, counted from 0 in JavaScript.
+                  </dd>
+                  <dt>Reference</dt>
+                  <dd>
+                    A name that points at an array rather than holding its own
+                    copy.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-22-arrays</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Read Some Elements</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              Five elements, and the last one is at index <b>4</b>. Try{" "}
+              <CodeSnippet code="readings[5]" lang={"javascript"} theme={"material-theme-ocean"} inline /> and see what you get. It does not crash
+              &mdash; hold that thought until Activity 1.23.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Arrays"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Change Some Elements</h3>
+          <ul>
+            <li>Add a crew array and change one element of each array.</li>
+            <li>
+              Predict both results before running. Which index is Bo at?
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Arrays"
+            ins={{ range: "2, 8-17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Prove the Strange Part</h3>
+          <ul>
+            <li>
+              The comments describe an experiment. Write the code and{" "}
+              <b>predict the result before you run it</b>.
+            </li>
+            <li>
+              Call the second name <CodeSnippet code="backupCrew" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; a name that
+              turns out to be a lie, which is the point.
+            </li>
+            <li>
+              Change only <CodeSnippet code="backupCrew[0]" lang={"javascript"} theme={"material-theme-ocean"} inline />. Do not touch{" "}
+              <CodeSnippet code="crew" lang={"javascript"} theme={"material-theme-ocean"} inline /> at all.
+            </li>
+            <li>
+              Then write a comment saying whether the result surprised you.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Arrays"
+            ins={{ range: "18-22" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Make a Real Copy</h3>
+          <ul>
+            <li>
+              A backup that changes with the original is not a backup. Make one
+              that genuinely stands alone.
+            </li>
+            <li>
+              You do not know a built-in way to do this yet. But you know loops,
+              and you know how to build something up piece by piece.
+            </li>
+            <li>
+              Prove it works: change the copy, and show the original is
+              untouched.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">
+              Two things are different here, and both will cost you points if you
+              read past them.
+            </b>
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <h4>1. Lists Start at 1</h4>
+
+          <p>
+            <code>scores[1]</code> on the exam is the <b>first</b> element. In
+            JavaScript, <code>scores[1]</code> is the <b>second</b>.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>First element</th>
+                  <th>Last element of a 3-item list</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>JavaScript</td>
+                  <td><code>scores[0]</code></td>
+                  <td><code>scores[2]</code></td>
+                </tr>
+                <tr>
+                  <td>Exam notation</td>
+                  <td><code>scores[1]</code></td>
+                  <td><code>scores[3]</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Every index in an exam question is one higher than the JavaScript
+            equivalent. When you trace one of these, write the positions out as
+            1, 2, 3 &mdash; do not let your JavaScript habit answer for you.
+          </p>
+
+          <h4 class="mt-4">2. The Arrow Makes a Real Copy</h4>
+
+          <p>
+            <code>copy ← scores</code> gives you an <b>independent copy</b>. The
+            reference sheet says so outright. Change <code>copy</code> and{" "}
+            <code>scores</code> is untouched.
+          </p>
+
+          <p>
+            <b>
+              JavaScript does the opposite, as you just proved in Task 3.
+            </b>{" "}
+            Same-looking line, opposite behavior:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th><code>b = a</code>, then change <code>b</code></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>JavaScript</td>
+                  <td><code>a</code> changes too &mdash; one array, two names</td>
+                </tr>
+                <tr>
+                  <td>Exam notation</td>
+                  <td><code>a</code> is unaffected &mdash; two separate lists</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            This is the subtlest difference in the whole course, because nothing
+            looks wrong. If an exam question copies a list and then modifies the
+            copy, <b>the original keeps its values</b>. Answering from JavaScript
+            instinct gets it backwards.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={[
+              { label: "Index 1 is the second element", range: "8" },
+              { label: "Both changed — one array, two names", range: "12-13" },
+            ]}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              An array of five elements has a last index of 4. Explain why, and
+              say what you would use for an array of a hundred.
+            </li>
+            <li>
+              You changed <code>backupCrew</code> and <code>crew</code> changed
+              too. Explain what <code>let backupCrew = crew;</code> actually did.
+            </li>
+            <li>
+              On the exam, the same line makes a real copy. Describe a question
+              you could get wrong by answering from JavaScript habit.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

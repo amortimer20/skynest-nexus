@@ -1,0 +1,479 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let level = 18;
+
+if (level < 25) {
+  fill(220, 60, 60);
+} else {
+  fill(80, 200, 120);
+}
+
+rect(50, 100, 300, 40);`;
+const Figure2 = `let level = 140;
+let barWidth = level;
+
+if (barWidth > 300) {
+  barWidth = 300;
+}
+
+rect(50, 100, barWidth, 40);`;
+const Figure3 = `let x = 260;
+let y = 150;
+
+if (x > 200) {
+  fill(220, 60, 60);
+} else {
+  fill(80, 120, 220);
+}
+
+ellipse(x, y, 40, 40);`;
+const Task1 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+
+  let oxygen = 88;
+
+  if (oxygen < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 60, oxygen * 3, 30);
+}
+`;
+const Task2 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+
+  let oxygen = 88;
+  let coolant = 18;
+
+  if (oxygen < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 60, oxygen * 3, 30);
+
+  if (coolant < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 110, coolant * 3, 30);
+}
+`;
+const Task3 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+
+  let oxygen = 88;
+  let coolant = 18;
+  let power = 132;
+
+  if (oxygen < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 60, oxygen * 3, 30);
+
+  if (coolant < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 110, coolant * 3, 30);
+
+  // Draw the power bar at y = 160, same pattern as the others
+  //   work out its width from power, the same way
+  //   if that width would be more than 300, clamp it to 300
+  //   color it red under 25, yellow under 60, green otherwise
+}
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.13: p5 Lab 3 &mdash; Decisions You Can See</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.13</h2>
+              <h3 class="text-sn-theme">p5 Lab 3 &mdash; Decisions You Can See</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Conditions That Choose a Color</p>
+              <p>Clamping to a Boundary</p>
+              <p>Reading a Picture as Data</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Nothing New Again</h2>
+              <p>
+                Conditionals from Activities 1.11 and 1.12. The canvas from
+                1.5 and 1.9. No new syntax at all.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Nothing New Again</h2>
+              <p>
+                In the terminal, a wrong branch prints the wrong word and you
+                have to be reading carefully to notice.
+              </p>
+              <p class="fragment">
+                On a canvas, a wrong branch is <b class="text-sn-theme">the
+                wrong color, in front of you</b>. That is the entire reason for
+                today.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Choosing a Color</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                The condition does not decide <i>whether</i> to draw. It decides{" "}
+                <i>how</i>. The rectangle is drawn either way.
+              </p>
+            </section>
+
+            <section>
+              <h2>Where the Shape Goes Matters</h2>
+              <p>
+                The <CodeSnippet
+                  code="rect()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> sits <b>after</b> the whole if/else, outside the braces.
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code="fill()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> sets a color that stays set. Put the shape inside one branch
+                and it will only appear half the time &mdash; which is a
+                different program.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Clamping</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Clamping</h2>
+              <p>
+                A bar 140 wide fits. A bar 400 wide runs off the canvas and looks
+                broken.
+              </p>
+              <p class="fragment">
+                An <CodeSnippet
+                  code="if"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> with no <CodeSnippet
+                  code="else"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> is the right shape here: most of the time nothing needs to
+                happen.
+              </p>
+              <p class="fragment">
+                Notice the variable is <b>reassigned</b> &mdash; the same trick
+                from Activity 1.3, now doing real work.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Boundaries in Space</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                A condition can test <i>position</i>. Anything past x = 200 turns
+                red. This is how a program decides whether something is out of
+                bounds, off-screen, or touching something else.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Using a condition to choose a fill color</li>
+                <li>Clamping a value to a maximum</li>
+                <li>Placing a shape outside the branches so it always draws</li>
+                <li>Reading a drawing to check whether a branch is correct</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Clamp</dt>
+                  <dd>
+                    To limit a value so it cannot go past a maximum or minimum.
+                  </dd>
+                  <dt>Boundary</dt>
+                  <dd>
+                    A limit that a condition tests against, such as the edge of
+                    the canvas.
+                  </dd>
+                  <dt>State</dt>
+                  <dd>
+                    The current values a program is holding, which decide what it
+                    draws.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-13-status-panel</b>.
+          </p>
+
+          <p>
+            You are building a status panel: one horizontal bar per system, its
+            length showing the reading and its color showing whether that is a
+            problem.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: One Bar</h3>
+          <ul>
+            <li>Write the code below and run it. Oxygen is at 88, so the bar should be green.</li>
+            <li>
+              Change <CodeSnippet
+                code="oxygen"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to 12 and run again. Same bar, shorter and red.
+            </li>
+            <li>Set it back to 88.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 3 — Decisions You Can See"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: A Second Bar</h3>
+          <ul>
+            <li>
+              Add a coolant reading at 18 and draw its bar 50 pixels below the
+              first.
+            </li>
+            <li>
+              Run it. You should see one green bar and one red bar &mdash; and
+              you can tell which system is in trouble without reading a single
+              number.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 3 — Decisions You Can See"
+            ins={{ range: "6, 16-22" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Add a Clamped Three-Color Bar</h3>
+          <ul>
+            <li>
+              The comments describe the power bar. It is harder than the other
+              two in two ways.
+            </li>
+            <li>
+              <b>It needs clamping.</b> Power is 132, and 132 &times; 3 is 396,
+              which runs off a 400-wide canvas. Limit the width to 300.
+            </li>
+            <li>
+              <b>It needs three colors, not two.</b> That means a chain, and the
+              order matters &mdash; Activity 1.12's rule applies here exactly.
+            </li>
+            <li>
+              Test it at 10, at 45, and at 132. You should get red, yellow, and
+              green, and the last one should stop at the same place as a full bar.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 3 — Decisions You Can See"
+            ins={{ range: "7, 25-28" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): A Warning Light</h3>
+          <ul>
+            <li>
+              Add a circle in the top-right corner that is red if <i>any</i> of
+              the three systems is under 25, and green if none of them are.
+            </li>
+            <li>
+              You do not have <CodeSnippet
+                code="&&"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or <CodeSnippet
+                code="||"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> yet &mdash; those arrive in Activity 1.14. Solve it with the
+              tools you have.
+            </li>
+            <li>
+              There is more than one way. One approach uses a boolean variable
+              that starts <CodeSnippet
+                code="false"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and gets reassigned.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your finished sketch should show all of the following.</p>
+
+          <ul>
+            <li>Three horizontal bars on a dark background, evenly spaced.</li>
+            <li>The oxygen bar green and long; the coolant bar red and short.</li>
+            <li>
+              The power bar green and <b>stopping at 300 pixels</b>, not running
+              off the edge.
+            </li>
+            <li>
+              Every bar visible in every case &mdash; changing a reading should
+              change a bar's length and color, never make it disappear.
+            </li>
+          </ul>
+
+          <p>
+            <b>The test that matters:</b> set power to 10, 45, and 132 in turn.
+            You should get three different colors. If two of them match, your
+            chain is ordered wrong.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              What would happen if you moved a <code>rect()</code> call inside one
+              branch of its if/else? Why is that a different program?
+            </li>
+            <li>
+              The power bar needed clamping. Describe another situation where a
+              program should limit a value rather than use it as given.
+            </li>
+            <li>
+              You have now written chains in the terminal and on a canvas. Which
+              made a wrongly-ordered chain easier to notice, and why?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

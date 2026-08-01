@@ -1,0 +1,486 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let total = 0;
+
+for (let i = 1; i <= 4; i++) {
+  total = total + i;
+}
+
+console.log("Total:", total);`;
+const Figure2 = `let hotDays = 0;
+
+for (let i = 1; i <= 5; i++) {
+  let temp = Number(prompt("Reading " + i + "?"));
+
+  if (temp > 30) {
+    hotDays = hotDays + 1;
+  }
+}
+
+console.log("Readings above 30:", hotDays);`;
+const Figure3 = `let highest = 0;
+
+for (let i = 1; i <= 3; i++) {
+  let temp = Number(prompt("Reading?"));
+
+  if (temp > highest) {
+    highest = temp;
+  }
+}
+
+console.log("Highest:", highest);`;
+const Figure4 = `Reading? -5
+Reading? -12
+Reading? -3
+Highest: 0`;
+const Figure5 = `let total = 259;
+let count = 3;
+
+let average = total / count;
+
+console.log("Average:", average);
+console.log("Average:", average.toFixed(1));`;
+const Figure6 = `Average: 86.33333333333333
+Average: 86.3`;
+const Task1 = `let total = 0;
+
+for (let i = 1; i <= 5; i++) {
+  let reading = Number(prompt("Reading " + i + "?"));
+  total = total + reading;
+}
+
+console.log("Total:", total);
+`;
+const Task2 = `let total = 0;
+let aboveFreezing = 0;
+let highest = -999;
+
+for (let i = 1; i <= 5; i++) {
+  let reading = Number(prompt("Reading " + i + "?"));
+
+  total = total + reading;
+
+  if (reading > 0) {
+    aboveFreezing = aboveFreezing + 1;
+  }
+
+  if (reading > highest) {
+    highest = reading;
+  }
+}
+
+console.log("Total:", total);
+console.log("Above freezing:", aboveFreezing);
+console.log("Highest:", highest);
+`;
+const Task3 = `let total = 0;
+let aboveFreezing = 0;
+let highest = -999;
+
+for (let i = 1; i <= 5; i++) {
+  let reading = Number(prompt("Reading " + i + "?"));
+
+  total = total + reading;
+
+  if (reading > 0) {
+    aboveFreezing = aboveFreezing + 1;
+  }
+
+  if (reading > highest) {
+    highest = reading;
+  }
+}
+
+console.log("Total:", total);
+console.log("Above freezing:", aboveFreezing);
+console.log("Highest:", highest);
+
+// Work out the average and show it to one decimal place
+// Track the lowest reading as well, and show it
+// Say whether the average was above or below freezing
+`;
+const ExampleOutput = `Reading 1? 4
+Reading 2? -8
+Reading 3? 12
+Reading 4? -3
+Reading 5? 7
+Total: 12
+Above freezing: 3
+Highest: 12
+Average: 2.4
+Lowest: -8
+The average was above freezing.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.19: Loop Patterns</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.19</h2>
+              <h3 class="text-sn-theme">Loop Patterns</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Accumulator and Counter</p>
+              <p>Tracking a Maximum</p>
+              <p>Averages</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Four Patterns, Endless Uses</h2>
+              <p>
+                Almost every loop you write for the rest of this course is one of
+                four shapes. Learn them once, recognize them forever.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>1. Accumulator</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                A variable that grows across passes. Starts at <b>0</b> for
+                adding, or <b>1</b> if you are multiplying.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>2. Counter</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Looks like an accumulator, but it counts <i>how many times
+                something was true</i> instead of adding up the values.
+              </p>
+            </section>
+
+            <section>
+              <h2>Accumulator or Counter?</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet code="total = total + reading" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; accumulator
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="count = count + 1" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; counter
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                One adds the <b>data</b>. The other adds <b>one</b>. Mixing them
+                up gives an answer that looks plausible and is wrong.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>3. Tracking a Maximum</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">Keep the biggest thing seen so far.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>But Watch the Starting Value</h2>
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo — all readings below zero"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Every reading was negative, so none of them ever beat 0 &mdash;
+                and the program reported a maximum that <b class="text-sn-theme">
+                was never in the data</b>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Starting a Maximum Safely</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    Start below anything possible, like{" "}
+                    <CodeSnippet code="-999" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; simple, but you have to be sure
+                  </li>
+                  <li class="fragment">
+                    Or use the <b>first value</b> as the starting point &mdash;
+                    always correct, slightly more work
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                <b>Starting at 0 is the classic bug</b>, and it only shows up
+                when all your data happens to be negative.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>4. Average</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                An accumulator divided by a count &mdash; and the first thing
+                you have written where <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline /> is genuinely
+                necessary rather than tidy.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Accumulating a total across a loop</li>
+                <li>Counting how many values meet a condition</li>
+                <li>Tracking a maximum and a minimum safely</li>
+                <li>Computing and formatting an average</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Accumulator</dt>
+                  <dd>A variable that builds up a total across passes.</dd>
+                  <dt>Counter</dt>
+                  <dd>A variable that counts how many times something happened.</dd>
+                  <dt>Running maximum</dt>
+                  <dd>The largest value seen so far.</dd>
+                  <dt>Initialization</dt>
+                  <dd>
+                    The starting value given to a variable before a loop, which
+                    decides whether the pattern works.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-19-patterns</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Accumulate Five Readings</h3>
+          <ul>
+            <li>Write the code below and run it with 4, −8, 12, −3, 7.</li>
+            <li>
+              The total should be 12. Add them by hand to be sure &mdash; you
+              cannot check a loop you do not know the answer to.
+            </li>
+            <li>
+              Notice <CodeSnippet code="reading" lang={"javascript"} theme={"material-theme-ocean"} inline /> is declared <i>inside</i> the loop.
+              It is fresh every pass, which is fine because{" "}
+              <CodeSnippet code="total" lang={"javascript"} theme={"material-theme-ocean"} inline /> is the one that has to survive.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Loop Patterns"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Add a Counter and a Maximum</h3>
+          <ul>
+            <li>Add two more patterns to the same loop.</li>
+            <li>
+              All three live in one loop and one pass of input. Collecting the
+              data once and answering several questions about it is the normal
+              shape of this.
+            </li>
+            <li>
+              <CodeSnippet code="highest" lang={"javascript"} theme={"material-theme-ocean"} inline /> starts at −999, not 0. Change it to 0, run
+              with all-negative readings, and see the bug for yourself. Then
+              change it back.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Loop Patterns"
+            ins={{ range: "2-3, 10-12, 14-16, 20-21" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Add an Average and a Minimum</h3>
+          <ul>
+            <li>The comments describe three more things to report.</li>
+            <li>
+              The average needs <CodeSnippet code="toFixed(1)" lang={"javascript"} theme={"material-theme-ocean"} inline /> or the output is
+              unreadable. Divide first, format second.
+            </li>
+            <li>
+              The minimum is the maximum pattern with two things flipped. Work
+              out which two.
+            </li>
+            <li>
+              Test with all-negative readings and confirm the minimum, the
+              maximum, and the average are all still sensible.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Loop Patterns"
+            ins={{ range: "23-25" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Start From the Data</h3>
+          <ul>
+            <li>
+              −999 works until someone measures something colder. Rewrite the
+              maximum so it starts from the <i>first</i> reading instead of a
+              guess.
+            </li>
+            <li>
+              Hint: the first pass is special. You already know how to ask
+              whether you are on it &mdash; <CodeSnippet code="i" lang={"javascript"} theme={"material-theme-ocean"} inline /> tells you.
+            </li>
+            <li>
+              Write a comment explaining why this version cannot be broken by
+              unusual data.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly, using 4, &minus;8, 12, &minus;3, 7.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={[
+              { label: "One decimal place, not 2.4000000000000004", range: "9" },
+              { label: "A real reading, not the starting guess", range: "10" },
+            ]}
+          />
+
+          <p class="mt-3">
+            Then run it again with five negative readings. The highest, lowest,
+            and average must all still be values that make sense.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              An accumulator and a counter look almost identical. Explain the
+              difference, and describe a question each one answers.
+            </li>
+            <li>
+              Starting a maximum at 0 fails on all-negative data. Why is that
+              kind of bug particularly hard to catch?
+            </li>
+            <li>
+              Your average needed formatting but your total did not. Why does
+              division produce ugly numbers when addition usually does not?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -6,8 +6,85 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const HelloWorld = `console.log("Hello, world!");`;
-const ExampleOutput = `Hello, world!`;
+const Figure1 = `console.log("Total:", 42);`;
+const Figure2 = `Total: 42`;
+const Figure3 = `// This line explains what the next line does
+console.log("Loading your inventory...");
+
+// console.log("This line is turned off for now.");
+
+/*
+  A longer note can span
+  several lines like this.
+*/
+console.log("Done.");`;
+const Figure4 = `Loading your inventory...
+Done.`;
+const Figure5 = `// Greet the player
+// Show their score
+// Show a closing message`;
+const Figure6 = `// Greet the player
+console.log("Welcome back, Commander.");
+
+// Show their score
+console.log("Score:", 1250);
+
+// Show a closing message
+console.log("Report ends.");`;
+const Task1 = `// Ship's log
+console.log("=== DAILY LOG ===");
+console.log("Stardate:", 4721);
+console.log("Status:", "nominal");
+`;
+const Task2 = `// Ship's log
+console.log("=== DAILY LOG ===");
+console.log("Stardate:", 4721);
+console.log("Status:", "nominal");
+console.log("");
+
+// Report the crew
+console.log("Crew aboard:", 7);
+console.log("Crew asleep:", 2);
+
+/*
+  The line below is turned off on purpose.
+  Turn it on and run the program again.
+*/
+// console.log("Something is moving in cargo bay 3.");
+`;
+const Task3 = `// Ship's log
+console.log("=== DAILY LOG ===");
+console.log("Stardate:", 4721);
+console.log("Status:", "nominal");
+console.log("");
+
+// Report the crew
+console.log("Crew aboard:", 7);
+console.log("Crew asleep:", 2);
+
+/*
+  The line below is turned off on purpose.
+  Turn it on and run the program again.
+*/
+console.log("Something is moving in cargo bay 3.");
+console.log("");
+
+// Announce the destination
+// Show how far away it is
+// Sign off with your name
+`;
+const ExampleOutput = `=== DAILY LOG ===
+Stardate: 4721
+Status: nominal
+
+Crew aboard: 7
+Crew asleep: 2
+Something is moving in cargo bay 3.
+
+Next port: Ganymede Station
+Distance: 3 days
+Logged by: Jordan
+`;
 //#endregion
 ---
 
@@ -19,7 +96,7 @@ const ExampleOutput = `Hello, world!`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.2: Welcome to AP CSP</h1>
+        <h1>Activity 1.2: Console Output and Comments</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -27,115 +104,179 @@ const ExampleOutput = `Hello, world!`;
           <Presentation>
             <section>
               <h2>Activity 1.2</h2>
-              <h3 class="text-sn-theme">Welcome to AP CSP</h3>
+              <h3 class="text-sn-theme">Console Output and Comments</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>What Is AP CSP?</p>
-              <p>Computing's Impact</p>
-              <p>Programming Languages &amp; Code Editors</p>
+              <p>Displaying More Than One Thing</p>
+              <p>Comments</p>
+              <p>Planning Before You Code</p>
             </section>
 
             <section data-auto-animate>
-              <h2>What Is AP CSP?</h2>
+              <h2>More Than One Thing at a Time</h2>
               <p>
-                AP Computer Science Principles looks at computing through
-                five big lenses, all year long.
+                Separate values with a comma and{" "}
+                <CodeSnippet
+                  code="console.log()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> displays them all.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The 5 Big Ideas</h2>
+              <h2>More Than One Thing at a Time</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                Notice you did not type that space. The comma put it there.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Comments</h2>
+              <p>Notes for humans. The computer skips them entirely.</p>
               <ul>
-                <li class="fragment">Creative Development</li>
-                <li class="fragment">Data</li>
-                <li class="fragment">Algorithms &amp; Programming</li>
-                <li class="fragment">Computer Systems &amp; Networks</li>
-                <li class="fragment">Impact of Computing</li>
+                <li class="fragment">
+                  <CodeSnippet
+                    code="//"
+                    lang={"javascript"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> comments out the rest of the line
+                </li>
+                <li class="fragment">
+                  <CodeSnippet
+                    code="/* ... */"
+                    lang={"javascript"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> comments out everything between
+                </li>
               </ul>
             </section>
 
+            <section data-auto-animate>
+              <h2>Comments</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Comments Do Two Jobs</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <b>Explaining</b> &mdash; why the code does what it does
+                  </li>
+                  <li class="fragment">
+                    <b>Switching code off</b> &mdash; without deleting it, so you
+                    can put it back
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                The second one is how you find a broken line: turn things off
+                until it works.
+              </p>
+            </section>
+
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Computing's Impact</h2>
+              <h2>Run After Every Line</h2>
+              <p>Write one line. Run it. Write the next line. Run it again.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Run After Every Line</h2>
               <p>
-                Computing touches nearly everything &mdash; social media,
-                medical devices, self-driving cars, how elections are run.
+                If you write twenty lines and then run, you have twenty places a
+                mistake could be.
               </p>
               <p class="fragment">
-                All year, we'll keep coming back to one question:{" "}
-                <b class="text-sn-theme">what benefits and risks does each
-                new technology bring?</b>
+                If you run after each one, you have exactly one.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>This Year's Toolkit</h2>
+              <h2>Planning Before You Code</h2>
               <p>
-                We'll write real code all year &mdash; starting in{" "}
-                <b class="text-sn-theme">JavaScript</b>, first in the
-                console, later moving to graphics and your own game-style
-                project.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Programming Languages</h2>
-              <p>
-                A <b class="text-sn-theme">programming language</b> lets us
-                write instructions in a form that's easier for humans to
-                read and write, which then gets translated down into the
-                binary a computer actually runs.
+                Write your steps in plain English <i>first</i>, as comments. Then
+                fill in the code underneath each one.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>Programming Languages</h2>
-              <p>There are many programming languages, each with its own rules:</p>
-              <ul>
-                <li class="fragment">JavaScript</li>
-                <li class="fragment">Python</li>
-                <li class="fragment">Java</li>
-                <li class="fragment">C++</li>
-              </ul>
-              <p class="fragment">
-                This course uses <b class="text-sn-theme">JavaScript</b>.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>What Is Deno?</h2>
-              <p>
-                <b class="text-sn-theme">Deno</b> runs JavaScript outside a
-                web browser &mdash; no setup beyond installing it once, and
-                it comes with handy built-in tools like{" "}
-                <CodeSnippet code="prompt()" lang="javascript" theme="material-theme-ocean" inline /> for asking the user something right from the console.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Code Editors</h2>
-              <p>
-                A <b>code editor</b> is a specialized text editor built for
-                writing and running code &mdash; it can highlight syntax,
-                catch errors, and run your programs, all in one place.
-              </p>
+              <h2>Planning Before You Code</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment mt-3">Then fill it in.</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Code Editors</h2>
+              <h2>Planning Before You Code</h2>
+              <Code
+                code={Figure6}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section>
+              <h2>Why Bother Planning?</h2>
               <p>
-                We'll be using <b class="text-sn-theme">Visual Studio Code</b>
-                (VS Code) all year.
+                On the AP exam you will be asked to describe an algorithm in
+                words, in enough detail that someone else could write the code
+                from your description.
+              </p>
+              <p class="fragment">
+                That is this skill. We start it in week one and keep it all year.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Installing Deno</li>
-                <li>Creating a project folder</li>
-                <li>Writing and running your first JavaScript program</li>
+                <li>Displaying several values in one statement</li>
+                <li>Writing comments that explain and comments that disable</li>
+                <li>Planning a program in plain English before coding it</li>
               </ul>
             </section>
 
@@ -143,18 +284,25 @@ const ExampleOutput = `Hello, world!`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Big Idea</dt>
-                  <dd>One of the five major themes AP CSP is organized around.</dd>
-                  <dt>Programming Language</dt>
-                  <dd>A structured set of rules for writing instructions a computer can run.</dd>
-                  <dt>JavaScript</dt>
-                  <dd>The programming language used throughout this course.</dd>
-                  <dt>Deno</dt>
-                  <dd>A JavaScript runtime that lets us run code outside a web browser, with useful tools built in.</dd>
-                  <dt>Runtime</dt>
-                  <dd>The program that actually executes your code.</dd>
-                  <dt>Code Editor</dt>
-                  <dd>A program built for writing, testing, and running code.</dd>
+                  <dt>Comment</dt>
+                  <dd>
+                    A note in the code that the computer ignores when the program
+                    runs.
+                  </dd>
+                  <dt>Comment out</dt>
+                  <dd>
+                    To turn a line of code off by making it a comment, without
+                    deleting it.
+                  </dd>
+                  <dt>Argument</dt>
+                  <dd>
+                    A value you put inside the parentheses of a function, such as
+                    the text you want displayed.
+                  </dd>
+                  <dt>Algorithm</dt>
+                  <dd>
+                    A step-by-step set of instructions for finishing a task.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -167,85 +315,102 @@ const ExampleOutput = `Hello, world!`;
         <section id="build">
           <h2>Build</h2>
 
-          <p>Set up your development environment and write your very first JavaScript program.</p>
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-2-output</b>.
+          </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Install Deno</h3>
+          <h3>Task 1: Start the Log</h3>
           <ul>
-            <li>Follow your teacher's instructions to install Deno.</li>
+            <li>Write the code below, running after each line.</li>
+            <li>Notice that the comma puts a space in the output for you.</li>
           </ul>
 
-          <!-- GIF: Installing Deno -->
-          <div
-            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-            style="border-style: dashed !important;"
-          >
-            [GIF PLACEHOLDER &mdash; Installing Deno]
-          </div>
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Console Output and Comments"
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Create Your Project Folder</h3>
+          <h3>Task 2: Add a Crew Report</h3>
           <ul>
+            <li>Add the new lines below.</li>
             <li>
-              Create a folder to hold all of your work for this class, and
-              open that folder in VS Code.
+              Run it. The cargo bay line should <i>not</i> appear yet &mdash; it
+              is commented out.
             </li>
-          </ul>
-
-          <!-- GIF: Creating and opening the project folder in VS Code -->
-          <div
-            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-            style="border-style: dashed !important;"
-          >
-            [GIF PLACEHOLDER &mdash; Creating and Opening Your Project Folder]
-          </div>
-
-          <hr class="my-4" />
-
-          <h3>Task 3: Create Your First Script</h3>
-          <ul>
             <li>
-              Inside your project folder, create a new program named <b
-                class="text-sn-theme">1-2-hello</b
-              >.
+              Now delete the two slashes in front of it and run again. That is
+              commenting and uncommenting.
             </li>
-          </ul>
-
-          <!-- GIF: Creating a new JavaScript file in VS Code -->
-          <div
-            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-            style="border-style: dashed !important;"
-          >
-            [GIF PLACEHOLDER &mdash; Creating a New JavaScript File]
-          </div>
-
-          <hr class="my-4" />
-
-          <h3>Task 4: Write and Run Hello World</h3>
-          <ul>
-            <li>Type the following line of code into your file.</li>
             <li>
-              Run your program and check the output.
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
             </li>
           </ul>
 
           <Code
-            code={HelloWorld}
+            code={Task2}
             frame="code"
             lang="javascript"
-            title="Welcome to AP CSP"
-            showLineNumbers={false}
+            title="Console Output and Comments"
+            ins={{ range: "5-15" }}
           />
 
-          <!-- GIF: Running the script with Deno and viewing terminal output -->
-          <div
-            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
-            style="border-style: dashed !important;"
-          >
-            [GIF PLACEHOLDER &mdash; Running Your Program]
-          </div>
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Write</h3>
+          <ul>
+            <li>
+              The three comments at the bottom are a plan with no code under them
+              yet.
+            </li>
+            <li>
+              Write one <CodeSnippet
+                code="console.log()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> statement under each comment, so the program does what the plan
+              says.
+            </li>
+            <li>
+              Leave the comments in place. Your finished program should read as
+              plan, code, plan, code.
+            </li>
+            <li>Pick your own destination, distance, and name.</li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Console Output and Comments"
+            ins={{ range: "16-20" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Plan Something of Your Own</h3>
+          <ul>
+            <li>
+              At the bottom of the program, write four comments planning a short
+              status report of your choosing &mdash; a game character, a
+              spacecraft, a sandwich shop, whatever you like.
+            </li>
+            <li>
+              Write the code under each comment afterward, not while planning.
+            </li>
+            <li>
+              Notice whether writing the plan first made the code easier or
+              harder. You will be asked about this in the reflection.
+            </li>
+          </ul>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -262,6 +427,10 @@ const ExampleOutput = `Hello, world!`;
             lang="txt"
             showLineNumbers={false}
             title="Example Output"
+            mark={{
+              label: "Yours will say something different",
+              range: "9-11",
+            }}
           />
         </section>
 
@@ -275,16 +444,17 @@ const ExampleOutput = `Hello, world!`;
 
           <ol>
             <li>
-              What are the 5 Big Ideas this course is built around, and which
-              one are you most curious about?
+              Comments do two different jobs. Describe each one in your own
+              words, and say which you think you will use more often.
             </li>
             <li>
-              Give one example of how computing has changed something in
-              your own life, for better or worse.
+              In Task 3 you wrote the plan before the code. Did that make it
+              easier or harder than Task 1, where you just copied lines? Be
+              honest.
             </li>
             <li>
-              What is the difference between a programming language and a
-              code editor?
+              Suppose a program of forty lines produces the wrong output. Explain
+              how commenting out lines could help you find the problem.
             </li>
           </ol>
         </section>

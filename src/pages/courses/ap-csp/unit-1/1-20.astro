@@ -1,0 +1,450 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `for (let row = 1; row <= 3; row++) {
+  console.log("Row", row);
+}`;
+const Figure2 = `for (let row = 1; row <= 3; row++) {
+  for (let seat = 1; seat <= 4; seat++) {
+    console.log("Row", row, "Seat", seat);
+  }
+}`;
+const Figure3 = `Row 1 Seat 1
+Row 1 Seat 2
+Row 1 Seat 3
+Row 1 Seat 4
+Row 2 Seat 1
+Row 2 Seat 2
+Row 2 Seat 3
+Row 2 Seat 4
+Row 3 Seat 1
+Row 3 Seat 2
+Row 3 Seat 3
+Row 3 Seat 4`;
+const Figure4 = `for (let a = 1; a <= 3; a++) {
+  for (let b = 1; b <= 4; b++) {
+    // this line runs 12 times
+  }
+}`;
+const Figure5 = `let line = "";
+
+for (let col = 1; col <= 5; col++) {
+  line = line + "*";
+}
+
+console.log(line);`;
+const Figure6 = `*****`;
+const Task1 = `for (let row = 1; row <= 3; row++) {
+  for (let seat = 1; seat <= 4; seat++) {
+    console.log("Row", row, "Seat", seat);
+  }
+}
+`;
+const Task2 = `for (let row = 1; row <= 3; row++) {
+  for (let seat = 1; seat <= 4; seat++) {
+    console.log("Row", row, "Seat", seat);
+  }
+}
+
+console.log("");
+
+for (let row = 1; row <= 4; row++) {
+  let line = "";
+
+  for (let col = 1; col <= 6; col++) {
+    line = line + "* ";
+  }
+
+  console.log(line);
+}
+`;
+const Task3 = `for (let row = 1; row <= 3; row++) {
+  for (let seat = 1; seat <= 4; seat++) {
+    console.log("Row", row, "Seat", seat);
+  }
+}
+
+console.log("");
+
+for (let row = 1; row <= 4; row++) {
+  let line = "";
+
+  for (let col = 1; col <= 6; col++) {
+    line = line + "* ";
+  }
+
+  console.log(line);
+}
+
+console.log("");
+
+// Ask the user for a size and cast it
+// Print a triangle that many rows tall:
+//   row 1 has one star, row 2 has two, and so on
+//   the inner loop's limit depends on the outer loop's variable
+`;
+const ExampleOutput = `Row 1 Seat 1
+Row 1 Seat 2
+Row 1 Seat 3
+Row 1 Seat 4
+Row 2 Seat 1
+Row 2 Seat 2
+Row 2 Seat 3
+Row 2 Seat 4
+Row 3 Seat 1
+Row 3 Seat 2
+Row 3 Seat 3
+Row 3 Seat 4
+
+* * * * * *
+* * * * * *
+* * * * * *
+* * * * * *
+
+Size? 4
+*
+* *
+* * *
+* * * *
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.20: Loops Inside Loops</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.20</h2>
+              <h3 class="text-sn-theme">Loops Inside Loops</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>An Inner Loop Runs Fully, Every Pass</p>
+              <p>Counting the Passes</p>
+              <p>Building a Line</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Loop</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">Three passes. Three lines. Nothing new.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Loop Inside a Loop</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Loop Inside a Loop</h2>
+              <Code
+                code={Figure3}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section>
+              <h2>The Rule</h2>
+              <p>
+                <b class="text-sn-theme">
+                  The inner loop runs all the way through, every single time the
+                  outer loop takes one pass.
+                </b>
+              </p>
+              <p class="fragment">
+                Row 1 does all four seats before row 2 begins. Look at the output
+                again &mdash; the seat number resets, the row number does not.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>How Many Times?</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <b>Multiply them.</b> 3 outer passes &times; 4 inner passes = 12.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>How Many Times?</h2>
+              <p>
+                This is why nested loops get slow. Two loops of 1,000 is a
+                million passes &mdash; not two thousand.
+              </p>
+              <p class="fragment">
+                You will meet that idea properly in Quarter 2 under the name{" "}
+                <b class="text-sn-theme">algorithmic efficiency</b>, and it is on
+                the exam.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Building a Line Instead of Printing It</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>An Accumulator Made of Text</h2>
+              <p>
+                Same pattern as Activity 1.19, except it collects <b>characters</b>{" "}
+                instead of numbers. It starts as an empty string rather than 0.
+              </p>
+              <p class="fragment">
+                To print a grid you build each row inside the inner loop, then
+                display it in the outer one. <b class="text-sn-theme">Where the
+                display goes decides whether you get a grid or a column.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a loop inside another loop</li>
+                <li>Predicting how many times the inner block runs</li>
+                <li>Building a string across passes</li>
+                <li>Using the outer variable inside the inner loop</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Nested loop</dt>
+                  <dd>A loop written inside another loop's body.</dd>
+                  <dt>Outer loop</dt>
+                  <dd>The loop that contains the other one.</dd>
+                  <dt>Inner loop</dt>
+                  <dd>The loop that runs completely on each outer pass.</dd>
+                  <dt>String accumulator</dt>
+                  <dd>A text variable built up piece by piece across a loop.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-20-nested-loops</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Rows and Seats</h3>
+          <ul>
+            <li>
+              Before running it, predict how many lines will appear. Then run it
+              and count.
+            </li>
+            <li>
+              Change the inner limit from 4 to 2 and predict again. Then change
+              the <i>outer</i> limit instead and predict once more.
+            </li>
+            <li>Put both back to 3 and 4.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Loops Inside Loops"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: An Actual Grid</h3>
+          <ul>
+            <li>Add a block that prints a rectangle of stars.</li>
+            <li>
+              Look carefully at where <CodeSnippet code="let line" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
+              <CodeSnippet code="console.log(line)" lang={"javascript"} theme={"material-theme-ocean"} inline /> sit &mdash; both in the outer
+              loop, with the inner loop between them.
+            </li>
+            <li>
+              <b>Experiment:</b> move the <CodeSnippet code="console.log(line)" lang={"javascript"} theme={"material-theme-ocean"} inline /> inside
+              the inner loop and run it. Then move it back. That one change is
+              the difference between a grid and a mess.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Loops Inside Loops"
+            ins={{ range: "6-17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Build a Triangle</h3>
+          <ul>
+            <li>
+              The comments describe a triangle where each row is one star longer
+              than the last.
+            </li>
+            <li>
+              <b class="text-sn-theme">
+                The inner loop's limit is the outer loop's variable.
+              </b>{" "}
+              That is the whole trick, and it is the first time the two loops
+              have depended on each other.
+            </li>
+            <li>Cast the input.</li>
+            <li>Test with 1, with 4, and with 7.</li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Loops Inside Loops"
+            ins={{ range: "19-24" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Upside Down</h3>
+          <ul>
+            <li>
+              Print a triangle that starts wide and narrows to a single star.
+            </li>
+            <li>
+              There are two ways: count the outer loop downward, or keep counting
+              up and subtract. Try whichever occurs to you first.
+            </li>
+            <li>
+              Then work out the other way as well, and write a comment saying
+              which reads more clearly.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={[
+              { label: "12 lines — 3 × 4", range: "1-12" },
+              { label: "Each row longer than the last", range: "20-23" },
+            ]}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Explain why nested loops multiply rather than add, using your rows
+              and seats as the example.
+            </li>
+            <li>
+              Moving <code>console.log(line)</code> inside the inner loop changed
+              the output completely. Describe what happened and why.
+            </li>
+            <li>
+              In the triangle, the inner loop's limit came from the outer loop's
+              variable. What does that let you build that a fixed limit could
+              not?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

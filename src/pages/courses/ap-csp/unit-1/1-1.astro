@@ -1,12 +1,38 @@
 ---
-import { Image } from "astro:assets";
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
-import IoModelDiagram from "../../../../assets/courses/ap-csp/img/io-model-diagram.svg";
-import BinaryByteDiagram from "../../../../assets/courses/ap-csp/img/binary-byte-diagram.svg";
+//#region CodeSnippets
+const Figure1 = `console.log("Hello, world!");`;
+const Figure2 = `Hello, world!`;
+const Task1 = `console.log("Hello, world!");
+`;
+const Task2 = `console.log("Hello, world!");
+console.log("My name is Jordan.");
+console.log("This is my first program.");
+`;
+const Task3 = `console.log("Hello, world!");
+console.log("My name is Jordan.");
+console.log("This is my first program.");
+
+console.log("Three true things about me:");
+console.log("1. I have never written code before.");
+console.log("2. I am taking this class because it fit my schedule.");
+console.log("3. I once ate an entire pizza by myself.");
+`;
+const ExampleOutput = `Hello, world!
+My name is Jordan.
+This is my first program.
+
+Three true things about me:
+1. I have never written code before.
+2. I am taking this class because it fit my schedule.
+3. I once ate an entire pizza by myself.
+`;
+//#endregion
 ---
 
 <Layout>
@@ -17,7 +43,7 @@ import BinaryByteDiagram from "../../../../assets/courses/ap-csp/img/binary-byte
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.1: Computer Systems</h1>
+        <h1>Activity 1.1: Welcome to AP CSP</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -25,110 +51,173 @@ import BinaryByteDiagram from "../../../../assets/courses/ap-csp/img/binary-byte
           <Presentation>
             <section>
               <h2>Activity 1.1</h2>
-              <h3 class="text-sn-theme">Computer Systems</h3>
+              <h3 class="text-sn-theme">Welcome to AP CSP</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>How a Computer Works</p>
-              <p>Input, Processing, Output, and Memory</p>
-              <p>Binary</p>
+              <p>What This Course Is</p>
+              <p>How You Are Assessed</p>
+              <p>Your First Program</p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Four Basic Functions</h2>
+              <h2>You Do Not Need Any Experience</h2>
               <p>
-                Every computer, from a laptop to a microwave, performs the
-                same four basic functions.
+                This course starts from zero. If you have never written a line
+                of code, you are exactly where you are supposed to be.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Four Basic Functions</h2>
-              <Image src={IoModelDiagram} alt="Diagram showing Input flowing into Processing (CPU), Processing flowing into Output, and Memory connected to Processing" width={640} />
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Input</h2>
-              <p>Information a computer receives from the outside world.</p>
-              <ul>
-                <li class="fragment">Keyboard and mouse</li>
-                <li class="fragment">Microphone and camera</li>
-                <li class="fragment">Sensors (temperature, motion, light)</li>
-              </ul>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Output</h2>
-              <p>Information a computer sends back out to the world.</p>
-              <ul>
-                <li class="fragment">Monitor and speakers</li>
-                <li class="fragment">Printer</li>
-                <li class="fragment">LEDs and motors</li>
-              </ul>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Processing</h2>
+              <h2>You Do Not Need Any Experience</h2>
               <p>
-                The <b class="text-sn-theme">CPU</b> (Central Processing Unit)
-                is the "brain" of the computer. It carries out instructions
-                and makes decisions, one step at a time.
+                If you <i>have</i> written code before, good &mdash; you will get
+                to the interesting parts faster. But nothing this year assumes it.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Memory</h2>
+              <h2>What Is Computer Science Principles?</h2>
               <p>
-                Computers need somewhere to hold data while they work, and
-                somewhere to keep it long-term.
+                It is not only about writing code. It is about how computing
+                works, what it can do, and what it does to people.
               </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Five Big Ideas</h2>
               <ul>
+                <li class="fragment"><b>Creative Development</b> &mdash; how programs get built</li>
+                <li class="fragment"><b>Data</b> &mdash; how information is stored and used</li>
                 <li class="fragment">
-                  <b>RAM</b> &mdash; temporary, cleared when the power turns
-                  off
+                  <b class="text-sn-theme">Algorithms and Programming</b> &mdash; the biggest slice
                 </li>
+                <li class="fragment"><b>Computer Systems and Networks</b> &mdash; how machines talk</li>
                 <li class="fragment">
-                  <b>Storage</b> (like a hard drive or SSD) &mdash; permanent,
-                  kept even after the power turns off
+                  <b class="text-sn-theme">Impact of Computing</b> &mdash; who it helps and who it hurts
                 </li>
               </ul>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Binary</h2>
+              <h2>How You Are Assessed</h2>
+              <p>Two things, and they are very different.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>How You Are Assessed</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>The Exam &mdash; 70%</dt>
+                  <dd>
+                    70 multiple-choice questions in 120 minutes, in May.
+                  </dd>
+                  <dt>The Create Task &mdash; 30%</dt>
+                  <dd>
+                    A program you design and build yourself, during class time.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Create Task</h2>
               <p>
-                Underneath everything a computer does, it only understands two
-                states: <b class="text-sn-theme">on</b> and <b class="text-sn-theme">off</b>.
-              </p>
-              <p class="fragment">
-                We represent those two states as <CodeSnippet
-                  code="1"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> and <CodeSnippet
-                  code="0"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />. Each one is called a <b>bit</b>.
+                You will hear about this all year, so it is worth knowing now
+                what it actually is.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>Binary</h2>
-              <Image src={BinaryByteDiagram} alt="Diagram showing eight bits, 01000001, grouped together as one byte representing the letter A" width={620} />
-              <p class="fragment">
-                Eight bits grouped together make one <b>byte</b>.
+              <h2>The Create Task</h2>
+              <p>
+                You build a program of your own choosing. It must take{" "}
+                <b class="text-sn-theme">input</b>, store data in a{" "}
+                <b class="text-sn-theme">list</b>, use a{" "}
+                <b class="text-sn-theme">procedure you wrote yourself</b>, and
+                produce <b class="text-sn-theme">output</b>.
               </p>
+              <p class="fragment">
+                You get at least <b>nine hours of class time</b> to do it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Create Task</h2>
+              <p>
+                Every one of those four requirements is something we cover this
+                quarter. By the time you start it, none of it will be new.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What Is a Program?</h2>
+              <p>
+                A list of instructions, carried out in order, one at a time,
+                exactly as written.
+              </p>
+              <p class="fragment">
+                That last part &mdash; <i>exactly as written</i> &mdash; is
+                where most of your frustration this year will come from.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Your First Instruction</h2>
+              <p>
+                <CodeSnippet
+                  code="console.log()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> displays a message as text.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Your First Instruction</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Reading That Line</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    The <b>quotes</b> mark where your text starts and ends.
+                  </li>
+                  <li class="fragment">
+                    The <b>parentheses</b> hold what you want displayed.
+                  </li>
+                  <li class="fragment">
+                    The <b>semicolon</b> ends the instruction.
+                  </li>
+                </ul>
+              </div>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Identifying input, processing, output, and memory</li>
-                <li>Understanding binary as a computer's "language"</li>
+                <li>Describing what this course assesses</li>
+                <li>Explaining what the Create task requires</li>
+                <li>Writing and running a first program</li>
               </ul>
             </section>
 
@@ -136,20 +225,19 @@ import BinaryByteDiagram from "../../../../assets/courses/ap-csp/img/binary-byte
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Input</dt>
-                  <dd>Information a computer receives from the outside world.</dd>
+                  <dt>Program</dt>
+                  <dd>
+                    A list of instructions carried out in order, one at a time.
+                  </dd>
+                  <dt>Statement</dt>
+                  <dd>A single instruction in a program.</dd>
                   <dt>Output</dt>
-                  <dd>Information a computer sends back out to the world.</dd>
-                  <dt>Processing (CPU)</dt>
-                  <dd>The part of the computer that carries out instructions.</dd>
-                  <dt>Memory</dt>
-                  <dd>Where a computer holds data, either temporarily (RAM) or long-term (storage).</dd>
-                  <dt>Binary</dt>
-                  <dd>A system of representing information using only two states, on and off.</dd>
-                  <dt>Bit</dt>
-                  <dd>A single binary digit, either 0 or 1.</dd>
-                  <dt>Byte</dt>
-                  <dd>A group of eight bits.</dd>
+                  <dd>Information a program produces.</dd>
+                  <dt>Create Performance Task</dt>
+                  <dd>
+                    A program you build during class that counts for 30% of your
+                    AP score.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -162,25 +250,91 @@ import BinaryByteDiagram from "../../../../assets/courses/ap-csp/img/binary-byte
         <section id="build">
           <h2>Build</h2>
 
-          <p>No coding yet &mdash; today is about recognizing these ideas in the devices you already use.</p>
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-1-hello</b>.
+          </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Find the Four Functions in a Real Device</h3>
+          <h3>Task 1: One Line</h3>
           <ul>
-            <li>Pick a device you use every day (phone, laptop, game console, car, microwave).</li>
-            <li>List at least one real example of that device's input, output, processing, and memory.</li>
+            <li>Write the single line below exactly as shown.</li>
+            <li>Run your program.</li>
+            <li>
+              If nothing happens, or you see red text, check your quotes,
+              parentheses, and semicolon before asking for help. Then ask.
+            </li>
           </ul>
 
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Welcome to AP CSP"
+          />
+
           <hr class="my-4" />
 
-          <h3>Task 2: Spot the Bits</h3>
+          <h3>Task 2: Introduce Yourself</h3>
+          <ul>
+            <li>Add two more lines so the program says who you are.</li>
+            <li>Run your program after <i>every</i> line you add.</li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Welcome to AP CSP"
+            ins={{ range: "2-3" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Three True Things</h3>
           <ul>
             <li>
-              Look at the byte diagram from the presentation
-              (<CodeSnippet code="01000001" lang="txt" theme="material-theme-ocean" inline />).
+              Add a blank line of output, a heading, and three numbered facts
+              about yourself. Keep them school appropriate.
             </li>
-            <li>Count how many total on/off combinations are possible in one byte, and write down how you figured it out.</li>
+            <li>
+              A <CodeSnippet
+                code='console.log("");'
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> with nothing between the quotes prints an empty line.
+            </li>
+            <li>Yours should say different things than the example.</li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Welcome to AP CSP"
+            ins={{ range: "4-8" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Break It on Purpose</h3>
+          <ul>
+            <li>
+              Make a copy of one working line, then remove one thing from the
+              copy &mdash; a quote, a parenthesis, or the semicolon.
+            </li>
+            <li>Run it and read the error message.</li>
+            <li>
+              Write down what the error said. You will see these all year, and
+              they are more helpful than they look.
+            </li>
+            <li>Put the line back the way it was before submitting.</li>
           </ul>
         </section>
 
@@ -190,11 +344,19 @@ import BinaryByteDiagram from "../../../../assets/courses/ap-csp/img/binary-byte
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>You should be able to explain, in your own words:</p>
-          <ul>
-            <li>One real example each of input, processing, output, and memory from your chosen device.</li>
-            <li>Why a byte can represent 256 different values.</li>
-          </ul>
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={{
+              label: "Your facts should be different",
+              range: "6-8",
+            }}
+          />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -207,18 +369,17 @@ import BinaryByteDiagram from "../../../../assets/courses/ap-csp/img/binary-byte
 
           <ol>
             <li>
-              Which of the four basic functions (input, processing, output,
-              memory) do you think is most similar to a human's brain?
-              Explain your reasoning.
+              The Create task requires input, a list, a procedure you wrote, and
+              output. Without knowing what any of those mean yet, which one
+              sounds hardest to you, and why?
             </li>
             <li>
-              Why do you think computers only use binary (0s and 1s) instead
-              of the decimal numbers people use every day?
+              A program does exactly what you write, not what you meant. Describe
+              a time something else in your life worked that way.
             </li>
             <li>
-              Pick one device from Task 1 that surprised you once you broke
-              it down into input/processing/output/memory. What surprised
-              you about it?
+              What is one thing you want to be able to build by the end of this
+              year?
             </li>
           </ol>
         </section>

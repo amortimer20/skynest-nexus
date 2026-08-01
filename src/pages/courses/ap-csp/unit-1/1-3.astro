@@ -3,32 +3,78 @@ import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Task1 = `let name = "Ada";
+const Figure1 = `let playerName = "Ada";
+console.log(playerName);`;
+const Figure2 = `Ada`;
+const Figure3 = `let score = 0;
+console.log("Score:", score);
 
-console.log("Name:", name);
-`;
-const Task2 = `let name = "Ada";
-let age = 16;
+score = 250;
+console.log("Score:", score);`;
+const Figure4 = `Score: 0
+Score: 250`;
+const Figure5 = `let title = "Commander";   // string
+let level = 7;             // number
+let isOnDuty = true;       // boolean`;
+const Figure6 = `let crewCount = 12;    // good
+let crew_count = 12;   // works, but not the JavaScript style
+let c = 12;            // works, but what is c?`;
+const NotationJs = `let score = 0;
+score = 250;
+console.log("Score:", score);`;
+const NotationPseudo = `score ← 0
+score ← 250
+DISPLAY("Score:")
+DISPLAY(score)`;
+const Task1 = `let callSign = "Vega";
+let crewCount = 7;
 
-console.log("Name:", name);
-console.log("Age:", age);
+console.log("Call sign:", callSign);
+console.log("Crew:", crewCount);
 `;
-const Task3 = `let name = "Ada";
-let age = 16;
-let favoriteColor = "blue";
-let favoriteNumber = 7;
+const Task2 = `let callSign = "Vega";
+let crewCount = 7;
+let fuelPercent = 84.5;
+let isDocked = true;
 
-console.log("Name:", name);
-console.log("Age:", age);
-console.log("Favorite Color:", favoriteColor);
-console.log("Favorite Number:", favoriteNumber);
+console.log("Call sign:", callSign);
+console.log("Crew:", crewCount);
+console.log("Fuel:", fuelPercent);
+console.log("Docked:", isDocked);
 `;
-const ExampleOutput = `Name: Ada
-Age: 16
-Favorite Color: blue
-Favorite Number: 7`;
+const Task3 = `let callSign = "Vega";
+let crewCount = 7;
+let fuelPercent = 84.5;
+let isDocked = true;
+
+console.log("=== BEFORE LAUNCH ===");
+console.log("Call sign:", callSign);
+console.log("Crew:", crewCount);
+console.log("Fuel:", fuelPercent);
+console.log("Docked:", isDocked);
+
+// Two crew members board and the ship undocks
+crewCount = 9;
+isDocked = false;
+
+console.log("");
+console.log("=== AFTER LAUNCH ===");
+console.log("Crew:", crewCount);
+console.log("Docked:", isDocked);
+`;
+const ExampleOutput = `=== BEFORE LAUNCH ===
+Call sign: Vega
+Crew: 7
+Fuel: 84.5
+Docked: true
+
+=== AFTER LAUNCH ===
+Crew: 9
+Docked: false
+`;
 //#endregion
 ---
 
@@ -40,7 +86,7 @@ Favorite Number: 7`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.3: Variables and Console Output</h1>
+        <h1>Activity 1.3: Variables and Data Types</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -48,61 +94,168 @@ Favorite Number: 7`;
           <Presentation>
             <section>
               <h2>Activity 1.3</h2>
-              <h3 class="text-sn-theme">Variables and Console Output</h3>
+              <h3 class="text-sn-theme">Variables and Data Types</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Variables</p>
-              <p>Console Output</p>
+              <p>Storing a Value</p>
+              <p>Changing a Value</p>
+              <p>Three Data Types</p>
             </section>
 
             <section data-auto-animate>
-              <h2>What Is a Variable?</h2>
+              <h2>A Variable Is a Named Box</h2>
               <p>
-                A <b class="text-sn-theme">variable</b> is a named container
-                that holds a value, so you can refer back to it by name
-                instead of retyping the value every time.
+                You put a value in it, give it a name, and use the name from
+                then on.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Variable Is a Named Box</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                No quotes around <CodeSnippet
+                  code="playerName"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> &mdash; quotes would print the word itself.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Declaring a Variable</h2>
-              <Code code={`let name = "Ada";`} frame="code" lang="javascript" showLineNumbers={false} />
+              <h2>The Value Can Change</h2>
+              <p>
+                That is what makes it a <i>variable</i>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Value Can Change</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
               <p class="fragment">
-                <b class="text-sn-theme">let</b> declares the variable,{" "}
-                <b>name</b> is what we're calling it, and everything after
-                the <b>=</b> is the value we're assigning to it.
+                You write <CodeSnippet
+                  code="let"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> once, when the variable is created. Never again.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Three Kinds of Value</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Three Kinds of Value</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <b>String</b> &mdash; text, always in quotes
+                  </li>
+                  <li class="fragment">
+                    <b>Number</b> &mdash; whole or decimal, never in quotes
+                  </li>
+                  <li class="fragment">
+                    <b>Boolean</b> &mdash; only <CodeSnippet
+                      code="true"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> or <CodeSnippet
+                      code="false"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                <CodeSnippet
+                  code='"7"'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> and <CodeSnippet
+                  code="7"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> are not the same thing. That will matter a lot in Activity 1.8.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
               <h2>Naming Variables</h2>
-              <p>
-                JavaScript variable names use{" "}
-                <b class="text-sn-theme">camelCase</b> &mdash; the first word
-                lowercase, each word after that capitalized, no spaces or
-                underscores.
-              </p>
-              <p class="fragment"><code>favoriteColor</code>, not <code>favorite_color</code> or <code>FavoriteColor</code>.</p>
+              <Code
+                code={Figure6}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
             </section>
 
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Console Output</h2>
+            <section data-auto-animate>
+              <h2>Naming Variables</h2>
               <p>
-                <b class="text-sn-theme">console.log()</b> prints values to
-                the terminal. It can take more than one thing at a time,
-                separated by commas.
+                JavaScript uses <b class="text-sn-theme">camelCase</b>: first
+                word lowercase, every word after that capitalized, no spaces.
               </p>
-              <Code code={`console.log("Age:", age);`} frame="code" lang="javascript" showLineNumbers={false} class="fragment" />
+              <p class="fragment">
+                Names should say what the value <i>is</i>. You will read your own
+                code weeks later and be grateful.
+              </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Declaring variables with <code>let</code></li>
-                <li>Naming variables using camelCase</li>
-                <li>Printing variable values with <code>console.log()</code></li>
+                <li>Creating variables and displaying their values</li>
+                <li>Changing a variable's value after creating it</li>
+                <li>Telling strings, numbers, and booleans apart</li>
+                <li>Naming variables in camelCase</li>
               </ul>
             </section>
 
@@ -111,15 +264,32 @@ Favorite Number: 7`;
               <div class="text-start">
                 <dl>
                   <dt>Variable</dt>
-                  <dd>A named container that holds a value.</dd>
-                  <dt>Declaration</dt>
-                  <dd>Creating a new variable, using <code>let</code>.</dd>
+                  <dd>A named place to store a value.</dd>
                   <dt>Assignment</dt>
-                  <dd>Giving a variable a value, using <code>=</code>.</dd>
+                  <dd>Putting a value into a variable.</dd>
+                  <dt>String</dt>
+                  <dd>A piece of text, written inside quotes.</dd>
+                  <dt>Number</dt>
+                  <dd>A numeric value, whole or decimal, with no quotes.</dd>
+                  <dt>Boolean</dt>
+                  <dd>
+                    A value that is either <CodeSnippet
+                      code="true"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> or <CodeSnippet
+                      code="false"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />.
+                  </dd>
                   <dt>camelCase</dt>
-                  <dd>JavaScript's naming convention &mdash; lowercase first word, capitalized words after.</dd>
-                  <dt>console.log()</dt>
-                  <dd>Prints one or more values to the terminal.</dd>
+                  <dd>
+                    A naming style where the first word is lowercase and later
+                    words are capitalized.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -133,38 +303,172 @@ Favorite Number: 7`;
           <h2>Build</h2>
 
           <p>
-            Create a new JavaScript program named <b class="text-sn-theme">1-3-variables</b>.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-3-variables</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Declare Your First Variable</h3>
+          <h3>Task 1: Two Variables</h3>
           <ul>
-            <li>Declare a variable named <code>name</code> and assign it your name, as a string.</li>
-            <li>Print it with <code>console.log()</code>, including a label.</li>
+            <li>Create the two variables below and display them.</li>
+            <li>
+              Run it, then try removing the quotes around{" "}
+              <CodeSnippet
+                code="callSign"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> in the last two lines to see what changes. Put them back.
+            </li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="javascript" title="Variables and Console Output" mark={{ range: "1" }} />
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Variables and Data Types"
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Add a Second Variable</h3>
+          <h3>Task 2: One of Each Type</h3>
           <ul>
-            <li>Declare a variable named <code>age</code> and assign it your age, as a number.</li>
-            <li>Print it with a label, just like <code>name</code>.</li>
+            <li>
+              Add a decimal number and a boolean, so you have all three types.
+            </li>
+            <li>Display them too.</li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="javascript" title="Variables and Console Output" mark={{ range: "2" }} ins={{ range: "5" }} />
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Variables and Data Types"
+            ins={{ range: "3-4, 8-9" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Add Two More Variables</h3>
+          <h3>Task 3: Change the Values</h3>
           <ul>
-            <li>Declare <code>favoriteColor</code> and <code>favoriteNumber</code>, using camelCase.</li>
-            <li>Print each one with a label.</li>
+            <li>
+              Add a second report that shows the values <i>after</i> two crew
+              members board and the ship undocks.
+            </li>
+            <li>
+              Change <CodeSnippet
+                code="crewCount"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and <CodeSnippet
+                code="isDocked"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> without writing <CodeSnippet
+                code="let"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> again.
+            </li>
+            <li>
+              The first report must still show the old values. If it doesn't,
+              your changes are in the wrong place.
+            </li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="javascript" title="Variables and Console Output" mark={{ range: "3-4" }} ins={{ range: "8-9" }} />
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Variables and Data Types"
+            ins={{ range: "6, 11-19" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Name Things Badly, Then Well</h3>
+          <ul>
+            <li>
+              Copy your program to the bottom of the file and rename every
+              variable to a single letter.
+            </li>
+            <li>
+              Read it back. Ask a classmate to tell you what it does without
+              running it.
+            </li>
+            <li>Delete the copy before submitting.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            The AP exam does not show code in JavaScript. It uses its own
+            notation, and you will be handed a reference sheet for it on exam
+            day. You will see a short panel like this one whenever we learn
+            something that appears on that sheet.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>Two things to notice:</p>
+          <ul>
+            <li>
+              Assignment is an arrow, <CodeSnippet
+                code="←"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />, not an equals sign. It points at the variable receiving the
+              value.
+            </li>
+            <li>
+              <CodeSnippet
+                code="DISPLAY()"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> takes one value at a time, so two displays are needed where
+              JavaScript used one comma.
+            </li>
+          </ul>
+
+          <p>
+            You will never write exam notation in this class's programs. You only
+            need to <i>read</i> it, which is what the multiple-choice section
+            asks you to do.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -181,6 +485,10 @@ Favorite Number: 7`;
             lang="txt"
             showLineNumbers={false}
             title="Example Output"
+            mark={{
+              label: "Old values, still correct",
+              range: "2-5",
+            }}
           />
         </section>
 
@@ -193,15 +501,19 @@ Favorite Number: 7`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What is a variable, and why do we give it a name instead of just typing the value directly every time?</li>
             <li>
-              What naming convention did we use for names like{" "}
-              <code>favoriteColor</code>? What's it called, and why do you
-              think a consistent convention matters when writing code?
+              Why do you only write <code>let</code> once per variable, even
+              though the value changes several times?
             </li>
             <li>
-              What do you think would happen if you tried to{" "}
-              <code>console.log()</code> a variable before declaring it?
+              Explain the difference between <code>"7"</code> and <code>7</code>.
+              Give a situation where treating one as the other would cause a
+              problem.
+            </li>
+            <li>
+              In exam notation, assignment is written <code>score ← 250</code>.
+              Why might an arrow be a clearer symbol for this than an equals
+              sign?
             </li>
           </ol>
         </section>

@@ -1,0 +1,578 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let temperature = 31;
+
+if (temperature > 30) {
+  console.log("Heat warning.");
+}
+
+console.log("Report complete.");`;
+const Figure2 = `Heat warning.
+Report complete.`;
+const Figure3 = `Report complete.`;
+const Figure4 = `let age = 12;
+
+if (age >= 13) {
+  console.log("Access granted.");
+} else {
+  console.log("Access denied.");
+}`;
+const Figure5 = `Access denied.`;
+const Figure6 = `let isRaining = true;
+
+if (isRaining) {
+  console.log("Take an umbrella.");
+}`;
+const NotationJs = `if (score >= 60) {
+  console.log("Pass");
+} else {
+  console.log("Fail");
+}`;
+const NotationPseudo = `IF(score ≥ 60)
+{
+  DISPLAY("Pass")
+}
+ELSE
+{
+  DISPLAY("Fail")
+}`;
+const Task1 = `let fuelPercent = 12;
+
+console.log("Fuel:", fuelPercent);
+
+if (fuelPercent < 20) {
+  console.log("WARNING: fuel low.");
+}
+
+console.log("Check complete.");
+`;
+const Task2 = `let fuelPercent = 12;
+let crewCount = 7;
+
+console.log("Fuel:", fuelPercent);
+
+if (fuelPercent < 20) {
+  console.log("WARNING: fuel low.");
+} else {
+  console.log("Fuel level nominal.");
+}
+
+console.log("Crew:", crewCount);
+
+if (crewCount >= 5) {
+  console.log("Full crew aboard.");
+} else {
+  console.log("Running short-handed.");
+}
+
+console.log("Check complete.");
+`;
+const Task3 = `let fuelPercent = 12;
+let crewCount = 7;
+
+console.log("Fuel:", fuelPercent);
+
+if (fuelPercent < 20) {
+  console.log("WARNING: fuel low.");
+} else {
+  console.log("Fuel level nominal.");
+}
+
+console.log("Crew:", crewCount);
+
+if (crewCount >= 5) {
+  console.log("Full crew aboard.");
+} else {
+  console.log("Running short-handed.");
+}
+
+console.log("Check complete.");
+console.log("");
+
+// Ask the user for a cargo mass and cast it to a number
+// If it is over 500, refuse the launch
+// Otherwise, approve the launch and show the mass
+`;
+const ExampleOutput = `Fuel: 12
+WARNING: fuel low.
+Crew: 7
+Full crew aboard.
+Check complete.
+
+Cargo mass? 620
+LAUNCH REFUSED: cargo too heavy.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.11: Making Decisions</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.11</h2>
+              <h3 class="text-sn-theme">Making Decisions</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Running Code Only Sometimes</p>
+              <p>The Other Path</p>
+              <p>Selection</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Every Program So Far</h2>
+              <p>
+                Ran every line, top to bottom, every single time. Nothing was
+                ever skipped.
+              </p>
+              <p class="fragment">
+                Today that changes, and it is the biggest step in the course so
+                far.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>if</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>if</h2>
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo — temperature is 31"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure3}
+                frame="terminal"
+                lang="txt"
+                title="Demo — temperature is 18"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                Same program, two different outputs. The last line ran both
+                times &mdash; only the block inside the braces was skipped.
+              </p>
+            </section>
+
+            <section>
+              <h2>Reading the Shape</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    The <b>condition</b> in the parentheses must be something
+                    that is true or false
+                  </li>
+                  <li class="fragment">
+                    The <b>braces</b> mark exactly which lines are optional
+                  </li>
+                  <li class="fragment">
+                    Everything outside the braces runs regardless
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Those comparisons from Activity 1.10 are what goes in the
+                parentheses. That is what they were for.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>else</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure5}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>else</h2>
+              <p>
+                <b class="text-sn-theme">Exactly one</b> of the two blocks runs.
+                Never both, never neither.
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code="else"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> has no condition of its own. It means "in every other case."
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Boolean Is Already a Condition</h2>
+              <Code
+                code={Figure6}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                No comparison needed. <CodeSnippet
+                  code="isRaining"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> is already true or false, which is all the condition has to be.
+              </p>
+            </section>
+
+            <section>
+              <h2>Do Not Write This</h2>
+              <p>
+                <CodeSnippet
+                  code="if (isRaining === true)"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                It works, but it is asking "is true equal to true?" &mdash; a
+                question with an obvious answer. Write{" "}
+                <CodeSnippet
+                  code="if (isRaining)"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />. This is also why naming booleans as questions pays off.
+              </p>
+            </section>
+
+            <section>
+              <h2>This Has a Name</h2>
+              <p>
+                Choosing between paths is called{" "}
+                <b class="text-sn-theme">selection</b>, and it is one of the
+                three building blocks of every algorithm.
+              </p>
+              <p class="fragment">
+                You already have <b>sequencing</b> &mdash; one line after
+                another. Selection is the second. The third arrives at Activity
+                1.16.
+              </p>
+              <p class="fragment">
+                The AP exam expects you to name all three.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Running a block of code only under a condition</li>
+                <li>Providing an alternative with <b>else</b></li>
+                <li>Using a boolean variable directly as a condition</li>
+                <li>Naming selection as an algorithm building block</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Selection</dt>
+                  <dd>
+                    Choosing which code to run based on a condition.
+                  </dd>
+                  <dt>Condition</dt>
+                  <dd>
+                    The boolean expression that decides which path is taken.
+                  </dd>
+                  <dt>Block</dt>
+                  <dd>
+                    The group of statements inside a pair of braces.
+                  </dd>
+                  <dt>Sequencing</dt>
+                  <dd>
+                    Running statements one after another, in order.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-11-decisions</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: One Optional Line</h3>
+          <ul>
+            <li>Write the code below and run it. The warning should appear.</li>
+            <li>
+              Change <CodeSnippet
+                code="fuelPercent"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to 80 and run again. The warning should vanish &mdash; but{" "}
+              <i>Check complete</i> should still print both times.
+            </li>
+            <li>Set it back to 12 before continuing.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Making Decisions"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Two Decisions, Both With Alternatives</h3>
+          <ul>
+            <li>Add an <b>else</b> to the fuel check, then a second check for crew.</li>
+            <li>
+              Try all four combinations by editing the two numbers: low fuel with
+              full crew, low fuel with small crew, and so on.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Making Decisions"
+            ins={{ range: "2, 8-10, 12-18" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Decide on Input</h3>
+          <ul>
+            <li>
+              The three comments describe a launch check. Write the code under
+              them.
+            </li>
+            <li>Cast the input before comparing it.</li>
+            <li>
+              The approval message must show the mass. The refusal does not need
+              to.
+            </li>
+            <li>
+              Test it twice: once with a mass over 500, once under. Both paths
+              have to work before you submit.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Making Decisions"
+            ins={{ range: "21-25" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): The Boundary</h3>
+          <ul>
+            <li>
+              Your launch check uses "over 500." Run it with exactly 500 and note
+              what happens.
+            </li>
+            <li>
+              Now change the comparison from <CodeSnippet
+                code=">"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to <CodeSnippet
+                code=">="
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and run it with exactly 500 again.
+            </li>
+            <li>
+              Write a comment saying which version you think is correct for a
+              cargo limit, and why. There is a defensible answer either way
+              &mdash; what matters is that you decided on purpose.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>This one maps across almost exactly. Three small differences:</p>
+
+          <ul>
+            <li>
+              <code>IF</code> and <code>ELSE</code> are capitalized.
+            </li>
+            <li>
+              The braces go on their <b>own lines</b>, and{" "}
+              <code>ELSE</code> sits between them on a line by itself.
+            </li>
+            <li>
+              There is no space before the parenthesis: <code>IF(condition)</code>,
+              not <code>IF (condition)</code>.
+            </li>
+          </ul>
+
+          <p>
+            The condition itself uses the operators from Activity 1.10 &mdash;{" "}
+            <code>≥</code> rather than <code>&gt;=</code>, and a single{" "}
+            <code>=</code> if you are testing equality.
+          </p>
+
+          <p>
+            <b>What is missing from the reference sheet matters too.</b> There is
+            no <code>ELSE IF</code>. You will find out what that costs in
+            Activity 1.12.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly, then test the other paths.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={{
+              label: "Depends on the mass you enter",
+              range: "7-8",
+            }}
+          />
+
+          <p class="mt-3">
+            You should be able to produce a run where the fuel line says{" "}
+            <i>nominal</i>, the crew line says <i>short-handed</i>, and the
+            launch is approved. If any one of those cannot happen, that branch
+            has a problem.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              With <code>if</code> and <code>else</code>, exactly one block runs.
+              What would it mean for a program if <i>both</i> could run?
+            </li>
+            <li>
+              Why is <code>if (isRaining)</code> better style than{" "}
+              <code>if (isRaining === true)</code>?
+            </li>
+            <li>
+              You now know two of the three algorithm building blocks. Name them,
+              and describe what each one lets a program do.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,478 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+  ellipse(200, 200, 60, 60);
+}`;
+const Figure2 = `function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(220);
+  ellipse(200, 200, 60, 60);
+}`;
+const Figure3 = `let x = 0;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(220);
+  ellipse(x, 200, 60, 60);
+  x = x + 2;
+}`;
+const Figure4 = `let x = 0;
+
+function draw() {
+  // no background() here
+  ellipse(x, 200, 60, 60);
+  x = x + 2;
+}`;
+const Figure5 = `let x = 0;
+
+function draw() {
+  background(220);
+  ellipse(x, 200, 60, 60);
+  x = x + 2;
+
+  if (x > 400) {
+    x = 0;
+  }
+}`;
+const Task1 = `let x = 0;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(30);
+
+  fill(120, 200, 255);
+  ellipse(x, 200, 50, 50);
+
+  x = x + 2;
+}
+`;
+const Task2 = `let x = 0;
+let y = 200;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(30);
+
+  fill(120, 200, 255);
+  ellipse(x, y, 50, 50);
+
+  x = x + 2;
+
+  if (x > 400) {
+    x = 0;
+  }
+}
+`;
+const Task3 = `let x = 0;
+let y = 200;
+let speed = 2;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(30);
+
+  fill(120, 200, 255);
+  ellipse(x, y, 50, 50);
+
+  x = x + speed;
+
+  if (x > 400) {
+    x = 0;
+  }
+
+  // Make the circle change color once it passes the halfway mark
+  // Add a second circle that moves the opposite way, right to left
+  //   give it its own position variable
+  //   wrap it back to the right edge when it goes off the left
+}
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.17: p5 Lab 4 &mdash; The Loop You Didn't Write</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.17</h2>
+              <h3 class="text-sn-theme">p5 Lab 4 &mdash; The Loop You Didn't Write</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>draw() Runs Over and Over</p>
+              <p>Animation Is Iteration</p>
+              <p>Clearing the Canvas</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Something Was Missing</h2>
+              <p>
+                Labs 1 through 3 put everything inside <CodeSnippet code="setup()" lang={"javascript"} theme={"material-theme-ocean"} inline />, which
+                runs <b>once</b>. Nothing you have drawn has ever moved.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Something Was Missing</h2>
+              <p>
+                That was on purpose. You needed loops first &mdash; because the
+                thing that makes a sketch move <i>is</i> a loop.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Functions</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo — setup() only"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">Runs once. One circle. Done.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Functions</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo — with draw()"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline /> runs <b class="text-sn-theme">about 60 times
+                a second, forever</b>, from the moment setup finishes.
+              </p>
+            </section>
+
+            <section>
+              <h2>You Did Not Write This Loop</h2>
+              <p>
+                There is no <CodeSnippet code="while" lang={"javascript"} theme={"material-theme-ocean"} inline /> anywhere. p5 calls{" "}
+                <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline /> for you, over and over.
+              </p>
+              <p class="fragment">
+                It is still iteration. The three parts from Activity 1.16 are all
+                there &mdash; setup before, a body that repeats, and a change each
+                pass. p5 just supplies the loop itself.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Making It Move</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                One variable, changed a little on every pass. That is the whole
+                trick behind every animation you have ever seen.
+              </p>
+            </section>
+
+            <section>
+              <h2>Where the Variable Lives</h2>
+              <p>
+                <CodeSnippet code="let x = 0;" lang={"javascript"} theme={"material-theme-ocean"} inline /> is <b class="text-sn-theme">outside
+                both functions</b>, at the top of the file.
+              </p>
+              <p class="fragment">
+                Put it inside <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and it gets reset to 0 on
+                every pass &mdash; sixty times a second, forever, never moving.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Why background() Is Inside draw()</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo — background removed"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Without it, nothing erases the previous frame. You get a smear
+                across the canvas instead of a moving circle.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Why background() Is Inside draw()</h2>
+              <p>
+                Each pass paints on top of the last one. <CodeSnippet code="background()" lang={"javascript"} theme={"material-theme-ocean"} inline />{" "}
+                wipes the canvas clean first.
+              </p>
+              <p class="fragment">
+                Try removing it at least once. The smear is a genuinely useful
+                thing to have seen, and some people like it enough to keep it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Wrapping Around</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                A conditional inside a loop, checking a boundary. Everything from
+                Activities 1.11 and 1.13, now running sixty times a second.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Explaining what draw() does and how often</li>
+                <li>Declaring a variable that survives between passes</li>
+                <li>Animating by changing a variable each pass</li>
+                <li>Using a conditional to handle a boundary</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Frame</dt>
+                  <dd>One pass of draw(), producing one picture.</dd>
+                  <dt>Frame rate</dt>
+                  <dd>How many frames are drawn per second, around 60 by default.</dd>
+                  <dt>Global variable</dt>
+                  <dd>
+                    A variable declared outside every function, so it keeps its
+                    value between passes.
+                  </dd>
+                  <dt>Animation loop</dt>
+                  <dd>
+                    A loop that redraws a scene repeatedly to create movement.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-17-motion</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: One Moving Circle</h3>
+          <ul>
+            <li>Write the code below and run it. The circle should slide right and vanish off the edge.</li>
+            <li>
+              Now move <CodeSnippet code="let x = 0;" lang={"javascript"} theme={"material-theme-ocean"} inline /> inside{" "}
+              <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run again. It should stop moving
+              entirely. Work out why, then put it back.
+            </li>
+            <li>
+              Then comment out <CodeSnippet code="background(30);" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run once more.
+              Put it back afterward.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 4 — The Loop You Didn't Write"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Wrap It Around</h3>
+          <ul>
+            <li>
+              Add a <CodeSnippet code="y" lang={"javascript"} theme={"material-theme-ocean"} inline /> variable and a boundary check so the circle
+              reappears on the left instead of disappearing.
+            </li>
+            <li>
+              Try <CodeSnippet code="x > 400" lang={"javascript"} theme={"material-theme-ocean"} inline /> versus{" "}
+              <CodeSnippet code="x > 425" lang={"javascript"} theme={"material-theme-ocean"} inline /> and watch the difference at the edge. The
+              circle has width, which the boundary has to allow for.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 4 — The Loop You Didn't Write"
+            ins={{ range: "2, 12, 16-18" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Add Color and a Second Circle</h3>
+          <ul>
+            <li>
+              A <CodeSnippet code="speed" lang={"javascript"} theme={"material-theme-ocean"} inline /> variable has been added so you can tune the
+              motion. Try 1, then 8.
+            </li>
+            <li>
+              The comments describe two additions. Write the code under them.
+            </li>
+            <li>
+              The second circle moves <i>left</i>, so its change is a subtraction
+              and its wrap check looks at the other edge.
+            </li>
+            <li>
+              Give it its own position variable at the top of the file, next to
+              the others. It must not share <CodeSnippet code="x" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 4 — The Loop You Didn't Write"
+            ins={{ range: "3, 15, 21-24" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Bounce Instead of Wrap</h3>
+          <ul>
+            <li>
+              Make a circle reverse direction at each edge rather than wrapping
+              around.
+            </li>
+            <li>
+              Hint: the speed itself can be a variable, and a variable can be
+              made negative.
+            </li>
+            <li>
+              This is the classic first p5 animation, and it is worth the
+              struggle. Two conditionals and one sign change.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your finished sketch should show all of the following.</p>
+
+          <ul>
+            <li>A circle moving smoothly left to right, wrapping around forever.</li>
+            <li>That circle changing color once it passes the middle.</li>
+            <li>
+              A second circle moving right to left, wrapping the other way, at
+              its own position.
+            </li>
+            <li>No smearing &mdash; the canvas clears every frame.</li>
+            <li>
+              Changing <CodeSnippet code="speed" lang={"javascript"} theme={"material-theme-ocean"} inline /> changes how fast the first circle
+              travels.
+            </li>
+          </ul>
+
+          <p>
+            You should be able to say where the loop is, even though you never
+            wrote one.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Moving <code>let x = 0;</code> inside <code>draw()</code> stopped
+              the animation. Explain exactly what happened on each pass.
+            </li>
+            <li>
+              Activity 1.16 said every loop has a setup, a test, and a change.
+              Point to each of those in this sketch, including the ones p5
+              provides.
+            </li>
+            <li>
+              Removing <code>background()</code> leaves a trail. Describe what
+              that tells you about how the canvas actually works.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

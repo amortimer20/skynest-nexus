@@ -1,0 +1,448 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `ellipse(200, 150, 80, 80);
+rect(160, 190, 80, 120);
+line(200, 190, 200, 310);`;
+const Figure2 = `let centerX = 200;
+
+ellipse(centerX, 150, 80, 80);
+rect(centerX - 40, 190, 80, 120);
+line(centerX, 190, centerX, 310);`;
+const Figure3 = `let size = 80;
+
+ellipse(200, 150, size, size);
+rect(200 - size / 2, 190, size, size * 1.5);`;
+const Figure4 = `let r = 200;
+let g = 60;
+let b = 90;
+
+fill(r, g, b);
+ellipse(200, 150, 80, 80);
+
+fill(r, g + 100, b);
+ellipse(300, 150, 80, 80);`;
+const Task1 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+
+  fill(120, 180, 220);
+  ellipse(200, 120, 90, 90);
+  rect(155, 170, 90, 130);
+}
+`;
+const Task2 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+
+  let towerX = 200;
+  let towerWidth = 90;
+
+  fill(120, 180, 220);
+  ellipse(towerX, 120, towerWidth, towerWidth);
+  rect(towerX - towerWidth / 2, 170, towerWidth, 130);
+}
+`;
+const Task3 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+
+  let towerX = 200;
+  let towerWidth = 90;
+
+  fill(120, 180, 220);
+  ellipse(towerX, 120, towerWidth, towerWidth);
+  rect(towerX - towerWidth / 2, 170, towerWidth, 130);
+
+  // Draw a second, smaller tower to the left of the first
+  //   its x should be worked out from towerX, not typed in
+  //   its width should be worked out from towerWidth, not typed in
+  //   give it a different fill color
+}
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.9: p5 Lab 2 &mdash; Variables That Draw</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.9</h2>
+              <h3 class="text-sn-theme">p5 Lab 2 &mdash; Variables That Draw</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Nothing New</p>
+              <p>One Variable, Several Places</p>
+              <p>Computing From a Variable</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>No New Ideas Today</h2>
+              <p>
+                Variables from Activity 1.3. The canvas from Activity 1.5. That
+                is the entire toolkit.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>No New Ideas Today</h2>
+              <p>
+                What is new is <i>seeing</i> what a variable is worth. In the
+                terminal a variable saves you some typing. On a canvas it moves
+                a whole picture at once.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Problem With Numbers</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Three shapes, all lined up at x = 200. To move this whole thing
+                right by 50 pixels, how many numbers do you have to change?
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Fix</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Now it is <b class="text-sn-theme">one number</b>. Change{" "}
+                <CodeSnippet
+                  code="centerX"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> and everything moves together, still lined up.
+              </p>
+            </section>
+
+            <section>
+              <h2>Look at the Rectangle</h2>
+              <p>
+                <CodeSnippet
+                  code="rect(centerX - 40, 190, 80, 120)"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                A rectangle is placed by its corner, so centering it means
+                shifting left by half its width. The variable does not just get{" "}
+                <i>used</i> &mdash; it gets <b class="text-sn-theme">calculated
+                with</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Sizes Too</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                One <CodeSnippet
+                  code="size"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> drives the circle, the rectangle's width, its height, and its
+                horizontal position. Change it and the shape scales as a unit.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Colors Are Just Numbers</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <CodeSnippet
+                  code="g + 100"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> makes the second circle greener than the first, and stays
+                related to it. This is exactly the arithmetic from Activity 1.4.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Rule for Today</h2>
+              <p>
+                If two numbers in your sketch are <i>related</i>, one of them
+                should be calculated from the other, not typed in separately.
+              </p>
+              <p class="fragment">
+                Typed-in numbers drift apart the moment you change something.
+                Calculated ones cannot.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Replacing repeated numbers with a variable</li>
+                <li>Calculating a position or size from a variable</li>
+                <li>Driving color with variables</li>
+                <li>Changing one value and predicting the whole result</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Hard-coded value</dt>
+                  <dd>
+                    A number typed directly into the code instead of being stored
+                    or calculated.
+                  </dd>
+                  <dt>Derived value</dt>
+                  <dd>
+                    A value worked out from another value rather than typed in.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-9-variable-canvas</b>.
+          </p>
+
+          <p>
+            Everything goes inside <CodeSnippet
+              code="setup()"
+              lang={"javascript"}
+              theme={"material-theme-ocean"}
+              inline
+            /> again. Nothing moves yet.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: A Tower, With Numbers</h3>
+          <ul>
+            <li>Write the code below and run it. You should see a simple tower.</li>
+            <li>
+              Now move the whole tower 60 pixels right, by editing numbers.
+              Count how many you had to change.
+            </li>
+            <li>Put it back at 200 before continuing.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 2 — Variables That Draw"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: The Same Tower, With Variables</h3>
+          <ul>
+            <li>Replace the hard-coded numbers with two variables.</li>
+            <li>
+              The result on screen should look <b>identical</b> to Task 1. That
+              is how you know you did it right.
+            </li>
+            <li>
+              Now move the tower 60 pixels right again. This time it is one
+              number.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 2 — Variables That Draw"
+            ins={{ range: "5-6, 9-10" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Add a Second Tower</h3>
+          <ul>
+            <li>
+              The comments describe a smaller tower to the left. Write the code
+              under them.
+            </li>
+            <li>
+              <b class="text-sn-theme">Every number must be derived.</b> Its x
+              comes from <CodeSnippet
+                code="towerX"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />, its width from <CodeSnippet
+                code="towerWidth"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />. No new literal positions.
+            </li>
+            <li>
+              Then change <CodeSnippet
+                code="towerX"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to 260 and run. <b>Both</b> towers should move, still correctly
+              spaced. If only one moved, something is still hard-coded.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 2 — Variables That Draw"
+            ins={{ range: "11-15" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): One Knob</h3>
+          <ul>
+            <li>
+              Add a variable at the top called <CodeSnippet
+                code="scale"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and use it so that changing it alone resizes{" "}
+              <i>both</i> towers together.
+            </li>
+            <li>
+              Test it at 0.5 and at 1.5. Everything should stay in proportion and
+              stay on the canvas.
+            </li>
+            <li>
+              This is harder than it looks. Getting one number to control a whole
+              composition is the actual skill.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your finished sketch should show all of the following.</p>
+
+          <ul>
+            <li>Two towers, the second smaller and to the left of the first.</li>
+            <li>Each tower a circle sitting on a rectangle, properly centered.</li>
+            <li>The two towers in different colors.</li>
+            <li>
+              <b>The real test:</b> changing <CodeSnippet
+                code="towerX"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to any value moves both towers together and keeps them lined up.
+            </li>
+          </ul>
+
+          <p>
+            If changing that one number breaks the layout, you have a hard-coded
+            value left somewhere. Find it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              In Task 1 you moved the tower by editing numbers. How many did you
+              change, and what would happen if you missed one?
+            </li>
+            <li>
+              Explain why <code>towerX - towerWidth / 2</code> centers the
+              rectangle, in your own words.
+            </li>
+            <li>
+              You have now used variables in the terminal and on a canvas. Which
+              made their usefulness more obvious to you, and why?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

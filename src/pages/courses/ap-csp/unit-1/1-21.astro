@@ -1,0 +1,426 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `Row 1 Seat 1
+Row 1 Seat 2
+Row 1 Seat 3
+Row 2 Seat 1
+...`;
+const Figure2 = `for (let col = 0; col < 5; col++) {
+  ellipse(col * 70 + 50, 100, 40, 40);
+}`;
+const Figure3 = `for (let row = 0; row < 4; row++) {
+  for (let col = 0; col < 5; col++) {
+    ellipse(col * 70 + 50, row * 70 + 50, 40, 40);
+  }
+}`;
+const Figure4 = `x = col * spacing + margin
+y = row * spacing + margin`;
+const Figure5 = `for (let row = 0; row < 4; row++) {
+  for (let col = 0; col < 5; col++) {
+    if ((row + col) % 2 === 0) {
+      fill(240);
+    } else {
+      fill(40);
+    }
+    rect(col * 60, row * 60, 60, 60);
+  }
+}`;
+const Task1 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+  noStroke();
+
+  fill(120, 200, 255);
+
+  for (let col = 0; col < 5; col++) {
+    ellipse(col * 70 + 50, 60, 40, 40);
+  }
+}
+`;
+const Task2 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+  noStroke();
+
+  fill(120, 200, 255);
+
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 5; col++) {
+      ellipse(col * 70 + 50, row * 70 + 50, 40, 40);
+    }
+  }
+}
+`;
+const Task3 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+  noStroke();
+
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 5; col++) {
+      // Choose a fill color before drawing each circle:
+      //   make it depend on row, col, or both
+      //   one good option: (row + col) % 2 for a checkerboard
+      //   another: use col * 50 as the red amount for a gradient
+
+      ellipse(col * 70 + 50, row * 70 + 50, 40, 40);
+    }
+  }
+}
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.21: p5 Lab 5 &mdash; Grids</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.21</h2>
+              <h3 class="text-sn-theme">p5 Lab 5 &mdash; Grids</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Grid Is a Nested Loop</p>
+              <p>Turning Counters Into Coordinates</p>
+              <p>Color From Position</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Yesterday's Output</h2>
+              <Code
+                code={Figure1}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Twelve correct lines that look nothing like the grid they
+                describe. You had to picture it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Today You Will Not Have To</h2>
+              <p>
+                Nested loops are the clearest thing in this course on a canvas
+                and one of the murkiest in a terminal. Same code, and suddenly
+                you can just see whether it is right.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>One Row</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <CodeSnippet code="col" lang={"javascript"} theme={"material-theme-ocean"} inline /> counts 0, 1, 2, 3, 4 &mdash; and{" "}
+                <CodeSnippet code="col * 70" lang={"javascript"} theme={"material-theme-ocean"} inline /> turns that into 0, 70, 140, 210, 280.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Add a Second Loop</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Twenty circles. The outer loop chooses the row, the inner one
+                walks across it &mdash; exactly the rows-and-seats behavior from
+                Activity 1.20.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Formula</h2>
+              <Code
+                code={Figure4}
+                frame="none"
+                lang="txt"
+                showLineNumbers={false}
+              />
+              <div class="text-start mt-3">
+                <ul>
+                  <li class="fragment">
+                    <b>spacing</b> is the gap from one to the next
+                  </li>
+                  <li class="fragment">
+                    <b>margin</b> pushes everything away from the edge
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Learn this shape. Every grid you ever draw uses it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Why Start at Zero</h2>
+              <p>
+                Counting from 0 makes the first item land at{" "}
+                <CodeSnippet code="0 * 70" lang={"javascript"} theme={"material-theme-ocean"} inline />, which is 0 &mdash; exactly where you want
+                it.
+              </p>
+              <p class="fragment">
+                Start at 1 and everything shifts over by one whole gap. This is
+                the first place where Activity 1.18's{" "}
+                <CodeSnippet code="i = 0; i < n" lang={"javascript"} theme={"material-theme-ocean"} inline /> habit pays for itself.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Color From Position</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                A checkerboard, from one conditional and the remainder operator.
+                The loop counters are <i>data</i>, not just counters.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Drawing a row of shapes with one loop</li>
+                <li>Drawing a grid with nested loops</li>
+                <li>Converting a counter into a coordinate</li>
+                <li>Choosing a color from a shape's position</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Spacing</dt>
+                  <dd>The distance between neighboring items in a grid.</dd>
+                  <dt>Margin</dt>
+                  <dd>The offset that keeps a grid away from the canvas edge.</dd>
+                  <dt>
+                    <CodeSnippet code="noStroke()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>Turns off shape outlines.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-21-grid</b>.
+          </p>
+
+          <p>
+            Back to <CodeSnippet code="setup()" lang={"javascript"} theme={"material-theme-ocean"} inline /> only &mdash; nothing moves today, so
+            nothing needs to repeat every frame.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: One Row</h3>
+          <ul>
+            <li>Write the code below and run it. Five circles across the top.</li>
+            <li>
+              Change the <CodeSnippet code="70" lang={"javascript"} theme={"material-theme-ocean"} inline /> to 40, then to 100. Watch the spacing
+              open and close.
+            </li>
+            <li>
+              Change <CodeSnippet code="col = 0" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
+              <CodeSnippet code="col = 1" lang={"javascript"} theme={"material-theme-ocean"} inline /> and see the whole row shift right. Put it
+              back.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 5 — Grids"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: A Full Grid</h3>
+          <ul>
+            <li>
+              Wrap your row loop in a second loop so it repeats down the canvas.
+            </li>
+            <li>
+              Twenty-five circles from four lines of code. Writing those by hand
+              would be twenty-five <CodeSnippet code="ellipse()" lang={"javascript"} theme={"material-theme-ocean"} inline /> calls.
+            </li>
+            <li>
+              <b>Try this:</b> swap <CodeSnippet code="row" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
+              <CodeSnippet code="col" lang={"javascript"} theme={"material-theme-ocean"} inline /> in the ellipse line only. The grid looks the same
+              &mdash; work out why, and why it would not if the grid were not
+              square.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 5 — Grids"
+            ins={{ range: "8-12" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Color It</h3>
+          <ul>
+            <li>
+              The single <CodeSnippet code="fill()" lang={"javascript"} theme={"material-theme-ocean"} inline /> has been removed from the top. Each
+              circle now needs its own color, chosen inside the loops.
+            </li>
+            <li>
+              The comments suggest two approaches. Pick one, or invent your own
+              &mdash; anything where the color depends on the position counts.
+            </li>
+            <li>
+              The <CodeSnippet code="fill()" lang={"javascript"} theme={"material-theme-ocean"} inline /> must come <b>before</b> the{" "}
+              <CodeSnippet code="ellipse()" lang={"javascript"} theme={"material-theme-ocean"} inline />, or it colors the next circle instead of
+              this one.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 5 — Grids"
+            ins={{ range: "8-11" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Make the Grid Adjustable</h3>
+          <ul>
+            <li>
+              Add variables at the top for how many columns, how many rows, and
+              the spacing.
+            </li>
+            <li>
+              Work the spacing out from the canvas size and the count, so the
+              grid always fills the canvas neatly however many you ask for.
+            </li>
+            <li>
+              Test at 3 by 3 and at 10 by 10. Both should look deliberate, not
+              cramped or lost in a corner.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your finished sketch should show all of the following.</p>
+
+          <ul>
+            <li>A 5 by 5 grid of circles, evenly spaced, none touching the edge.</li>
+            <li>Each circle's color decided by its row, its column, or both.</li>
+            <li>
+              A visible pattern &mdash; a checkerboard, a gradient, stripes.
+              Something you can point at and explain from the code.
+            </li>
+            <li>
+              No circle drawn twice and none missing. Count them: there should be
+              exactly 25.
+            </li>
+          </ul>
+
+          <p>
+            You should be able to say which loop controls left-to-right and which
+            controls top-to-bottom, without guessing.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Activity 1.20 printed rows and seats as text; today drew them as a
+              grid. Which made it easier to tell whether the loops were right,
+              and why?
+            </li>
+            <li>
+              Explain what <code>col * 70 + 50</code> does, naming what the 70
+              and the 50 each control.
+            </li>
+            <li>
+              Your color depended on the loop counters. What does that tell you
+              about what a counter really is?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -6,123 +6,88 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `console.log(-1953);
-console.log(1_000_000);`;
-const Figure2 = `console.log(10 * 10.2);
-console.log(450 / 5);
-console.log(10 % 3);`;
-const Task1 = `let amount1 = 1000;
-let amount2 = 500.96;
+const Figure1 = `console.log(8 + 3);
+console.log(8 - 3);
+console.log(8 * 3);
+console.log(8 / 3);`;
+const Figure2 = `11
+5
+24
+2.6666666666666665`;
+const Figure3 = `console.log(17 / 5);
+console.log(17 % 5);`;
+const Figure4 = `3.4
+2`;
+const Figure5 = `console.log(2 + 3 * 4);
+console.log((2 + 3) * 4);`;
+const Figure6 = `14
+20`;
+const Figure7 = `let totalStudents = 30;
+let perTable = 4;
 
-console.log("Adding 1000 and 500.96:");
-console.log(amount1 + amount2);
+let fullTables = (totalStudents - (totalStudents % perTable)) / perTable;
+let leftOver = totalStudents % perTable;
 
-let apples = 3;
+console.log("Full tables:", fullTables);
+console.log("Left over:", leftOver);`;
+const Figure8 = `Full tables: 7
+Left over: 2`;
+const NotationJs = `let total = 17 + 5;
+let each = 17 / 5;
+let extra = 17 % 5;`;
+const NotationPseudo = `total ← 17 + 5
+each ← 17 / 5
+extra ← 17 MOD 5`;
+const NotationRandom = `roll ← RANDOM(1, 6)`;
+const Task1 = `let boxes = 47;
+let perCrate = 6;
 
-console.log("Apples after eating one:");
-console.log(apples - 1);
+console.log("Boxes:", boxes);
+console.log("Per crate:", perCrate);
+console.log("Divided:", boxes / perCrate);
 `;
-const Task2 = `let amount1 = 1000;
-let amount2 = 500.96;
+const Task2 = `let boxes = 47;
+let perCrate = 6;
 
-console.log("Adding 1000 and 500.96:");
-console.log(amount1 + amount2);
+console.log("Boxes:", boxes);
+console.log("Per crate:", perCrate);
+console.log("Divided:", boxes / perCrate);
 
-let apples = 3;
+let leftOver = boxes % perCrate;
+let fullCrates = (boxes - leftOver) / perCrate;
 
-console.log("Apples after eating one:");
-console.log(apples - 1);
-
-let age = 30;
-
-console.log("Age in months:");
-console.log(age * 12);
-
-let pizzaSlices = 8;
-let people = 2;
-
-console.log("Pizza slices per person:");
-console.log(pizzaSlices / people);
+console.log("Full crates:", fullCrates);
+console.log("Left over:", leftOver);
 `;
-const Task3 = `let amount1 = 1000;
-let amount2 = 500.96;
+const Task3 = `let boxes = 47;
+let perCrate = 6;
 
-console.log("Adding 1000 and 500.96:");
-console.log(amount1 + amount2);
+console.log("Boxes:", boxes);
+console.log("Per crate:", perCrate);
+console.log("Divided:", boxes / perCrate);
 
-let apples = 3;
+let leftOver = boxes % perCrate;
+let fullCrates = (boxes - leftOver) / perCrate;
 
-console.log("Apples after eating one:");
-console.log(apples - 1);
+console.log("Full crates:", fullCrates);
+console.log("Left over:", leftOver);
+console.log("");
 
-let age = 30;
-
-console.log("Age in months:");
-console.log(age * 12);
-
-let pizzaSlices = 8;
-let people = 2;
-
-console.log("Pizza slices per person:");
-console.log(pizzaSlices / people);
-
-let totalDollars = 100;
-let numPeople = 6;
-
-console.log("Leftover dollars after splitting evenly:");
-console.log(totalDollars % numPeople);
+// Work out the shipping bill
+// Each full crate costs 25
+// Loose boxes cost 7 each
+// Show the crate cost, the loose cost, and the total
 `;
-const Task4 = `let amount1 = 1000;
-let amount2 = 500.96;
+const ExampleOutput = `Boxes: 47
+Per crate: 6
+Divided: 7.833333333333333
+Full crates: 7
+Left over: 5
 
-console.log("Adding 1000 and 500.96:");
-console.log(amount1 + amount2);
-
-let apples = 3;
-
-console.log("Apples after eating one:");
-console.log(apples - 1);
-
-let age = 30;
-
-console.log("Age in months:");
-console.log(age * 12);
-
-let pizzaSlices = 8;
-let people = 2;
-
-console.log("Pizza slices per person:");
-console.log(pizzaSlices / people);
-
-let totalDollars = 100;
-let numPeople = 6;
-
-console.log("Leftover dollars after splitting evenly:");
-console.log(totalDollars % numPeople);
-
-let x = 4;
-let y = 10;
-let z = 12;
-
-console.log("x * y + z equals:");
-console.log(x * y + z);
-console.log("x * (y + z) equals:");
-console.log(x * (y + z));
+Crate cost: 175
+Loose cost: 35
+Total: 210
 `;
-const SampleOutput = `Adding 1000 and 500.96:
-1500.96
-Apples after eating one:
-2
-Age in months:
-360
-Pizza slices per person:
-4
-Leftover dollars after splitting evenly:
-4
-x * y + z equals:
-52
-x * (y + z) equals:
-88`;
 //#endregion
 ---
 
@@ -134,7 +99,7 @@ x * (y + z) equals:
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.4: Arithmetic Operations</h1>
+        <h1>Activity 1.4: Arithmetic and Precedence</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -142,53 +107,205 @@ x * (y + z) equals:
           <Presentation>
             <section>
               <h2>Activity 1.4</h2>
-              <h3 class="text-sn-theme">Arithmetic Operations</h3>
+              <h3 class="text-sn-theme">Arithmetic and Precedence</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Arithmetic Operators</p>
+              <p>The Four Operators</p>
+              <p>Remainder</p>
               <p>Order of Operations</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Numbers in JavaScript</h2>
-              <p>Numbers can be negative, and long numbers can use underscores to stay readable.</p>
-              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Arithmetic Operators</h2>
-              <ul>
-                <li class="fragment"><CodeSnippet code="+" lang="javascript" theme="material-theme-ocean" inline /> Addition</li>
-                <li class="fragment"><CodeSnippet code="-" lang="javascript" theme="material-theme-ocean" inline /> Subtraction</li>
-                <li class="fragment"><CodeSnippet code="*" lang="javascript" theme="material-theme-ocean" inline /> Multiplication</li>
-                <li class="fragment"><CodeSnippet code="/" lang="javascript" theme="material-theme-ocean" inline /> Division</li>
-                <li class="fragment"><CodeSnippet code="%" lang="javascript" theme="material-theme-ocean" inline /> Modulus (remainder)</li>
-              </ul>
+              <h2>The Four Operators</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
             </section>
 
             <section data-auto-animate>
-              <h2>Modulus</h2>
-              <p>The <CodeSnippet code="%" lang="javascript" theme="material-theme-ocean" inline /> operator gives you the <b class="text-sn-theme">remainder</b> left over after division.</p>
-              <Code code={Figure2} frame="code" lang="javascript" showLineNumbers={false} />
+              <h2>The Four Operators</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>That Last One</h2>
+              <p>
+                <CodeSnippet
+                  code="8 / 3"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> gave a long decimal, not a whole number.
+              </p>
+              <p class="fragment">
+                Division here works the way it does in math class, not the way it
+                works on a calculator that rounds for you.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Remainder</h2>
+              <p>
+                <CodeSnippet
+                  code="%"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> gives you what is <i>left over</i> after dividing.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Remainder</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                5 goes into 17 three times, with 2 left over.
+              </p>
+            </section>
+
+            <section>
+              <h2>Why Remainder Matters</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">Is a number even? Check if it % 2 is 0.</li>
+                  <li class="fragment">
+                    Splitting people into groups? The remainder is who is left
+                    without a group.
+                  </li>
+                  <li class="fragment">
+                    Wrapping around a clock, a calendar, or a list? Remainder.
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                It shows up on the AP exam more than you would expect.
+              </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
               <h2>Order of Operations</h2>
+              <p>Same rules you already know from math.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Order of Operations</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                Multiplication and division happen before addition and
+                subtraction. Parentheses beat everything.
+              </p>
+            </section>
+
+            <section>
+              <h2>Where Does % Go?</h2>
               <p>
-                JavaScript follows the same order of operations you use in
-                math class &mdash; multiplication and division happen before
-                addition and subtraction, unless parentheses say otherwise.
+                <CodeSnippet
+                  code="%"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> has the same priority as <CodeSnippet
+                  code="*"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> and <CodeSnippet
+                  code="/"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />.
+              </p>
+              <p class="fragment">
+                When you are unsure, add parentheses. They cost nothing and they
+                remove all doubt.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Putting It Together</h2>
+              <Code
+                code={Figure7}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Putting It Together</h2>
+              <Code
+                code={Figure8}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Subtracting the remainder first is a trick for getting a whole
+                number out of a division.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Using arithmetic operators on variables</li>
-                <li>Using the modulus operator to find a remainder</li>
-                <li>Controlling order of operations with parentheses</li>
+                <li>Using the four arithmetic operators</li>
+                <li>Using remainder to find what is left over</li>
+                <li>Predicting results using order of operations</li>
+                <li>Using parentheses to control the order</li>
               </ul>
             </section>
 
@@ -197,11 +314,21 @@ x * (y + z) equals:
               <div class="text-start">
                 <dl>
                   <dt>Operator</dt>
-                  <dd>A symbol that performs an operation on values, like <code>+</code> or <code>*</code>.</dd>
-                  <dt>Modulus</dt>
-                  <dd>The remainder left over after division, using <code>%</code>.</dd>
-                  <dt>Order of Operations</dt>
-                  <dd>The rules that decide which operations happen first in an expression.</dd>
+                  <dd>A symbol that performs an operation on values.</dd>
+                  <dt>Expression</dt>
+                  <dd>
+                    A piece of code that produces a value, such as{" "}
+                    <CodeSnippet
+                      code="8 + 3"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />.
+                  </dd>
+                  <dt>Remainder (modulus)</dt>
+                  <dd>What is left over after dividing one number by another.</dd>
+                  <dt>Operator precedence</dt>
+                  <dd>The order in which operations are carried out.</dd>
                 </dl>
               </div>
             </section>
@@ -215,46 +342,240 @@ x * (y + z) equals:
           <h2>Build</h2>
 
           <p>
-            Create a new JavaScript program named <b class="text-sn-theme">1-4-arithmetic</b>.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-4-arithmetic</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Addition and Subtraction</h3>
+          <h3>Task 1: Plain Division</h3>
           <ul>
-            <li>Declare two variables and add them together.</li>
-            <li>Declare a variable and subtract from it.</li>
+            <li>Write the code below and run it.</li>
+            <li>
+              The divided result is not a whole number. That is correct, and it
+              is the problem Task 2 solves.
+            </li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="javascript" title="Arithmetic Operations" mark={{ range: "1-2" }} />
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Arithmetic and Precedence"
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Multiplication and Division</h3>
+          <h3>Task 2: Whole Crates and Leftovers</h3>
           <ul>
-            <li>Use multiplication to convert an age in years to months.</li>
-            <li>Use division to split a number of pizza slices evenly among people.</li>
+            <li>
+              Add the lines below to work out how many crates fill completely and
+              how many boxes are left over.
+            </li>
+            <li>
+              Check the answer by hand before you trust it: 6 &times; 7 = 42, and
+              47 &minus; 42 = 5.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="javascript" title="Arithmetic Operations" mark={{ range: "12,17-18" }} ins={{ range: "12-21" }} />
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Arithmetic and Precedence"
+            ins={{ range: "7-12" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Modulus</h3>
+          <h3>Task 3: Plan, Then Write the Bill</h3>
           <ul>
-            <li>Use the modulus operator to find how many dollars are left over after splitting a total evenly among a group.</li>
+            <li>
+              The four comments at the bottom are a plan with no code yet. Write
+              the code under them.
+            </li>
+            <li>
+              Use your <CodeSnippet
+                code="fullCrates"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and <CodeSnippet
+                code="leftOver"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> variables rather than typing 7 and 5 directly.
+            </li>
+            <li>
+              Doing it that way means changing <CodeSnippet
+                code="boxes"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> at the top updates the whole bill. Try it with 100 boxes, then
+              set it back to 47.
+            </li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="javascript" title="Arithmetic Operations" mark={{ range: "23-24" }} ins={{ range: "23-27" }} />
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Arithmetic and Precedence"
+            ins={{ range: "13-18" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 4: Order of Operations</h3>
+          <h3>Challenge (Optional): Predict Before You Run</h3>
           <ul>
-            <li>Write an expression that relies on order of operations, and another that uses parentheses to change the result.</li>
+            <li>
+              Write these four expressions as comments, and next to each one
+              write what you think it will display:
+            </li>
+            <li>
+              <CodeSnippet
+                code="10 - 2 * 3"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> &nbsp; <CodeSnippet
+                code="(10 - 2) * 3"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> &nbsp; <CodeSnippet
+                code="10 % 3 * 2"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> &nbsp; <CodeSnippet
+                code="10 % (3 * 2)"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </li>
+            <li>
+              Now display them and compare. Note which ones you got wrong &mdash;
+              those are the ones worth remembering.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="+"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />, <CodeSnippet
+                code="-"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />, <CodeSnippet
+                code="*"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and <CodeSnippet
+                code="/"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> are identical in both.
+            </li>
+            <li>
+              Remainder is spelled <CodeSnippet
+                code="MOD"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> instead of <CodeSnippet
+                code="%"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Same operation, same priority.
+            </li>
+            <li>
+              Division behaves the same way too &mdash; <CodeSnippet
+                code="17 / 5"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> is <CodeSnippet
+                code="3.4"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> in both. It does not chop off the decimal.
+            </li>
           </ul>
 
-          <Code code={Task4} frame="code" lang="javascript" title="Arithmetic Operations" mark={{ range: "29-31" }} ins={{ range: "29-36" }} />
+          <p class="mt-4">
+            The reference sheet also lists one thing JavaScript has no direct
+            match for:
+          </p>
+
+          <Code
+            code={NotationRandom}
+            frame="code"
+            lang="txt"
+            title="Exam Notation"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            <CodeSnippet
+              code="RANDOM(a, b)"
+              lang={"txt"}
+              theme={"material-theme-ocean"}
+              inline
+            /> gives a random whole number from <b>a</b> to <b>b</b>, and{" "}
+            <b class="text-sn-theme">both ends are included</b> &mdash; so{" "}
+            <CodeSnippet
+              code="RANDOM(1, 6)"
+              lang={"txt"}
+              theme={"material-theme-ocean"}
+              inline
+            /> can give you a 1 or a 6. Getting randomness in JavaScript takes
+            more work, and we will do it in Activity 1.15.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -266,11 +587,15 @@ x * (y + z) equals:
           <p>Verify your program works correctly.</p>
 
           <Code
-            code={SampleOutput}
+            code={ExampleOutput}
             frame="terminal"
             lang="txt"
             showLineNumbers={false}
             title="Example Output"
+            mark={{
+              label: "Calculated, not typed in by hand",
+              range: "7-9",
+            }}
           />
         </section>
 
@@ -283,12 +608,19 @@ x * (y + z) equals:
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What does the modulus operator (<code>%</code>) actually calculate?</li>
             <li>
-              What is the result of <code>4 * 10 + 12</code>? What about{" "}
-              <code>4 * (10 + 12)</code>? Why are they different?
+              In Task 3 you were told to use your variables instead of typing 7
+              and 5. Explain what breaks if you type the numbers in directly.
             </li>
-            <li>Why is it useful to store values in variables before doing arithmetic on them, instead of typing the raw numbers directly?</li>
+            <li>
+              Describe a situation, outside of this class, where you would want
+              the remainder of a division rather than the answer.
+            </li>
+            <li>
+              On the exam, remainder is written <code>17 MOD 5</code> instead of{" "}
+              <code>17 % 5</code>. Does a different symbol change what the
+              operation does? Explain.
+            </li>
           </ol>
         </section>
 

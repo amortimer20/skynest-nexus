@@ -1,0 +1,443 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `ellipse(60, 200, 40, 40);
+ellipse(140, 200, 40, 40);
+ellipse(220, 200, 40, 40);`;
+const Figure2 = `let xs = [60, 140, 220, 310];
+
+for (const x of xs) {
+  ellipse(x, 200, 40, 40);
+}`;
+const Figure3 = `let heights = [40, 120, 75, 160, 90];
+
+for (let i = 0; i < heights.length; i++) {
+  rect(i * 70 + 40, 300 - heights[i], 50, heights[i]);
+}`;
+const Figure4 = `let xs = [60, 140, 220];
+let ys = [100, 250, 180];
+
+for (let i = 0; i < xs.length; i++) {
+  ellipse(xs[i], ys[i], 40, 40);
+}`;
+const Task1 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+  noStroke();
+  fill(120, 200, 255);
+
+  let xs = [60, 140, 220, 310];
+
+  for (const x of xs) {
+    ellipse(x, 200, 40, 40);
+  }
+}
+`;
+const Task2 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+  noStroke();
+  fill(120, 200, 255);
+
+  let xs = [60, 140, 220, 310];
+
+  for (const x of xs) {
+    ellipse(x, 200, 40, 40);
+  }
+
+  let heights = [40, 120, 75, 160, 90];
+
+  for (let i = 0; i < heights.length; i++) {
+    rect(i * 70 + 40, 380 - heights[i], 50, heights[i]);
+  }
+}
+`;
+const Task3 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+  noStroke();
+  fill(120, 200, 255);
+
+  let xs = [60, 140, 220, 310];
+
+  for (const x of xs) {
+    ellipse(x, 200, 40, 40);
+  }
+
+  let heights = [40, 120, 75, 160, 90];
+
+  for (let i = 0; i < heights.length; i++) {
+    rect(i * 70 + 40, 380 - heights[i], 50, heights[i]);
+  }
+
+  // Color each bar by its own height:
+  //   red if the height is under 60
+  //   yellow if it is under 120
+  //   green otherwise
+  //   remember fill() must come before the rect() it applies to
+}
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.25: p5 Lab 6 &mdash; Drawing From Data</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.25</h2>
+              <h3 class="text-sn-theme">p5 Lab 6 &mdash; Drawing From Data</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>An Array of Positions</p>
+              <p>A Chart Is a Traversal</p>
+              <p>Parallel Arrays</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Three Circles, Three Lines</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Nothing wrong with it &mdash; until you want thirty, or until the
+                positions come from somewhere else.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Data Moves Out of the Code</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Now the positions are <b class="text-sn-theme">data</b> and the
+                drawing is <b class="text-sn-theme">code</b>. Change the array and
+                the picture changes, without touching a single{" "}
+                <CodeSnippet code="ellipse()" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+              </p>
+            </section>
+
+            <section>
+              <h2>This Is the Whole Point</h2>
+              <p>
+                Grids from Lab 5 could only ever be regular, because the positions
+                came from arithmetic.
+              </p>
+              <p class="fragment">
+                An array can hold <i>anything</i> &mdash; measurements, scores,
+                positions that follow no pattern at all. The loop does not care.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Bar Chart</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Reading That Rectangle</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet code="i * 70 + 40" lang={"javascript"} theme={"material-theme-ocean"} inline /> spaces the bars out &mdash; the
+                    grid formula from Lab 5
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="heights[i]" lang={"javascript"} theme={"material-theme-ocean"} inline /> is the bar's height, straight from
+                    the data
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="300 - heights[i]" lang={"javascript"} theme={"material-theme-ocean"} inline /> is where its <i>top</i> goes
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                That subtraction is there because <b>y grows downward</b>. A
+                taller bar needs a <i>smaller</i> y to reach further up. Lab 1's
+                coordinate lesson, still earning its keep.
+              </p>
+            </section>
+
+            <section>
+              <h2>Why an Index Here</h2>
+              <p>
+                <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline /> would give you each height, but not{" "}
+                <i>which</i> bar it is &mdash; and without that you cannot work
+                out where to draw it.
+              </p>
+              <p class="fragment">
+                This is exactly the choice from Activity 1.24: need the position,
+                use an index.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Parallel Arrays</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Two arrays, one index. <CodeSnippet code="xs[1]" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
+                <CodeSnippet code="ys[1]" lang={"javascript"} theme={"material-theme-ocean"} inline /> describe the same circle.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Parallel Arrays</h2>
+              <p>
+                It works, and it is fragile: the two arrays must stay the same
+                length and the same order, and nothing enforces that.
+              </p>
+              <p class="fragment">
+                Real programs eventually use something better. For now, know the
+                pattern and know its weakness &mdash; the exam asks about exactly
+                this.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Drawing one shape per array element</li>
+                <li>Using an element's value as a size or position</li>
+                <li>Choosing an indexed loop when position matters</li>
+                <li>Using two arrays together, and naming the risk</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Data-driven drawing</dt>
+                  <dd>
+                    A picture whose shape comes from values, not from hard-coded
+                    numbers.
+                  </dd>
+                  <dt>Parallel arrays</dt>
+                  <dd>
+                    Two or more arrays where the same index refers to the same
+                    thing.
+                  </dd>
+                  <dt>Visualization</dt>
+                  <dd>Representing data so a person can see it at a glance.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-25-data-drawing</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Circles From an Array</h3>
+          <ul>
+            <li>Write the code below and run it. Four circles, unevenly spaced.</li>
+            <li>
+              Add a fifth number to <CodeSnippet code="xs" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run again{" "}
+              <b>without touching the loop</b>. A fifth circle appears.
+            </li>
+            <li>
+              Now remove two numbers. The drawing follows the data every time.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 6 — Drawing From Data"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: A Bar Chart</h3>
+          <ul>
+            <li>Add a heights array and draw a bar for each value.</li>
+            <li>
+              All five bars should sit on the same baseline at y = 380 and grow
+              upward by different amounts.
+            </li>
+            <li>
+              <b>Try this:</b> change <CodeSnippet code="380 - heights[i]" lang={"javascript"} theme={"material-theme-ocean"} inline /> to just{" "}
+              <CodeSnippet code="380" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run. The bars grow the wrong way and fall
+              off the canvas. Change it back.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 6 — Drawing From Data"
+            ins={{ range: "13-17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Color by Value</h3>
+          <ul>
+            <li>
+              The comments describe coloring each bar by its own height &mdash; a
+              chain of conditions inside the traversal.
+            </li>
+            <li>
+              This is Activity 1.13's status panel again, except the thresholds
+              now come from array elements rather than separate variables.
+            </li>
+            <li>
+              Order your chain carefully. Activity 1.12's rule applies exactly.
+            </li>
+            <li>
+              Test by editing the heights so you get at least one bar of each
+              color.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 6 — Drawing From Data"
+            ins={{ range: "18-23" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Label the Bars</h3>
+          <ul>
+            <li>
+              Add a second array of labels, one per bar, and draw each name under
+              its bar using <CodeSnippet code="text()" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </li>
+            <li>
+              You will need <CodeSnippet code="fill()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
+              <CodeSnippet code="textSize()" lang={"javascript"} theme={"material-theme-ocean"} inline /> before the text, or it will inherit the
+              bar's color.
+            </li>
+            <li>
+              This is parallel arrays for real. Add a label but forget the
+              matching height, and note what happens &mdash; that is the fragility
+              from the slides.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your finished sketch should show all of the following.</p>
+
+          <ul>
+            <li>A row of circles whose positions come from an array.</li>
+            <li>Five bars of different heights, all sitting on one baseline.</li>
+            <li>Each bar colored by its own height, with at least two colors visible.</li>
+            <li>
+              <b>The real test:</b> adding a sixth height draws a sixth bar,
+              correctly colored, with no other change to the code.
+            </li>
+          </ul>
+
+          <p>
+            If adding a value breaks the layout or the coloring, something in
+            your loop is still counting to a fixed number.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Lab 5 drew a grid from arithmetic; this lab drew from an array.
+              What can an array do that a formula cannot?
+            </li>
+            <li>
+              The bar's y position is <code>380 - heights[i]</code> rather than
+              just the height. Explain why, in terms of how the canvas is
+              numbered.
+            </li>
+            <li>
+              Parallel arrays rely on two lists staying in step. Describe a way
+              that could go wrong, and what the drawing would look like when it
+              did.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

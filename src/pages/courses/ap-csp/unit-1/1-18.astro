@@ -1,0 +1,563 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let i = 1;
+
+while (i <= 5) {
+  console.log("Pass", i);
+  i = i + 1;
+}`;
+const Figure2 = `for (let i = 1; i <= 5; i = i + 1) {
+  console.log("Pass", i);
+}`;
+const Figure3 = `Pass 1
+Pass 2
+Pass 3
+Pass 4
+Pass 5`;
+const Figure4 = `for (let i = 1; i <= 3; i++) {
+  console.log(i);
+}`;
+const Figure5 = `for (let i = 0; i < 5; i++) {
+  console.log(i);
+}`;
+const Figure6 = `0
+1
+2
+3
+4`;
+const NotationJs = `for (let i = 1; i <= 5; i++) {
+  console.log(i);
+}`;
+const NotationPseudo = `i ← 1
+REPEAT 5 TIMES
+{
+  DISPLAY(i)
+  i ← i + 1
+}`;
+const Task1 = `for (let i = 1; i <= 5; i++) {
+  console.log("Checking system", i);
+}
+
+console.log("All systems checked.");
+`;
+const Task2 = `for (let i = 1; i <= 5; i++) {
+  console.log("Checking system", i);
+}
+
+console.log("All systems checked.");
+console.log("");
+
+let total = 0;
+
+for (let i = 1; i <= 10; i++) {
+  total = total + i;
+}
+
+console.log("Sum of 1 to 10:", total);
+
+for (let i = 10; i >= 1; i--) {
+  console.log("T-minus", i);
+}
+`;
+const Task3 = `for (let i = 1; i <= 5; i++) {
+  console.log("Checking system", i);
+}
+
+console.log("All systems checked.");
+console.log("");
+
+let total = 0;
+
+for (let i = 1; i <= 10; i++) {
+  total = total + i;
+}
+
+console.log("Sum of 1 to 10:", total);
+
+for (let i = 10; i >= 1; i--) {
+  console.log("T-minus", i);
+}
+
+console.log("");
+
+// Ask the user how many crates to load, and cast it
+// Loop that many times, showing the crate number each pass
+// Keep a running total of mass, adding 40 per crate
+// After the loop, show the total mass
+`;
+const ExampleOutput = `Checking system 1
+Checking system 2
+Checking system 3
+Checking system 4
+Checking system 5
+All systems checked.
+
+Sum of 1 to 10: 55
+T-minus 10
+T-minus 9
+T-minus 8
+T-minus 7
+T-minus 6
+T-minus 5
+T-minus 4
+T-minus 3
+T-minus 2
+T-minus 1
+
+How many crates? 3
+Crate 1 loaded
+Crate 2 loaded
+Crate 3 loaded
+Total mass: 120
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.18: Counting With for</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.18</h2>
+              <h3 class="text-sn-theme">Counting With for</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Three Parts, One Line</p>
+              <p>Counting Up and Down</p>
+              <p>Starting at Zero</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Very Common Shape</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Set up, test, change. You wrote a lot of these in Activity 1.16,
+                and the three parts were scattered across three places.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Same Loop, Gathered Up</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure3}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                Identical behavior. All three parts now sit on one line, in
+                order, separated by semicolons.
+              </p>
+            </section>
+
+            <section>
+              <h2>Reading the Header</h2>
+              <div class="text-start">
+                <dl>
+                  <dt><CodeSnippet code="let i = 1" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
+                  <dd>runs once, before anything else</dd>
+                  <dt><CodeSnippet code="i <= 5" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
+                  <dd>checked before every pass; false ends the loop</dd>
+                  <dt><CodeSnippet code="i = i + 1" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
+                  <dd>runs after every pass</dd>
+                </dl>
+              </div>
+              <p class="fragment">
+                Nothing new is happening. It is a <CodeSnippet code="while" lang={"javascript"} theme={"material-theme-ocean"} inline /> loop with
+                its parts tidied into one place, which makes forgetting one much
+                harder.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Shorthand You Will See Everywhere</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <CodeSnippet code="i++" lang={"javascript"} theme={"material-theme-ocean"} inline /> means exactly{" "}
+                <CodeSnippet code="i = i + 1" lang={"javascript"} theme={"material-theme-ocean"} inline />. <CodeSnippet code="i--" lang={"javascript"} theme={"material-theme-ocean"} inline /> subtracts one.
+              </p>
+              <p class="fragment">
+                Use whichever you find clearer. You need to <i>read</i> both.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Why Programmers Start at Zero</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Why Programmers Start at Zero</h2>
+              <p>
+                <CodeSnippet code="0" lang={"javascript"} theme={"material-theme-ocean"} inline /> to <CodeSnippet code="< 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> gives five passes: 0, 1, 2, 3, 4.
+              </p>
+              <p class="fragment">
+                It looks stranger than starting at 1, but it lines up with how
+                lists are numbered in JavaScript &mdash; which is Activity 1.22's
+                problem, and a big one.
+              </p>
+              <p class="fragment">
+                Get used to reading <CodeSnippet code="i = 0; i < n" lang={"javascript"} theme={"material-theme-ocean"} inline /> as "n times."
+              </p>
+            </section>
+
+            <section>
+              <h2>Which Loop Should I Use?</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <b>for</b> &mdash; when you know how many passes before you
+                    start
+                  </li>
+                  <li class="fragment">
+                    <b>while</b> &mdash; when you are waiting for something to
+                    become true
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Counting crates is a <CodeSnippet code="for" lang={"javascript"} theme={"material-theme-ocean"} inline />. Asking until the user
+                types something valid is a <CodeSnippet code="while" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a counted loop with for</li>
+                <li>Reading the three parts of a for header</li>
+                <li>Counting up and counting down</li>
+                <li>Choosing between for and while</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Counted loop</dt>
+                  <dd>A loop that runs a known number of times.</dd>
+                  <dt>Loop counter</dt>
+                  <dd>
+                    The variable that tracks which pass the loop is on, usually
+                    called <CodeSnippet code="i" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                  </dd>
+                  <dt>Increment</dt>
+                  <dd>Adding one to a variable.</dd>
+                  <dt>Decrement</dt>
+                  <dd>Subtracting one from a variable.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-18-for</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Five Passes</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              Change <CodeSnippet code="i <= 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
+              <CodeSnippet code="i < 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run again. Count the lines. One character,
+              one fewer pass.
+            </li>
+            <li>Change it back before continuing.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Counting With for"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Accumulate, and Count Down</h3>
+          <ul>
+            <li>
+              Add a loop that sums 1 to 10, then one that counts backwards from
+              10.
+            </li>
+            <li>
+              The second one uses <CodeSnippet code="i--" lang={"javascript"} theme={"material-theme-ocean"} inline /> and a{" "}
+              <CodeSnippet code=">=" lang={"javascript"} theme={"material-theme-ocean"} inline /> test. Going down means both the test and the
+              change flip.
+            </li>
+            <li>
+              Check the sum by hand &mdash; 1 through 10 adds up to 55.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Counting With for"
+            ins={{ range: "6-18" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Loop Over Input</h3>
+          <ul>
+            <li>
+              The comments describe a crate loader driven by a number the user
+              types.
+            </li>
+            <li>
+              The loop count comes from a variable, not a literal. That is the
+              point &mdash; the program does not know how many passes until it
+              runs.
+            </li>
+            <li>Cast the input, or your loop condition will misbehave.</li>
+            <li>
+              The running total must be declared <b>before</b> the loop. Declare
+              it inside and it resets every pass.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Counting With for"
+            ins={{ range: "20-25" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Only the Even Ones</h3>
+          <ul>
+            <li>
+              Add a loop that displays only the even numbers from 1 to 20. There
+              are two good ways to do it.
+            </li>
+            <li>
+              One uses a conditional inside the loop and the remainder operator
+              from Activity 1.4.
+            </li>
+            <li>
+              The other changes the loop header so it never visits an odd number
+              at all.
+            </li>
+            <li>
+              Write both, then add a comment saying which you prefer and why.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">
+              The reference sheet has no <code>for</code> loop at all.
+            </b>{" "}
+            It offers <code>REPEAT n TIMES</code>, <code>REPEAT UNTIL</code>, and
+            one more you will meet at Activity 1.24. That is the complete set.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <h4>Look at What Had to Be Added</h4>
+
+          <p>
+            <b>
+              <code>REPEAT n TIMES</code> gives you no counter variable.
+            </b>{" "}
+            It repeats a block a set number of times and tells you nothing about
+            which pass you are on.
+          </p>
+
+          <p>
+            So when a program needs to know the pass number, the counter has to
+            be built by hand &mdash; declared before the loop, and incremented
+            as the last line inside it. Three lines of housekeeping that
+            JavaScript packs into one header.
+          </p>
+
+          <h4 class="mt-4">Why This Matters on Exam Day</h4>
+
+          <ul>
+            <li>
+              <b>This exact pattern appears constantly.</b> An initialization, a{" "}
+              <code>REPEAT</code>, and an <code>i ← i + 1</code> at the bottom of
+              the block is one of the most common shapes on the whole exam.
+            </li>
+            <li>
+              <b>The increment's position matters.</b> Put it before the work
+              instead of after and every pass uses the wrong number.
+            </li>
+            <li>
+              <b>Do not expect an <code>i</code> to be there.</b> If a question
+              uses <code>REPEAT n TIMES</code> with no counter, the block genuinely
+              cannot tell which pass it is on.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={{
+              label: "Number of passes decided at run time",
+              range: "21-23",
+            }}
+          />
+
+          <p class="mt-3">
+            Run the crate loader with 0 as the answer. It should load nothing and
+            report a total of 0, without crashing. A loop that runs zero times is
+            perfectly valid.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              A <code>for</code> loop and a <code>while</code> loop can do the
+              same job. When is each one the clearer choice?
+            </li>
+            <li>
+              <code>i &lt;= 5</code> and <code>i &lt; 5</code> differ by one
+              character and one pass. Why is that such an easy mistake to make?
+            </li>
+            <li>
+              Exam notation has no <code>for</code> loop, so a counter must be
+              maintained by hand. What could go wrong if the{" "}
+              <code>i ← i + 1</code> were placed at the <i>top</i> of the block
+              instead of the bottom?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

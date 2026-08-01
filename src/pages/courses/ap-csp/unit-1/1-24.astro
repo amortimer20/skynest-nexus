@@ -1,0 +1,572 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let crew = ["Ada", "Bo", "Cy"];
+
+console.log(crew[0]);
+console.log(crew[1]);
+console.log(crew[2]);`;
+const Figure2 = `let crew = ["Ada", "Bo", "Cy"];
+
+for (let i = 0; i < crew.length; i++) {
+  console.log(crew[i]);
+}`;
+const Figure3 = `Ada
+Bo
+Cy`;
+const Figure4 = `for (let i = 0; i <= crew.length; i++) {
+  console.log(crew[i]);
+}`;
+const Figure5 = `Ada
+Bo
+Cy
+undefined`;
+const Figure6 = `let crew = ["Ada", "Bo", "Cy"];
+
+for (const name of crew) {
+  console.log(name);
+}`;
+const Figure7 = `let readings = [4, -8, 12, -3, 7];
+let total = 0;
+
+for (const r of readings) {
+  total = total + r;
+}
+
+console.log("Total:", total);`;
+const NotationJs = `for (const name of crew) {
+  console.log(name);
+}`;
+const NotationPseudo = `FOR EACH name IN crew
+{
+  DISPLAY(name)
+}`;
+const Task1 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
+
+for (let i = 0; i < crew.length; i++) {
+  console.log(i, crew[i]);
+}
+`;
+const Task2 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
+let readings = [4, -8, 12, -3, 7];
+
+for (let i = 0; i < crew.length; i++) {
+  console.log(i, crew[i]);
+}
+
+console.log("");
+
+let total = 0;
+
+for (const r of readings) {
+  total = total + r;
+}
+
+console.log("Total:", total);
+console.log("Average:", (total / readings.length).toFixed(1));
+`;
+const Task3 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
+let readings = [4, -8, 12, -3, 7];
+
+for (let i = 0; i < crew.length; i++) {
+  console.log(i, crew[i]);
+}
+
+console.log("");
+
+let total = 0;
+
+for (const r of readings) {
+  total = total + r;
+}
+
+console.log("Total:", total);
+console.log("Average:", (total / readings.length).toFixed(1));
+console.log("");
+
+// Count how many readings are above freezing
+// Find the highest reading, starting from the first element
+// Build a new array holding only the readings above freezing
+// Display all three results
+`;
+const ExampleOutput = `0 Ada
+1 Bo
+2 Cy
+3 Dee
+
+Total: 12
+Average: 2.4
+
+Above freezing: 3
+Highest: 12
+Warm readings: [ 4, 12, 7 ]
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.24: Walking Through an Array</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.24</h2>
+              <h3 class="text-sn-theme">Walking Through an Array</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Loops and Arrays Belong Together</p>
+              <p>The Standard Traversal</p>
+              <p>Two Ways to Walk</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Obvious Problem</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Fine for three. Useless for a hundred, and impossible when the
+                length is not known until the program runs.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Standard Traversal</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure3}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Why This Line Is Everywhere</h2>
+              <p>
+                <CodeSnippet code="for (let i = 0; i < arr.length; i++)" lang={"javascript"} theme={"material-theme-ocean"} inline />
+              </p>
+              <div class="text-start mt-3">
+                <ul>
+                  <li class="fragment">
+                    Starts at <b>0</b>, the first index
+                  </li>
+                  <li class="fragment">
+                    Stops <b>before</b> length, so the last pass is length &minus; 1
+                  </li>
+                  <li class="fragment">
+                    Adapts automatically when the array grows or shrinks
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Every piece of it exists for a reason. Learn it as one phrase.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>One Character Too Far</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure5}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                <CodeSnippet code="<=" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of{" "}
+                <CodeSnippet code="<" lang={"javascript"} theme={"material-theme-ocean"} inline /> takes exactly one extra step, off the end.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Classic Off-By-One</h2>
+              <p>
+                This is <i>the</i> most common array bug there is, and JavaScript
+                will not warn you &mdash; it just adds an{" "}
+                <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /> to your output.
+              </p>
+              <p class="fragment">
+                In a total, that <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /> becomes{" "}
+                <CodeSnippet code="NaN" lang={"javascript"} theme={"material-theme-ocean"} inline /> and poisons the whole answer.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Simpler Way, When You Can</h2>
+              <Code
+                code={Figure6}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline /> hands you each <b>value</b> in turn. No
+                index, no length, no off-by-one possible.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Simpler Way, When You Can</h2>
+              <Code
+                code={Figure7}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                The accumulator from Activity 1.19, now walking real data instead
+                of counting to five.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which One?</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <b>for...of</b> when you only need the values
+                  </li>
+                  <li class="fragment">
+                    <b>Indexed for</b> when you need the position too, or need to
+                    change elements
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Prefer <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline /> when it fits. Fewer moving parts
+                means fewer ways to be wrong.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  The exam has both. It calls the second one FOR EACH.
+                </b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing the standard indexed traversal</li>
+                <li>Explaining why the test is <b>&lt;</b> and not <b>&lt;=</b></li>
+                <li>Using for...of when the index is not needed</li>
+                <li>Combining traversal with the loop patterns from 1.19</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Traversal</dt>
+                  <dd>Visiting every element of an array in order.</dd>
+                  <dt>Indexed loop</dt>
+                  <dd>A traversal that uses a counter to reach each position.</dd>
+                  <dt>
+                    <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>A loop that gives you each value directly.</dd>
+                  <dt>Filtering</dt>
+                  <dd>
+                    Building a new collection from the items that meet a
+                    condition.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-24-traversal</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Index and Value</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              Displaying <CodeSnippet code="i" lang={"javascript"} theme={"material-theme-ocean"} inline /> alongside the name makes the 0-based
+              counting concrete. Ada is at 0.
+            </li>
+            <li>
+              Change <CodeSnippet code="<" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
+              <CodeSnippet code="<=" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run. Note what appears. Change it back.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Walking Through an Array"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: for...of and an Accumulator</h3>
+          <ul>
+            <li>
+              Add a readings array and total it with{" "}
+              <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </li>
+            <li>
+              The average divides by <CodeSnippet code="readings.length" lang={"javascript"} theme={"material-theme-ocean"} inline />, not by 5.
+              Add a sixth reading and everything should still be correct.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Walking Through an Array"
+            ins={{ range: "2, 8-17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Combine the Patterns</h3>
+          <ul>
+            <li>
+              The comments describe three jobs, all over the same array. Every
+              one of them is a pattern from Activity 1.19, now walking real data.
+            </li>
+            <li>
+              The maximum must start from <CodeSnippet code="readings[0]" lang={"javascript"} theme={"material-theme-ocean"} inline />, not from a
+              guessed number. You have the array, so use it.
+            </li>
+            <li>
+              The last job is new: start with an empty array and{" "}
+              <CodeSnippet code="push()" lang={"javascript"} theme={"material-theme-ocean"} inline /> onto it inside the loop. That is an
+              accumulator whose container is an array.
+            </li>
+            <li>
+              You can do all three in a single loop or in three separate ones.
+              Either is fine &mdash; note in a comment which you chose and why.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Walking Through an Array"
+            ins={{ range: "18-23" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Search It</h3>
+          <ul>
+            <li>
+              Ask the user for a name and report whether it is in the crew array,
+              and at which index.
+            </li>
+            <li>
+              You will need a variable that remembers whether you found anything,
+              because "not found" is only knowable once the loop has finished.
+            </li>
+            <li>
+              This is called a <b>linear search</b>, and it is the first named
+              algorithm on the AP exam. You are writing it a quarter early.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            <code>FOR EACH</code> is the closest match between the two notations
+            in the entire course. Same idea, same shape, different capitals.
+          </p>
+
+          <h4 class="mt-4">The Indexed Version Is Harder There</h4>
+
+          <p>
+            When an exam question needs the <i>position</i>, it cannot write a{" "}
+            <code>for</code> header &mdash; the reference sheet has none. It has
+            to hand-roll the counter, exactly as Activity 1.18 showed:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>JavaScript</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>for (let i = 0; i &lt; a.length; i++)</code></td>
+                  <td><code>i ← 1</code> then <code>REPEAT LENGTH(a) TIMES</code>, with <code>i ← i + 1</code> inside</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>Note the starting values.</b> JavaScript starts at 0 and stops
+            before the length. The exam starts at 1 and repeats exactly{" "}
+            <code>LENGTH</code> times. Both visit every element once &mdash; they
+            just number them differently.
+          </p>
+
+          <p>
+            You have now met all three of the reference sheet's loops:{" "}
+            <code>REPEAT n TIMES</code>, <code>REPEAT UNTIL</code>, and{" "}
+            <code>FOR EACH</code>. That is the complete set. There is nothing else
+            to learn.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={[
+              { label: "Ada is at 0, Dee is at 3", range: "1-4" },
+              { label: "A new array built inside the loop", range: "11" },
+            ]}
+          />
+
+          <p class="mt-3">
+            Add a sixth reading to the array and run again. The total, the
+            average, the count, the maximum, and the filtered array should{" "}
+            <b>all</b> update with no other change. If any one of them does not,
+            something is hard-coded.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Explain why the traversal test is <code>i &lt; arr.length</code> and
+              what happens with <code>&lt;=</code>.
+            </li>
+            <li>
+              When would you choose <code>for...of</code>, and when do you have no
+              choice but to use an index?
+            </li>
+            <li>
+              The exam notation numbers elements from 1 and repeats{" "}
+              <code>LENGTH</code> times; JavaScript numbers from 0 and stops
+              before the length. Explain why both visit every element exactly
+              once.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

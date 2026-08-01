@@ -1,0 +1,582 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let score = 85;
+
+if (score >= 90) {
+  console.log("Grade: A");
+} else if (score >= 80) {
+  console.log("Grade: B");
+} else {
+  console.log("Grade: C or below");
+}`;
+const Figure2 = `Grade: B`;
+const Figure3 = `let score = 95;
+
+if (score >= 60) {
+  console.log("Grade: D or better");
+} else if (score >= 90) {
+  console.log("Grade: A");
+}`;
+const Figure4 = `Grade: D or better`;
+const Figure5 = `let score = 95;
+
+if (score >= 90) {
+  console.log("A");
+}
+if (score >= 80) {
+  console.log("B");
+}
+if (score >= 60) {
+  console.log("D or better");
+}`;
+const Figure6 = `A
+B
+D or better`;
+const NotationJs = `if (score >= 90) {
+  console.log("A");
+} else if (score >= 80) {
+  console.log("B");
+} else {
+  console.log("C");
+}`;
+const NotationPseudo = `IF(score ≥ 90)
+{
+  DISPLAY("A")
+}
+ELSE
+{
+  IF(score ≥ 80)
+  {
+    DISPLAY("B")
+  }
+  ELSE
+  {
+    DISPLAY("C")
+  }
+}`;
+const Task1 = `let windSpeed = 46;
+
+console.log("Wind speed:", windSpeed);
+
+if (windSpeed >= 74) {
+  console.log("Category: hurricane");
+} else if (windSpeed >= 39) {
+  console.log("Category: tropical storm");
+} else {
+  console.log("Category: calm");
+}
+`;
+const Task2 = `let windSpeed = 46;
+
+console.log("Wind speed:", windSpeed);
+
+if (windSpeed >= 157) {
+  console.log("Category: 5 — catastrophic");
+} else if (windSpeed >= 130) {
+  console.log("Category: 4 — extreme");
+} else if (windSpeed >= 111) {
+  console.log("Category: 3 — devastating");
+} else if (windSpeed >= 96) {
+  console.log("Category: 2 — extensive");
+} else if (windSpeed >= 74) {
+  console.log("Category: 1 — dangerous");
+} else if (windSpeed >= 39) {
+  console.log("Category: tropical storm");
+} else {
+  console.log("Category: calm");
+}
+`;
+const Task3 = `let windSpeed = 46;
+
+console.log("Wind speed:", windSpeed);
+
+if (windSpeed >= 157) {
+  console.log("Category: 5 — catastrophic");
+} else if (windSpeed >= 130) {
+  console.log("Category: 4 — extreme");
+} else if (windSpeed >= 111) {
+  console.log("Category: 3 — devastating");
+} else if (windSpeed >= 96) {
+  console.log("Category: 2 — extensive");
+} else if (windSpeed >= 74) {
+  console.log("Category: 1 — dangerous");
+} else if (windSpeed >= 39) {
+  console.log("Category: tropical storm");
+} else {
+  console.log("Category: calm");
+}
+
+console.log("");
+
+// Ask the user for a rainfall total in millimeters and cast it
+// 200 or more is "flood risk"
+// 50 or more is "heavy"
+// 10 or more is "moderate"
+// anything else is "light"
+// Display the rainfall and its single category
+`;
+const ExampleOutput = `Wind speed: 46
+Category: tropical storm
+
+Rainfall in mm? 64
+Rainfall: 64
+Category: heavy
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.12: Chains of Decisions</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.12</h2>
+              <h3 class="text-sn-theme">Chains of Decisions</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>More Than Two Paths</p>
+              <p>First Match Wins</p>
+              <p>Unreachable Code</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Paths Is Not Enough</h2>
+              <p>
+                A grade is not pass or fail. A storm is not calm or hurricane.
+                Most real decisions have several outcomes.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>else if</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>How a Chain Runs</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">Conditions are checked <b>top to bottom</b></li>
+                  <li class="fragment">
+                    The <b class="text-sn-theme">first one that is true</b> wins
+                  </li>
+                  <li class="fragment">
+                    Everything below it is skipped without being checked
+                  </li>
+                  <li class="fragment">
+                    The final <CodeSnippet code="else" lang={"javascript"} theme={"material-theme-ocean"} inline /> catches whatever is left
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                85 is also greater than 60 and greater than 0. It does not matter
+                &mdash; the chain stopped at the first match.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Order Is Not Optional</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Order Is Not Optional</h2>
+              <p>
+                A 95 was reported as <i>D or better</i>. Both conditions are
+                true, but the loosest one came first and swallowed everything.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  The second branch can never run. Not for any score.
+                </b>
+              </p>
+              <p class="fragment">
+                No error. No warning. The code is simply dead, and it looks
+                perfectly reasonable.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Rule</h2>
+              <p>
+                In a chain of overlapping conditions, put the{" "}
+                <b class="text-sn-theme">most specific first</b> and the
+                loosest last.
+              </p>
+              <p class="fragment">
+                For numeric ranges that usually means starting at the extreme end
+                and working inward.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Chain, or Separate Ifs?</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Chain, or Separate Ifs?</h2>
+              <p>
+                Three separate <CodeSnippet code="if" lang={"javascript"} theme={"material-theme-ocean"} inline /> statements are three separate
+                decisions. All three get checked, so all three can fire.
+              </p>
+              <p class="fragment">
+                A chain gives you <b>exactly one</b> answer. Separate ifs give you{" "}
+                <b>any number</b>. Neither is wrong &mdash; but they are different
+                questions, and choosing the wrong one is a real bug.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a chain with several branches</li>
+                <li>Ordering conditions so every branch is reachable</li>
+                <li>Recognizing unreachable code</li>
+                <li>Choosing between a chain and separate ifs</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Chain</dt>
+                  <dd>
+                    A series of conditions where the first true one runs and the
+                    rest are skipped.
+                  </dd>
+                  <dt>Branch</dt>
+                  <dd>One possible path through a decision.</dd>
+                  <dt>Unreachable code</dt>
+                  <dd>
+                    Code that can never run, no matter what the input is.
+                  </dd>
+                  <dt>Mutually exclusive</dt>
+                  <dd>
+                    Outcomes where only one can happen at a time.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-12-chains</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Three Branches</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              Test all three branches by editing <CodeSnippet
+                code="windSpeed"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />: try 80, then 46, then 5.
+            </li>
+            <li>Set it back to 46 before continuing.</li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Chains of Decisions"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: The Full Scale</h3>
+          <ul>
+            <li>Expand the chain to all seven branches.</li>
+            <li>
+              Notice the order: highest threshold first, working down. That is
+              not a style choice &mdash; reverse it and most branches become
+              unreachable.
+            </li>
+            <li>
+              Test at least four different speeds, including one above 157 and
+              one below 39.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Chains of Decisions"
+            ins={{ range: "5-16" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Classify Some Input</h3>
+          <ul>
+            <li>
+              The comments describe a rainfall scale with four categories. Write
+              the code under them.
+            </li>
+            <li>Cast the input before comparing it.</li>
+            <li>
+              Exactly <b>one</b> category should print, so this needs a chain and
+              not separate ifs.
+            </li>
+            <li>
+              Think about your ordering before you write it. Write the thresholds
+              down on paper first if it helps.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Chains of Decisions"
+            ins={{ range: "21-28" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Make a Branch Unreachable</h3>
+          <ul>
+            <li>
+              Copy your rainfall chain to the bottom of the program and
+              deliberately reorder it so that the <i>flood risk</i> branch can
+              never run.
+            </li>
+            <li>
+              Prove it: run it with a rainfall of 400 and show that it reports
+              something else.
+            </li>
+            <li>
+              Write a comment explaining which line made the branch dead, and why
+              no error appeared.
+            </li>
+            <li>Delete the broken copy before submitting.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">
+              This is the biggest difference between the two notations in the
+              whole course.
+            </b>
+          </p>
+
+          <p>
+            <b>The exam reference sheet has no <code>ELSE IF</code>.</b> It offers
+            only <code>IF</code> and <code>IF</code>/<code>ELSE</code>. A chain
+            has to be built by putting a whole new <code>IF</code>{" "}
+            <i>inside</i> the <code>ELSE</code> block.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            Read the right-hand side carefully. The second <code>IF</code> is{" "}
+            <b>not</b> a sibling of the first &mdash; it lives inside the first
+            one's <code>ELSE</code>, indented one level deeper. The closing braces
+            stack up at the bottom.
+          </p>
+
+          <h4 class="mt-4">Why This Matters on Exam Day</h4>
+
+          <ul>
+            <li>
+              <b>Nesting grows with every branch.</b> Three branches means two
+              levels. Seven branches, like your Task 2, would mean six levels and
+              a wall of closing braces.
+            </li>
+            <li>
+              <b>Exam questions look more complicated than they are.</b> When you
+              meet a deeply indented block of <code>IF</code>/<code>ELSE</code>,
+              it is very often just a chain written the only way the notation
+              allows.
+            </li>
+            <li>
+              <b>The logic is identical.</b> First match wins, exactly as in
+              JavaScript. Read it as a chain even though it is drawn as a nest.
+            </li>
+          </ul>
+
+          <p>
+            A useful trick when tracing one of these: find the deepest{" "}
+            <code>ELSE</code>, and read it as "none of the conditions above were
+            true."
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={{
+              label: "Exactly one category, never two",
+              range: "6",
+            }}
+          />
+
+          <p class="mt-3">
+            Test your rainfall chain at <b>4</b>, <b>25</b>, <b>120</b>, and{" "}
+            <b>400</b>. Each should give a different category. If two of them
+            give the same answer, one of your branches is unreachable.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              A score of 95 was reported as "D or better." Explain what went
+              wrong, and why the program gave no error.
+            </li>
+            <li>
+              Describe a situation where you would <i>want</i> separate{" "}
+              <code>if</code> statements instead of a chain.
+            </li>
+            <li>
+              The exam notation has no <code>else if</code>, so chains are written
+              as nested blocks. Does that change what the program does? Explain
+              your answer.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -3,45 +3,74 @@ import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `console.log(\`Pizza Hut > Dominos. Fight me.\`);`;
-const Figure2 = `console.log("You scored", score, "%.");`;
-const Figure3 = `console.log(\`You scored \${score}%.\`);`;
-const Figure4 = `console.log(\`I am 35 years old, which is \${35 * 12} months.\`);`;
-const Task1 = `let score = 95;
+const Figure1 = `SYSTEM CHECK
+Oxygen: ok
+Coolant: LOW
+Power: ok
+Hull: BREACH
+Comms: ok`;
+const Figure2 = `import chalk from "chalk";
 
-console.log("You scored", score, "%.");
-console.log(\`You scored \${score}%.\`);
+console.log(chalk.green("Oxygen: ok"));
+console.log(chalk.red("Hull: BREACH"));`;
+const Figure3 = `import chalk from "chalk";
+
+console.log(chalk.bold("This is bold."));
+console.log(chalk.yellow("This is yellow."));
+console.log(chalk.bold.yellow("This is both."));
+console.log(chalk.bgRed.white("White on red."));`;
+const Figure4 = `import chalk from "chalk";
+
+let fuel = 12;
+console.log("Fuel:", chalk.red(fuel));
+console.log(chalk.dim("(reading taken at 04:12)"));`;
+const Task1 = `import chalk from "chalk";
+
+console.log(chalk.bold("=== SYSTEM CHECK ==="));
+console.log(chalk.green("Oxygen: ok"));
+console.log(chalk.green("Power: ok"));
 `;
-const Task2 = `let score = 95;
+const Task2 = `import chalk from "chalk";
 
-console.log("You scored", score, "%.");
-console.log(\`You scored \${score}%.\`);
-
-let name = "Ada";
-let age = 16;
-
-console.log(\`\${name} is \${age} years old.\`);
+console.log(chalk.bold("=== SYSTEM CHECK ==="));
+console.log(chalk.green("Oxygen: ok"));
+console.log(chalk.green("Power: ok"));
+console.log(chalk.yellow("Coolant: LOW"));
+console.log(chalk.bold.red("Hull: BREACH"));
+console.log(chalk.dim("Comms: idle"));
 `;
-const Task3 = `let score = 95;
+const Task3 = `import chalk from "chalk";
 
-console.log("You scored", score, "%.");
-console.log(\`You scored \${score}%.\`);
+let shipName = "Vega";
+let crewCount = 7;
+let fuelPercent = 12;
 
-let name = "Ada";
-let age = 16;
+console.log(chalk.bold("=== SYSTEM CHECK ==="));
+console.log(chalk.green("Oxygen: ok"));
+console.log(chalk.green("Power: ok"));
+console.log(chalk.yellow("Coolant: LOW"));
+console.log(chalk.bold.red("Hull: BREACH"));
+console.log(chalk.dim("Comms: idle"));
+console.log("");
 
-console.log(\`\${name} is \${age} years old.\`);
-
-console.log(\`If I take out a $1000 loan, and pay $25 each month, I will pay it off in \${1000 / 25} months.\`);
-console.log(\`A woodchuck could chuck \${32 * 60} wood panels every hour.\`);
+// Print the ship name in bold
+// Print the crew count in plain text
+// Print the fuel percent in red, because it is low
 `;
-const SampleOutput = `You scored 95 %.
-You scored 95%.
-Ada is 16 years old.
-If I take out a $1000 loan, and pay $25 each month, I will pay it off in 40 months.
-A woodchuck could chuck 1920 wood panels every hour.`;
+const ExampleOutput = `=== SYSTEM CHECK ===
+Oxygen: ok
+Power: ok
+Coolant: LOW
+Hull: BREACH
+Comms: idle
+
+Ship: Vega
+Crew: 7
+Fuel: 12
+`;
 //#endregion
 ---
 
@@ -53,7 +82,7 @@ A woodchuck could chuck 1920 wood panels every hour.`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.6: String Interpolation</h1>
+        <h1>Activity 1.6: Styled Output</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -61,58 +90,159 @@ A woodchuck could chuck 1920 wood panels every hour.`;
           <Presentation>
             <section>
               <h2>Activity 1.6</h2>
-              <h3 class="text-sn-theme">String Interpolation</h3>
+              <h3 class="text-sn-theme">Styled Output</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Template Literals</p>
-              <p>Interpolation</p>
+              <p>Using Someone Else's Code</p>
+              <p>Color and Emphasis</p>
+              <p>Styling a Value</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Backtick Strings</h2>
-              <p>
-                Strings can also be written with backticks
-                (<code>`</code>) instead of quotes. On their own, they work
-                exactly the same way.
-              </p>
-              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>The Problem</h2>
-              <p>Printing a variable alongside text with multiple arguments works, but the spacing gets awkward.</p>
-              <Code code={Figure2} frame="code" lang="javascript" showLineNumbers={false} />
-              <p class="fragment">Output: <code>You scored 95 %.</code> &mdash; notice the extra space before the <code>%</code>.</p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Template Literals</h2>
-              <p>
-                A backtick string becomes a <b class="text-sn-theme">template
-                literal</b> the moment you drop a variable inside{" "}
-                <code>{"${ }"}</code>.
-              </p>
-              <Code code={Figure3} frame="code" lang="javascript" showLineNumbers={false} />
-              <p class="fragment">Output: <code>You scored 95%.</code> &mdash; exactly the spacing you wrote.</p>
+              <h2>Plain Text Has a Problem</h2>
+              <Code
+                code={Figure1}
+                frame="terminal"
+                title="Demo"
+                lang="txt"
+                showLineNumbers={false}
+              />
             </section>
 
             <section data-auto-animate>
-              <h2>Interpolating Expressions</h2>
+              <h2>Plain Text Has a Problem</h2>
               <p>
-                <code>{"${ }"}</code> isn't just for variables &mdash; it can
-                hold any expression, like a calculation.
+                Two of those six lines are emergencies. Nothing about the output
+                says so.
               </p>
-              <Code code={Figure4} frame="code" lang="javascript" showLineNumbers={false} />
+              <p class="fragment">
+                Output is read by people. Making the important part <i>look</i>{" "}
+                important is part of the job.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Using Someone Else's Code</h2>
+              <p>
+                <b class="text-sn-theme">Chalk</b> is a library &mdash; code
+                somebody else wrote and shared, that you can use in your own
+                program.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Using Someone Else's Code</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                The <CodeSnippet
+                  code="import"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> line goes at the very top, once. It is already available here
+                &mdash; you do not have to fetch or install anything.
+              </p>
+            </section>
+
+            <section>
+              <h2>This Is Abstraction</h2>
+              <p>
+                You are about to make text red without knowing how a terminal
+                renders color.
+              </p>
+              <p class="fragment">
+                Someone solved that once, packaged it, and now you get to skip
+                it. That idea has a name in this course &mdash;{" "}
+                <b class="text-sn-theme">abstraction</b> &mdash; and it is one of
+                the Big Ideas the exam tests.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Colors and Styles</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Colors and Styles</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    Colors: <CodeSnippet
+                      code="red green yellow blue cyan magenta white gray"
+                      lang={"txt"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />
+                  </li>
+                  <li class="fragment">
+                    Styles: <CodeSnippet
+                      code="bold dim italic underline"
+                      lang={"txt"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />
+                  </li>
+                  <li class="fragment">
+                    Backgrounds: <CodeSnippet
+                      code="bgRed bgGreen bgYellow"
+                      lang={"txt"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Join them with dots to combine them.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Styling a Variable</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                A variable goes inside the parentheses just like text does. No
+                quotes around it.
+              </p>
+            </section>
+
+            <section>
+              <h2>A Word of Restraint</h2>
+              <p>
+                If everything is colored, nothing stands out. Color should mean
+                something: red for a problem, yellow for a warning, dim for
+                detail nobody needs to read.
+              </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing template literals with backticks</li>
-                <li>Interpolating variables into a string with <code>{"${ }"}</code></li>
-                <li>Interpolating expressions into a string</li>
+                <li>Importing and using a library</li>
+                <li>Applying color and emphasis to output</li>
+                <li>Combining styles</li>
+                <li>Styling the value in a variable</li>
               </ul>
             </section>
 
@@ -120,10 +250,17 @@ A woodchuck could chuck 1920 wood panels every hour.`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Template Literal</dt>
-                  <dd>A backtick-quoted string that can have values dropped directly inside it.</dd>
-                  <dt>Interpolation</dt>
-                  <dd>Inserting a variable or expression's value directly into a string.</dd>
+                  <dt>Library</dt>
+                  <dd>
+                    Code written by someone else that you can use in your own
+                    program.
+                  </dd>
+                  <dt>Import</dt>
+                  <dd>A statement that makes a library available to your code.</dd>
+                  <dt>Abstraction</dt>
+                  <dd>
+                    Hiding complicated detail behind something simpler to use.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -137,37 +274,101 @@ A woodchuck could chuck 1920 wood panels every hour.`;
           <h2>Build</h2>
 
           <p>
-            Create a new JavaScript program named <b class="text-sn-theme">1-6-interpolation</b>.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-6-styled</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Interpolate a Variable</h3>
+          <h3>Task 1: Import and Color</h3>
           <ul>
-            <li>Declare a <code>score</code> variable.</li>
-            <li>Print it once with multiple <code>console.log()</code> arguments, and once with a template literal.</li>
+            <li>Write the code below and run it.</li>
+            <li>
+              The <CodeSnippet
+                code="import"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> line must be the first line of the program, and you only write
+              it once no matter how many times you use chalk.
+            </li>
+            <li>
+              If the colors do not appear, tell me. That is a setup problem, not
+              a mistake you made.
+            </li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="javascript" title="String Interpolation" mark={{ range: "4" }} />
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Styled Output"
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Interpolate Multiple Variables</h3>
+          <h3>Task 2: Say What Matters</h3>
           <ul>
-            <li>Declare <code>name</code> and <code>age</code> variables.</li>
-            <li>Interpolate both into a single template literal.</li>
+            <li>Add three more status lines, styled to match their severity.</li>
+            <li>
+              Note that <CodeSnippet
+                code="chalk.bold.red()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> combines two styles by joining them with a dot.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="javascript" title="String Interpolation" mark={{ range: "9" }} ins={{ range: "6-9" }} />
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Styled Output"
+            ins={{ range: "6-8" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Interpolate an Expression</h3>
+          <h3>Task 3: Plan, Then Style Some Variables</h3>
           <ul>
-            <li>Write a template literal that interpolates an arithmetic expression directly, not just a variable.</li>
+            <li>
+              Three variables are declared at the top and three comments at the
+              bottom describe what to display. Write the code under them.
+            </li>
+            <li>
+              Style the <i>value</i>, not the label. Look at the demo slide again
+              if you are unsure what that means.
+            </li>
+            <li>Run after each line.</li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="javascript" title="String Interpolation" mark={{ range: "11-12" }} ins={{ range: "11-12" }} />
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Styled Output"
+            ins={{ range: "3-5, 13-17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Too Much of a Good Thing</h3>
+          <ul>
+            <li>
+              Copy your system check to the bottom and give every single line a
+              different bright color and a background.
+            </li>
+            <li>
+              Look at both versions side by side and decide which one you could
+              read faster.
+            </li>
+            <li>Delete the copy before submitting.</li>
+          </ul>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -176,14 +377,32 @@ A woodchuck could chuck 1920 wood panels every hour.`;
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>
+            Verify your program works correctly. Colors do not show in the
+            example below, so check these by eye:
+          </p>
+
+          <ul>
+            <li>The heading is bold.</li>
+            <li>Both <i>ok</i> lines are green.</li>
+            <li>The coolant line is yellow, and the hull line is bold red.</li>
+            <li>The comms line is dim.</li>
+            <li>
+              In the second block, the ship name is bold and the fuel number is
+              red &mdash; but the labels in front of them are not.
+            </li>
+          </ul>
 
           <Code
-            code={SampleOutput}
+            code={ExampleOutput}
             frame="terminal"
             lang="txt"
             showLineNumbers={false}
             title="Example Output"
+            mark={{
+              label: "Values styled, labels plain",
+              range: "8-10",
+            }}
           />
         </section>
 
@@ -196,9 +415,18 @@ A woodchuck could chuck 1920 wood panels every hour.`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What symbol turns a normal backtick string into a template literal with a value inside it?</li>
-            <li>Why did the multi-argument <code>console.log()</code> version have an extra space that the template literal version didn't?</li>
-            <li>Besides a plain variable, what else can go inside <code>{"${ }"}</code>?</li>
+            <li>
+              You made text red without knowing how a terminal produces color.
+              Explain what abstraction means, using this as your example.
+            </li>
+            <li>
+              Task 3 asked you to style the value but not the label. Why might
+              that be easier to read than coloring the whole line?
+            </li>
+            <li>
+              Libraries let you use code you did not write. Name one risk that
+              comes with depending on somebody else's code.
+            </li>
           </ol>
         </section>
 

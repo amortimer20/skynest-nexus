@@ -3,221 +3,70 @@ import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let name = prompt("Enter your name:");
-console.log(\`Hello \${name}!\`);`;
-const Figure2 = `console.log("Section 1");
-alert("Press enter to continue");
-console.log("Section 2");`;
-const Task1 = `console.log("--- Demo 1 - Simple To-Do List ---");
-console.log("Let's add a few tasks to your list.");
+const Figure1 = `let playerName = prompt("What is your name?");
+console.log("Welcome aboard,", playerName);`;
+const Figure2 = `What is your name? Jordan
+Welcome aboard, Jordan`;
+const Figure3 = `let color = prompt("Favorite color?");
+let animal = prompt("Favorite animal?");
 
-let task1 = prompt("Task 1:");
-let task2 = prompt("Task 2:");
-let task3 = prompt("Task 3:");
+console.log("Your callsign is the", color, animal + ".");`;
+const Figure4 = `Favorite color? Silver
+Favorite animal? Hawk
+Your callsign is the Silver Hawk.`;
+const Figure5 = `let age = prompt("How old are you?");
+console.log(age + 1);`;
+const Figure6 = `How old are you? 16
+161`;
+const NotationJs = `let name = prompt("Name?");
+console.log("Hello,", name);`;
+const NotationPseudo = `DISPLAY("Name?")
+name ← INPUT()
+DISPLAY("Hello,")
+DISPLAY(name)`;
+const Task1 = `let pilotName = prompt("Pilot name?");
 
-console.log();
-console.log("Your To-Do List:");
-console.log(\`1. \${task1}\`);
-console.log(\`2. \${task2}\`);
-console.log(\`3. \${task3}\`);
-alert("Press enter to continue...");
+console.log("Welcome aboard,", pilotName);
 `;
-const Task2 = `console.log("--- Demo 1 - Simple To-Do List ---");
-console.log("Let's add a few tasks to your list.");
+const Task2 = `let pilotName = prompt("Pilot name?");
+let homePort = prompt("Home port?");
+let shipName = prompt("Name your ship:");
 
-let task1 = prompt("Task 1:");
-let task2 = prompt("Task 2:");
-let task3 = prompt("Task 3:");
-
-console.log();
-console.log("Your To-Do List:");
-console.log(\`1. \${task1}\`);
-console.log(\`2. \${task2}\`);
-console.log(\`3. \${task3}\`);
-alert("Press enter to continue...");
-
-console.log("--- Demo 2 - User Profile Setup ---");
-console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
-
-let username = prompt("Enter your username:");
-let subject = prompt("What's your favorite subject in school?");
-
-console.log("Choose your preferred after-school activity:");
-console.log("- Sports");
-console.log("- Music");
-console.log("- Gaming");
-console.log("- Volunteering");
-let activity = prompt("->");
-
-console.log();
-console.log("- Creating your profile -");
-console.log(\`NAME: \${username}\`);
-console.log(\`FAVORITE SUBJECT: \${subject}\`);
-console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
-alert("Press enter to continue...");
+console.log("");
+console.log("=== FLIGHT REGISTRATION ===");
+console.log("Pilot:", pilotName);
+console.log("Port:", homePort);
+console.log("Ship:", shipName);
 `;
-const Task3 = `console.log("--- Demo 1 - Simple To-Do List ---");
-console.log("Let's add a few tasks to your list.");
+const Task3 = `let pilotName = prompt("Pilot name?");
+let homePort = prompt("Home port?");
+let shipName = prompt("Name your ship:");
 
-let task1 = prompt("Task 1:");
-let task2 = prompt("Task 2:");
-let task3 = prompt("Task 3:");
+console.log("");
+console.log("=== FLIGHT REGISTRATION ===");
+console.log("Pilot:", pilotName);
+console.log("Port:", homePort);
+console.log("Ship:", shipName);
 
-console.log();
-console.log("Your To-Do List:");
-console.log(\`1. \${task1}\`);
-console.log(\`2. \${task2}\`);
-console.log(\`3. \${task3}\`);
-alert("Press enter to continue...");
-
-console.log("--- Demo 2 - User Profile Setup ---");
-console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
-
-let username = prompt("Enter your username:");
-let subject = prompt("What's your favorite subject in school?");
-
-console.log("Choose your preferred after-school activity:");
-console.log("- Sports");
-console.log("- Music");
-console.log("- Gaming");
-console.log("- Volunteering");
-let activity = prompt("->");
-
-console.log();
-console.log("- Creating your profile -");
-console.log(\`NAME: \${username}\`);
-console.log(\`FAVORITE SUBJECT: \${subject}\`);
-console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
-alert("Press enter to continue...");
-
-console.log("--- Demo 3 - Simple Survey ---");
-console.log("We'd love to get your feedback!");
-
-let favoriteColor = prompt("What is your favorite color?");
-let favoriteFood = prompt("What is your favorite food?");
-let travelDestination = prompt("Where is a place you would like to travel?");
-
-console.log();
-console.log("- Survey Results -");
-console.log(\`Favorite Color: \${favoriteColor}\`);
-console.log(\`Favorite Food: \${favoriteFood}\`);
-console.log(\`Travel Destination: \${travelDestination}\`);
-alert("Press enter to continue...");
+// Ask for a destination
+// Ask for a cargo type
+// Print a one-line summary using all five answers
 `;
-const Task4 = `console.log("--- Demo 1 - Simple To-Do List ---");
-console.log("Let's add a few tasks to your list.");
+const ExampleOutput = `Pilot name? Jordan
+Home port? Ganymede
+Name your ship: Vega
+Destination? Titan
+Cargo type? ice
 
-let task1 = prompt("Task 1:");
-let task2 = prompt("Task 2:");
-let task3 = prompt("Task 3:");
-
-console.log();
-console.log("Your To-Do List:");
-console.log(\`1. \${task1}\`);
-console.log(\`2. \${task2}\`);
-console.log(\`3. \${task3}\`);
-alert("Press enter to continue...");
-
-console.log("--- Demo 2 - User Profile Setup ---");
-console.log("WELCOME! LET'S SET UP YOUR PROFILE...");
-
-let username = prompt("Enter your username:");
-let subject = prompt("What's your favorite subject in school?");
-
-console.log("Choose your preferred after-school activity:");
-console.log("- Sports");
-console.log("- Music");
-console.log("- Gaming");
-console.log("- Volunteering");
-let activity = prompt("->");
-
-console.log();
-console.log("- Creating your profile -");
-console.log(\`NAME: \${username}\`);
-console.log(\`FAVORITE SUBJECT: \${subject}\`);
-console.log(\`AFTER-SCHOOL ACTIVITY: \${activity}\`);
-alert("Press enter to continue...");
-
-console.log("--- Demo 3 - Simple Survey ---");
-console.log("We'd love to get your feedback!");
-
-let favoriteColor = prompt("What is your favorite color?");
-let favoriteFood = prompt("What is your favorite food?");
-let travelDestination = prompt("Where is a place you would like to travel?");
-
-console.log();
-console.log("- Survey Results -");
-console.log(\`Favorite Color: \${favoriteColor}\`);
-console.log(\`Favorite Food: \${favoriteFood}\`);
-console.log(\`Travel Destination: \${travelDestination}\`);
-alert("Press enter to continue...");
-
-console.log("--- Demo 4 - Fantasy Story Builder ---");
-console.log("Let's create a fantasy story!");
-
-let mainCharacter = prompt("Name your main character:");
-let magicalCreature = prompt("Name a magical creature:");
-let aMagicalPlace = prompt("Name a magical place:");
-
-console.log();
-console.log("- Your Story -");
-console.log(\`Once upon a time, there was a hero named \${mainCharacter}.\`);
-console.log(\`\${mainCharacter} traveled to the \${aMagicalPlace} to seek the legendary \${magicalCreature}.\`);
-console.log("Their quest was just beginning...");
+=== FLIGHT REGISTRATION ===
+Pilot: Jordan
+Port: Ganymede
+Ship: Vega
+Jordan is flying Vega from Ganymede to Titan carrying ice.
 `;
-const SampleOutput = `--- Demo 1 - Simple To-Do List ---
-Let's add a few tasks to your list.
-Task 1: Do Homework
-Task 2: Cook Dinner
-Task 3: Clean Bedroom
-
-Your To-Do List:
-1. Do Homework
-2. Cook Dinner
-3. Clean Bedroom
-Press enter to continue... [Enter]
-
---- Demo 2 - User Profile Setup ---
-WELCOME! LET'S SET UP YOUR PROFILE...
-Enter your username: amortimer
-What's your favorite subject in school? Computer Science
-Choose your preferred after-school activity:
-- Sports
-- Music
-- Gaming
-- Volunteering
--> Gaming
-
-- Creating your profile -
-NAME: amortimer
-FAVORITE SUBJECT: Computer Science
-AFTER-SCHOOL ACTIVITY: Gaming
-Press enter to continue... [Enter]
-
---- Demo 3 - Simple Survey ---
-We'd love to get your feedback!
-What is your favorite color? purple
-What is your favorite food? pizza
-Where is a place you would like to travel? Japan
-
-- Survey Results -
-Favorite Color: purple
-Favorite Food: pizza
-Travel Destination: Japan
-Press enter to continue... [Enter]
-
---- Demo 4 - Fantasy Story Builder ---
-Let's create a fantasy story!
-Name your main character: Ada
-Name a magical creature: Griffin
-Name a magical place: Cleveland
-
-- Your Story -
-Once upon a time, there was a hero named Ada.
-Ada traveled to the Cleveland to seek the legendary Griffin.
-Their quest was just beginning...`;
 //#endregion
 ---
 
@@ -242,36 +91,192 @@ Their quest was just beginning...`;
 
             <section>
               <h2>Key Concepts</h2>
-              <p>prompt()</p>
-              <p>alert()</p>
+              <p>Asking the User a Question</p>
+              <p>Storing the Answer</p>
+              <p>Input Is Always Text</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Getting Input</h2>
+              <h2>Programs That Ask</h2>
               <p>
-                <b class="text-sn-theme">prompt()</b> asks the user a
-                question and gives back whatever they type as a string.
+                Everything you have written so far does exactly the same thing
+                every time it runs.
               </p>
-              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
+              <p class="fragment">
+                <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> changes that. It asks a question and hands back whatever the
+                user typed.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Programs That Ask</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Reading That Line</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    The text in the parentheses is the question shown to the user
+                  </li>
+                  <li class="fragment">
+                    The answer comes back out and gets stored in the variable
+                  </li>
+                  <li class="fragment">
+                    Nothing is saved unless you put it in a variable
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                That last one catches people. Calling <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> on its own asks the question and then throws the answer away.
+              </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Pausing with alert()</h2>
+              <h2>Several Questions</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Several Questions</h2>
               <p>
-                When a program runs several demos back to back,{" "}
-                <b class="text-sn-theme">alert()</b> pauses execution until
-                the user presses enter &mdash; giving them a chance to read
-                the output before it moves on.
+                Each answer needs its own variable, or the second answer
+                overwrites the first.
               </p>
-              <Code code={Figure2} frame="code" lang="javascript" showLineNumbers={false} />
+              <p class="fragment">
+                Notice <CodeSnippet
+                  code='animal + "."'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> &mdash; using <CodeSnippet
+                  code="+"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> instead of a comma joins the period on with no space in front
+                of it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Catch</h2>
+              <p>
+                Whatever the user types comes back as <b class="text-sn-theme"
+                  >text</b
+                >. Always. Even when it looks like a number.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Catch</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Why 161?</h2>
+              <p>
+                The user typed <CodeSnippet
+                  code="16"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />, so <CodeSnippet
+                  code="age"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> holds the <i>text</i> <CodeSnippet
+                  code='"16"'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />, not the number 16.
+              </p>
+              <p class="fragment">
+                Adding to text does not do arithmetic &mdash; it sticks things
+                together. So <CodeSnippet
+                  code='"16" + 1'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> becomes <CodeSnippet
+                  code='"161"'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />.
+              </p>
+              <p class="fragment">
+                No error. No warning. Just a wrong answer. We fix this next
+                activity.
+              </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Gathering input from the user with <code>prompt()</code></li>
-                <li>Interpolating that input into output</li>
-                <li>Pausing between demos with <code>alert()</code></li>
+                <li>Asking the user a question and storing the answer</li>
+                <li>Using several inputs in one program</li>
+                <li>
+                  Explaining why input is always text, even when it looks numeric
+                </li>
               </ul>
             </section>
 
@@ -279,10 +284,17 @@ Their quest was just beginning...`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>prompt()</dt>
-                  <dd>Asks the user a question and returns what they typed, as a string.</dd>
-                  <dt>alert()</dt>
-                  <dd>Pauses the program until the user presses enter.</dd>
+                  <dt>Input</dt>
+                  <dd>Information a program receives while it is running.</dd>
+                  <dt>Prompt</dt>
+                  <dd>The question shown to the user when input is requested.</dd>
+                  <dt>Return value</dt>
+                  <dd>
+                    The value a function hands back, which you can store in a
+                    variable.
+                  </dd>
+                  <dt>Concatenation</dt>
+                  <dd>Joining two pieces of text end to end.</dd>
                 </dl>
               </div>
             </section>
@@ -296,48 +308,178 @@ Their quest was just beginning...`;
           <h2>Build</h2>
 
           <p>
-            Create a new JavaScript program named <b class="text-sn-theme">1-7-console-input</b>.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-7-input</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Simple To-Do List</h3>
+          <h3>Task 1: One Question</h3>
           <ul>
-            <li>Ask the user for three tasks.</li>
-            <li>Print them back as a numbered list.</li>
+            <li>Write the code below and run it.</li>
+            <li>Answer the question when it appears.</li>
+            <li>
+              Run it a second time with a different answer, and confirm the
+              output changes. That is the whole point of input.
+            </li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="javascript" title="Console Input" mark={{ range: "4-6" }} />
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Console Input"
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 2: User Profile Setup</h3>
+          <h3>Task 2: A Registration Form</h3>
           <ul>
-            <li>Ask the user for a username, favorite subject, and after-school activity.</li>
-            <li>Print a short profile summary.</li>
+            <li>Add two more questions, each with its own variable.</li>
+            <li>
+              Ask all three questions first, then print the summary. Don't
+              alternate question, answer, question, answer.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="javascript" title="Console Input" mark={{ range: "18-19,26" }} ins={{ range: "15-33" }} />
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Console Input"
+            ins={{ range: "2-3, 5-9" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Simple Survey</h3>
+          <h3>Task 3: Plan, Then Add Two More</h3>
           <ul>
-            <li>Ask the user three survey questions.</li>
-            <li>Print the results.</li>
+            <li>
+              The three comments at the bottom are a plan. Write the code for
+              them.
+            </li>
+            <li>
+              The last line should read as a sentence using all five answers, not
+              as another list.
+            </li>
+            <li>
+              Watch your spaces. Commas add one for you; <CodeSnippet
+                code="+"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> does not.
+            </li>
+            <li>
+              The two new questions have to be asked <i>before</i> the summary
+              prints. Think about where they go.
+            </li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="javascript" title="Console Input" mark={{ range: "38-40" }} ins={{ range: "35-47" }} />
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Console Input"
+            ins={{ range: "11-13" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 4: Fantasy Story Builder</h3>
+          <h3>Challenge (Optional): Prove the Catch</h3>
           <ul>
-            <li>Ask the user for a main character, a magical creature, and a magical place.</li>
-            <li>Interpolate their answers into a short story.</li>
+            <li>
+              At the bottom, ask the user for a number, then display that value{" "}
+              <CodeSnippet
+                code="+ 1"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Then display the same value <CodeSnippet
+                code="* 2"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              One of them behaves like arithmetic and the other does not. Write a
+              comment saying which, and what you think is going on.
+            </li>
+            <li>
+              You are not expected to know the answer yet. Guessing carefully is
+              the exercise.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="INPUT()"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> takes <b class="text-sn-theme">nothing in its parentheses</b>.
+              There is no place to put the question.
+            </li>
+            <li>
+              So the question is displayed separately, on its own line, before
+              the input is collected. Two statements where JavaScript uses one.
+            </li>
+            <li>
+              The answer still has to be stored with <CodeSnippet
+                code="←"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or it is lost, exactly as in JavaScript.
+            </li>
           </ul>
 
-          <Code code={Task4} frame="code" lang="javascript" title="Console Input" mark={{ range: "52-54" }} ins={{ range: "49-60" }} />
+          <p>
+            If an exam question shows <CodeSnippet
+              code="INPUT()"
+              lang={"txt"}
+              theme={"material-theme-ocean"}
+              inline
+            /> with no prompt text anywhere, nothing is missing. That is how it
+            is written.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -346,14 +488,21 @@ Their quest was just beginning...`;
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>
+            Verify your program works correctly. Your answers will differ from
+            the example.
+          </p>
 
           <Code
-            code={SampleOutput}
+            code={ExampleOutput}
             frame="terminal"
             lang="txt"
             showLineNumbers={false}
             title="Example Output"
+            mark={{
+              label: "One sentence, all five answers",
+              range: "11",
+            }}
           />
         </section>
 
@@ -366,9 +515,20 @@ Their quest was just beginning...`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What does <code>prompt()</code> give back to your program &mdash; and what type of value is it, always?</li>
-            <li>Why does this program use <code>alert()</code> between demos instead of just letting all four run back to back?</li>
-            <li>Pick one of the four demos. What's one other question you could add to make it more interesting?</li>
+            <li>
+              What happens if you call <code>prompt()</code> without storing the
+              result in a variable? Why is that rarely useful?
+            </li>
+            <li>
+              A user types <code>16</code> and the program displays{" "}
+              <code>161</code> instead of <code>17</code>. Explain the cause in
+              your own words.
+            </li>
+            <li>
+              In exam notation, <code>INPUT()</code> has no place for a question.
+              What does a program have to do instead, and why does that mean two
+              statements rather than one?
+            </li>
           </ol>
         </section>
 

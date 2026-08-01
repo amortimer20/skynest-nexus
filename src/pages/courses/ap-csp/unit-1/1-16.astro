@@ -1,0 +1,588 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `console.log(5);
+console.log(4);
+console.log(3);
+console.log(2);
+console.log(1);`;
+const Figure2 = `let count = 5;
+
+while (count > 0) {
+  console.log(count);
+  count = count - 1;
+}
+
+console.log("Liftoff!");`;
+const Figure3 = `5
+4
+3
+2
+1
+Liftoff!`;
+const Figure4 = `let count = 5;
+
+while (count > 0) {
+  console.log(count);
+}`;
+const Figure5 = `5
+5
+5
+5
+5
+... forever`;
+const Figure6 = `let total = 0;
+let n = 1;
+
+while (n <= 4) {
+  total = total + n;
+  n = n + 1;
+}
+
+console.log("Total:", total);`;
+const Figure7 = `Total: 10`;
+const NotationJs = `let count = 5;
+
+while (count > 0) {
+  console.log(count);
+  count = count - 1;
+}`;
+const NotationPseudo = `count ← 5
+
+REPEAT UNTIL(count ≤ 0)
+{
+  DISPLAY(count)
+  count ← count - 1
+}`;
+const Task1 = `let count = 10;
+
+while (count > 0) {
+  console.log(count);
+  count = count - 2;
+}
+
+console.log("Liftoff!");
+`;
+const Task2 = `let count = 10;
+
+while (count > 0) {
+  console.log(count);
+  count = count - 2;
+}
+
+console.log("Liftoff!");
+console.log("");
+
+let fuel = 0;
+let tanks = 0;
+
+while (fuel < 500) {
+  fuel = fuel + 120;
+  tanks = tanks + 1;
+  console.log("Tank", tanks, "loaded, fuel now", fuel);
+}
+
+console.log("Tanks used:", tanks);
+`;
+const Task3 = `let count = 10;
+
+while (count > 0) {
+  console.log(count);
+  count = count - 2;
+}
+
+console.log("Liftoff!");
+console.log("");
+
+let fuel = 0;
+let tanks = 0;
+
+while (fuel < 500) {
+  fuel = fuel + 120;
+  tanks = tanks + 1;
+  console.log("Tank", tanks, "loaded, fuel now", fuel);
+}
+
+console.log("Tanks used:", tanks);
+console.log("");
+
+// Ask the user for a crew size and cast it
+// While the answer is less than 1 or more than 8, say it is invalid and ask again
+// Once it is valid, confirm the crew size
+`;
+const ExampleOutput = `10
+8
+6
+4
+2
+Liftoff!
+
+Tank 1 loaded, fuel now 120
+Tank 2 loaded, fuel now 240
+Tank 3 loaded, fuel now 360
+Tank 4 loaded, fuel now 480
+Tank 5 loaded, fuel now 600
+Tanks used: 5
+
+Crew size? 12
+Invalid. Enter a number from 1 to 8.
+Crew size? 4
+Crew of 4 confirmed.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.16: Repeating With while</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.16</h2>
+              <h3 class="text-sn-theme">Repeating With while</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Doing Something Repeatedly</p>
+              <p>The Three Parts of a Loop</p>
+              <p>Infinite Loops</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>You Have Been Doing This by Hand</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Five nearly identical lines. Now imagine counting down from a
+                hundred.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>while</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure3}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>Every Loop Has Three Parts</h2>
+              <div class="text-start">
+                <ol>
+                  <li class="fragment">
+                    <b>Set up</b> &mdash; <CodeSnippet code="let count = 5;" lang={"javascript"} theme={"material-theme-ocean"} inline /> before the loop
+                  </li>
+                  <li class="fragment">
+                    <b>Test</b> &mdash; <CodeSnippet code="count > 0" lang={"javascript"} theme={"material-theme-ocean"} inline /> checked before every pass
+                  </li>
+                  <li class="fragment">
+                    <b>Change</b> &mdash; <CodeSnippet code="count = count - 1;" lang={"javascript"} theme={"material-theme-ocean"} inline /> inside the loop
+                  </li>
+                </ol>
+              </div>
+              <p class="fragment">
+                Miss any one of the three and the loop misbehaves. Miss the third
+                and it never ends.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Infinite Loop</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure5}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Infinite Loop</h2>
+              <p>
+                <CodeSnippet code="count" lang={"javascript"} theme={"material-theme-ocean"} inline /> never changes, so the test is true forever.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">This will happen to you.</b> It happens
+                to everyone. The symptom is output flooding past, or the program
+                simply not finishing.
+              </p>
+              <p class="fragment">
+                Stop the program, look at your loop, and ask: <i>what inside the
+                braces makes the test eventually false?</i> If the answer is
+                nothing, that is your bug.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Building Up an Answer</h2>
+              <Code
+                code={Figure6}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure7}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                <CodeSnippet code="total" lang={"javascript"} theme={"material-theme-ocean"} inline /> collects a result across passes. This pattern
+                has a name &mdash; an <b class="text-sn-theme">accumulator</b>{" "}
+                &mdash; and you will use it constantly.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Third Building Block</h2>
+              <p>
+                Sequencing. Selection. And now{" "}
+                <b class="text-sn-theme">iteration</b>.
+              </p>
+              <p class="fragment">
+                Every algorithm you will ever meet, including every one on the AP
+                exam, is built from those three. There is no fourth.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a loop that repeats while a condition holds</li>
+                <li>Identifying the setup, test, and change in any loop</li>
+                <li>Recognizing and fixing an infinite loop</li>
+                <li>Using an accumulator to build a result</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Iteration</dt>
+                  <dd>Repeating a block of code.</dd>
+                  <dt>Loop body</dt>
+                  <dd>The statements inside the loop's braces.</dd>
+                  <dt>Infinite loop</dt>
+                  <dd>A loop whose condition never becomes false.</dd>
+                  <dt>Accumulator</dt>
+                  <dd>
+                    A variable that collects a running result across passes of a
+                    loop.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-16-while</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Count Down by Twos</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              Before running, predict the output. Does it print 0? Work out why
+              or why not from the test.
+            </li>
+            <li>
+              Change the step from 2 to 3 and predict again before running.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Repeating With while"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: An Accumulator</h3>
+          <ul>
+            <li>
+              Add a fuel loader that keeps adding tanks until there is at least
+              500 units of fuel.
+            </li>
+            <li>
+              <b>Notice it overshoots.</b> It stops at 600, not 500, because the
+              test only runs between passes. That is not a bug &mdash; it is how
+              loops work, and it is worth understanding now.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Repeating With while"
+            ins={{ range: "9-20" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Keep Asking Until It Is Valid</h3>
+          <ul>
+            <li>
+              The comments describe an input check that refuses to move on until
+              the user gives a sensible answer.
+            </li>
+            <li>
+              You will need to ask <b>once before</b> the loop, and again{" "}
+              <b>inside</b> it. Think about why asking only inside would not
+              work.
+            </li>
+            <li>Cast the input every time you collect it.</li>
+            <li>
+              The condition needs OR, from Activity 1.14. Two ways to be
+              invalid.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Repeating With while"
+            ins={{ range: "21-25" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Make It Infinite, On Purpose</h3>
+          <ul>
+            <li>
+              Copy your countdown to the bottom and delete the line that changes{" "}
+              <CodeSnippet code="count" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </li>
+            <li>
+              Run it. Watch what happens, then stop the program.
+            </li>
+            <li>
+              Write a comment describing what you saw and how you stopped it.
+              Knowing what this looks like means you will recognize it
+              instantly when it happens by accident.
+            </li>
+            <li>Delete the broken copy before submitting.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">
+              Read this one twice. The condition is backwards.
+            </b>
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            Both loops do exactly the same thing. Look at the two conditions:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Keeps going</th>
+                  <th>Condition</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>while</code></td>
+                  <td><b>while</b> the condition is <b>true</b></td>
+                  <td><code>count &gt; 0</code></td>
+                </tr>
+                <tr>
+                  <td><code>REPEAT UNTIL</code></td>
+                  <td><b>until</b> the condition <i>becomes</i> <b>true</b></td>
+                  <td><code>count ≤ 0</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>
+              The two conditions are opposites of each other, and they have to
+              be.
+            </b>{" "}
+            <code>while</code> asks "should I keep going?" and{" "}
+            <code>REPEAT UNTIL</code> asks "should I stop?"
+          </p>
+
+          <h4 class="mt-4">The Mistake to Avoid</h4>
+
+          <p>
+            Translating word for word and keeping the same condition gives you a
+            loop that does the opposite of what you meant &mdash; usually running
+            zero times, or forever.
+          </p>
+
+          <p>
+            When you meet <code>REPEAT UNTIL</code> on the exam, flip the
+            condition in your head before reasoning about it. There is no{" "}
+            <code>while</code> on the reference sheet, so this is the only
+            conditional loop you will see there.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={{
+              label: "Overshoots 500 — correct, not a bug",
+              range: "12",
+            }}
+          />
+
+          <p class="mt-3">
+            Your crew check must survive being given a bad answer{" "}
+            <b>more than once</b>. Try 0, then 99, then 4.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Name the three parts every loop needs, and describe what goes wrong
+              if the third one is missing.
+            </li>
+            <li>
+              The fuel loader stops at 600 rather than 500. Explain why, in terms
+              of when the test is checked.
+            </li>
+            <li>
+              <code>while (count &gt; 0)</code> and{" "}
+              <code>REPEAT UNTIL(count ≤ 0)</code> describe the same loop. Explain
+              why the conditions are opposites.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

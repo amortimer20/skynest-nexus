@@ -3,225 +3,57 @@ import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let health = 100;
-console.log("Health:", health);
-console.log("Enemy attacks.");
-health = health - 5;
-console.log("Health:", health);`;
-const Figure2 = `Health: 100
-Enemy attacks.
-Health: 95`;
-const Task1 = `console.log("--- Demo 1 - Battle Demo ---");
-let playerHealth = 100;
-let playerAttack = 25;
-let enemyHealth = 100;
-let enemyAttack = 20;
-let potions = 3;
+const Figure1 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+}`;
+const Figure2 = `(0, 0)                    (400, 0)
+   +---------------------+
+   |                     |
+   |                     |
+   |      the canvas     |
+   |                     |
+   |                     |
+   +---------------------+
+(0, 400)                (400, 400)`;
+const Figure3 = `rect(50, 50, 120, 80);`;
+const Figure4 = `ellipse(200, 200, 120, 80);`;
+const Figure5 = `fill(255, 0, 0);
+rect(20, 20, 100, 100);
 
-console.log("Player health:", playerHealth);
-console.log("Enemy health:", enemyHealth);
-console.log();
-
-console.log("Player attacks.");
-enemyHealth = enemyHealth - playerAttack;
-console.log("Enemy health:", enemyHealth);
-console.log();
-
-console.log("Enemy attacks.");
-playerHealth = playerHealth - enemyAttack;
-console.log("Player health:", playerHealth);
-console.log();
-
-console.log("Using potion...");
-playerHealth = playerHealth + 10;
-potions = potions - 1;
-console.log("Player health:", playerHealth);
-console.log("Potions left:", potions);
-console.log();
+fill(0, 0, 255);
+rect(70, 70, 100, 100);`;
+const Task1 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+}
 `;
-const Task2 = `console.log("--- Demo 1 - Battle Demo ---");
-let playerHealth = 100;
-let playerAttack = 25;
-let enemyHealth = 100;
-let enemyAttack = 20;
-let potions = 3;
+const Task2 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
 
-console.log("Player health:", playerHealth);
-console.log("Enemy health:", enemyHealth);
-console.log();
-
-console.log("Player attacks.");
-enemyHealth = enemyHealth - playerAttack;
-console.log("Enemy health:", enemyHealth);
-console.log();
-
-console.log("Enemy attacks.");
-playerHealth = playerHealth - enemyAttack;
-console.log("Player health:", playerHealth);
-console.log();
-
-console.log("Using potion...");
-playerHealth = playerHealth + 10;
-potions = potions - 1;
-console.log("Player health:", playerHealth);
-console.log("Potions left:", potions);
-console.log();
-
-console.log("--- Demo 2 - Banking Simulator ---");
-let accountName = "Checking Account";
-let balance = 100.50;
-
-console.log(accountName, "balance:", balance);
-console.log("Depositing 99.01 to", accountName);
-balance = balance + 99.01;
-console.log(accountName, "balance:", balance);
-console.log();
+  rect(40, 40, 120, 80);
+  ellipse(280, 80, 120, 80);
+  line(0, 200, 400, 200);
+}
 `;
-const Task3 = `console.log("--- Demo 1 - Battle Demo ---");
-let playerHealth = 100;
-let playerAttack = 25;
-let enemyHealth = 100;
-let enemyAttack = 20;
-let potions = 3;
+const Task3 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
 
-console.log("Player health:", playerHealth);
-console.log("Enemy health:", enemyHealth);
-console.log();
+  rect(40, 40, 120, 80);
+  ellipse(280, 80, 120, 80);
+  line(0, 200, 400, 200);
 
-console.log("Player attacks.");
-enemyHealth = enemyHealth - playerAttack;
-console.log("Enemy health:", enemyHealth);
-console.log();
-
-console.log("Enemy attacks.");
-playerHealth = playerHealth - enemyAttack;
-console.log("Player health:", playerHealth);
-console.log();
-
-console.log("Using potion...");
-playerHealth = playerHealth + 10;
-potions = potions - 1;
-console.log("Player health:", playerHealth);
-console.log("Potions left:", potions);
-console.log();
-
-console.log("--- Demo 2 - Banking Simulator ---");
-let accountName = "Checking Account";
-let balance = 100.50;
-
-console.log(accountName, "balance:", balance);
-console.log("Depositing 99.01 to", accountName);
-balance = balance + 99.01;
-console.log(accountName, "balance:", balance);
-console.log();
-
-console.log("--- Demo 3 - High Score Tracker ---");
-let playerScore = 0;
-
-console.log("Current score:", playerScore);
-console.log("Scored 100 points!");
-playerScore = playerScore + 100;
-console.log("New score:", playerScore);
-console.log("Scored 500 more points for a headshot!");
-playerScore = playerScore + 500;
-console.log("New score:", playerScore);
-console.log();
+  // Below the line, draw a simple house:
+  //   a square for the walls
+  //   a triangle-ish roof made from two lines
+  //   a small rectangle for the door
+}
 `;
-const Task4 = `console.log("--- Demo 1 - Battle Demo ---");
-let playerHealth = 100;
-let playerAttack = 25;
-let enemyHealth = 100;
-let enemyAttack = 20;
-let potions = 3;
-
-console.log("Player health:", playerHealth);
-console.log("Enemy health:", enemyHealth);
-console.log();
-
-console.log("Player attacks.");
-enemyHealth = enemyHealth - playerAttack;
-console.log("Enemy health:", enemyHealth);
-console.log();
-
-console.log("Enemy attacks.");
-playerHealth = playerHealth - enemyAttack;
-console.log("Player health:", playerHealth);
-console.log();
-
-console.log("Using potion...");
-playerHealth = playerHealth + 10;
-potions = potions - 1;
-console.log("Player health:", playerHealth);
-console.log("Potions left:", potions);
-console.log();
-
-console.log("--- Demo 2 - Banking Simulator ---");
-let accountName = "Checking Account";
-let balance = 100.50;
-
-console.log(accountName, "balance:", balance);
-console.log("Depositing 99.01 to", accountName);
-balance = balance + 99.01;
-console.log(accountName, "balance:", balance);
-console.log();
-
-console.log("--- Demo 3 - High Score Tracker ---");
-let playerScore = 0;
-
-console.log("Current score:", playerScore);
-console.log("Scored 100 points!");
-playerScore = playerScore + 100;
-console.log("New score:", playerScore);
-console.log("Scored 500 more points for a headshot!");
-playerScore = playerScore + 500;
-console.log("New score:", playerScore);
-console.log();
-
-console.log("--- Demo 4 - Social Media Analytics ---");
-let likes = 23;
-
-console.log("Post likes:", likes);
-console.log("A friend liked the post!");
-likes = likes + 1;
-console.log("Post likes:", likes);
-console.log("Another 10 people liked the post!");
-likes = likes + 10;
-console.log("Post likes:", likes);
-`;
-const SampleOutput = `--- Demo 1 - Battle Demo ---
-Player health: 100
-Enemy health: 100
-
-Player attacks.
-Enemy health: 75
-
-Enemy attacks.
-Player health: 80
-
-Using potion...
-Player health: 90
-Potions left: 2
-
---- Demo 2 - Banking Simulator ---
-Checking Account balance: 100.5
-Depositing 99.01 to Checking Account
-Checking Account balance: 199.51
-
---- Demo 3 - High Score Tracker ---
-Current score: 0
-Scored 100 points!
-New score: 100
-Scored 500 more points for a headshot!
-New score: 600
-
---- Demo 4 - Social Media Analytics ---
-Post likes: 23
-A friend liked the post!
-Post likes: 24
-Another 10 people liked the post!
-Post likes: 34`;
 //#endregion
 ---
 
@@ -233,7 +65,7 @@ Post likes: 34`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.5: Updating Variables</h1>
+        <h1>Activity 1.5: p5 Lab 1 &mdash; The Canvas</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -241,43 +73,199 @@ Post likes: 34`;
           <Presentation>
             <section>
               <h2>Activity 1.5</h2>
-              <h3 class="text-sn-theme">Updating Variables</h3>
+              <h3 class="text-sn-theme">p5 Lab 1 &mdash; The Canvas</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Reassignment</p>
+              <p>What a Lab Is</p>
+              <p>The Coordinate System</p>
+              <p>Drawing Shapes</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Reassignment</h2>
+              <h2>What Is a Lab?</h2>
               <p>
-                A variable's value isn't locked in forever &mdash; you can
-                give it a new value at any time by assigning to it again,
-                without <code>let</code>.
+                Every few activities, we step away from text output and draw
+                something instead.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What Is a Lab?</h2>
+              <p>
+                Labs never introduce new logic. They take something you already
+                learned and make it <i>visible</i>.
+              </p>
+              <p class="fragment">
+                Today there is no new logic at all &mdash; just a new place to
+                put it.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Using the Old Value</h2>
-              <Code code={Figure1} frame="code" lang="javascript" showLineNumbers={false} />
+              <h2>Starting a Sketch</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
             </section>
 
             <section data-auto-animate>
-              <h2>Using the Old Value</h2>
-              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <h2>Starting a Sketch</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="setup()"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> runs once, at the start
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="createCanvas(400, 400)"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> makes a drawing area 400 wide and 400 tall
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="background(220)"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> fills it with light gray
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Where Is (0, 0)?</h2>
+              <p>Not where you expect.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Where Is (0, 0)?</h2>
+              <Code
+                code={Figure2}
+                frame="none"
+                lang="txt"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section>
+              <h2>The Part That Trips Everyone</h2>
+              <p>
+                <CodeSnippet
+                  code="(0, 0)"
+                  lang={"txt"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> is the <b class="text-sn-theme">top left</b>, and{" "}
+                <b class="text-sn-theme">y gets bigger going down</b>.
+              </p>
               <p class="fragment">
-                <code>health = health - 5;</code> reads the current value of{" "}
-                <code>health</code> first, subtracts 5, then stores the
-                result back into <code>health</code>.
+                In math class, y goes up. Here it goes down. Every graphics
+                system on every computer works this way, and it catches people
+                every single time.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Rectangles</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                x, y, then width, height. The x and y are the{" "}
+                <b class="text-sn-theme">top left corner</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Ellipses</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Same four numbers &mdash; but here x and y are the{" "}
+                <b class="text-sn-theme">center</b>, not the corner.
+              </p>
+            </section>
+
+            <section>
+              <h2>Corner vs. Center</h2>
+              <p>
+                A rectangle is positioned by its corner. An ellipse is positioned
+                by its middle.
+              </p>
+              <p class="fragment">
+                This is not a rule with a good reason. It is just how it is, and
+                it is the single most common cause of "why is my shape in the
+                wrong place?"
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Color and Order</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Color and Order</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="fill(r, g, b)"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> sets the color of everything drawn <i>after</i> it
+                  </li>
+                  <li class="fragment">
+                    Each of r, g, b runs from 0 to 255
+                  </li>
+                  <li class="fragment">
+                    Shapes drawn later sit <b>on top of</b> shapes drawn earlier
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                A sketch is a stack, built bottom to top, in the order you wrote
+                it.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Reassigning a variable's value</li>
-                <li>Using a variable's own current value to calculate its new value</li>
+                <li>Creating a canvas and setting a background</li>
+                <li>Locating a point using canvas coordinates</li>
+                <li>Drawing rectangles, ellipses, and lines</li>
+                <li>Setting colors and controlling drawing order</li>
               </ul>
             </section>
 
@@ -285,8 +273,26 @@ Post likes: 34`;
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Reassignment</dt>
-                  <dd>Giving an existing variable a new value.</dd>
+                  <dt>Canvas</dt>
+                  <dd>The rectangular area a sketch draws into.</dd>
+                  <dt>Coordinate</dt>
+                  <dd>
+                    A pair of numbers, x and y, giving a position on the canvas.
+                  </dd>
+                  <dt>Origin</dt>
+                  <dd>
+                    The point <CodeSnippet
+                      code="(0, 0)"
+                      lang={"txt"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />, at the top left corner of the canvas.
+                  </dd>
+                  <dt>Pixel</dt>
+                  <dd>
+                    One dot on the screen. Canvas measurements are counted in
+                    these.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -300,45 +306,131 @@ Post likes: 34`;
           <h2>Build</h2>
 
           <p>
-            Create a new JavaScript program named <b class="text-sn-theme">1-5-updating-variables</b>.
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-5-canvas</b>.
+          </p>
+
+          <p>
+            Everything today goes inside <CodeSnippet
+              code="setup()"
+              lang={"javascript"}
+              theme={"material-theme-ocean"}
+              inline
+            />, between its curly braces. Nothing moves yet, so nothing needs to
+            repeat.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Battle Demo</h3>
+          <h3>Task 1: An Empty Canvas</h3>
           <ul>
-            <li>Track a player's and enemy's health as they attack each other.</li>
-            <li>Use a potion to restore some of the player's health.</li>
+            <li>Write the code below and run it.</li>
+            <li>
+              You should see a light gray square. That is the whole result, and
+              it is correct.
+            </li>
+            <li>
+              Change 400 to 600 and run again. Change <CodeSnippet
+                code="background(220)"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to <CodeSnippet
+                code="background(0)"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and run again. Then set both back.
+            </li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="javascript" title="Updating Variables" mark={{ range: "13,18,23-24" }} />
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 1 — The Canvas"
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Banking Simulator</h3>
+          <h3>Task 2: Three Shapes</h3>
           <ul>
-            <li>Track an account balance as a deposit is made.</li>
+            <li>Add a rectangle, an ellipse, and a line.</li>
+            <li>
+              Before running, predict where each one will land. Sketch the canvas
+              on paper if that helps.
+            </li>
+            <li>
+              Then run it and compare. The rectangle and the ellipse use their
+              four numbers differently &mdash; make sure you can see that in the
+              result.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
           </ul>
 
-          <Code code={Task2} frame="code" lang="javascript" title="Updating Variables" mark={{ range: "35" }} ins={{ range: "29-37" }} />
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 1 — The Canvas"
+            ins={{ range: "5-7" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 3: High Score Tracker</h3>
+          <h3>Task 3: Plan, Then Draw a House</h3>
           <ul>
-            <li>Track a player's score as points are added.</li>
+            <li>
+              The comments at the bottom are a plan. Write the drawing code under
+              them.
+            </li>
+            <li>
+              Everything must sit <i>below</i> the line at y = 200, so every y
+              value you use should be greater than 200.
+            </li>
+            <li>
+              Give the walls, roof, and door different colors using{" "}
+              <CodeSnippet
+                code="fill()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Watch your drawing order. If the door disappears, you probably drew
+              the walls after it.
+            </li>
           </ul>
 
-          <Code code={Task3} frame="code" lang="javascript" title="Updating Variables" mark={{ range: "44,47" }} ins={{ range: "39-49" }} />
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="p5 Lab 1 — The Canvas"
+            ins={{ range: "9-12" }}
+          />
 
           <hr class="my-4" />
 
-          <h3>Task 4: Social Media Analytics</h3>
+          <h3>Challenge (Optional): Put Something in the Exact Center</h3>
           <ul>
-            <li>Track a post's like count as more people like it.</li>
+            <li>
+              Draw a circle whose center is the exact center of a 400 by 400
+              canvas.
+            </li>
+            <li>
+              Then draw a square whose center is also the exact center, without
+              guessing and nudging.
+            </li>
+            <li>
+              The square is genuinely harder, and working out why is the point of
+              the challenge.
+            </li>
           </ul>
-
-          <Code code={Task4} frame="code" lang="javascript" title="Updating Variables" mark={{ range: "56,59" }} ins={{ range: "51-60" }} />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -347,15 +439,25 @@ Post likes: 34`;
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>Your finished sketch should show all of the following.</p>
 
-          <Code
-            code={SampleOutput}
-            frame="terminal"
-            lang="txt"
-            showLineNumbers={false}
-            title="Example Output"
-          />
+          <ul>
+            <li>A canvas 400 by 400 with a light gray background.</li>
+            <li>
+              A rectangle in the upper left, and an ellipse in the upper right.
+            </li>
+            <li>A line running all the way across the middle.</li>
+            <li>
+              Below that line, a recognizable house with walls, a roof, and a
+              door, each a different color.
+            </li>
+            <li>The door visible, not buried under the walls.</li>
+          </ul>
+
+          <p>
+            You should also be able to point at any shape and say which numbers
+            in your code put it there.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -367,13 +469,20 @@ Post likes: 34`;
           <p>Answer the following questions before submitting your work.</p>
 
           <ol>
-            <li>What's the difference between declaring a variable and reassigning it?</li>
             <li>
-              In <code>playerHealth = playerHealth - enemyAttack;</code>,
-              which side of the <code>=</code> is calculated first: the left
-              or the right? Why does that order matter?
+              On this canvas, y increases as you move <i>down</i>. Describe a
+              mistake you made, or nearly made, because of that.
             </li>
-            <li>Pick one of the four demos. What real-world situation could you track the same way, using a variable that changes over time?</li>
+            <li>
+              A rectangle is placed by its corner and an ellipse by its center.
+              Explain how you would place a rectangle so that its <i>center</i>{" "}
+              lands on a specific point.
+            </li>
+            <li>
+              Drawing order decides what covers what. How is that similar to the
+              order statements run in the text programs you wrote in Activities
+              1.1 through 1.4?
+            </li>
           </ol>
         </section>
 
