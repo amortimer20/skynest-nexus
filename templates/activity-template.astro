@@ -72,7 +72,14 @@ const ExampleOutput = `INSERT
         <section id="build">
           <h2>Build</h2>
 
-          <p>Create a new <b>LANGUAGE</b> program named <b class="text-sn-theme">NAME</b>.</p>
+          <p>
+            Create a new <b>LANGUAGE</b> program named{" "}
+            <b class="text-sn-theme">NAME</b>.
+          </p>
+          <!-- NAME: kebab-case, no extension, e.g. 1-2-output.
+               title= on a code frame is the ACTIVITY NAME (from the h1), not a filename —
+               students work in single-file workspaces, so it is decorative.
+               Output frames keep title="Example Output" / "Sample Output". -->
 
           <hr class="my-4" />
 
@@ -82,7 +89,7 @@ const ExampleOutput = `INSERT
             <li></li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="txt" title="file" />
+          <Code code={Task1} frame="code" lang="txt" title="ACTIVITY NAME" />
 
           <hr class="my-4" />
 
@@ -92,7 +99,7 @@ const ExampleOutput = `INSERT
             <li></li>
           </ul>
 
-          <Code code={Task1} frame="code" lang="txt" title="INSERT FILE" />
+          <Code code={Task1} frame="code" lang="txt" title="ACTIVITY NAME" />
 
           <hr class="my-4" />
 
