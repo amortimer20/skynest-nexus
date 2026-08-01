@@ -1,0 +1,504 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let names = ["Ada", "Bo", "Cy"];
+let scores = [92, 78, 85];
+
+for (let i = 0; i < names.length; i++) {
+  console.log(names[i], scores[i]);
+}`;
+const Figure2 = `Ada 92
+Bo 78
+Cy 85`;
+const Figure3 = `import Table from "cli-table3";
+
+const table = new Table({ head: ["Name", "Score"] });
+
+table.push(["Ada", 92]);
+table.push(["Bo", 78]);
+
+console.log(table.toString());`;
+const Figure4 = `┌──────┬───────┐
+│ Name │ Score │
+├──────┼───────┤
+│ Ada  │ 92    │
+├──────┼───────┤
+│ Bo   │ 78    │
+└──────┴───────┘`;
+const Figure5 = `table.push(
+  ["Ada", 92],
+  ["Bo", 78],
+  ["Cy", 85]
+);`;
+const Figure6 = `for (let i = 0; i < names.length; i++) {
+  table.push([names[i], scores[i]]);
+}`;
+const Figure7 = `const table = new Table({
+  head: ["Name", "Score"],
+  colWidths: [14, 9],
+  colAligns: ["left", "right"]
+});`;
+const Task1 = `import Table from "cli-table3";
+
+const table = new Table({ head: ["Name", "Score"] });
+
+table.push(["Ada", 92]);
+table.push(["Bo", 78]);
+table.push(["Cy", 85]);
+
+console.log(table.toString());
+`;
+const Task2 = `import Table from "cli-table3";
+
+let names = ["Ada", "Bo", "Cy", "Dee", "Eze"];
+let scores = [92, 78, 85, 61, 99];
+
+const table = new Table({ head: ["Name", "Score"] });
+
+for (let i = 0; i < names.length; i++) {
+  table.push([names[i], scores[i]]);
+}
+
+console.log(table.toString());
+`;
+const Task3 = `import Table from "cli-table3";
+
+let names = ["Ada", "Bo", "Cy", "Dee", "Eze"];
+let scores = [92, 78, 85, 61, 99];
+
+const table = new Table({
+  head: ["Name", "Score", "Result"],
+  colWidths: [12, 9, 10],
+  colAligns: ["left", "right", "left"]
+});
+
+for (let i = 0; i < names.length; i++) {
+  // Work out a result for this person, "Pass" at 70 or above
+  // Push a row with all three values
+}
+
+console.log(table.toString());
+
+// After the table, show the average score to one decimal place
+`;
+const ExampleOutput = `┌────────────┬─────────┬──────────┐
+│ Name       │   Score │ Result   │
+├────────────┼─────────┼──────────┤
+│ Ada        │      92 │ Pass     │
+├────────────┼─────────┼──────────┤
+│ Bo         │      78 │ Pass     │
+├────────────┼─────────┼──────────┤
+│ Cy         │      85 │ Pass     │
+├────────────┼─────────┼──────────┤
+│ Dee        │      61 │ Fail     │
+├────────────┼─────────┼──────────┤
+│ Eze        │      99 │ Pass     │
+└────────────┴─────────┴──────────┘
+Average score: 83.0
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Library Exploration: cli-table3</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-yellow"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Library Exploration</h2>
+              <h3 class="text-sn-theme">cli-table3</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Rows and Columns in a Terminal</p>
+              <p>Filling a Table From Arrays</p>
+              <p>Controlling the Layout</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Columns of Text Do Not Line Up</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Columns of Text Do Not Line Up</h2>
+              <p>
+                Correct, and hard to read. Names are different lengths, so
+                nothing is in a column.
+              </p>
+              <p class="fragment">
+                You could pad every name by hand. Someone already did that work
+                and packaged it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Table</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Table</h2>
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section>
+              <h2>Three Moving Parts</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet code="new Table({ head: [...] })" lang={"javascript"} theme={"material-theme-ocean"} inline /> makes the table and
+                    names its columns
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="table.push([...])" lang={"javascript"} theme={"material-theme-ocean"} inline /> adds one row, as an array
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="table.toString()" lang={"javascript"} theme={"material-theme-ocean"} inline /> turns the whole thing into
+                    text you can display
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                A row is an array. That is the part that makes the rest easy.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Several Rows at Once</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Fine for a handful you typed yourself. Useless for data that
+                arrives at run time.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Rows From a Loop</h2>
+              <Code
+                code={Figure6}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                This is Activity 1.24's traversal, and Activity 1.25's parallel
+                arrays, pointed at a table instead of a canvas. Nothing new
+                &mdash; a different destination.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Controlling the Layout</h2>
+              <Code
+                code={Figure7}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <div class="text-start mt-3">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet code="colWidths" lang={"javascript"} theme={"material-theme-ocean"} inline /> fixes each column's width
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="colAligns" lang={"javascript"} theme={"material-theme-ocean"} inline /> pushes content left, right, or
+                    center
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Numbers read better right-aligned. Text reads better left.
+              </p>
+            </section>
+
+            <section>
+              <h2>A Warning About Widths</h2>
+              <p>
+                If a value is longer than its <CodeSnippet code="colWidth" lang={"javascript"} theme={"material-theme-ocean"} inline />, it wraps
+                onto a second line inside the cell rather than widening the
+                column.
+              </p>
+              <p class="fragment">
+                That is usually what you want, and occasionally a surprise. Set
+                widths after you know how long your data gets.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Creating a table with named columns</li>
+                <li>Adding rows one at a time and from a loop</li>
+                <li>Filling a table from parallel arrays</li>
+                <li>Setting column widths and alignment</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Header row</dt>
+                  <dd>The labeled top row naming each column.</dd>
+                  <dt>Row</dt>
+                  <dd>One record, supplied as an array of values.</dd>
+                  <dt>Alignment</dt>
+                  <dd>Whether a cell's content sits left, right, or centered.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            <b class="text-sn-theme">This one is optional and worth extra credit.</b>{" "}
+            Nothing later in the course depends on it. It is here because a table
+            is the clearest way to show a list of records, and you will want one
+            the moment your program has real data in it.
+          </p>
+
+          <p>
+            <b>You need arrays first</b> &mdash; Activities 1.22 through 1.24. If
+            you have not done those yet, come back after.
+          </p>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">le-cli-table3</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Three Rows by Hand</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              The <CodeSnippet code="import" lang={"javascript"} theme={"material-theme-ocean"} inline /> line goes first, and you write it once.
+            </li>
+            <li>
+              Forget the <CodeSnippet code=".toString()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and see what happens. It is
+              worth knowing what that mistake looks like.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Library Exploration: cli-table3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Rows From Arrays</h3>
+          <ul>
+            <li>
+              Replace the hand-written rows with two arrays and a loop.
+            </li>
+            <li>
+              Add a sixth name and score and run again. The table grows on its
+              own.
+            </li>
+            <li>
+              <b>Then break it deliberately:</b> delete one score so the arrays
+              are different lengths. Look at what appears in the table, and
+              remember Activity 1.25's warning about parallel arrays.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Library Exploration: cli-table3"
+            ins={{ range: "3-4, 8-10" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Add a Third Column</h3>
+          <ul>
+            <li>
+              The loop body is empty and the comments describe what goes in it.
+            </li>
+            <li>
+              Each row now has three values, so each pushed array needs three
+              things in it.
+            </li>
+            <li>
+              The result is decided by a conditional, inside the loop, before the
+              push.
+            </li>
+            <li>
+              The average uses <CodeSnippet code="toFixed(1)" lang={"javascript"} theme={"material-theme-ocean"} inline /> from Activity 1.8, and
+              it goes <i>outside</i> the table.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Library Exploration: cli-table3"
+            ins={{ range: "6-10, 13-14, 19" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Sort It First</h3>
+          <ul>
+            <li>
+              Show the table with the highest score at the top instead of in the
+              original order.
+            </li>
+            <li>
+              You have not been taught sorting. You have been taught loops,
+              conditionals, arrays, and how to find a maximum &mdash; which is
+              enough.
+            </li>
+            <li>
+              A hint if you want one: finding the largest, printing it, and
+              removing it from consideration, repeatedly, is a real sorting
+              algorithm. You will meet it by name next quarter.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Verify your program works correctly.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={[
+              { label: "Right-aligned, from colAligns", range: "4-12" },
+              { label: "Outside the table", range: "14" },
+            ]}
+          />
+
+          <p class="mt-3">
+            Adding a name and score to the arrays should add a row, correctly
+            aligned, with its result worked out &mdash; without touching anything
+            else.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              A table row is an array, and your data was already in arrays. How
+              did that make Task 2 easier than Task 1?
+            </li>
+            <li>
+              You deleted a score so the two arrays were different lengths. What
+              did the table show, and why is that a hard bug to notice?
+            </li>
+            <li>
+              This library does something you could have done yourself with
+              padding and loops. Name one thing you gained by using it, and one
+              thing you gave up.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Exploration Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

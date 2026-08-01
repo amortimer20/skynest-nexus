@@ -1,0 +1,532 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let name = prompt("Pilot name?");
+let dest = prompt("Destination?");
+
+console.log("Cleared for " + dest);`;
+const Figure2 = `Pilot name? Ada
+Destination? Titan
+Cleared for Titan`;
+const Figure3 = `import { intro, outro, text } from "@clack/prompts";
+
+intro("Flight Registration");
+
+const name = await text({
+  message: "Pilot name?"
+});
+
+outro("Welcome aboard, " + name);`;
+const Figure4 = `┌  Flight Registration
+│
+◇  Pilot name?
+│  Ada
+│
+└  Welcome aboard, Ada`;
+const Figure5 = `const dest = await select({
+  message: "Destination?",
+  options: [
+    { value: "titan", label: "Titan" },
+    { value: "ganymede", label: "Ganymede" },
+    { value: "europa", label: "Europa" }
+  ]
+});
+
+console.log(dest);`;
+const Figure6 = `titan`;
+const Task1 = `import { intro, outro, text } from "@clack/prompts";
+
+intro("Flight Registration");
+
+const pilot = await text({
+  message: "Pilot name?"
+});
+
+outro("Welcome aboard, " + pilot);
+`;
+const Task2 = `import { intro, outro, text, select } from "@clack/prompts";
+
+intro("Flight Registration");
+
+const pilot = await text({
+  message: "Pilot name?"
+});
+
+const dest = await select({
+  message: "Destination?",
+  options: [
+    { value: "titan", label: "Titan" },
+    { value: "ganymede", label: "Ganymede" },
+    { value: "europa", label: "Europa" }
+  ]
+});
+
+outro("Welcome aboard, " + pilot + ". Bound for " + dest + ".");
+`;
+const Task3 = `import { intro, outro, text, select } from "@clack/prompts";
+
+intro("Flight Registration");
+
+const pilot = await text({
+  message: "Pilot name?"
+});
+
+const dest = await select({
+  message: "Destination?",
+  options: [
+    { value: "titan", label: "Titan" },
+    { value: "ganymede", label: "Ganymede" },
+    { value: "europa", label: "Europa" }
+  ]
+});
+
+// Ask for a cargo mass with text(), and cast it to a number
+// Ask for a class of service with select(), at least three options
+// Work out a fee: 12 per unit of mass, doubled for premium class
+// Show the fee to two decimal places in the outro
+`;
+const ExampleOutput = `┌  Flight Registration
+│
+◇  Pilot name?
+│  Ada
+│
+◇  Destination?
+│  Titan
+│
+◇  Cargo mass?
+│  40
+│
+◇  Class of service?
+│  Premium
+│
+└  Ada to titan, 40 units, fee $960.00
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Library Exploration: @clack/prompts</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-yellow"></i>
+          <i class="si-star text-sn-red"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Library Exploration</h2>
+              <h3 class="text-sn-theme">@clack/prompts</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Prompts That Look Designed</p>
+              <p>Picking From a List</p>
+              <p>Two Bits of Borrowed Syntax</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What You Have</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                It works. It also gives the user no structure, no options, and no
+                way to know how far through they are.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What This Gives You</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>What This Gives You</h2>
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <CodeSnippet code="intro()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
+                <CodeSnippet code="outro()" lang={"javascript"} theme={"material-theme-ocean"} inline /> draw the frame. Everything between them
+                looks like one connected session rather than scattered questions.
+              </p>
+            </section>
+
+            <section>
+              <h2>Borrowed Syntax, Part One</h2>
+              <p>
+                <CodeSnippet code="{ message: \"Pilot name?\" }" lang={"javascript"} theme={"material-theme-ocean"} inline />
+              </p>
+              <p class="fragment">
+                That is an <b class="text-sn-theme">object</b> &mdash; named
+                settings inside braces, rather than values in a fixed order. You
+                met the same shape in the cli-table3 exploration with{" "}
+                <CodeSnippet code="{ head: [...] }" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+              </p>
+              <p class="fragment">
+                Copy the shape. It gets taught properly later.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Borrowed Syntax, Part Two</h2>
+              <p>
+                <CodeSnippet code="await" lang={"javascript"} theme={"material-theme-ocean"} inline />
+              </p>
+              <p class="fragment">
+                Asking a person a question takes time. The program has to{" "}
+                <i>stop and wait</i>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Borrowed Syntax, Part Two</h2>
+              <p>
+                <CodeSnippet code="await" lang={"javascript"} theme={"material-theme-ocean"} inline /> means "pause here until the answer comes
+                back, then carry on."
+              </p>
+              <p class="fragment">
+                Leave it off and your variable holds a{" "}
+                <b class="text-sn-theme">Promise</b> &mdash; a placeholder for an
+                answer that has not arrived. Your output says{" "}
+                <CodeSnippet code="[object Promise]" lang={"javascript"} theme={"material-theme-ocean"} inline /> and nothing makes sense.
+              </p>
+              <p class="fragment">
+                Every prompt from this library needs it. That is the whole rule.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Picking From a List</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Label Versus Value</h2>
+              <p>
+                The user saw <b>Titan</b>. The variable holds{" "}
+                <CodeSnippet code="titan" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  <CodeSnippet code="label" lang={"javascript"} theme={"material-theme-ocean"} inline /> is what a human reads.{" "}
+                  <CodeSnippet code="value" lang={"javascript"} theme={"material-theme-ocean"} inline /> is what your code gets.
+                </b>{" "}
+                They can differ, and usually should.
+              </p>
+              <p class="fragment">
+                This is why <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline /> beats asking someone to type
+                a destination: they cannot misspell it, and they cannot invent
+                one you did not plan for.
+              </p>
+            </section>
+
+            <section>
+              <h2>Input Is Still Text</h2>
+              <p>
+                <CodeSnippet code="text()" lang={"javascript"} theme={"material-theme-ocean"} inline /> hands back a string, exactly like{" "}
+                <CodeSnippet code="prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> did.
+              </p>
+              <p class="fragment">
+                A nicer-looking question does not change the type of the answer.
+                Cast it with <CodeSnippet code="Number()" lang={"javascript"} theme={"material-theme-ocean"} inline /> before doing arithmetic, or
+                Activity 1.8 happens to you again.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Framing a session with intro and outro</li>
+                <li>Collecting text with a styled prompt</li>
+                <li>Offering a fixed set of choices</li>
+                <li>Telling a choice's label apart from its value</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Object</dt>
+                  <dd>
+                    Named settings grouped in braces, passed as one argument.
+                  </dd>
+                  <dt>
+                    <CodeSnippet code="await" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>Pause until a slow answer arrives, then continue.</dd>
+                  <dt>Label</dt>
+                  <dd>The text a user sees for a choice.</dd>
+                  <dt>Value</dt>
+                  <dd>What your program receives when that choice is picked.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            <b class="text-sn-theme">This one is optional and worth extra credit.</b>{" "}
+            It is also the hardest of the three explorations, because it borrows
+            two pieces of syntax you have not been taught. Copying a shape you do
+            not fully understand yet is a normal part of using libraries.
+          </p>
+
+          <p>
+            <b>Do the cli-table3 exploration first</b> if you have not &mdash; it
+            introduces the object syntax more gently.
+          </p>
+
+          <p>
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">le-clack</b>.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">If the very first line errors</b>, or you see
+            something about <CodeSnippet code="await" lang={"javascript"} theme={"material-theme-ocean"} inline /> not being allowed, tell me. That
+            is a setup problem, not a mistake you made.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: A Framed Question</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              Note the shape of the import: <CodeSnippet code="{ intro, outro, text }" lang={"javascript"} theme={"material-theme-ocean"} inline />{" "}
+              in braces, because you are taking several named things out of one
+              library rather than the whole thing.
+            </li>
+            <li>
+              <b>Then delete the <CodeSnippet code="await" lang={"javascript"} theme={"material-theme-ocean"} inline /></b> and run it again. Read
+              what gets printed. Put it back.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="javascript"
+            title="Library Exploration: @clack/prompts"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: A Menu</h3>
+          <ul>
+            <li>
+              Add a <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline /> with three destinations. Use the arrow
+              keys to choose.
+            </li>
+            <li>
+              The outro shows the <i>value</i>, not the label &mdash; lowercase{" "}
+              <CodeSnippet code="titan" lang={"javascript"} theme={"material-theme-ocean"} inline />, not <b>Titan</b>. Confirm that for yourself.
+            </li>
+            <li>
+              <b>Worth trying:</b> make one option's value and label identical and
+              see whether you prefer it. There is a real argument either way.
+            </li>
+            <li>
+              <b class="text-sn-theme">Note</b>: the green lines with a + sign
+              are new code. Don't type the + sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="javascript"
+            title="Library Exploration: @clack/prompts"
+            ins={{ range: "1, 9-16, 18" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Plan, Then Price the Flight</h3>
+          <ul>
+            <li>
+              The comments describe two more prompts and a calculation. Write the
+              code under them.
+            </li>
+            <li>
+              <b>Cast the cargo mass.</b> A styled prompt still returns a string,
+              and multiplying an uncast one gives you a number while adding gives
+              you nonsense &mdash; exactly Activity 1.8.
+            </li>
+            <li>
+              The class of service is a <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline />. Compare against
+              its <i>value</i> in your conditional, not its label.
+            </li>
+            <li>
+              The fee needs <CodeSnippet code="toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline />, and remember to format
+              only at the moment you display it.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="javascript"
+            title="Library Exploration: @clack/prompts"
+            ins={{ range: "18-21" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Handle a Change of Mind</h3>
+          <ul>
+            <li>
+              Run your program and press <b>Ctrl+C</b> partway through. Note what
+              happens to the rest of it.
+            </li>
+            <li>
+              This library exports <CodeSnippet code="isCancel" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
+              <CodeSnippet code="cancel" lang={"javascript"} theme={"material-theme-ocean"} inline /> for exactly this. Import them and use them to
+              exit cleanly instead.
+            </li>
+            <li>
+              You will have to read the library's own documentation to do this,
+              which is the actual skill being practiced.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>
+            Verify your program works correctly. Your answers will differ from
+            the example.
+          </p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={[
+              { label: "The value, not the label", range: "15" },
+            ]}
+          />
+
+          <p class="mt-3">
+            Check the arithmetic by hand: 40 units at 12 each is 480, doubled for
+            premium is 960. If your fee comes out as something like{" "}
+            <CodeSnippet code="4040404012" lang={"javascript"} theme={"material-theme-ocean"} inline />, you forgot to cast.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              You removed <code>await</code> in Task 1 and the output changed.
+              Describe what you saw, and what you think the program was holding
+              in that variable.
+            </li>
+            <li>
+              <code>select()</code> stops a user from typing something you did not
+              plan for. Give an example from your own programs where that would
+              have prevented a bug.
+            </li>
+            <li>
+              This exploration made you copy two pieces of syntax you have not
+              been taught. Was that uncomfortable, useful, or both? There is no
+              right answer &mdash; but you will do it again in real work.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Exploration Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
