@@ -1,0 +1,227 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Passage = `RIDESHARE AND THE CITY
+
+A rideshare service matches riders with nearby drivers through
+a phone app. Riders enter a destination; the app finds a driver,
+quotes a price, and tracks the trip from start to finish.
+
+Prices are set by the program, not by the driver. When many
+people request rides in one area at the same time, the price in
+that area rises automatically. The company says this pulls more
+drivers toward the busy area, so riders wait less.
+
+The app records every trip: where it started, where it ended,
+how long it took, and which route the car followed. The company
+uses this to predict demand. It has also published parts of it,
+with names removed, for city planners studying traffic.
+
+In several cities, bus ridership fell after the service arrived.
+Some riders switched from buses to rideshare. Transit agencies,
+which are funded partly by fares, cut service on the routes that
+lost the most riders. Those routes were mostly in outer
+neighborhoods, where fewer households own cars.
+
+The service requires a smartphone, a data plan, and a payment
+card. About one household in ten in the city has none of these.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set: Reading Passage</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; one passage &middot; 12 minutes
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>This is a format, not a topic.</b> Five of the seventy questions
+            on the AP exam share a single reading passage about a computing
+            innovation, and they are the only questions on the exam that require
+            you to read something long before you can answer anything.
+          </p>
+
+          <p>
+            It is also where the largest slice of the exam lives.
+            <b class="text-sn-theme">
+              Reasoning about computing innovations is 28&ndash;33% of the
+              multiple-choice section
+            </b>
+            &mdash; more than any other skill, including writing code.
+          </p>
+
+          <h4>How to Do This One</h4>
+
+          <ul>
+            <li>
+              <b>Read the whole passage first.</b> All of it, before you look at
+              a single question. It is tempting to skim and hunt; on a shared
+              passage that costs more time than it saves.
+            </li>
+            <li>
+              <b>Set a timer for 12 minutes.</b> Longer than the other sets,
+              because the reading is part of it.
+            </li>
+            <li>
+              <b>Every answer is in the passage or follows from it.</b> Nothing
+              here needs outside knowledge about rideshare companies. If you
+              find yourself using something you already believed, check that the
+              passage actually says it.
+            </li>
+            <li>Mark each answer <b>sure</b> or <b>unsure</b>, as always.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="passage">
+          <h2>The Passage</h2>
+
+          <Code
+            code={Passage}
+            frame="code"
+            lang="txt"
+            title="Read this before looking at the questions"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>Which best describes the purpose of the innovation?</p>
+
+          <ul>
+            <li>(A) To collect trip data for city planners</li>
+            <li>(B) To connect riders with nearby drivers and manage the trip</li>
+            <li>(C) To reduce bus ridership</li>
+            <li>(D) To raise prices when demand is high</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            The automatic price rise in busy areas is described as having a
+            beneficial effect. Which statement best describes a
+            <b>harmful</b> effect of that <b>same</b> feature?
+          </p>
+
+          <ul>
+            <li>(A) Drivers may choose not to work in quiet areas</li>
+            <li>
+              (B) Riders who most need a ride during a busy period may be least
+              able to afford one
+            </li>
+            <li>(C) The company collects route data</li>
+            <li>(D) The app requires a smartphone</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>
+            Based on the passage, which contribute to a digital divide in access
+            to this service?
+          </p>
+
+          <ul>
+            <li>(A) A smartphone is required</li>
+            <li>(B) A data plan is required</li>
+            <li>(C) Prices rise when demand is high</li>
+            <li>(D) A payment card is required</li>
+            <li>(E) Trip data is published with names removed</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            The passage says bus service was cut on routes that lost the most
+            riders, and that those routes served neighborhoods where fewer
+            households own cars. Which best describes this outcome?
+          </p>
+
+          <ul>
+            <li>(A) An intended benefit of the innovation</li>
+            <li>
+              (B) An unintended harmful effect falling hardest on people who did
+              not use the service
+            </li>
+            <li>(C) Evidence that the innovation has no harmful effects</li>
+            <li>(D) A data privacy problem</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            The company publishes trip data with names removed. A researcher
+            notes that a trip which begins at the same house every weekday
+            morning and ends at the same office may still identify someone.
+            This is a concern about:
+          </p>
+
+          <ul>
+            <li>(A) Lossy compression</li>
+            <li>(B) The digital divide</li>
+            <li>(C) Whether removing names is enough to make data anonymous</li>
+            <li>(D) Crowdsourcing</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off.
+          </p>
+
+          <p>
+            <b>Then one sentence:</b> which question did you have to go back
+            into the passage for? That tells us both something about how you
+            read it the first time.
+          </p>
+
+          <p>Worth <b>2 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

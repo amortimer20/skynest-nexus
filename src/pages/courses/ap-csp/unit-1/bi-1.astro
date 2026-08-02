@@ -1,0 +1,322 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import BitToggler from "../../../../components/interactives/BitToggler.svelte";
+import AsciiConverter from "../../../../components/interactives/AsciiConverter.svelte";
+import ColorPicker from "../../../../components/interactives/ColorPicker.svelte";
+import ColorPickerBinary from "../../../../components/interactives/ColorPickerBinary.svelte";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity: Data and What It Costs</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Data</h2>
+              <h3 class="text-sn-theme">And What It Costs</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Everything Is Bits</p>
+              <p>Making It Smaller</p>
+              <p>The Data About the Data</p>
+            </section>
+
+            <section>
+              <h2>One Question</h2>
+              <p>
+                A photo, a song, and a sentence are all stored on the same
+                drive, in the same way.
+              </p>
+              <p class="fragment">How can one thing hold all three?</p>
+            </section>
+
+            <section>
+              <h2>A Switch</h2>
+              <p>A computer can only really store one thing: off or on.</p>
+              <p class="fragment">Write that as <b>0</b> or <b>1</b>.</p>
+              <p class="fragment">One of those is a <b>bit</b>.</p>
+            </section>
+
+            <section>
+              <h2>Eight Switches</h2>
+              <p>One bit gives you two options. Not many.</p>
+              <p class="fragment">Two bits give you four.</p>
+              <p class="fragment">Eight bits &mdash; a <b>byte</b> &mdash; give you 256.</p>
+              <p class="fragment text-sn-theme">
+                Every extra bit doubles what you can say.
+              </p>
+            </section>
+
+            <section>
+              <h2>Text</h2>
+              <p>
+                Agree that 65 means <b>A</b>, 66 means <b>B</b>, and so on.
+              </p>
+              <p class="fragment">
+                Now a number can be a letter. That agreement is called
+                <b>ASCII</b>.
+              </p>
+              <p class="fragment text-sn-theme">
+                Nothing in the machine knows it is a letter. We decided that.
+              </p>
+            </section>
+
+            <section>
+              <h2>Color</h2>
+              <p>Three numbers: how much red, how much green, how much blue.</p>
+              <p class="fragment">Each from 0 to 255. One byte each.</p>
+              <p class="fragment">
+                Three bytes per dot, and a screen has millions of dots.
+              </p>
+            </section>
+
+            <section>
+              <h2>That Adds Up</h2>
+              <p>A 12-megapixel photo is 12 million dots.</p>
+              <p class="fragment">Three bytes each is about <b>36 MB</b>.</p>
+              <p class="fragment">
+                Your phone says that photo is 3 MB.
+              </p>
+              <p class="fragment text-sn-theme">Where did the other 33 go?</p>
+            </section>
+
+            <section>
+              <h2>Compression</h2>
+              <p>Storing the same information in less space.</p>
+              <p class="fragment">
+                <b>Lossless</b> &mdash; you can rebuild the original exactly.
+              </p>
+              <p class="fragment">
+                <b>Lossy</b> &mdash; you throw some away and cannot get it back.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which One Where</h2>
+              <p>A photo of a beach: lossy. Nobody notices.</p>
+              <p class="fragment">
+                A spreadsheet of grades: <b>never</b> lossy.
+              </p>
+              <p class="fragment text-sn-theme">
+                The question is always: is the thrown-away part one anyone
+                needs?
+              </p>
+            </section>
+
+            <section>
+              <h2>The Data About the Data</h2>
+              <p>That photo also stores when it was taken.</p>
+              <p class="fragment">Which camera. Which settings.</p>
+              <p class="fragment">Often <b>where</b>.</p>
+              <p class="fragment text-sn-theme">
+                That is <b>metadata</b>, and you did not choose to include it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Why It Matters</h2>
+              <p>
+                Metadata is small, easy to search, and travels with the file.
+              </p>
+              <p class="fragment">
+                Which makes it useful &mdash; and makes it the part most worth
+                being careful about.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Explaining how bits represent numbers, text, and color</li>
+                <li>Describing why more bits means more possible values</li>
+                <li>Choosing between lossy and lossless compression</li>
+                <li>Identifying metadata and what it reveals</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Bit</dt>
+                  <dd>A single 0 or 1. The smallest piece of data there is.</dd>
+                  <dt>Byte</dt>
+                  <dd>Eight bits, which can represent 256 different values.</dd>
+                  <dt>Compression</dt>
+                  <dd>Storing the same information in less space.</dd>
+                  <dt>Lossless</dt>
+                  <dd>Compression you can fully undo.</dd>
+                  <dt>Lossy</dt>
+                  <dd>Compression that permanently discards some data.</dd>
+                  <dt>Metadata</dt>
+                  <dd>Data about data &mdash; when, where, and how a file was made.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            No code today. These are the same tools a computer uses, with the
+            lid off.
+          </p>
+
+          <h3 class="mt-4">Task 1: Count to 255</h3>
+
+          <p>
+            Flip the switches. Watch the number change. Each switch is one bit.
+          </p>
+
+          <div class="my-4"><BitToggler client:load /></div>
+
+          <ul>
+            <li>Make the number <b>1</b>. Now make it <b>2</b>. Which switch moved?</li>
+            <li>What is the largest number you can make with all eight on?</li>
+            <li>
+              Turn on only the leftmost switch. Then only the rightmost. Why is
+              one worth so much more than the other?
+            </li>
+            <li>
+              <b>Write down:</b> if you had a ninth switch on the left, what
+              would the new largest number be?
+            </li>
+          </ul>
+
+          <h3 class="mt-5">Task 2: Text Is Numbers</h3>
+
+          <p>Type your name. Watch what the machine actually stores.</p>
+
+          <div class="my-4"><AsciiConverter client:load /></div>
+
+          <ul>
+            <li>Type <b>A</b>, then <b>B</b>, then <b>C</b>. What is the pattern?</li>
+            <li>
+              Type <b>a</b> and compare it to <b>A</b>. They are different
+              numbers. Should they be?
+            </li>
+            <li>Type a space. It has a number too. What is it?</li>
+            <li>
+              <b>Write down:</b> how many bytes does your full name take,
+              including the space?
+            </li>
+          </ul>
+
+          <h3 class="mt-5">Task 3: Color Is Three Numbers</h3>
+
+          <p>Move the sliders. Every color on every screen is these three.</p>
+
+          <div class="my-4"><ColorPicker client:load /></div>
+
+          <ul>
+            <li>Make pure red, then pure white, then black. What are the three numbers each time?</li>
+            <li>Make a color you like. Write down its three numbers.</li>
+            <li>
+              <b>Write down:</b> how many different colors are possible with
+              three bytes? You worked out what one byte can do in Task 1.
+            </li>
+          </ul>
+
+          <h3 class="mt-5">Task 4: Throwing Some Away</h3>
+
+          <p>
+            This is the same picker with fewer bits per color. That is lossy
+            compression, made visible.
+          </p>
+
+          <div class="my-4"><ColorPickerBinary client:load bitDepth="8" /></div>
+
+          <ul>
+            <li>
+              Try to make the same color you chose in Task 3. How close can you
+              get?
+            </li>
+            <li>
+              A photo saved this way is much smaller. Name something it would be
+              fine for, and something it would ruin.
+            </li>
+            <li>
+              <b>Write down:</b> is this lossy or lossless? Say how you know.
+            </li>
+          </ul>
+
+          <h3 class="mt-5">Task 5: What Your Photos Know</h3>
+
+          <p>No tool for this one. On your phone, open any photo and find its details or info.</p>
+
+          <ul>
+            <li>List three pieces of metadata you find.</li>
+            <li>Is a location among them?</li>
+            <li>
+              <b>Write down:</b> one situation where that metadata is genuinely
+              useful, and one where you would want it removed before sharing.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>You should be able to answer all five without looking anything up.</p>
+
+          <ol>
+            <li>How many different values can one byte represent?</li>
+            <li>Adding one bit does what to the number of possible values?</li>
+            <li>Give one example each of when lossy is fine and when it is not.</li>
+            <li>Name two pieces of metadata a photo carries.</li>
+            <li>
+              A color needs three bytes. A 12-megapixel photo has 12 million
+              dots. Roughly how large would it be with no compression at all?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>
+              Nothing in a computer knows that 65 means <b>A</b>. People agreed
+              on that. Name one other place where a number only means something
+              because of an agreement.
+            </li>
+            <li>
+              You will write programs that hold numbers and text in the same
+              variable. After today, why is that less strange than it sounds?
+            </li>
+            <li>
+              Metadata is attached without you choosing it. Who benefits from
+              that, and who might not?
+            </li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
