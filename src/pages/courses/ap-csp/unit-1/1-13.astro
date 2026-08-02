@@ -2,107 +2,131 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
-import { Image } from "astro:assets";
-import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-13-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let level = 18;
+const Figure1 = `let score = 85;
 
-if (level < 25) {
-  fill(220, 60, 60);
+if (score >= 90) {
+  console.log("Grade: A");
+} else if (score >= 80) {
+  console.log("Grade: B");
 } else {
-  fill(80, 200, 120);
+  console.log("Grade: C or below");
+}`;
+const Figure2 = `Grade: B`;
+const Figure3 = `let score = 95;
+
+if (score >= 60) {
+  console.log("Grade: D or better");
+} else if (score >= 90) {
+  console.log("Grade: A");
+}`;
+const Figure4 = `Grade: D or better`;
+const Figure5 = `let score = 95;
+
+if (score >= 90) {
+  console.log("A");
 }
-
-rect(50, 100, 300, 40);`;
-const Figure2 = `let level = 140;
-let barWidth = level;
-
-if (barWidth > 300) {
-  barWidth = 300;
+if (score >= 80) {
+  console.log("B");
 }
-
-rect(50, 100, barWidth, 40);`;
-const Figure3 = `let x = 260;
-let y = 150;
-
-if (x > 200) {
-  fill(220, 60, 60);
+if (score >= 60) {
+  console.log("D or better");
+}`;
+const Figure6 = `A
+B
+D or better`;
+const NotationJs = `if (score >= 90) {
+  console.log("A");
+} else if (score >= 80) {
+  console.log("B");
 } else {
-  fill(80, 120, 220);
+  console.log("C");
+}`;
+const NotationPseudo = `IF(score ≥ 90)
+{
+  DISPLAY("A")
 }
-
-ellipse(x, y, 40, 40);`;
-const Task1 = `function setup() {
-  createCanvas(400, 400);
-  background(30);
-
-  let oxygen = 88;
-
-  if (oxygen < 25) {
-    fill(220, 60, 60);
-  } else {
-    fill(80, 200, 120);
+ELSE
+{
+  IF(score ≥ 80)
+  {
+    DISPLAY("B")
   }
+  ELSE
+  {
+    DISPLAY("C")
+  }
+}`;
+const Task1 = `let windSpeed = 46;
 
-  rect(50, 60, oxygen * 3, 30);
+console.log("Wind speed:", windSpeed);
+
+if (windSpeed >= 74) {
+  console.log("Category: hurricane");
+} else if (windSpeed >= 39) {
+  console.log("Category: tropical storm");
+} else {
+  console.log("Category: calm");
 }
 `;
-const Task2 = `function setup() {
-  createCanvas(400, 400);
-  background(30);
+const Task2 = `let windSpeed = 46;
 
-  let oxygen = 88;
-  let coolant = 18;
+console.log("Wind speed:", windSpeed);
 
-  if (oxygen < 25) {
-    fill(220, 60, 60);
-  } else {
-    fill(80, 200, 120);
-  }
-
-  rect(50, 60, oxygen * 3, 30);
-
-  if (coolant < 25) {
-    fill(220, 60, 60);
-  } else {
-    fill(80, 200, 120);
-  }
-
-  rect(50, 110, coolant * 3, 30);
+if (windSpeed >= 157) {
+  console.log("Category: 5 — catastrophic");
+} else if (windSpeed >= 130) {
+  console.log("Category: 4 — extreme");
+} else if (windSpeed >= 111) {
+  console.log("Category: 3 — devastating");
+} else if (windSpeed >= 96) {
+  console.log("Category: 2 — extensive");
+} else if (windSpeed >= 74) {
+  console.log("Category: 1 — dangerous");
+} else if (windSpeed >= 39) {
+  console.log("Category: tropical storm");
+} else {
+  console.log("Category: calm");
 }
 `;
-const Task3 = `function setup() {
-  createCanvas(400, 400);
-  background(30);
+const Task3 = `let windSpeed = 46;
 
-  let oxygen = 88;
-  let coolant = 18;
-  let power = 132;
+console.log("Wind speed:", windSpeed);
 
-  if (oxygen < 25) {
-    fill(220, 60, 60);
-  } else {
-    fill(80, 200, 120);
-  }
-
-  rect(50, 60, oxygen * 3, 30);
-
-  if (coolant < 25) {
-    fill(220, 60, 60);
-  } else {
-    fill(80, 200, 120);
-  }
-
-  rect(50, 110, coolant * 3, 30);
-
-  // Draw the power bar at y = 160, same pattern as the others
-  //   work out its width from power, the same way
-  //   if that width would be more than 300, clamp it to 300
-  //   color it red under 25, yellow under 60, green otherwise
+if (windSpeed >= 157) {
+  console.log("Category: 5 — catastrophic");
+} else if (windSpeed >= 130) {
+  console.log("Category: 4 — extreme");
+} else if (windSpeed >= 111) {
+  console.log("Category: 3 — devastating");
+} else if (windSpeed >= 96) {
+  console.log("Category: 2 — extensive");
+} else if (windSpeed >= 74) {
+  console.log("Category: 1 — dangerous");
+} else if (windSpeed >= 39) {
+  console.log("Category: tropical storm");
+} else {
+  console.log("Category: calm");
 }
+
+console.log("");
+
+// Ask the user for a rainfall total in millimeters and cast it
+// 200 or more is "flood risk"
+// 50 or more is "heavy"
+// 10 or more is "moderate"
+// anything else is "light"
+// Display the rainfall and its single category
+`;
+const ExampleOutput = `Wind speed: 46
+Category: tropical storm
+
+Rainfall in mm? 64
+Rainfall: 64
+Category: heavy
 `;
 //#endregion
 ---
@@ -115,159 +139,164 @@ const Task3 = `function setup() {
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.13: p5 Lab 3 &mdash; Decisions You Can See</h1>
+        <h1>Activity 1.13: Chains of Decisions</h1>
         <Divider variant="8" classes="mb-5" />
 
-
-        <!-- What You're Building -->
-        <section id="target">
-          <h2>What You're Building</h2>
-
-          <div class="text-center my-4">
-            <Image src={TargetImage} alt="A dark canvas with horizontal bars whose colors change according to their value" width={400} class="img-fluid rounded" />
-          </div>
-
-          <p>By the end of <b>Task 2</b> the bar colors will be decided by conditions rather than typed in.</p>
-
-          <p class="text-body-secondary">
-            <b>Task 3 is not shown.</b> That one is yours to work out.
-          </p>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
               <h2>Activity 1.13</h2>
-              <h3 class="text-sn-theme">p5 Lab 3 &mdash; Decisions You Can See</h3>
+              <h3 class="text-sn-theme">Chains of Decisions</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Conditions That Choose a Color</p>
-              <p>Clamping to a Boundary</p>
-              <p>Reading a Picture as Data</p>
+              <p>More Than Two Paths</p>
+              <p>First Match Wins</p>
+              <p>Unreachable Code</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Nothing New Again</h2>
+              <h2>Two Paths Is Not Enough</h2>
               <p>
-                Conditionals from Activities 1.11 and 1.12. The canvas from
-                1.5 and 1.9. No new syntax at all.
+                A grade is not pass or fail. A storm is not calm or hurricane.
+                Most real decisions have several outcomes.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>Nothing New Again</h2>
-              <p>
-                In the terminal, a wrong branch prints the wrong word and you
-                have to be reading carefully to notice.
-              </p>
-              <p class="fragment">
-                On a canvas, a wrong branch is <b class="text-sn-theme">the
-                wrong color, in front of you</b>. That is the entire reason for
-                today.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Choosing a Color</h2>
+              <h2>else if</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-              <p class="fragment">
-                The condition does not decide <i>whether</i> to draw. It decides{" "}
-                <i>how</i>. The rectangle is drawn either way.
-              </p>
+              <Code
+                code={Figure2}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
             </section>
 
             <section>
-              <h2>Where the Shape Goes Matters</h2>
-              <p>
-                The <CodeSnippet
-                  code="rect()"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> sits <b>after</b> the whole if/else, outside the braces.
-              </p>
+              <h2>How a Chain Runs</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">Conditions are checked <b>top to bottom</b></li>
+                  <li class="fragment">
+                    The <b class="text-sn-theme">first one that is true</b> wins
+                  </li>
+                  <li class="fragment">
+                    Everything below it is skipped without being checked
+                  </li>
+                  <li class="fragment">
+                    The final <CodeSnippet code="else" lang={"javascript"} theme={"material-theme-ocean"} inline /> catches whatever is left
+                  </li>
+                </ul>
+              </div>
               <p class="fragment">
-                <CodeSnippet
-                  code="fill()"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> sets a color that stays set. Put the shape inside one branch
-                and it will only appear half the time &mdash; which is a
-                different program.
+                85 is also greater than 60 and greater than 0. It does not matter
+                &mdash; the chain stopped at the first match.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Clamping</h2>
-              <Code
-                code={Figure2}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
-            </section>
-
-            <section data-auto-animate>
-              <h2>Clamping</h2>
-              <p>
-                A bar 140 wide fits. A bar 400 wide runs off the canvas and looks
-                broken.
-              </p>
-              <p class="fragment">
-                An <CodeSnippet
-                  code="if"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> with no <CodeSnippet
-                  code="else"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> is the right shape here: most of the time nothing needs to
-                happen.
-              </p>
-              <p class="fragment">
-                Notice the variable is <b>reassigned</b> &mdash; the same trick
-                from Activity 1.3, now doing real work.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Boundaries in Space</h2>
+              <h2>Order Is Not Optional</h2>
               <Code
                 code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Order Is Not Optional</h2>
+              <p>
+                A 95 was reported as <i>D or better</i>. Both conditions are
+                true, but the loosest one came first and swallowed everything.
+              </p>
               <p class="fragment">
-                A condition can test <i>position</i>. Anything past x = 200 turns
-                red. This is how a program decides whether something is out of
-                bounds, off-screen, or touching something else.
+                <b class="text-sn-theme">
+                  The second branch can never run. Not for any score.
+                </b>
+              </p>
+              <p class="fragment">
+                No error. No warning. The code is simply dead, and it looks
+                perfectly reasonable.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Rule</h2>
+              <p>
+                In a chain of overlapping conditions, put the{" "}
+                <b class="text-sn-theme">most specific first</b> and the
+                loosest last.
+              </p>
+              <p class="fragment">
+                For numeric ranges that usually means starting at the extreme end
+                and working inward.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Chain, or Separate Ifs?</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Chain, or Separate Ifs?</h2>
+              <p>
+                Three separate <CodeSnippet code="if" lang={"javascript"} theme={"material-theme-ocean"} inline /> statements are three separate
+                decisions. All three get checked, so all three can fire.
+              </p>
+              <p class="fragment">
+                A chain gives you <b>exactly one</b> answer. Separate ifs give you{" "}
+                <b>any number</b>. Neither is wrong &mdash; but they are different
+                questions, and choosing the wrong one is a real bug.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Using a condition to choose a fill color</li>
-                <li>Clamping a value to a maximum</li>
-                <li>Placing a shape outside the branches so it always draws</li>
-                <li>Reading a drawing to check whether a branch is correct</li>
+                <li>Writing a chain with several branches</li>
+                <li>Ordering conditions so every branch is reachable</li>
+                <li>Recognizing unreachable code</li>
+                <li>Choosing between a chain and separate ifs</li>
               </ul>
             </section>
 
@@ -275,19 +304,20 @@ const Task3 = `function setup() {
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Clamp</dt>
+                  <dt>Chain</dt>
                   <dd>
-                    To limit a value so it cannot go past a maximum or minimum.
+                    A series of conditions where the first true one runs and the
+                    rest are skipped.
                   </dd>
-                  <dt>Boundary</dt>
+                  <dt>Branch</dt>
+                  <dd>One possible path through a decision.</dd>
+                  <dt>Unreachable code</dt>
                   <dd>
-                    A limit that a condition tests against, such as the edge of
-                    the canvas.
+                    Code that can never run, no matter what the input is.
                   </dd>
-                  <dt>State</dt>
+                  <dt>Mutually exclusive</dt>
                   <dd>
-                    The current values a program is holding, which decide what it
-                    draws.
+                    Outcomes where only one can happen at a time.
                   </dd>
                 </dl>
               </div>
@@ -302,51 +332,46 @@ const Task3 = `function setup() {
           <h2>Build</h2>
 
           <p>
-            Create a new <b>p5.js</b> sketch named{" "}
-            <b class="text-sn-theme">1-13-status-panel</b>.
-          </p>
-
-          <p>
-            You are building a status panel: one horizontal bar per system, its
-            length showing the reading and its color showing whether that is a
-            problem.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-13-chains</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: One Bar</h3>
+          <h3>Task 1: Three Branches</h3>
           <ul>
-            <li>Write the code below and run it. Oxygen is at 88, so the bar should be green.</li>
+            <li>Write the code below and run it.</li>
             <li>
-              Change <CodeSnippet
-                code="oxygen"
+              Test all three branches by editing <CodeSnippet
+                code="windSpeed"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> to 12 and run again. Same bar, shorter and red.
+              />: try 80, then 46, then 5.
             </li>
-            <li>Set it back to 88.</li>
+            <li>Set it back to 46 before continuing.</li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="p5 Lab 3 — Decisions You Can See"
+            title="Chains of Decisions"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: A Second Bar</h3>
+          <h3>Task 2: The Full Scale</h3>
           <ul>
+            <li>Expand the chain to all seven branches.</li>
             <li>
-              Add a coolant reading at 18 and draw its bar 50 pixels below the
-              first.
+              Notice the order: highest threshold first, working down. That is
+              not a style choice &mdash; reverse it and most branches become
+              unreachable.
             </li>
             <li>
-              Run it. You should see one green bar and one red bar &mdash; and
-              you can tell which system is in trouble without reading a single
-              number.
+              Test at least four different speeds, including one above 157 and
+              one below 39.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -358,29 +383,26 @@ const Task3 = `function setup() {
             code={Task2}
             frame="code"
             lang="javascript"
-            title="p5 Lab 3 — Decisions You Can See"
-            ins={{ range: "6, 16-22" }}
+            title="Chains of Decisions"
+            ins={{ range: "5-16" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Add a Clamped Three-Color Bar</h3>
+          <h3>Task 3: Plan, Then Classify Some Input</h3>
           <ul>
             <li>
-              The comments describe the power bar. It is harder than the other
-              two in two ways.
+              The comments describe a rainfall scale with four categories. Write
+              the code under them.
+            </li>
+            <li>Cast the input before comparing it.</li>
+            <li>
+              Exactly <b>one</b> category should print, so this needs a chain and
+              not separate ifs.
             </li>
             <li>
-              <b>It needs clamping.</b> Power is 132, and 132 &times; 3 is 396,
-              which runs off a 400-wide canvas. Limit the width to 300.
-            </li>
-            <li>
-              <b>It needs three colors, not two.</b> That means a chain, and the
-              order matters &mdash; Activity 1.12's rule applies here exactly.
-            </li>
-            <li>
-              Test it at 10, at 45, and at 132. You should get red, yellow, and
-              green, and the last one should stop at the same place as a full bar.
+              Think about your ordering before you write it. Write the thresholds
+              down on paper first if it helps.
             </li>
           </ul>
 
@@ -388,42 +410,104 @@ const Task3 = `function setup() {
             code={Task3}
             frame="code"
             lang="javascript"
-            title="p5 Lab 3 — Decisions You Can See"
-            ins={{ range: "7, 25-28" }}
+            title="Chains of Decisions"
+            ins={{ range: "21-28" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): A Warning Light</h3>
+          <h3>Challenge (Optional): Make a Branch Unreachable</h3>
           <ul>
             <li>
-              Add a circle in the top-right corner that is red if <i>any</i> of
-              the three systems is under 25, and green if none of them are.
+              Copy your rainfall chain to the bottom of the program and
+              deliberately reorder it so that the <i>flood risk</i> branch can
+              never run.
             </li>
             <li>
-              You do not have <CodeSnippet
-                code="&&"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> or <CodeSnippet
-                code="||"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> yet &mdash; those arrive in Activity 1.14. Solve it with the
-              tools you have.
+              Prove it: run it with a rainfall of 400 and show that it reports
+              something else.
             </li>
             <li>
-              There is more than one way. One approach uses a boolean variable
-              that starts <CodeSnippet
-                code="false"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> and gets reassigned.
+              Write a comment explaining which line made the branch dead, and why
+              no error appeared.
+            </li>
+            <li>Delete the broken copy before submitting.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">
+              This is the biggest difference between the two notations in the
+              whole course.
+            </b>
+          </p>
+
+          <p>
+            <b>The exam reference sheet has no <code>ELSE IF</code>.</b> It offers
+            only <code>IF</code> and <code>IF</code>/<code>ELSE</code>. A chain
+            has to be built by putting a whole new <code>IF</code>{" "}
+            <i>inside</i> the <code>ELSE</code> block.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            Read the right-hand side carefully. The second <code>IF</code> is{" "}
+            <b>not</b> a sibling of the first &mdash; it lives inside the first
+            one's <code>ELSE</code>, indented one level deeper. The closing braces
+            stack up at the bottom.
+          </p>
+
+          <h4 class="mt-4">Why This Matters on Exam Day</h4>
+
+          <ul>
+            <li>
+              <b>Nesting grows with every branch.</b> Three branches means two
+              levels. Seven branches, like your Task 2, would mean six levels and
+              a wall of closing braces.
+            </li>
+            <li>
+              <b>Exam questions look more complicated than they are.</b> When you
+              meet a deeply indented block of <code>IF</code>/<code>ELSE</code>,
+              it is very often just a chain written the only way the notation
+              allows.
+            </li>
+            <li>
+              <b>The logic is identical.</b> First match wins, exactly as in
+              JavaScript. Read it as a chain even though it is drawn as a nest.
             </li>
           </ul>
+
+          <p>
+            A useful trick when tracing one of these: find the deepest{" "}
+            <code>ELSE</code>, and read it as "none of the conditions above were
+            true."
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -432,25 +516,24 @@ const Task3 = `function setup() {
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Your finished sketch should show all of the following.</p>
+          <p>Verify your program works correctly.</p>
 
-          <ul>
-            <li>Three horizontal bars on a dark background, evenly spaced.</li>
-            <li>The oxygen bar green and long; the coolant bar red and short.</li>
-            <li>
-              The power bar green and <b>stopping at 300 pixels</b>, not running
-              off the edge.
-            </li>
-            <li>
-              Every bar visible in every case &mdash; changing a reading should
-              change a bar's length and color, never make it disappear.
-            </li>
-          </ul>
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={{
+              label: "Exactly one category, never two",
+              range: "6",
+            }}
+          />
 
-          <p>
-            <b>The test that matters:</b> set power to 10, 45, and 132 in turn.
-            You should get three different colors. If two of them match, your
-            chain is ordered wrong.
+          <p class="mt-3">
+            Test your rainfall chain at <b>4</b>, <b>25</b>, <b>120</b>, and{" "}
+            <b>400</b>. Each should give a different category. If two of them
+            give the same answer, one of your branches is unreachable.
           </p>
         </section>
 
@@ -464,16 +547,17 @@ const Task3 = `function setup() {
 
           <ol>
             <li>
-              What would happen if you moved a <code>rect()</code> call inside one
-              branch of its if/else? Why is that a different program?
+              A score of 95 was reported as "D or better." Explain what went
+              wrong, and why the program gave no error.
             </li>
             <li>
-              The power bar needed clamping. Describe another situation where a
-              program should limit a value rather than use it as given.
+              Describe a situation where you would <i>want</i> separate{" "}
+              <code>if</code> statements instead of a chain.
             </li>
             <li>
-              You have now written chains in the terminal and on a canvas. Which
-              made a wrongly-ordered chain easier to notice, and why?
+              The exam notation has no <code>else if</code>, so chains are written
+              as nested blocks. Does that change what the program does? Explain
+              your answer.
             </li>
           </ol>
         </section>

@@ -6,97 +6,103 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let crew = ["Ada", "Bo", "Cy"];
+const Figure1 = `let reading1 = 4;
+let reading2 = -8;
+let reading3 = 12;
+let reading4 = -3;
+let reading5 = 7;`;
+const Figure2 = `let readings = [4, -8, 12, -3, 7];
 
-console.log(crew.length);
-console.log(crew[crew.length - 1]);`;
-const Figure2 = `3
-Cy`;
-const Figure3 = `let crew = ["Ada", "Bo", "Cy"];
-
-console.log(crew[3]);`;
-const Figure4 = `undefined`;
+console.log(readings);
+console.log(readings[0]);
+console.log(readings[2]);`;
+const Figure3 = `[ 4, -8, 12, -3, 7 ]
+4
+12`;
+const Figure4 = `index:    0    1    2    3    4
+value:    4   -8   12   -3    7`;
 const Figure5 = `let crew = ["Ada", "Bo", "Cy"];
 
-let name = crew[3];
+crew[1] = "Max";
 
-console.log("Welcome, " + name + "!");
-console.log(name.length);`;
-const Figure6 = `Welcome, undefined!
-TypeError: Cannot read properties of undefined`;
-const Figure7 = `let crew = ["Ada", "Bo"];
+console.log(crew);`;
+const Figure6 = `[ 'Ada', 'Max', 'Cy' ]`;
+const Figure7 = `let a = [1, 2, 3];
+let b = a;
 
-crew.push("Cy");
+b[0] = 99;
 
-console.log(crew);
-console.log(crew.length);`;
-const Figure8 = `[ 'Ada', 'Bo', 'Cy' ]
-3`;
-const NotationJs = `let n = crew.length;
-let last = crew[crew.length - 1];
-crew.push("Dee");`;
-const NotationPseudo = `n ← LENGTH(crew)
-last ← crew[LENGTH(crew)]
-APPEND(crew, "Dee")`;
-const Task1 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
+console.log("b[0] is", b[0]);
+console.log("a[0] is", a[0]);`;
+const Figure8 = `b[0] is 99
+a[0] is 99`;
+const NotationJs = `let scores = [10, 20, 30];
+let first = scores[0];
+let copy = scores;`;
+const NotationPseudo = `scores ← [10, 20, 30]
+first ← scores[1]
+copy ← scores`;
+const Task1 = `let readings = [4, -8, 12, -3, 7];
+
+console.log("All readings:", readings);
+console.log("First:", readings[0]);
+console.log("Third:", readings[2]);
+console.log("Last:", readings[4]);
+`;
+const Task2 = `let readings = [4, -8, 12, -3, 7];
+let crew = ["Ada", "Bo", "Cy"];
+
+console.log("All readings:", readings);
+console.log("First:", readings[0]);
+console.log("Third:", readings[2]);
+console.log("Last:", readings[4]);
+console.log("");
 
 console.log("Crew:", crew);
-console.log("How many:", crew.length);
-console.log("First:", crew[0]);
-console.log("Last:", crew[crew.length - 1]);
+
+crew[1] = "Max";
+readings[0] = 99;
+
+console.log("After changes");
+console.log("Crew:", crew);
+console.log("Readings:", readings);
 `;
-const Task2 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
+const Task3 = `let readings = [4, -8, 12, -3, 7];
+let crew = ["Ada", "Bo", "Cy"];
+
+console.log("All readings:", readings);
+console.log("First:", readings[0]);
+console.log("Third:", readings[2]);
+console.log("Last:", readings[4]);
+console.log("");
 
 console.log("Crew:", crew);
-console.log("How many:", crew.length);
-console.log("First:", crew[0]);
-console.log("Last:", crew[crew.length - 1]);
-console.log("");
 
-console.log("Off the end:", crew[4]);
-console.log("");
+crew[1] = "Max";
+readings[0] = 99;
 
-crew.push("Eze");
-
-console.log("After push:", crew);
-console.log("How many now:", crew.length);
-console.log("Last now:", crew[crew.length - 1]);
-`;
-const Task3 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
-
+console.log("After changes");
 console.log("Crew:", crew);
-console.log("How many:", crew.length);
-console.log("First:", crew[0]);
-console.log("Last:", crew[crew.length - 1]);
+console.log("Readings:", readings);
 console.log("");
 
-console.log("Off the end:", crew[4]);
-console.log("");
-
-crew.push("Eze");
-
-console.log("After push:", crew);
-console.log("How many now:", crew.length);
-console.log("Last now:", crew[crew.length - 1]);
-console.log("");
-
-// Ask the user for an index and cast it
-// If it is a valid index for this array, show the name there
-// Otherwise say the index is out of range, and say what the valid range is
+// Make a second name that refers to the crew list
+// Change one element using the SECOND name only
+// Display both names, and see whether the first one changed too
 `;
-const ExampleOutput = `Crew: [ 'Ada', 'Bo', 'Cy', 'Dee' ]
-How many: 4
-First: Ada
-Last: Dee
+const ExampleOutput = `All readings: [ 4, -8, 12, -3, 7 ]
+First: 4
+Third: 12
+Last: 7
 
-Off the end: undefined
+Crew: [ 'Ada', 'Bo', 'Cy' ]
+After changes
+Crew: [ 'Ada', 'Max', 'Cy' ]
+Readings: [ 99, -8, 12, -3, 7 ]
 
-After push: [ 'Ada', 'Bo', 'Cy', 'Dee', 'Eze' ]
-How many now: 5
-Last now: Eze
-
-Which index? 7
-Out of range. Valid indexes are 0 to 4.
+Changed backupCrew[0] to "Zed"
+crew: [ 'Zed', 'Max', 'Cy' ]
+backupCrew: [ 'Zed', 'Max', 'Cy' ]
 `;
 //#endregion
 ---
@@ -109,7 +115,7 @@ Out of range. Valid indexes are 0 to 4.
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.23: Length and Safe Access</h1>
+        <h1>Activity 1.23: Arrays</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -117,56 +123,35 @@ Out of range. Valid indexes are 0 to 4.
           <Presentation>
             <section>
               <h2>Activity 1.23</h2>
-              <h3 class="text-sn-theme">Length and Safe Access</h3>
+              <h3 class="text-sn-theme">Arrays</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>How Long Is It?</p>
-              <p>Off By One</p>
-              <p>Growing an Array</p>
+              <p>Many Values, One Name</p>
+              <p>Counting From Zero</p>
+              <p>Two Names, One Array</p>
             </section>
 
             <section data-auto-animate>
-              <h2>length</h2>
+              <h2>This Does Not Scale</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
-              <Code
-                code={Figure2}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
+              <p class="fragment">
+                Now imagine a hundred readings. Or a number of readings you do
+                not know until the program runs.
+              </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Most Important Minus One</h2>
-              <p>
-                <CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline /> counts the elements. Indexes start at 0.
-              </p>
-              <p class="fragment">
-                So the last index is always{" "}
-                <b class="text-sn-theme">length &minus; 1</b>. Three elements,
-                last index 2.
-              </p>
-              <p class="fragment">
-                <CodeSnippet code="crew[crew.length - 1]" lang={"javascript"} theme={"material-theme-ocean"} inline /> looks awkward and is worth
-                memorizing as one unit: "the last one."
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Going Off the End</h2>
+              <h2>An Array</h2>
               <Code
-                code={Figure3}
+                code={Figure2}
                 frame="code"
                 title="Demo"
                 lang="javascript"
@@ -174,21 +159,64 @@ Out of range. Valid indexes are 0 to 4.
                 class="mb-3"
               />
               <Code
-                code={Figure4}
+                code={Figure3}
                 frame="terminal"
                 lang="txt"
                 title="Demo"
                 showLineNumbers={false}
                 class="fragment"
               />
+            </section>
+
+            <section>
+              <h2>One Name, Many Values</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">Square brackets make the array</li>
+                  <li class="fragment">Commas separate the values</li>
+                  <li class="fragment">
+                    Square brackets <i>after the name</i> pick one out
+                  </li>
+                </ul>
+              </div>
               <p class="fragment">
-                <b class="text-sn-theme">No error.</b> JavaScript hands back{" "}
-                <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /> and carries on.
+                The number in the brackets is called the{" "}
+                <b class="text-sn-theme">index</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Counting From Zero</h2>
+              <Code
+                code={Figure4}
+                frame="none"
+                lang="txt"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <b class="text-sn-theme">The first element is at index 0</b>, not
+                1. Five elements means indexes 0 through 4.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>Why That Is Worse Than Crashing</h2>
+              <h2>Counting From Zero</h2>
+              <p>
+                This feels wrong for about a week and then never again.
+              </p>
+              <p class="fragment">
+                It is also why Activity 1.19 taught{" "}
+                <CodeSnippet code="for (let i = 0; i < n; i++)" lang={"javascript"} theme={"material-theme-ocean"} inline /> rather than starting at
+                1. That loop was built for this.
+              </p>
+              <p class="fragment">
+                <b>The AP exam counts from 1.</b> We will deal with that at the
+                bottom of this page, and it matters.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Changing an Element</h2>
               <Code
                 code={Figure5}
                 frame="code"
@@ -205,69 +233,68 @@ Out of range. Valid indexes are 0 to 4.
                 showLineNumbers={false}
                 class="fragment"
               />
-            </section>
-
-            <section>
-              <h2>The Damage Shows Up Late</h2>
-              <p>
-                The bad index was on line 3. The greeting printed happily. The
-                crash came two lines later, pointing at somewhere the mistake
-                is not.
-              </p>
               <p class="fragment">
-                Same shape as <CodeSnippet code="NaN" lang={"javascript"} theme={"material-theme-ocean"} inline /> in Activity 1.8 &mdash; a bad
-                value travels quietly until something finally chokes on it.
-              </p>
-              <p class="fragment">
-                <b class="text-sn-theme">
-                  When you see undefined, look upstream.
-                </b>
+                An element behaves like a variable. You can read it or assign to
+                it.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Growing an Array</h2>
+              <h2>Now the Strange Part</h2>
               <Code
                 code={Figure7}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
+              <p class="fragment">
+                Nothing touched <CodeSnippet code="a" lang={"javascript"} theme={"material-theme-ocean"} inline />. Predict the output before the
+                next slide.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now the Strange Part</h2>
               <Code
                 code={Figure8}
                 frame="terminal"
                 lang="txt"
                 title="Demo"
                 showLineNumbers={false}
-                class="fragment"
               />
               <p class="fragment">
-                <CodeSnippet code="push()" lang={"javascript"} theme={"material-theme-ocean"} inline /> adds to the end, and{" "}
-                <CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline /> goes up to match. An array is not a fixed
-                size.
+                <b class="text-sn-theme">
+                  There is only one array. Both names point at it.
+                </b>
               </p>
             </section>
 
             <section>
-              <h2>Checking Before You Look</h2>
+              <h2>Two Labels on One Box</h2>
               <p>
-                A valid index is <b>0 or more</b> and <b>less than length</b>.
+                With a plain number, <CodeSnippet code="let b = a" lang={"javascript"} theme={"material-theme-ocean"} inline /> copies the value.
+                With an array, it copies the <i>label</i>, not the contents.
               </p>
               <p class="fragment">
-                Note that is <CodeSnippet code="< length" lang={"javascript"} theme={"material-theme-ocean"} inline />, not{" "}
-                <CodeSnippet code="<= length" lang={"javascript"} theme={"material-theme-ocean"} inline />. The same off-by-one, in a new place.
+                This is invisible until something changes. Then it is a bug that
+                appears far away from the line that caused it.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  The AP exam's notation does the opposite &mdash; it copies.
+                </b>{" "}
+                See the panel below.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Finding how many elements an array holds</li>
-                <li>Reaching the last element without hard-coding its index</li>
-                <li>Recognizing undefined and tracing it upstream</li>
-                <li>Adding to an array and checking an index before using it</li>
+                <li>Creating an array and reading its elements</li>
+                <li>Explaining why the first index is 0</li>
+                <li>Assigning a new value to an element</li>
+                <li>Recognizing that two names can share one array</li>
               </ul>
             </section>
 
@@ -275,17 +302,19 @@ Out of range. Valid indexes are 0 to 4.
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt><CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
-                  <dd>How many elements an array currently holds.</dd>
-                  <dt>Off-by-one error</dt>
+                  <dt>Array</dt>
+                  <dd>An ordered collection of values stored under one name.</dd>
+                  <dt>Element</dt>
+                  <dd>One value inside an array.</dd>
+                  <dt>Index</dt>
                   <dd>
-                    A mistake of exactly one position, usually at the start or end
-                    of a range.
+                    The position of an element, counted from 0 in JavaScript.
                   </dd>
-                  <dt><CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
-                  <dd>What JavaScript returns when a value does not exist.</dd>
-                  <dt>Bounds check</dt>
-                  <dd>Testing that an index is valid before using it.</dd>
+                  <dt>Reference</dt>
+                  <dd>
+                    A name that points at an array rather than holding its own
+                    copy.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -300,42 +329,35 @@ Out of range. Valid indexes are 0 to 4.
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-23-length</b>.
+            <b class="text-sn-theme">1-23-arrays</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Length and the Last One</h3>
+          <h3>Task 1: Read Some Elements</h3>
           <ul>
             <li>Write the code below and run it.</li>
             <li>
-              Add a fifth name to the array literal and run again{" "}
-              <b>without changing anything else</b>. The last-element line should
-              still be right. That is why it is written with{" "}
-              <CodeSnippet code="length - 1" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of a number.
+              Five elements, and the last one is at index <b>4</b>. Try{" "}
+              <CodeSnippet code="readings[5]" lang={"javascript"} theme={"material-theme-ocean"} inline /> and see what you get. It does not crash
+              &mdash; hold that thought until Activity 1.24.
             </li>
-            <li>Remove the fifth name again before continuing.</li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Length and Safe Access"
+            title="Arrays"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Off the End, and Growing</h3>
+          <h3>Task 2: Change Some Elements</h3>
           <ul>
+            <li>Add a crew array and change one element of each array.</li>
             <li>
-              Add a deliberate out-of-range read, then a{" "}
-              <CodeSnippet code="push()" lang={"javascript"} theme={"material-theme-ocean"} inline />.
-            </li>
-            <li>
-              Notice that <CodeSnippet code="crew[4]" lang={"javascript"} theme={"material-theme-ocean"} inline /> was invalid at first and became
-              valid after the push. Nothing about the code changed &mdash; the
-              array did.
+              Predict both results before running. Which index is Bo at?
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -347,53 +369,54 @@ Out of range. Valid indexes are 0 to 4.
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Length and Safe Access"
-            ins={{ range: "7-16" }}
+            title="Arrays"
+            ins={{ range: "2, 8-17" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Check Before You Look</h3>
+          <h3>Task 3: Plan, Then Prove the Strange Part</h3>
           <ul>
             <li>
-              The comments describe a bounds check. Write the code under them.
+              The comments describe an experiment. Write the code and{" "}
+              <b>predict the result before you run it</b>.
             </li>
             <li>
-              The condition needs two comparisons joined with AND, from Activity
-              1.14. An index can be too small as well as too big.
+              Call the second name <CodeSnippet code="backupCrew" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; a name that
+              turns out to be a lie, which is the point.
             </li>
             <li>
-              The valid range message must use <CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline />, not the
-              number 4. Your array grew by one in Task 2, and it might grow
-              again.
+              Change only <CodeSnippet code="backupCrew[0]" lang={"javascript"} theme={"material-theme-ocean"} inline />. Do not touch{" "}
+              <CodeSnippet code="crew" lang={"javascript"} theme={"material-theme-ocean"} inline /> at all.
             </li>
-            <li>Test with &minus;1, with 2, and with 99.</li>
+            <li>
+              Then write a comment saying whether the result surprised you.
+            </li>
           </ul>
 
           <Code
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Length and Safe Access"
-            ins={{ range: "17-21" }}
+            title="Arrays"
+            ins={{ range: "18-22" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Catch It Early</h3>
+          <h3>Challenge (Optional): Make a Real Copy</h3>
           <ul>
             <li>
-              Recreate the crash from the slides: read an out-of-range element
-              into a variable, then try to use <CodeSnippet code=".length" lang={"javascript"} theme={"material-theme-ocean"} inline /> on it.
+              A backup that changes with the original is not a backup. Make one
+              that genuinely stands alone.
             </li>
             <li>
-              Read the error message. Note which line it blames and which line
-              actually caused it.
+              You do not know a built-in way to do this yet. But you know loops,
+              and you know how to build something up piece by piece.
             </li>
             <li>
-              Then add a check that stops the program from ever reaching that
-              line with a bad value, and write a comment about which version you
-              would rather debug at 2am.
+              Prove it works: change the copy, and show the original is
+              untouched.
             </li>
           </ul>
         </section>
@@ -403,6 +426,13 @@ Out of range. Valid indexes are 0 to 4.
         <!-- Exam Notation -->
         <section id="exam-notation">
           <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">
+              Two things are different here, and both will cost you points if you
+              read past them.
+            </b>
+          </p>
 
           <div class="row g-3 my-4">
             <div class="col-md-6">
@@ -425,66 +455,11 @@ Out of range. Valid indexes are 0 to 4.
             </div>
           </div>
 
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Meaning</th>
-                  <th>JavaScript</th>
-                  <th>Exam notation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>How many elements</td>
-                  <td><code>crew.length</code></td>
-                  <td><code>LENGTH(crew)</code></td>
-                </tr>
-                <tr>
-                  <td>Add to the end</td>
-                  <td><code>crew.push(x)</code></td>
-                  <td><code>APPEND(crew, x)</code></td>
-                </tr>
-                <tr>
-                  <td>Insert at a position</td>
-                  <td>&mdash;</td>
-                  <td><code>INSERT(crew, i, x)</code></td>
-                </tr>
-                <tr>
-                  <td>Remove at a position</td>
-                  <td>&mdash;</td>
-                  <td><code>REMOVE(crew, i)</code></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <h4>1. Lists Start at 1</h4>
 
           <p>
-            <code>INSERT</code> and <code>REMOVE</code> have no simple JavaScript
-            equivalent, so you will only ever <i>read</i> those two. Know that{" "}
-            <code>INSERT</code> shifts later elements right and <code>REMOVE</code>{" "}
-            shifts them left, and that both change the length.
-          </p>
-
-          <h4 class="mt-4">The Last Element Has No Minus One</h4>
-
-          <p>
-            Because exam lists start at 1, the last element is at{" "}
-            <code>LENGTH(crew)</code> exactly &mdash; not{" "}
-            <code>LENGTH(crew) - 1</code>.
-          </p>
-
-          <p>
-            That is genuinely tidier than JavaScript, and it is a trap in both
-            directions. Writing <code>crew[LENGTH(crew) - 1]</code> on the exam
-            gets you the <i>second to last</i>.
-          </p>
-
-          <h4 class="mt-4">And Going Off the End Stops the Program</h4>
-
-          <p>
-            The reference sheet is explicit: if an index is less than 1 or greater
-            than the length, <b>an error is produced and the program terminates</b>.
+            <code>scores[1]</code> on the exam is the <b>first</b> element. In
+            JavaScript, <code>scores[1]</code> is the <b>second</b>.
           </p>
 
           <div class="table-responsive">
@@ -492,26 +467,72 @@ Out of range. Valid indexes are 0 to 4.
               <thead>
                 <tr>
                   <th></th>
-                  <th>Reading an invalid index</th>
+                  <th>First element</th>
+                  <th>Last element of a 3-item list</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>JavaScript</td>
-                  <td><code>undefined</code>, and the program keeps running</td>
+                  <td><code>scores[0]</code></td>
+                  <td><code>scores[2]</code></td>
                 </tr>
                 <tr>
                   <td>Exam notation</td>
-                  <td>Error, and the program <b>stops immediately</b></td>
+                  <td><code>scores[1]</code></td>
+                  <td><code>scores[3]</code></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <p>
-            Same mistake, opposite symptom. If an exam question walks a list one
-            step too far, the answer is not "it displays undefined" &mdash; it is
-            that <b>nothing after that point happens at all</b>.
+            Every index in an exam question is one higher than the JavaScript
+            equivalent. When you trace one of these, write the positions out as
+            1, 2, 3 &mdash; do not let your JavaScript habit answer for you.
+          </p>
+
+          <h4 class="mt-4">2. The Arrow Makes a Real Copy</h4>
+
+          <p>
+            <code>copy ← scores</code> gives you an <b>independent copy</b>. The
+            reference sheet says so outright. Change <code>copy</code> and{" "}
+            <code>scores</code> is untouched.
+          </p>
+
+          <p>
+            <b>
+              JavaScript does the opposite, as you just proved in Task 3.
+            </b>{" "}
+            Same-looking line, opposite behavior:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th><code>b = a</code>, then change <code>b</code></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>JavaScript</td>
+                  <td><code>a</code> changes too &mdash; one array, two names</td>
+                </tr>
+                <tr>
+                  <td>Exam notation</td>
+                  <td><code>a</code> is unaffected &mdash; two separate lists</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            This is the subtlest difference in the whole course, because nothing
+            looks wrong. If an exam question copies a list and then modifies the
+            copy, <b>the original keeps its values</b>. Answering from JavaScript
+            instinct gets it backwards.
           </p>
         </section>
 
@@ -530,15 +551,10 @@ Out of range. Valid indexes are 0 to 4.
             showLineNumbers={false}
             title="Example Output"
             mark={[
-              { label: "No error — just undefined", range: "6" },
-              { label: "Range comes from length, not a typed-in number", range: "13" },
+              { label: "Index 1 is the second element", range: "8" },
+              { label: "Both changed — one array, two names", range: "12-13" },
             ]}
           />
-
-          <p class="mt-3">
-            Your bounds check must reject &minus;1 as well as 99. If only large
-            numbers are caught, half the condition is missing.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -551,19 +567,16 @@ Out of range. Valid indexes are 0 to 4.
 
           <ol>
             <li>
-              Why is <code>crew[crew.length - 1]</code> better than{" "}
-              <code>crew[3]</code>, even when the array happens to have four
-              elements?
+              An array of five elements has a last index of 4. Explain why, and
+              say what you would use for an array of a hundred.
             </li>
             <li>
-              JavaScript returns <code>undefined</code> for a bad index; the exam
-              notation stops the program. Which behavior would you rather have
-              while writing code, and which while running a finished program?
+              You changed <code>backupCrew</code> and <code>crew</code> changed
+              too. Explain what <code>let backupCrew = crew;</code> actually did.
             </li>
             <li>
-              You have now met <code>NaN</code> and <code>undefined</code>. What
-              do they have in common, and what should you do when you see either
-              one?
+              On the exam, the same line makes a real copy. Describe a question
+              you could get wrong by answering from JavaScript habit.
             </li>
           </ol>
         </section>

@@ -6,103 +6,114 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `if (crewSize >= 2 && cargoMass < 500) {
-  console.log("LAUNCH APPROVED");
+const Figure1 = `let oxygen = 88;
+let coolant = 18;
+let power = 132;
+
+let anyLow = oxygen < 25 || coolant < 25 || power < 25;
+
+console.log("Warning:", anyLow);`;
+const Figure2 = `Warning: true`;
+const Figure3 = `let age = 16;
+let hasPermit = true;
+
+if (age >= 16 && hasPermit) {
+  console.log("May drive.");
 } else {
-  console.log("LAUNCH DENIED");
+  console.log("May not drive.");
 }`;
-const Figure2 = `if (crewSize >= 2 && cargoMass < 500) {
-  console.log("LAUNCH APPROVED");
-} else {
-  if (crewSize < 2) {
-    console.log("DENIED: crew too small");
-  } else {
-    console.log("DENIED: cargo too heavy");
-  }
+const Figure4 = `let isWeekend = false;
+
+if (!isWeekend) {
+  console.log("Go to school.");
 }`;
-const Figure3 = `console.log(Math.random());
-console.log(Math.random());`;
-const Figure4 = `0.8367284419102708
-0.14092376601478842`;
-const Figure5 = `let roll = Math.floor(Math.random() * 6) + 1;
-console.log("You rolled:", roll);`;
-const Figure6 = `You rolled: 4`;
-const Task1 = `let crewSize = 1;
-let cargoMass = 300;
+const Figure5 = `let day = 3;
 
-if (crewSize >= 2 && cargoMass < 500) {
-  console.log("LAUNCH APPROVED");
+if (day === 6 || 7) {
+  console.log("Weekend!");
+}`;
+const Figure6 = `Weekend!`;
+const NotationJs = `let canLaunch = fuelOk && crewOk;
+let anyFault = fuelLow || powerLow;
+let allClear = !anyFault;`;
+const NotationPseudo = `canLaunch ← fuelOk AND crewOk
+anyFault ← fuelLow OR powerLow
+allClear ← NOT anyFault`;
+const Task1 = `let oxygen = 88;
+let coolant = 18;
+let power = 132;
+
+let anyLow = oxygen < 25 || coolant < 25 || power < 25;
+let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
+
+console.log("Any system low:", anyLow);
+console.log("All systems fine:", allFine);
+`;
+const Task2 = `let oxygen = 88;
+let coolant = 18;
+let power = 132;
+
+let anyLow = oxygen < 25 || coolant < 25 || power < 25;
+let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
+
+console.log("Any system low:", anyLow);
+console.log("All systems fine:", allFine);
+console.log("Not all fine:", !allFine);
+console.log("");
+
+if (anyLow) {
+  console.log("STATUS: attention required");
 } else {
-  if (crewSize < 2) {
-    console.log("DENIED: crew too small");
-  } else {
-    console.log("DENIED: cargo too heavy");
-  }
+  console.log("STATUS: nominal");
+}
+
+if (oxygen >= 25 && power >= 130) {
+  console.log("Cleared for long haul.");
+} else {
+  console.log("Short trips only.");
 }
 `;
-const Task2 = `let crewSize = 1;
-let cargoMass = 300;
+const Task3 = `let oxygen = 88;
+let coolant = 18;
+let power = 132;
 
-if (crewSize >= 2 && cargoMass < 500) {
-  console.log("LAUNCH APPROVED");
+let anyLow = oxygen < 25 || coolant < 25 || power < 25;
+let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
+
+console.log("Any system low:", anyLow);
+console.log("All systems fine:", allFine);
+console.log("Not all fine:", !allFine);
+console.log("");
+
+if (anyLow) {
+  console.log("STATUS: attention required");
 } else {
-  if (crewSize < 2) {
-    console.log("DENIED: crew too small");
-  } else {
-    console.log("DENIED: cargo too heavy");
-  }
+  console.log("STATUS: nominal");
+}
+
+if (oxygen >= 25 && power >= 130) {
+  console.log("Cleared for long haul.");
+} else {
+  console.log("Short trips only.");
 }
 
 console.log("");
 
-let roll = Math.floor(Math.random() * 6) + 1;
-console.log("Solar flare check, rolled:", roll);
-
-if (roll >= 5) {
-  console.log("Flare detected.");
-} else {
-  console.log("Skies clear.");
-}
+// Ask for a crew size and cast it
+// Ask for a cargo mass and cast it
+// A launch is allowed only if the crew is at least 2 AND the mass is under 500
+// If it is not allowed, say so when either one is the problem
 `;
-const Task3 = `let crewSize = 1;
-let cargoMass = 300;
+const ExampleOutput = `Any system low: true
+All systems fine: false
+Not all fine: true
 
-if (crewSize >= 2 && cargoMass < 500) {
-  console.log("LAUNCH APPROVED");
-} else {
-  if (crewSize < 2) {
-    console.log("DENIED: crew too small");
-  } else {
-    console.log("DENIED: cargo too heavy");
-  }
-}
+STATUS: attention required
+Cleared for long haul.
 
-console.log("");
-
-let roll = Math.floor(Math.random() * 6) + 1;
-console.log("Solar flare check, rolled:", roll);
-
-if (roll >= 5) {
-  console.log("Flare detected.");
-} else {
-  console.log("Skies clear.");
-}
-
-console.log("");
-
-// Roll a second die, 1 to 6, into its own variable
-// If both dice match, it is a critical event
-//   inside that, if the matched value is 6, say "CRITICAL: total systems failure"
-//   otherwise say "CRITICAL: minor fault" and show the value
-// If they do not match, say "No event."
-`;
-const ExampleOutput = `DENIED: crew too small
-
-Solar flare check, rolled: 5
-Flare detected.
-
-Second die: 5
-CRITICAL: minor fault, value 5
+Crew size? 1
+Cargo mass? 300
+LAUNCH DENIED
 `;
 //#endregion
 ---
@@ -115,7 +126,7 @@ CRITICAL: minor fault, value 5
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.15: Nested Conditions and Randomness</h1>
+        <h1>Activity 1.15: Combining Conditions</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -123,90 +134,29 @@ CRITICAL: minor fault, value 5
           <Presentation>
             <section>
               <h2>Activity 1.15</h2>
-              <h3 class="text-sn-theme">Nested Conditions and Randomness</h3>
+              <h3 class="text-sn-theme">Combining Conditions</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>A Decision Inside a Decision</p>
-              <p>Nesting vs. AND</p>
-              <p>Random Numbers</p>
+              <p>AND, OR, NOT</p>
+              <p>Reading a Compound Condition</p>
+              <p>The Trap</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Unfinished Business, Again</h2>
+              <h2>Unfinished Business</h2>
+              <p>
+                Activity 1.14 asked for a warning light that came on if{" "}
+                <i>any</i> of three systems was low &mdash; and told you the easy
+                tools were not available yet.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Unfinished Business</h2>
               <Code
                 code={Figure1}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
-              <p class="fragment">
-                This works, but "DENIED" does not tell the crew what to fix.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>A Decision Inside a Decision</h2>
-              <Code
-                code={Figure2}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
-              <p class="fragment">
-                The inner <CodeSnippet code="if" lang={"javascript"} theme={"material-theme-ocean"} inline /> only runs when the outer one already
-                failed. By then you know something is wrong &mdash; the inner
-                question is just <i>which thing</i>.
-              </p>
-            </section>
-
-            <section>
-              <h2>Reading a Nest</h2>
-              <div class="text-start">
-                <ul>
-                  <li class="fragment">Indentation shows the depth</li>
-                  <li class="fragment">
-                    An inner condition is only ever asked if the outer one led
-                    there
-                  </li>
-                  <li class="fragment">
-                    Every <CodeSnippet code="{" lang={"javascript"} theme={"material-theme-ocean"} inline /> needs its partner, and they stack up
-                    at the bottom
-                  </li>
-                </ul>
-              </div>
-              <p class="fragment">
-                If your braces stop matching, your indentation was probably
-                lying to you before the computer noticed.
-              </p>
-            </section>
-
-            <section>
-              <h2>Nest, or Use AND?</h2>
-              <div class="text-start">
-                <ul>
-                  <li class="fragment">
-                    <b>AND</b> when you only care whether everything passed
-                  </li>
-                  <li class="fragment">
-                    <b>Nesting</b> when you need to respond differently to each
-                    reason it failed
-                  </li>
-                </ul>
-              </div>
-              <p class="fragment">
-                Both are correct code. They answer different questions, and the
-                one you want depends on what the program has to say next.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Random Numbers</h2>
-              <Code
-                code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
@@ -214,21 +164,81 @@ CRITICAL: minor fault, value 5
                 class="mb-3"
               />
               <Code
-                code={Figure4}
+                code={Figure2}
                 frame="terminal"
                 lang="txt"
                 title="Demo"
                 showLineNumbers={false}
                 class="fragment"
               />
+              <p class="fragment">One line. That is what today buys you.</p>
+            </section>
+
+            <section>
+              <h2>Three Operators</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>
+                    <CodeSnippet code="&&" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; AND
+                  </dt>
+                  <dd>true only when <b>both</b> sides are true</dd>
+                  <dt>
+                    <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; OR
+                  </dt>
+                  <dd>true when <b>either</b> side is true, or both</dd>
+                  <dt>
+                    <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; NOT
+                  </dt>
+                  <dd>flips true to false and false to true</dd>
+                </dl>
+              </div>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>AND</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
               <p class="fragment">
-                Long decimals, always <b>0 or more and less than 1</b>. Never 1
-                itself.
+                Both must hold. Sixteen with no permit fails. A permit at
+                fifteen fails.
               </p>
             </section>
 
-            <section data-auto-animate>
-              <h2>Turning That Into a Die</h2>
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>NOT</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Read <CodeSnippet code="!isWeekend" lang={"javascript"} theme={"material-theme-ocean"} inline /> aloud as "not weekend." If the
+                name reads like a question, the <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> version reads
+                like the opposite question.
+              </p>
+            </section>
+
+            <section>
+              <h2>OR Is Not "Either But Not Both"</h2>
+              <p>
+                In everyday speech, "soup or salad" means pick one. In
+                programming, <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline /> is true when{" "}
+                <b class="text-sn-theme">either or both</b> are true.
+              </p>
+              <p class="fragment">
+                Only <CodeSnippet code="false || false" lang={"javascript"} theme={"material-theme-ocean"} inline /> gives false.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Trap</h2>
               <Code
                 code={Figure5}
                 frame="code"
@@ -241,59 +251,38 @@ CRITICAL: minor fault, value 5
                 code={Figure6}
                 frame="terminal"
                 lang="txt"
-                title="Demo"
+                title="Demo — day is 3"
                 showLineNumbers={false}
                 class="fragment"
               />
             </section>
 
-            <section>
-              <h2>Reading That Line, Inside Out</h2>
-              <div class="text-start">
-                <ol>
-                  <li class="fragment">
-                    <CodeSnippet code="Math.random()" lang={"javascript"} theme={"material-theme-ocean"} inline /> gives something like 0.61
-                  </li>
-                  <li class="fragment">
-                    <CodeSnippet code="* 6" lang={"javascript"} theme={"material-theme-ocean"} inline /> stretches it to 0 up to just under 6
-                  </li>
-                  <li class="fragment">
-                    <CodeSnippet code="Math.floor()" lang={"javascript"} theme={"material-theme-ocean"} inline /> chops the decimal off, giving 0 to 5
-                  </li>
-                  <li class="fragment">
-                    <CodeSnippet code="+ 1" lang={"javascript"} theme={"material-theme-ocean"} inline /> shifts it to 1 to 6
-                  </li>
-                </ol>
-              </div>
-            </section>
-
-            <section>
-              <h2>The General Recipe</h2>
+            <section data-auto-animate>
+              <h2>The Trap</h2>
               <p>
-                For a whole number from <b>min</b> to <b>max</b>, both included:
+                It printed <i>Weekend!</i> for a Wednesday, and it will print it
+                for every day of the week.
               </p>
               <p class="fragment">
-                <CodeSnippet
-                  code="Math.floor(Math.random() * (max - min + 1)) + min"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />
+                <CodeSnippet code="day === 6 || 7" lang={"javascript"} theme={"material-theme-ocean"} inline /> does not mean "day is 6 or 7."
+                It means "is day 6?" <b>or</b> "is 7 a thing?" &mdash; and a
+                plain 7 always counts as true.
               </p>
               <p class="fragment">
-                Worth remembering: the exam reference sheet does this with{" "}
-                <CodeSnippet code="RANDOM(1, 6)" lang={"txt"} theme={"material-theme-ocean"} inline />, which you met back in Activity 1.4.
-                One call, no arithmetic. JavaScript makes you do it by hand.
+                <b class="text-sn-theme">
+                  Each side of an operator needs its own complete comparison:
+                </b>{" "}
+                <CodeSnippet code="day === 6 || day === 7" lang={"javascript"} theme={"material-theme-ocean"} inline />
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Placing a conditional inside another conditional</li>
-                <li>Choosing between nesting and AND</li>
-                <li>Generating a random whole number in a range</li>
-                <li>Testing a program whose output changes every run</li>
+                <li>Combining conditions with AND and OR</li>
+                <li>Reversing a condition with NOT</li>
+                <li>Storing a compound condition in a well-named variable</li>
+                <li>Writing a complete comparison on each side</li>
               </ul>
             </section>
 
@@ -301,14 +290,15 @@ CRITICAL: minor fault, value 5
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Nested conditional</dt>
-                  <dd>A conditional written inside another conditional's block.</dd>
-                  <dt>Nesting depth</dt>
-                  <dd>How many levels deep a piece of code sits.</dd>
-                  <dt>
-                    <CodeSnippet code="Math.floor()" lang={"javascript"} theme={"material-theme-ocean"} inline />
-                  </dt>
-                  <dd>Rounds a decimal down to the whole number below it.</dd>
+                  <dt>Logical operator</dt>
+                  <dd>
+                    An operator that combines or reverses boolean values:{" "}
+                    <CodeSnippet code="&&" lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                  </dd>
+                  <dt>Compound condition</dt>
+                  <dd>A condition built from two or more simpler conditions.</dd>
+                  <dt>Negation</dt>
+                  <dd>Reversing a boolean value.</dd>
                 </dl>
               </div>
             </section>
@@ -323,22 +313,21 @@ CRITICAL: minor fault, value 5
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-15-nested</b>.
+            <b class="text-sn-theme">1-15-combining</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Say Which One Failed</h3>
+          <h3>Task 1: Any, and All</h3>
           <ul>
             <li>Write the code below and run it.</li>
             <li>
-              Test all four combinations by editing the two numbers. You should
-              be able to produce approval, a crew failure, and a cargo failure.
+              Read the two conditions carefully. They are opposites, so their
+              answers should never match.
             </li>
             <li>
-              <b>Worth noticing:</b> with crew 1 and mass 900, both are wrong but
-              only the crew is reported. Is that acceptable? Hold that thought
-              for the reflection.
+              Set all three readings above 25 and run again. Both answers should
+              flip.
             </li>
           </ul>
 
@@ -346,18 +335,19 @@ CRITICAL: minor fault, value 5
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Nested Conditions and Randomness"
+            title="Combining Conditions"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Add a Die Roll</h3>
+          <h3>Task 2: NOT, and Two Decisions</h3>
           <ul>
-            <li>Add a random roll and a decision based on it.</li>
             <li>
-              <b>Run this one five or six times.</b> The output should change.
-              Every program you have written until now gave the same answer every
-              time.
+              Add a <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> line and two if/else blocks.
+            </li>
+            <li>
+              The second condition uses AND with two different thresholds. Work
+              out on paper what it should say before you run it.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -369,26 +359,26 @@ CRITICAL: minor fault, value 5
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Nested Conditions and Randomness"
-            ins={{ range: "13-23" }}
+            title="Combining Conditions"
+            ins={{ range: "10-11, 13-23" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Roll Two Dice</h3>
+          <h3>Task 3: Plan, Then Gate a Launch</h3>
           <ul>
             <li>
-              The comments describe a doubles check with a nested decision inside
-              it. Write the code under them.
+              The comments describe a launch gate with two requirements. Write
+              the code under them.
+            </li>
+            <li>Cast both inputs.</li>
+            <li>
+              The approval needs <b>both</b> conditions. The denial happens when{" "}
+              <i>either</i> fails &mdash; which is what the <CodeSnippet code="else" lang={"javascript"} theme={"material-theme-ocean"} inline /> already handles for you.
             </li>
             <li>
-              Look at the indentation in the comments &mdash; it is telling you
-              the shape. Two of those lines are indented further because they
-              belong <i>inside</i> the match check.
-            </li>
-            <li>
-              Run it until you see a match. It takes about six tries on average,
-              which is itself worth noticing.
+              Test all four combinations: both good, crew too small, mass too
+              heavy, and both wrong.
             </li>
           </ul>
 
@@ -396,29 +386,84 @@ CRITICAL: minor fault, value 5
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Nested Conditions and Randomness"
-            ins={{ range: "25-31" }}
+            title="Combining Conditions"
+            ins={{ range: "25-30" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Test Something Random</h3>
+          <h3>Challenge (Optional): Say Which One Failed</h3>
           <ul>
             <li>
-              A program that behaves differently every run is hard to test. Add a
-              line near the top that lets you <i>force</i> a value:{" "}
-              <CodeSnippet code="let roll = 6;" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of the random version.
+              "LAUNCH DENIED" does not tell the crew what to fix. Improve it so
+              the program says whether the problem is the crew, the cargo, or
+              both.
             </li>
             <li>
-              Use it to check that your "total systems failure" branch works,
-              without waiting for double sixes.
+              You will need more than one condition inside the failure path.
+              Think about what goes inside the <CodeSnippet code="else" lang={"javascript"} theme={"material-theme-ocean"} inline /> block.
             </li>
             <li>
-              Write a comment explaining why a programmer might want to switch
-              randomness off on purpose. Restore the random line before
-              submitting.
+              This is the idea Activity 1.16 is built on, so a partial answer is
+              fine.
             </li>
           </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            This one is a straight word swap, and the words are the easy part
+            &mdash; they say exactly what they mean.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>JavaScript</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>&amp;&amp;</code></td><td><code>AND</code></td></tr>
+                <tr><td><code>||</code></td><td><code>OR</code></td></tr>
+                <tr><td><code>!</code></td><td><code>NOT</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>The one thing to watch:</b> <code>NOT</code> goes in front of the
+            condition just like <code>!</code> does, with a space. You will see{" "}
+            <code>NOT (a = b)</code> more often than <code>a ≠ b</code> in some
+            questions, even though they mean the same thing.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -427,11 +472,7 @@ CRITICAL: minor fault, value 5
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>
-            Verify your program works. Because it uses randomness,{" "}
-            <b>your output will differ every run</b> &mdash; that is correct, not
-            a bug.
-          </p>
+          <p>Verify your program works correctly.</p>
 
           <Code
             code={ExampleOutput}
@@ -440,15 +481,10 @@ CRITICAL: minor fault, value 5
             showLineNumbers={false}
             title="Example Output"
             mark={{
-              label: "Different every run",
-              range: "3-4, 6-7",
+              label: "Crew of 1 fails, even though the mass is fine",
+              range: "8-10",
             }}
           />
-
-          <p class="mt-3">
-            Run it enough times to have seen all three outcomes at least once: no
-            event, a minor fault, and total systems failure.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -461,16 +497,17 @@ CRITICAL: minor fault, value 5
 
           <ol>
             <li>
-              In Task 1, when both requirements fail, only one is reported.
-              Explain why, and decide whether you think that is a bug.
+              In everyday speech, "or" usually means one or the other. How is{" "}
+              <code>||</code> different, and why might that cause a bug?
             </li>
             <li>
-              When would you use <code>&amp;&amp;</code> instead of nesting, and
-              when is nesting the better choice?
+              <code>day === 6 || 7</code> looked reasonable and was always true.
+              Explain what JavaScript actually did with that line.
             </li>
             <li>
-              Randomness makes a program harder to test. Describe how you checked
-              that a rare branch actually works.
+              <code>anyLow</code> and <code>allFine</code> are opposites. Rewrite
+              one of them using <code>!</code> and the other variable, and say
+              which version you find easier to read.
             </li>
           </ol>
         </section>

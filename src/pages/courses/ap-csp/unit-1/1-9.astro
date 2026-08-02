@@ -2,70 +2,104 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
-import { Image } from "astro:assets";
-import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-9-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `ellipse(200, 150, 80, 80);
-rect(160, 190, 80, 120);
-line(200, 190, 200, 310);`;
-const Figure2 = `let centerX = 200;
+const Figure1 = `let a = prompt("First number?");
+let b = prompt("Second number?");
 
-ellipse(centerX, 150, 80, 80);
-rect(centerX - 40, 190, 80, 120);
-line(centerX, 190, centerX, 310);`;
-const Figure3 = `let size = 80;
+console.log("Sum:", a + b);
+console.log("Product:", a * b);`;
+const Figure2 = `First number? 45
+Second number? 64
+Sum: 4564
+Product: 2880`;
+const Figure3 = `let a = Number(prompt("First number?"));
+let b = Number(prompt("Second number?"));
 
-ellipse(200, 150, size, size);
-rect(200 - size / 2, 190, size, size * 1.5);`;
-const Figure4 = `let r = 200;
-let g = 60;
-let b = 90;
+console.log("Sum:", a + b);
+console.log("Product:", a * b);`;
+const Figure4 = `First number? 45
+Second number? 64
+Sum: 109
+Product: 2880`;
+const Figure5 = `console.log(Number("42"));
+console.log(Number("3.5"));
+console.log(Number("banana"));`;
+const Figure6 = `42
+3.5
+NaN`;
+const Figure7 = `let raw = prompt("How many crates?");
+let crates = Number(raw);
 
-fill(r, g, b);
-ellipse(200, 150, 80, 80);
+console.log("Crates:", crates);
+console.log("Doubled:", crates * 2);`;
+const Figure8 = `let subtotal = 42.50;
+let tip = subtotal * 0.18;
 
-fill(r, g + 100, b);
-ellipse(300, 150, 80, 80);`;
-const Task1 = `function setup() {
-  createCanvas(400, 400);
-  background(220);
+console.log("Tip:", tip);`;
+const Figure9 = `Tip: 7.6499999999999995`;
+const Figure10 = `console.log("Tip: $" + tip.toFixed(2));`;
+const Figure11 = `Tip: $7.65`;
+const Figure12 = `let price = 12.5;
 
-  fill(120, 180, 220);
-  ellipse(200, 120, 90, 90);
-  rect(155, 170, 90, 130);
-}
+console.log(price.toFixed(2));
+console.log(price.toFixed(2) + 5);`;
+const Figure13 = `12.50
+12.505`;
+const Task1 = `let first = prompt("First number?");
+let second = prompt("Second number?");
+
+console.log("Added with no casting:", first + second);
+console.log("Multiplied with no casting:", first * second);
 `;
-const Task2 = `function setup() {
-  createCanvas(400, 400);
-  background(220);
+const Task2 = `let first = Number(prompt("First number?"));
+let second = Number(prompt("Second number?"));
 
-  let towerX = 200;
-  let towerWidth = 90;
-
-  fill(120, 180, 220);
-  ellipse(towerX, 120, towerWidth, towerWidth);
-  rect(towerX - towerWidth / 2, 170, towerWidth, 130);
-}
+console.log("Sum:", first + second);
+console.log("Difference:", first - second);
+console.log("Product:", first * second);
+console.log("Quotient:", first / second);
 `;
-const Task3 = `function setup() {
-  createCanvas(400, 400);
-  background(220);
+const Task3 = `let first = Number(prompt("First number?"));
+let second = Number(prompt("Second number?"));
 
-  let towerX = 200;
-  let towerWidth = 90;
+console.log("Sum:", first + second);
+console.log("Difference:", first - second);
+console.log("Product:", first * second);
+console.log("Quotient:", first / second);
+console.log("");
 
-  fill(120, 180, 220);
-  ellipse(towerX, 120, towerWidth, towerWidth);
-  rect(towerX - towerWidth / 2, 170, towerWidth, 130);
+// Ask how many boxes there are, cast it to a number
+// Ask how many fit per crate, cast it to a number
+// Show the number of full crates and the boxes left over
+`;
+const Task4 = `let subtotal = 42.50;
+let tipRate = 0.18;
 
-  // Draw a second, smaller tower to the left of the first
-  //   its x should be worked out from towerX, not typed in
-  //   its width should be worked out from towerWidth, not typed in
-  //   give it a different fill color
-}
+let tip = subtotal * tipRate;
+let total = subtotal + tip;
+
+console.log("Subtotal: $" + subtotal.toFixed(2));
+console.log("Tip: $" + tip.toFixed(2));
+console.log("Total: $" + total.toFixed(2));
+`;
+const ExampleOutput = `First number? 45
+Second number? 64
+Sum: 109
+Difference: -19
+Product: 2880
+Quotient: 0.703125
+
+How many boxes? 47
+How many fit per crate? 6
+Full crates: 7
+Left over: 5
+
+Subtotal: $42.50
+Tip: $7.65
+Total: $50.15
 `;
 //#endregion
 ---
@@ -78,60 +112,26 @@ const Task3 = `function setup() {
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.9: p5 Lab 2 &mdash; Variables That Draw</h1>
+        <h1>Activity 1.9: Type Casting</h1>
         <Divider variant="8" classes="mb-5" />
 
-
-        <!-- What You're Building -->
-        <section id="target">
-          <h2>What You're Building</h2>
-
-          <div class="text-center my-4">
-            <Image src={TargetImage} alt="A dark canvas showing a tall tower built from stacked rectangles, drawn from a small set of variables" width={400} class="img-fluid rounded" />
-          </div>
-
-          <p>By the end of <b>Task 2</b> a handful of variables will control this whole tower. Change one number and every part of it moves.</p>
-
-          <p class="text-body-secondary">
-            <b>Task 3 is not shown.</b> That one is yours to work out.
-          </p>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
               <h2>Activity 1.9</h2>
-              <h3 class="text-sn-theme">p5 Lab 2 &mdash; Variables That Draw</h3>
+              <h3 class="text-sn-theme">Type Casting</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Nothing New</p>
-              <p>One Variable, Several Places</p>
-              <p>Computing From a Variable</p>
+              <p>The Bug From Last Activity</p>
+              <p>Converting Text to a Number</p>
+              <p>When Conversion Fails</p>
             </section>
 
             <section data-auto-animate>
-              <h2>No New Ideas Today</h2>
-              <p>
-                Variables from Activity 1.3. The canvas from Activity 1.5. That
-                is the entire toolkit.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>No New Ideas Today</h2>
-              <p>
-                What is new is <i>seeing</i> what a variable is worth. In the
-                terminal a variable saves you some typing. On a canvas it moves
-                a whole picture at once.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>The Problem With Numbers</h2>
+              <h2>The Bug</h2>
               <Code
                 code={Figure1}
                 frame="code"
@@ -139,109 +139,323 @@ const Task3 = `function setup() {
                 lang="javascript"
                 showLineNumbers={false}
               />
-              <p class="fragment">
-                Three shapes, all lined up at x = 200. To move this whole thing
-                right by 50 pixels, how many numbers do you have to change?
-              </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Fix</h2>
+              <h2>The Bug</h2>
               <Code
                 code={Figure2}
-                frame="code"
+                frame="terminal"
+                lang="txt"
                 title="Demo"
-                lang="javascript"
                 showLineNumbers={false}
               />
               <p class="fragment">
-                Now it is <b class="text-sn-theme">one number</b>. Change{" "}
-                <CodeSnippet
-                  code="centerX"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> and everything moves together, still lined up.
+                45 plus 64 is not 4564. But 45 times 64 <i>is</i> 2880.
               </p>
             </section>
 
             <section>
-              <h2>Look at the Rectangle</h2>
+              <h2>Only One of Them Broke</h2>
               <p>
-                <CodeSnippet
-                  code="rect(centerX - 40, 190, 80, 120)"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />
+                This is the confusing part, and it is worth slowing down for.
+              </p>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="*"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />, <CodeSnippet
+                      code="-"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />, and <CodeSnippet
+                      code="/"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> only mean one thing, so JavaScript quietly treats the text
+                    as numbers
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="+"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> means <i>two</i> things &mdash; add numbers, or join text
+                  </li>
+                  <li class="fragment">
+                    Given text, it picks joining. Every time.
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2>Why That Is Dangerous</h2>
+              <p>
+                Three of your four operators appear to work. You will assume the
+                whole program is fine.
               </p>
               <p class="fragment">
-                A rectangle is placed by its corner, so centering it means
-                shifting left by half its width. The variable does not just get{" "}
-                <i>used</i> &mdash; it gets <b class="text-sn-theme">calculated
-                with</b>.
+                Then one addition somewhere produces nonsense, with no error
+                message pointing at it.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Sizes Too</h2>
+              <h2>The Fix</h2>
               <Code
                 code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-              <p class="fragment">
-                One <CodeSnippet
-                  code="size"
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Fix</h2>
+              <p>
+                <CodeSnippet
+                  code="Number()"
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                /> drives the circle, the rectangle's width, its height, and its
-                horizontal position. Change it and the shape scales as a unit.
+                /> converts text into an actual number. Wrapping the{" "}
+                <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> means the variable holds a number from the start.
+              </p>
+              <p class="fragment">
+                Converting a value from one type to another is called{" "}
+                <b class="text-sn-theme">casting</b>.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Colors Are Just Numbers</h2>
+              <h2>Reading Nested Calls</h2>
               <Code
-                code={Figure4}
+                code={Figure7}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
               />
               <p class="fragment">
+                Two lines instead of one, doing the same job. If{" "}
                 <CodeSnippet
-                  code="g + 100"
+                  code="Number(prompt(...))"
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                /> makes the second circle greener than the first, and stays
-                related to it. This is exactly the arithmetic from Activity 1.4.
+                /> is hard to read, write it this way instead.
               </p>
             </section>
 
             <section>
-              <h2>The Rule for Today</h2>
+              <h2>Inside Out</h2>
               <p>
-                If two numbers in your sketch are <i>related</i>, one of them
-                should be calculated from the other, not typed in separately.
+                When one call sits inside another, the inner one runs first.
               </p>
               <p class="fragment">
-                Typed-in numbers drift apart the moment you change something.
-                Calculated ones cannot.
+                <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> collects the text, then <CodeSnippet
+                  code="Number()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> converts it, then the result gets stored.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>When It Cannot Convert</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>NaN</h2>
+              <p>
+                <CodeSnippet
+                  code="NaN"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> means <b>Not a Number</b>. It is what you get when a
+                conversion fails.
+              </p>
+              <p class="fragment">
+                The program <b class="text-sn-theme">does not stop</b>. It keeps
+                running and every calculation from that point on is also{" "}
+                <CodeSnippet
+                  code="NaN"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />.
+              </p>
+              <p class="fragment">
+                Seeing <CodeSnippet
+                  code="NaN"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> in your output almost always means a cast failed earlier than
+                where you noticed.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Going the Other Way</h2>
+              <p>
+                You have converted text into a number. Sometimes you need a
+                number turned into <i>readable text</i>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Money Is Where This Bites</h2>
+              <Code
+                code={Figure8}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure9}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                Eighteen percent of $42.50 is $7.65. Computers store decimals
+                approximately, and the error surfaces the moment you show it to
+                someone.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>toFixed()</h2>
+              <Code
+                code={Figure10}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure11}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                <CodeSnippet code="toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> rounds to two decimal places, and it{" "}
+                <b class="text-sn-theme">pads with zeros</b> &mdash; so $12.50
+                stays $12.50 rather than collapsing to $12.5.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>But Look What It Gives Back</h2>
+              <Code
+                code={Figure12}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure13}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>But Look What It Gives Back</h2>
+              <p>
+                <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline /> returns <b class="text-sn-theme">a
+                string</b>, not a number. So <CodeSnippet code="+ 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> joined instead of
+                adding &mdash; the exact bug from the start of this activity,
+                back again.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  Do all your arithmetic first. Format only at the moment you
+                  display.
+                </b>
+              </p>
+              <p class="fragment">
+                And notice that using <CodeSnippet code="+" lang={"javascript"} theme={"material-theme-ocean"} inline /> to attach a{" "}
+                <CodeSnippet code='"$"' lang={"javascript"} theme={"material-theme-ocean"} inline /> is now the <i>right</i> choice, because
+                joining text is exactly what you want there.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Replacing repeated numbers with a variable</li>
-                <li>Calculating a position or size from a variable</li>
-                <li>Driving color with variables</li>
-                <li>Changing one value and predicting the whole result</li>
+                <li>Explaining why input arrives as text</li>
+                <li>
+                  Explaining why only <CodeSnippet
+                    code="+"
+                    lang={"javascript"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> visibly breaks
+                </li>
+                <li>Casting text to a number before doing arithmetic</li>
+                <li>Recognizing NaN and tracing it back to its cause</li>
+                <li>Formatting a number for display with toFixed()</li>
               </ul>
             </section>
 
@@ -249,14 +463,29 @@ const Task3 = `function setup() {
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Hard-coded value</dt>
+                  <dt>Casting</dt>
+                  <dd>Converting a value from one data type to another.</dd>
+                  <dt>Type coercion</dt>
                   <dd>
-                    A number typed directly into the code instead of being stored
-                    or calculated.
+                    When a language converts a type automatically, without being
+                    asked.
                   </dd>
-                  <dt>Derived value</dt>
+                  <dt>NaN</dt>
                   <dd>
-                    A value worked out from another value rather than typed in.
+                    "Not a Number" &mdash; the result of a numeric conversion
+                    that failed.
+                  </dd>
+                  <dt>Silent failure</dt>
+                  <dd>
+                    A bug that produces a wrong answer instead of an error
+                    message.
+                  </dd>
+                  <dt>
+                    <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>
+                    Formats a number to a set number of decimal places, and
+                    returns it as a <b>string</b>.
                   </dd>
                 </dl>
               </div>
@@ -271,50 +500,44 @@ const Task3 = `function setup() {
           <h2>Build</h2>
 
           <p>
-            Create a new <b>p5.js</b> sketch named{" "}
-            <b class="text-sn-theme">1-9-variable-canvas</b>.
-          </p>
-
-          <p>
-            Everything goes inside <CodeSnippet
-              code="setup()"
-              lang={"javascript"}
-              theme={"material-theme-ocean"}
-              inline
-            /> again. Nothing moves yet.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-9-casting</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: A Tower, With Numbers</h3>
+          <h3>Task 1: See It Break</h3>
           <ul>
-            <li>Write the code below and run it. You should see a simple tower.</li>
+            <li>Write the code below and run it with 45 and 64.</li>
             <li>
-              Now move the whole tower 60 pixels right, by editing numbers.
-              Count how many you had to change.
+              Read both results carefully. One is right and one is not. Make sure
+              you can say which before moving on.
             </li>
-            <li>Put it back at 200 before continuing.</li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="p5 Lab 2 — Variables That Draw"
+            title="Type Casting"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: The Same Tower, With Variables</h3>
+          <h3>Task 2: Cast the Input</h3>
           <ul>
-            <li>Replace the hard-coded numbers with two variables.</li>
             <li>
-              The result on screen should look <b>identical</b> to Task 1. That
-              is how you know you did it right.
+              Wrap both prompts in <CodeSnippet
+                code="Number()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and display all four operations.
             </li>
+            <li>Run it with 45 and 64 again. The sum should now be 109.</li>
             <li>
-              Now move the tower 60 pixels right again. This time it is one
-              number.
+              Then run it once with the word <i>banana</i> as an answer and see
+              what happens. Nothing crashes.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -326,40 +549,26 @@ const Task3 = `function setup() {
             code={Task2}
             frame="code"
             lang="javascript"
-            title="p5 Lab 2 — Variables That Draw"
-            ins={{ range: "5-6, 9-10" }}
+            title="Type Casting"
+            ins={{ range: "1-4, 4-7" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Add a Second Tower</h3>
+          <h3>Task 3: Plan, Then Rebuild the Crate Problem</h3>
           <ul>
             <li>
-              The comments describe a smaller tower to the left. Write the code
-              under them.
+              The three comments describe the crate calculation from Activity
+              1.6, except the numbers now come from the user.
             </li>
             <li>
-              <b class="text-sn-theme">Every number must be derived.</b> Its x
-              comes from <CodeSnippet
-                code="towerX"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />, its width from <CodeSnippet
-                code="towerWidth"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />. No new literal positions.
+              Cast both answers. If you forget, the remainder still works and the
+              subtraction still works &mdash; which is exactly what makes it hard
+              to spot.
             </li>
             <li>
-              Then change <CodeSnippet
-                code="towerX"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> to 260 and run. <b>Both</b> towers should move, still correctly
-              spaced. If only one moved, something is still hard-coded.
+              Test it with 47 boxes and 6 per crate. You already know the answer
+              is 7 crates with 5 left over.
             </li>
           </ul>
 
@@ -367,30 +576,65 @@ const Task3 = `function setup() {
             code={Task3}
             frame="code"
             lang="javascript"
-            title="p5 Lab 2 — Variables That Draw"
-            ins={{ range: "11-15" }}
+            title="Type Casting"
+            ins={{ range: "8-12" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): One Knob</h3>
+          <h3>Task 4: Money</h3>
           <ul>
             <li>
-              Add a variable at the top called <CodeSnippet
-                code="scale"
+              Add a tip calculator at the bottom. Run it{" "}
+              <b>without</b> the <CodeSnippet code=".toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> calls first, so you
+              see what the raw numbers look like.
+            </li>
+            <li>
+              Then add them back. The tip should go from{" "}
+              <CodeSnippet code="7.6499999999999995" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
+              <CodeSnippet code="7.65" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </li>
+            <li>
+              Note that the arithmetic happens on the plain numbers, and{" "}
+              <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline /> is only used inside the{" "}
+              <CodeSnippet code="console.log" lang={"javascript"} theme={"material-theme-ocean"} inline />. Never calculate with a formatted value.
+            </li>
+            <li>
+              <b class="text-sn-theme">Try this:</b> change{" "}
+              <CodeSnippet code="let total = subtotal + tip;" lang={"javascript"} theme={"material-theme-ocean"} inline /> to use{" "}
+              <CodeSnippet code="tip.toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of{" "}
+              <CodeSnippet code="tip" lang={"javascript"} theme={"material-theme-ocean"} inline />, and see what the total becomes. Change it back.
+            </li>
+          </ul>
+
+          <Code
+            code={Task4}
+            frame="code"
+            lang="javascript"
+            title="Type Casting"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Make NaN Spread</h3>
+          <ul>
+            <li>
+              Run your finished program and answer one of the crate questions
+              with a word instead of a number.
+            </li>
+            <li>
+              Write a comment listing which output lines became{" "}
+              <CodeSnippet
+                code="NaN"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> and use it so that changing it alone resizes{" "}
-              <i>both</i> towers together.
+              /> and which survived.
             </li>
             <li>
-              Test it at 0.5 and at 1.5. Everything should stay in proportion and
-              stay on the canvas.
-            </li>
-            <li>
-              This is harder than it looks. Getting one number to control a whole
-              composition is the actual skill.
+              Then explain, in that comment, why a wrong answer with no error
+              message is worse than a crash.
             </li>
           </ul>
         </section>
@@ -401,26 +645,21 @@ const Task3 = `function setup() {
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Your finished sketch should show all of the following.</p>
-
-          <ul>
-            <li>Two towers, the second smaller and to the left of the first.</li>
-            <li>Each tower a circle sitting on a rectangle, properly centered.</li>
-            <li>The two towers in different colors.</li>
-            <li>
-              <b>The real test:</b> changing <CodeSnippet
-                code="towerX"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> to any value moves both towers together and keeps them lined up.
-            </li>
-          </ul>
-
           <p>
-            If changing that one number breaks the layout, you have a hard-coded
-            value left somewhere. Find it.
+            Verify your program works correctly, using 45 and 64, then 47 and 6.
           </p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={[
+              { label: "109, not 4564 — the cast is working", range: "3" },
+              { label: "Formatted only at display time", range: "13-15" },
+            ]}
+          />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -433,16 +672,19 @@ const Task3 = `function setup() {
 
           <ol>
             <li>
-              In Task 1 you moved the tower by editing numbers. How many did you
-              change, and what would happen if you missed one?
+              Why does <code>*</code> appear to work on uncast input while{" "}
+              <code>+</code> does not? Answer in terms of what each symbol can
+              mean.
             </li>
             <li>
-              Explain why <code>towerX - towerWidth / 2</code> centers the
-              rectangle, in your own words.
+              <code>Number("banana")</code> gives <code>NaN</code> instead of
+              stopping the program. Give one advantage and one disadvantage of
+              behaving that way.
             </li>
             <li>
-              You have now used variables in the terminal and on a canvas. Which
-              made their usefulness more obvious to you, and why?
+              You have now met three bugs that produce a wrong answer with no
+              error message: uncast addition, NaN spreading, and arithmetic on a{" "}
+              <code>toFixed()</code> result. What do all three have in common?
             </li>
           </ol>
         </section>

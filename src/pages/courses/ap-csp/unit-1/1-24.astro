@@ -8,103 +8,95 @@ import { Code as CodeSnippet } from "astro:components";
 //#region CodeSnippets
 const Figure1 = `let crew = ["Ada", "Bo", "Cy"];
 
-console.log(crew[0]);
-console.log(crew[1]);
-console.log(crew[2]);`;
-const Figure2 = `let crew = ["Ada", "Bo", "Cy"];
-
-for (let i = 0; i < crew.length; i++) {
-  console.log(crew[i]);
-}`;
-const Figure3 = `Ada
-Bo
+console.log(crew.length);
+console.log(crew[crew.length - 1]);`;
+const Figure2 = `3
 Cy`;
-const Figure4 = `for (let i = 0; i <= crew.length; i++) {
-  console.log(crew[i]);
-}`;
-const Figure5 = `Ada
-Bo
-Cy
-undefined`;
-const Figure6 = `let crew = ["Ada", "Bo", "Cy"];
+const Figure3 = `let crew = ["Ada", "Bo", "Cy"];
 
-for (const name of crew) {
-  console.log(name);
-}`;
-const Figure7 = `let readings = [4, -8, 12, -3, 7];
-let total = 0;
+console.log(crew[3]);`;
+const Figure4 = `undefined`;
+const Figure5 = `let crew = ["Ada", "Bo", "Cy"];
 
-for (const r of readings) {
-  total = total + r;
-}
+let name = crew[3];
 
-console.log("Total:", total);`;
-const NotationJs = `for (const name of crew) {
-  console.log(name);
-}`;
-const NotationPseudo = `FOR EACH name IN crew
-{
-  DISPLAY(name)
-}`;
+console.log("Welcome, " + name + "!");
+console.log(name.length);`;
+const Figure6 = `Welcome, undefined!
+TypeError: Cannot read properties of undefined`;
+const Figure7 = `let crew = ["Ada", "Bo"];
+
+crew.push("Cy");
+
+console.log(crew);
+console.log(crew.length);`;
+const Figure8 = `[ 'Ada', 'Bo', 'Cy' ]
+3`;
+const NotationJs = `let n = crew.length;
+let last = crew[crew.length - 1];
+crew.push("Dee");`;
+const NotationPseudo = `n ← LENGTH(crew)
+last ← crew[LENGTH(crew)]
+APPEND(crew, "Dee")`;
 const Task1 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
 
-for (let i = 0; i < crew.length; i++) {
-  console.log(i, crew[i]);
-}
+console.log("Crew:", crew);
+console.log("How many:", crew.length);
+console.log("First:", crew[0]);
+console.log("Last:", crew[crew.length - 1]);
 `;
 const Task2 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
-let readings = [4, -8, 12, -3, 7];
 
-for (let i = 0; i < crew.length; i++) {
-  console.log(i, crew[i]);
-}
-
+console.log("Crew:", crew);
+console.log("How many:", crew.length);
+console.log("First:", crew[0]);
+console.log("Last:", crew[crew.length - 1]);
 console.log("");
 
-let total = 0;
+console.log("Off the end:", crew[4]);
+console.log("");
 
-for (const r of readings) {
-  total = total + r;
-}
+crew.push("Eze");
 
-console.log("Total:", total);
-console.log("Average:", (total / readings.length).toFixed(1));
+console.log("After push:", crew);
+console.log("How many now:", crew.length);
+console.log("Last now:", crew[crew.length - 1]);
 `;
 const Task3 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
-let readings = [4, -8, 12, -3, 7];
 
-for (let i = 0; i < crew.length; i++) {
-  console.log(i, crew[i]);
-}
-
+console.log("Crew:", crew);
+console.log("How many:", crew.length);
+console.log("First:", crew[0]);
+console.log("Last:", crew[crew.length - 1]);
 console.log("");
 
-let total = 0;
-
-for (const r of readings) {
-  total = total + r;
-}
-
-console.log("Total:", total);
-console.log("Average:", (total / readings.length).toFixed(1));
+console.log("Off the end:", crew[4]);
 console.log("");
 
-// Count how many readings are above freezing
-// Find the highest reading, starting from the first element
-// Build a new array holding only the readings above freezing
-// Display all three results
+crew.push("Eze");
+
+console.log("After push:", crew);
+console.log("How many now:", crew.length);
+console.log("Last now:", crew[crew.length - 1]);
+console.log("");
+
+// Ask the user for an index and cast it
+// If it is a valid index for this array, show the name there
+// Otherwise say the index is out of range, and say what the valid range is
 `;
-const ExampleOutput = `0 Ada
-1 Bo
-2 Cy
-3 Dee
+const ExampleOutput = `Crew: [ 'Ada', 'Bo', 'Cy', 'Dee' ]
+How many: 4
+First: Ada
+Last: Dee
 
-Total: 12
-Average: 2.4
+Off the end: undefined
 
-Above freezing: 3
-Highest: 12
-Warm readings: [ 4, 12, 7 ]
+After push: [ 'Ada', 'Bo', 'Cy', 'Dee', 'Eze' ]
+How many now: 5
+Last now: Eze
+
+Which index? 7
+Out of range. Valid indexes are 0 to 4.
 `;
 //#endregion
 ---
@@ -117,7 +109,7 @@ Warm readings: [ 4, 12, 7 ]
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.24: Walking Through an Array</h1>
+        <h1>Activity 1.24: Length and Safe Access</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -125,78 +117,56 @@ Warm readings: [ 4, 12, 7 ]
           <Presentation>
             <section>
               <h2>Activity 1.24</h2>
-              <h3 class="text-sn-theme">Walking Through an Array</h3>
+              <h3 class="text-sn-theme">Length and Safe Access</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Loops and Arrays Belong Together</p>
-              <p>The Standard Traversal</p>
-              <p>Two Ways to Walk</p>
+              <p>How Long Is It?</p>
+              <p>Off By One</p>
+              <p>Growing an Array</p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Obvious Problem</h2>
+              <h2>length</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-              <p class="fragment">
-                Fine for three. Useless for a hundred, and impossible when the
-                length is not known until the program runs.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>The Standard Traversal</h2>
               <Code
                 code={Figure2}
-                frame="code"
+                frame="terminal"
+                lang="txt"
                 title="Demo"
-                lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
+                class="fragment"
               />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Most Important Minus One</h2>
+              <p>
+                <CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline /> counts the elements. Indexes start at 0.
+              </p>
+              <p class="fragment">
+                So the last index is always{" "}
+                <b class="text-sn-theme">length &minus; 1</b>. Three elements,
+                last index 2.
+              </p>
+              <p class="fragment">
+                <CodeSnippet code="crew[crew.length - 1]" lang={"javascript"} theme={"material-theme-ocean"} inline /> looks awkward and is worth
+                memorizing as one unit: "the last one."
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Going Off the End</h2>
               <Code
                 code={Figure3}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-            </section>
-
-            <section>
-              <h2>Why This Line Is Everywhere</h2>
-              <p>
-                <CodeSnippet code="for (let i = 0; i < arr.length; i++)" lang={"javascript"} theme={"material-theme-ocean"} inline />
-              </p>
-              <div class="text-start mt-3">
-                <ul>
-                  <li class="fragment">
-                    Starts at <b>0</b>, the first index
-                  </li>
-                  <li class="fragment">
-                    Stops <b>before</b> length, so the last pass is length &minus; 1
-                  </li>
-                  <li class="fragment">
-                    Adapts automatically when the array grows or shrinks
-                  </li>
-                </ul>
-              </div>
-              <p class="fragment">
-                Every piece of it exists for a reason. Learn it as one phrase.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>One Character Too Far</h2>
-              <Code
-                code={Figure4}
                 frame="code"
                 title="Demo"
                 lang="javascript"
@@ -204,7 +174,7 @@ Warm readings: [ 4, 12, 7 ]
                 class="mb-3"
               />
               <Code
-                code={Figure5}
+                code={Figure4}
                 frame="terminal"
                 lang="txt"
                 title="Demo"
@@ -212,85 +182,92 @@ Warm readings: [ 4, 12, 7 ]
                 class="fragment"
               />
               <p class="fragment">
-                <CodeSnippet code="<=" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of{" "}
-                <CodeSnippet code="<" lang={"javascript"} theme={"material-theme-ocean"} inline /> takes exactly one extra step, off the end.
-              </p>
-            </section>
-
-            <section>
-              <h2>The Classic Off-By-One</h2>
-              <p>
-                This is <i>the</i> most common array bug there is, and JavaScript
-                will not warn you &mdash; it just adds an{" "}
-                <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /> to your output.
-              </p>
-              <p class="fragment">
-                In a total, that <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /> becomes{" "}
-                <CodeSnippet code="NaN" lang={"javascript"} theme={"material-theme-ocean"} inline /> and poisons the whole answer.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>A Simpler Way, When You Can</h2>
-              <Code
-                code={Figure6}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
-              <p class="fragment">
-                <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline /> hands you each <b>value</b> in turn. No
-                index, no length, no off-by-one possible.
+                <b class="text-sn-theme">No error.</b> JavaScript hands back{" "}
+                <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /> and carries on.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>A Simpler Way, When You Can</h2>
+              <h2>Why That Is Worse Than Crashing</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section>
+              <h2>The Damage Shows Up Late</h2>
+              <p>
+                The bad index was on line 3. The greeting printed happily. The
+                crash came two lines later, pointing at somewhere the mistake
+                is not.
+              </p>
+              <p class="fragment">
+                Same shape as <CodeSnippet code="NaN" lang={"javascript"} theme={"material-theme-ocean"} inline /> in Activity 1.9 &mdash; a bad
+                value travels quietly until something finally chokes on it.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">
+                  When you see undefined, look upstream.
+                </b>
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Growing an Array</h2>
               <Code
                 code={Figure7}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure8}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
               />
               <p class="fragment">
-                The accumulator from Activity 1.19, now walking real data instead
-                of counting to five.
+                <CodeSnippet code="push()" lang={"javascript"} theme={"material-theme-ocean"} inline /> adds to the end, and{" "}
+                <CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline /> goes up to match. An array is not a fixed
+                size.
               </p>
             </section>
 
             <section>
-              <h2>Which One?</h2>
-              <div class="text-start">
-                <ul>
-                  <li class="fragment">
-                    <b>for...of</b> when you only need the values
-                  </li>
-                  <li class="fragment">
-                    <b>Indexed for</b> when you need the position too, or need to
-                    change elements
-                  </li>
-                </ul>
-              </div>
-              <p class="fragment">
-                Prefer <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline /> when it fits. Fewer moving parts
-                means fewer ways to be wrong.
+              <h2>Checking Before You Look</h2>
+              <p>
+                A valid index is <b>0 or more</b> and <b>less than length</b>.
               </p>
               <p class="fragment">
-                <b class="text-sn-theme">
-                  The exam has both. It calls the second one FOR EACH.
-                </b>
+                Note that is <CodeSnippet code="< length" lang={"javascript"} theme={"material-theme-ocean"} inline />, not{" "}
+                <CodeSnippet code="<= length" lang={"javascript"} theme={"material-theme-ocean"} inline />. The same off-by-one, in a new place.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing the standard indexed traversal</li>
-                <li>Explaining why the test is <b>&lt;</b> and not <b>&lt;=</b></li>
-                <li>Using for...of when the index is not needed</li>
-                <li>Combining traversal with the loop patterns from 1.19</li>
+                <li>Finding how many elements an array holds</li>
+                <li>Reaching the last element without hard-coding its index</li>
+                <li>Recognizing undefined and tracing it upstream</li>
+                <li>Adding to an array and checking an index before using it</li>
               </ul>
             </section>
 
@@ -298,19 +275,17 @@ Warm readings: [ 4, 12, 7 ]
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Traversal</dt>
-                  <dd>Visiting every element of an array in order.</dd>
-                  <dt>Indexed loop</dt>
-                  <dd>A traversal that uses a counter to reach each position.</dd>
-                  <dt>
-                    <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline />
-                  </dt>
-                  <dd>A loop that gives you each value directly.</dd>
-                  <dt>Filtering</dt>
+                  <dt><CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
+                  <dd>How many elements an array currently holds.</dd>
+                  <dt>Off-by-one error</dt>
                   <dd>
-                    Building a new collection from the items that meet a
-                    condition.
+                    A mistake of exactly one position, usually at the start or end
+                    of a range.
                   </dd>
+                  <dt><CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
+                  <dd>What JavaScript returns when a value does not exist.</dd>
+                  <dt>Bounds check</dt>
+                  <dd>Testing that an index is valid before using it.</dd>
                 </dl>
               </div>
             </section>
@@ -325,42 +300,42 @@ Warm readings: [ 4, 12, 7 ]
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-24-traversal</b>.
+            <b class="text-sn-theme">1-24-length</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Index and Value</h3>
+          <h3>Task 1: Length and the Last One</h3>
           <ul>
             <li>Write the code below and run it.</li>
             <li>
-              Displaying <CodeSnippet code="i" lang={"javascript"} theme={"material-theme-ocean"} inline /> alongside the name makes the 0-based
-              counting concrete. Ada is at 0.
+              Add a fifth name to the array literal and run again{" "}
+              <b>without changing anything else</b>. The last-element line should
+              still be right. That is why it is written with{" "}
+              <CodeSnippet code="length - 1" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of a number.
             </li>
-            <li>
-              Change <CodeSnippet code="<" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
-              <CodeSnippet code="<=" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run. Note what appears. Change it back.
-            </li>
+            <li>Remove the fifth name again before continuing.</li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Walking Through an Array"
+            title="Length and Safe Access"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: for...of and an Accumulator</h3>
+          <h3>Task 2: Off the End, and Growing</h3>
           <ul>
             <li>
-              Add a readings array and total it with{" "}
-              <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+              Add a deliberate out-of-range read, then a{" "}
+              <CodeSnippet code="push()" lang={"javascript"} theme={"material-theme-ocean"} inline />.
             </li>
             <li>
-              The average divides by <CodeSnippet code="readings.length" lang={"javascript"} theme={"material-theme-ocean"} inline />, not by 5.
-              Add a sixth reading and everything should still be correct.
+              Notice that <CodeSnippet code="crew[4]" lang={"javascript"} theme={"material-theme-ocean"} inline /> was invalid at first and became
+              valid after the push. Nothing about the code changed &mdash; the
+              array did.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -372,56 +347,53 @@ Warm readings: [ 4, 12, 7 ]
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Walking Through an Array"
-            ins={{ range: "2, 8-17" }}
+            title="Length and Safe Access"
+            ins={{ range: "7-16" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Combine the Patterns</h3>
+          <h3>Task 3: Plan, Then Check Before You Look</h3>
           <ul>
             <li>
-              The comments describe three jobs, all over the same array. Every
-              one of them is a pattern from Activity 1.19, now walking real data.
+              The comments describe a bounds check. Write the code under them.
             </li>
             <li>
-              The maximum must start from <CodeSnippet code="readings[0]" lang={"javascript"} theme={"material-theme-ocean"} inline />, not from a
-              guessed number. You have the array, so use it.
+              The condition needs two comparisons joined with AND, from Activity
+              1.15. An index can be too small as well as too big.
             </li>
             <li>
-              The last job is new: start with an empty array and{" "}
-              <CodeSnippet code="push()" lang={"javascript"} theme={"material-theme-ocean"} inline /> onto it inside the loop. That is an
-              accumulator whose container is an array.
+              The valid range message must use <CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline />, not the
+              number 4. Your array grew by one in Task 2, and it might grow
+              again.
             </li>
-            <li>
-              You can do all three in a single loop or in three separate ones.
-              Either is fine &mdash; note in a comment which you chose and why.
-            </li>
+            <li>Test with &minus;1, with 2, and with 99.</li>
           </ul>
 
           <Code
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Walking Through an Array"
-            ins={{ range: "18-23" }}
+            title="Length and Safe Access"
+            ins={{ range: "17-21" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Search It</h3>
+          <h3>Challenge (Optional): Catch It Early</h3>
           <ul>
             <li>
-              Ask the user for a name and report whether it is in the crew array,
-              and at which index.
+              Recreate the crash from the slides: read an out-of-range element
+              into a variable, then try to use <CodeSnippet code=".length" lang={"javascript"} theme={"material-theme-ocean"} inline /> on it.
             </li>
             <li>
-              You will need a variable that remembers whether you found anything,
-              because "not found" is only knowable once the loop has finished.
+              Read the error message. Note which line it blames and which line
+              actually caused it.
             </li>
             <li>
-              This is called a <b>linear search</b>, and it is the first named
-              algorithm on the AP exam. You are writing it a quarter early.
+              Then add a check that stops the program from ever reaching that
+              line with a bad value, and write a comment about which version you
+              would rather debug at 2am.
             </li>
           </ul>
         </section>
@@ -453,48 +425,93 @@ Warm readings: [ 4, 12, 7 ]
             </div>
           </div>
 
-          <p>
-            <code>FOR EACH</code> is the closest match between the two notations
-            in the entire course. Same idea, same shape, different capitals.
-          </p>
-
-          <h4 class="mt-4">The Indexed Version Is Harder There</h4>
-
-          <p>
-            When an exam question needs the <i>position</i>, it cannot write a{" "}
-            <code>for</code> header &mdash; the reference sheet has none. It has
-            to hand-roll the counter, exactly as Activity 1.18 showed:
-          </p>
-
           <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
+                  <th>Meaning</th>
                   <th>JavaScript</th>
                   <th>Exam notation</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><code>for (let i = 0; i &lt; a.length; i++)</code></td>
-                  <td><code>i ← 1</code> then <code>REPEAT LENGTH(a) TIMES</code>, with <code>i ← i + 1</code> inside</td>
+                  <td>How many elements</td>
+                  <td><code>crew.length</code></td>
+                  <td><code>LENGTH(crew)</code></td>
+                </tr>
+                <tr>
+                  <td>Add to the end</td>
+                  <td><code>crew.push(x)</code></td>
+                  <td><code>APPEND(crew, x)</code></td>
+                </tr>
+                <tr>
+                  <td>Insert at a position</td>
+                  <td>&mdash;</td>
+                  <td><code>INSERT(crew, i, x)</code></td>
+                </tr>
+                <tr>
+                  <td>Remove at a position</td>
+                  <td>&mdash;</td>
+                  <td><code>REMOVE(crew, i)</code></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <p>
-            <b>Note the starting values.</b> JavaScript starts at 0 and stops
-            before the length. The exam starts at 1 and repeats exactly{" "}
-            <code>LENGTH</code> times. Both visit every element once &mdash; they
-            just number them differently.
+            <code>INSERT</code> and <code>REMOVE</code> have no simple JavaScript
+            equivalent, so you will only ever <i>read</i> those two. Know that{" "}
+            <code>INSERT</code> shifts later elements right and <code>REMOVE</code>{" "}
+            shifts them left, and that both change the length.
+          </p>
+
+          <h4 class="mt-4">The Last Element Has No Minus One</h4>
+
+          <p>
+            Because exam lists start at 1, the last element is at{" "}
+            <code>LENGTH(crew)</code> exactly &mdash; not{" "}
+            <code>LENGTH(crew) - 1</code>.
           </p>
 
           <p>
-            You have now met all three of the reference sheet's loops:{" "}
-            <code>REPEAT n TIMES</code>, <code>REPEAT UNTIL</code>, and{" "}
-            <code>FOR EACH</code>. That is the complete set. There is nothing else
-            to learn.
+            That is genuinely tidier than JavaScript, and it is a trap in both
+            directions. Writing <code>crew[LENGTH(crew) - 1]</code> on the exam
+            gets you the <i>second to last</i>.
+          </p>
+
+          <h4 class="mt-4">And Going Off the End Stops the Program</h4>
+
+          <p>
+            The reference sheet is explicit: if an index is less than 1 or greater
+            than the length, <b>an error is produced and the program terminates</b>.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Reading an invalid index</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>JavaScript</td>
+                  <td><code>undefined</code>, and the program keeps running</td>
+                </tr>
+                <tr>
+                  <td>Exam notation</td>
+                  <td>Error, and the program <b>stops immediately</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Same mistake, opposite symptom. If an exam question walks a list one
+            step too far, the answer is not "it displays undefined" &mdash; it is
+            that <b>nothing after that point happens at all</b>.
           </p>
         </section>
 
@@ -513,16 +530,14 @@ Warm readings: [ 4, 12, 7 ]
             showLineNumbers={false}
             title="Example Output"
             mark={[
-              { label: "Ada is at 0, Dee is at 3", range: "1-4" },
-              { label: "A new array built inside the loop", range: "11" },
+              { label: "No error — just undefined", range: "6" },
+              { label: "Range comes from length, not a typed-in number", range: "13" },
             ]}
           />
 
           <p class="mt-3">
-            Add a sixth reading to the array and run again. The total, the
-            average, the count, the maximum, and the filtered array should{" "}
-            <b>all</b> update with no other change. If any one of them does not,
-            something is hard-coded.
+            Your bounds check must reject &minus;1 as well as 99. If only large
+            numbers are caught, half the condition is missing.
           </p>
         </section>
 
@@ -536,18 +551,19 @@ Warm readings: [ 4, 12, 7 ]
 
           <ol>
             <li>
-              Explain why the traversal test is <code>i &lt; arr.length</code> and
-              what happens with <code>&lt;=</code>.
+              Why is <code>crew[crew.length - 1]</code> better than{" "}
+              <code>crew[3]</code>, even when the array happens to have four
+              elements?
             </li>
             <li>
-              When would you choose <code>for...of</code>, and when do you have no
-              choice but to use an index?
+              JavaScript returns <code>undefined</code> for a bad index; the exam
+              notation stops the program. Which behavior would you rather have
+              while writing code, and which while running a finished program?
             </li>
             <li>
-              The exam notation numbers elements from 1 and repeats{" "}
-              <code>LENGTH</code> times; JavaScript numbers from 0 and stops
-              before the length. Explain why both visit every element exactly
-              once.
+              You have now met <code>NaN</code> and <code>undefined</code>. What
+              do they have in common, and what should you do when you see either
+              one?
             </li>
           </ol>
         </section>

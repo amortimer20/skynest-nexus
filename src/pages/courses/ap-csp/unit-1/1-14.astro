@@ -2,118 +2,107 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-14-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let oxygen = 88;
-let coolant = 18;
-let power = 132;
+const Figure1 = `let level = 18;
 
-let anyLow = oxygen < 25 || coolant < 25 || power < 25;
-
-console.log("Warning:", anyLow);`;
-const Figure2 = `Warning: true`;
-const Figure3 = `let age = 16;
-let hasPermit = true;
-
-if (age >= 16 && hasPermit) {
-  console.log("May drive.");
+if (level < 25) {
+  fill(220, 60, 60);
 } else {
-  console.log("May not drive.");
-}`;
-const Figure4 = `let isWeekend = false;
-
-if (!isWeekend) {
-  console.log("Go to school.");
-}`;
-const Figure5 = `let day = 3;
-
-if (day === 6 || 7) {
-  console.log("Weekend!");
-}`;
-const Figure6 = `Weekend!`;
-const NotationJs = `let canLaunch = fuelOk && crewOk;
-let anyFault = fuelLow || powerLow;
-let allClear = !anyFault;`;
-const NotationPseudo = `canLaunch ← fuelOk AND crewOk
-anyFault ← fuelLow OR powerLow
-allClear ← NOT anyFault`;
-const Task1 = `let oxygen = 88;
-let coolant = 18;
-let power = 132;
-
-let anyLow = oxygen < 25 || coolant < 25 || power < 25;
-let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
-
-console.log("Any system low:", anyLow);
-console.log("All systems fine:", allFine);
-`;
-const Task2 = `let oxygen = 88;
-let coolant = 18;
-let power = 132;
-
-let anyLow = oxygen < 25 || coolant < 25 || power < 25;
-let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
-
-console.log("Any system low:", anyLow);
-console.log("All systems fine:", allFine);
-console.log("Not all fine:", !allFine);
-console.log("");
-
-if (anyLow) {
-  console.log("STATUS: attention required");
-} else {
-  console.log("STATUS: nominal");
+  fill(80, 200, 120);
 }
 
-if (oxygen >= 25 && power >= 130) {
-  console.log("Cleared for long haul.");
+rect(50, 100, 300, 40);`;
+const Figure2 = `let level = 140;
+let barWidth = level;
+
+if (barWidth > 300) {
+  barWidth = 300;
+}
+
+rect(50, 100, barWidth, 40);`;
+const Figure3 = `let x = 260;
+let y = 150;
+
+if (x > 200) {
+  fill(220, 60, 60);
 } else {
-  console.log("Short trips only.");
+  fill(80, 120, 220);
+}
+
+ellipse(x, y, 40, 40);`;
+const Task1 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
+
+  let oxygen = 88;
+
+  if (oxygen < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 60, oxygen * 3, 30);
 }
 `;
-const Task3 = `let oxygen = 88;
-let coolant = 18;
-let power = 132;
+const Task2 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
 
-let anyLow = oxygen < 25 || coolant < 25 || power < 25;
-let allFine = oxygen >= 25 && coolant >= 25 && power >= 25;
+  let oxygen = 88;
+  let coolant = 18;
 
-console.log("Any system low:", anyLow);
-console.log("All systems fine:", allFine);
-console.log("Not all fine:", !allFine);
-console.log("");
+  if (oxygen < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
 
-if (anyLow) {
-  console.log("STATUS: attention required");
-} else {
-  console.log("STATUS: nominal");
+  rect(50, 60, oxygen * 3, 30);
+
+  if (coolant < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 110, coolant * 3, 30);
 }
-
-if (oxygen >= 25 && power >= 130) {
-  console.log("Cleared for long haul.");
-} else {
-  console.log("Short trips only.");
-}
-
-console.log("");
-
-// Ask for a crew size and cast it
-// Ask for a cargo mass and cast it
-// A launch is allowed only if the crew is at least 2 AND the mass is under 500
-// If it is not allowed, say so when either one is the problem
 `;
-const ExampleOutput = `Any system low: true
-All systems fine: false
-Not all fine: true
+const Task3 = `function setup() {
+  createCanvas(400, 400);
+  background(30);
 
-STATUS: attention required
-Cleared for long haul.
+  let oxygen = 88;
+  let coolant = 18;
+  let power = 132;
 
-Crew size? 1
-Cargo mass? 300
-LAUNCH DENIED
+  if (oxygen < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 60, oxygen * 3, 30);
+
+  if (coolant < 25) {
+    fill(220, 60, 60);
+  } else {
+    fill(80, 200, 120);
+  }
+
+  rect(50, 110, coolant * 3, 30);
+
+  // Draw the power bar at y = 160, same pattern as the others
+  //   work out its width from power, the same way
+  //   if that width would be more than 300, clamp it to 300
+  //   color it red under 25, yellow under 60, green otherwise
+}
 `;
 //#endregion
 ---
@@ -126,76 +115,138 @@ LAUNCH DENIED
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.14: Combining Conditions</h1>
+        <h1>Activity 1.14: p5 Lab 3 &mdash; Decisions You Can See</h1>
         <Divider variant="8" classes="mb-5" />
 
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="A dark canvas with horizontal bars whose colors change according to their value" width={400} class="img-fluid rounded" />
+          </div>
+
+          <p>By the end of <b>Task 2</b> the bar colors will be decided by conditions rather than typed in.</p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
               <h2>Activity 1.14</h2>
-              <h3 class="text-sn-theme">Combining Conditions</h3>
+              <h3 class="text-sn-theme">p5 Lab 3 &mdash; Decisions You Can See</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>AND, OR, NOT</p>
-              <p>Reading a Compound Condition</p>
-              <p>The Trap</p>
+              <p>Conditions That Choose a Color</p>
+              <p>Clamping to a Boundary</p>
+              <p>Reading a Picture as Data</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Unfinished Business</h2>
+              <h2>Nothing New Again</h2>
               <p>
-                Activity 1.13 asked for a warning light that came on if{" "}
-                <i>any</i> of three systems was low &mdash; and told you the easy
-                tools were not available yet.
+                Conditionals from Activities 1.12 and 1.13. The canvas from
+                1.7 and 1.10. No new syntax at all.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>Unfinished Business</h2>
+              <h2>Nothing New Again</h2>
+              <p>
+                In the terminal, a wrong branch prints the wrong word and you
+                have to be reading carefully to notice.
+              </p>
+              <p class="fragment">
+                On a canvas, a wrong branch is <b class="text-sn-theme">the
+                wrong color, in front of you</b>. That is the entire reason for
+                today.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Choosing a Color</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
-              <Code
-                code={Figure2}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-              <p class="fragment">One line. That is what today buys you.</p>
+              <p class="fragment">
+                The condition does not decide <i>whether</i> to draw. It decides{" "}
+                <i>how</i>. The rectangle is drawn either way.
+              </p>
             </section>
 
             <section>
-              <h2>Three Operators</h2>
-              <div class="text-start">
-                <dl>
-                  <dt>
-                    <CodeSnippet code="&&" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; AND
-                  </dt>
-                  <dd>true only when <b>both</b> sides are true</dd>
-                  <dt>
-                    <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; OR
-                  </dt>
-                  <dd>true when <b>either</b> side is true, or both</dd>
-                  <dt>
-                    <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; NOT
-                  </dt>
-                  <dd>flips true to false and false to true</dd>
-                </dl>
-              </div>
+              <h2>Where the Shape Goes Matters</h2>
+              <p>
+                The <CodeSnippet
+                  code="rect()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> sits <b>after</b> the whole if/else, outside the braces.
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code="fill()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> sets a color that stays set. Put the shape inside one branch
+                and it will only appear half the time &mdash; which is a
+                different program.
+              </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>AND</h2>
+              <h2>Clamping</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Clamping</h2>
+              <p>
+                A bar 140 wide fits. A bar 400 wide runs off the canvas and looks
+                broken.
+              </p>
+              <p class="fragment">
+                An <CodeSnippet
+                  code="if"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> with no <CodeSnippet
+                  code="else"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> is the right shape here: most of the time nothing needs to
+                happen.
+              </p>
+              <p class="fragment">
+                Notice the variable is <b>reassigned</b> &mdash; the same trick
+                from Activity 1.5, now doing real work.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Boundaries in Space</h2>
               <Code
                 code={Figure3}
                 frame="code"
@@ -204,85 +255,19 @@ LAUNCH DENIED
                 showLineNumbers={false}
               />
               <p class="fragment">
-                Both must hold. Sixteen with no permit fails. A permit at
-                fifteen fails.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>NOT</h2>
-              <Code
-                code={Figure4}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
-              <p class="fragment">
-                Read <CodeSnippet code="!isWeekend" lang={"javascript"} theme={"material-theme-ocean"} inline /> aloud as "not weekend." If the
-                name reads like a question, the <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> version reads
-                like the opposite question.
-              </p>
-            </section>
-
-            <section>
-              <h2>OR Is Not "Either But Not Both"</h2>
-              <p>
-                In everyday speech, "soup or salad" means pick one. In
-                programming, <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline /> is true when{" "}
-                <b class="text-sn-theme">either or both</b> are true.
-              </p>
-              <p class="fragment">
-                Only <CodeSnippet code="false || false" lang={"javascript"} theme={"material-theme-ocean"} inline /> gives false.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>The Trap</h2>
-              <Code
-                code={Figure5}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure6}
-                frame="terminal"
-                lang="txt"
-                title="Demo — day is 3"
-                showLineNumbers={false}
-                class="fragment"
-              />
-            </section>
-
-            <section data-auto-animate>
-              <h2>The Trap</h2>
-              <p>
-                It printed <i>Weekend!</i> for a Wednesday, and it will print it
-                for every day of the week.
-              </p>
-              <p class="fragment">
-                <CodeSnippet code="day === 6 || 7" lang={"javascript"} theme={"material-theme-ocean"} inline /> does not mean "day is 6 or 7."
-                It means "is day 6?" <b>or</b> "is 7 a thing?" &mdash; and a
-                plain 7 always counts as true.
-              </p>
-              <p class="fragment">
-                <b class="text-sn-theme">
-                  Each side of an operator needs its own complete comparison:
-                </b>{" "}
-                <CodeSnippet code="day === 6 || day === 7" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                A condition can test <i>position</i>. Anything past x = 200 turns
+                red. This is how a program decides whether something is out of
+                bounds, off-screen, or touching something else.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Combining conditions with AND and OR</li>
-                <li>Reversing a condition with NOT</li>
-                <li>Storing a compound condition in a well-named variable</li>
-                <li>Writing a complete comparison on each side</li>
+                <li>Using a condition to choose a fill color</li>
+                <li>Clamping a value to a maximum</li>
+                <li>Placing a shape outside the branches so it always draws</li>
+                <li>Reading a drawing to check whether a branch is correct</li>
               </ul>
             </section>
 
@@ -290,15 +275,20 @@ LAUNCH DENIED
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Logical operator</dt>
+                  <dt>Clamp</dt>
                   <dd>
-                    An operator that combines or reverses boolean values:{" "}
-                    <CodeSnippet code="&&" lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                    To limit a value so it cannot go past a maximum or minimum.
                   </dd>
-                  <dt>Compound condition</dt>
-                  <dd>A condition built from two or more simpler conditions.</dd>
-                  <dt>Negation</dt>
-                  <dd>Reversing a boolean value.</dd>
+                  <dt>Boundary</dt>
+                  <dd>
+                    A limit that a condition tests against, such as the edge of
+                    the canvas.
+                  </dd>
+                  <dt>State</dt>
+                  <dd>
+                    The current values a program is holding, which decide what it
+                    draws.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -312,42 +302,51 @@ LAUNCH DENIED
           <h2>Build</h2>
 
           <p>
-            Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-14-combining</b>.
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-14-status-panel</b>.
+          </p>
+
+          <p>
+            You are building a status panel: one horizontal bar per system, its
+            length showing the reading and its color showing whether that is a
+            problem.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Any, and All</h3>
+          <h3>Task 1: One Bar</h3>
           <ul>
-            <li>Write the code below and run it.</li>
+            <li>Write the code below and run it. Oxygen is at 88, so the bar should be green.</li>
             <li>
-              Read the two conditions carefully. They are opposites, so their
-              answers should never match.
+              Change <CodeSnippet
+                code="oxygen"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to 12 and run again. Same bar, shorter and red.
             </li>
-            <li>
-              Set all three readings above 25 and run again. Both answers should
-              flip.
-            </li>
+            <li>Set it back to 88.</li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Combining Conditions"
+            title="p5 Lab 3 — Decisions You Can See"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: NOT, and Two Decisions</h3>
+          <h3>Task 2: A Second Bar</h3>
           <ul>
             <li>
-              Add a <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline /> line and two if/else blocks.
+              Add a coolant reading at 18 and draw its bar 50 pixels below the
+              first.
             </li>
             <li>
-              The second condition uses AND with two different thresholds. Work
-              out on paper what it should say before you run it.
+              Run it. You should see one green bar and one red bar &mdash; and
+              you can tell which system is in trouble without reading a single
+              number.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -359,26 +358,29 @@ LAUNCH DENIED
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Combining Conditions"
-            ins={{ range: "10-11, 13-23" }}
+            title="p5 Lab 3 — Decisions You Can See"
+            ins={{ range: "6, 16-22" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Gate a Launch</h3>
+          <h3>Task 3: Plan, Then Add a Clamped Three-Color Bar</h3>
           <ul>
             <li>
-              The comments describe a launch gate with two requirements. Write
-              the code under them.
-            </li>
-            <li>Cast both inputs.</li>
-            <li>
-              The approval needs <b>both</b> conditions. The denial happens when{" "}
-              <i>either</i> fails &mdash; which is what the <CodeSnippet code="else" lang={"javascript"} theme={"material-theme-ocean"} inline /> already handles for you.
+              The comments describe the power bar. It is harder than the other
+              two in two ways.
             </li>
             <li>
-              Test all four combinations: both good, crew too small, mass too
-              heavy, and both wrong.
+              <b>It needs clamping.</b> Power is 132, and 132 &times; 3 is 396,
+              which runs off a 400-wide canvas. Limit the width to 300.
+            </li>
+            <li>
+              <b>It needs three colors, not two.</b> That means a chain, and the
+              order matters &mdash; Activity 1.13's rule applies here exactly.
+            </li>
+            <li>
+              Test it at 10, at 45, and at 132. You should get red, yellow, and
+              green, and the last one should stop at the same place as a full bar.
             </li>
           </ul>
 
@@ -386,84 +388,42 @@ LAUNCH DENIED
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Combining Conditions"
-            ins={{ range: "25-30" }}
+            title="p5 Lab 3 — Decisions You Can See"
+            ins={{ range: "7, 25-28" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Say Which One Failed</h3>
+          <h3>Challenge (Optional): A Warning Light</h3>
           <ul>
             <li>
-              "LAUNCH DENIED" does not tell the crew what to fix. Improve it so
-              the program says whether the problem is the crew, the cargo, or
-              both.
+              Add a circle in the top-right corner that is red if <i>any</i> of
+              the three systems is under 25, and green if none of them are.
             </li>
             <li>
-              You will need more than one condition inside the failure path.
-              Think about what goes inside the <CodeSnippet code="else" lang={"javascript"} theme={"material-theme-ocean"} inline /> block.
+              You do not have <CodeSnippet
+                code="&&"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or <CodeSnippet
+                code="||"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> yet &mdash; those arrive in Activity 1.15. Solve it with the
+              tools you have.
             </li>
             <li>
-              This is the idea Activity 1.15 is built on, so a partial answer is
-              fine.
+              There is more than one way. One approach uses a boolean variable
+              that starts <CodeSnippet
+                code="false"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and gets reassigned.
             </li>
           </ul>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
-
-        <!-- Exam Notation -->
-        <section id="exam-notation">
-          <h2>Same Idea, Exam Notation</h2>
-
-          <div class="row g-3 my-4">
-            <div class="col-md-6">
-              <Code
-                code={NotationJs}
-                frame="code"
-                lang="javascript"
-                title="JavaScript"
-                showLineNumbers={false}
-              />
-            </div>
-            <div class="col-md-6">
-              <Code
-                code={NotationPseudo}
-                frame="code"
-                lang="txt"
-                title="Exam Notation"
-                showLineNumbers={false}
-              />
-            </div>
-          </div>
-
-          <p>
-            This one is a straight word swap, and the words are the easy part
-            &mdash; they say exactly what they mean.
-          </p>
-
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>JavaScript</th>
-                  <th>Exam notation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td><code>&amp;&amp;</code></td><td><code>AND</code></td></tr>
-                <tr><td><code>||</code></td><td><code>OR</code></td></tr>
-                <tr><td><code>!</code></td><td><code>NOT</code></td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p>
-            <b>The one thing to watch:</b> <code>NOT</code> goes in front of the
-            condition just like <code>!</code> does, with a space. You will see{" "}
-            <code>NOT (a = b)</code> more often than <code>a ≠ b</code> in some
-            questions, even though they mean the same thing.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -472,19 +432,26 @@ LAUNCH DENIED
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>Your finished sketch should show all of the following.</p>
 
-          <Code
-            code={ExampleOutput}
-            frame="terminal"
-            lang="txt"
-            showLineNumbers={false}
-            title="Example Output"
-            mark={{
-              label: "Crew of 1 fails, even though the mass is fine",
-              range: "8-10",
-            }}
-          />
+          <ul>
+            <li>Three horizontal bars on a dark background, evenly spaced.</li>
+            <li>The oxygen bar green and long; the coolant bar red and short.</li>
+            <li>
+              The power bar green and <b>stopping at 300 pixels</b>, not running
+              off the edge.
+            </li>
+            <li>
+              Every bar visible in every case &mdash; changing a reading should
+              change a bar's length and color, never make it disappear.
+            </li>
+          </ul>
+
+          <p>
+            <b>The test that matters:</b> set power to 10, 45, and 132 in turn.
+            You should get three different colors. If two of them match, your
+            chain is ordered wrong.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -497,17 +464,16 @@ LAUNCH DENIED
 
           <ol>
             <li>
-              In everyday speech, "or" usually means one or the other. How is{" "}
-              <code>||</code> different, and why might that cause a bug?
+              What would happen if you moved a <code>rect()</code> call inside one
+              branch of its if/else? Why is that a different program?
             </li>
             <li>
-              <code>day === 6 || 7</code> looked reasonable and was always true.
-              Explain what JavaScript actually did with that line.
+              The power bar needed clamping. Describe another situation where a
+              program should limit a value rather than use it as given.
             </li>
             <li>
-              <code>anyLow</code> and <code>allFine</code> are opposites. Rewrite
-              one of them using <code>!</code> and the other variable, and say
-              which version you find easier to read.
+              You have now written chains in the terminal and on a canvas. Which
+              made a wrongly-ordered chain easier to notice, and why?
             </li>
           </ol>
         </section>
