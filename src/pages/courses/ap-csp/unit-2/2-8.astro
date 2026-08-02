@@ -1,0 +1,594 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const ModelPlan = `Program: Study Break Picker
+What it does: you say how many minutes you have,
+and it prints the breaks that fit.
+
+1. Make a list called activities holding break names.
+2. Make a list called times holding how long each one
+   takes, in the same order.
+3. Write a procedure fitsIn(limit):
+   a. Print a heading that includes limit.
+   b. Set a counter called found to 0.
+   c. Loop over every position in the two lists.
+      i. If the time at that position is less than or
+         equal to limit, print the name and the time,
+         and add 1 to found.
+   d. If found is still 0, print "Nothing fits."
+4. Ask the user how many minutes they have.
+5. Call fitsIn with that number.`;
+
+const OverScopedPlan = `Program: Study Planner
+What it does: keeps track of all my classes and
+assignments and tells me what to work on.
+
+1. Let the user add a class.
+2. Let the user add an assignment with a due date.
+3. Save everything so it is still there tomorrow.
+4. Show a calendar for the week.
+5. Sort the assignments by how urgent they are.
+6. Let the user check things off.`;
+
+const ReqFourShape = `function fitsIn(limit) {
+  console.log("Breaks under " + limit + " minutes:");
+  let found = 0;
+
+  for (let i = 0; i < activities.length; i++) {
+    if (times[i] <= limit) {
+      // ... print it, and count it
+    }
+  }
+
+  if (found === 0) {
+    // ... say nothing fits
+  }
+}`;
+
+const ReqFourFail = `let activities = ["Stretch", "Walk outside", "Power nap"];
+let times = [5, 15, 25];
+let limit = Number(prompt("How many minutes? "));
+
+let picks = [];
+
+for (let i = 0; i < activities.length; i++) {
+  if (times[i] <= limit) {
+    picks.push(activities[i]);
+  }
+}
+
+printAll(picks);
+
+function printAll(list) {
+  console.log("You could: " + list);
+}`;
+
+const GateForm = `Program: <name>
+What it does: <one sentence>
+
+Input:      <what you ask for>
+List:       <its name, and what is in it>
+Procedure:  <its name, and its parameter>
+Inside it:  <the loop, and the decision>
+
+Steps:
+1. ...
+2. ...`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Build 1: Your First Project</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- The Brief -->
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <p>
+            Two sessions. <b>You choose what to make.</b> Terminal or p5 &mdash;
+            your call.
+          </p>
+
+          <p>
+            Everything you need has been in your hands since last session.
+            Quarter 1 gave you input, lists, decisions, and loops. The last seven
+            activities added the parameterized procedure. <b>That is the complete
+            set</b> &mdash; this is the first point in the course where a real
+            project is possible, so we are going to build one.
+          </p>
+
+          <p>
+            <b>The scope rule: a person could use the finished thing in under
+            two minutes.</b> This is a rule, not a suggestion. A plan that breaks
+            it does not get approved.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>No video. No written reference.</b> Those belong to Build 2 and to
+            the Create task. This one is just the program.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Build 1</h2>
+              <h3 class="text-sn-theme">Your First Project</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Scoping a Project</p>
+              <p>The Four Requirements</p>
+              <p>The One That Fails Silently</p>
+            </section>
+
+            <section>
+              <h2>You Have Everything</h2>
+              <p>Input. Lists. Decisions. Loops.</p>
+              <p class="fragment">And now a procedure with a parameter.</p>
+              <p class="fragment">
+                That is every ingredient the Create task asks for.
+              </p>
+            </section>
+
+            <section>
+              <h2>Four Requirements</h2>
+              <ol>
+                <li class="fragment">Input</li>
+                <li class="fragment">A list the program actually needs</li>
+                <li class="fragment">
+                  A procedure of yours with a parameter that changes what it does
+                </li>
+                <li class="fragment">
+                  Sequencing, selection, and iteration <b>inside that
+                  procedure</b>
+                </li>
+              </ol>
+            </section>
+
+            <section>
+              <h2>Read Number Four Again</h2>
+              <p>Not somewhere in your program.</p>
+              <p class="fragment">
+                <b>Inside the body of the procedure you wrote.</b>
+              </p>
+              <p class="fragment">
+                This is the requirement people lose points on without ever
+                noticing.
+              </p>
+            </section>
+
+            <section>
+              <h2>If You Build in p5</h2>
+              <p>
+                <code>setup()</code>, <code>draw()</code>, and{" "}
+                <code>mousePressed()</code> are <b>not</b> yours.
+              </p>
+              <p class="fragment">You need one alongside them that is.</p>
+            </section>
+
+            <section>
+              <h2>The Scope Rule</h2>
+              <h3 class="text-sn-theme">
+                Someone could use the finished thing in under two minutes.
+              </h3>
+              <p class="fragment">Not "it takes two minutes to write."</p>
+              <p class="fragment">Two minutes to <i>use</i>.</p>
+            </section>
+
+            <section>
+              <h2>Why That Rule Exists</h2>
+              <p>Scoping badly is the most common way the Create task goes wrong.</p>
+              <p class="fragment">It is not something you can be told.</p>
+              <p class="fragment">
+                So we are going to get it wrong here, where it costs two sessions
+                instead of eight.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today</h2>
+              <p><b>Twenty minutes:</b> write your plan.</p>
+              <p class="fragment">
+                <b>No code until it is approved.</b>
+              </p>
+              <p class="fragment">Then build.</p>
+            </section>
+
+            <section>
+              <h2>Next Session</h2>
+              <p>Build. Then read your plan out loud.</p>
+              <p class="fragment">And tell us what actually happened.</p>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Scope</dt>
+                  <dd>How much a project is trying to do.</dd>
+                  <dt>Prose pseudocode</dt>
+                  <dd>
+                    Numbered plain-English steps, detailed enough that someone
+                    else could write the code from them.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Requirements -->
+        <section id="requirements">
+          <h2>The Four Requirements</h2>
+
+          <p>
+            These are four of the six the Create task will ask for in Quarter 3.
+            They are the same words.
+          </p>
+
+          <ol>
+            <li class="mb-2">
+              <b>Input.</b> Your program asks for something and uses the answer.
+              In the terminal that is <code>prompt()</code>. In p5 it is{" "}
+              <code>mousePressed()</code> with <code>mouseX</code> and{" "}
+              <code>mouseY</code>.
+            </li>
+            <li class="mb-2">
+              <b>A list your program actually needs.</b> Not a list you added so
+              there would be one. If deleting it would not break anything, it
+              does not count.
+            </li>
+            <li class="mb-2">
+              <b>A procedure you wrote, with a parameter that changes what it
+              does.</b> The test: pass a different argument, and something
+              different should happen. If you have to edit the body to change the
+              result, the parameter is decorative.
+            </li>
+            <li class="mb-2">
+              <b>Sequencing, selection, and iteration inside that procedure's
+              body.</b> Statements in order, an <code>if</code>, and a loop &mdash;
+              all three between that procedure's braces.
+            </li>
+          </ol>
+
+          <p>
+            Two more come free once you have those four: your procedure gets{" "}
+            <b>called</b>, and your program produces <b>output based on the
+            input</b>. Check them anyway.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Requirement 4 -->
+        <section id="requirement-four">
+          <h2>The One That Fails Silently</h2>
+
+          <p>
+            Requirement 4 is the only one you can satisfy and still lose the
+            point. Here is the shape it wants &mdash; bodies left out on purpose,
+            because the program is yours to write.
+          </p>
+
+          <Code
+            code={ReqFourShape}
+            frame="code"
+            lang="javascript"
+            title="All three, inside one procedure"
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            Statements run in order, there is a loop, and there is a decision.
+            All three are between the braces of a procedure that takes a
+            parameter.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>And here is the version that fails</h3>
+
+          <Code
+            code={ReqFourFail}
+            frame="code"
+            lang="javascript"
+            title="Everything in the right program, in the wrong place"
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            This program has input, a list, a loop, a decision, and a procedure
+            with a parameter. It runs, and it prints{" "}
+            <code>You could: Stretch,Walk outside</code>. <b>It still fails
+            requirement 4</b>, because the loop and the decision are outside{" "}
+            <code>printAll()</code>. Between that procedure's braces there is one
+            line, and it is neither.
+          </p>
+
+          <p>
+            The fix is not to add anything. It is to <b>move the loop and the{" "}
+            <code>if</code> inside the procedure</b> and pass{" "}
+            <code>limit</code> as the parameter. Same program, same output, and
+            requirement 4 now holds.
+          </p>
+
+          <p>
+            <b>Before you submit, do this one check.</b> Find your procedure. Put
+            your finger on its opening brace and its closing brace. Between those
+            two marks, can you point at a statement, a loop, and an{" "}
+            <code>if</code>? If not, restructure now &mdash; it is much cheaper
+            today than it will be in Quarter 3.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Ideas -->
+        <section id="ideas">
+          <h2>Ideas</h2>
+
+          <p>
+            You do not have to use one of these. They exist to show the size we
+            are aiming for.
+          </p>
+
+          <h3 class="mt-4">Terminal</h3>
+          <ul>
+            <li>
+              <b>Movie picker.</b> You say how many minutes you have; it prints
+              the films from a list that fit.
+            </li>
+            <li>
+              <b>Packing list.</b> You say how many days the trip is; it prints
+              what to bring and how many.
+            </li>
+            <li>
+              <b>Five-question quiz.</b> Questions in a list, asked one at a
+              time, scored at the end.
+            </li>
+            <li>
+              <b>Playlist filter.</b> Songs with a mood attached; you pick a
+              mood, it prints the matches.
+            </li>
+            <li>
+              <b>Team splitter.</b> A list of names and a number of teams; it
+              deals them out.
+            </li>
+            <li>
+              <b>Locker assigner.</b> A list of names; it prints who gets which
+              locker, skipping the ones that are broken.
+            </li>
+          </ul>
+
+          <h3 class="mt-4">p5</h3>
+          <ul>
+            <li>
+              <b>Sticker stamper.</b> A list of shapes; each click places the
+              next one.
+            </li>
+            <li>
+              <b>Palette painter.</b> A list of colors; clicking cycles through
+              them.
+            </li>
+            <li>
+              <b>Constellation.</b> Each click adds a star to a list, and the
+              sketch connects them in order.
+            </li>
+            <li>
+              <b>Target practice.</b> A list of target positions; clicking near
+              one removes it.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary mt-3">
+            Every one of these passes the two-minute rule, and every one of them
+            has an obvious list and an obvious procedure. That is not an
+            accident &mdash; it is what a well-scoped project looks like.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Session 34 -->
+        <section id="gate">
+          <h2>Session 34: The Scoping Gate</h2>
+
+          <p>
+            <b>Twenty minutes, and no code until your plan is approved.</b>
+          </p>
+
+          <p>
+            Write your plan in <b>prose pseudocode</b> &mdash; numbered
+            plain-English steps, detailed enough that someone else could write
+            the program from them. Not JavaScript, and not exam notation either.
+            Plain sentences, in order.
+          </p>
+
+          <Code
+            code={GateForm}
+            frame="code"
+            lang="txt"
+            title="What to hand me"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <h3 class="mt-5">A plan that gets approved</h3>
+
+          <Code
+            code={ModelPlan}
+            frame="code"
+            lang="txt"
+            title="Study Break Picker"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            Read step 3 again. The procedure has a parameter, and inside its body
+            there is a heading and a counter (sequencing), a loop over the list
+            (iteration), and two decisions (selection). <b>All four requirements
+            are visible in the plan</b>, before a single line is written. That is
+            what the gate is checking for.
+          </p>
+
+          <h3 class="mt-5">A plan that does not</h3>
+
+          <Code
+            code={OverScopedPlan}
+            frame="code"
+            lang="txt"
+            title="Study Planner"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            This is a good idea and a bad plan. Step 3 is not possible with
+            anything you know. Steps 1, 2, and 6 each need their own input loop.
+            And nobody uses it in under two minutes &mdash; adding your classes
+            alone takes longer than that.
+          </p>
+
+          <p>
+            <b>The tell is that it has no procedure and no parameter anywhere in
+            it.</b> A plan that cannot name those two things is not finished,
+            however good the idea is.
+          </p>
+
+          <p class="text-body-secondary">
+            If your plan gets sent back, that is the system working. The whole
+            reason Build 1 is two sessions long is so that finding this out is
+            cheap.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Session 35 -->
+        <section id="share-out">
+          <h2>Session 35: Build, Then Share Out</h2>
+
+          <p>Build for most of the session. Then, in the last fifteen minutes:</p>
+
+          <ol>
+            <li><b>Read your session 34 plan out loud.</b> The one you wrote, not a tidied version.</li>
+            <li><b>Say what actually happened.</b> What did you cut? What took longer than you thought? What turned out to be easy?</li>
+          </ol>
+
+          <p>
+            <b>This is the point of Build 1.</b> Most plans will have been too
+            ambitious. Finding that out now, out loud, in a room where everyone
+            else is finding out the same thing, is worth more than the program
+            is. Session 46 asks you to scope a six-session project, and this is
+            the experience you will be held to when you do.
+          </p>
+
+          <p class="text-body-secondary">
+            Unfinished at the end of the session? Finish it at home. Points 1
+            through 5 on the rubric do not care when it was finished.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Rubric -->
+        <section id="rubric">
+          <h2>Rubric</h2>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>What</th>
+                  <th class="text-end">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Scoping plan written in prose pseudocode and approved at the gate</td>
+                  <td class="text-end">8</td>
+                </tr>
+                <tr>
+                  <td>Input &mdash; the program asks for something and uses the answer</td>
+                  <td class="text-end">4</td>
+                </tr>
+                <tr>
+                  <td>A list the program actually needs</td>
+                  <td class="text-end">6</td>
+                </tr>
+                <tr>
+                  <td>A procedure you wrote, with a parameter that changes what it does</td>
+                  <td class="text-end">8</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Sequencing, selection, and iteration inside that procedure's body</b>
+                  </td>
+                  <td class="text-end">8</td>
+                </tr>
+                <tr>
+                  <td>Share-out &mdash; read your plan, said what actually happened</td>
+                  <td class="text-end">6</td>
+                </tr>
+                <tr>
+                  <td class="fw-bold">Total</td>
+                  <td class="text-end fw-bold">40</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-body-secondary">
+            Notice what is not on this list: how ambitious the idea was, and
+            whether everything you planned got finished. A project that got cut
+            in half and works loses nothing here.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Three things go to the dropbox:</p>
+
+          <ol>
+            <li>Your <b>session 34 plan</b>, as written on the day.</li>
+            <li>Your <b>program</b>.</li>
+            <li>
+              One line naming <b>your procedure and its parameter</b>, so I know
+              which one to check requirement 4 against.
+            </li>
+          </ol>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Build Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
