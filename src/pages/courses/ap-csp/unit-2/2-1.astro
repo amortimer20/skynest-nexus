@@ -1,0 +1,346 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `console.log("=========================");
+console.log("   MISSION CONTROL");
+console.log("=========================");
+
+// ... forty lines later ...
+
+console.log("=========================");
+console.log("   MISSION CONTROL");
+console.log("=========================");`;
+
+const Figure2 = `function printBanner() {
+  console.log("=========================");
+  console.log("   MISSION CONTROL");
+  console.log("=========================");
+}`;
+
+const Figure3 = `function printBanner() {
+  console.log("=========================");
+  console.log("   MISSION CONTROL");
+  console.log("=========================");
+}
+
+printBanner();
+console.log("Systems nominal.");
+printBanner();`;
+
+const Figure4 = `printBanner();
+
+function printBanner() {
+  console.log("Ready.");
+}`;
+
+const Task1 = `function printBanner() {
+  console.log("=========================");
+  console.log("   MISSION CONTROL");
+  console.log("=========================");
+}
+
+printBanner();
+`;
+
+const Task2 = `function printBanner() {
+  console.log("=========================");
+  console.log("   MISSION CONTROL");
+  console.log("=========================");
+}
+
+printBanner();
+console.log("Systems nominal.");
+printBanner();
+console.log("Awaiting orders.");
+printBanner();
+`;
+
+const Task3 = `function printBanner() {
+  console.log("=========================");
+  console.log("   MISSION CONTROL");
+  console.log("=========================");
+}
+
+printBanner();
+console.log("Systems nominal.");
+printBanner();
+
+// Write a second procedure called printFooter
+//   it prints a line of dashes, then END, then dashes again
+// Then call: printBanner, printFooter, printBanner
+`;
+
+const ExampleOutput = `=========================
+   MISSION CONTROL
+=========================
+Systems nominal.
+=========================
+   MISSION CONTROL
+=========================
+-------------------------
+          END
+-------------------------
+=========================
+   MISSION CONTROL
+=========================`;
+
+const NotationJs = `function printBanner() {
+  console.log("MISSION CONTROL");
+}
+
+printBanner();`;
+
+const NotationPseudo = `PROCEDURE printBanner()
+{
+  DISPLAY("MISSION CONTROL")
+}
+
+printBanner()`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.1: Functions: Defining and Calling</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.1</h2>
+              <h3 class="text-sn-theme">Functions: Defining and Calling</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Naming a Block of Code</p>
+              <p>Defining vs. Calling</p>
+              <p>Repetition Is a Warning</p>
+            </section>
+
+            <section>
+              <h2>A Problem You Already Have</h2>
+              <p>You have written this banner three times in one program.</p>
+              <Code code={Figure1} frame="code" lang="javascript" title="The Same Thing, Three Times" showLineNumbers={false} />
+              <p class="fragment">Now it needs to say <b>FLIGHT CONTROL</b> instead.</p>
+              <p class="fragment">Three places to change. You will miss one.</p>
+            </section>
+
+            <section>
+              <h2>Give It a Name</h2>
+              <p>A <b>function</b> is a block of code with a name.</p>
+              <Code code={Figure2} frame="code" lang="javascript" title="Defining It" showLineNumbers={false} />
+              <p class="fragment">Nothing has happened yet. You wrote the recipe; you did not cook.</p>
+            </section>
+
+            <section>
+              <h2>Defining Is Not Running</h2>
+              <p><b>Defining</b> tells JavaScript what the name means.</p>
+              <p class="fragment"><b>Calling</b> runs the block.</p>
+              <p class="fragment">Two separate things, and they get confused constantly.</p>
+            </section>
+
+            <section>
+              <h2>Calling It</h2>
+              <Code code={Figure3} frame="code" lang="javascript" title="Defined Once, Called Twice" showLineNumbers={false} />
+              <p class="fragment">The block exists <b>once</b>. It runs <b>twice</b>.</p>
+              <p class="fragment">Change the wording in one place and both fix themselves.</p>
+            </section>
+
+            <section>
+              <h2>The Parentheses Matter</h2>
+              <p><code>printBanner</code> is the function itself.</p>
+              <p class="fragment"><code>printBanner()</code> <b>runs</b> it.</p>
+              <p class="fragment">Leave them off and nothing happens &mdash; and no error either.</p>
+            </section>
+
+            <section>
+              <h2>Order on the Page</h2>
+              <Code code={Figure4} frame="code" lang="javascript" title="Called Before It Is Defined" showLineNumbers={false} />
+              <p class="fragment">This works. JavaScript reads the whole file before running any of it.</p>
+              <p class="fragment">It still reads badly. <b>Define first, call after.</b></p>
+            </section>
+
+            <section>
+              <h2>The Real Reason</h2>
+              <p>Not to save typing.</p>
+              <p class="fragment">To give each idea <b>one place</b> to live.</p>
+              <p class="fragment">A repeated block is a bug waiting for someone to edit four copies out of five.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Defining a function with <code>function name() { }</code></li>
+                <li>Calling a function by name with parentheses</li>
+                <li>Explaining the difference between defining and calling</li>
+                <li>Recognizing repeated code as a reason to write a function</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Function</dt>
+                  <dd>A named block of code that runs when you call it.</dd>
+                  <dt>Define</dt>
+                  <dd>Write the function and give it a name. Nothing runs yet.</dd>
+                  <dt>Call</dt>
+                  <dd>Run it, using its name followed by <code>()</code>.</dd>
+                  <dt>Procedure</dt>
+                  <dd>The exam's word for the same thing. It is what the reference sheet uses.</dd>
+                </dl>
+              </div>
+            </section>
+
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-1-functions</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Define and Call Once</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>Then delete the last line and run it again. <b>Nothing prints.</b> Say why in a comment.</li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Functions" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Call It Three Times</h3>
+          <ul>
+            <li>Add the lines shown so the banner appears three times.</li>
+            <li>Change the wording inside the function to <b>FLIGHT CONTROL</b>, and run it.</li>
+            <li><b>How many places did you edit?</b> Write the number in a comment.</li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Functions" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Your Own Procedure</h3>
+          <ul>
+            <li>Fill in the comment block. Define <code>printFooter</code> and call it where shown.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Functions" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>Call it without the parentheses &mdash; just <code>printBanner;</code> on its own line. Run it, then explain what happened and why there was no error.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>The mapping is close. Three differences worth noticing:</p>
+          <ul>
+            <li><code>PROCEDURE</code> is capitalized and replaces the word <code>function</code>.</li>
+            <li>The braces sit on their <b>own lines</b>.</li>
+            <li><b>No space before the parenthesis</b> &mdash; <code>printBanner()</code>, never <code>printBanner ()</code>.</li>
+          </ul>
+          <p>
+            The exam says <b>procedure</b>, not function. Same thing; the reference
+            sheet only uses one of the two words.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your program should produce output like this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">This shows Task 3 finished. Your footer may look different &mdash; what matters is that both procedures are defined once and called more than once.</p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Task 2 asked how many places you edited. What would that number have been with no function?</li>
+            <li>Explain <b>defining</b> versus <b>calling</b> to someone who has never programmed, in two sentences.</li>
+            <li>Write the exam-notation version of <code>printFooter</code> from memory, then check it against the panel.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

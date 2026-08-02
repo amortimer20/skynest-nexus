@@ -1,0 +1,307 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-2-7-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `function drawTree(x, y, size) { ... }
+function drawCloud(x, y, size) { ... }
+function drawHouse(x, y, size) { ... }
+
+function setup() {
+  createCanvas(400, 400);
+  drawCloud(80, 60, 70);
+  drawHouse(200, 280, 120);
+  drawTree(330, 300, 60);
+}`;
+
+const Figure2 = `function setup() {
+  createCanvas(400, 400);
+  background(20, 30, 50);
+}
+
+function mousePressed() {
+  drawTree(mouseX, mouseY, 50);
+}`;
+
+const Task1 = `function drawTree(x, y, size) {
+  fill(90, 60, 40);
+  rect(x - size / 10, y, size / 5, size);
+  fill(60, 160, 90);
+  ellipse(x, y, size, size);
+}
+
+function drawCloud(x, y, size) {
+  fill(230);
+  ellipse(x, y, size, size * 0.6);
+  ellipse(x + size * 0.4, y, size * 0.8, size * 0.5);
+  ellipse(x - size * 0.4, y, size * 0.7, size * 0.45);
+}
+
+function setup() {
+  createCanvas(400, 400);
+  background(20, 30, 50);
+  noStroke();
+
+  drawCloud(100, 70, 80);
+  drawCloud(300, 110, 60);
+  drawTree(80, 300, 70);
+  drawTree(200, 280, 110);
+  drawTree(330, 310, 55);
+}
+`;
+
+const Task2 = `function drawTree(x, y, size) {
+  fill(90, 60, 40);
+  rect(x - size / 10, y, size / 5, size);
+  fill(60, 160, 90);
+  ellipse(x, y, size, size);
+}
+
+function setup() {
+  createCanvas(400, 400);
+  background(20, 30, 50);
+  noStroke();
+}
+
+function mousePressed() {
+  drawTree(mouseX, mouseY, 50);
+}
+`;
+
+const Task3 = `function drawTree(x, y, size) {
+  fill(90, 60, 40);
+  rect(x - size / 10, y, size / 5, size);
+  fill(60, 160, 90);
+  ellipse(x, y, size, size);
+}
+
+function setup() {
+  createCanvas(400, 400);
+  background(20, 30, 50);
+  noStroke();
+}
+
+function mousePressed() {
+  drawTree(mouseX, mouseY, 50);
+}
+
+// Make the size depend on something rather than always being 50
+//   one option: a random size in a sensible range
+//   another: bigger the further down the canvas you click
+// Then add a second procedure and a way to choose between them
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.7: p5 Lab 8 — Composing a Scene</h1>
+        <Divider variant="8" classes="mb-5" />
+
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="A dark canvas with four trees placed where the mouse was clicked" width={400} class="img-fluid rounded" />
+          </div>
+
+          <p>By the end of <b>Task 2</b> a tree appears wherever you click. Four clicks made this &mdash; the sketch takes input from the mouse rather than from <code>prompt()</code>.</p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>p5 Lab 8</h2>
+              <h3 class="text-sn-theme">Composing a Scene</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Procedures as Building Blocks</p>
+              <p>Input Without prompt()</p>
+              <p>What Does Not Count as Yours</p>
+            </section>
+
+            <section>
+              <h2>Stacking Them Up</h2>
+              <Code code={Figure1} frame="code" lang="javascript" title="A Scene from Three Procedures" showLineNumbers={false} />
+              <p class="fragment">Each procedure knows how to draw one thing. <code>setup()</code> decides where.</p>
+              <p class="fragment">That separation is the whole reason abstraction is useful.</p>
+            </section>
+
+            <section>
+              <h2>A New Kind of Input</h2>
+              <p>Every program so far got its input from <code>prompt()</code>.</p>
+              <p class="fragment">On a canvas there is a better option.</p>
+              <Code code={Figure2} frame="code" lang="javascript" title="Click to Place" showLineNumbers={false} />
+              <p class="fragment"><code>mousePressed()</code> runs whenever the mouse is clicked. <code>mouseX</code> and <code>mouseY</code> are where.</p>
+            </section>
+
+            <section>
+              <h2>Read That Carefully</h2>
+              <p>You did not call <code>mousePressed()</code>. p5 calls it for you.</p>
+              <p class="fragment">It is an <b>event handler</b> &mdash; a procedure the system runs when something happens.</p>
+            </section>
+
+            <section>
+              <h2>And Here Is the Trap</h2>
+              <p>The Create task requires a <b>student-developed procedure</b>.</p>
+            </section>
+
+            <section>
+              <h2>The Trap, Stated Plainly</h2>
+              <p>The College Board excludes <i>event handlers and main methods</i>.</p>
+              <p class="fragment">So <code>setup()</code>, <code>draw()</code>, and <code>mousePressed()</code> <b>do not count</b>.</p>
+              <p class="fragment"><code>drawTree()</code> does.</p>
+              <p class="fragment">You need input <i>and</i> a procedure of your own. They are not the same box.</p>
+            </section>
+
+            <section>
+              <h2>Why Now</h2>
+              <p>Build 1 starts next session.</p>
+              <p class="fragment">If you build in p5, this is how your program takes input.</p>
+              <p class="fragment">And this is the requirement people fail by accident.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Composing a scene from several parameterized procedures</li>
+                <li>Taking input from the mouse with <code>mousePressed()</code></li>
+                <li>Explaining why an event handler is not a student-developed procedure</li>
+                <li>Naming which procedure in your own sketch would satisfy the Create task</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Event handler</dt>
+                  <dd>A procedure the system calls when something happens.</dd>
+                  <dt>mouseX / mouseY</dt>
+                  <dd>Where the pointer was when the event fired.</dd>
+                  <dt>Student-developed procedure</dt>
+                  <dd>One you wrote and call yourself. Not an event handler.</dd>
+                </dl>
+              </div>
+            </section>
+
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js sketch</b> named{" "}
+            <b class="text-sn-theme">2-7-scene</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: A Scene</h3>
+          <ul>
+            <li>Create the sketch below and run it.</li>
+            <li>Add one more cloud and one more tree by adding two lines.</li>
+            <li><b>You changed the picture without touching either procedure.</b></li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="p5 Lab 8" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Click to Place</h3>
+          <ul>
+            <li>Replace it with the version below and run it. Click around the canvas.</li>
+            <li>Notice there is no <code>background()</code> in <code>mousePressed()</code>, so the trees accumulate.</li>
+            <li><b>Write down in a comment:</b> which procedure here did you write, and which does p5 call for you?</li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="p5 Lab 8" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Make the Input Matter</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="p5 Lab 8" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>Add a <code>keyPressed()</code> handler that clears the canvas. Then say why adding it does not get you any closer to satisfying the Create task.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>
+            Clicking should place a shape where you clicked, and the size should
+            depend on something rather than being the same every time.
+          </p>
+
+          <p>
+            <b>Then answer this before you submit:</b> name the procedure in your
+            sketch that would count as student-developed for the Create task, and
+            name one that would not. If you cannot, re-read the trap slide.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li><code>mousePressed()</code> is a procedure you wrote and never call. Who calls it, and when?</li>
+            <li>Why does the College Board exclude event handlers from counting as student-developed? Give a reason, not just the rule.</li>
+            <li>Build 1 starts next session. If you build in p5, what will your input be and which procedure will be yours?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

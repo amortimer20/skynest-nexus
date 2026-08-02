@@ -1,0 +1,328 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `function greetAvery() {
+  console.log("Welcome aboard, Avery.");
+}
+
+function greetBlake() {
+  console.log("Welcome aboard, Blake.");
+}`;
+
+const Figure2 = `function greet(name) {
+  console.log("Welcome aboard, " + name + ".");
+}
+
+greet("Avery");
+greet("Blake");
+greet("Casey");`;
+
+const Figure3 = `function describe(name, rank) {
+  console.log(name + " holds the rank of " + rank + ".");
+}
+
+describe("Avery", "Captain");
+describe("Captain", "Avery");`;
+
+const Figure4 = `function greet(name) {
+  console.log("Welcome, " + name);
+}
+
+greet();`;
+
+const Task1 = `function greet(name) {
+  console.log("Welcome aboard, " + name + ".");
+}
+
+greet("Avery");
+greet("Blake");
+`;
+
+const Task2 = `function greet(name) {
+  console.log("Welcome aboard, " + name + ".");
+}
+
+function crewLine(name, role) {
+  console.log(name + " - " + role);
+}
+
+greet("Avery");
+crewLine("Avery", "Pilot");
+crewLine("Blake", "Engineer");
+`;
+
+const Task3 = `function greet(name) {
+  console.log("Welcome aboard, " + name + ".");
+}
+
+function crewLine(name, role) {
+  console.log(name + " - " + role);
+}
+
+greet("Avery");
+crewLine("Avery", "Pilot");
+
+// Write a procedure called countdown that takes one parameter, seconds
+//   it should print "T-minus", the number, and "seconds"
+// Call it three times with three different numbers
+`;
+
+const ExampleOutput = `Welcome aboard, Avery.
+Avery - Pilot
+T-minus 10 seconds
+T-minus 5 seconds
+T-minus 1 seconds`;
+
+const NotationJs = `function greet(name) {
+  console.log("Welcome, " + name);
+}
+
+greet("Avery");`;
+
+const NotationPseudo = `PROCEDURE greet(name)
+{
+  DISPLAY("Welcome,")
+  DISPLAY(name)
+}
+
+greet("Avery")`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.2: Parameters</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.2</h2>
+              <h3 class="text-sn-theme">Parameters</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>One Procedure, Many Inputs</p>
+              <p>Parameters and Arguments</p>
+              <p>Order Is Everything</p>
+            </section>
+
+            <section>
+              <h2>Still Repeating</h2>
+              <p>Activity 2.1 removed repeated <i>blocks</i>. This is what is left.</p>
+              <Code code={Figure1} frame="code" lang="javascript" title="Two Procedures, One Idea" showLineNumbers={false} />
+              <p class="fragment">Every new crew member needs a new procedure. That does not scale.</p>
+            </section>
+
+            <section>
+              <h2>Leave a Blank</h2>
+              <p>A <b>parameter</b> is a blank you fill in when you call.</p>
+              <Code code={Figure2} frame="code" lang="javascript" title="One Procedure, Three Calls" showLineNumbers={false} />
+              <p class="fragment"><code>name</code> is the parameter. <code>"Avery"</code> is the <b>argument</b>.</p>
+            </section>
+
+            <section>
+              <h2>Two Words, One Idea</h2>
+              <p><b>Parameter</b> &mdash; the name in the definition. The blank.</p>
+              <p class="fragment"><b>Argument</b> &mdash; the value you pass in. What fills the blank.</p>
+              <p class="fragment">The exam uses both words and expects you to know which is which.</p>
+            </section>
+
+            <section>
+              <h2>More Than One</h2>
+              <Code code={Figure3} frame="code" lang="javascript" title="Two Parameters" showLineNumbers={false} />
+              <p class="fragment">Both calls run. Only one makes sense.</p>
+              <p class="fragment"><b>Arguments are matched by position, not by meaning.</b></p>
+            </section>
+
+            <section>
+              <h2>Nothing Passed In</h2>
+              <Code code={Figure4} frame="code" lang="javascript" title="A Missing Argument" showLineNumbers={false} />
+              <p class="fragment">JavaScript does not complain. <code>name</code> becomes <code>undefined</code>.</p>
+              <p class="fragment">You get <code>Welcome, undefined</code> and no error to tell you why.</p>
+            </section>
+
+            <section>
+              <h2>Why This Matters Later</h2>
+              <p>The Create Performance Task requires <b>a procedure with a parameter that affects what it does</b>.</p>
+              <p class="fragment">Not a procedure. Not a parameter. Both, working together.</p>
+              <p class="fragment">You are writing the thing the task asks for, ten weeks early.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Defining a procedure that takes one or more parameters</li>
+                <li>Distinguishing a parameter from an argument</li>
+                <li>Predicting what happens when arguments are in the wrong order</li>
+                <li>Explaining why a missing argument produces <code>undefined</code> rather than an error</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Parameter</dt>
+                  <dd>The named blank in the definition.</dd>
+                  <dt>Argument</dt>
+                  <dd>The actual value passed in when you call.</dd>
+                  <dt>Positional</dt>
+                  <dd>Arguments fill parameters left to right, by position only.</dd>
+                  <dt>undefined</dt>
+                  <dd>What a parameter holds when no argument was supplied.</dd>
+                </dl>
+              </div>
+            </section>
+
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-2-parameters</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: One Blank</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>Add a third call with your own name.</li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Parameters" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Two Blanks</h3>
+          <ul>
+            <li>Add <code>crewLine</code> as shown and run it.</li>
+            <li>Now call <code>crewLine("Pilot", "Avery")</code> &mdash; arguments swapped. Run it.</li>
+            <li><b>Write down what printed.</b> There was no error. Say why that is dangerous.</li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Parameters" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Your Own</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Parameters" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>Call <code>greet()</code> with no argument at all. Predict the output <i>before</i> you run it, write the prediction in a comment, then check.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>Parameters map across directly. Two things to watch:</p>
+          <ul>
+            <li>The parameter list looks identical &mdash; <code>PROCEDURE greet(name)</code>.</li>
+            <li><b>String joining does not exist on the reference sheet.</b> There is no <code>+</code> for text, so the notation version uses two <code>DISPLAY</code> calls.</li>
+          </ul>
+          <p>
+            That second point is why <code>DISPLAY</code> adding a trailing space
+            matters &mdash; two calls in a row give you <code>Welcome, Avery</code> on
+            one line, which is exactly what the JavaScript version prints.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your program should produce output like this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">Your countdown numbers may differ. What matters is that one procedure produced all three lines.</p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>In <code>greet("Avery")</code>, which word is the parameter and which is the argument?</li>
+            <li>Task 2 swapped two arguments and printed nonsense with no error. What would have to be true of JavaScript for it to catch that mistake?</li>
+            <li>The Create task needs a procedure whose parameter <b>affects what it does</b>. Does <code>greet</code> qualify? Argue either way in two sentences.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

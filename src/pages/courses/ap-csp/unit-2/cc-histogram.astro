@@ -1,0 +1,93 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `I have a set of numbers and I want a text histogram. One
+bar per value, scaled so the biggest one fits the width I
+give it. Labels on the left.`;
+
+const SampleOutput = `Mon  |##########          |  24
+Tue  |####################|  48
+Wed  |#####               |  12`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-5" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 5
+        </a>
+
+        <h1>Code Challenge: Histogram</h1>
+
+        <p>
+          <span class="badge text-bg-warning">Extra Credit</span>
+          <span class="ms-2 text-body-secondary">Not part of the five required for this set.</span>
+        </p>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-5">Set 5</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Scaling means the longest bar hits your width exactly and everything else is proportional.</li>
+            <li>Finding the largest value is a running-max loop from Activity 1.20.</li>
+            <li>That means two passes over the data: one to find the maximum, one to draw.</li>
+            <li>Labels must line up in a column. You have no padding tools, so work it out.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">Tuesday is the maximum, so its bar is full width. Everything else is scaled against it.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-histogram</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

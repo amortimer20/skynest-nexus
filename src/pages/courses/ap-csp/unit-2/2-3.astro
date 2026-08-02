@@ -1,0 +1,335 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `function addTax(price) {
+  console.log(price * 1.08);
+}
+
+addTax(20);`;
+
+const Figure2 = `function addTax(price) {
+  return price * 1.08;
+}
+
+let total = addTax(20);
+console.log(total);`;
+
+const Figure3 = `function addTax(price) {
+  return price * 1.08;
+}
+
+let cart = addTax(20) + addTax(35);
+console.log(cart.toFixed(2));`;
+
+const Figure4 = `function addTax(price) {
+  return price * 1.08;
+  console.log("Tax applied");
+}`;
+
+const Figure5 = `function addTax(price) {
+  console.log(price * 1.08);
+}
+
+let total = addTax(20);
+console.log(total);`;
+
+const Task1 = `function addTax(price) {
+  return price * 1.08;
+}
+
+let total = addTax(20);
+console.log("Total:", total.toFixed(2));
+`;
+
+const Task2 = `function addTax(price) {
+  return price * 1.08;
+}
+
+function applyDiscount(price, percent) {
+  return price - (price * percent / 100);
+}
+
+let discounted = applyDiscount(50, 20);
+let final = addTax(discounted);
+
+console.log("Discounted:", discounted.toFixed(2));
+console.log("Final:", final.toFixed(2));
+`;
+
+const Task3 = `function addTax(price) {
+  return price * 1.08;
+}
+
+function applyDiscount(price, percent) {
+  return price - (price * percent / 100);
+}
+
+let final = addTax(applyDiscount(50, 20));
+console.log("Final:", final.toFixed(2));
+
+// Write a procedure called shippingFor that takes a weight
+//   it returns 0 if the weight is under 1
+//   it returns 5 if the weight is under 10
+//   it returns 12 otherwise
+// Print the shipping for 0.5, 4, and 20
+`;
+
+const ExampleOutput = `Final: 43.20
+Shipping for 0.5: 0
+Shipping for 4: 5
+Shipping for 20: 12`;
+
+const NotationJs = `function addTax(price) {
+  return price * 1.08;
+}
+
+let total = addTax(20);`;
+
+const NotationPseudo = `PROCEDURE addTax(price)
+{
+  RETURN(price * 1.08)
+}
+
+total <- addTax(20)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.3: Return Values</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.3</h2>
+              <h3 class="text-sn-theme">Return Values</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Printing vs. Handing Back</p>
+              <p><code>return</code> Ends the Procedure</p>
+              <p>Procedures Inside Procedures</p>
+            </section>
+
+            <section>
+              <h2>A Procedure That Only Prints</h2>
+              <Code code={Figure1} frame="code" lang="javascript" title="No Return" showLineNumbers={false} />
+              <p class="fragment">This works, once.</p>
+              <p class="fragment">Now add up two taxed prices. You cannot &mdash; the number went to the screen and vanished.</p>
+            </section>
+
+            <section>
+              <h2>Hand It Back Instead</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="With Return" showLineNumbers={false} />
+              <p class="fragment"><code>return</code> sends the value back to whoever called.</p>
+              <p class="fragment">Now it is a value you can store, print, or use again.</p>
+            </section>
+
+            <section>
+              <h2>Which Is Which</h2>
+              <p><b>Printing</b> puts something on the screen. The program cannot use it.</p>
+              <p class="fragment"><b>Returning</b> hands a value back. The screen sees nothing.</p>
+              <p class="fragment">A procedure can do both. Most should do one.</p>
+            </section>
+
+            <section>
+              <h2>Now It Composes</h2>
+              <Code code={Figure3} frame="code" lang="javascript" title="Two Calls in One Expression" showLineNumbers={false} />
+              <p class="fragment">Each call becomes its value, then the arithmetic happens.</p>
+              <p class="fragment">You could not do this with a printing procedure.</p>
+            </section>
+
+            <section>
+              <h2>Return Ends It</h2>
+              <Code code={Figure4} frame="code" lang="javascript" title="Unreachable Code" showLineNumbers={false} />
+              <p class="fragment">The <code>console.log</code> never runs.</p>
+              <p class="fragment"><code>return</code> does not just set a value &mdash; it <b>leaves the procedure immediately</b>.</p>
+            </section>
+
+            <section>
+              <h2>The Silent One</h2>
+              <Code code={Figure5} frame="code" lang="javascript" title="No Return, But Stored Anyway" showLineNumbers={false} />
+              <p class="fragment"><code>total</code> is <code>undefined</code>.</p>
+              <p class="fragment">No error. The procedure printed something and handed back nothing.</p>
+              <p class="fragment">This is the most common return bug there is.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a procedure that returns a value</li>
+                <li>Explaining the difference between printing and returning</li>
+                <li>Using a returned value in an expression or another call</li>
+                <li>Recognizing why a procedure with no <code>return</code> gives <code>undefined</code></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Return value</dt>
+                  <dd>The value a procedure hands back to its caller.</dd>
+                  <dt>return</dt>
+                  <dd>Sends a value back <i>and</i> exits the procedure immediately.</dd>
+                  <dt>undefined</dt>
+                  <dd>What a procedure hands back when it has no <code>return</code>.</dd>
+                  <dt>Composition</dt>
+                  <dd>Using one procedure's return value as another's argument.</dd>
+                </dl>
+              </div>
+            </section>
+
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-3-return</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Return Instead of Print</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>Change <code>return</code> to <code>console.log</code> and run it again.</li>
+            <li><b>Write down what changed.</b> One of the two prints <code>undefined</code>.</li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Return Values" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Two Procedures, One Chain</h3>
+          <ul>
+            <li>Add <code>applyDiscount</code> and run it.</li>
+            <li>Check the arithmetic by hand: 20% off 50, then 8% tax.</li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Return Values" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Compose Them Directly</h3>
+          <ul>
+            <li>Note the nested call on the first line. Run it and confirm it matches Task 2.</li>
+            <li>Then fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Return Values" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>Add <code>console.log("done")</code> immediately after a <code>return</code> line. Run it. Explain why nothing prints, and what that tells you about <code>return</code>.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>Two differences, and one of them is easy to miss:</p>
+          <ul>
+            <li><code>RETURN</code> is capitalized and <b>takes parentheses</b> &mdash; <code>RETURN(expression)</code>, not <code>RETURN expression</code>.</li>
+            <li>Assignment is <code>&larr;</code>, so capturing the result is <code>total &larr; addTax(20)</code>.</li>
+          </ul>
+          <p>
+            The reference sheet says a <code>RETURN</code> may appear anywhere in the
+            body and causes an immediate return &mdash; the same behavior you saw in
+            the unreachable-code slide.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your program should produce output like this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">The 43.20 comes from 20% off 50, then 8% tax. Check it by hand before you trust it.</p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>A procedure prints a value instead of returning it. Name one thing you can no longer do with that value.</li>
+            <li>Why does storing the result of a printing procedure give <code>undefined</code> rather than an error?</li>
+            <li>Written response 2(b) on the exam asks you to describe a change that causes a run-time error. Describe one you could make to <code>shippingFor</code>.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

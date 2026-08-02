@@ -1,0 +1,117 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `function greet() {
+  console.log("Welcome aboard.");
+}
+
+greet;`;
+const Bug2 = `function double(n) {
+  n * 2;
+}
+
+console.log(double(8));`;
+const Bug3 = `function crewLine(name, role) {
+  console.log(name + " - " + role);
+}
+
+crewLine("Avery", "Pilot");
+crewLine("Engineer", "Blake");`;
+const Bug4 = `function total(a, b) {
+  return a + b;
+}
+
+console.log(total(3, 4));
+console.log(Total(5, 6));`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Procedures</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>Four short programs about defining and calling. Every one of them is about the boundary between writing a procedure and running it.</p>
+
+          <p>
+            <b>Three kinds of mistake.</b> A <b class="text-sn-red">syntax
+            error</b> stops the program before it runs. A
+            <b class="text-sn-orange">reference error</b> runs until it hits the
+            bad name, so you get partial output and then a crash. A
+            <b class="text-sn-yellow">logic error</b> runs cleanly and gives the
+            wrong answer.
+          </p>
+
+          <p><b>Three of these four are logic errors.</b></p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>This should print a greeting. Nothing appears, and there is no error.</p>
+
+          <Code code={Bug1} frame="code" lang="javascript" title="Bug 1" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>This should print the doubled value. It prints <code>undefined</code>.</p>
+
+          <Code code={Bug2} frame="code" lang="javascript" title="Bug 2" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>This should print a crew line for each person. The second call prints nonsense.</p>
+
+          <Code code={Bug3} frame="code" lang="javascript" title="Bug 3" class="mb-3" />
+
+          <p><b>Also:</b> There is no error message here. Say what would have to be true of JavaScript for it to catch this.</p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>This crashes. Read the message before you change anything.</p>
+
+          <Code code={Bug4} frame="code" lang="javascript" title="Bug 4" class="mb-3" />
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each program: which kind, one sentence on what was wrong, and the corrected line.</p>
+
+          <p>Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

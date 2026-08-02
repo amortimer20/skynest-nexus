@@ -1,0 +1,169 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `function shout(word) {
+  return word + "!";
+}
+
+console.log(shout("go"));`;
+const Q2 = `function shout(word) {
+  console.log(word + "!");
+}
+
+let x = shout("go");
+console.log(x);`;
+const Q3 = `PROCEDURE half(n)
+{
+  RETURN(n / 2)
+}
+
+DISPLAY(half(10))
+DISPLAY(half(half(40)))`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 9</h1>
+
+        <h4 class="text-sn-theme">Six questions &middot; 11 minutes &middot; cumulative</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>Six exam-style questions covering everything through Activity 2.3, weighted toward <b>procedures and return values</b>. Two are cumulative from Quarter 1.</p>
+
+          <p>
+            <b>Set a timer for 11 minutes.</b> Work them out on paper; do not
+            run the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer, one asks you to select
+            <i>all</i> that apply, and the last is about data or the impact of
+            computing rather than about code.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q1} frame="code" lang="javascript" title="Question 1" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>go</code></li>
+            <li>(B) <code>go!</code></li>
+            <li>(C) <code>undefined</code></li>
+            <li>(D) Nothing</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q2} frame="code" lang="javascript" title="Question 2" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>go!</code> then <code>go!</code></li>
+            <li>(B) <code>go!</code> then <code>undefined</code></li>
+            <li>(C) <code>undefined</code> only</li>
+            <li>(D) An error</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q3} frame="code" lang="txt" title="Question 3 — exam notation" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>5 20</code></li>
+            <li>(B) <code>5 10</code></li>
+            <li>(C) <code>5 5</code></li>
+            <li>(D) <code>5 40</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4 &mdash; Select all that apply</h3>
+
+          <p>Which of these are true about <code>return</code>?</p>
+
+          <ul>
+            <li>(A) It hands a value back to the caller</li>
+            <li>(B) It exits the procedure immediately</li>
+            <li>(C) Code written after it in the same block still runs</li>
+            <li>(D) A procedure with no <code>return</code> hands back <code>undefined</code></li>
+            <li>(E) It prints the value to the screen</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>A procedure is defined as <code>function fee(weight, distance)</code>. A student calls <code>fee(200, 5)</code> intending 5 kg over 200 miles. What happens?</p>
+
+          <ul>
+            <li>(A) An error, because the arguments are in the wrong order</li>
+            <li>(B) The procedure runs and returns a wrong number, with no warning</li>
+            <li>(C) JavaScript matches the arguments by name</li>
+            <li>(D) The procedure returns <code>undefined</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6 &mdash; Data and Impact</h3>
+
+          <p>A single byte can represent how many different values?</p>
+
+          <ul>
+            <li>(A) <code>8</code></li>
+            <li>(B) <code>64</code></li>
+            <li>(C) <code>128</code></li>
+            <li>(D) <code>256</code></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

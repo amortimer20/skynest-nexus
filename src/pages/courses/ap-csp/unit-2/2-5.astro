@@ -1,0 +1,355 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `function boxCost(weight, distance, insured) {
+  let base = weight * 0.5;
+  let miles = distance * 0.02;
+  let extra = 0;
+
+  if (insured) {
+    extra = 3;
+  }
+
+  return base + miles + extra;
+}
+
+console.log(boxCost(10, 250, true));`;
+
+const Figure2 = `function boxCost(weight) {
+  let base = weight * 0.5;
+  return base;
+}
+
+console.log(base);`;
+
+const Figure3 = `let shipRate = 0.5;
+
+function boxCost(weight) {
+  return weight * shipRate;
+}
+
+console.log(boxCost(10));`;
+
+const Figure4 = `let total = 100;
+
+function addFee(total) {
+  total = total + 5;
+  return total;
+}
+
+console.log(addFee(total));
+console.log(total);`;
+
+const Task1 = `function boxCost(weight, distance, insured) {
+  let base = weight * 0.5;
+  let miles = distance * 0.02;
+  let extra = 0;
+
+  if (insured) {
+    extra = 3;
+  }
+
+  return base + miles + extra;
+}
+
+console.log("Box A:", boxCost(10, 250, true).toFixed(2));
+console.log("Box B:", boxCost(10, 250, false).toFixed(2));
+`;
+
+const Task2 = `function boxCost(weight, distance, insured) {
+  let base = weight * 0.5;
+  let miles = distance * 0.02;
+  let extra = 0;
+
+  if (insured) {
+    extra = 3;
+  }
+
+  return base + miles + extra;
+}
+
+console.log("Box A:", boxCost(10, 250, true).toFixed(2));
+
+// Add this line, run it, and read the error carefully
+console.log(base);
+`;
+
+const Task3 = `let total = 100;
+
+function addFee(amount) {
+  amount = amount + 5;
+  return amount;
+}
+
+console.log("Returned:", addFee(total));
+console.log("Original:", total);
+
+// Write a procedure called trimCost that takes three parameters:
+//   a price, a discount percent, and a boolean for whether tax applies
+// It should return the final cost
+// Call it twice with the tax boolean flipped, and print both
+`;
+
+const ExampleOutput = `Box A: 11.00
+Returned: 105
+Original: 100
+With tax: 43.20
+Without tax: 40.00`;
+
+const NotationJs = `function boxCost(weight, distance) {
+  return weight * 0.5 + distance * 0.02;
+}`;
+
+const NotationPseudo = `PROCEDURE boxCost(weight, distance)
+{
+  RETURN(weight * 0.5 + distance * 0.02)
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.5: Multiple Parameters, Scope, and Abstraction</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.5</h2>
+              <h3 class="text-sn-theme">Multiple Parameters, Scope, and Abstraction</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Several Blanks at Once</p>
+              <p>Where a Variable Lives</p>
+              <p>Abstraction as Forgetting</p>
+            </section>
+
+            <section>
+              <h2>Three Blanks</h2>
+              <Code code={Figure1} frame="code" lang="javascript" title="Three Parameters" showLineNumbers={false} />
+              <p class="fragment">Position still decides everything. Third argument is <code>insured</code>, always.</p>
+              <p class="fragment">Past three or four parameters, nobody remembers the order. That is a real limit.</p>
+            </section>
+
+            <section>
+              <h2>Where Does base Live?</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="Reaching Inside" showLineNumbers={false} />
+              <p class="fragment">This is an error: <code>base is not defined</code>.</p>
+              <p class="fragment"><code>base</code> exists only while <code>boxCost</code> is running.</p>
+            </section>
+
+            <section>
+              <h2>Scope</h2>
+              <p><b>Scope</b> is the region of a program where a name means something.</p>
+              <p class="fragment">A variable declared inside a procedure is <b>local</b> to it.</p>
+              <p class="fragment">It is created on each call and gone when the call ends.</p>
+            </section>
+
+            <section>
+              <h2>The Other Direction</h2>
+              <Code code={Figure3} frame="code" lang="javascript" title="Reaching Outward" showLineNumbers={false} />
+              <p class="fragment">This works. A procedure can see names declared outside it.</p>
+              <p class="fragment"><b>Inward: no. Outward: yes.</b></p>
+            </section>
+
+            <section>
+              <h2>A Shadow</h2>
+              <Code code={Figure4} frame="code" lang="javascript" title="Same Name, Two Variables" showLineNumbers={false} />
+              <p class="fragment">Prints <code>105</code>, then <code>100</code>.</p>
+              <p class="fragment">The parameter <code>total</code> is a different variable that happens to share a name.</p>
+              <p class="fragment">Changing it does nothing to the outer one.</p>
+            </section>
+
+            <section>
+              <h2>Abstraction</h2>
+              <p>Once <code>boxCost</code> works, you stop thinking about how.</p>
+              <p class="fragment">You think <i>what does this box cost</i> &mdash; not <i>weight times point five plus</i>&hellip;</p>
+              <p class="fragment"><b>Abstraction is being allowed to forget the details.</b></p>
+            </section>
+
+            <section>
+              <h2>Why the Exam Cares</h2>
+              <p>Abstraction is one of the five Big Ideas and its own practice on the exam.</p>
+              <p class="fragment">Managing complexity is the reason, and it is worth saying plainly:</p>
+              <p class="fragment">a program you can hold in your head is a program you can debug.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a procedure with three or more parameters</li>
+                <li>Explaining why a local variable cannot be seen from outside</li>
+                <li>Predicting the result when a parameter shadows an outer variable</li>
+                <li>Describing abstraction as managing complexity</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Scope</dt>
+                  <dd>The region of a program where a name means something.</dd>
+                  <dt>Local variable</dt>
+                  <dd>Declared inside a procedure; gone when the call ends.</dd>
+                  <dt>Shadowing</dt>
+                  <dd>An inner name hiding an outer one that shares its spelling.</dd>
+                  <dt>Abstraction</dt>
+                  <dd>Hiding detail behind a name so you can stop thinking about it.</dd>
+                </dl>
+              </div>
+            </section>
+
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-5-scope</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Three Parameters</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>Box A and Box B differ only in the boolean. Confirm the difference is exactly 3.00.</li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Scope" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Reach Inside and Fail</h3>
+          <ul>
+            <li>Add the last line and run it.</li>
+            <li><b>Copy the exact error message into a comment.</b></li>
+            <li>Then say, in one sentence, where <code>base</code> actually lives.</li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Scope" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: The Shadow, Then Your Own</h3>
+          <ul>
+            <li>Run the shadow example first. Predict both numbers before you do.</li>
+            <li>Then fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Scope" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>Rename the parameter in <code>addFee</code> back to <code>total</code>, so it shadows the outer variable exactly. Run it. Does the answer change? Explain why or why not.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>Multiple parameters look the same in both notations.</p>
+          <ul>
+            <li>Parameters are comma-separated inside the parentheses, exactly as in JavaScript.</li>
+            <li>The reference sheet says nothing at all about scope &mdash; there is no <code>let</code>, and no rule written down for where a name is visible.</li>
+          </ul>
+          <p>
+            <b>That silence is worth knowing.</b> Exam questions will not ask you to
+            reason about scope in notation, because the sheet does not define it. Scope
+            questions come as JavaScript-style code or as plain description.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your program should produce output like this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">Your trimCost numbers will depend on the values you chose. The two lines must differ only by the tax.</p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>In your own words: why can a procedure see variables declared outside it, but not the reverse?</li>
+            <li>A parameter shadowed an outer variable in Task 3 and the outer one was untouched. Why is that behavior safer than the alternative?</li>
+            <li>Name something in this course you now use without thinking about how it works. That is abstraction; say what it lets you ignore.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

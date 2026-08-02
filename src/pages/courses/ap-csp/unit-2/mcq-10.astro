@@ -1,0 +1,165 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `let count = 10;
+
+function bump(count) {
+  count = count + 1;
+  return count;
+}
+
+console.log(bump(count));
+console.log(count);`;
+const Q2 = `function area(w, h) {
+  let result = w * h;
+  return result;
+}
+
+console.log(area(4, 5));
+console.log(result);`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 10</h1>
+
+        <h4 class="text-sn-theme">Six questions &middot; 11 minutes &middot; cumulative</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>Six questions through Activity 2.7, weighted toward <b>scope and abstraction</b>. One is about the p5 labs and matters more than it looks.</p>
+
+          <p>
+            <b>Set a timer for 11 minutes.</b> Work them out on paper; do not
+            run the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer, one asks you to select
+            <i>all</i> that apply, and the last is about data or the impact of
+            computing rather than about code.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q1} frame="code" lang="javascript" title="Question 1" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>11</code> then <code>11</code></li>
+            <li>(B) <code>11</code> then <code>10</code></li>
+            <li>(C) <code>10</code> then <code>11</code></li>
+            <li>(D) An error</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>Why does this crash?</p>
+
+          <Code code={Q2} frame="code" lang="javascript" title="Question 2" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>area</code> was never called</li>
+            <li>(B) <code>result</code> is local to <code>area</code> and does not exist outside it</li>
+            <li>(C) <code>result</code> needs to be returned twice</li>
+            <li>(D) <code>console.log</code> cannot print a variable</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>Which of these count as <b>student-developed procedures</b> for the Create Performance Task?</p>
+
+          <ul>
+            <li>(A) <code>drawTree(x, y, size)</code> that you wrote and call yourself</li>
+            <li>(B) <code>setup()</code></li>
+            <li>(C) <code>mousePressed()</code></li>
+            <li>(D) <code>calculateTotal(price, qty)</code> that you wrote</li>
+            <li>(E) <code>draw()</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>Refactoring is best described as:</p>
+
+          <ul>
+            <li>(A) Making a program run faster</li>
+            <li>(B) Changing how code is written without changing what it does</li>
+            <li>(C) Adding new features to existing code</li>
+            <li>(D) Fixing bugs in a working program</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>A procedure can see a variable declared outside it, but code outside cannot see a variable declared inside it. This is:</p>
+
+          <ul>
+            <li>(A) A bug in JavaScript</li>
+            <li>(B) Scope</li>
+            <li>(C) Abstraction</li>
+            <li>(D) Composition</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6 &mdash; Data and Impact</h3>
+
+          <p>A photo shared online carries the date, camera model, and often the location it was taken. This information is called:</p>
+
+          <ul>
+            <li>(A) Compression</li>
+            <li>(B) Encryption</li>
+            <li>(C) Metadata</li>
+            <li>(D) A protocol</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

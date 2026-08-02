@@ -1,0 +1,300 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `let aName = "Avery";
+let aScore = 88;
+console.log(aName + ": " + aScore + " (" + (aScore >= 60 ? "pass" : "fail") + ")");
+
+let bName = "Blake";
+let bScore = 42;
+console.log(bName + ": " + bScore + " (" + (bScore >= 60 ? "pass" : "fail") + ")");`;
+
+const Figure2 = `function reportLine(name, score) {
+  let verdict = "fail";
+  if (score >= 60) {
+    verdict = "pass";
+  }
+  console.log(name + ": " + score + " (" + verdict + ")");
+}
+
+reportLine("Avery", 88);
+reportLine("Blake", 42);`;
+
+const Figure3 = `// Before
+console.log("Fuel: " + fuel + "%");
+console.log("Oxygen: " + oxygen + "%");
+console.log("Power: " + power + "%");
+
+// After
+function gauge(label, value) {
+  console.log(label + ": " + value + "%");
+}`;
+
+const Task1 = `let aName = "Avery";
+let aScore = 88;
+let verdictA = "fail";
+if (aScore >= 60) {
+  verdictA = "pass";
+}
+console.log(aName + ": " + aScore + " (" + verdictA + ")");
+
+let bName = "Blake";
+let bScore = 42;
+let verdictB = "fail";
+if (bScore >= 60) {
+  verdictB = "pass";
+}
+console.log(bName + ": " + bScore + " (" + verdictB + ")");
+`;
+
+const Task2 = `function reportLine(name, score) {
+  let verdict = "fail";
+  if (score >= 60) {
+    verdict = "pass";
+  }
+  console.log(name + ": " + score + " (" + verdict + ")");
+}
+
+reportLine("Avery", 88);
+reportLine("Blake", 42);
+reportLine("Casey", 60);
+`;
+
+const Task3 = `function reportLine(name, score) {
+  let verdict = "fail";
+  if (score >= 60) {
+    verdict = "pass";
+  }
+  console.log(name + ": " + score + " (" + verdict + ")");
+}
+
+reportLine("Avery", 88);
+reportLine("Blake", 42);
+
+// Below is a block that repeats itself three times.
+// Refactor it into one procedure and three calls.
+console.log("Fuel: 82%");
+console.log("  status: OK");
+console.log("Oxygen: 91%");
+console.log("  status: OK");
+console.log("Power: 24%");
+console.log("  status: LOW");
+`;
+
+const ExampleOutput = `Avery: 88 (pass)
+Blake: 42 (fail)
+Casey: 60 (pass)
+Fuel: 82%
+  status: OK
+Oxygen: 91%
+  status: OK
+Power: 24%
+  status: LOW`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.6: Refactoring</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.6</h2>
+              <h3 class="text-sn-theme">Refactoring</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Changing Shape, Not Behavior</p>
+              <p>Spotting the Repeat</p>
+              <p>Test Before and After</p>
+            </section>
+
+            <section>
+              <h2>A Definition</h2>
+              <p><b>Refactoring</b> is changing how code is written without changing what it does.</p>
+            </section>
+
+            <section>
+              <h2>Say That Again</h2>
+              <p>Same inputs. Same outputs. Different shape.</p>
+              <p class="fragment">If the behavior changed, you did not refactor. You edited.</p>
+            </section>
+
+            <section>
+              <h2>The Smell</h2>
+              <Code code={Figure1} frame="code" lang="javascript" title="Two Blocks, One Idea" showLineNumbers={false} />
+              <p class="fragment">The giveaway is not the length. It is that the two blocks differ only in <b>values</b>.</p>
+            </section>
+
+            <section>
+              <h2>The Move</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="One Procedure, Two Calls" showLineNumbers={false} />
+              <p class="fragment">Whatever differed becomes a <b>parameter</b>. Whatever stayed the same becomes the body.</p>
+            </section>
+
+            <section>
+              <h2>A Recipe You Can Follow</h2>
+              <ul>
+                <li>Find two blocks that differ only in values.</li>
+                <li>Write down what differs. Those are your parameters.</li>
+                <li>Move the shared code into a procedure.</li>
+                <li>Replace both blocks with calls.</li>
+                <li><b>Run it and compare the output to before.</b></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>That Last Step</h2>
+              <p>Refactoring is defined by the output not changing.</p>
+              <p class="fragment">So the only way to know you refactored is to <b>check the output</b>.</p>
+              <p class="fragment">Copy the old output into a comment first. Compare after.</p>
+            </section>
+
+            <section>
+              <h2>Not Always Worth It</h2>
+              <Code code={Figure3} frame="code" lang="javascript" title="A Small One" showLineNumbers={false} />
+              <p class="fragment">Three one-line prints, into a procedure of one line.</p>
+              <p class="fragment">Worth it if there will be twenty gauges. Not worth it if there will be three.</p>
+              <p class="fragment"><b>Judgment, not a rule.</b></p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Defining refactoring as changing structure without changing behavior</li>
+                <li>Identifying repeated blocks that differ only in values</li>
+                <li>Extracting a procedure and replacing the repeats with calls</li>
+                <li>Verifying the output is unchanged</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Refactoring</dt>
+                  <dd>Changing how code is written without changing what it does.</dd>
+                  <dt>Extract a procedure</dt>
+                  <dd>Move repeated code into a named procedure and call it.</dd>
+                  <dt>Regression</dt>
+                  <dd>A change that was supposed to be safe and was not.</dd>
+                </dl>
+              </div>
+            </section>
+
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-6-refactoring</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Record the Before</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li><b>Copy the exact output into a comment at the bottom.</b> You will compare against it.</li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Refactoring" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Extract the Procedure</h3>
+          <ul>
+            <li>Replace the whole thing with the version below and run it.</li>
+            <li>Compare against the comment from Task 1. The first two lines must match exactly.</li>
+            <li>Casey scores exactly 60. Check the boundary is right.</li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Refactoring" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Do It Yourself</h3>
+          <ul>
+            <li>Refactor the gauge block at the bottom into one procedure and three calls.</li>
+            <li>The status line is indented by two spaces. Keep it that way.</li>
+            <li>Run it and confirm the output is identical to before you started.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Refactoring" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>Refactor a program you wrote in Quarter 1. Paste the before-output and after-output as comments and confirm they match character for character.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Your program should produce output like this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">The point is not that this output is impressive. It is that it is <b>identical</b> to the version you started with.</p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Refactoring means behavior does not change. How did you actually verify that, rather than assume it?</li>
+            <li>The gauge block had three repeats. At what number of repeats would you not have bothered? Defend the number.</li>
+            <li>Task 2's Casey scores exactly 60. Why did that value get chosen for the example?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

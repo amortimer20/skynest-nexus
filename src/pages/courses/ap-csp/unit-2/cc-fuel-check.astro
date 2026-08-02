@@ -1,0 +1,86 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `Before each flight we check whether there is enough fuel
+for the trip plus a reserve. Distance, fuel on board, and
+how efficient the aircraft is. Tell me go or no-go, and
+if it is no-go tell me how short we are.`;
+
+const SampleOutput = `Distance: 900  Fuel: 210  Efficiency: 4.5
+NO-GO. Short by 12.0 units including reserve.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-5" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 5
+        </a>
+
+        <h1>Code Challenge: Fuel Check</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-5">Set 5</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Three parameters again, and this time one of them changes the answer dramatically. Say which in your requirements list.</li>
+            <li>The reserve is not given to you. Pick one, record it, and apply it consistently.</li>
+            <li>A no-go should say <i>how short</i>, not just no. That is the difference between a useful tool and a light on a dashboard.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">900 / 4.5 is 200 units needed. With a 22-unit reserve that is 222 against 210 on board.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-fuel-check</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,246 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Ambiguous = `Bill, tip percent, how many people. Tell me what each
+person owes. And round it up.`;
+
+const Questions = `Questions this brief does not answer
+
+  - What order do the three values go in?
+  - Round up to the nearest cent, or the nearest pound?
+  - The rounded shares will not add up to the bill exactly.
+    Do I say so, or quietly absorb it?
+  - What if the tip is 0? What if there is one person?
+
+MY DECISIONS
+  - Order: bill, tipPercent, people. Written at the top of the file.
+  - Round up to the nearest cent.
+  - Report the collected total so the discrepancy is visible.`;
+
+const pool = [
+  { slug: "cc-name-badge", title: "Name Badge", stars: 1, after: "2.2" },
+  { slug: "cc-temperature-band", title: "Temperature Band", stars: 1, after: "2.3" },
+  { slug: "cc-unit-price", title: "Unit Price", stars: 1, after: "2.3" },
+  { slug: "cc-grade-band", title: "Grade Band", stars: 2, after: "2.3" },
+  { slug: "cc-tip-split", title: "Tip Split", stars: 2, after: "2.5" },
+  { slug: "cc-fuel-check", title: "Fuel Check", stars: 2, after: "2.5" },
+  { slug: "cc-progress-bar", title: "Progress Bar", stars: 2, after: "2.5" },
+  { slug: "cc-dice-roller", title: "Dice Roller", stars: 2, after: "2.5" },
+  { slug: "cc-receipt-total", title: "Receipt Total", stars: 3, after: "2.6" },
+  { slug: "cc-word-wrap", title: "Line Splitter", stars: 3, after: "2.6" },
+];
+
+const bonus = [
+  { slug: "cc-roman-numerals", title: "Roman Numerals", stars: 3, after: "2.6" },
+  { slug: "cc-histogram", title: "Histogram", stars: 3, after: "2.6" },
+];
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge Set 5</h1>
+
+        <h4 class="text-sn-theme">Complete any 5 of the 10 below.</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Set Is For</h2>
+
+          <p>
+            <b>Every challenge here is a procedure with a parameter that changes
+            what it does.</b> That is not a coincidence and it is not a theme
+            chosen for variety.
+          </p>
+
+          <p>
+            It is the exact wording of a Create Performance Task requirement:
+            <i>a student-developed procedure with one or more parameters that
+            have an effect on the functionality of the procedure.</i> You will
+            write that procedure for real in Quarter 3. This set is where you
+            write it thirty times first, while it costs nothing.
+          </p>
+
+          <p>
+            Same rule as always: <b>write your requirements list before you
+            write any code</b>, and submit both.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="shape">
+          <h2>This Set Is About Deciding the Shape</h2>
+
+          <p>
+            In Quarter 1 the thing a brief left open was a value, or a boundary.
+            Here it is almost always <b>the shape of the procedure itself</b>
+            &mdash; how many parameters, in what order, and whether it returns
+            or prints.
+          </p>
+
+          <Code
+            code={Ambiguous}
+            frame="code"
+            lang="txt"
+            title="From the Tip Split brief"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            Read that and notice it never says what the procedure looks like.
+            Here is what should end up in your requirements list:
+          </p>
+
+          <Code
+            code={Questions}
+            frame="code"
+            lang="txt"
+            title="Requirements — the questions half"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Parameter order is the one that will bite you.</b> JavaScript
+            matches arguments by position and says nothing when you get it
+            wrong &mdash; you get a plausible number computed from the wrong
+            values. Write the order down before you write the procedure, and
+            put it in a comment above the definition.
+          </p>
+
+          <p>
+            <b>Return or print is the other one.</b> A procedure that prints
+            cannot be used inside another expression. If a brief hints that its
+            answer will be used for something else, it needs to return.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="challenges">
+          <h2>The Challenges</h2>
+
+          <p>Pick <b>any five</b>.</p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              pool.map((c) => (
+                <li class="mb-2">
+                  <i class="si-terminal text-sn-theme me-2"></i>
+                  <a href={`/courses/ap-csp/unit-2/${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">
+                    &mdash; after Activity {c.after}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="bonus">
+          <h2>If Five Is Not Enough</h2>
+
+          <p>
+            These two are <b>extra credit</b>, worth 3 points each on top of the
+            set.
+          </p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              bonus.map((c) => (
+                <li class="mb-2">
+                  <i class="si-flask text-sn-yellow me-2"></i>
+                  <a href={`/courses/ap-csp/unit-2/${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">
+                    &mdash; after Activity {c.after}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <p class="mt-3">
+            <b>Roman Numerals punishes coding before thinking.</b> Work the
+            algorithm out on paper first; the subtractive cases are where every
+            attempt breaks.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="start-here">
+          <h2>If the Part 4 Quiz Went Badly</h2>
+
+          <p>
+            These three are the repair kit. <b>They count toward your five</b>
+            &mdash; this is not extra work, it is a different order to do it in.
+          </p>
+
+          <ul>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-temperature-band">Temperature Band</a>
+              &mdash; returning instead of printing
+            </li>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-name-badge">Name Badge</a>
+              &mdash; what a parameter is for
+            </li>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-receipt-total">Receipt Total</a>
+              &mdash; composition, once the first two make sense
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For <b>each</b> challenge you complete, submit:</p>
+
+          <ol>
+            <li>
+              <b>Your requirements list</b> &mdash; including the parameter
+              order you chose and whether the procedure returns or prints.
+            </li>
+            <li><b>Your program file.</b></li>
+          </ol>
+
+          <p>
+            This set is worth <b>5 points</b>, graded on completion. Extra
+            credit is on top and does not replace any of the five.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenges
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,146 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const P1 = `PROCEDURE addTax(price)
+{
+  RETURN(price + price * 0.1)
+}
+
+DISPLAY(addTax(100))
+DISPLAY(addTax(addTax(100)))`;
+const P2 = `PROCEDURE band(n)
+{
+  IF(n >= 90)
+  {
+    RETURN("A")
+  }
+  ELSE
+  {
+    IF(n >= 80)
+    {
+      RETURN("B")
+    }
+    ELSE
+    {
+      RETURN("C")
+    }
+  }
+}
+
+scores <- [95, 80, 79]
+FOR EACH s IN scores
+{
+  DISPLAY(band(s))
+}`;
+const P3 = `PROCEDURE mystery(a, b)
+{
+  IF(a > b)
+  {
+    RETURN(a)
+  }
+  RETURN(b)
+}
+
+DISPLAY(mystery(3, 9))
+DISPLAY(mystery(9, 3))
+DISPLAY(mystery(4, 4))`;
+const RefCard = `PROCEDURE procName(p1, p2)     define a procedure
+{
+  ...
+  RETURN(expression)           hand a value back AND exit immediately
+}
+
+result <- procName(a, b)       call it and capture what it returns
+procName(a, b)                 call it and ignore what it returns
+
+a <- expression                assign a COPY of the result
+DISPLAY(expression)            show it, FOLLOWED BY A SPACE
+=  is equality.  <- is assignment.  No == anywhere.
+
+IF(condition) { } ELSE { }     the only two selection forms`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Pseudocode Challenge: Tracing Procedures</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>Three traces. All three are about what a procedure hands back &mdash; the thing the multiple-choice section asks about most often once procedures appear.</p>
+
+          <p>
+            <b>Do this on paper.</b> There is nothing to run. On exam day you
+            get this notation printed and no computer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="reference">
+          <h2>Reference Card</h2>
+
+          <Code code={RefCard} frame="code" lang="txt" title="Exam Notation — what you have so far" showLineNumbers={false} class="mt-3" />
+        </section>
+
+        <hr />
+
+        <section id="problems">
+          <h2>The Problems</h2>
+
+          <hr class="my-4" />
+
+          <h3>Problem 1 &mdash; trace</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={P1} frame="code" lang="txt" title="Problem 1" showLineNumbers={false} class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Problem 2 &mdash; trace</h3>
+
+          <p>Build a table of <code>n</code> and what is displayed on each pass.</p>
+
+          <Code code={P2} frame="code" lang="txt" title="Problem 2" showLineNumbers={false} class="mb-3" />
+
+          <p><b>Then answer this:</b> 80 sits exactly on a boundary. Which branch takes it, and how do you know from the code rather than from guessing?</p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 3 &mdash; trace</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={P3} frame="code" lang="txt" title="Problem 3" showLineNumbers={false} class="mb-3" />
+
+          <p><b>Then answer this:</b> there is no <code>ELSE</code> here and the procedure still always returns exactly one value. Explain why.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Your three answers, plus the trace table for Problem 2. Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

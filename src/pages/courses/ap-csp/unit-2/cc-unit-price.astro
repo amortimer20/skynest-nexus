@@ -1,0 +1,105 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `The shop compares products by price per unit so people can
+see which is really cheaper. Bulk packs look cheap until
+you do the division. I want to type in a price and a
+count and get the per-unit figure back.`;
+
+const SampleOutput = `Pack of 12 at $8.40 -> $0.70 each
+Pack of 30 at $19.50 -> $0.65 each
+The 30-pack is better.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-5" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 5
+        </a>
+
+        <h1>Code Challenge: Unit Price</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-5">Set 5</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>This one <b>returns</b> a value rather than printing it. That matters for the next note.</li>
+            <li>Print a comparison of two products using two calls in one line of output.</li>
+            <li>You cannot do that if the procedure prints instead of returning. Try it the wrong way first if you want to see why.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="where-to-start">
+          <h2>Where to Start</h2>
+
+          <p>
+            <b>Only one-star challenges have this section.</b> If you already know how to
+            begin, skip it &mdash; and when you move up to two stars, working out the order
+            yourself is part of the job.
+          </p>
+
+          <ol>
+            <li>Write the arithmetic with no procedure at all. Check it on paper.</li>
+            <li>Wrap it in a procedure that takes price and count.</li>
+            <li>Use <code>return</code>, not <code>console.log</code>.</li>
+            <li>Call it twice in one <code>console.log</code> to compare two products.</li>
+          </ol>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">Check the arithmetic: 8.40 / 12 and 19.50 / 30. Both come out clean.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-unit-price</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

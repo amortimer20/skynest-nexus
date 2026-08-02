@@ -1,0 +1,129 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `function addTax(price) {
+  let taxed = price * 1.08;
+  return taxed;
+}
+
+console.log(addTax(50));
+console.log(taxed);`;
+const Bug2 = `let total = 100;
+
+function addFee(total) {
+  total = total + 5;
+}
+
+addFee(total);
+console.log(total);`;
+const Bug3 = `let rate = 0.08;
+
+function priceWithTax(amount) {
+  let rate = 0.2;
+  return amount * (1 + rate);
+}
+
+console.log(priceWithTax(100));`;
+const Bug4 = `function record() {
+  let count = 0;
+  count = count + 1;
+  console.log(count);
+}
+
+record();
+record();
+record();`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Scope</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>Four short programs about where a variable lives. Two of them run perfectly and give the wrong answer, which is the harder kind.</p>
+
+          <p>
+            <b>Three kinds of mistake.</b> A <b class="text-sn-red">syntax
+            error</b> stops the program before it runs. A
+            <b class="text-sn-orange">reference error</b> runs until it hits the
+            bad name, so you get partial output and then a crash. A
+            <b class="text-sn-yellow">logic error</b> runs cleanly and gives the
+            wrong answer.
+          </p>
+
+          <p><b>Three of these four are logic errors.</b></p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>This should print the tax. It crashes on the last line.</p>
+
+          <Code code={Bug1} frame="code" lang="javascript" title="Bug 1" class="mb-3" />
+
+          <p><b>Also:</b> Say in one sentence where <code>taxed</code> actually exists, and for how long.</p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>This should add 5 to the running total. The total never changes.</p>
+
+          <Code code={Bug2} frame="code" lang="javascript" title="Bug 2" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>This should use the shop's rate. It uses the wrong one.</p>
+
+          <Code code={Bug3} frame="code" lang="javascript" title="Bug 3" class="mb-3" />
+
+          <p><b>Also:</b> Both rates are defined and neither is a typo. What decides which one wins?</p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>This should count three calls. It prints 1 three times.</p>
+
+          <Code code={Bug4} frame="code" lang="javascript" title="Bug 4" class="mb-3" />
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each program: which kind, one sentence on what was wrong, and the corrected line.</p>
+
+          <p>Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
