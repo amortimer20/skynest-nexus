@@ -1,0 +1,223 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Ambiguous = `The garage is free for a short stop, then charges for
+the first hour, then less for each hour after that.`;
+
+const Questions = `Questions this brief does not answer
+
+  - How short is "a short stop"?
+  - Is exactly 30 minutes free, or does 30 start the charge?
+  - Does a 61-minute stay pay for two hours, or one and a bit?
+  - Is there a cap? (The brief mentions one elsewhere.)
+
+MY DECISIONS
+  - Free under 30 minutes. Exactly 30 is charged.
+  - Partial hours round up. 61 minutes = 2 hours.`;
+
+const pool = [
+  { slug: "cc-traffic-light", title: "Traffic Light", stars: 1, after: "1.11" },
+  { slug: "cc-movie-rating", title: "Movie Rating", stars: 1, after: "1.11" },
+  { slug: "cc-shipping-tier", title: "Shipping Tier", stars: 2, after: "1.11" },
+  { slug: "cc-birth-seasons", title: "Birth Seasons", stars: 1, after: "1.12" },
+  { slug: "cc-hat-size-checker", title: "Hat Size Checker", stars: 1, after: "1.12" },
+  { slug: "cc-letter-grade", title: "Letter Grade", stars: 2, after: "1.12" },
+  { slug: "cc-parking-fee", title: "Parking Fee", stars: 2, after: "1.12" },
+  { slug: "cc-ride-check", title: "Ride Check", stars: 2, after: "1.14" },
+  { slug: "cc-password-strength", title: "Password Strength", stars: 2, after: "1.14" },
+  { slug: "cc-coin-toss", title: "Coin Toss", stars: 1, after: "1.15" },
+  { slug: "cc-magic-8-ball", title: "Magic 8-Ball", stars: 1, after: "1.15" },
+  { slug: "cc-dice-duel", title: "Dice Duel", stars: 2, after: "1.15" },
+];
+
+const bonus = [
+  { slug: "cc-bmi-calculator", title: "BMI Calculator", stars: 3, after: "1.12" },
+  { slug: "cc-rock-paper-scissors", title: "Rock Paper Scissors", stars: 3, after: "1.15" },
+];
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge Set 2</h1>
+
+        <h4 class="text-sn-theme">Complete any 5 of the 12 below.</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Set Is For</h2>
+
+          <p>
+            Everything here is a decision. Your program takes something in,
+            works out which case it falls into, and says something different
+            depending on the answer. That is <b>selection</b> &mdash; the second
+            of the three building blocks every algorithm is made of.
+          </p>
+
+          <p>
+            Same rule as Set 1: <b>write your requirements list before you write
+            any code</b>, and submit both.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="boundaries">
+          <h2>This Set Is About Boundaries</h2>
+
+          <p>
+            In Set 1 the thing left undefined was usually a missing number. Here
+            it is almost always a <b>boundary</b> &mdash; the exact value where
+            one answer becomes another.
+          </p>
+
+          <p>
+            Take this fragment of one of the briefs below. Read it and notice
+            how much it does not tell you:
+          </p>
+
+          <Code
+            code={Ambiguous}
+            frame="code"
+            lang="txt"
+            title="From the Parking Fee brief"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            That is a normal way for a person to describe a rule, and it is not
+            enough to write a program from. Here is what should end up in your
+            requirements list:
+          </p>
+
+          <Code
+            code={Questions}
+            frame="code"
+            lang="txt"
+            title="Requirements — the questions half"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>There is no right answer to any of those questions.</b> There is
+            only a decision you made or a decision you did not notice. A program
+            that charges for exactly 30 minutes and one that does not are both
+            correct; a program whose author never thought about it is the one
+            that will be wrong in front of a customer.
+          </p>
+
+          <p>
+            <b>So test the boundary every time.</b> If the rule changes at 90,
+            run 89.9, 90, and 90.1. That habit is worth more than any single
+            challenge here, and it is the same habit that catches off-by-one
+            errors in loops next week.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="challenges">
+          <h2>The Challenges</h2>
+
+          <p>Pick <b>any five</b>.</p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              pool.map((c) => (
+                <li class="mb-2">
+                  <i class="si-terminal text-sn-theme me-2"></i>
+                  <a href={`./${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">
+                    &mdash; after Activity {c.after}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="bonus">
+          <h2>If Five Is Not Enough</h2>
+
+          <p>
+            These two are <b>extra credit</b>, worth 3 points each on top of the
+            set. They are harder than anything in the pool and they are meant to
+            be.
+          </p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              bonus.map((c) => (
+                <li class="mb-2">
+                  <i class="si-flask text-sn-yellow me-2"></i>
+                  <a href={`./${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">
+                    &mdash; after Activity {c.after}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <p class="mt-3">
+            <b>Rock Paper Scissors is deliberately repetitive.</b> Three rounds
+            means writing nearly the same thing three times, because you do not
+            have loops yet. Noticing how annoying that is will make Activity
+            1.16 land properly.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For <b>each</b> challenge you complete, submit:</p>
+
+          <ol>
+            <li>
+              <b>Your requirements list</b> &mdash; including the boundary
+              questions the brief left open and the decision you made about each.
+            </li>
+            <li><b>Your program file.</b></li>
+          </ol>
+
+          <p>
+            This set is worth <b>9 points</b>, graded on completion. Extra credit
+            is on top and does not replace any of the five.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenges
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
