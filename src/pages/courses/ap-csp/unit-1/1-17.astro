@@ -2,6 +2,8 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-17-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
@@ -131,6 +133,23 @@ function draw() {
         <h1>Activity 1.17: p5 Lab 4 &mdash; The Loop You Didn't Write</h1>
         <Divider variant="8" classes="mb-5" />
 
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="Three frames side by side showing the same blue circle at the left edge, the middle, and the right edge of a dark canvas" width={760} class="img-fluid rounded" />
+          </div>
+
+          <p>Three moments from the same sketch. By the end of <b>Task 2</b> the circle moves on its own and wraps back around when it leaves the canvas &mdash; this is one sketch, caught three times, not three sketches.</p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>

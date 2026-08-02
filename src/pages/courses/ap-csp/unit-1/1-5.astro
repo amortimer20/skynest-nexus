@@ -2,6 +2,8 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-5-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
@@ -68,6 +70,23 @@ const Task3 = `function setup() {
         <h1>Activity 1.5: p5 Lab 1 &mdash; The Canvas</h1>
         <Divider variant="8" classes="mb-5" />
 
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="A 400 by 400 canvas on a light grey background with a rectangle, an ellipse, and two overlapping colored squares" width={400} class="img-fluid rounded" />
+          </div>
+
+          <p>By the end of <b>Task 2</b> you will have a canvas with several shapes on it, including two that overlap so you can see which one wins.</p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
