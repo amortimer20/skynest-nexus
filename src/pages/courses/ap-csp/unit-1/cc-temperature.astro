@@ -1,0 +1,102 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `My grandmother still gives me oven temperatures and weather
+in Fahrenheit and I have no instinct for it. I want to type
+in a Fahrenheit number and get Celsius back, to one decimal
+place, not fifteen.`;
+
+const SampleOutput = `Fahrenheit: 98.6
+
+98.6 F is 37.0 C`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="./cc-set-1" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 1
+        </a>
+
+        <h1>Code Challenge: Temperature</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code
+            code={Brief}
+            frame="code"
+            lang="txt"
+            title="What they asked for"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="./cc-set-1">Set 1</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>The formula is Celsius = (Fahrenheit &minus; 32) &times; 5 &divide; 9. Watch your parentheses.</li>
+            <li>One decimal place is a real requirement here, not a suggestion. Activity 1.8 has the tool.</li>
+            <li>Test with 32 and 212. If those do not come out as 0.0 and 100.0, the problem is your formula, not your rounding.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">32 F should give 0.0 C and 212 F should give 100.0 C. Check both before you submit.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-temperature</b>.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

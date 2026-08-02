@@ -1,0 +1,105 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `I am driving to my cousin's this weekend and I want to know
+what the gas is going to run me before I commit. My car is
+pretty good on gas but I do not remember the exact number,
+so I would rather type it in each time than have it built in.`;
+
+const SampleOutput = `How far are you driving (miles)? 420
+What is your car's mpg? 32
+Price per gallon? 3.49
+
+Gallons needed: 13.125
+Trip cost: 45.80625`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="./cc-set-1" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 1
+        </a>
+
+        <h1>Code Challenge: Trip Cost</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code
+            code={Brief}
+            frame="code"
+            lang="txt"
+            title="What they asked for"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="./cc-set-1">Set 1</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Three things have to come from the person running the program, not from you.</li>
+            <li>Gas is sold by the gallon and the car is measured in miles per gallon. Work out how many gallons the trip needs before you work out the money.</li>
+            <li>Money looks wrong with five decimal places. You do not have the tool to fix that until Activity 1.8 &mdash; if it bothers you, come back after it.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">45.80625 is the honest answer. Activity 1.8 shows how to display it as 45.81.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-trip-cost</b>.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
