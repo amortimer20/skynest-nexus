@@ -1,0 +1,113 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `The times table one was useful but I want the whole grid,
+twelve by twelve, laid out like the poster on the classroom
+wall. It has to actually line up.`;
+
+const SampleOutput = `    1   2   3   4  ...  12
+1   1   2   3   4  ...  12
+2   2   4   6   8  ...  24
+3   3   6   9  12  ...  36
+...`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-1/cc-set-3" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 3
+        </a>
+
+        <h1>Code Challenge: Multiplication Grid</h1>
+
+        <p>
+          <span class="badge text-bg-warning">Extra Credit</span>
+          <span class="ms-2 text-body-secondary"
+            >Not part of the five required for this set.</span
+          >
+        </p>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code
+            code={Brief}
+            frame="code"
+            lang="txt"
+            title="What they asked for"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-1/cc-set-3">Set 3</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Nested loops give you the numbers. Making the columns line up is the hard part.</li>
+            <li>You have no formatting tools yet, so you will need to think about spacing yourself. Padding short numbers with a space is a legitimate approach.</li>
+            <li>Build each row as a string, then print the row. Do not print inside the inner loop.</li>
+            <li>A header row and a header column make it readable. Both are optional.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">Getting 144 numbers on the screen is the easy half. Getting them in straight columns is the challenge.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-multiplication-grid</b>.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,168 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q2 = `count <- 3
+
+REPEAT UNTIL(count = 0)
+{
+  DISPLAY(count)
+  count <- count - 1
+}`;
+const Q3 = `count <- 3
+
+REPEAT UNTIL(count = 0)
+{
+  DISPLAY(count)
+  count <- count - 1
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 4</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; 9 minutes &middot; cumulative
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>Five exam-style questions covering Activity 1.1 through 1.16, weighted toward <b>randomness and <code>REPEAT UNTIL</code></b>. This is the first set with a loop in it.</p>
+
+          <p>
+            <b>Set a timer for 9 minutes.</b> Work them out on paper; do not run
+            the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank &mdash; the AP exam has no penalty for a
+            wrong answer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer. One asks you to select
+            <i>all</i> that apply.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1 &mdash; Select all that apply</h3>
+
+          <p>A program runs <code>RANDOM(2, 5)</code> many times. Which values are possible?</p>
+
+          <ul>
+            <li>(A) <code>1</code></li>
+            <li>(B) <code>2</code></li>
+            <li>(C) <code>4</code></li>
+            <li>(D) <code>5</code></li>
+            <li>(E) <code>6</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>How many times does the body of this loop run?</p>
+
+          <Code
+            code={Q2}
+            frame="code"
+            lang="txt"
+            title="Question 2 — exam notation"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>0</code></li>
+            <li>(B) <code>2</code></li>
+            <li>(C) <code>3</code></li>
+            <li>(D) It never stops</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>What does the program above display?</p>
+
+          <Code
+            code={Q3}
+            frame="code"
+            lang="txt"
+            title="Question 3 — exam notation"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>3 2 1</code></li>
+            <li>(B) <code>3 2 1 0</code></li>
+            <li>(C) <code>2 1 0</code></li>
+            <li>(D) <code>1 2 3</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>A student translates <code>while (x &lt; 10)</code> from JavaScript into exam notation as <code>REPEAT UNTIL(x &lt; 10)</code>. What have they done wrong?</p>
+
+          <ul>
+            <li>(A) Nothing; they are equivalent.</li>
+            <li>(B) <code>REPEAT UNTIL</code> runs until the condition is true, so the condition must be inverted to <code>x &ge; 10</code>.</li>
+            <li>(C) <code>REPEAT UNTIL</code> requires a counter variable.</li>
+            <li>(D) <code>&lt;</code> is not a valid operator in exam notation.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>Which JavaScript expression produces a whole number from 1 to 6, inclusive?</p>
+
+          <ul>
+            <li>(A) <code>Math.random() * 6</code></li>
+            <li>(B) <code>Math.floor(Math.random() * 6)</code></li>
+            <li>(C) <code>Math.floor(Math.random() * 6) + 1</code></li>
+            <li>(D) <code>Math.floor(Math.random() * 7) + 1</code></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

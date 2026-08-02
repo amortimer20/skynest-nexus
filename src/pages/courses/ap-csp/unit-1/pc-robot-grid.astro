@@ -1,0 +1,170 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const P1 = `MOVE_FORWARD()
+MOVE_FORWARD()
+ROTATE_RIGHT()
+MOVE_FORWARD()`;
+const P2 = `REPEAT 3 TIMES
+{
+  MOVE_FORWARD()
+}
+ROTATE_LEFT()
+MOVE_FORWARD()
+MOVE_FORWARD()`;
+const P3 = `REPEAT UNTIL(CAN_MOVE(forward))
+{
+  ROTATE_RIGHT()
+}
+MOVE_FORWARD()`;
+const RefCard = `MOVE_FORWARD()     one square in the direction it faces
+ROTATE_LEFT()      turn 90 degrees counterclockwise, in place
+ROTATE_RIGHT()     turn 90 degrees clockwise, in place
+CAN_MOVE(dir)      true if the next square that way is open
+                   dir is left / right / forward / backward
+                   RELATIVE TO THE ROBOT, not to the grid
+
+If the robot tries to move into a wall or off the grid, it
+stays put and THE PROGRAM ENDS.
+
+IF(condition)      REPEAT n TIMES        REPEAT UNTIL(condition)
+{ ... }            { ... }               { ... }
+ELSE
+{ ... }`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Pseudocode Challenge: Robot on a Grid</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>Three problems on the robot block. This shows up on the exam as a recurring question type with a picture of a grid, and <b>nothing else in this course teaches it</b> &mdash; there is no JavaScript equivalent, so this page is the only place you will meet it before May.</p>
+
+          <p>
+            <b>Do this on paper.</b> There is nothing to run and nothing to type.
+            On exam day you get this notation on a printed sheet and no
+            computer, so practicing it any other way practices the wrong thing.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="reference">
+          <h2>Reference Card</h2>
+
+          <p>
+            Everything you need for this page. This is the same notation the
+            College Board uses on the exam.
+          </p>
+
+          <Code
+            code={RefCard}
+            frame="code"
+            lang="txt"
+            title="Exam Notation — what you have so far"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">
+            <b>Two things catch people every time.</b>{" "}
+            <code>DISPLAY</code> puts <b>a space</b> after whatever it shows, so
+            two <code>DISPLAY</code> calls in a row give you
+            <code>A B</code> on one line &mdash; not two lines and not
+            <code>AB</code>. And <code>=</code> means <b>equals</b> here, not
+            assignment. Assignment is <code>&larr;</code>.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="problems">
+          <h2>The Problems</h2>
+
+          <hr class="my-4" />
+
+          <h3>Problem 1 &mdash; trace</h3>
+
+          <p>The robot starts in the bottom-left square of a 4 by 4 grid with every square open, <b>facing up</b>. Where does it end up, and which way is it facing?</p>
+
+          <Code
+            code={P1}
+            frame="code"
+            lang="txt"
+            title="Problem 1"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Problem 2 &mdash; trace</h3>
+
+          <p>Same 4 by 4 grid, all squares open. The robot starts in the bottom-left square <b>facing right</b>.</p>
+
+          <Code
+            code={P2}
+            frame="code"
+            lang="txt"
+            title="Problem 2"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p><b>Then answer this:</b> what would happen if the loop said <code>REPEAT 4 TIMES</code> instead? Be specific about what the robot does and what happens to the program.</p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 3 &mdash; trace</h3>
+
+          <p>The robot is somewhere on a grid, facing an unknown direction. Explain in two or three sentences what this program does.</p>
+
+          <Code
+            code={P3}
+            frame="code"
+            lang="txt"
+            title="Problem 3"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p><b>Then answer this:</b> describe a situation in which this program never finishes.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Your three answers. For Problems 1 and 2, give the robot's final square and the direction it faces.</p>
+
+          <p>
+            Worth <b>3 points</b>, graded on completion. Show your working for
+            the traces &mdash; a wrong answer with visible reasoning is worth
+            more to both of us than a right one with none.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

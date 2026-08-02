@@ -1,0 +1,178 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `for (let i = 0; i < 5; i++) {
+  console.log(i);
+}`;
+const Q2 = `let total = 0;
+
+for (let i = 1; i <= 4; i++) {
+  total = total + i;
+}`;
+const Q3 = `i <- 1
+
+REPEAT 3 TIMES
+{
+  DISPLAY(i)
+  i <- i + 1
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 5</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; 9 minutes &middot; cumulative
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>Five exam-style questions covering Activity 1.1 through 1.19, weighted toward <b>counted loops and loop patterns</b>. The reference sheet has no <code>for</code> loop, and two of these are about what it has instead.</p>
+
+          <p>
+            <b>Set a timer for 9 minutes.</b> Work them out on paper; do not run
+            the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank &mdash; the AP exam has no penalty for a
+            wrong answer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer. One asks you to select
+            <i>all</i> that apply.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>How many times does this loop body run?</p>
+
+          <Code
+            code={Q1}
+            frame="code"
+            lang="javascript"
+            title="Question 1"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>4</code></li>
+            <li>(B) <code>5</code></li>
+            <li>(C) <code>6</code></li>
+            <li>(D) <code>0</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>What does <code>total</code> hold after this runs?</p>
+
+          <Code
+            code={Q2}
+            frame="code"
+            lang="javascript"
+            title="Question 2"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>4</code></li>
+            <li>(B) <code>10</code></li>
+            <li>(C) <code>0</code></li>
+            <li>(D) <code>24</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>What does this display?</p>
+
+          <Code
+            code={Q3}
+            frame="code"
+            lang="txt"
+            title="Question 3 — exam notation"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>1 2 3</code></li>
+            <li>(B) <code>0 1 2</code></li>
+            <li>(C) <code>3 3 3</code></li>
+            <li>(D) <code>1 1 1</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>Why does the program above need the line <code>i &larr; i + 1</code> at all?</p>
+
+          <ul>
+            <li>(A) To stop the loop after three passes.</li>
+            <li>(B) Because <code>REPEAT n TIMES</code> provides no counter variable of its own.</li>
+            <li>(C) Because <code>DISPLAY</code> cannot show a variable that does not change.</li>
+            <li>(D) It is not needed; the program works without it.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5 &mdash; Select all that apply</h3>
+
+          <p>Which of these are true about a <b>running maximum</b> loop that finds the largest value?</p>
+
+          <ul>
+            <li>(A) It needs a variable set up before the loop starts</li>
+            <li>(B) It compares each value against the current best</li>
+            <li>(C) It must sort the values first</li>
+            <li>(D) It updates the best value only when it finds a larger one</li>
+            <li>(E) It requires a nested loop</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

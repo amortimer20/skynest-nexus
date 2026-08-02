@@ -1,0 +1,169 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `let height = 40;
+let age = 10;
+
+if (height >= 48 || age >= 8) {
+  console.log("You may ride.");
+} else {
+  console.log("Sorry, not this time.");
+}`;
+const Bug2 = `let isWeekend = false;
+let isMember = true;
+
+if (isWeekend && isMember) {
+  console.log("Come in.");
+} else {
+  console.log("Members only on weekdays.");
+}`;
+const Bug3 = `let isFull = false;
+
+if (!isFull === false) {
+  console.log("Warning: tank is not full.");
+}`;
+const Bug4 = `let length = 15;
+
+if (length >= 8) {
+  console.log("Okay");
+} else if (length >= 12) {
+  console.log("Strong");
+} else {
+  console.log("Weak");
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Combining Conditions</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>Four short programs about <code>&amp;&amp;</code>, <code>||</code>, and <code>!</code>. Every one of them looks like it says what the English sentence above it says. Three of them do not.</p>
+
+          <p>
+            <b>Three kinds of mistake show up in JavaScript.</b> A
+            <b class="text-sn-red">syntax error</b> stops the program before it
+            runs. A <b class="text-sn-orange">reference error</b> runs until it
+            hits the bad name, so you get <i>partial output and then a
+            crash</i> &mdash; that partial output is how you tell it from a
+            syntax error. A <b class="text-sn-yellow">logic error</b> runs
+            cleanly to the end and gives the wrong answer, which is the one
+            that will cost you marks on an exam.
+          </p>
+
+          <p>
+            <b>Three of these 4 are logic errors.</b> If you find
+            yourself waiting for an error message on those, that is exactly the
+            habit this challenge exists to break.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>A rider must be at least 48 inches <b>and</b> at least 8 years old. This lets a 40-inch 10-year-old ride.</p>
+
+          <Code
+            code={Bug1}
+            frame="code"
+            lang="javascript"
+            title="Bug 1"
+            class="mb-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>The gate should open on a weekend <b>or</b> for a member. This turns away a member on a Tuesday.</p>
+
+          <Code
+            code={Bug2}
+            frame="code"
+            lang="javascript"
+            title="Bug 2"
+            class="mb-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>This should warn when the tank is <b>not</b> full. It stays silent on a half-full tank.</p>
+
+          <Code
+            code={Bug3}
+            frame="code"
+            lang="javascript"
+            title="Bug 3"
+            class="mb-3"
+          />
+
+          <p><b>Also:</b> Write the condition the shortest correct way you can.</p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>A password is strong if it is at least 12 characters. It is okay if it is at least 8. Otherwise it is weak. A 15-character password reports <code>Okay</code>.</p>
+
+          <Code
+            code={Bug4}
+            frame="code"
+            lang="javascript"
+            title="Bug 4"
+            class="mb-3"
+          />
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each program, give:</p>
+
+          <ul>
+            <li>Which kind of mistake it is &mdash; syntax, reference, or logic</li>
+            <li>One sentence on what was wrong</li>
+            <li>The corrected line of code</li>
+          </ul>
+
+          <p>
+            Work them out by reading first. Running the code tells you
+            <i>that</i> something is wrong; it rarely tells you <i>why</i>, and
+            on the exam there is no computer.
+          </p>
+
+          <p>Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

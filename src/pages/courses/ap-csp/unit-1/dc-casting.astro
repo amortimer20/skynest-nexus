@@ -1,0 +1,159 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `let a = prompt("First number: ");
+let b = prompt("Second number: ");
+
+console.log("Sum:", a + b);`;
+const Bug2 = `let s1 = Number(prompt("Score 1: "));
+let s2 = Number(prompt("Score 2: "));
+let s3 = Number(prompt("Score 3: "));
+
+let average = (s1 + s2 + s3) / 3;
+console.log("Average:", average.tofixed(1));`;
+const Bug3 = `let price = Number(prompt("Price: $"));
+let qty = Number(prompt("Quantity: "));
+
+console.log("Total:", price * qty);`;
+const Bug4 = `let price = 19.99;
+let shipping = 5;
+
+let shown = price.toFixed(2);
+console.log("Price:", shown);
+console.log("Total:", shown + shipping);`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Casting</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>Four short programs, each with exactly one thing wrong. All four are about the boundary between text and numbers &mdash; the thing Activity 1.8 spent a whole session on.</p>
+
+          <p>
+            <b>Three kinds of mistake show up in JavaScript.</b> A
+            <b class="text-sn-red">syntax error</b> stops the program before it
+            runs. A <b class="text-sn-orange">reference error</b> runs until it
+            hits the bad name, so you get <i>partial output and then a
+            crash</i> &mdash; that partial output is how you tell it from a
+            syntax error. A <b class="text-sn-yellow">logic error</b> runs
+            cleanly to the end and gives the wrong answer, which is the one
+            that will cost you marks on an exam.
+          </p>
+
+          <p>
+            <b>Two of these 4 are logic errors.</b> If you find
+            yourself waiting for an error message on those, that is exactly the
+            habit this challenge exists to break.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>This should add two numbers the user types. It prints <code>127</code> for 12 and 7.</p>
+
+          <Code
+            code={Bug1}
+            frame="code"
+            lang="javascript"
+            title="Bug 1"
+            class="mb-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>This should show the average of three scores to one decimal place. It crashes.</p>
+
+          <Code
+            code={Bug2}
+            frame="code"
+            lang="javascript"
+            title="Bug 2"
+            class="mb-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>This should report a total price. It prints <code>Total: NaN</code> no matter what the user types.</p>
+
+          <Code
+            code={Bug3}
+            frame="code"
+            lang="javascript"
+            title="Bug 3"
+            class="mb-3"
+          />
+
+          <p><b>Also:</b> The program is correct. The user typed <code>$4.50</code> at the first prompt. Explain why that produces <code>NaN</code>, and say what the program should do about it.</p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>This should show a price with two decimals and then add a shipping charge. The total comes out as <code>19.995</code>.</p>
+
+          <Code
+            code={Bug4}
+            frame="code"
+            lang="javascript"
+            title="Bug 4"
+            class="mb-3"
+          />
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each program, give:</p>
+
+          <ul>
+            <li>Which kind of mistake it is &mdash; syntax, reference, or logic</li>
+            <li>One sentence on what was wrong</li>
+            <li>The corrected line of code</li>
+          </ul>
+
+          <p>
+            Work them out by reading first. Running the code tells you
+            <i>that</i> something is wrong; it rarely tells you <i>why</i>, and
+            on the exam there is no computer.
+          </p>
+
+          <p>Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

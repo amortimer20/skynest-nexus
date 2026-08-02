@@ -1,0 +1,164 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `for (let r = 1; r <= 3; r++) {
+  for (let c = 1; c <= 4; c++) {
+    console.log(r, c);
+  }
+}`;
+const Q4 = `first <- [1, 2, 3]
+second <- first
+second[1] <- 99
+
+DISPLAY(first[1])`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 6</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; 9 minutes &middot; cumulative
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>Five exam-style questions covering Activity 1.1 through 1.22, weighted toward <b>nested loops and the start of lists</b>. Two of these are about the difference between counting from 0 and counting from 1.</p>
+
+          <p>
+            <b>Set a timer for 9 minutes.</b> Work them out on paper; do not run
+            the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank &mdash; the AP exam has no penalty for a
+            wrong answer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer. One asks you to select
+            <i>all</i> that apply.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>How many times does the innermost line run?</p>
+
+          <Code
+            code={Q1}
+            frame="code"
+            lang="javascript"
+            title="Question 1"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>3</code></li>
+            <li>(B) <code>4</code></li>
+            <li>(C) <code>7</code></li>
+            <li>(D) <code>12</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>In exam notation, given <code>aList &larr; [5, 10, 15]</code>, what is <code>aList[1]</code>?</p>
+
+          <ul>
+            <li>(A) <code>5</code></li>
+            <li>(B) <code>10</code></li>
+            <li>(C) <code>15</code></li>
+            <li>(D) An error, because indexing starts at 0</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>In JavaScript, given <code>let a = [5, 10, 15];</code>, what is <code>a[1]</code>?</p>
+
+          <ul>
+            <li>(A) <code>5</code></li>
+            <li>(B) <code>10</code></li>
+            <li>(C) <code>15</code></li>
+            <li>(D) <code>undefined</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>What does this display?</p>
+
+          <Code
+            code={Q4}
+            frame="code"
+            lang="txt"
+            title="Question 4 — exam notation"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>1</code></li>
+            <li>(B) <code>99</code></li>
+            <li>(C) <code>2</code></li>
+            <li>(D) An error</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5 &mdash; Select all that apply</h3>
+
+          <p>Which of these are true about lists on the AP exam reference sheet?</p>
+
+          <ul>
+            <li>(A) The first element is at index 1</li>
+            <li>(B) <code>aList &larr; bList</code> assigns a copy</li>
+            <li>(C) An index of 0 causes the program to terminate</li>
+            <li>(D) <code>LENGTH(aList)</code> returns the number of elements</li>
+            <li>(E) An index past the end returns <code>undefined</code></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

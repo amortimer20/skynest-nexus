@@ -1,0 +1,182 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `scores <- [80, 95, 70]
+best <- scores[1]
+
+FOR EACH s IN scores
+{
+  IF(s > best)
+  {
+    best <- s
+  }
+}
+DISPLAY(best)`;
+const Q2 = `let x = prompt("Number: ");   // user types 5
+console.log(x * 2);
+console.log(x + 2);`;
+const Q5 = `let n = 10;
+
+while (n > 0) {
+  console.log(n);
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 8</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; 9 minutes &middot; cumulative
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>Ten minutes, five questions, <b>the whole quarter</b>. This one is shaped like the real thing: mixed notation, mixed topics, no warning about which is which. It is also your last practice before the checkpoint.</p>
+
+          <p>
+            <b>Set a timer for 9 minutes.</b> Work them out on paper; do not run
+            the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank &mdash; the AP exam has no penalty for a
+            wrong answer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer. One asks you to select
+            <i>all</i> that apply.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code
+            code={Q1}
+            frame="code"
+            lang="txt"
+            title="Question 1 — exam notation"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>80</code></li>
+            <li>(B) <code>95</code></li>
+            <li>(C) <code>70</code></li>
+            <li>(D) <code>245</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>What does this code display?</p>
+
+          <Code
+            code={Q2}
+            frame="code"
+            lang="javascript"
+            title="Question 2"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>10</code> then <code>7</code></li>
+            <li>(B) <code>10</code> then <code>52</code></li>
+            <li>(C) <code>52</code> then <code>52</code></li>
+            <li>(D) <code>10</code> then <code>10</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>Which statements about <code>DISPLAY</code> are true?</p>
+
+          <ul>
+            <li>(A) It adds a space after the value it shows</li>
+            <li>(B) It starts a new line after each call</li>
+            <li>(C) Two consecutive calls produce output on one line</li>
+            <li>(D) It is the exam-notation equivalent of <code>console.log</code></li>
+            <li>(E) It can display the result of an expression</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>A robot faces <b>up</b> on an open grid. After <code>ROTATE_RIGHT()</code>, <code>ROTATE_RIGHT()</code>, <code>MOVE_FORWARD()</code>, which way has it moved?</p>
+
+          <ul>
+            <li>(A) Up one square</li>
+            <li>(B) Down one square</li>
+            <li>(C) Right one square</li>
+            <li>(D) Left one square</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>Which of these produces an infinite loop?</p>
+
+          <Code
+            code={Q5}
+            frame="code"
+            lang="javascript"
+            title="Question 5"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) It is not infinite; it runs ten times.</li>
+            <li>(B) It is infinite because <code>n</code> never changes inside the loop.</li>
+            <li>(C) It is infinite because <code>while</code> always repeats forever.</li>
+            <li>(D) It is infinite because <code>n</code> starts above zero.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

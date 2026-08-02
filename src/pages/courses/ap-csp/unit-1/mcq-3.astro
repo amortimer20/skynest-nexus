@@ -1,0 +1,179 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `x <- 7
+
+IF(x > 10)
+{
+  DISPLAY("big")
+}
+ELSE
+{
+  IF(x > 5)
+  {
+    DISPLAY("medium")
+  }
+  ELSE
+  {
+    DISPLAY("small")
+  }
+}`;
+const Q4 = `let n = 12;
+
+if (n > 5) {
+  console.log("A");
+}
+if (n > 10) {
+  console.log("B");
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 3</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; 9 minutes &middot; cumulative
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>Five exam-style questions covering Activity 1.1 through 1.14, weighted toward <b>chained and compound conditions</b>. Two are cumulative.</p>
+
+          <p>
+            <b>Set a timer for 9 minutes.</b> Work them out on paper; do not run
+            the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank &mdash; the AP exam has no penalty for a
+            wrong answer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer. One asks you to select
+            <i>all</i> that apply.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code
+            code={Q1}
+            frame="code"
+            lang="txt"
+            title="Question 1 — exam notation"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>big</code></li>
+            <li>(B) <code>medium</code></li>
+            <li>(C) <code>small</code></li>
+            <li>(D) <code>medium small</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>A student wants to write the code above using <code>ELSE IF</code> in exam notation. What is the problem?</p>
+
+          <ul>
+            <li>(A) Nothing. <code>ELSE IF</code> is valid exam notation.</li>
+            <li>(B) <code>ELSE IF</code> exists but must be capitalized differently.</li>
+            <li>(C) There is no <code>ELSE IF</code> on the reference sheet; chains are written as a nested <code>IF</code> inside an <code>ELSE</code>.</li>
+            <li>(D) <code>ELSE IF</code> only works with numbers, not strings.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>Given <code>a = true</code> and <code>b = false</code>, which expressions evaluate to <code>true</code>?</p>
+
+          <ul>
+            <li>(A) <code>a &amp;&amp; b</code></li>
+            <li>(B) <code>a || b</code></li>
+            <li>(C) <code>!b</code></li>
+            <li>(D) <code>!a &amp;&amp; !b</code></li>
+            <li>(E) <code>a &amp;&amp; !b</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>What does this code display?</p>
+
+          <Code
+            code={Q4}
+            frame="code"
+            lang="javascript"
+            title="Question 4"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>A</code></li>
+            <li>(B) <code>B</code></li>
+            <li>(C) <code>A</code> then <code>B</code></li>
+            <li>(D) Nothing</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>A program should charge a fee only when a customer is <b>not</b> a member <b>and</b> the order is under $25. Which condition is correct?</p>
+
+          <ul>
+            <li>(A) <code>!isMember || total &lt; 25</code></li>
+            <li>(B) <code>!isMember &amp;&amp; total &lt; 25</code></li>
+            <li>(C) <code>isMember &amp;&amp; total &lt; 25</code></li>
+            <li>(D) <code>!(isMember &amp;&amp; total &lt; 25)</code></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
