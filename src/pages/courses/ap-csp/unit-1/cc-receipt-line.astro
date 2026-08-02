@@ -1,0 +1,194 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const SampleOutput = `
+--- Order Summary ---
+Item: Mechanical Keyboard
+Quantity: 2
+Unit price: 89.99
+Line total: 179.98
+
+In stock: true
+`;
+
+const Starter = `let itemName = "Mechanical Keyboard";
+let quantity = 2;
+let unitPrice = 89.99;
+let inStock = true;
+
+// Your code goes below this line.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge: Receipt Line</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Store the details of a single order in variables, then print them as
+            a readable summary. Every value on the receipt comes from a
+            variable &mdash; not one of them is typed directly into a
+            <code>console.log()</code> call.
+          </p>
+
+          <p>
+            That restriction is the point. A program where the data lives in
+            variables can be changed in one place; a program where the data is
+            baked into the output has to be rewritten.
+          </p>
+
+          <h4>Skills to Practice</h4>
+
+          <ul>
+            <li>Declaring variables with <code>let</code></li>
+            <li>Choosing the right data type for each value</li>
+            <li>camelCase naming</li>
+            <li>Printing a label and a variable together</li>
+            <li>Calculating with variables rather than literal numbers</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="starter">
+          <h2>Start From This</h2>
+
+          <p>
+            Copy these four lines into your program exactly as written, then
+            build the rest below them.
+          </p>
+
+          <Code
+            code={Starter}
+            frame="code"
+            lang="javascript"
+            title="Receipt Line"
+            class="mt-3"
+          />
+
+          <p class="mt-3">
+            Notice that three different data types are already in use here.
+            Before you write anything, name them: which variable holds a string,
+            which holds a number, and which holds a boolean?
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="tasks">
+          <h2>Tasks</h2>
+
+          <ul>
+            <li>
+              Create a new program named{" "}
+              <b class="text-sn-theme">cc-receipt-line</b>.
+            </li>
+            <li>Print the heading line shown in the sample output.</li>
+            <li>
+              Print the item name, the quantity, the unit price, and whether it
+              is in stock &mdash; each on its own line, each with a label.
+            </li>
+            <li>
+              Declare a new variable named <code>lineTotal</code> and set it to
+              the quantity times the unit price. <b>Do not type 179.98
+              anywhere.</b>
+            </li>
+            <li>Print the line total.</li>
+            <li>Print a blank line before the in-stock line.</li>
+          </ul>
+
+          <h5>Then prove it works</h5>
+
+          <ul>
+            <li>
+              Change <code>quantity</code> to 5 and run the program again.
+              The line total must update on its own.
+            </li>
+            <li>
+              If it did not, your line total is a typed-in number rather than a
+              calculation. Fix it before you submit.
+            </li>
+          </ul>
+
+          <h5>Challenge (optional)</h5>
+
+          <ul>
+            <li>
+              Add a variable for a discount amount and print a second total with
+              the discount subtracted. Keep the original line total on the
+              receipt as well.
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={SampleOutput}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">
+            The line total shows as <code>179.98</code> here because 2 &times;
+            89.99 happens to come out clean. You are not being asked to control
+            the number of decimal places yet.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your program file, plus a one-line answer to this:</p>
+
+          <p>
+            <b>
+              What was on the screen after you changed the quantity to 5?
+            </b>{" "}
+            Give the line total you saw.
+          </p>
+
+          <p>
+            That number tells me whether your receipt is calculating or just
+            reciting, which is the entire difference between this challenge and
+            the last one.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
