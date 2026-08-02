@@ -1,0 +1,377 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Trace1 = `let a = 3;
+let b = 4;
+let c = a + b * 2;
+
+console.log(c);`;
+const Trace2 = `let total = 0;
+
+for (let i = 1; i <= 4; i++) {
+  if (i % 2 === 0) {
+    total = total + i;
+  }
+}
+
+console.log(total);`;
+const Trace3 = `let items = ["a", "b", "c"];
+let out = "";
+
+for (let i = 0; i < items.length; i++) {
+  out = items[i] + out;
+}
+
+console.log(out);`;
+const Trace4 = `nums ← [5, 10, 15]
+total ← 0
+
+FOR EACH n IN nums
+{
+  total ← total + n
+}
+
+DISPLAY(total / LENGTH(nums))`;
+const Trace5 = `let a = [1, 2, 3];
+let b = a;
+b[0] = 99;
+
+console.log(a[0]);`;
+const Trace6 = `list ← [1, 2, 3]
+copy ← list
+copy[1] ← 99
+
+DISPLAY(list[1])`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.27: Quarter 1 Review</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.27</h2>
+              <h3 class="text-sn-theme">Quarter 1 Review</h3>
+            </section>
+
+            <section>
+              <h2>What You Can Now Do</h2>
+              <p>Store and change data</p>
+              <p>Make decisions</p>
+              <p>Repeat work</p>
+              <p>Hold many values at once</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Three Building Blocks</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Sequencing</dt>
+                  <dd>One statement after another, in order</dd>
+                  <dt>Selection</dt>
+                  <dd>Choosing a path with if, else if, else</dd>
+                  <dt>Iteration</dt>
+                  <dd>Repeating with while and for</dd>
+                </dl>
+              </div>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Three Building Blocks</h2>
+              <p>
+                <b class="text-sn-theme">
+                  Every algorithm on the AP exam is built from those three.
+                </b>{" "}
+                There is no fourth, and you have all of them.
+              </p>
+              <p class="fragment">
+                Next quarter adds ways to <i>organize</i> them, not new ones.
+              </p>
+            </section>
+
+            <section>
+              <h2>Bugs You Have Met</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">Uncast <CodeSnippet code="+" lang={"javascript"} theme={"material-theme-ocean"} inline /> joining instead of adding</li>
+                  <li class="fragment"><CodeSnippet code="NaN" lang={"javascript"} theme={"material-theme-ocean"} inline /> spreading from a failed conversion</li>
+                  <li class="fragment">Unreachable branches from a badly ordered chain</li>
+                  <li class="fragment">Infinite loops with no change inside</li>
+                  <li class="fragment">A maximum started at 0, on negative data</li>
+                  <li class="fragment">Off-by-one, walking one step past the end</li>
+                  <li class="fragment">Two names, one array</li>
+                </ul>
+              </div>
+              <p class="fragment">
+                <b class="text-sn-theme">Six of those seven produce no error
+                message.</b> That is the real lesson of the quarter.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Exam Notation, Assembled</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment"><CodeSnippet code="←" lang={"txt"} theme={"material-theme-ocean"} inline /> assigns, <CodeSnippet code="=" lang={"txt"} theme={"material-theme-ocean"} inline /> compares</li>
+                  <li class="fragment"><CodeSnippet code="MOD" lang={"txt"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="AND" lang={"txt"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="OR" lang={"txt"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="NOT" lang={"txt"} theme={"material-theme-ocean"} inline /></li>
+                  <li class="fragment">No <CodeSnippet code="ELSE IF" lang={"txt"} theme={"material-theme-ocean"} inline /> &mdash; chains nest</li>
+                  <li class="fragment"><CodeSnippet code="REPEAT UNTIL" lang={"txt"} theme={"material-theme-ocean"} inline /> inverts the condition</li>
+                  <li class="fragment"><CodeSnippet code="REPEAT n TIMES" lang={"txt"} theme={"material-theme-ocean"} inline /> has no counter</li>
+                  <li class="fragment">Lists start at <b>1</b>, and <CodeSnippet code="←" lang={"txt"} theme={"material-theme-ocean"} inline /> copies them</li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2>Today</h2>
+              <p>
+                Six traces, then the checkpoint quiz.
+              </p>
+              <p class="fragment">
+                The traces are not graded. Get them wrong now rather than in the
+                quiz, and definitely rather than in May.
+              </p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Warm-up traces -->
+        <section id="traces">
+          <h2>Warm-Up: Six Traces</h2>
+
+          <p>
+            Work each one out <b>on paper</b>. Do not run them. Write down your
+            answer before scrolling to the next.
+          </p>
+
+          <p>
+            Three are JavaScript and three are exam notation. Notice which ones
+            make you slow down.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Trace 1 &mdash; JavaScript</h3>
+          <Code
+            code={Trace1}
+            frame="code"
+            lang="javascript"
+            title="Trace 1"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Trace 2 &mdash; JavaScript</h3>
+          <Code
+            code={Trace2}
+            frame="code"
+            lang="javascript"
+            title="Trace 2"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Trace 3 &mdash; JavaScript</h3>
+          <p>Read the accumulator line carefully. The order is not what you expect.</p>
+          <Code
+            code={Trace3}
+            frame="code"
+            lang="javascript"
+            title="Trace 3"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Trace 4 &mdash; Exam Notation</h3>
+          <Code
+            code={Trace4}
+            frame="code"
+            lang="txt"
+            title="Trace 4"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Trace 5 &mdash; JavaScript</h3>
+          <Code
+            code={Trace5}
+            frame="code"
+            lang="javascript"
+            title="Trace 5"
+            showLineNumbers={false}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Trace 6 &mdash; Exam Notation</h3>
+          <p>
+            This is Trace 5 written in exam notation. <b>The answer is different.</b>{" "}
+            If you get the same value for both, re-read Activity 1.23.
+          </p>
+          <Code
+            code={Trace6}
+            frame="code"
+            lang="txt"
+            title="Trace 6"
+            showLineNumbers={false}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checklist -->
+        <section id="checklist">
+          <h2>Before the Quiz</h2>
+
+          <p>
+            You should be able to do every one of these without looking anything
+            up. If one is shaky, that is where to spend your revision.
+          </p>
+
+          <h4>Data</h4>
+          <ul>
+            <li>Declare a variable and change it later</li>
+            <li>Tell a string, a number, and a boolean apart</li>
+            <li>Say why input arrives as text, and cast it</li>
+            <li>Explain what <code>NaN</code> means and where it comes from</li>
+            <li>Format a number for display without breaking later arithmetic</li>
+          </ul>
+
+          <h4>Decisions</h4>
+          <ul>
+            <li>Write <code>if</code>, <code>else if</code>, and <code>else</code></li>
+            <li>Order a chain so no branch is unreachable</li>
+            <li>Combine conditions with <code>&amp;&amp;</code>, <code>||</code>, and <code>!</code></li>
+            <li>Choose between nesting and AND, and say why</li>
+          </ul>
+
+          <h4>Repetition</h4>
+          <ul>
+            <li>Write a <code>while</code> loop and a <code>for</code> loop</li>
+            <li>Name the setup, test, and change in either one</li>
+            <li>Explain what makes a loop infinite</li>
+            <li>Use an accumulator, a counter, and a running maximum</li>
+            <li>Predict how many times a nested loop's body runs</li>
+          </ul>
+
+          <h4>Arrays</h4>
+          <ul>
+            <li>Create an array and read or change an element</li>
+            <li>Reach the last element using <code>length</code></li>
+            <li>Traverse with an index and with <code>for...of</code>, and pick the right one</li>
+            <li>Check an index is valid before using it</li>
+            <li>Explain why two names can share one array</li>
+          </ul>
+
+          <h4>Exam Notation</h4>
+          <ul>
+            <li>Read <code>←</code> and know <code>=</code> means equality</li>
+            <li>Rewrite an <code>else if</code> chain as nested <code>IF</code>/<code>ELSE</code></li>
+            <li>Flip a <code>while</code> condition into a <code>REPEAT UNTIL</code></li>
+            <li>Hand-roll a counter inside <code>REPEAT n TIMES</code></li>
+            <li>Index a list from 1, and know that <code>←</code> copies it</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint Quiz</h2>
+
+          <p>
+            The Quarter 1 checkpoint is written in <b>exam format</b> &mdash;
+            multiple choice, some questions in reference-sheet notation, timed.
+          </p>
+
+          <p>
+            It is worth considerably more than a homework question set, and it is
+            the closest thing to a real AP question you will have seen. That is
+            deliberate: a checkpoint score is meant to tell you something honest
+            about where you stand.
+          </p>
+
+          <ul>
+            <li>Everything from Activities 1.1 through 1.26 is fair game</li>
+            <li>Some questions show code in exam notation rather than JavaScript</li>
+            <li>At least one asks you to select all that apply</li>
+            <li>No computer. Work on paper, as you did with the traces</li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">Pace yourself.</b> If a question is taking
+            too long, mark it, move on, and come back. Leaving one blank to answer
+            three others is the right trade, and it is a skill worth practicing
+            now.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these after the quiz, honestly. They are not graded on being flattering.</p>
+
+          <ol>
+            <li>
+              Which of the seven bugs from the slides have you personally
+              written? Pick the one that took you longest to find and describe how
+              you found it.
+            </li>
+            <li>
+              Six of those seven produce no error message. What habit have you
+              picked up this quarter that helps you catch that kind of bug?
+            </li>
+            <li>
+              Which part of the exam notation still feels least natural, and what
+              would help?
+            </li>
+            <li>
+              Quarter 2 starts with procedures &mdash; packaging code so it can be
+              reused with different values. Looking back at your Quarter 1
+              programs, where would that have saved you the most repetition?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit your reflection to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Quarter 1 Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -2,119 +2,122 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-18-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let i = 1;
-
-while (i <= 5) {
-  console.log("Pass", i);
-  i = i + 1;
+const Figure1 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+  ellipse(200, 200, 60, 60);
 }`;
-const Figure2 = `for (let i = 1; i <= 5; i = i + 1) {
-  console.log("Pass", i);
-}`;
-const Figure3 = `Pass 1
-Pass 2
-Pass 3
-Pass 4
-Pass 5`;
-const Figure4 = `for (let i = 1; i <= 3; i++) {
-  console.log(i);
-}`;
-const Figure5 = `for (let i = 0; i < 5; i++) {
-  console.log(i);
-}`;
-const Figure6 = `0
-1
-2
-3
-4`;
-const NotationJs = `for (let i = 1; i <= 5; i++) {
-  console.log(i);
-}`;
-const NotationPseudo = `i ← 1
-REPEAT 5 TIMES
-{
-  DISPLAY(i)
-  i ← i + 1
-}`;
-const Task1 = `for (let i = 1; i <= 5; i++) {
-  console.log("Checking system", i);
+const Figure2 = `function setup() {
+  createCanvas(400, 400);
 }
 
-console.log("All systems checked.");
+function draw() {
+  background(220);
+  ellipse(200, 200, 60, 60);
+}`;
+const Figure3 = `let x = 0;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(220);
+  ellipse(x, 200, 60, 60);
+  x = x + 2;
+}`;
+const Figure4 = `let x = 0;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  // no background() here
+  ellipse(x, 200, 60, 60);
+  x = x + 2;
+}`;
+const Figure5 = `let x = 0;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(220);
+  ellipse(x, 200, 60, 60);
+  x = x + 2;
+
+  if (x > 400) {
+    x = 0;
+  }
+}`;
+const Task1 = `let x = 0;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(30);
+
+  fill(120, 200, 255);
+  ellipse(x, 200, 50, 50);
+
+  x = x + 2;
+}
 `;
-const Task2 = `for (let i = 1; i <= 5; i++) {
-  console.log("Checking system", i);
+const Task2 = `let x = 0;
+let y = 200;
+
+function setup() {
+  createCanvas(400, 400);
 }
 
-console.log("All systems checked.");
-console.log("");
+function draw() {
+  background(30);
 
-let total = 0;
+  fill(120, 200, 255);
+  ellipse(x, y, 50, 50);
 
-for (let i = 1; i <= 10; i++) {
-  total = total + i;
-}
+  x = x + 2;
 
-console.log("Sum of 1 to 10:", total);
-
-for (let i = 10; i >= 1; i--) {
-  console.log("T-minus", i);
+  if (x > 400) {
+    x = 0;
+  }
 }
 `;
-const Task3 = `for (let i = 1; i <= 5; i++) {
-  console.log("Checking system", i);
+const Task3 = `let x = 0;
+let y = 200;
+let speed = 2;
+
+function setup() {
+  createCanvas(400, 400);
 }
 
-console.log("All systems checked.");
-console.log("");
+function draw() {
+  background(30);
 
-let total = 0;
+  fill(120, 200, 255);
+  ellipse(x, y, 50, 50);
 
-for (let i = 1; i <= 10; i++) {
-  total = total + i;
+  x = x + speed;
+
+  if (x > 400) {
+    x = 0;
+  }
+
+  // Make the circle change color once it passes the halfway mark
+  // Add a second circle that moves the opposite way, right to left
+  //   give it its own position variable
+  //   wrap it back to the right edge when it goes off the left
 }
-
-console.log("Sum of 1 to 10:", total);
-
-for (let i = 10; i >= 1; i--) {
-  console.log("T-minus", i);
-}
-
-console.log("");
-
-// Ask the user how many crates to load, and cast it
-// Loop that many times, showing the crate number each pass
-// Keep a running total of mass, adding 40 per crate
-// After the loop, show the total mass
-`;
-const ExampleOutput = `Checking system 1
-Checking system 2
-Checking system 3
-Checking system 4
-Checking system 5
-All systems checked.
-
-Sum of 1 to 10: 55
-T-minus 10
-T-minus 9
-T-minus 8
-T-minus 7
-T-minus 6
-T-minus 5
-T-minus 4
-T-minus 3
-T-minus 2
-T-minus 1
-
-How many crates? 3
-Crate 1 loaded
-Crate 2 loaded
-Crate 3 loaded
-Total mass: 120
 `;
 //#endregion
 ---
@@ -127,162 +130,173 @@ Total mass: 120
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.18: Counting With for</h1>
+        <h1>Activity 1.18: p5 Lab 4 &mdash; The Loop You Didn't Write</h1>
         <Divider variant="8" classes="mb-5" />
 
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="Three frames side by side showing the same blue circle at the left edge, the middle, and the right edge of a dark canvas" width={760} class="img-fluid rounded" />
+          </div>
+
+          <p>Three moments from the same sketch. By the end of <b>Task 2</b> the circle moves on its own and wraps back around when it leaves the canvas &mdash; this is one sketch, caught three times, not three sketches.</p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
               <h2>Activity 1.18</h2>
-              <h3 class="text-sn-theme">Counting With for</h3>
+              <h3 class="text-sn-theme">p5 Lab 4 &mdash; The Loop You Didn't Write</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Three Parts, One Line</p>
-              <p>Counting Up and Down</p>
-              <p>Starting at Zero</p>
+              <p>draw() Runs Over and Over</p>
+              <p>Animation Is Iteration</p>
+              <p>Clearing the Canvas</p>
             </section>
 
             <section data-auto-animate>
-              <h2>A Very Common Shape</h2>
-              <Code
-                code={Figure1}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
-              <p class="fragment">
-                Set up, test, change. You wrote a lot of these in Activity 1.16,
-                and the three parts were scattered across three places.
+              <h2>Something Was Missing</h2>
+              <p>
+                Labs 1 through 3 put everything inside <CodeSnippet code="setup()" lang={"javascript"} theme={"material-theme-ocean"} inline />, which
+                runs <b>once</b>. Nothing you have drawn has ever moved.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Same Loop, Gathered Up</h2>
+              <h2>Something Was Missing</h2>
+              <p>
+                That was on purpose. You needed loops first &mdash; because the
+                thing that makes a sketch move <i>is</i> a loop.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Functions</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                title="Demo — setup() only"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">Runs once. One circle. Done.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Functions</h2>
               <Code
                 code={Figure2}
                 frame="code"
-                title="Demo"
+                title="Demo — with draw()"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure3}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
               />
               <p class="fragment">
-                Identical behavior. All three parts now sit on one line, in
-                order, separated by semicolons.
+                <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline /> runs <b class="text-sn-theme">about 60 times
+                a second, forever</b>, from the moment setup finishes.
               </p>
             </section>
 
             <section>
-              <h2>Reading the Header</h2>
-              <div class="text-start">
-                <dl>
-                  <dt><CodeSnippet code="let i = 1" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
-                  <dd>runs once, before anything else</dd>
-                  <dt><CodeSnippet code="i <= 5" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
-                  <dd>checked before every pass; false ends the loop</dd>
-                  <dt><CodeSnippet code="i = i + 1" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
-                  <dd>runs after every pass</dd>
-                </dl>
-              </div>
+              <h2>You Did Not Write This Loop</h2>
+              <p>
+                There is no <CodeSnippet code="while" lang={"javascript"} theme={"material-theme-ocean"} inline /> anywhere. p5 calls{" "}
+                <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline /> for you, over and over.
+              </p>
               <p class="fragment">
-                Nothing new is happening. It is a <CodeSnippet code="while" lang={"javascript"} theme={"material-theme-ocean"} inline /> loop with
-                its parts tidied into one place, which makes forgetting one much
-                harder.
+                It is still iteration. The three parts from Activity 1.17 are all
+                there &mdash; setup before, a body that repeats, and a change each
+                pass. p5 just supplies the loop itself.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>A Shorthand You Will See Everywhere</h2>
+              <h2>Making It Move</h2>
               <Code
-                code={Figure4}
+                code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
               />
               <p class="fragment">
-                <CodeSnippet code="i++" lang={"javascript"} theme={"material-theme-ocean"} inline /> means exactly{" "}
-                <CodeSnippet code="i = i + 1" lang={"javascript"} theme={"material-theme-ocean"} inline />. <CodeSnippet code="i--" lang={"javascript"} theme={"material-theme-ocean"} inline /> subtracts one.
+                One variable, changed a little on every pass. That is the whole
+                trick behind every animation you have ever seen.
+              </p>
+            </section>
+
+            <section>
+              <h2>Where the Variable Lives</h2>
+              <p>
+                <CodeSnippet code="let x = 0;" lang={"javascript"} theme={"material-theme-ocean"} inline /> is <b class="text-sn-theme">outside
+                both functions</b>, at the top of the file.
               </p>
               <p class="fragment">
-                Use whichever you find clearer. You need to <i>read</i> both.
+                Put it inside <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and it gets reset to 0 on
+                every pass &mdash; sixty times a second, forever, never moving.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Why Programmers Start at Zero</h2>
+              <h2>Why background() Is Inside draw()</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo — background removed"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Without it, nothing erases the previous frame. You get a smear
+                across the canvas instead of a moving circle.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Why background() Is Inside draw()</h2>
+              <p>
+                Each pass paints on top of the last one. <CodeSnippet code="background()" lang={"javascript"} theme={"material-theme-ocean"} inline />{" "}
+                wipes the canvas clean first.
+              </p>
+              <p class="fragment">
+                Try removing it at least once. The smear is a genuinely useful
+                thing to have seen, and some people like it enough to keep it.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Wrapping Around</h2>
               <Code
                 code={Figure5}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
-              <Code
-                code={Figure6}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-            </section>
-
-            <section data-auto-animate>
-              <h2>Why Programmers Start at Zero</h2>
-              <p>
-                <CodeSnippet code="0" lang={"javascript"} theme={"material-theme-ocean"} inline /> to <CodeSnippet code="< 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> gives five passes: 0, 1, 2, 3, 4.
-              </p>
               <p class="fragment">
-                It looks stranger than starting at 1, but it lines up with how
-                lists are numbered in JavaScript &mdash; which is Activity 1.22's
-                problem, and a big one.
-              </p>
-              <p class="fragment">
-                Get used to reading <CodeSnippet code="i = 0; i < n" lang={"javascript"} theme={"material-theme-ocean"} inline /> as "n times."
-              </p>
-            </section>
-
-            <section>
-              <h2>Which Loop Should I Use?</h2>
-              <div class="text-start">
-                <ul>
-                  <li class="fragment">
-                    <b>for</b> &mdash; when you know how many passes before you
-                    start
-                  </li>
-                  <li class="fragment">
-                    <b>while</b> &mdash; when you are waiting for something to
-                    become true
-                  </li>
-                </ul>
-              </div>
-              <p class="fragment">
-                Counting crates is a <CodeSnippet code="for" lang={"javascript"} theme={"material-theme-ocean"} inline />. Asking until the user
-                types something valid is a <CodeSnippet code="while" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                A conditional inside a loop, checking a boundary. Everything from
+                Activities 1.12 and 1.14, now running sixty times a second.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing a counted loop with for</li>
-                <li>Reading the three parts of a for header</li>
-                <li>Counting up and counting down</li>
-                <li>Choosing between for and while</li>
+                <li>Explaining what draw() does and how often</li>
+                <li>Declaring a variable that survives between passes</li>
+                <li>Animating by changing a variable each pass</li>
+                <li>Using a conditional to handle a boundary</li>
               </ul>
             </section>
 
@@ -290,17 +304,19 @@ Total mass: 120
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Counted loop</dt>
-                  <dd>A loop that runs a known number of times.</dd>
-                  <dt>Loop counter</dt>
+                  <dt>Frame</dt>
+                  <dd>One pass of draw(), producing one picture.</dd>
+                  <dt>Frame rate</dt>
+                  <dd>How many frames are drawn per second, around 60 by default.</dd>
+                  <dt>Global variable</dt>
                   <dd>
-                    The variable that tracks which pass the loop is on, usually
-                    called <CodeSnippet code="i" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                    A variable declared outside every function, so it keeps its
+                    value between passes.
                   </dd>
-                  <dt>Increment</dt>
-                  <dd>Adding one to a variable.</dd>
-                  <dt>Decrement</dt>
-                  <dd>Subtracting one from a variable.</dd>
+                  <dt>Animation loop</dt>
+                  <dd>
+                    A loop that redraws a scene repeatedly to create movement.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -314,45 +330,45 @@ Total mass: 120
           <h2>Build</h2>
 
           <p>
-            Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-18-for</b>.
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-18-motion</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Five Passes</h3>
+          <h3>Task 1: One Moving Circle</h3>
           <ul>
-            <li>Write the code below and run it.</li>
+            <li>Write the code below and run it. The circle should slide right and vanish off the edge.</li>
             <li>
-              Change <CodeSnippet code="i <= 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
-              <CodeSnippet code="i < 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run again. Count the lines. One character,
-              one fewer pass.
+              Now move <CodeSnippet code="let x = 0;" lang={"javascript"} theme={"material-theme-ocean"} inline /> inside{" "}
+              <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run again. It should stop moving
+              entirely. Work out why, then put it back.
             </li>
-            <li>Change it back before continuing.</li>
+            <li>
+              Then comment out <CodeSnippet code="background(30);" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run once more.
+              Put it back afterward.
+            </li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Counting With for"
+            title="p5 Lab 4 — The Loop You Didn't Write"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Accumulate, and Count Down</h3>
+          <h3>Task 2: Wrap It Around</h3>
           <ul>
             <li>
-              Add a loop that sums 1 to 10, then one that counts backwards from
-              10.
+              Add a <CodeSnippet code="y" lang={"javascript"} theme={"material-theme-ocean"} inline /> variable and a boundary check so the circle
+              reappears on the left instead of disappearing.
             </li>
             <li>
-              The second one uses <CodeSnippet code="i--" lang={"javascript"} theme={"material-theme-ocean"} inline /> and a{" "}
-              <CodeSnippet code=">=" lang={"javascript"} theme={"material-theme-ocean"} inline /> test. Going down means both the test and the
-              change flip.
-            </li>
-            <li>
-              Check the sum by hand &mdash; 1 through 10 adds up to 55.
+              Try <CodeSnippet code="x > 400" lang={"javascript"} theme={"material-theme-ocean"} inline /> versus{" "}
+              <CodeSnippet code="x > 425" lang={"javascript"} theme={"material-theme-ocean"} inline /> and watch the difference at the edge. The
+              circle has width, which the boundary has to allow for.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -364,27 +380,28 @@ Total mass: 120
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Counting With for"
-            ins={{ range: "6-18" }}
+            title="p5 Lab 4 — The Loop You Didn't Write"
+            ins={{ range: "2, 12, 16-18" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Loop Over Input</h3>
+          <h3>Task 3: Plan, Then Add Color and a Second Circle</h3>
           <ul>
             <li>
-              The comments describe a crate loader driven by a number the user
-              types.
+              A <CodeSnippet code="speed" lang={"javascript"} theme={"material-theme-ocean"} inline /> variable has been added so you can tune the
+              motion. Try 1, then 8.
             </li>
             <li>
-              The loop count comes from a variable, not a literal. That is the
-              point &mdash; the program does not know how many passes until it
-              runs.
+              The comments describe two additions. Write the code under them.
             </li>
-            <li>Cast the input, or your loop condition will misbehave.</li>
             <li>
-              The running total must be declared <b>before</b> the loop. Declare
-              it inside and it resets every pass.
+              The second circle moves <i>left</i>, so its change is a subtraction
+              and its wrap check looks at the other edge.
+            </li>
+            <li>
+              Give it its own position variable at the top of the file, next to
+              the others. It must not share <CodeSnippet code="x" lang={"javascript"} theme={"material-theme-ocean"} inline />.
             </li>
           </ul>
 
@@ -392,100 +409,25 @@ Total mass: 120
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Counting With for"
-            ins={{ range: "20-25" }}
+            title="p5 Lab 4 — The Loop You Didn't Write"
+            ins={{ range: "3, 15, 21-24" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Only the Even Ones</h3>
+          <h3>Challenge (Optional): Bounce Instead of Wrap</h3>
           <ul>
             <li>
-              Add a loop that displays only the even numbers from 1 to 20. There
-              are two good ways to do it.
+              Make a circle reverse direction at each edge rather than wrapping
+              around.
             </li>
             <li>
-              One uses a conditional inside the loop and the remainder operator
-              from Activity 1.4.
+              Hint: the speed itself can be a variable, and a variable can be
+              made negative.
             </li>
             <li>
-              The other changes the loop header so it never visits an odd number
-              at all.
-            </li>
-            <li>
-              Write both, then add a comment saying which you prefer and why.
-            </li>
-          </ul>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
-
-        <!-- Exam Notation -->
-        <section id="exam-notation">
-          <h2>Same Idea, Exam Notation</h2>
-
-          <p>
-            <b class="text-sn-theme">
-              The reference sheet has no <code>for</code> loop at all.
-            </b>{" "}
-            It offers <code>REPEAT n TIMES</code>, <code>REPEAT UNTIL</code>, and
-            one more you will meet at Activity 1.24. That is the complete set.
-          </p>
-
-          <div class="row g-3 my-4">
-            <div class="col-md-6">
-              <Code
-                code={NotationJs}
-                frame="code"
-                lang="javascript"
-                title="JavaScript"
-                showLineNumbers={false}
-              />
-            </div>
-            <div class="col-md-6">
-              <Code
-                code={NotationPseudo}
-                frame="code"
-                lang="txt"
-                title="Exam Notation"
-                showLineNumbers={false}
-              />
-            </div>
-          </div>
-
-          <h4>Look at What Had to Be Added</h4>
-
-          <p>
-            <b>
-              <code>REPEAT n TIMES</code> gives you no counter variable.
-            </b>{" "}
-            It repeats a block a set number of times and tells you nothing about
-            which pass you are on.
-          </p>
-
-          <p>
-            So when a program needs to know the pass number, the counter has to
-            be built by hand &mdash; declared before the loop, and incremented
-            as the last line inside it. Three lines of housekeeping that
-            JavaScript packs into one header.
-          </p>
-
-          <h4 class="mt-4">Why This Matters on Exam Day</h4>
-
-          <ul>
-            <li>
-              <b>This exact pattern appears constantly.</b> An initialization, a{" "}
-              <code>REPEAT</code>, and an <code>i ← i + 1</code> at the bottom of
-              the block is one of the most common shapes on the whole exam.
-            </li>
-            <li>
-              <b>The increment's position matters.</b> Put it before the work
-              instead of after and every pass uses the wrong number.
-            </li>
-            <li>
-              <b>Do not expect an <code>i</code> to be there.</b> If a question
-              uses <code>REPEAT n TIMES</code> with no counter, the block genuinely
-              cannot tell which pass it is on.
+              This is the classic first p5 animation, and it is worth the
+              struggle. Two conditionals and one sign change.
             </li>
           </ul>
         </section>
@@ -496,24 +438,25 @@ Total mass: 120
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>Your finished sketch should show all of the following.</p>
 
-          <Code
-            code={ExampleOutput}
-            frame="terminal"
-            lang="txt"
-            showLineNumbers={false}
-            title="Example Output"
-            mark={{
-              label: "Number of passes decided at run time",
-              range: "21-23",
-            }}
-          />
+          <ul>
+            <li>A circle moving smoothly left to right, wrapping around forever.</li>
+            <li>That circle changing color once it passes the middle.</li>
+            <li>
+              A second circle moving right to left, wrapping the other way, at
+              its own position.
+            </li>
+            <li>No smearing &mdash; the canvas clears every frame.</li>
+            <li>
+              Changing <CodeSnippet code="speed" lang={"javascript"} theme={"material-theme-ocean"} inline /> changes how fast the first circle
+              travels.
+            </li>
+          </ul>
 
-          <p class="mt-3">
-            Run the crate loader with 0 as the answer. It should load nothing and
-            report a total of 0, without crashing. A loop that runs zero times is
-            perfectly valid.
+          <p>
+            You should be able to say where the loop is, even though you never
+            wrote one.
           </p>
         </section>
 
@@ -527,18 +470,17 @@ Total mass: 120
 
           <ol>
             <li>
-              A <code>for</code> loop and a <code>while</code> loop can do the
-              same job. When is each one the clearer choice?
+              Moving <code>let x = 0;</code> inside <code>draw()</code> stopped
+              the animation. Explain exactly what happened on each pass.
             </li>
             <li>
-              <code>i &lt;= 5</code> and <code>i &lt; 5</code> differ by one
-              character and one pass. Why is that such an easy mistake to make?
+              Activity 1.17 said every loop has a setup, a test, and a change.
+              Point to each of those in this sketch, including the ones p5
+              provides.
             </li>
             <li>
-              Exam notation has no <code>for</code> loop, so a counter must be
-              maintained by hand. What could go wrong if the{" "}
-              <code>i ← i + 1</code> were placed at the <i>top</i> of the block
-              instead of the bottom?
+              Removing <code>background()</code> leaves a trail. Describe what
+              that tells you about how the canvas actually works.
             </li>
           </ol>
         </section>

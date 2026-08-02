@@ -6,133 +6,103 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `console.log(5);
-console.log(4);
-console.log(3);
-console.log(2);
-console.log(1);`;
-const Figure2 = `let count = 5;
-
-while (count > 0) {
-  console.log(count);
-  count = count - 1;
-}
-
-console.log("Liftoff!");`;
-const Figure3 = `5
-4
-3
-2
-1
-Liftoff!`;
-const Figure4 = `let count = 5;
-
-while (count > 0) {
-  console.log(count);
+const Figure1 = `if (crewSize >= 2 && cargoMass < 500) {
+  console.log("LAUNCH APPROVED");
+} else {
+  console.log("LAUNCH DENIED");
 }`;
-const Figure5 = `5
-5
-5
-5
-5
-... forever`;
-const Figure6 = `let total = 0;
-let n = 1;
-
-while (n <= 4) {
-  total = total + n;
-  n = n + 1;
-}
-
-console.log("Total:", total);`;
-const Figure7 = `Total: 10`;
-const NotationJs = `let count = 5;
-
-while (count > 0) {
-  console.log(count);
-  count = count - 1;
+const Figure2 = `if (crewSize >= 2 && cargoMass < 500) {
+  console.log("LAUNCH APPROVED");
+} else {
+  if (crewSize < 2) {
+    console.log("DENIED: crew too small");
+  } else {
+    console.log("DENIED: cargo too heavy");
+  }
 }`;
-const NotationPseudo = `count ← 5
+const Figure3 = `console.log(Math.random());
+console.log(Math.random());`;
+const Figure4 = `0.8367284419102708
+0.14092376601478842`;
+const Figure5 = `let roll = Math.floor(Math.random() * 6) + 1;
+console.log("You rolled:", roll);`;
+const Figure6 = `You rolled: 4`;
+const Task1 = `let crewSize = 1;
+let cargoMass = 300;
 
-REPEAT UNTIL(count ≤ 0)
-{
-  DISPLAY(count)
-  count ← count - 1
-}`;
-const Task1 = `let count = 10;
-
-while (count > 0) {
-  console.log(count);
-  count = count - 2;
+if (crewSize >= 2 && cargoMass < 500) {
+  console.log("LAUNCH APPROVED");
+} else {
+  if (crewSize < 2) {
+    console.log("DENIED: crew too small");
+  } else {
+    console.log("DENIED: cargo too heavy");
+  }
 }
-
-console.log("Liftoff!");
 `;
-const Task2 = `let count = 10;
+const Task2 = `let crewSize = 1;
+let cargoMass = 300;
 
-while (count > 0) {
-  console.log(count);
-  count = count - 2;
+if (crewSize >= 2 && cargoMass < 500) {
+  console.log("LAUNCH APPROVED");
+} else {
+  if (crewSize < 2) {
+    console.log("DENIED: crew too small");
+  } else {
+    console.log("DENIED: cargo too heavy");
+  }
 }
 
-console.log("Liftoff!");
 console.log("");
 
-let fuel = 0;
-let tanks = 0;
+let roll = Math.floor(Math.random() * 6) + 1;
+console.log("Solar flare check, rolled:", roll);
 
-while (fuel < 500) {
-  fuel = fuel + 120;
-  tanks = tanks + 1;
-  console.log("Tank", tanks, "loaded, fuel now", fuel);
+if (roll >= 5) {
+  console.log("Flare detected.");
+} else {
+  console.log("Skies clear.");
 }
-
-console.log("Tanks used:", tanks);
 `;
-const Task3 = `let count = 10;
+const Task3 = `let crewSize = 1;
+let cargoMass = 300;
 
-while (count > 0) {
-  console.log(count);
-  count = count - 2;
+if (crewSize >= 2 && cargoMass < 500) {
+  console.log("LAUNCH APPROVED");
+} else {
+  if (crewSize < 2) {
+    console.log("DENIED: crew too small");
+  } else {
+    console.log("DENIED: cargo too heavy");
+  }
 }
 
-console.log("Liftoff!");
 console.log("");
 
-let fuel = 0;
-let tanks = 0;
+let roll = Math.floor(Math.random() * 6) + 1;
+console.log("Solar flare check, rolled:", roll);
 
-while (fuel < 500) {
-  fuel = fuel + 120;
-  tanks = tanks + 1;
-  console.log("Tank", tanks, "loaded, fuel now", fuel);
+if (roll >= 5) {
+  console.log("Flare detected.");
+} else {
+  console.log("Skies clear.");
 }
 
-console.log("Tanks used:", tanks);
 console.log("");
 
-// Ask the user for a crew size and cast it
-// While the answer is less than 1 or more than 8, say it is invalid and ask again
-// Once it is valid, confirm the crew size
+// Roll a second die, 1 to 6, into its own variable
+// If both dice match, it is a critical event
+//   inside that, if the matched value is 6, say "CRITICAL: total systems failure"
+//   otherwise say "CRITICAL: minor fault" and show the value
+// If they do not match, say "No event."
 `;
-const ExampleOutput = `10
-8
-6
-4
-2
-Liftoff!
+const ExampleOutput = `DENIED: crew too small
 
-Tank 1 loaded, fuel now 120
-Tank 2 loaded, fuel now 240
-Tank 3 loaded, fuel now 360
-Tank 4 loaded, fuel now 480
-Tank 5 loaded, fuel now 600
-Tanks used: 5
+Solar flare check, rolled: 5
+Flare detected.
 
-Crew size? 12
-Invalid. Enter a number from 1 to 8.
-Crew size? 4
-Crew of 4 confirmed.
+Second die: 5
+CRITICAL: minor fault, value 5
 `;
 //#endregion
 ---
@@ -145,7 +115,7 @@ Crew of 4 confirmed.
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.16: Repeating With while</h1>
+        <h1>Activity 1.16: Nested Conditions and Randomness</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -153,18 +123,18 @@ Crew of 4 confirmed.
           <Presentation>
             <section>
               <h2>Activity 1.16</h2>
-              <h3 class="text-sn-theme">Repeating With while</h3>
+              <h3 class="text-sn-theme">Nested Conditions and Randomness</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Doing Something Repeatedly</p>
-              <p>The Three Parts of a Loop</p>
-              <p>Infinite Loops</p>
+              <p>A Decision Inside a Decision</p>
+              <p>Nesting vs. AND</p>
+              <p>Random Numbers</p>
             </section>
 
             <section data-auto-animate>
-              <h2>You Have Been Doing This by Hand</h2>
+              <h2>Unfinished Business, Again</h2>
               <Code
                 code={Figure1}
                 frame="code"
@@ -173,56 +143,70 @@ Crew of 4 confirmed.
                 showLineNumbers={false}
               />
               <p class="fragment">
-                Five nearly identical lines. Now imagine counting down from a
-                hundred.
+                This works, but "DENIED" does not tell the crew what to fix.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>while</h2>
+              <h2>A Decision Inside a Decision</h2>
               <Code
                 code={Figure2}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
-              <Code
-                code={Figure3}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
+              <p class="fragment">
+                The inner <CodeSnippet code="if" lang={"javascript"} theme={"material-theme-ocean"} inline /> only runs when the outer one already
+                failed. By then you know something is wrong &mdash; the inner
+                question is just <i>which thing</i>.
+              </p>
             </section>
 
             <section>
-              <h2>Every Loop Has Three Parts</h2>
+              <h2>Reading a Nest</h2>
               <div class="text-start">
-                <ol>
+                <ul>
+                  <li class="fragment">Indentation shows the depth</li>
                   <li class="fragment">
-                    <b>Set up</b> &mdash; <CodeSnippet code="let count = 5;" lang={"javascript"} theme={"material-theme-ocean"} inline /> before the loop
+                    An inner condition is only ever asked if the outer one led
+                    there
                   </li>
                   <li class="fragment">
-                    <b>Test</b> &mdash; <CodeSnippet code="count > 0" lang={"javascript"} theme={"material-theme-ocean"} inline /> checked before every pass
+                    Every <CodeSnippet code="{" lang={"javascript"} theme={"material-theme-ocean"} inline /> needs its partner, and they stack up
+                    at the bottom
                   </li>
-                  <li class="fragment">
-                    <b>Change</b> &mdash; <CodeSnippet code="count = count - 1;" lang={"javascript"} theme={"material-theme-ocean"} inline /> inside the loop
-                  </li>
-                </ol>
+                </ul>
               </div>
               <p class="fragment">
-                Miss any one of the three and the loop misbehaves. Miss the third
-                and it never ends.
+                If your braces stop matching, your indentation was probably
+                lying to you before the computer noticed.
+              </p>
+            </section>
+
+            <section>
+              <h2>Nest, or Use AND?</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <b>AND</b> when you only care whether everything passed
+                  </li>
+                  <li class="fragment">
+                    <b>Nesting</b> when you need to respond differently to each
+                    reason it failed
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Both are correct code. They answer different questions, and the
+                one you want depends on what the program has to say next.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The Infinite Loop</h2>
+              <h2>Random Numbers</h2>
               <Code
-                code={Figure4}
+                code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
@@ -230,36 +214,23 @@ Crew of 4 confirmed.
                 class="mb-3"
               />
               <Code
-                code={Figure5}
+                code={Figure4}
                 frame="terminal"
                 lang="txt"
                 title="Demo"
                 showLineNumbers={false}
                 class="fragment"
               />
+              <p class="fragment">
+                Long decimals, always <b>0 or more and less than 1</b>. Never 1
+                itself.
+              </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Infinite Loop</h2>
-              <p>
-                <CodeSnippet code="count" lang={"javascript"} theme={"material-theme-ocean"} inline /> never changes, so the test is true forever.
-              </p>
-              <p class="fragment">
-                <b class="text-sn-theme">This will happen to you.</b> It happens
-                to everyone. The symptom is output flooding past, or the program
-                simply not finishing.
-              </p>
-              <p class="fragment">
-                Stop the program, look at your loop, and ask: <i>what inside the
-                braces makes the test eventually false?</i> If the answer is
-                nothing, that is your bug.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Building Up an Answer</h2>
+              <h2>Turning That Into a Die</h2>
               <Code
-                code={Figure6}
+                code={Figure5}
                 frame="code"
                 title="Demo"
                 lang="javascript"
@@ -267,39 +238,62 @@ Crew of 4 confirmed.
                 class="mb-3"
               />
               <Code
-                code={Figure7}
+                code={Figure6}
                 frame="terminal"
                 lang="txt"
                 title="Demo"
                 showLineNumbers={false}
                 class="fragment"
               />
-              <p class="fragment">
-                <CodeSnippet code="total" lang={"javascript"} theme={"material-theme-ocean"} inline /> collects a result across passes. This pattern
-                has a name &mdash; an <b class="text-sn-theme">accumulator</b>{" "}
-                &mdash; and you will use it constantly.
-              </p>
             </section>
 
             <section>
-              <h2>The Third Building Block</h2>
+              <h2>Reading That Line, Inside Out</h2>
+              <div class="text-start">
+                <ol>
+                  <li class="fragment">
+                    <CodeSnippet code="Math.random()" lang={"javascript"} theme={"material-theme-ocean"} inline /> gives something like 0.61
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="* 6" lang={"javascript"} theme={"material-theme-ocean"} inline /> stretches it to 0 up to just under 6
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="Math.floor()" lang={"javascript"} theme={"material-theme-ocean"} inline /> chops the decimal off, giving 0 to 5
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="+ 1" lang={"javascript"} theme={"material-theme-ocean"} inline /> shifts it to 1 to 6
+                  </li>
+                </ol>
+              </div>
+            </section>
+
+            <section>
+              <h2>The General Recipe</h2>
               <p>
-                Sequencing. Selection. And now{" "}
-                <b class="text-sn-theme">iteration</b>.
+                For a whole number from <b>min</b> to <b>max</b>, both included:
               </p>
               <p class="fragment">
-                Every algorithm you will ever meet, including every one on the AP
-                exam, is built from those three. There is no fourth.
+                <CodeSnippet
+                  code="Math.floor(Math.random() * (max - min + 1)) + min"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                Worth remembering: the exam reference sheet does this with{" "}
+                <CodeSnippet code="RANDOM(1, 6)" lang={"txt"} theme={"material-theme-ocean"} inline />, which you met back in Activity 1.6.
+                One call, no arithmetic. JavaScript makes you do it by hand.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing a loop that repeats while a condition holds</li>
-                <li>Identifying the setup, test, and change in any loop</li>
-                <li>Recognizing and fixing an infinite loop</li>
-                <li>Using an accumulator to build a result</li>
+                <li>Placing a conditional inside another conditional</li>
+                <li>Choosing between nesting and AND</li>
+                <li>Generating a random whole number in a range</li>
+                <li>Testing a program whose output changes every run</li>
               </ul>
             </section>
 
@@ -307,17 +301,14 @@ Crew of 4 confirmed.
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Iteration</dt>
-                  <dd>Repeating a block of code.</dd>
-                  <dt>Loop body</dt>
-                  <dd>The statements inside the loop's braces.</dd>
-                  <dt>Infinite loop</dt>
-                  <dd>A loop whose condition never becomes false.</dd>
-                  <dt>Accumulator</dt>
-                  <dd>
-                    A variable that collects a running result across passes of a
-                    loop.
-                  </dd>
+                  <dt>Nested conditional</dt>
+                  <dd>A conditional written inside another conditional's block.</dd>
+                  <dt>Nesting depth</dt>
+                  <dd>How many levels deep a piece of code sits.</dd>
+                  <dt>
+                    <CodeSnippet code="Math.floor()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>Rounds a decimal down to the whole number below it.</dd>
                 </dl>
               </div>
             </section>
@@ -332,20 +323,22 @@ Crew of 4 confirmed.
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-16-while</b>.
+            <b class="text-sn-theme">1-16-nested</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Count Down by Twos</h3>
+          <h3>Task 1: Say Which One Failed</h3>
           <ul>
             <li>Write the code below and run it.</li>
             <li>
-              Before running, predict the output. Does it print 0? Work out why
-              or why not from the test.
+              Test all four combinations by editing the two numbers. You should
+              be able to produce approval, a crew failure, and a cargo failure.
             </li>
             <li>
-              Change the step from 2 to 3 and predict again before running.
+              <b>Worth noticing:</b> with crew 1 and mass 900, both are wrong but
+              only the crew is reported. Is that acceptable? Hold that thought
+              for the reflection.
             </li>
           </ul>
 
@@ -353,21 +346,18 @@ Crew of 4 confirmed.
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Repeating With while"
+            title="Nested Conditions and Randomness"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: An Accumulator</h3>
+          <h3>Task 2: Add a Die Roll</h3>
           <ul>
+            <li>Add a random roll and a decision based on it.</li>
             <li>
-              Add a fuel loader that keeps adding tanks until there is at least
-              500 units of fuel.
-            </li>
-            <li>
-              <b>Notice it overshoots.</b> It stops at 600, not 500, because the
-              test only runs between passes. That is not a bug &mdash; it is how
-              loops work, and it is worth understanding now.
+              <b>Run this one five or six times.</b> The output should change.
+              Every program you have written until now gave the same answer every
+              time.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -379,27 +369,26 @@ Crew of 4 confirmed.
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Repeating With while"
-            ins={{ range: "9-20" }}
+            title="Nested Conditions and Randomness"
+            ins={{ range: "13-23" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Keep Asking Until It Is Valid</h3>
+          <h3>Task 3: Plan, Then Roll Two Dice</h3>
           <ul>
             <li>
-              The comments describe an input check that refuses to move on until
-              the user gives a sensible answer.
+              The comments describe a doubles check with a nested decision inside
+              it. Write the code under them.
             </li>
             <li>
-              You will need to ask <b>once before</b> the loop, and again{" "}
-              <b>inside</b> it. Think about why asking only inside would not
-              work.
+              Look at the indentation in the comments &mdash; it is telling you
+              the shape. Two of those lines are indented further because they
+              belong <i>inside</i> the match check.
             </li>
-            <li>Cast the input every time you collect it.</li>
             <li>
-              The condition needs OR, from Activity 1.14. Two ways to be
-              invalid.
+              Run it until you see a match. It takes about six tries on average,
+              which is itself worth noticing.
             </li>
           </ul>
 
@@ -407,114 +396,29 @@ Crew of 4 confirmed.
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Repeating With while"
-            ins={{ range: "21-25" }}
+            title="Nested Conditions and Randomness"
+            ins={{ range: "25-31" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Make It Infinite, On Purpose</h3>
+          <h3>Challenge (Optional): Test Something Random</h3>
           <ul>
             <li>
-              Copy your countdown to the bottom and delete the line that changes{" "}
-              <CodeSnippet code="count" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+              A program that behaves differently every run is hard to test. Add a
+              line near the top that lets you <i>force</i> a value:{" "}
+              <CodeSnippet code="let roll = 6;" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of the random version.
             </li>
             <li>
-              Run it. Watch what happens, then stop the program.
+              Use it to check that your "total systems failure" branch works,
+              without waiting for double sixes.
             </li>
             <li>
-              Write a comment describing what you saw and how you stopped it.
-              Knowing what this looks like means you will recognize it
-              instantly when it happens by accident.
+              Write a comment explaining why a programmer might want to switch
+              randomness off on purpose. Restore the random line before
+              submitting.
             </li>
-            <li>Delete the broken copy before submitting.</li>
           </ul>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
-
-        <!-- Exam Notation -->
-        <section id="exam-notation">
-          <h2>Same Idea, Exam Notation</h2>
-
-          <p>
-            <b class="text-sn-theme">
-              Read this one twice. The condition is backwards.
-            </b>
-          </p>
-
-          <div class="row g-3 my-4">
-            <div class="col-md-6">
-              <Code
-                code={NotationJs}
-                frame="code"
-                lang="javascript"
-                title="JavaScript"
-                showLineNumbers={false}
-              />
-            </div>
-            <div class="col-md-6">
-              <Code
-                code={NotationPseudo}
-                frame="code"
-                lang="txt"
-                title="Exam Notation"
-                showLineNumbers={false}
-              />
-            </div>
-          </div>
-
-          <p>
-            Both loops do exactly the same thing. Look at the two conditions:
-          </p>
-
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Keeps going</th>
-                  <th>Condition</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>while</code></td>
-                  <td><b>while</b> the condition is <b>true</b></td>
-                  <td><code>count &gt; 0</code></td>
-                </tr>
-                <tr>
-                  <td><code>REPEAT UNTIL</code></td>
-                  <td><b>until</b> the condition <i>becomes</i> <b>true</b></td>
-                  <td><code>count ≤ 0</code></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p>
-            <b>
-              The two conditions are opposites of each other, and they have to
-              be.
-            </b>{" "}
-            <code>while</code> asks "should I keep going?" and{" "}
-            <code>REPEAT UNTIL</code> asks "should I stop?"
-          </p>
-
-          <h4 class="mt-4">The Mistake to Avoid</h4>
-
-          <p>
-            Translating word for word and keeping the same condition gives you a
-            loop that does the opposite of what you meant &mdash; usually running
-            zero times, or forever.
-          </p>
-
-          <p>
-            When you meet <code>REPEAT UNTIL</code> on the exam, flip the
-            condition in your head before reasoning about it. There is no{" "}
-            <code>while</code> on the reference sheet, so this is the only
-            conditional loop you will see there.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -523,7 +427,11 @@ Crew of 4 confirmed.
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>
+            Verify your program works. Because it uses randomness,{" "}
+            <b>your output will differ every run</b> &mdash; that is correct, not
+            a bug.
+          </p>
 
           <Code
             code={ExampleOutput}
@@ -532,14 +440,14 @@ Crew of 4 confirmed.
             showLineNumbers={false}
             title="Example Output"
             mark={{
-              label: "Overshoots 500 — correct, not a bug",
-              range: "12",
+              label: "Different every run",
+              range: "3-4, 6-7",
             }}
           />
 
           <p class="mt-3">
-            Your crew check must survive being given a bad answer{" "}
-            <b>more than once</b>. Try 0, then 99, then 4.
+            Run it enough times to have seen all three outcomes at least once: no
+            event, a minor fault, and total systems failure.
           </p>
         </section>
 
@@ -553,17 +461,16 @@ Crew of 4 confirmed.
 
           <ol>
             <li>
-              Name the three parts every loop needs, and describe what goes wrong
-              if the third one is missing.
+              In Task 1, when both requirements fail, only one is reported.
+              Explain why, and decide whether you think that is a bug.
             </li>
             <li>
-              The fuel loader stops at 600 rather than 500. Explain why, in terms
-              of when the test is checked.
+              When would you use <code>&amp;&amp;</code> instead of nesting, and
+              when is nesting the better choice?
             </li>
             <li>
-              <code>while (count &gt; 0)</code> and{" "}
-              <code>REPEAT UNTIL(count ≤ 0)</code> describe the same loop. Explain
-              why the conditions are opposites.
+              Randomness makes a program harder to test. Describe how you checked
+              that a rare branch actually works.
             </li>
           </ol>
         </section>

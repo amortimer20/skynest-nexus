@@ -6,111 +6,116 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `for (let row = 1; row <= 3; row++) {
-  console.log("Row", row);
-}`;
-const Figure2 = `for (let row = 1; row <= 3; row++) {
-  for (let seat = 1; seat <= 4; seat++) {
-    console.log("Row", row, "Seat", seat);
-  }
-}`;
-const Figure3 = `Row 1 Seat 1
-Row 1 Seat 2
-Row 1 Seat 3
-Row 1 Seat 4
-Row 2 Seat 1
-Row 2 Seat 2
-Row 2 Seat 3
-Row 2 Seat 4
-Row 3 Seat 1
-Row 3 Seat 2
-Row 3 Seat 3
-Row 3 Seat 4`;
-const Figure4 = `for (let a = 1; a <= 3; a++) {
-  for (let b = 1; b <= 4; b++) {
-    // this line runs 12 times
-  }
-}`;
-const Figure5 = `let line = "";
+const Figure1 = `let total = 0;
 
-for (let col = 1; col <= 5; col++) {
-  line = line + "*";
+for (let i = 1; i <= 4; i++) {
+  total = total + i;
 }
 
-console.log(line);`;
-const Figure6 = `*****`;
-const Task1 = `for (let row = 1; row <= 3; row++) {
-  for (let seat = 1; seat <= 4; seat++) {
-    console.log("Row", row, "Seat", seat);
+console.log("Total:", total);`;
+const Figure2 = `let hotDays = 0;
+
+for (let i = 1; i <= 5; i++) {
+  let temp = Number(prompt("Reading " + i + "?"));
+
+  if (temp > 30) {
+    hotDays = hotDays + 1;
   }
 }
+
+console.log("Readings above 30:", hotDays);`;
+const Figure3 = `let highest = 0;
+
+for (let i = 1; i <= 3; i++) {
+  let temp = Number(prompt("Reading?"));
+
+  if (temp > highest) {
+    highest = temp;
+  }
+}
+
+console.log("Highest:", highest);`;
+const Figure4 = `Reading? -5
+Reading? -12
+Reading? -3
+Highest: 0`;
+const Figure5 = `let total = 259;
+let count = 3;
+
+let average = total / count;
+
+console.log("Average:", average);
+console.log("Average:", average.toFixed(1));`;
+const Figure6 = `Average: 86.33333333333333
+Average: 86.3`;
+const Task1 = `let total = 0;
+
+for (let i = 1; i <= 5; i++) {
+  let reading = Number(prompt("Reading " + i + "?"));
+  total = total + reading;
+}
+
+console.log("Total:", total);
 `;
-const Task2 = `for (let row = 1; row <= 3; row++) {
-  for (let seat = 1; seat <= 4; seat++) {
-    console.log("Row", row, "Seat", seat);
+const Task2 = `let total = 0;
+let aboveFreezing = 0;
+let highest = -999;
+
+for (let i = 1; i <= 5; i++) {
+  let reading = Number(prompt("Reading " + i + "?"));
+
+  total = total + reading;
+
+  if (reading > 0) {
+    aboveFreezing = aboveFreezing + 1;
+  }
+
+  if (reading > highest) {
+    highest = reading;
   }
 }
 
-console.log("");
-
-for (let row = 1; row <= 4; row++) {
-  let line = "";
-
-  for (let col = 1; col <= 6; col++) {
-    line = line + "* ";
-  }
-
-  console.log(line);
-}
+console.log("Total:", total);
+console.log("Above freezing:", aboveFreezing);
+console.log("Highest:", highest);
 `;
-const Task3 = `for (let row = 1; row <= 3; row++) {
-  for (let seat = 1; seat <= 4; seat++) {
-    console.log("Row", row, "Seat", seat);
+const Task3 = `let total = 0;
+let aboveFreezing = 0;
+let highest = -999;
+
+for (let i = 1; i <= 5; i++) {
+  let reading = Number(prompt("Reading " + i + "?"));
+
+  total = total + reading;
+
+  if (reading > 0) {
+    aboveFreezing = aboveFreezing + 1;
+  }
+
+  if (reading > highest) {
+    highest = reading;
   }
 }
 
-console.log("");
+console.log("Total:", total);
+console.log("Above freezing:", aboveFreezing);
+console.log("Highest:", highest);
 
-for (let row = 1; row <= 4; row++) {
-  let line = "";
-
-  for (let col = 1; col <= 6; col++) {
-    line = line + "* ";
-  }
-
-  console.log(line);
-}
-
-console.log("");
-
-// Ask the user for a size and cast it
-// Print a triangle that many rows tall:
-//   row 1 has one star, row 2 has two, and so on
-//   the inner loop's limit depends on the outer loop's variable
+// Work out the average and show it to one decimal place
+// Track the lowest reading as well, and show it
+// Say whether the average was above or below freezing
 `;
-const ExampleOutput = `Row 1 Seat 1
-Row 1 Seat 2
-Row 1 Seat 3
-Row 1 Seat 4
-Row 2 Seat 1
-Row 2 Seat 2
-Row 2 Seat 3
-Row 2 Seat 4
-Row 3 Seat 1
-Row 3 Seat 2
-Row 3 Seat 3
-Row 3 Seat 4
-
-* * * * * *
-* * * * * *
-* * * * * *
-* * * * * *
-
-Size? 4
-*
-* *
-* * *
-* * * *
+const ExampleOutput = `Reading 1? 4
+Reading 2? -8
+Reading 3? 12
+Reading 4? -3
+Reading 5? 7
+Total: 12
+Above freezing: 3
+Highest: 12
+Average: 2.4
+Lowest: -8
+The average was above freezing.
 `;
 //#endregion
 ---
@@ -123,7 +128,7 @@ Size? 4
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.20: Loops Inside Loops</h1>
+        <h1>Activity 1.20: Loop Patterns</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -131,18 +136,26 @@ Size? 4
           <Presentation>
             <section>
               <h2>Activity 1.20</h2>
-              <h3 class="text-sn-theme">Loops Inside Loops</h3>
+              <h3 class="text-sn-theme">Loop Patterns</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>An Inner Loop Runs Fully, Every Pass</p>
-              <p>Counting the Passes</p>
-              <p>Building a Line</p>
+              <p>Accumulator and Counter</p>
+              <p>Tracking a Maximum</p>
+              <p>Averages</p>
             </section>
 
             <section data-auto-animate>
-              <h2>One Loop</h2>
+              <h2>Four Patterns, Endless Uses</h2>
+              <p>
+                Almost every loop you write for the rest of this course is one of
+                four shapes. Learn them once, recognize them forever.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>1. Accumulator</h2>
               <Code
                 code={Figure1}
                 frame="code"
@@ -150,11 +163,14 @@ Size? 4
                 lang="javascript"
                 showLineNumbers={false}
               />
-              <p class="fragment">Three passes. Three lines. Nothing new.</p>
+              <p class="fragment">
+                A variable that grows across passes. Starts at <b>0</b> for
+                adding, or <b>1</b> if you are multiplying.
+              </p>
             </section>
 
-            <section data-auto-animate>
-              <h2>A Loop Inside a Loop</h2>
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>2. Counter</h2>
               <Code
                 code={Figure2}
                 frame="code"
@@ -162,62 +178,80 @@ Size? 4
                 lang="javascript"
                 showLineNumbers={false}
               />
-            </section>
-
-            <section data-auto-animate>
-              <h2>A Loop Inside a Loop</h2>
-              <Code
-                code={Figure3}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-              />
+              <p class="fragment">
+                Looks like an accumulator, but it counts <i>how many times
+                something was true</i> instead of adding up the values.
+              </p>
             </section>
 
             <section>
-              <h2>The Rule</h2>
-              <p>
-                <b class="text-sn-theme">
-                  The inner loop runs all the way through, every single time the
-                  outer loop takes one pass.
-                </b>
-              </p>
+              <h2>Accumulator or Counter?</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet code="total = total + reading" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; accumulator
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="count = count + 1" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; counter
+                  </li>
+                </ul>
+              </div>
               <p class="fragment">
-                Row 1 does all four seats before row 2 begins. Look at the output
-                again &mdash; the seat number resets, the row number does not.
+                One adds the <b>data</b>. The other adds <b>one</b>. Mixing them
+                up gives an answer that looks plausible and is wrong.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>How Many Times?</h2>
+              <h2>3. Tracking a Maximum</h2>
               <Code
-                code={Figure4}
+                code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
               />
-              <p class="fragment">
-                <b>Multiply them.</b> 3 outer passes &times; 4 inner passes = 12.
-              </p>
+              <p class="fragment">Keep the biggest thing seen so far.</p>
             </section>
 
             <section data-auto-animate>
-              <h2>How Many Times?</h2>
-              <p>
-                This is why nested loops get slow. Two loops of 1,000 is a
-                million passes &mdash; not two thousand.
-              </p>
+              <h2>But Watch the Starting Value</h2>
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                title="Demo — all readings below zero"
+                showLineNumbers={false}
+              />
               <p class="fragment">
-                You will meet that idea properly in Quarter 2 under the name{" "}
-                <b class="text-sn-theme">algorithmic efficiency</b>, and it is on
-                the exam.
+                Every reading was negative, so none of them ever beat 0 &mdash;
+                and the program reported a maximum that <b class="text-sn-theme">
+                was never in the data</b>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Starting a Maximum Safely</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    Start below anything possible, like{" "}
+                    <CodeSnippet code="-999" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; simple, but you have to be sure
+                  </li>
+                  <li class="fragment">
+                    Or use the <b>first value</b> as the starting point &mdash;
+                    always correct, slightly more work
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                <b>Starting at 0 is the classic bug</b>, and it only shows up
+                when all your data happens to be negative.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Building a Line Instead of Printing It</h2>
+              <h2>4. Average</h2>
               <Code
                 code={Figure5}
                 frame="code"
@@ -234,28 +268,20 @@ Size? 4
                 showLineNumbers={false}
                 class="fragment"
               />
-            </section>
-
-            <section data-auto-animate>
-              <h2>An Accumulator Made of Text</h2>
-              <p>
-                Same pattern as Activity 1.19, except it collects <b>characters</b>{" "}
-                instead of numbers. It starts as an empty string rather than 0.
-              </p>
               <p class="fragment">
-                To print a grid you build each row inside the inner loop, then
-                display it in the outer one. <b class="text-sn-theme">Where the
-                display goes decides whether you get a grid or a column.</b>
+                An accumulator divided by a count &mdash; and the first thing
+                you have written where <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline /> is genuinely
+                necessary rather than tidy.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing a loop inside another loop</li>
-                <li>Predicting how many times the inner block runs</li>
-                <li>Building a string across passes</li>
-                <li>Using the outer variable inside the inner loop</li>
+                <li>Accumulating a total across a loop</li>
+                <li>Counting how many values meet a condition</li>
+                <li>Tracking a maximum and a minimum safely</li>
+                <li>Computing and formatting an average</li>
               </ul>
             </section>
 
@@ -263,14 +289,17 @@ Size? 4
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Nested loop</dt>
-                  <dd>A loop written inside another loop's body.</dd>
-                  <dt>Outer loop</dt>
-                  <dd>The loop that contains the other one.</dd>
-                  <dt>Inner loop</dt>
-                  <dd>The loop that runs completely on each outer pass.</dd>
-                  <dt>String accumulator</dt>
-                  <dd>A text variable built up piece by piece across a loop.</dd>
+                  <dt>Accumulator</dt>
+                  <dd>A variable that builds up a total across passes.</dd>
+                  <dt>Counter</dt>
+                  <dd>A variable that counts how many times something happened.</dd>
+                  <dt>Running maximum</dt>
+                  <dd>The largest value seen so far.</dd>
+                  <dt>Initialization</dt>
+                  <dd>
+                    The starting value given to a variable before a loop, which
+                    decides whether the pattern works.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -285,45 +314,46 @@ Size? 4
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-20-nested-loops</b>.
+            <b class="text-sn-theme">1-20-patterns</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Rows and Seats</h3>
+          <h3>Task 1: Accumulate Five Readings</h3>
           <ul>
+            <li>Write the code below and run it with 4, −8, 12, −3, 7.</li>
             <li>
-              Before running it, predict how many lines will appear. Then run it
-              and count.
+              The total should be 12. Add them by hand to be sure &mdash; you
+              cannot check a loop you do not know the answer to.
             </li>
             <li>
-              Change the inner limit from 4 to 2 and predict again. Then change
-              the <i>outer</i> limit instead and predict once more.
+              Notice <CodeSnippet code="reading" lang={"javascript"} theme={"material-theme-ocean"} inline /> is declared <i>inside</i> the loop.
+              It is fresh every pass, which is fine because{" "}
+              <CodeSnippet code="total" lang={"javascript"} theme={"material-theme-ocean"} inline /> is the one that has to survive.
             </li>
-            <li>Put both back to 3 and 4.</li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Loops Inside Loops"
+            title="Loop Patterns"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: An Actual Grid</h3>
+          <h3>Task 2: Add a Counter and a Maximum</h3>
           <ul>
-            <li>Add a block that prints a rectangle of stars.</li>
+            <li>Add two more patterns to the same loop.</li>
             <li>
-              Look carefully at where <CodeSnippet code="let line" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
-              <CodeSnippet code="console.log(line)" lang={"javascript"} theme={"material-theme-ocean"} inline /> sit &mdash; both in the outer
-              loop, with the inner loop between them.
+              All three live in one loop and one pass of input. Collecting the
+              data once and answering several questions about it is the normal
+              shape of this.
             </li>
             <li>
-              <b>Experiment:</b> move the <CodeSnippet code="console.log(line)" lang={"javascript"} theme={"material-theme-ocean"} inline /> inside
-              the inner loop and run it. Then move it back. That one change is
-              the difference between a grid and a mess.
+              <CodeSnippet code="highest" lang={"javascript"} theme={"material-theme-ocean"} inline /> starts at −999, not 0. Change it to 0, run
+              with all-negative readings, and see the bug for yourself. Then
+              change it back.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -335,51 +365,53 @@ Size? 4
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Loops Inside Loops"
-            ins={{ range: "6-17" }}
+            title="Loop Patterns"
+            ins={{ range: "2-3, 10-12, 14-16, 20-21" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Build a Triangle</h3>
+          <h3>Task 3: Plan, Then Add an Average and a Minimum</h3>
           <ul>
+            <li>The comments describe three more things to report.</li>
             <li>
-              The comments describe a triangle where each row is one star longer
-              than the last.
+              The average needs <CodeSnippet code="toFixed(1)" lang={"javascript"} theme={"material-theme-ocean"} inline /> or the output is
+              unreadable. Divide first, format second.
             </li>
             <li>
-              <b class="text-sn-theme">
-                The inner loop's limit is the outer loop's variable.
-              </b>{" "}
-              That is the whole trick, and it is the first time the two loops
-              have depended on each other.
+              The minimum is the maximum pattern with two things flipped. Work
+              out which two.
             </li>
-            <li>Cast the input.</li>
-            <li>Test with 1, with 4, and with 7.</li>
+            <li>
+              Test with all-negative readings and confirm the minimum, the
+              maximum, and the average are all still sensible.
+            </li>
           </ul>
 
           <Code
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Loops Inside Loops"
-            ins={{ range: "19-24" }}
+            title="Loop Patterns"
+            ins={{ range: "23-25" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Upside Down</h3>
+          <h3>Challenge (Optional): Start From the Data</h3>
           <ul>
             <li>
-              Print a triangle that starts wide and narrows to a single star.
+              −999 works until someone measures something colder. Rewrite the
+              maximum so it starts from the <i>first</i> reading instead of a
+              guess.
             </li>
             <li>
-              There are two ways: count the outer loop downward, or keep counting
-              up and subtract. Try whichever occurs to you first.
+              Hint: the first pass is special. You already know how to ask
+              whether you are on it &mdash; <CodeSnippet code="i" lang={"javascript"} theme={"material-theme-ocean"} inline /> tells you.
             </li>
             <li>
-              Then work out the other way as well, and write a comment saying
-              which reads more clearly.
+              Write a comment explaining why this version cannot be broken by
+              unusual data.
             </li>
           </ul>
         </section>
@@ -390,7 +422,7 @@ Size? 4
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>Verify your program works correctly, using 4, &minus;8, 12, &minus;3, 7.</p>
 
           <Code
             code={ExampleOutput}
@@ -399,10 +431,15 @@ Size? 4
             showLineNumbers={false}
             title="Example Output"
             mark={[
-              { label: "12 lines — 3 × 4", range: "1-12" },
-              { label: "Each row longer than the last", range: "20-23" },
+              { label: "One decimal place, not 2.4000000000000004", range: "9" },
+              { label: "A real reading, not the starting guess", range: "10" },
             ]}
           />
+
+          <p class="mt-3">
+            Then run it again with five negative readings. The highest, lowest,
+            and average must all still be values that make sense.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -415,17 +452,16 @@ Size? 4
 
           <ol>
             <li>
-              Explain why nested loops multiply rather than add, using your rows
-              and seats as the example.
+              An accumulator and a counter look almost identical. Explain the
+              difference, and describe a question each one answers.
             </li>
             <li>
-              Moving <code>console.log(line)</code> inside the inner loop changed
-              the output completely. Describe what happened and why.
+              Starting a maximum at 0 fails on all-negative data. Why is that
+              kind of bug particularly hard to catch?
             </li>
             <li>
-              In the triangle, the inner loop's limit came from the outer loop's
-              variable. What does that let you build that a fixed limit could
-              not?
+              Your average needed formatting but your total did not. Why does
+              division produce ugly numbers when addition usually does not?
             </li>
           </ol>
         </section>

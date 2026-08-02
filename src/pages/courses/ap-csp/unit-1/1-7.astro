@@ -2,70 +2,59 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-7-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let playerName = prompt("What is your name?");
-console.log("Welcome aboard,", playerName);`;
-const Figure2 = `What is your name? Jordan
-Welcome aboard, Jordan`;
-const Figure3 = `let color = prompt("Favorite color?");
-let animal = prompt("Favorite animal?");
+const Figure1 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+}`;
+const Figure2 = `(0, 0)                    (400, 0)
+   +---------------------+
+   |                     |
+   |                     |
+   |      the canvas     |
+   |                     |
+   |                     |
+   +---------------------+
+(0, 400)                (400, 400)`;
+const Figure3 = `rect(50, 50, 120, 80);`;
+const Figure4 = `ellipse(200, 200, 120, 80);`;
+const Figure5 = `fill(255, 0, 0);
+rect(20, 20, 100, 100);
 
-console.log("Your callsign is the", color, animal + ".");`;
-const Figure4 = `Favorite color? Silver
-Favorite animal? Hawk
-Your callsign is the Silver Hawk.`;
-const Figure5 = `let age = prompt("How old are you?");
-console.log(age + 1);`;
-const Figure6 = `How old are you? 16
-161`;
-const NotationJs = `let name = prompt("Name?");
-console.log("Hello,", name);`;
-const NotationPseudo = `DISPLAY("Name?")
-name ← INPUT()
-DISPLAY("Hello,")
-DISPLAY(name)`;
-const Task1 = `let pilotName = prompt("Pilot name?");
-
-console.log("Welcome aboard,", pilotName);
+fill(0, 0, 255);
+rect(70, 70, 100, 100);`;
+const Task1 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+}
 `;
-const Task2 = `let pilotName = prompt("Pilot name?");
-let homePort = prompt("Home port?");
-let shipName = prompt("Name your ship:");
+const Task2 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
 
-console.log("");
-console.log("=== FLIGHT REGISTRATION ===");
-console.log("Pilot:", pilotName);
-console.log("Port:", homePort);
-console.log("Ship:", shipName);
+  rect(40, 40, 120, 80);
+  ellipse(280, 80, 120, 80);
+  line(0, 200, 400, 200);
+}
 `;
-const Task3 = `let pilotName = prompt("Pilot name?");
-let homePort = prompt("Home port?");
-let shipName = prompt("Name your ship:");
+const Task3 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
 
-console.log("");
-console.log("=== FLIGHT REGISTRATION ===");
-console.log("Pilot:", pilotName);
-console.log("Port:", homePort);
-console.log("Ship:", shipName);
+  rect(40, 40, 120, 80);
+  ellipse(280, 80, 120, 80);
+  line(0, 200, 400, 200);
 
-// Ask for a destination
-// Ask for a cargo type
-// Print a one-line summary using all five answers
-`;
-const ExampleOutput = `Pilot name? Jordan
-Home port? Ganymede
-Name your ship: Vega
-Destination? Titan
-Cargo type? ice
-
-=== FLIGHT REGISTRATION ===
-Pilot: Jordan
-Port: Ganymede
-Ship: Vega
-Jordan is flying Vega from Ganymede to Titan carrying ice.
+  // Below the line, draw a simple house:
+  //   a square for the walls
+  //   a triangle-ish roof made from two lines
+  //   a small rectangle for the door
+}
 `;
 //#endregion
 ---
@@ -78,205 +67,224 @@ Jordan is flying Vega from Ganymede to Titan carrying ice.
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.7: Console Input</h1>
+        <h1>Activity 1.7: p5 Lab 1 &mdash; The Canvas</h1>
         <Divider variant="8" classes="mb-5" />
 
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="A 400 by 400 canvas on a light grey background with a rectangle, an ellipse, and two overlapping colored squares" width={400} class="img-fluid rounded" />
+          </div>
+
+          <p>By the end of <b>Task 2</b> you will have a canvas with several shapes on it, including two that overlap so you can see which one wins.</p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
               <h2>Activity 1.7</h2>
-              <h3 class="text-sn-theme">Console Input</h3>
+              <h3 class="text-sn-theme">p5 Lab 1 &mdash; The Canvas</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Asking the User a Question</p>
-              <p>Storing the Answer</p>
-              <p>Input Is Always Text</p>
+              <p>What a Lab Is</p>
+              <p>The Coordinate System</p>
+              <p>Drawing Shapes</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Programs That Ask</h2>
+              <h2>What Is a Lab?</h2>
               <p>
-                Everything you have written so far does exactly the same thing
-                every time it runs.
+                Every few activities, we step away from text output and draw
+                something instead.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What Is a Lab?</h2>
+              <p>
+                Labs never introduce new logic. They take something you already
+                learned and make it <i>visible</i>.
               </p>
               <p class="fragment">
-                <CodeSnippet
-                  code="prompt()"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> changes that. It asks a question and hands back whatever the
-                user typed.
+                Today there is no new logic at all &mdash; just a new place to
+                put it.
               </p>
             </section>
 
-            <section data-auto-animate>
-              <h2>Programs That Ask</h2>
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Starting a Sketch</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Starting a Sketch</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="setup()"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> runs once, at the start
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="createCanvas(400, 400)"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> makes a drawing area 400 wide and 400 tall
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="background(220)"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> fills it with light gray
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Where Is (0, 0)?</h2>
+              <p>Not where you expect.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Where Is (0, 0)?</h2>
               <Code
                 code={Figure2}
-                frame="terminal"
+                frame="none"
                 lang="txt"
-                title="Demo"
                 showLineNumbers={false}
-                class="fragment"
               />
             </section>
 
             <section>
-              <h2>Reading That Line</h2>
-              <div class="text-start">
-                <ul>
-                  <li class="fragment">
-                    The text in the parentheses is the question shown to the user
-                  </li>
-                  <li class="fragment">
-                    The answer comes back out and gets stored in the variable
-                  </li>
-                  <li class="fragment">
-                    Nothing is saved unless you put it in a variable
-                  </li>
-                </ul>
-              </div>
-              <p class="fragment">
-                That last one catches people. Calling <CodeSnippet
-                  code="prompt()"
-                  lang={"javascript"}
+              <h2>The Part That Trips Everyone</h2>
+              <p>
+                <CodeSnippet
+                  code="(0, 0)"
+                  lang={"txt"}
                   theme={"material-theme-ocean"}
                   inline
-                /> on its own asks the question and then throws the answer away.
+                /> is the <b class="text-sn-theme">top left</b>, and{" "}
+                <b class="text-sn-theme">y gets bigger going down</b>.
+              </p>
+              <p class="fragment">
+                In math class, y goes up. Here it goes down. Every graphics
+                system on every computer works this way, and it catches people
+                every single time.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Several Questions</h2>
+              <h2>Rectangles</h2>
               <Code
                 code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
-              <Code
-                code={Figure4}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
+              <p class="fragment">
+                x, y, then width, height. The x and y are the{" "}
+                <b class="text-sn-theme">top left corner</b>.
+              </p>
             </section>
 
             <section data-auto-animate>
-              <h2>Several Questions</h2>
+              <h2>Ellipses</h2>
+              <Code
+                code={Figure4}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Same four numbers &mdash; but here x and y are the{" "}
+                <b class="text-sn-theme">center</b>, not the corner.
+              </p>
+            </section>
+
+            <section>
+              <h2>Corner vs. Center</h2>
               <p>
-                Each answer needs its own variable, or the second answer
-                overwrites the first.
+                A rectangle is positioned by its corner. An ellipse is positioned
+                by its middle.
               </p>
               <p class="fragment">
-                Notice <CodeSnippet
-                  code='animal + "."'
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> &mdash; using <CodeSnippet
-                  code="+"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> instead of a comma joins the period on with no space in front
-                of it.
+                This is not a rule with a good reason. It is just how it is, and
+                it is the single most common cause of "why is my shape in the
+                wrong place?"
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The Catch</h2>
-              <p>
-                Whatever the user types comes back as <b class="text-sn-theme"
-                  >text</b
-                >. Always. Even when it looks like a number.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>The Catch</h2>
+              <h2>Color and Order</h2>
               <Code
                 code={Figure5}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure6}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
               />
             </section>
 
-            <section>
-              <h2>Why 161?</h2>
-              <p>
-                The user typed <CodeSnippet
-                  code="16"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />, so <CodeSnippet
-                  code="age"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> holds the <i>text</i> <CodeSnippet
-                  code='"16"'
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />, not the number 16.
-              </p>
+            <section data-auto-animate>
+              <h2>Color and Order</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet
+                      code="fill(r, g, b)"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    /> sets the color of everything drawn <i>after</i> it
+                  </li>
+                  <li class="fragment">
+                    Each of r, g, b runs from 0 to 255
+                  </li>
+                  <li class="fragment">
+                    Shapes drawn later sit <b>on top of</b> shapes drawn earlier
+                  </li>
+                </ul>
+              </div>
               <p class="fragment">
-                Adding to text does not do arithmetic &mdash; it sticks things
-                together. So <CodeSnippet
-                  code='"16" + 1'
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> becomes <CodeSnippet
-                  code='"161"'
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />.
-              </p>
-              <p class="fragment">
-                No error. No warning. Just a wrong answer. We fix this next
-                activity.
+                A sketch is a stack, built bottom to top, in the order you wrote
+                it.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Asking the user a question and storing the answer</li>
-                <li>Using several inputs in one program</li>
-                <li>
-                  Explaining why input is always text, even when it looks numeric
-                </li>
+                <li>Creating a canvas and setting a background</li>
+                <li>Locating a point using canvas coordinates</li>
+                <li>Drawing rectangles, ellipses, and lines</li>
+                <li>Setting colors and controlling drawing order</li>
               </ul>
             </section>
 
@@ -284,17 +292,26 @@ Jordan is flying Vega from Ganymede to Titan carrying ice.
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Input</dt>
-                  <dd>Information a program receives while it is running.</dd>
-                  <dt>Prompt</dt>
-                  <dd>The question shown to the user when input is requested.</dd>
-                  <dt>Return value</dt>
+                  <dt>Canvas</dt>
+                  <dd>The rectangular area a sketch draws into.</dd>
+                  <dt>Coordinate</dt>
                   <dd>
-                    The value a function hands back, which you can store in a
-                    variable.
+                    A pair of numbers, x and y, giving a position on the canvas.
                   </dd>
-                  <dt>Concatenation</dt>
-                  <dd>Joining two pieces of text end to end.</dd>
+                  <dt>Origin</dt>
+                  <dd>
+                    The point <CodeSnippet
+                      code="(0, 0)"
+                      lang={"txt"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />, at the top left corner of the canvas.
+                  </dd>
+                  <dt>Pixel</dt>
+                  <dd>
+                    One dot on the screen. Canvas measurements are counted in
+                    these.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -308,19 +325,41 @@ Jordan is flying Vega from Ganymede to Titan carrying ice.
           <h2>Build</h2>
 
           <p>
-            Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-7-input</b>.
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-7-canvas</b>.
+          </p>
+
+          <p>
+            Everything today goes inside <CodeSnippet
+              code="setup()"
+              lang={"javascript"}
+              theme={"material-theme-ocean"}
+              inline
+            />, between its curly braces. Nothing moves yet, so nothing needs to
+            repeat.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: One Question</h3>
+          <h3>Task 1: An Empty Canvas</h3>
           <ul>
             <li>Write the code below and run it.</li>
-            <li>Answer the question when it appears.</li>
             <li>
-              Run it a second time with a different answer, and confirm the
-              output changes. That is the whole point of input.
+              You should see a light gray square. That is the whole result, and
+              it is correct.
+            </li>
+            <li>
+              Change 400 to 600 and run again. Change <CodeSnippet
+                code="background(220)"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to <CodeSnippet
+                code="background(0)"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> and run again. Then set both back.
             </li>
           </ul>
 
@@ -328,17 +367,22 @@ Jordan is flying Vega from Ganymede to Titan carrying ice.
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Console Input"
+            title="p5 Lab 1 — The Canvas"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: A Registration Form</h3>
+          <h3>Task 2: Three Shapes</h3>
           <ul>
-            <li>Add two more questions, each with its own variable.</li>
+            <li>Add a rectangle, an ellipse, and a line.</li>
             <li>
-              Ask all three questions first, then print the summary. Don't
-              alternate question, answer, question, answer.
+              Before running, predict where each one will land. Sketch the canvas
+              on paper if that helps.
+            </li>
+            <li>
+              Then run it and compare. The rectangle and the ellipse use their
+              four numbers differently &mdash; make sure you can see that in the
+              result.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -350,33 +394,34 @@ Jordan is flying Vega from Ganymede to Titan carrying ice.
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Console Input"
-            ins={{ range: "2-3, 5-9" }}
+            title="p5 Lab 1 — The Canvas"
+            ins={{ range: "5-7" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Add Two More</h3>
+          <h3>Task 3: Plan, Then Draw a House</h3>
           <ul>
             <li>
-              The three comments at the bottom are a plan. Write the code for
+              The comments at the bottom are a plan. Write the drawing code under
               them.
             </li>
             <li>
-              The last line should read as a sentence using all five answers, not
-              as another list.
+              Everything must sit <i>below</i> the line at y = 200, so every y
+              value you use should be greater than 200.
             </li>
             <li>
-              Watch your spaces. Commas add one for you; <CodeSnippet
-                code="+"
+              Give the walls, roof, and door different colors using{" "}
+              <CodeSnippet
+                code="fill()"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> does not.
+              />.
             </li>
             <li>
-              The two new questions have to be asked <i>before</i> the summary
-              prints. Think about where they go.
+              Watch your drawing order. If the door disappears, you probably drew
+              the walls after it.
             </li>
           </ul>
 
@@ -384,102 +429,27 @@ Jordan is flying Vega from Ganymede to Titan carrying ice.
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Console Input"
-            ins={{ range: "11-13" }}
+            title="p5 Lab 1 — The Canvas"
+            ins={{ range: "9-12" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Prove the Catch</h3>
+          <h3>Challenge (Optional): Put Something in the Exact Center</h3>
           <ul>
             <li>
-              At the bottom, ask the user for a number, then display that value{" "}
-              <CodeSnippet
-                code="+ 1"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />.
+              Draw a circle whose center is the exact center of a 400 by 400
+              canvas.
             </li>
             <li>
-              Then display the same value <CodeSnippet
-                code="* 2"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />.
+              Then draw a square whose center is also the exact center, without
+              guessing and nudging.
             </li>
             <li>
-              One of them behaves like arithmetic and the other does not. Write a
-              comment saying which, and what you think is going on.
-            </li>
-            <li>
-              You are not expected to know the answer yet. Guessing carefully is
-              the exercise.
+              The square is genuinely harder, and working out why is the point of
+              the challenge.
             </li>
           </ul>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
-
-        <!-- Exam Notation -->
-        <section id="exam-notation">
-          <h2>Same Idea, Exam Notation</h2>
-
-          <div class="row g-3 my-4">
-            <div class="col-md-6">
-              <Code
-                code={NotationJs}
-                frame="code"
-                lang="javascript"
-                title="JavaScript"
-                showLineNumbers={false}
-              />
-            </div>
-            <div class="col-md-6">
-              <Code
-                code={NotationPseudo}
-                frame="code"
-                lang="txt"
-                title="Exam Notation"
-                showLineNumbers={false}
-              />
-            </div>
-          </div>
-
-          <ul>
-            <li>
-              <CodeSnippet
-                code="INPUT()"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              /> takes <b class="text-sn-theme">nothing in its parentheses</b>.
-              There is no place to put the question.
-            </li>
-            <li>
-              So the question is displayed separately, on its own line, before
-              the input is collected. Two statements where JavaScript uses one.
-            </li>
-            <li>
-              The answer still has to be stored with <CodeSnippet
-                code="←"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              /> or it is lost, exactly as in JavaScript.
-            </li>
-          </ul>
-
-          <p>
-            If an exam question shows <CodeSnippet
-              code="INPUT()"
-              lang={"txt"}
-              theme={"material-theme-ocean"}
-              inline
-            /> with no prompt text anywhere, nothing is missing. That is how it
-            is written.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -488,22 +458,25 @@ Jordan is flying Vega from Ganymede to Titan carrying ice.
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>
-            Verify your program works correctly. Your answers will differ from
-            the example.
-          </p>
+          <p>Your finished sketch should show all of the following.</p>
 
-          <Code
-            code={ExampleOutput}
-            frame="terminal"
-            lang="txt"
-            showLineNumbers={false}
-            title="Example Output"
-            mark={{
-              label: "One sentence, all five answers",
-              range: "11",
-            }}
-          />
+          <ul>
+            <li>A canvas 400 by 400 with a light gray background.</li>
+            <li>
+              A rectangle in the upper left, and an ellipse in the upper right.
+            </li>
+            <li>A line running all the way across the middle.</li>
+            <li>
+              Below that line, a recognizable house with walls, a roof, and a
+              door, each a different color.
+            </li>
+            <li>The door visible, not buried under the walls.</li>
+          </ul>
+
+          <p>
+            You should also be able to point at any shape and say which numbers
+            in your code put it there.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -516,18 +489,18 @@ Jordan is flying Vega from Ganymede to Titan carrying ice.
 
           <ol>
             <li>
-              What happens if you call <code>prompt()</code> without storing the
-              result in a variable? Why is that rarely useful?
+              On this canvas, y increases as you move <i>down</i>. Describe a
+              mistake you made, or nearly made, because of that.
             </li>
             <li>
-              A user types <code>16</code> and the program displays{" "}
-              <code>161</code> instead of <code>17</code>. Explain the cause in
-              your own words.
+              A rectangle is placed by its corner and an ellipse by its center.
+              Explain how you would place a rectangle so that its <i>center</i>{" "}
+              lands on a specific point.
             </li>
             <li>
-              In exam notation, <code>INPUT()</code> has no place for a question.
-              What does a program have to do instead, and why does that mean two
-              statements rather than one?
+              Drawing order decides what covers what. How is that similar to the
+              order statements run in the text programs you wrote in Activities
+              1.1 through 1.6?
             </li>
           </ol>
         </section>

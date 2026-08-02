@@ -6,87 +6,84 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `console.log(8 + 3);
-console.log(8 - 3);
-console.log(8 * 3);
-console.log(8 / 3);`;
-const Figure2 = `11
-5
-24
-2.6666666666666665`;
-const Figure3 = `console.log(17 / 5);
-console.log(17 % 5);`;
-const Figure4 = `3.4
-2`;
-const Figure5 = `console.log(2 + 3 * 4);
-console.log((2 + 3) * 4);`;
-const Figure6 = `14
-20`;
-const Figure7 = `let totalStudents = 30;
-let perTable = 4;
+const Figure1 = `console.log("Total:", 42);`;
+const Figure2 = `Total: 42`;
+const Figure3 = `// This line explains what the next line does
+console.log("Loading your inventory...");
 
-let fullTables = (totalStudents - (totalStudents % perTable)) / perTable;
-let leftOver = totalStudents % perTable;
+// console.log("This line is turned off for now.");
 
-console.log("Full tables:", fullTables);
-console.log("Left over:", leftOver);`;
-const Figure8 = `Full tables: 7
-Left over: 2`;
-const NotationJs = `let total = 17 + 5;
-let each = 17 / 5;
-let extra = 17 % 5;`;
-const NotationPseudo = `total ← 17 + 5
-each ← 17 / 5
-extra ← 17 MOD 5`;
-const NotationRandom = `roll ← RANDOM(1, 6)`;
-const Task1 = `let boxes = 47;
-let perCrate = 6;
+/*
+  A longer note can span
+  several lines like this.
+*/
+console.log("Done.");`;
+const Figure4 = `Loading your inventory...
+Done.`;
+const Figure5 = `// Greet the player
+// Show their score
+// Show a closing message`;
+const Figure6 = `// Greet the player
+console.log("Welcome back, Commander.");
 
-console.log("Boxes:", boxes);
-console.log("Per crate:", perCrate);
-console.log("Divided:", boxes / perCrate);
+// Show their score
+console.log("Score:", 1250);
+
+// Show a closing message
+console.log("Report ends.");`;
+const Task1 = `// Ship's log
+console.log("=== DAILY LOG ===");
+console.log("Stardate:", 4721);
+console.log("Status:", "nominal");
 `;
-const Task2 = `let boxes = 47;
-let perCrate = 6;
-
-console.log("Boxes:", boxes);
-console.log("Per crate:", perCrate);
-console.log("Divided:", boxes / perCrate);
-
-let leftOver = boxes % perCrate;
-let fullCrates = (boxes - leftOver) / perCrate;
-
-console.log("Full crates:", fullCrates);
-console.log("Left over:", leftOver);
-`;
-const Task3 = `let boxes = 47;
-let perCrate = 6;
-
-console.log("Boxes:", boxes);
-console.log("Per crate:", perCrate);
-console.log("Divided:", boxes / perCrate);
-
-let leftOver = boxes % perCrate;
-let fullCrates = (boxes - leftOver) / perCrate;
-
-console.log("Full crates:", fullCrates);
-console.log("Left over:", leftOver);
+const Task2 = `// Ship's log
+console.log("=== DAILY LOG ===");
+console.log("Stardate:", 4721);
+console.log("Status:", "nominal");
 console.log("");
 
-// Work out the shipping bill
-// Each full crate costs 25
-// Loose boxes cost 7 each
-// Show the crate cost, the loose cost, and the total
-`;
-const ExampleOutput = `Boxes: 47
-Per crate: 6
-Divided: 7.833333333333333
-Full crates: 7
-Left over: 5
+// Report the crew
+console.log("Crew aboard:", 7);
+console.log("Crew asleep:", 2);
 
-Crate cost: 175
-Loose cost: 35
-Total: 210
+/*
+  The line below is turned off on purpose.
+  Turn it on and run the program again.
+*/
+// console.log("Something is moving in cargo bay 3.");
+`;
+const Task3 = `// Ship's log
+console.log("=== DAILY LOG ===");
+console.log("Stardate:", 4721);
+console.log("Status:", "nominal");
+console.log("");
+
+// Report the crew
+console.log("Crew aboard:", 7);
+console.log("Crew asleep:", 2);
+
+/*
+  The line below is turned off on purpose.
+  Turn it on and run the program again.
+*/
+console.log("Something is moving in cargo bay 3.");
+console.log("");
+
+// Announce the destination
+// Show how far away it is
+// Sign off with your name
+`;
+const ExampleOutput = `=== DAILY LOG ===
+Stardate: 4721
+Status: nominal
+
+Crew aboard: 7
+Crew asleep: 2
+Something is moving in cargo bay 3.
+
+Next port: Ganymede Station
+Distance: 3 days
+Logged by: Jordan
 `;
 //#endregion
 ---
@@ -99,7 +96,7 @@ Total: 210
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.4: Arithmetic and Precedence</h1>
+        <h1>Activity 1.4: Console Output and Comments</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -107,29 +104,31 @@ Total: 210
           <Presentation>
             <section>
               <h2>Activity 1.4</h2>
-              <h3 class="text-sn-theme">Arithmetic and Precedence</h3>
+              <h3 class="text-sn-theme">Console Output and Comments</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>The Four Operators</p>
-              <p>Remainder</p>
-              <p>Order of Operations</p>
+              <p>Displaying More Than One Thing</p>
+              <p>Comments</p>
+              <p>Planning Before You Code</p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Four Operators</h2>
-              <Code
-                code={Figure1}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
+              <h2>More Than One Thing at a Time</h2>
+              <p>
+                Separate values with a comma and{" "}
+                <CodeSnippet
+                  code="console.log()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> displays them all.
+              </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Four Operators</h2>
+              <h2>More Than One Thing at a Time</h2>
               <Code
                 code={Figure1}
                 frame="code"
@@ -146,38 +145,36 @@ Total: 210
                 showLineNumbers={false}
                 class="fragment"
               />
-            </section>
-
-            <section>
-              <h2>That Last One</h2>
-              <p>
-                <CodeSnippet
-                  code="8 / 3"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> gave a long decimal, not a whole number.
-              </p>
               <p class="fragment">
-                Division here works the way it does in math class, not the way it
-                works on a calculator that rounds for you.
+                Notice you did not type that space. The comma put it there.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Remainder</h2>
-              <p>
-                <CodeSnippet
-                  code="%"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> gives you what is <i>left over</i> after dividing.
-              </p>
+              <h2>Comments</h2>
+              <p>Notes for humans. The computer skips them entirely.</p>
+              <ul>
+                <li class="fragment">
+                  <CodeSnippet
+                    code="//"
+                    lang={"javascript"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> comments out the rest of the line
+                </li>
+                <li class="fragment">
+                  <CodeSnippet
+                    code="/* ... */"
+                    lang={"javascript"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> comments out everything between
+                </li>
+              </ul>
             </section>
 
             <section data-auto-animate>
-              <h2>Remainder</h2>
+              <h2>Comments</h2>
               <Code
                 code={Figure3}
                 frame="code"
@@ -194,89 +191,67 @@ Total: 210
                 showLineNumbers={false}
                 class="fragment"
               />
-              <p class="fragment">
-                5 goes into 17 three times, with 2 left over.
-              </p>
             </section>
 
             <section>
-              <h2>Why Remainder Matters</h2>
+              <h2>Comments Do Two Jobs</h2>
               <div class="text-start">
                 <ul>
-                  <li class="fragment">Is a number even? Check if it % 2 is 0.</li>
                   <li class="fragment">
-                    Splitting people into groups? The remainder is who is left
-                    without a group.
+                    <b>Explaining</b> &mdash; why the code does what it does
                   </li>
                   <li class="fragment">
-                    Wrapping around a clock, a calendar, or a list? Remainder.
+                    <b>Switching code off</b> &mdash; without deleting it, so you
+                    can put it back
                   </li>
                 </ul>
               </div>
               <p class="fragment">
-                It shows up on the AP exam more than you would expect.
+                The second one is how you find a broken line: turn things off
+                until it works.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Order of Operations</h2>
-              <p>Same rules you already know from math.</p>
+              <h2>Run After Every Line</h2>
+              <p>Write one line. Run it. Write the next line. Run it again.</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Order of Operations</h2>
+              <h2>Run After Every Line</h2>
+              <p>
+                If you write twenty lines and then run, you have twenty places a
+                mistake could be.
+              </p>
+              <p class="fragment">
+                If you run after each one, you have exactly one.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Planning Before You Code</h2>
+              <p>
+                Write your steps in plain English <i>first</i>, as comments. Then
+                fill in the code underneath each one.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Planning Before You Code</h2>
               <Code
                 code={Figure5}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
+              <p class="fragment mt-3">Then fill it in.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Planning Before You Code</h2>
               <Code
                 code={Figure6}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-              <p class="fragment">
-                Multiplication and division happen before addition and
-                subtraction. Parentheses beat everything.
-              </p>
-            </section>
-
-            <section>
-              <h2>Where Does % Go?</h2>
-              <p>
-                <CodeSnippet
-                  code="%"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> has the same priority as <CodeSnippet
-                  code="*"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> and <CodeSnippet
-                  code="/"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />.
-              </p>
-              <p class="fragment">
-                When you are unsure, add parentheses. They cost nothing and they
-                remove all doubt.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Putting It Together</h2>
-              <Code
-                code={Figure7}
                 frame="code"
                 title="Demo"
                 lang="javascript"
@@ -284,28 +259,24 @@ Total: 210
               />
             </section>
 
-            <section data-auto-animate>
-              <h2>Putting It Together</h2>
-              <Code
-                code={Figure8}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-              />
+            <section>
+              <h2>Why Bother Planning?</h2>
+              <p>
+                On the AP exam you will be asked to describe an algorithm in
+                words, in enough detail that someone else could write the code
+                from your description.
+              </p>
               <p class="fragment">
-                Subtracting the remainder first is a trick for getting a whole
-                number out of a division.
+                That is this skill. We start it in week one and keep it all year.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Using the four arithmetic operators</li>
-                <li>Using remainder to find what is left over</li>
-                <li>Predicting results using order of operations</li>
-                <li>Using parentheses to control the order</li>
+                <li>Displaying several values in one statement</li>
+                <li>Writing comments that explain and comments that disable</li>
+                <li>Planning a program in plain English before coding it</li>
               </ul>
             </section>
 
@@ -313,22 +284,25 @@ Total: 210
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Operator</dt>
-                  <dd>A symbol that performs an operation on values.</dd>
-                  <dt>Expression</dt>
+                  <dt>Comment</dt>
                   <dd>
-                    A piece of code that produces a value, such as{" "}
-                    <CodeSnippet
-                      code="8 + 3"
-                      lang={"javascript"}
-                      theme={"material-theme-ocean"}
-                      inline
-                    />.
+                    A note in the code that the computer ignores when the program
+                    runs.
                   </dd>
-                  <dt>Remainder (modulus)</dt>
-                  <dd>What is left over after dividing one number by another.</dd>
-                  <dt>Operator precedence</dt>
-                  <dd>The order in which operations are carried out.</dd>
+                  <dt>Comment out</dt>
+                  <dd>
+                    To turn a line of code off by making it a comment, without
+                    deleting it.
+                  </dd>
+                  <dt>Argument</dt>
+                  <dd>
+                    A value you put inside the parentheses of a function, such as
+                    the text you want displayed.
+                  </dd>
+                  <dt>Algorithm</dt>
+                  <dd>
+                    A step-by-step set of instructions for finishing a task.
+                  </dd>
                 </dl>
               </div>
             </section>
@@ -343,38 +317,36 @@ Total: 210
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-4-arithmetic</b>.
+            <b class="text-sn-theme">1-4-output</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Plain Division</h3>
+          <h3>Task 1: Start the Log</h3>
           <ul>
-            <li>Write the code below and run it.</li>
-            <li>
-              The divided result is not a whole number. That is correct, and it
-              is the problem Task 2 solves.
-            </li>
+            <li>Write the code below, running after each line.</li>
+            <li>Notice that the comma puts a space in the output for you.</li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Arithmetic and Precedence"
+            title="Console Output and Comments"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Whole Crates and Leftovers</h3>
+          <h3>Task 2: Add a Crew Report</h3>
           <ul>
+            <li>Add the new lines below.</li>
             <li>
-              Add the lines below to work out how many crates fill completely and
-              how many boxes are left over.
+              Run it. The cargo bay line should <i>not</i> appear yet &mdash; it
+              is commented out.
             </li>
             <li>
-              Check the answer by hand before you trust it: 6 &times; 7 = 42, and
-              47 &minus; 42 = 5.
+              Now delete the two slashes in front of it and run again. That is
+              commenting and uncommenting.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -386,196 +358,59 @@ Total: 210
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Arithmetic and Precedence"
-            ins={{ range: "7-12" }}
+            title="Console Output and Comments"
+            ins={{ range: "5-15" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Write the Bill</h3>
+          <h3>Task 3: Plan, Then Write</h3>
           <ul>
             <li>
-              The four comments at the bottom are a plan with no code yet. Write
-              the code under them.
+              The three comments at the bottom are a plan with no code under them
+              yet.
             </li>
             <li>
-              Use your <CodeSnippet
-                code="fullCrates"
+              Write one <CodeSnippet
+                code="console.log()"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> and <CodeSnippet
-                code="leftOver"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> variables rather than typing 7 and 5 directly.
+              /> statement under each comment, so the program does what the plan
+              says.
             </li>
             <li>
-              Doing it that way means changing <CodeSnippet
-                code="boxes"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> at the top updates the whole bill. Try it with 100 boxes, then
-              set it back to 47.
+              Leave the comments in place. Your finished program should read as
+              plan, code, plan, code.
             </li>
+            <li>Pick your own destination, distance, and name.</li>
           </ul>
 
           <Code
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Arithmetic and Precedence"
-            ins={{ range: "13-18" }}
+            title="Console Output and Comments"
+            ins={{ range: "16-20" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Predict Before You Run</h3>
+          <h3>Challenge (Optional): Plan Something of Your Own</h3>
           <ul>
             <li>
-              Write these four expressions as comments, and next to each one
-              write what you think it will display:
+              At the bottom of the program, write four comments planning a short
+              status report of your choosing &mdash; a game character, a
+              spacecraft, a sandwich shop, whatever you like.
             </li>
             <li>
-              <CodeSnippet
-                code="10 - 2 * 3"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> &nbsp; <CodeSnippet
-                code="(10 - 2) * 3"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> &nbsp; <CodeSnippet
-                code="10 % 3 * 2"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> &nbsp; <CodeSnippet
-                code="10 % (3 * 2)"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />
+              Write the code under each comment afterward, not while planning.
             </li>
             <li>
-              Now display them and compare. Note which ones you got wrong &mdash;
-              those are the ones worth remembering.
+              Notice whether writing the plan first made the code easier or
+              harder. You will be asked about this in the reflection.
             </li>
           </ul>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
-
-        <!-- Exam Notation -->
-        <section id="exam-notation">
-          <h2>Same Idea, Exam Notation</h2>
-
-          <div class="row g-3 my-4">
-            <div class="col-md-6">
-              <Code
-                code={NotationJs}
-                frame="code"
-                lang="javascript"
-                title="JavaScript"
-                showLineNumbers={false}
-              />
-            </div>
-            <div class="col-md-6">
-              <Code
-                code={NotationPseudo}
-                frame="code"
-                lang="txt"
-                title="Exam Notation"
-                showLineNumbers={false}
-              />
-            </div>
-          </div>
-
-          <ul>
-            <li>
-              <CodeSnippet
-                code="+"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              />, <CodeSnippet
-                code="-"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              />, <CodeSnippet
-                code="*"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              />, and <CodeSnippet
-                code="/"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              /> are identical in both.
-            </li>
-            <li>
-              Remainder is spelled <CodeSnippet
-                code="MOD"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              /> instead of <CodeSnippet
-                code="%"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />. Same operation, same priority.
-            </li>
-            <li>
-              Division behaves the same way too &mdash; <CodeSnippet
-                code="17 / 5"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              /> is <CodeSnippet
-                code="3.4"
-                lang={"txt"}
-                theme={"material-theme-ocean"}
-                inline
-              /> in both. It does not chop off the decimal.
-            </li>
-          </ul>
-
-          <p class="mt-4">
-            The reference sheet also lists one thing JavaScript has no direct
-            match for:
-          </p>
-
-          <Code
-            code={NotationRandom}
-            frame="code"
-            lang="txt"
-            title="Exam Notation"
-            showLineNumbers={false}
-          />
-
-          <p class="mt-3">
-            <CodeSnippet
-              code="RANDOM(a, b)"
-              lang={"txt"}
-              theme={"material-theme-ocean"}
-              inline
-            /> gives a random whole number from <b>a</b> to <b>b</b>, and{" "}
-            <b class="text-sn-theme">both ends are included</b> &mdash; so{" "}
-            <CodeSnippet
-              code="RANDOM(1, 6)"
-              lang={"txt"}
-              theme={"material-theme-ocean"}
-              inline
-            /> can give you a 1 or a 6. Getting randomness in JavaScript takes
-            more work, and we will do it in Activity 1.15.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -593,8 +428,8 @@ Total: 210
             showLineNumbers={false}
             title="Example Output"
             mark={{
-              label: "Calculated, not typed in by hand",
-              range: "7-9",
+              label: "Yours will say something different",
+              range: "9-11",
             }}
           />
         </section>
@@ -609,17 +444,17 @@ Total: 210
 
           <ol>
             <li>
-              In Task 3 you were told to use your variables instead of typing 7
-              and 5. Explain what breaks if you type the numbers in directly.
+              Comments do two different jobs. Describe each one in your own
+              words, and say which you think you will use more often.
             </li>
             <li>
-              Describe a situation, outside of this class, where you would want
-              the remainder of a division rather than the answer.
+              In Task 3 you wrote the plan before the code. Did that make it
+              easier or harder than Task 1, where you just copied lines? Be
+              honest.
             </li>
             <li>
-              On the exam, remainder is written <code>17 MOD 5</code> instead of{" "}
-              <code>17 % 5</code>. Does a different symbol change what the
-              operation does? Explain.
+              Suppose a program of forty lines produces the wrong output. Explain
+              how commenting out lines could help you find the problem.
             </li>
           </ol>
         </section>

@@ -2,87 +2,109 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
-import { Image } from "astro:assets";
-import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-25-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `ellipse(60, 200, 40, 40);
-ellipse(140, 200, 40, 40);
-ellipse(220, 200, 40, 40);`;
-const Figure2 = `let xs = [60, 140, 220, 310];
+const Figure1 = `let crew = ["Ada", "Bo", "Cy"];
 
-for (const x of xs) {
-  ellipse(x, 200, 40, 40);
+console.log(crew[0]);
+console.log(crew[1]);
+console.log(crew[2]);`;
+const Figure2 = `let crew = ["Ada", "Bo", "Cy"];
+
+for (let i = 0; i < crew.length; i++) {
+  console.log(crew[i]);
 }`;
-const Figure3 = `let heights = [40, 120, 75, 160, 90];
-
-for (let i = 0; i < heights.length; i++) {
-  rect(i * 70 + 40, 300 - heights[i], 50, heights[i]);
+const Figure3 = `Ada
+Bo
+Cy`;
+const Figure4 = `for (let i = 0; i <= crew.length; i++) {
+  console.log(crew[i]);
 }`;
-const Figure4 = `let xs = [60, 140, 220];
-let ys = [100, 250, 180];
+const Figure5 = `Ada
+Bo
+Cy
+undefined`;
+const Figure6 = `let crew = ["Ada", "Bo", "Cy"];
 
-for (let i = 0; i < xs.length; i++) {
-  ellipse(xs[i], ys[i], 40, 40);
+for (const name of crew) {
+  console.log(name);
 }`;
-const Task1 = `function setup() {
-  createCanvas(400, 400);
-  background(30);
-  noStroke();
-  fill(120, 200, 255);
+const Figure7 = `let readings = [4, -8, 12, -3, 7];
+let total = 0;
 
-  let xs = [60, 140, 220, 310];
+for (const r of readings) {
+  total = total + r;
+}
 
-  for (const x of xs) {
-    ellipse(x, 200, 40, 40);
-  }
+console.log("Total:", total);`;
+const NotationJs = `for (const name of crew) {
+  console.log(name);
+}`;
+const NotationPseudo = `FOR EACH name IN crew
+{
+  DISPLAY(name)
+}`;
+const Task1 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
+
+for (let i = 0; i < crew.length; i++) {
+  console.log(i, crew[i]);
 }
 `;
-const Task2 = `function setup() {
-  createCanvas(400, 400);
-  background(30);
-  noStroke();
-  fill(120, 200, 255);
+const Task2 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
+let readings = [4, -8, 12, -3, 7];
 
-  let xs = [60, 140, 220, 310];
-
-  for (const x of xs) {
-    ellipse(x, 200, 40, 40);
-  }
-
-  let heights = [40, 120, 75, 160, 90];
-
-  for (let i = 0; i < heights.length; i++) {
-    rect(i * 70 + 40, 380 - heights[i], 50, heights[i]);
-  }
+for (let i = 0; i < crew.length; i++) {
+  console.log(i, crew[i]);
 }
+
+console.log("");
+
+let total = 0;
+
+for (const r of readings) {
+  total = total + r;
+}
+
+console.log("Total:", total);
+console.log("Average:", (total / readings.length).toFixed(1));
 `;
-const Task3 = `function setup() {
-  createCanvas(400, 400);
-  background(30);
-  noStroke();
-  fill(120, 200, 255);
+const Task3 = `let crew = ["Ada", "Bo", "Cy", "Dee"];
+let readings = [4, -8, 12, -3, 7];
 
-  let xs = [60, 140, 220, 310];
-
-  for (const x of xs) {
-    ellipse(x, 200, 40, 40);
-  }
-
-  let heights = [40, 120, 75, 160, 90];
-
-  for (let i = 0; i < heights.length; i++) {
-    rect(i * 70 + 40, 380 - heights[i], 50, heights[i]);
-  }
-
-  // Color each bar by its own height:
-  //   red if the height is under 60
-  //   yellow if it is under 120
-  //   green otherwise
-  //   remember fill() must come before the rect() it applies to
+for (let i = 0; i < crew.length; i++) {
+  console.log(i, crew[i]);
 }
+
+console.log("");
+
+let total = 0;
+
+for (const r of readings) {
+  total = total + r;
+}
+
+console.log("Total:", total);
+console.log("Average:", (total / readings.length).toFixed(1));
+console.log("");
+
+// Count how many readings are above freezing
+// Find the highest reading, starting from the first element
+// Build a new array holding only the readings above freezing
+// Display all three results
+`;
+const ExampleOutput = `0 Ada
+1 Bo
+2 Cy
+3 Dee
+
+Total: 12
+Average: 2.4
+
+Above freezing: 3
+Highest: 12
+Warm readings: [ 4, 12, 7 ]
 `;
 //#endregion
 ---
@@ -95,43 +117,26 @@ const Task3 = `function setup() {
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.25: p5 Lab 6 &mdash; Drawing From Data</h1>
+        <h1>Activity 1.25: Walking Through an Array</h1>
         <Divider variant="8" classes="mb-5" />
 
-
-        <!-- What You're Building -->
-        <section id="target">
-          <h2>What You're Building</h2>
-
-          <div class="text-center my-4">
-            <Image src={TargetImage} alt="A dark canvas showing a row of blue circles above a bar chart of five blue bars of differing heights" width={400} class="img-fluid rounded" />
-          </div>
-
-          <p>By the end of <b>Task 2</b> both the circles and the bars will be drawn from arrays of numbers.</p>
-
-          <p class="text-body-secondary">
-            <b>Task 3 is not shown.</b> That one is yours to work out.
-          </p>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
               <h2>Activity 1.25</h2>
-              <h3 class="text-sn-theme">p5 Lab 6 &mdash; Drawing From Data</h3>
+              <h3 class="text-sn-theme">Walking Through an Array</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>An Array of Positions</p>
-              <p>A Chart Is a Traversal</p>
-              <p>Parallel Arrays</p>
+              <p>Loops and Arrays Belong Together</p>
+              <p>The Standard Traversal</p>
+              <p>Two Ways to Walk</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Three Circles, Three Lines</h2>
+              <h2>The Obvious Problem</h2>
               <Code
                 code={Figure1}
                 frame="code"
@@ -140,123 +145,152 @@ const Task3 = `function setup() {
                 showLineNumbers={false}
               />
               <p class="fragment">
-                Nothing wrong with it &mdash; until you want thirty, or until the
-                positions come from somewhere else.
+                Fine for three. Useless for a hundred, and impossible when the
+                length is not known until the program runs.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Data Moves Out of the Code</h2>
+              <h2>The Standard Traversal</h2>
               <Code
                 code={Figure2}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-              <p class="fragment">
-                Now the positions are <b class="text-sn-theme">data</b> and the
-                drawing is <b class="text-sn-theme">code</b>. Change the array and
-                the picture changes, without touching a single{" "}
-                <CodeSnippet code="ellipse()" lang={"javascript"} theme={"material-theme-ocean"} inline />.
-              </p>
+              <Code
+                code={Figure3}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
             </section>
 
             <section>
-              <h2>This Is the Whole Point</h2>
+              <h2>Why This Line Is Everywhere</h2>
               <p>
-                Grids from Lab 5 could only ever be regular, because the positions
-                came from arithmetic.
+                <CodeSnippet code="for (let i = 0; i < arr.length; i++)" lang={"javascript"} theme={"material-theme-ocean"} inline />
               </p>
-              <p class="fragment">
-                An array can hold <i>anything</i> &mdash; measurements, scores,
-                positions that follow no pattern at all. The loop does not care.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>A Bar Chart</h2>
-              <Code
-                code={Figure3}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
-            </section>
-
-            <section data-auto-animate>
-              <h2>Reading That Rectangle</h2>
-              <div class="text-start">
+              <div class="text-start mt-3">
                 <ul>
                   <li class="fragment">
-                    <CodeSnippet code="i * 70 + 40" lang={"javascript"} theme={"material-theme-ocean"} inline /> spaces the bars out &mdash; the
-                    grid formula from Lab 5
+                    Starts at <b>0</b>, the first index
                   </li>
                   <li class="fragment">
-                    <CodeSnippet code="heights[i]" lang={"javascript"} theme={"material-theme-ocean"} inline /> is the bar's height, straight from
-                    the data
+                    Stops <b>before</b> length, so the last pass is length &minus; 1
                   </li>
                   <li class="fragment">
-                    <CodeSnippet code="300 - heights[i]" lang={"javascript"} theme={"material-theme-ocean"} inline /> is where its <i>top</i> goes
+                    Adapts automatically when the array grows or shrinks
                   </li>
                 </ul>
               </div>
               <p class="fragment">
-                That subtraction is there because <b>y grows downward</b>. A
-                taller bar needs a <i>smaller</i> y to reach further up. Lab 1's
-                coordinate lesson, still earning its keep.
-              </p>
-            </section>
-
-            <section>
-              <h2>Why an Index Here</h2>
-              <p>
-                <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline /> would give you each height, but not{" "}
-                <i>which</i> bar it is &mdash; and without that you cannot work
-                out where to draw it.
-              </p>
-              <p class="fragment">
-                This is exactly the choice from Activity 1.24: need the position,
-                use an index.
+                Every piece of it exists for a reason. Learn it as one phrase.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Parallel Arrays</h2>
+              <h2>One Character Too Far</h2>
               <Code
                 code={Figure4}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure5}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
               />
               <p class="fragment">
-                Two arrays, one index. <CodeSnippet code="xs[1]" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
-                <CodeSnippet code="ys[1]" lang={"javascript"} theme={"material-theme-ocean"} inline /> describe the same circle.
+                <CodeSnippet code="<=" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of{" "}
+                <CodeSnippet code="<" lang={"javascript"} theme={"material-theme-ocean"} inline /> takes exactly one extra step, off the end.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Classic Off-By-One</h2>
+              <p>
+                This is <i>the</i> most common array bug there is, and JavaScript
+                will not warn you &mdash; it just adds an{" "}
+                <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /> to your output.
+              </p>
+              <p class="fragment">
+                In a total, that <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /> becomes{" "}
+                <CodeSnippet code="NaN" lang={"javascript"} theme={"material-theme-ocean"} inline /> and poisons the whole answer.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Simpler Way, When You Can</h2>
+              <Code
+                code={Figure6}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline /> hands you each <b>value</b> in turn. No
+                index, no length, no off-by-one possible.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>Parallel Arrays</h2>
-              <p>
-                It works, and it is fragile: the two arrays must stay the same
-                length and the same order, and nothing enforces that.
+              <h2>A Simpler Way, When You Can</h2>
+              <Code
+                code={Figure7}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                The accumulator from Activity 1.20, now walking real data instead
+                of counting to five.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which One?</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <b>for...of</b> when you only need the values
+                  </li>
+                  <li class="fragment">
+                    <b>Indexed for</b> when you need the position too, or need to
+                    change elements
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                Prefer <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline /> when it fits. Fewer moving parts
+                means fewer ways to be wrong.
               </p>
               <p class="fragment">
-                Real programs eventually use something better. For now, know the
-                pattern and know its weakness &mdash; the exam asks about exactly
-                this.
+                <b class="text-sn-theme">
+                  The exam has both. It calls the second one FOR EACH.
+                </b>
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Drawing one shape per array element</li>
-                <li>Using an element's value as a size or position</li>
-                <li>Choosing an indexed loop when position matters</li>
-                <li>Using two arrays together, and naming the risk</li>
+                <li>Writing the standard indexed traversal</li>
+                <li>Explaining why the test is <b>&lt;</b> and not <b>&lt;=</b></li>
+                <li>Using for...of when the index is not needed</li>
+                <li>Combining traversal with the loop patterns from 1.20</li>
               </ul>
             </section>
 
@@ -264,18 +298,19 @@ const Task3 = `function setup() {
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Data-driven drawing</dt>
+                  <dt>Traversal</dt>
+                  <dd>Visiting every element of an array in order.</dd>
+                  <dt>Indexed loop</dt>
+                  <dd>A traversal that uses a counter to reach each position.</dd>
+                  <dt>
+                    <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>A loop that gives you each value directly.</dd>
+                  <dt>Filtering</dt>
                   <dd>
-                    A picture whose shape comes from values, not from hard-coded
-                    numbers.
+                    Building a new collection from the items that meet a
+                    condition.
                   </dd>
-                  <dt>Parallel arrays</dt>
-                  <dd>
-                    Two or more arrays where the same index refers to the same
-                    thing.
-                  </dd>
-                  <dt>Visualization</dt>
-                  <dd>Representing data so a person can see it at a glance.</dd>
                 </dl>
               </div>
             </section>
@@ -289,21 +324,22 @@ const Task3 = `function setup() {
           <h2>Build</h2>
 
           <p>
-            Create a new <b>p5.js</b> sketch named{" "}
-            <b class="text-sn-theme">1-25-data-drawing</b>.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-25-traversal</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Circles From an Array</h3>
+          <h3>Task 1: Index and Value</h3>
           <ul>
-            <li>Write the code below and run it. Four circles, unevenly spaced.</li>
+            <li>Write the code below and run it.</li>
             <li>
-              Add a fifth number to <CodeSnippet code="xs" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run again{" "}
-              <b>without touching the loop</b>. A fifth circle appears.
+              Displaying <CodeSnippet code="i" lang={"javascript"} theme={"material-theme-ocean"} inline /> alongside the name makes the 0-based
+              counting concrete. Ada is at 0.
             </li>
             <li>
-              Now remove two numbers. The drawing follows the data every time.
+              Change <CodeSnippet code="<" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
+              <CodeSnippet code="<=" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run. Note what appears. Change it back.
             </li>
           </ul>
 
@@ -311,22 +347,20 @@ const Task3 = `function setup() {
             code={Task1}
             frame="code"
             lang="javascript"
-            title="p5 Lab 6 — Drawing From Data"
+            title="Walking Through an Array"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: A Bar Chart</h3>
+          <h3>Task 2: for...of and an Accumulator</h3>
           <ul>
-            <li>Add a heights array and draw a bar for each value.</li>
             <li>
-              All five bars should sit on the same baseline at y = 380 and grow
-              upward by different amounts.
+              Add a readings array and total it with{" "}
+              <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline />.
             </li>
             <li>
-              <b>Try this:</b> change <CodeSnippet code="380 - heights[i]" lang={"javascript"} theme={"material-theme-ocean"} inline /> to just{" "}
-              <CodeSnippet code="380" lang={"javascript"} theme={"material-theme-ocean"} inline /> and run. The bars grow the wrong way and fall
-              off the canvas. Change it back.
+              The average divides by <CodeSnippet code="readings.length" lang={"javascript"} theme={"material-theme-ocean"} inline />, not by 5.
+              Add a sixth reading and everything should still be correct.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -338,28 +372,30 @@ const Task3 = `function setup() {
             code={Task2}
             frame="code"
             lang="javascript"
-            title="p5 Lab 6 — Drawing From Data"
-            ins={{ range: "13-17" }}
+            title="Walking Through an Array"
+            ins={{ range: "2, 8-17" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Color by Value</h3>
+          <h3>Task 3: Plan, Then Combine the Patterns</h3>
           <ul>
             <li>
-              The comments describe coloring each bar by its own height &mdash; a
-              chain of conditions inside the traversal.
+              The comments describe three jobs, all over the same array. Every
+              one of them is a pattern from Activity 1.20, now walking real data.
             </li>
             <li>
-              This is Activity 1.13's status panel again, except the thresholds
-              now come from array elements rather than separate variables.
+              The maximum must start from <CodeSnippet code="readings[0]" lang={"javascript"} theme={"material-theme-ocean"} inline />, not from a
+              guessed number. You have the array, so use it.
             </li>
             <li>
-              Order your chain carefully. Activity 1.12's rule applies exactly.
+              The last job is new: start with an empty array and{" "}
+              <CodeSnippet code="push()" lang={"javascript"} theme={"material-theme-ocean"} inline /> onto it inside the loop. That is an
+              accumulator whose container is an array.
             </li>
             <li>
-              Test by editing the heights so you get at least one bar of each
-              color.
+              You can do all three in a single loop or in three separate ones.
+              Either is fine &mdash; note in a comment which you chose and why.
             </li>
           </ul>
 
@@ -367,29 +403,99 @@ const Task3 = `function setup() {
             code={Task3}
             frame="code"
             lang="javascript"
-            title="p5 Lab 6 — Drawing From Data"
+            title="Walking Through an Array"
             ins={{ range: "18-23" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Label the Bars</h3>
+          <h3>Challenge (Optional): Search It</h3>
           <ul>
             <li>
-              Add a second array of labels, one per bar, and draw each name under
-              its bar using <CodeSnippet code="text()" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+              Ask the user for a name and report whether it is in the crew array,
+              and at which index.
             </li>
             <li>
-              You will need <CodeSnippet code="fill()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
-              <CodeSnippet code="textSize()" lang={"javascript"} theme={"material-theme-ocean"} inline /> before the text, or it will inherit the
-              bar's color.
+              You will need a variable that remembers whether you found anything,
+              because "not found" is only knowable once the loop has finished.
             </li>
             <li>
-              This is parallel arrays for real. Add a label but forget the
-              matching height, and note what happens &mdash; that is the fragility
-              from the slides.
+              This is called a <b>linear search</b>, and it is the first named
+              algorithm on the AP exam. You are writing it a quarter early.
             </li>
           </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            <code>FOR EACH</code> is the closest match between the two notations
+            in the entire course. Same idea, same shape, different capitals.
+          </p>
+
+          <h4 class="mt-4">The Indexed Version Is Harder There</h4>
+
+          <p>
+            When an exam question needs the <i>position</i>, it cannot write a{" "}
+            <code>for</code> header &mdash; the reference sheet has none. It has
+            to hand-roll the counter, exactly as Activity 1.19 showed:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>JavaScript</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>for (let i = 0; i &lt; a.length; i++)</code></td>
+                  <td><code>i ← 1</code> then <code>REPEAT LENGTH(a) TIMES</code>, with <code>i ← i + 1</code> inside</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>Note the starting values.</b> JavaScript starts at 0 and stops
+            before the length. The exam starts at 1 and repeats exactly{" "}
+            <code>LENGTH</code> times. Both visit every element once &mdash; they
+            just number them differently.
+          </p>
+
+          <p>
+            You have now met all three of the reference sheet's loops:{" "}
+            <code>REPEAT n TIMES</code>, <code>REPEAT UNTIL</code>, and{" "}
+            <code>FOR EACH</code>. That is the complete set. There is nothing else
+            to learn.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -398,21 +504,25 @@ const Task3 = `function setup() {
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Your finished sketch should show all of the following.</p>
+          <p>Verify your program works correctly.</p>
 
-          <ul>
-            <li>A row of circles whose positions come from an array.</li>
-            <li>Five bars of different heights, all sitting on one baseline.</li>
-            <li>Each bar colored by its own height, with at least two colors visible.</li>
-            <li>
-              <b>The real test:</b> adding a sixth height draws a sixth bar,
-              correctly colored, with no other change to the code.
-            </li>
-          </ul>
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={[
+              { label: "Ada is at 0, Dee is at 3", range: "1-6" },
+              { label: "A new array built inside the loop", range: "11" },
+            ]}
+          />
 
-          <p>
-            If adding a value breaks the layout or the coloring, something in
-            your loop is still counting to a fixed number.
+          <p class="mt-3">
+            Add a sixth reading to the array and run again. The total, the
+            average, the count, the maximum, and the filtered array should{" "}
+            <b>all</b> update with no other change. If any one of them does not,
+            something is hard-coded.
           </p>
         </section>
 
@@ -426,18 +536,18 @@ const Task3 = `function setup() {
 
           <ol>
             <li>
-              Lab 5 drew a grid from arithmetic; this lab drew from an array.
-              What can an array do that a formula cannot?
+              Explain why the traversal test is <code>i &lt; arr.length</code> and
+              what happens with <code>&lt;=</code>.
             </li>
             <li>
-              The bar's y position is <code>380 - heights[i]</code> rather than
-              just the height. Explain why, in terms of how the canvas is
-              numbered.
+              When would you choose <code>for...of</code>, and when do you have no
+              choice but to use an index?
             </li>
             <li>
-              Parallel arrays rely on two lists staying in step. Describe a way
-              that could go wrong, and what the drawing would look like when it
-              did.
+              The exam notation numbers elements from 1 and repeats{" "}
+              <code>LENGTH</code> times; JavaScript numbers from 0 and stops
+              before the length. Explain why both visit every element exactly
+              once.
             </li>
           </ol>
         </section>

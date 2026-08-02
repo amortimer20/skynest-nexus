@@ -6,100 +6,66 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let a = prompt("First number?");
-let b = prompt("Second number?");
+const Figure1 = `let playerName = prompt("What is your name?");
+console.log("Welcome aboard,", playerName);`;
+const Figure2 = `What is your name? Jordan
+Welcome aboard, Jordan`;
+const Figure3 = `let color = prompt("Favorite color?");
+let animal = prompt("Favorite animal?");
 
-console.log("Sum:", a + b);
-console.log("Product:", a * b);`;
-const Figure2 = `First number? 45
-Second number? 64
-Sum: 4564
-Product: 2880`;
-const Figure3 = `let a = Number(prompt("First number?"));
-let b = Number(prompt("Second number?"));
+console.log("Your callsign is the", color, animal + ".");`;
+const Figure4 = `Favorite color? Silver
+Favorite animal? Hawk
+Your callsign is the Silver Hawk.`;
+const Figure5 = `let age = prompt("How old are you?");
+console.log(age + 1);`;
+const Figure6 = `How old are you? 16
+161`;
+const NotationJs = `let name = prompt("Name?");
+console.log("Hello,", name);`;
+const NotationPseudo = `DISPLAY("Name?")
+name ← INPUT()
+DISPLAY("Hello,")
+DISPLAY(name)`;
+const Task1 = `let pilotName = prompt("Pilot name?");
 
-console.log("Sum:", a + b);
-console.log("Product:", a * b);`;
-const Figure4 = `First number? 45
-Second number? 64
-Sum: 109
-Product: 2880`;
-const Figure5 = `console.log(Number("42"));
-console.log(Number("3.5"));
-console.log(Number("banana"));`;
-const Figure6 = `42
-3.5
-NaN`;
-const Figure7 = `let raw = prompt("How many crates?");
-let crates = Number(raw);
-
-console.log("Crates:", crates);
-console.log("Doubled:", crates * 2);`;
-const Figure8 = `let subtotal = 42.50;
-let tip = subtotal * 0.18;
-
-console.log("Tip:", tip);`;
-const Figure9 = `Tip: 7.6499999999999995`;
-const Figure10 = `console.log("Tip: $" + tip.toFixed(2));`;
-const Figure11 = `Tip: $7.65`;
-const Figure12 = `let price = 12.5;
-
-console.log(price.toFixed(2));
-console.log(price.toFixed(2) + 5);`;
-const Figure13 = `12.50
-12.505`;
-const Task1 = `let first = prompt("First number?");
-let second = prompt("Second number?");
-
-console.log("Added with no casting:", first + second);
-console.log("Multiplied with no casting:", first * second);
+console.log("Welcome aboard,", pilotName);
 `;
-const Task2 = `let first = Number(prompt("First number?"));
-let second = Number(prompt("Second number?"));
+const Task2 = `let pilotName = prompt("Pilot name?");
+let homePort = prompt("Home port?");
+let shipName = prompt("Name your ship:");
 
-console.log("Sum:", first + second);
-console.log("Difference:", first - second);
-console.log("Product:", first * second);
-console.log("Quotient:", first / second);
-`;
-const Task3 = `let first = Number(prompt("First number?"));
-let second = Number(prompt("Second number?"));
-
-console.log("Sum:", first + second);
-console.log("Difference:", first - second);
-console.log("Product:", first * second);
-console.log("Quotient:", first / second);
 console.log("");
-
-// Ask how many boxes there are, cast it to a number
-// Ask how many fit per crate, cast it to a number
-// Show the number of full crates and the boxes left over
+console.log("=== FLIGHT REGISTRATION ===");
+console.log("Pilot:", pilotName);
+console.log("Port:", homePort);
+console.log("Ship:", shipName);
 `;
-const Task4 = `let subtotal = 42.50;
-let tipRate = 0.18;
+const Task3 = `let pilotName = prompt("Pilot name?");
+let homePort = prompt("Home port?");
+let shipName = prompt("Name your ship:");
 
-let tip = subtotal * tipRate;
-let total = subtotal + tip;
+console.log("");
+console.log("=== FLIGHT REGISTRATION ===");
+console.log("Pilot:", pilotName);
+console.log("Port:", homePort);
+console.log("Ship:", shipName);
 
-console.log("Subtotal: $" + subtotal.toFixed(2));
-console.log("Tip: $" + tip.toFixed(2));
-console.log("Total: $" + total.toFixed(2));
+// Ask for a destination
+// Ask for a cargo type
+// Print a one-line summary using all five answers
 `;
-const ExampleOutput = `First number? 45
-Second number? 64
-Sum: 109
-Difference: -19
-Product: 2880
-Quotient: 0.703125
+const ExampleOutput = `Pilot name? Jordan
+Home port? Ganymede
+Name your ship: Vega
+Destination? Titan
+Cargo type? ice
 
-How many boxes? 47
-How many fit per crate? 6
-Full crates: 7
-Left over: 5
-
-Subtotal: $42.50
-Tip: $7.65
-Total: $50.15
+=== FLIGHT REGISTRATION ===
+Pilot: Jordan
+Port: Ganymede
+Ship: Vega
+Jordan is flying Vega from Ganymede to Titan carrying ice.
 `;
 //#endregion
 ---
@@ -112,7 +78,7 @@ Total: $50.15
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.8: Type Casting</h1>
+        <h1>Activity 1.8: Console Input</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -120,96 +86,80 @@ Total: $50.15
           <Presentation>
             <section>
               <h2>Activity 1.8</h2>
-              <h3 class="text-sn-theme">Type Casting</h3>
+              <h3 class="text-sn-theme">Console Input</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>The Bug From Last Activity</p>
-              <p>Converting Text to a Number</p>
-              <p>When Conversion Fails</p>
+              <p>Asking the User a Question</p>
+              <p>Storing the Answer</p>
+              <p>Input Is Always Text</p>
             </section>
 
             <section data-auto-animate>
-              <h2>The Bug</h2>
+              <h2>Programs That Ask</h2>
+              <p>
+                Everything you have written so far does exactly the same thing
+                every time it runs.
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> changes that. It asks a question and hands back whatever the
+                user typed.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Programs That Ask</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-            </section>
-
-            <section data-auto-animate>
-              <h2>The Bug</h2>
               <Code
                 code={Figure2}
                 frame="terminal"
                 lang="txt"
                 title="Demo"
                 showLineNumbers={false}
+                class="fragment"
               />
-              <p class="fragment">
-                45 plus 64 is not 4564. But 45 times 64 <i>is</i> 2880.
-              </p>
             </section>
 
             <section>
-              <h2>Only One of Them Broke</h2>
-              <p>
-                This is the confusing part, and it is worth slowing down for.
-              </p>
+              <h2>Reading That Line</h2>
               <div class="text-start">
                 <ul>
                   <li class="fragment">
-                    <CodeSnippet
-                      code="*"
-                      lang={"javascript"}
-                      theme={"material-theme-ocean"}
-                      inline
-                    />, <CodeSnippet
-                      code="-"
-                      lang={"javascript"}
-                      theme={"material-theme-ocean"}
-                      inline
-                    />, and <CodeSnippet
-                      code="/"
-                      lang={"javascript"}
-                      theme={"material-theme-ocean"}
-                      inline
-                    /> only mean one thing, so JavaScript quietly treats the text
-                    as numbers
+                    The text in the parentheses is the question shown to the user
                   </li>
                   <li class="fragment">
-                    <CodeSnippet
-                      code="+"
-                      lang={"javascript"}
-                      theme={"material-theme-ocean"}
-                      inline
-                    /> means <i>two</i> things &mdash; add numbers, or join text
+                    The answer comes back out and gets stored in the variable
                   </li>
                   <li class="fragment">
-                    Given text, it picks joining. Every time.
+                    Nothing is saved unless you put it in a variable
                   </li>
                 </ul>
               </div>
-            </section>
-
-            <section>
-              <h2>Why That Is Dangerous</h2>
-              <p>
-                Three of your four operators appear to work. You will assume the
-                whole program is fine.
-              </p>
               <p class="fragment">
-                Then one addition somewhere produces nonsense, with no error
-                message pointing at it.
+                That last one catches people. Calling <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> on its own asks the question and then throws the answer away.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>The Fix</h2>
+              <h2>Several Questions</h2>
               <Code
                 code={Figure3}
                 frame="code"
@@ -229,69 +179,38 @@ Total: $50.15
             </section>
 
             <section data-auto-animate>
-              <h2>The Fix</h2>
+              <h2>Several Questions</h2>
               <p>
-                <CodeSnippet
-                  code="Number()"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> converts text into an actual number. Wrapping the{" "}
-                <CodeSnippet
-                  code="prompt()"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> means the variable holds a number from the start.
+                Each answer needs its own variable, or the second answer
+                overwrites the first.
               </p>
               <p class="fragment">
-                Converting a value from one type to another is called{" "}
-                <b class="text-sn-theme">casting</b>.
+                Notice <CodeSnippet
+                  code='animal + "."'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> &mdash; using <CodeSnippet
+                  code="+"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> instead of a comma joins the period on with no space in front
+                of it.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Reading Nested Calls</h2>
-              <Code
-                code={Figure7}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-              />
-              <p class="fragment">
-                Two lines instead of one, doing the same job. If{" "}
-                <CodeSnippet
-                  code="Number(prompt(...))"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> is hard to read, write it this way instead.
-              </p>
-            </section>
-
-            <section>
-              <h2>Inside Out</h2>
+              <h2>The Catch</h2>
               <p>
-                When one call sits inside another, the inner one runs first.
-              </p>
-              <p class="fragment">
-                <CodeSnippet
-                  code="prompt()"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> collects the text, then <CodeSnippet
-                  code="Number()"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> converts it, then the result gets stored.
+                Whatever the user types comes back as <b class="text-sn-theme"
+                  >text</b
+                >. Always. Even when it looks like a number.
               </p>
             </section>
 
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>When It Cannot Convert</h2>
+            <section data-auto-animate>
+              <h2>The Catch</h2>
               <Code
                 code={Figure5}
                 frame="code"
@@ -310,152 +229,54 @@ Total: $50.15
               />
             </section>
 
-            <section data-auto-animate>
-              <h2>NaN</h2>
+            <section>
+              <h2>Why 161?</h2>
               <p>
-                <CodeSnippet
-                  code="NaN"
+                The user typed <CodeSnippet
+                  code="16"
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                /> means <b>Not a Number</b>. It is what you get when a
-                conversion fails.
+                />, so <CodeSnippet
+                  code="age"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> holds the <i>text</i> <CodeSnippet
+                  code='"16"'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />, not the number 16.
               </p>
               <p class="fragment">
-                The program <b class="text-sn-theme">does not stop</b>. It keeps
-                running and every calculation from that point on is also{" "}
-                <CodeSnippet
-                  code="NaN"
+                Adding to text does not do arithmetic &mdash; it sticks things
+                together. So <CodeSnippet
+                  code='"16" + 1'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> becomes <CodeSnippet
+                  code='"161"'
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
                 />.
               </p>
               <p class="fragment">
-                Seeing <CodeSnippet
-                  code="NaN"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> in your output almost always means a cast failed earlier than
-                where you noticed.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Going the Other Way</h2>
-              <p>
-                You have converted text into a number. Sometimes you need a
-                number turned into <i>readable text</i>.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>Money Is Where This Bites</h2>
-              <Code
-                code={Figure8}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure9}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-              <p class="fragment">
-                Eighteen percent of $42.50 is $7.65. Computers store decimals
-                approximately, and the error surfaces the moment you show it to
-                someone.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>toFixed()</h2>
-              <Code
-                code={Figure10}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure11}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-              <p class="fragment">
-                <CodeSnippet code="toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> rounds to two decimal places, and it{" "}
-                <b class="text-sn-theme">pads with zeros</b> &mdash; so $12.50
-                stays $12.50 rather than collapsing to $12.5.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>But Look What It Gives Back</h2>
-              <Code
-                code={Figure12}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure13}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-            </section>
-
-            <section data-auto-animate>
-              <h2>But Look What It Gives Back</h2>
-              <p>
-                <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline /> returns <b class="text-sn-theme">a
-                string</b>, not a number. So <CodeSnippet code="+ 5" lang={"javascript"} theme={"material-theme-ocean"} inline /> joined instead of
-                adding &mdash; the exact bug from the start of this activity,
-                back again.
-              </p>
-              <p class="fragment">
-                <b class="text-sn-theme">
-                  Do all your arithmetic first. Format only at the moment you
-                  display.
-                </b>
-              </p>
-              <p class="fragment">
-                And notice that using <CodeSnippet code="+" lang={"javascript"} theme={"material-theme-ocean"} inline /> to attach a{" "}
-                <CodeSnippet code='"$"' lang={"javascript"} theme={"material-theme-ocean"} inline /> is now the <i>right</i> choice, because
-                joining text is exactly what you want there.
+                No error. No warning. Just a wrong answer. We fix this next
+                activity.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Explaining why input arrives as text</li>
+                <li>Asking the user a question and storing the answer</li>
+                <li>Using several inputs in one program</li>
                 <li>
-                  Explaining why only <CodeSnippet
-                    code="+"
-                    lang={"javascript"}
-                    theme={"material-theme-ocean"}
-                    inline
-                  /> visibly breaks
+                  Explaining why input is always text, even when it looks numeric
                 </li>
-                <li>Casting text to a number before doing arithmetic</li>
-                <li>Recognizing NaN and tracing it back to its cause</li>
-                <li>Formatting a number for display with toFixed()</li>
               </ul>
             </section>
 
@@ -463,30 +284,17 @@ Total: $50.15
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Casting</dt>
-                  <dd>Converting a value from one data type to another.</dd>
-                  <dt>Type coercion</dt>
+                  <dt>Input</dt>
+                  <dd>Information a program receives while it is running.</dd>
+                  <dt>Prompt</dt>
+                  <dd>The question shown to the user when input is requested.</dd>
+                  <dt>Return value</dt>
                   <dd>
-                    When a language converts a type automatically, without being
-                    asked.
+                    The value a function hands back, which you can store in a
+                    variable.
                   </dd>
-                  <dt>NaN</dt>
-                  <dd>
-                    "Not a Number" &mdash; the result of a numeric conversion
-                    that failed.
-                  </dd>
-                  <dt>Silent failure</dt>
-                  <dd>
-                    A bug that produces a wrong answer instead of an error
-                    message.
-                  </dd>
-                  <dt>
-                    <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline />
-                  </dt>
-                  <dd>
-                    Formats a number to a set number of decimal places, and
-                    returns it as a <b>string</b>.
-                  </dd>
+                  <dt>Concatenation</dt>
+                  <dd>Joining two pieces of text end to end.</dd>
                 </dl>
               </div>
             </section>
@@ -501,17 +309,18 @@ Total: $50.15
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-8-casting</b>.
+            <b class="text-sn-theme">1-8-input</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: See It Break</h3>
+          <h3>Task 1: One Question</h3>
           <ul>
-            <li>Write the code below and run it with 45 and 64.</li>
+            <li>Write the code below and run it.</li>
+            <li>Answer the question when it appears.</li>
             <li>
-              Read both results carefully. One is right and one is not. Make sure
-              you can say which before moving on.
+              Run it a second time with a different answer, and confirm the
+              output changes. That is the whole point of input.
             </li>
           </ul>
 
@@ -519,25 +328,17 @@ Total: $50.15
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Type Casting"
+            title="Console Input"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Cast the Input</h3>
+          <h3>Task 2: A Registration Form</h3>
           <ul>
+            <li>Add two more questions, each with its own variable.</li>
             <li>
-              Wrap both prompts in <CodeSnippet
-                code="Number()"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> and display all four operations.
-            </li>
-            <li>Run it with 45 and 64 again. The sum should now be 109.</li>
-            <li>
-              Then run it once with the word <i>banana</i> as an answer and see
-              what happens. Nothing crashes.
+              Ask all three questions first, then print the summary. Don't
+              alternate question, answer, question, answer.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -549,26 +350,33 @@ Total: $50.15
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Type Casting"
-            ins={{ range: "1-2, 4-7" }}
+            title="Console Input"
+            ins={{ range: "2-3, 5-9" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Rebuild the Crate Problem</h3>
+          <h3>Task 3: Plan, Then Add Two More</h3>
           <ul>
             <li>
-              The three comments describe the crate calculation from Activity
-              1.4, except the numbers now come from the user.
+              The three comments at the bottom are a plan. Write the code for
+              them.
             </li>
             <li>
-              Cast both answers. If you forget, the remainder still works and the
-              subtraction still works &mdash; which is exactly what makes it hard
-              to spot.
+              The last line should read as a sentence using all five answers, not
+              as another list.
             </li>
             <li>
-              Test it with 47 boxes and 6 per crate. You already know the answer
-              is 7 crates with 5 left over.
+              Watch your spaces. Commas add one for you; <CodeSnippet
+                code="+"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> does not.
+            </li>
+            <li>
+              The two new questions have to be asked <i>before</i> the summary
+              prints. Think about where they go.
             </li>
           </ul>
 
@@ -576,67 +384,102 @@ Total: $50.15
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Type Casting"
-            ins={{ range: "8-12" }}
+            title="Console Input"
+            ins={{ range: "11-13" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 4: Money</h3>
+          <h3>Challenge (Optional): Prove the Catch</h3>
           <ul>
             <li>
-              Add a tip calculator at the bottom. Run it{" "}
-              <b>without</b> the <CodeSnippet code=".toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> calls first, so you
-              see what the raw numbers look like.
-            </li>
-            <li>
-              Then add them back. The tip should go from{" "}
-              <CodeSnippet code="7.6499999999999995" lang={"javascript"} theme={"material-theme-ocean"} inline /> to{" "}
-              <CodeSnippet code="7.65" lang={"javascript"} theme={"material-theme-ocean"} inline />.
-            </li>
-            <li>
-              Note that the arithmetic happens on the plain numbers, and{" "}
-              <CodeSnippet code="toFixed()" lang={"javascript"} theme={"material-theme-ocean"} inline /> is only used inside the{" "}
-              <CodeSnippet code="console.log" lang={"javascript"} theme={"material-theme-ocean"} inline />. Never calculate with a formatted value.
-            </li>
-            <li>
-              <b class="text-sn-theme">Try this:</b> change{" "}
-              <CodeSnippet code="let total = subtotal + tip;" lang={"javascript"} theme={"material-theme-ocean"} inline /> to use{" "}
-              <CodeSnippet code="tip.toFixed(2)" lang={"javascript"} theme={"material-theme-ocean"} inline /> instead of{" "}
-              <CodeSnippet code="tip" lang={"javascript"} theme={"material-theme-ocean"} inline />, and see what the total becomes. Change it back.
-            </li>
-          </ul>
-
-          <Code
-            code={Task4}
-            frame="code"
-            lang="javascript"
-            title="Type Casting"
-            showLineNumbers={false}
-          />
-
-          <hr class="my-4" />
-
-          <h3>Challenge (Optional): Make NaN Spread</h3>
-          <ul>
-            <li>
-              Run your finished program and answer one of the crate questions
-              with a word instead of a number.
-            </li>
-            <li>
-              Write a comment listing which output lines became{" "}
+              At the bottom, ask the user for a number, then display that value{" "}
               <CodeSnippet
-                code="NaN"
+                code="+ 1"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> and which survived.
+              />.
             </li>
             <li>
-              Then explain, in that comment, why a wrong answer with no error
-              message is worse than a crash.
+              Then display the same value <CodeSnippet
+                code="* 2"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              One of them behaves like arithmetic and the other does not. Write a
+              comment saying which, and what you think is going on.
+            </li>
+            <li>
+              You are not expected to know the answer yet. Guessing carefully is
+              the exercise.
             </li>
           </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="INPUT()"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> takes <b class="text-sn-theme">nothing in its parentheses</b>.
+              There is no place to put the question.
+            </li>
+            <li>
+              So the question is displayed separately, on its own line, before
+              the input is collected. Two statements where JavaScript uses one.
+            </li>
+            <li>
+              The answer still has to be stored with <CodeSnippet
+                code="←"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or it is lost, exactly as in JavaScript.
+            </li>
+          </ul>
+
+          <p>
+            If an exam question shows <CodeSnippet
+              code="INPUT()"
+              lang={"txt"}
+              theme={"material-theme-ocean"}
+              inline
+            /> with no prompt text anywhere, nothing is missing. That is how it
+            is written.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -646,7 +489,8 @@ Total: $50.15
           <h2>Checkpoint</h2>
 
           <p>
-            Verify your program works correctly, using 45 and 64, then 47 and 6.
+            Verify your program works correctly. Your answers will differ from
+            the example.
           </p>
 
           <Code
@@ -655,10 +499,10 @@ Total: $50.15
             lang="txt"
             showLineNumbers={false}
             title="Example Output"
-            mark={[
-              { label: "109, not 4564 — the cast is working", range: "3" },
-              { label: "Formatted only at display time", range: "13-15" },
-            ]}
+            mark={{
+              label: "One sentence, all five answers",
+              range: "11",
+            }}
           />
         </section>
 
@@ -672,19 +516,18 @@ Total: $50.15
 
           <ol>
             <li>
-              Why does <code>*</code> appear to work on uncast input while{" "}
-              <code>+</code> does not? Answer in terms of what each symbol can
-              mean.
+              What happens if you call <code>prompt()</code> without storing the
+              result in a variable? Why is that rarely useful?
             </li>
             <li>
-              <code>Number("banana")</code> gives <code>NaN</code> instead of
-              stopping the program. Give one advantage and one disadvantage of
-              behaving that way.
+              A user types <code>16</code> and the program displays{" "}
+              <code>161</code> instead of <code>17</code>. Explain the cause in
+              your own words.
             </li>
             <li>
-              You have now met three bugs that produce a wrong answer with no
-              error message: uncast addition, NaN spreading, and arithmetic on a{" "}
-              <code>toFixed()</code> result. What do all three have in common?
+              In exam notation, <code>INPUT()</code> has no place for a question.
+              What does a program have to do instead, and why does that mean two
+              statements rather than one?
             </li>
           </ol>
         </section>

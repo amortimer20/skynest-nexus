@@ -6,107 +6,88 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `let temperature = 31;
+const Figure1 = `console.log(7 > 3);
+console.log(7 < 3);`;
+const Figure2 = `true
+false`;
+const Figure3 = `let score = 85;
+let passed = score >= 60;
 
-if (temperature > 30) {
-  console.log("Heat warning.");
-}
+console.log("Score:", score);
+console.log("Passed:", passed);`;
+const Figure4 = `Score: 85
+Passed: true`;
+const Figure5 = `let a = 5;
 
-console.log("Report complete.");`;
-const Figure2 = `Heat warning.
-Report complete.`;
-const Figure3 = `Report complete.`;
-const Figure4 = `let age = 12;
+a = 7;         // assignment: put 7 into a
+console.log(a === 7);   // comparison: is a equal to 7?`;
+const Figure6 = `console.log("7" === 7);
+console.log("7" == 7);`;
+const Figure7 = `false
+true`;
+const NotationJs = `let score = 85;
+let passed = score >= 60;
+let perfect = score === 100;
+let failed = score !== 100;`;
+const NotationPseudo = `score ← 85
+passed ← score ≥ 60
+perfect ← score = 100
+failed ← score ≠ 100`;
+const Task1 = `let temperature = 31;
 
-if (age >= 13) {
-  console.log("Access granted.");
-} else {
-  console.log("Access denied.");
-}`;
-const Figure5 = `Access denied.`;
-const Figure6 = `let isRaining = true;
-
-if (isRaining) {
-  console.log("Take an umbrella.");
-}`;
-const NotationJs = `if (score >= 60) {
-  console.log("Pass");
-} else {
-  console.log("Fail");
-}`;
-const NotationPseudo = `IF(score ≥ 60)
-{
-  DISPLAY("Pass")
-}
-ELSE
-{
-  DISPLAY("Fail")
-}`;
-const Task1 = `let fuelPercent = 12;
-
-console.log("Fuel:", fuelPercent);
-
-if (fuelPercent < 20) {
-  console.log("WARNING: fuel low.");
-}
-
-console.log("Check complete.");
+console.log("Temperature:", temperature);
+console.log("Above freezing:", temperature > 0);
+console.log("Below boiling:", temperature < 100);
 `;
-const Task2 = `let fuelPercent = 12;
-let crewCount = 7;
+const Task2 = `let temperature = 31;
+let humidity = 82;
 
-console.log("Fuel:", fuelPercent);
-
-if (fuelPercent < 20) {
-  console.log("WARNING: fuel low.");
-} else {
-  console.log("Fuel level nominal.");
-}
-
-console.log("Crew:", crewCount);
-
-if (crewCount >= 5) {
-  console.log("Full crew aboard.");
-} else {
-  console.log("Running short-handed.");
-}
-
-console.log("Check complete.");
-`;
-const Task3 = `let fuelPercent = 12;
-let crewCount = 7;
-
-console.log("Fuel:", fuelPercent);
-
-if (fuelPercent < 20) {
-  console.log("WARNING: fuel low.");
-} else {
-  console.log("Fuel level nominal.");
-}
-
-console.log("Crew:", crewCount);
-
-if (crewCount >= 5) {
-  console.log("Full crew aboard.");
-} else {
-  console.log("Running short-handed.");
-}
-
-console.log("Check complete.");
+console.log("Temperature:", temperature);
+console.log("Above freezing:", temperature > 0);
+console.log("Below boiling:", temperature < 100);
 console.log("");
 
-// Ask the user for a cargo mass and cast it to a number
-// If it is over 500, refuse the launch
-// Otherwise, approve the launch and show the mass
-`;
-const ExampleOutput = `Fuel: 12
-WARNING: fuel low.
-Crew: 7
-Full crew aboard.
-Check complete.
+let isHot = temperature >= 30;
+let isHumid = humidity >= 70;
+let isExactlyFreezing = temperature === 0;
 
-Cargo mass? 620
-LAUNCH REFUSED: cargo too heavy.
+console.log("Hot:", isHot);
+console.log("Humid:", isHumid);
+console.log("Exactly freezing:", isExactlyFreezing);
+`;
+const Task3 = `let temperature = 31;
+let humidity = 82;
+
+console.log("Temperature:", temperature);
+console.log("Above freezing:", temperature > 0);
+console.log("Below boiling:", temperature < 100);
+console.log("");
+
+let isHot = temperature >= 30;
+let isHumid = humidity >= 70;
+let isExactlyFreezing = temperature === 0;
+
+console.log("Hot:", isHot);
+console.log("Humid:", isHumid);
+console.log("Exactly freezing:", isExactlyFreezing);
+console.log("");
+
+// Ask the user for a wind speed and cast it to a number
+// Store whether the wind is at or above 40
+// Store whether the wind is NOT exactly zero
+// Display both results with labels
+`;
+const ExampleOutput = `Temperature: 31
+Above freezing: true
+Below boiling: true
+
+Hot: true
+Humid: true
+Exactly freezing: false
+
+Wind speed? 12
+High wind: false
+Wind is moving: true
 `;
 //#endregion
 ---
@@ -119,7 +100,7 @@ LAUNCH REFUSED: cargo too heavy.
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.11: Making Decisions</h1>
+        <h1>Activity 1.11: Booleans and Comparison</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -127,89 +108,83 @@ LAUNCH REFUSED: cargo too heavy.
           <Presentation>
             <section>
               <h2>Activity 1.11</h2>
-              <h3 class="text-sn-theme">Making Decisions</h3>
+              <h3 class="text-sn-theme">Booleans and Comparison</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Running Code Only Sometimes</p>
-              <p>The Other Path</p>
-              <p>Selection</p>
+              <p>Comparisons Produce Values</p>
+              <p>Storing a Comparison</p>
+              <p>Assignment vs. Equality</p>
             </section>
 
             <section data-auto-animate>
-              <h2>Every Program So Far</h2>
-              <p>
-                Ran every line, top to bottom, every single time. Nothing was
-                ever skipped.
-              </p>
-              <p class="fragment">
-                Today that changes, and it is the biggest step in the course so
-                far.
-              </p>
+              <h2>A Comparison Is a Question</h2>
+              <p>And a question has an answer.</p>
             </section>
 
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>if</h2>
+            <section data-auto-animate>
+              <h2>A Comparison Is a Question</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-            </section>
-
-            <section data-auto-animate>
-              <h2>if</h2>
               <Code
                 code={Figure2}
                 frame="terminal"
                 lang="txt"
-                title="Demo — temperature is 31"
-                showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure3}
-                frame="terminal"
-                lang="txt"
-                title="Demo — temperature is 18"
+                title="Demo"
                 showLineNumbers={false}
                 class="fragment"
               />
               <p class="fragment">
-                Same program, two different outputs. The last line ran both
-                times &mdash; only the block inside the braces was skipped.
+                You met <CodeSnippet
+                  code="true"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> and <CodeSnippet
+                  code="false"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> in Activity 1.5 as things you typed. Now the computer is
+                producing them.
               </p>
             </section>
 
             <section>
-              <h2>Reading the Shape</h2>
+              <h2>The Six Comparisons</h2>
               <div class="text-start">
-                <ul>
-                  <li class="fragment">
-                    The <b>condition</b> in the parentheses must be something
-                    that is true or false
-                  </li>
-                  <li class="fragment">
-                    The <b>braces</b> mark exactly which lines are optional
-                  </li>
-                  <li class="fragment">
-                    Everything outside the braces runs regardless
-                  </li>
-                </ul>
+                <dl>
+                  <dt>
+                    <CodeSnippet code=">" lang={"javascript"} theme={"material-theme-ocean"} inline /> and <CodeSnippet code="<" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>greater than, less than</dd>
+                  <dt>
+                    <CodeSnippet code=">=" lang={"javascript"} theme={"material-theme-ocean"} inline /> and <CodeSnippet code="<=" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>greater or equal, less or equal</dd>
+                  <dt>
+                    <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>is exactly equal to</dd>
+                  <dt>
+                    <CodeSnippet code="!==" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>is not equal to</dd>
+                </dl>
               </div>
-              <p class="fragment">
-                Those comparisons from Activity 1.10 are what goes in the
-                parentheses. That is what they were for.
-              </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>else</h2>
+              <h2>Storing the Answer</h2>
               <Code
-                code={Figure4}
+                code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
@@ -217,7 +192,7 @@ LAUNCH REFUSED: cargo too heavy.
                 class="mb-3"
               />
               <Code
-                code={Figure5}
+                code={Figure4}
                 frame="terminal"
                 lang="txt"
                 title="Demo"
@@ -227,86 +202,122 @@ LAUNCH REFUSED: cargo too heavy.
             </section>
 
             <section data-auto-animate>
-              <h2>else</h2>
+              <h2>Storing the Answer</h2>
               <p>
-                <b class="text-sn-theme">Exactly one</b> of the two blocks runs.
-                Never both, never neither.
-              </p>
-              <p class="fragment">
                 <CodeSnippet
-                  code="else"
+                  code="passed"
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                /> has no condition of its own. It means "in every other case."
+                /> does not hold 85. It holds the <i>answer to a question about</i>{" "}
+                85.
+              </p>
+              <p class="fragment">
+                Naming these well matters. <CodeSnippet
+                  code="passed"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />, <CodeSnippet
+                  code="isHot"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />, <CodeSnippet
+                  code="hasKey"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> &mdash; a boolean's name should read like a yes-or-no question.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>A Boolean Is Already a Condition</h2>
+              <h2>One Equals Sign, or Three?</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Equals Sign, or Three?</h2>
+              <div class="text-start">
+                <ul>
+                  <li class="fragment">
+                    <CodeSnippet code="=" lang={"javascript"} theme={"material-theme-ocean"} inline /> <b>puts a value into</b> a variable
+                  </li>
+                  <li class="fragment">
+                    <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline /> <b>asks whether</b> two things are equal
+                  </li>
+                </ul>
+              </div>
+              <p class="fragment">
+                They look similar and do completely unrelated jobs. Mixing them
+                up is one of the most common bugs there is.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Why Three and Not Two?</h2>
               <Code
                 code={Figure6}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-              <p class="fragment">
-                No comparison needed. <CodeSnippet
-                  code="isRaining"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> is already true or false, which is all the condition has to be.
-              </p>
+              <Code
+                code={Figure7}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
             </section>
 
-            <section>
-              <h2>Do Not Write This</h2>
+            <section data-auto-animate>
+              <h2>Why Three and Not Two?</h2>
               <p>
                 <CodeSnippet
-                  code="if (isRaining === true)"
+                  code="=="
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                />
-              </p>
-              <p class="fragment">
-                It works, but it is asking "is true equal to true?" &mdash; a
-                question with an obvious answer. Write{" "}
+                /> quietly converts types before comparing, so the text{" "}
                 <CodeSnippet
-                  code="if (isRaining)"
+                  code='"7"'
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                />. This is also why naming booleans as questions pays off.
-              </p>
-            </section>
-
-            <section>
-              <h2>This Has a Name</h2>
-              <p>
-                Choosing between paths is called{" "}
-                <b class="text-sn-theme">selection</b>, and it is one of the
-                three building blocks of every algorithm.
+                /> counts as equal to the number <CodeSnippet
+                  code="7"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />.
               </p>
               <p class="fragment">
-                You already have <b>sequencing</b> &mdash; one line after
-                another. Selection is the second. The third arrives at Activity
-                1.16.
-              </p>
-              <p class="fragment">
-                The AP exam expects you to name all three.
+                That is the same silent conversion that bit you in Activity 1.9.{" "}
+                <b class="text-sn-theme">Use <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline /> in this class.</b>{" "}
+                It compares the value <i>and</i> the type, with no surprises.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Running a block of code only under a condition</li>
-                <li>Providing an alternative with <b>else</b></li>
-                <li>Using a boolean variable directly as a condition</li>
-                <li>Naming selection as an algorithm building block</li>
+                <li>Writing comparisons with all six operators</li>
+                <li>Storing a comparison's result in a variable</li>
+                <li>Naming boolean variables as questions</li>
+                <li>
+                  Telling assignment and equality apart
+                </li>
               </ul>
             </section>
 
@@ -314,21 +325,23 @@ LAUNCH REFUSED: cargo too heavy.
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Selection</dt>
+                  <dt>Comparison operator</dt>
                   <dd>
-                    Choosing which code to run based on a condition.
+                    A symbol that compares two values and produces a boolean.
                   </dd>
-                  <dt>Condition</dt>
+                  <dt>Boolean expression</dt>
                   <dd>
-                    The boolean expression that decides which path is taken.
+                    A piece of code that evaluates to <CodeSnippet code="true" lang={"javascript"} theme={"material-theme-ocean"} inline /> or <CodeSnippet code="false" lang={"javascript"} theme={"material-theme-ocean"} inline />.
                   </dd>
-                  <dt>Block</dt>
+                  <dt>Assignment</dt>
                   <dd>
-                    The group of statements inside a pair of braces.
+                    Putting a value into a variable, written with a single{" "}
+                    <CodeSnippet code="=" lang={"javascript"} theme={"material-theme-ocean"} inline />.
                   </dd>
-                  <dt>Sequencing</dt>
+                  <dt>Equality</dt>
                   <dd>
-                    Running statements one after another, in order.
+                    Asking whether two values match, written with{" "}
+                    <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline />.
                   </dd>
                 </dl>
               </div>
@@ -344,41 +357,52 @@ LAUNCH REFUSED: cargo too heavy.
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-11-decisions</b>.
+            <b class="text-sn-theme">1-11-booleans</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: One Optional Line</h3>
+          <h3>Task 1: Compare Directly</h3>
           <ul>
-            <li>Write the code below and run it. The warning should appear.</li>
+            <li>Write the code below and run it.</li>
             <li>
-              Change <CodeSnippet
-                code="fuelPercent"
+              Both comparisons are written straight inside{" "}
+              <CodeSnippet
+                code="console.log()"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> to 80 and run again. The warning should vanish &mdash; but{" "}
-              <i>Check complete</i> should still print both times.
+              />. That is allowed &mdash; a comparison is a value like any other.
             </li>
-            <li>Set it back to 12 before continuing.</li>
+            <li>
+              Change the temperature to a negative number and run again.
+            </li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Making Decisions"
+            title="Booleans and Comparison"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Two Decisions, Both With Alternatives</h3>
+          <h3>Task 2: Store the Answers</h3>
           <ul>
-            <li>Add an <b>else</b> to the fuel check, then a second check for crew.</li>
+            <li>Add a humidity reading and three named boolean variables.</li>
             <li>
-              Try all four combinations by editing the two numbers: low fuel with
-              full crew, low fuel with small crew, and so on.
+              Note the names: each one reads like a yes-or-no question about the
+              data.
+            </li>
+            <li>
+              <CodeSnippet
+                code="isExactlyFreezing"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> uses three equals signs. One would mean something completely
+              different &mdash; try it and see what happens, then change it back.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -390,26 +414,25 @@ LAUNCH REFUSED: cargo too heavy.
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Making Decisions"
-            ins={{ range: "2, 8-10, 12-18" }}
+            title="Booleans and Comparison"
+            ins={{ range: "2, 7-15" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Decide on Input</h3>
+          <h3>Task 3: Plan, Then Compare Some Input</h3>
           <ul>
             <li>
-              The three comments describe a launch check. Write the code under
+              The four comments describe a wind-speed check. Write the code under
               them.
             </li>
-            <li>Cast the input before comparing it.</li>
             <li>
-              The approval message must show the mass. The refusal does not need
-              to.
+              Remember to cast the input. An uncast comparison can behave in ways
+              you will not expect, and Activity 1.9 explained why.
             </li>
             <li>
-              Test it twice: once with a mass over 500, once under. Both paths
-              have to work before you submit.
+              "NOT exactly zero" is one comparison, not two. Look back at the six
+              operators.
             </li>
           </ul>
 
@@ -417,35 +440,45 @@ LAUNCH REFUSED: cargo too heavy.
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Making Decisions"
-            ins={{ range: "21-25" }}
+            title="Booleans and Comparison"
+            ins={{ range: "16-21" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): The Boundary</h3>
+          <h3>Challenge (Optional): Break It With One Character</h3>
           <ul>
             <li>
-              Your launch check uses "over 500." Run it with exactly 500 and note
-              what happens.
-            </li>
-            <li>
-              Now change the comparison from <CodeSnippet
-                code=">"
+              Copy this line to the bottom of your program:{" "}
+              <CodeSnippet
+                code="let check = temperature === 50;"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> to <CodeSnippet
-                code=">="
+              /> and display <CodeSnippet
+                code="check"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> and run it with exactly 500 again.
+              /> and <CodeSnippet
+                code="temperature"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
             </li>
             <li>
-              Write a comment saying which version you think is correct for a
-              cargo limit, and why. There is a defensible answer either way
-              &mdash; what matters is that you decided on purpose.
+              Now delete two of the equals signs so it reads{" "}
+              <CodeSnippet
+                code="temperature = 50"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Run it again.
+            </li>
+            <li>
+              Write a comment explaining what happened to both variables, and why
+              no error appeared.
             </li>
           </ul>
         </section>
@@ -477,32 +510,67 @@ LAUNCH REFUSED: cargo too heavy.
             </div>
           </div>
 
-          <p>This one maps across almost exactly. Three small differences:</p>
+          <p>
+            <b class="text-sn-theme">
+              This is the panel where the two notations disagree most.
+            </b>{" "}
+            Read the middle column carefully.
+          </p>
 
-          <ul>
-            <li>
-              <code>IF</code> and <code>ELSE</code> are capitalized.
-            </li>
-            <li>
-              The braces go on their <b>own lines</b>, and{" "}
-              <code>ELSE</code> sits between them on a line by itself.
-            </li>
-            <li>
-              There is no space before the parenthesis: <code>IF(condition)</code>,
-              not <code>IF (condition)</code>.
-            </li>
-          </ul>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Meaning</th>
+                  <th>JavaScript</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Put a value into a variable</td>
+                  <td><code>=</code></td>
+                  <td><code>←</code></td>
+                </tr>
+                <tr>
+                  <td><b>Is equal to</b></td>
+                  <td><code>===</code></td>
+                  <td><b><code>=</code></b></td>
+                </tr>
+                <tr>
+                  <td>Is not equal to</td>
+                  <td><code>!==</code></td>
+                  <td><code>≠</code></td>
+                </tr>
+                <tr>
+                  <td>Greater or equal</td>
+                  <td><code>&gt;=</code></td>
+                  <td><code>≥</code></td>
+                </tr>
+                <tr>
+                  <td>Less or equal</td>
+                  <td><code>&lt;=</code></td>
+                  <td><code>≤</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
           <p>
-            The condition itself uses the operators from Activity 1.10 &mdash;{" "}
-            <code>≥</code> rather than <code>&gt;=</code>, and a single{" "}
-            <code>=</code> if you are testing equality.
+            <b>
+              A single <code>=</code> means assignment in JavaScript and equality
+              on the exam.
+            </b>{" "}
+            The same character, two opposite jobs, depending on which notation
+            you are reading.
           </p>
 
           <p>
-            <b>What is missing from the reference sheet matters too.</b> There is
-            no <code>ELSE IF</code>. You will find out what that costs in
-            Activity 1.12.
+            Because the exam uses <code>←</code> for assignment, there is no
+            ambiguity <i>within</i> the notation &mdash; the confusion only
+            happens when you switch between the two. When you see{" "}
+            <code>score = 100</code> on an exam question, it is asking a
+            question, not setting a value.
           </p>
         </section>
 
@@ -512,7 +580,7 @@ LAUNCH REFUSED: cargo too heavy.
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly, then test the other paths.</p>
+          <p>Verify your program works correctly.</p>
 
           <Code
             code={ExampleOutput}
@@ -521,17 +589,10 @@ LAUNCH REFUSED: cargo too heavy.
             showLineNumbers={false}
             title="Example Output"
             mark={{
-              label: "Depends on the mass you enter",
-              range: "7-8",
+              label: "Yours depends on the wind speed you enter",
+              range: "10-11",
             }}
           />
-
-          <p class="mt-3">
-            You should be able to produce a run where the fuel line says{" "}
-            <i>nominal</i>, the crew line says <i>short-handed</i>, and the
-            launch is approved. If any one of those cannot happen, that branch
-            has a problem.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -544,16 +605,16 @@ LAUNCH REFUSED: cargo too heavy.
 
           <ol>
             <li>
-              With <code>if</code> and <code>else</code>, exactly one block runs.
-              What would it mean for a program if <i>both</i> could run?
+              <code>passed</code> stores the answer to a question rather than a
+              number. Why is that more useful than storing the score again?
             </li>
             <li>
-              Why is <code>if (isRaining)</code> better style than{" "}
-              <code>if (isRaining === true)</code>?
+              Explain the difference between <code>=</code> and <code>===</code>{" "}
+              in JavaScript, as if to someone who has never programmed.
             </li>
             <li>
-              You now know two of the three algorithm building blocks. Name them,
-              and describe what each one lets a program do.
+              On the exam, a single <code>=</code> means "is equal to." Describe a
+              mistake you could make by forgetting that.
             </li>
           </ol>
         </section>

@@ -2,59 +2,78 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
-import { Image } from "astro:assets";
-import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-5-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `function setup() {
-  createCanvas(400, 400);
-  background(220);
-}`;
-const Figure2 = `(0, 0)                    (400, 0)
-   +---------------------+
-   |                     |
-   |                     |
-   |      the canvas     |
-   |                     |
-   |                     |
-   +---------------------+
-(0, 400)                (400, 400)`;
-const Figure3 = `rect(50, 50, 120, 80);`;
-const Figure4 = `ellipse(200, 200, 120, 80);`;
-const Figure5 = `fill(255, 0, 0);
-rect(20, 20, 100, 100);
+const Figure1 = `let playerName = "Ada";
+console.log(playerName);`;
+const Figure2 = `Ada`;
+const Figure3 = `let score = 0;
+console.log("Score:", score);
 
-fill(0, 0, 255);
-rect(70, 70, 100, 100);`;
-const Task1 = `function setup() {
-  createCanvas(400, 400);
-  background(220);
-}
+score = 250;
+console.log("Score:", score);`;
+const Figure4 = `Score: 0
+Score: 250`;
+const Figure5 = `let title = "Commander";   // string
+let level = 7;             // number
+let isOnDuty = true;       // boolean`;
+const Figure6 = `let crewCount = 12;    // good
+let crew_count = 12;   // works, but not the JavaScript style
+let c = 12;            // works, but what is c?`;
+const NotationJs = `let score = 0;
+score = 250;
+console.log("Score:", score);`;
+const NotationPseudo = `score ← 0
+score ← 250
+DISPLAY("Score:")
+DISPLAY(score)`;
+const Task1 = `let callSign = "Vega";
+let crewCount = 7;
+
+console.log("Call sign:", callSign);
+console.log("Crew:", crewCount);
 `;
-const Task2 = `function setup() {
-  createCanvas(400, 400);
-  background(220);
+const Task2 = `let callSign = "Vega";
+let crewCount = 7;
+let fuelPercent = 84.5;
+let isDocked = true;
 
-  rect(40, 40, 120, 80);
-  ellipse(280, 80, 120, 80);
-  line(0, 200, 400, 200);
-}
+console.log("Call sign:", callSign);
+console.log("Crew:", crewCount);
+console.log("Fuel:", fuelPercent);
+console.log("Docked:", isDocked);
 `;
-const Task3 = `function setup() {
-  createCanvas(400, 400);
-  background(220);
+const Task3 = `let callSign = "Vega";
+let crewCount = 7;
+let fuelPercent = 84.5;
+let isDocked = true;
 
-  rect(40, 40, 120, 80);
-  ellipse(280, 80, 120, 80);
-  line(0, 200, 400, 200);
+console.log("=== BEFORE LAUNCH ===");
+console.log("Call sign:", callSign);
+console.log("Crew:", crewCount);
+console.log("Fuel:", fuelPercent);
+console.log("Docked:", isDocked);
 
-  // Below the line, draw a simple house:
-  //   a square for the walls
-  //   a triangle-ish roof made from two lines
-  //   a small rectangle for the door
-}
+// Two crew members board and the ship undocks
+crewCount = 9;
+isDocked = false;
+
+console.log("");
+console.log("=== AFTER LAUNCH ===");
+console.log("Crew:", crewCount);
+console.log("Docked:", isDocked);
+`;
+const ExampleOutput = `=== BEFORE LAUNCH ===
+Call sign: Vega
+Crew: 7
+Fuel: 84.5
+Docked: true
+
+=== AFTER LAUNCH ===
+Crew: 9
+Docked: false
 `;
 //#endregion
 ---
@@ -67,182 +86,97 @@ const Task3 = `function setup() {
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.5: p5 Lab 1 &mdash; The Canvas</h1>
+        <h1>Activity 1.5: Variables and Data Types</h1>
         <Divider variant="8" classes="mb-5" />
 
-
-        <!-- What You're Building -->
-        <section id="target">
-          <h2>What You're Building</h2>
-
-          <div class="text-center my-4">
-            <Image src={TargetImage} alt="A 400 by 400 canvas on a light grey background with a rectangle, an ellipse, and two overlapping colored squares" width={400} class="img-fluid rounded" />
-          </div>
-
-          <p>By the end of <b>Task 2</b> you will have a canvas with several shapes on it, including two that overlap so you can see which one wins.</p>
-
-          <p class="text-body-secondary">
-            <b>Task 3 is not shown.</b> That one is yours to work out.
-          </p>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
               <h2>Activity 1.5</h2>
-              <h3 class="text-sn-theme">p5 Lab 1 &mdash; The Canvas</h3>
+              <h3 class="text-sn-theme">Variables and Data Types</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>What a Lab Is</p>
-              <p>The Coordinate System</p>
-              <p>Drawing Shapes</p>
+              <p>Storing a Value</p>
+              <p>Changing a Value</p>
+              <p>Three Data Types</p>
             </section>
 
             <section data-auto-animate>
-              <h2>What Is a Lab?</h2>
+              <h2>A Variable Is a Named Box</h2>
               <p>
-                Every few activities, we step away from text output and draw
-                something instead.
+                You put a value in it, give it a name, and use the name from
+                then on.
               </p>
             </section>
 
             <section data-auto-animate>
-              <h2>What Is a Lab?</h2>
-              <p>
-                Labs never introduce new logic. They take something you already
-                learned and make it <i>visible</i>.
-              </p>
-              <p class="fragment">
-                Today there is no new logic at all &mdash; just a new place to
-                put it.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Starting a Sketch</h2>
+              <h2>A Variable Is a Named Box</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-            </section>
-
-            <section data-auto-animate>
-              <h2>Starting a Sketch</h2>
-              <div class="text-start">
-                <ul>
-                  <li class="fragment">
-                    <CodeSnippet
-                      code="setup()"
-                      lang={"javascript"}
-                      theme={"material-theme-ocean"}
-                      inline
-                    /> runs once, at the start
-                  </li>
-                  <li class="fragment">
-                    <CodeSnippet
-                      code="createCanvas(400, 400)"
-                      lang={"javascript"}
-                      theme={"material-theme-ocean"}
-                      inline
-                    /> makes a drawing area 400 wide and 400 tall
-                  </li>
-                  <li class="fragment">
-                    <CodeSnippet
-                      code="background(220)"
-                      lang={"javascript"}
-                      theme={"material-theme-ocean"}
-                      inline
-                    /> fills it with light gray
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Where Is (0, 0)?</h2>
-              <p>Not where you expect.</p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>Where Is (0, 0)?</h2>
               <Code
                 code={Figure2}
-                frame="none"
+                frame="terminal"
                 lang="txt"
+                title="Demo"
                 showLineNumbers={false}
+                class="fragment"
               />
-            </section>
-
-            <section>
-              <h2>The Part That Trips Everyone</h2>
-              <p>
-                <CodeSnippet
-                  code="(0, 0)"
-                  lang={"txt"}
+              <p class="fragment">
+                No quotes around <CodeSnippet
+                  code="playerName"
+                  lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                /> is the <b class="text-sn-theme">top left</b>, and{" "}
-                <b class="text-sn-theme">y gets bigger going down</b>.
-              </p>
-              <p class="fragment">
-                In math class, y goes up. Here it goes down. Every graphics
-                system on every computer works this way, and it catches people
-                every single time.
+                /> &mdash; quotes would print the word itself.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Rectangles</h2>
+              <h2>The Value Can Change</h2>
+              <p>
+                That is what makes it a <i>variable</i>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Value Can Change</h2>
               <Code
                 code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
+                class="mb-3"
               />
-              <p class="fragment">
-                x, y, then width, height. The x and y are the{" "}
-                <b class="text-sn-theme">top left corner</b>.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>Ellipses</h2>
               <Code
                 code={Figure4}
-                frame="code"
+                frame="terminal"
+                lang="txt"
                 title="Demo"
-                lang="javascript"
                 showLineNumbers={false}
+                class="fragment"
               />
               <p class="fragment">
-                Same four numbers &mdash; but here x and y are the{" "}
-                <b class="text-sn-theme">center</b>, not the corner.
-              </p>
-            </section>
-
-            <section>
-              <h2>Corner vs. Center</h2>
-              <p>
-                A rectangle is positioned by its corner. An ellipse is positioned
-                by its middle.
-              </p>
-              <p class="fragment">
-                This is not a rule with a good reason. It is just how it is, and
-                it is the single most common cause of "why is my shape in the
-                wrong place?"
+                You write <CodeSnippet
+                  code="let"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> once, when the variable is created. Never again.
               </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Color and Order</h2>
+              <h2>Three Kinds of Value</h2>
               <Code
                 code={Figure5}
                 frame="code"
@@ -253,38 +187,75 @@ const Task3 = `function setup() {
             </section>
 
             <section data-auto-animate>
-              <h2>Color and Order</h2>
+              <h2>Three Kinds of Value</h2>
               <div class="text-start">
                 <ul>
                   <li class="fragment">
-                    <CodeSnippet
-                      code="fill(r, g, b)"
+                    <b>String</b> &mdash; text, always in quotes
+                  </li>
+                  <li class="fragment">
+                    <b>Number</b> &mdash; whole or decimal, never in quotes
+                  </li>
+                  <li class="fragment">
+                    <b>Boolean</b> &mdash; only <CodeSnippet
+                      code="true"
                       lang={"javascript"}
                       theme={"material-theme-ocean"}
                       inline
-                    /> sets the color of everything drawn <i>after</i> it
-                  </li>
-                  <li class="fragment">
-                    Each of r, g, b runs from 0 to 255
-                  </li>
-                  <li class="fragment">
-                    Shapes drawn later sit <b>on top of</b> shapes drawn earlier
+                    /> or <CodeSnippet
+                      code="false"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />
                   </li>
                 </ul>
               </div>
               <p class="fragment">
-                A sketch is a stack, built bottom to top, in the order you wrote
-                it.
+                <CodeSnippet
+                  code='"7"'
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> and <CodeSnippet
+                  code="7"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> are not the same thing. That will matter a lot in Activity 1.9.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Naming Variables</h2>
+              <Code
+                code={Figure6}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Naming Variables</h2>
+              <p>
+                JavaScript uses <b class="text-sn-theme">camelCase</b>: first
+                word lowercase, every word after that capitalized, no spaces.
+              </p>
+              <p class="fragment">
+                Names should say what the value <i>is</i>. You will read your own
+                code weeks later and be grateful.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Creating a canvas and setting a background</li>
-                <li>Locating a point using canvas coordinates</li>
-                <li>Drawing rectangles, ellipses, and lines</li>
-                <li>Setting colors and controlling drawing order</li>
+                <li>Creating variables and displaying their values</li>
+                <li>Changing a variable's value after creating it</li>
+                <li>Telling strings, numbers, and booleans apart</li>
+                <li>Naming variables in camelCase</li>
               </ul>
             </section>
 
@@ -292,25 +263,32 @@ const Task3 = `function setup() {
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Canvas</dt>
-                  <dd>The rectangular area a sketch draws into.</dd>
-                  <dt>Coordinate</dt>
+                  <dt>Variable</dt>
+                  <dd>A named place to store a value.</dd>
+                  <dt>Assignment</dt>
+                  <dd>Putting a value into a variable.</dd>
+                  <dt>String</dt>
+                  <dd>A piece of text, written inside quotes.</dd>
+                  <dt>Number</dt>
+                  <dd>A numeric value, whole or decimal, with no quotes.</dd>
+                  <dt>Boolean</dt>
                   <dd>
-                    A pair of numbers, x and y, giving a position on the canvas.
-                  </dd>
-                  <dt>Origin</dt>
-                  <dd>
-                    The point <CodeSnippet
-                      code="(0, 0)"
-                      lang={"txt"}
+                    A value that is either <CodeSnippet
+                      code="true"
+                      lang={"javascript"}
                       theme={"material-theme-ocean"}
                       inline
-                    />, at the top left corner of the canvas.
+                    /> or <CodeSnippet
+                      code="false"
+                      lang={"javascript"}
+                      theme={"material-theme-ocean"}
+                      inline
+                    />.
                   </dd>
-                  <dt>Pixel</dt>
+                  <dt>camelCase</dt>
                   <dd>
-                    One dot on the screen. Canvas measurements are counted in
-                    these.
+                    A naming style where the first word is lowercase and later
+                    words are capitalized.
                   </dd>
                 </dl>
               </div>
@@ -325,41 +303,23 @@ const Task3 = `function setup() {
           <h2>Build</h2>
 
           <p>
-            Create a new <b>p5.js</b> sketch named{" "}
-            <b class="text-sn-theme">1-5-canvas</b>.
-          </p>
-
-          <p>
-            Everything today goes inside <CodeSnippet
-              code="setup()"
-              lang={"javascript"}
-              theme={"material-theme-ocean"}
-              inline
-            />, between its curly braces. Nothing moves yet, so nothing needs to
-            repeat.
+            Create a new <b>JavaScript</b> program named{" "}
+            <b class="text-sn-theme">1-5-variables</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: An Empty Canvas</h3>
+          <h3>Task 1: Two Variables</h3>
           <ul>
-            <li>Write the code below and run it.</li>
+            <li>Create the two variables below and display them.</li>
             <li>
-              You should see a light gray square. That is the whole result, and
-              it is correct.
-            </li>
-            <li>
-              Change 400 to 600 and run again. Change <CodeSnippet
-                code="background(220)"
+              Run it, then try removing the quotes around{" "}
+              <CodeSnippet
+                code="callSign"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> to <CodeSnippet
-                code="background(0)"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> and run again. Then set both back.
+              /> in the last two lines to see what changes. Put them back.
             </li>
           </ul>
 
@@ -367,23 +327,17 @@ const Task3 = `function setup() {
             code={Task1}
             frame="code"
             lang="javascript"
-            title="p5 Lab 1 — The Canvas"
+            title="Variables and Data Types"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Three Shapes</h3>
+          <h3>Task 2: One of Each Type</h3>
           <ul>
-            <li>Add a rectangle, an ellipse, and a line.</li>
             <li>
-              Before running, predict where each one will land. Sketch the canvas
-              on paper if that helps.
+              Add a decimal number and a boolean, so you have all three types.
             </li>
-            <li>
-              Then run it and compare. The rectangle and the ellipse use their
-              four numbers differently &mdash; make sure you can see that in the
-              result.
-            </li>
+            <li>Display them too.</li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
               are new code. Don't type the + sign.
@@ -394,34 +348,39 @@ const Task3 = `function setup() {
             code={Task2}
             frame="code"
             lang="javascript"
-            title="p5 Lab 1 — The Canvas"
-            ins={{ range: "5-7" }}
+            title="Variables and Data Types"
+            ins={{ range: "3-4, 8-9" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Draw a House</h3>
+          <h3>Task 3: Change the Values</h3>
           <ul>
             <li>
-              The comments at the bottom are a plan. Write the drawing code under
-              them.
+              Add a second report that shows the values <i>after</i> two crew
+              members board and the ship undocks.
             </li>
             <li>
-              Everything must sit <i>below</i> the line at y = 200, so every y
-              value you use should be greater than 200.
-            </li>
-            <li>
-              Give the walls, roof, and door different colors using{" "}
-              <CodeSnippet
-                code="fill()"
+              Change <CodeSnippet
+                code="crewCount"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              />.
+              /> and <CodeSnippet
+                code="isDocked"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> without writing <CodeSnippet
+                code="let"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> again.
             </li>
             <li>
-              Watch your drawing order. If the door disappears, you probably drew
-              the walls after it.
+              The first report must still show the old values. If it doesn't,
+              your changes are in the wrong place.
             </li>
           </ul>
 
@@ -429,27 +388,87 @@ const Task3 = `function setup() {
             code={Task3}
             frame="code"
             lang="javascript"
-            title="p5 Lab 1 — The Canvas"
-            ins={{ range: "9-12" }}
+            title="Variables and Data Types"
+            ins={{ range: "6, 11-19" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Put Something in the Exact Center</h3>
+          <h3>Challenge (Optional): Name Things Badly, Then Well</h3>
           <ul>
             <li>
-              Draw a circle whose center is the exact center of a 400 by 400
-              canvas.
+              Copy your program to the bottom of the file and rename every
+              variable to a single letter.
             </li>
             <li>
-              Then draw a square whose center is also the exact center, without
-              guessing and nudging.
+              Read it back. Ask a classmate to tell you what it does without
+              running it.
+            </li>
+            <li>Delete the copy before submitting.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            The AP exam does not show code in JavaScript. It uses its own
+            notation, and you will be handed a reference sheet for it on exam
+            day. You will see a short panel like this one whenever we learn
+            something that appears on that sheet.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>Two things to notice:</p>
+          <ul>
+            <li>
+              Assignment is an arrow, <CodeSnippet
+                code="←"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />, not an equals sign. It points at the variable receiving the
+              value.
             </li>
             <li>
-              The square is genuinely harder, and working out why is the point of
-              the challenge.
+              <CodeSnippet
+                code="DISPLAY()"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              /> takes one value at a time, so two displays are needed where
+              JavaScript used one comma.
             </li>
           </ul>
+
+          <p>
+            You will never write exam notation in this class's programs. You only
+            need to <i>read</i> it, which is what the multiple-choice section
+            asks you to do.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -458,25 +477,19 @@ const Task3 = `function setup() {
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Your finished sketch should show all of the following.</p>
+          <p>Verify your program works correctly.</p>
 
-          <ul>
-            <li>A canvas 400 by 400 with a light gray background.</li>
-            <li>
-              A rectangle in the upper left, and an ellipse in the upper right.
-            </li>
-            <li>A line running all the way across the middle.</li>
-            <li>
-              Below that line, a recognizable house with walls, a roof, and a
-              door, each a different color.
-            </li>
-            <li>The door visible, not buried under the walls.</li>
-          </ul>
-
-          <p>
-            You should also be able to point at any shape and say which numbers
-            in your code put it there.
-          </p>
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+            mark={{
+              label: "Old values, still correct",
+              range: "2-5",
+            }}
+          />
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -489,18 +502,18 @@ const Task3 = `function setup() {
 
           <ol>
             <li>
-              On this canvas, y increases as you move <i>down</i>. Describe a
-              mistake you made, or nearly made, because of that.
+              Why do you only write <code>let</code> once per variable, even
+              though the value changes several times?
             </li>
             <li>
-              A rectangle is placed by its corner and an ellipse by its center.
-              Explain how you would place a rectangle so that its <i>center</i>{" "}
-              lands on a specific point.
+              Explain the difference between <code>"7"</code> and <code>7</code>.
+              Give a situation where treating one as the other would cause a
+              problem.
             </li>
             <li>
-              Drawing order decides what covers what. How is that similar to the
-              order statements run in the text programs you wrote in Activities
-              1.1 through 1.4?
+              In exam notation, assignment is written <code>score ← 250</code>.
+              Why might an arrow be a clearer symbol for this than an equals
+              sign?
             </li>
           </ol>
         </section>

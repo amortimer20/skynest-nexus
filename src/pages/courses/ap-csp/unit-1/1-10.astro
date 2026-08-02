@@ -2,92 +2,70 @@
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-1-10-target.png";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Figure1 = `console.log(7 > 3);
-console.log(7 < 3);`;
-const Figure2 = `true
-false`;
-const Figure3 = `let score = 85;
-let passed = score >= 60;
+const Figure1 = `ellipse(200, 150, 80, 80);
+rect(160, 190, 80, 120);
+line(200, 190, 200, 310);`;
+const Figure2 = `let centerX = 200;
 
-console.log("Score:", score);
-console.log("Passed:", passed);`;
-const Figure4 = `Score: 85
-Passed: true`;
-const Figure5 = `let a = 5;
+ellipse(centerX, 150, 80, 80);
+rect(centerX - 40, 190, 80, 120);
+line(centerX, 190, centerX, 310);`;
+const Figure3 = `let size = 80;
 
-a = 7;         // assignment: put 7 into a
-console.log(a === 7);   // comparison: is a equal to 7?`;
-const Figure6 = `console.log("7" === 7);
-console.log("7" == 7);`;
-const Figure7 = `false
-true`;
-const NotationJs = `let score = 85;
-let passed = score >= 60;
-let perfect = score === 100;
-let failed = score !== 100;`;
-const NotationPseudo = `score ← 85
-passed ← score ≥ 60
-perfect ← score = 100
-failed ← score ≠ 100`;
-const Task1 = `let temperature = 31;
+ellipse(200, 150, size, size);
+rect(200 - size / 2, 190, size, size * 1.7);`;
+const Figure4 = `let r = 200;
+let g = 60;
+let b = 90;
 
-console.log("Temperature:", temperature);
-console.log("Above freezing:", temperature > 0);
-console.log("Below boiling:", temperature < 100);
+fill(r, g, b);
+ellipse(200, 150, 80, 80);
+
+fill(r, g + 100, b);
+ellipse(300, 150, 80, 80);`;
+const Task1 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
+
+  fill(120, 180, 220);
+  ellipse(200, 120, 90, 90);
+  rect(155, 170, 90, 130);
+}
 `;
-const Task2 = `let temperature = 31;
-let humidity = 82;
+const Task2 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
 
-console.log("Temperature:", temperature);
-console.log("Above freezing:", temperature > 0);
-console.log("Below boiling:", temperature < 100);
-console.log("");
+  let towerX = 200;
+  let towerWidth = 90;
 
-let isHot = temperature >= 30;
-let isHumid = humidity >= 70;
-let isExactlyFreezing = temperature === 0;
-
-console.log("Hot:", isHot);
-console.log("Humid:", isHumid);
-console.log("Exactly freezing:", isExactlyFreezing);
+  fill(120, 180, 220);
+  ellipse(towerX, 120, towerWidth, towerWidth);
+  rect(towerX - towerWidth / 2, 170, towerWidth, 130);
+}
 `;
-const Task3 = `let temperature = 31;
-let humidity = 82;
+const Task3 = `function setup() {
+  createCanvas(400, 400);
+  background(220);
 
-console.log("Temperature:", temperature);
-console.log("Above freezing:", temperature > 0);
-console.log("Below boiling:", temperature < 100);
-console.log("");
+  let towerX = 200;
+  let towerWidth = 90;
 
-let isHot = temperature >= 30;
-let isHumid = humidity >= 70;
-let isExactlyFreezing = temperature === 0;
+  fill(120, 180, 220);
+  ellipse(towerX, 120, towerWidth, towerWidth);
+  rect(towerX - towerWidth / 2, 170, towerWidth, 130);
 
-console.log("Hot:", isHot);
-console.log("Humid:", isHumid);
-console.log("Exactly freezing:", isExactlyFreezing);
-console.log("");
-
-// Ask the user for a wind speed and cast it to a number
-// Store whether the wind is at or above 40
-// Store whether the wind is NOT exactly zero
-// Display both results with labels
-`;
-const ExampleOutput = `Temperature: 31
-Above freezing: true
-Below boiling: true
-
-Hot: true
-Humid: true
-Exactly freezing: false
-
-Wind speed? 12
-High wind: false
-Wind is moving: true
+  // Draw a second, smaller tower to the left of the first
+  //   its x should be worked out from towerX, not typed in
+  //   its width should be worked out from towerWidth, not typed in
+  //   give it a different fill color
+}
 `;
 //#endregion
 ---
@@ -100,224 +78,170 @@ Wind is moving: true
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.10: Booleans and Comparison</h1>
+        <h1>Activity 1.10: p5 Lab 2 &mdash; Variables That Draw</h1>
         <Divider variant="8" classes="mb-5" />
 
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="A dark canvas showing a tall tower built from stacked rectangles, drawn from a small set of variables" width={400} class="img-fluid rounded" />
+          </div>
+
+          <p>By the end of <b>Task 2</b> a handful of variables will control this whole tower. Change one number and every part of it moves.</p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
         <!-- Launch / Concept -->
         <section id="launch">
           <Presentation>
             <section>
               <h2>Activity 1.10</h2>
-              <h3 class="text-sn-theme">Booleans and Comparison</h3>
+              <h3 class="text-sn-theme">p5 Lab 2 &mdash; Variables That Draw</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Comparisons Produce Values</p>
-              <p>Storing a Comparison</p>
-              <p>Assignment vs. Equality</p>
+              <p>Nothing New</p>
+              <p>One Variable, Several Places</p>
+              <p>Computing From a Variable</p>
             </section>
 
             <section data-auto-animate>
-              <h2>A Comparison Is a Question</h2>
-              <p>And a question has an answer.</p>
+              <h2>No New Ideas Today</h2>
+              <p>
+                Variables from Activity 1.5. The canvas from Activity 1.7. That
+                is the entire toolkit.
+              </p>
             </section>
 
             <section data-auto-animate>
-              <h2>A Comparison Is a Question</h2>
+              <h2>No New Ideas Today</h2>
+              <p>
+                What is new is <i>seeing</i> what a variable is worth. In the
+                terminal a variable saves you some typing. On a canvas it moves
+                a whole picture at once.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Problem With Numbers</h2>
               <Code
                 code={Figure1}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure2}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
               />
               <p class="fragment">
-                You met <CodeSnippet
-                  code="true"
+                Three shapes, all lined up at x = 200. To move this whole thing
+                right by 50 pixels, how many numbers do you have to change?
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Fix</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Now it is <b class="text-sn-theme">one number</b>. Change{" "}
+                <CodeSnippet
+                  code="centerX"
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                /> and <CodeSnippet
-                  code="false"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> in Activity 1.3 as things you typed. Now the computer is
-                producing them.
+                /> and everything moves together, still lined up.
               </p>
             </section>
 
             <section>
-              <h2>The Six Comparisons</h2>
-              <div class="text-start">
-                <dl>
-                  <dt>
-                    <CodeSnippet code=">" lang={"javascript"} theme={"material-theme-ocean"} inline /> and <CodeSnippet code="<" lang={"javascript"} theme={"material-theme-ocean"} inline />
-                  </dt>
-                  <dd>greater than, less than</dd>
-                  <dt>
-                    <CodeSnippet code=">=" lang={"javascript"} theme={"material-theme-ocean"} inline /> and <CodeSnippet code="<=" lang={"javascript"} theme={"material-theme-ocean"} inline />
-                  </dt>
-                  <dd>greater or equal, less or equal</dd>
-                  <dt>
-                    <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline />
-                  </dt>
-                  <dd>is exactly equal to</dd>
-                  <dt>
-                    <CodeSnippet code="!==" lang={"javascript"} theme={"material-theme-ocean"} inline />
-                  </dt>
-                  <dd>is not equal to</dd>
-                </dl>
-              </div>
+              <h2>Look at the Rectangle</h2>
+              <p>
+                <CodeSnippet
+                  code="rect(centerX - 40, 190, 80, 120)"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                A rectangle is placed by its corner, so centering it means
+                shifting left by half its width. The variable does not just get{" "}
+                <i>used</i> &mdash; it gets <b class="text-sn-theme">calculated
+                with</b>.
+              </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Storing the Answer</h2>
+              <h2>Sizes Too</h2>
               <Code
                 code={Figure3}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
-                class="mb-3"
               />
+              <p class="fragment">
+                One <CodeSnippet
+                  code="size"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> drives the circle, the rectangle's width, its height, and its
+                horizontal position. Change it and the shape scales as a unit.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Colors Are Just Numbers</h2>
               <Code
                 code={Figure4}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-            </section>
-
-            <section data-auto-animate>
-              <h2>Storing the Answer</h2>
-              <p>
-                <CodeSnippet
-                  code="passed"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> does not hold 85. It holds the <i>answer to a question about</i>{" "}
-                85.
-              </p>
-              <p class="fragment">
-                Naming these well matters. <CodeSnippet
-                  code="passed"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />, <CodeSnippet
-                  code="isHot"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />, <CodeSnippet
-                  code="hasKey"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> &mdash; a boolean's name should read like a yes-or-no question.
-              </p>
-            </section>
-
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>One Equals Sign, or Three?</h2>
-              <Code
-                code={Figure5}
                 frame="code"
                 title="Demo"
                 lang="javascript"
                 showLineNumbers={false}
               />
-            </section>
-
-            <section data-auto-animate>
-              <h2>One Equals Sign, or Three?</h2>
-              <div class="text-start">
-                <ul>
-                  <li class="fragment">
-                    <CodeSnippet code="=" lang={"javascript"} theme={"material-theme-ocean"} inline /> <b>puts a value into</b> a variable
-                  </li>
-                  <li class="fragment">
-                    <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline /> <b>asks whether</b> two things are equal
-                  </li>
-                </ul>
-              </div>
               <p class="fragment">
-                They look similar and do completely unrelated jobs. Mixing them
-                up is one of the most common bugs there is.
+                <CodeSnippet
+                  code="g + 100"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> makes the second circle greener than the first, and stays
+                related to it. This is exactly the arithmetic from Activity 1.6.
               </p>
             </section>
 
-            <section data-auto-animate data-auto-animate-restart>
-              <h2>Why Three and Not Two?</h2>
-              <Code
-                code={Figure6}
-                frame="code"
-                title="Demo"
-                lang="javascript"
-                showLineNumbers={false}
-                class="mb-3"
-              />
-              <Code
-                code={Figure7}
-                frame="terminal"
-                lang="txt"
-                title="Demo"
-                showLineNumbers={false}
-                class="fragment"
-              />
-            </section>
-
-            <section data-auto-animate>
-              <h2>Why Three and Not Two?</h2>
+            <section>
+              <h2>The Rule for Today</h2>
               <p>
-                <CodeSnippet
-                  code="=="
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> quietly converts types before comparing, so the text{" "}
-                <CodeSnippet
-                  code='"7"'
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                /> counts as equal to the number <CodeSnippet
-                  code="7"
-                  lang={"javascript"}
-                  theme={"material-theme-ocean"}
-                  inline
-                />.
+                If two numbers in your sketch are <i>related</i>, one of them
+                should be calculated from the other, not typed in separately.
               </p>
               <p class="fragment">
-                That is the same silent conversion that bit you in Activity 1.8.{" "}
-                <b class="text-sn-theme">Use <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline /> in this class.</b>{" "}
-                It compares the value <i>and</i> the type, with no surprises.
+                Typed-in numbers drift apart the moment you change something.
+                Calculated ones cannot.
               </p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Writing comparisons with all six operators</li>
-                <li>Storing a comparison's result in a variable</li>
-                <li>Naming boolean variables as questions</li>
-                <li>
-                  Telling assignment and equality apart
-                </li>
+                <li>Replacing repeated numbers with a variable</li>
+                <li>Calculating a position or size from a variable</li>
+                <li>Driving color with variables</li>
+                <li>Changing one value and predicting the whole result</li>
               </ul>
             </section>
 
@@ -325,23 +249,14 @@ Wind is moving: true
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Comparison operator</dt>
+                  <dt>Hard-coded value</dt>
                   <dd>
-                    A symbol that compares two values and produces a boolean.
+                    A number typed directly into the code instead of being stored
+                    or calculated.
                   </dd>
-                  <dt>Boolean expression</dt>
+                  <dt>Derived value</dt>
                   <dd>
-                    A piece of code that evaluates to <CodeSnippet code="true" lang={"javascript"} theme={"material-theme-ocean"} inline /> or <CodeSnippet code="false" lang={"javascript"} theme={"material-theme-ocean"} inline />.
-                  </dd>
-                  <dt>Assignment</dt>
-                  <dd>
-                    Putting a value into a variable, written with a single{" "}
-                    <CodeSnippet code="=" lang={"javascript"} theme={"material-theme-ocean"} inline />.
-                  </dd>
-                  <dt>Equality</dt>
-                  <dd>
-                    Asking whether two values match, written with{" "}
-                    <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                    A value worked out from another value rather than typed in.
                   </dd>
                 </dl>
               </div>
@@ -356,53 +271,50 @@ Wind is moving: true
           <h2>Build</h2>
 
           <p>
-            Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">1-10-booleans</b>.
+            Create a new <b>p5.js</b> sketch named{" "}
+            <b class="text-sn-theme">1-10-variable-canvas</b>.
+          </p>
+
+          <p>
+            Everything goes inside <CodeSnippet
+              code="setup()"
+              lang={"javascript"}
+              theme={"material-theme-ocean"}
+              inline
+            /> again. Nothing moves yet.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Compare Directly</h3>
+          <h3>Task 1: A Tower, With Numbers</h3>
           <ul>
-            <li>Write the code below and run it.</li>
+            <li>Write the code below and run it. You should see a simple tower.</li>
             <li>
-              Both comparisons are written straight inside{" "}
-              <CodeSnippet
-                code="console.log()"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />. That is allowed &mdash; a comparison is a value like any other.
+              Now move the whole tower 60 pixels right, by editing numbers.
+              Count how many you had to change.
             </li>
-            <li>
-              Change the temperature to a negative number and run again.
-            </li>
+            <li>Put it back at 200 before continuing.</li>
           </ul>
 
           <Code
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Booleans and Comparison"
+            title="p5 Lab 2 — Variables That Draw"
           />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Store the Answers</h3>
+          <h3>Task 2: The Same Tower, With Variables</h3>
           <ul>
-            <li>Add a humidity reading and three named boolean variables.</li>
+            <li>Replace the hard-coded numbers with two variables.</li>
             <li>
-              Note the names: each one reads like a yes-or-no question about the
-              data.
+              The result on screen should look <b>identical</b> to Task 1. That
+              is how you know you did it right.
             </li>
             <li>
-              <CodeSnippet
-                code="isExactlyFreezing"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> uses three equals signs. One would mean something completely
-              different &mdash; try it and see what happens, then change it back.
+              Now move the tower 60 pixels right again. This time it is one
+              number.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -414,25 +326,40 @@ Wind is moving: true
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Booleans and Comparison"
-            ins={{ range: "2, 7-15" }}
+            title="p5 Lab 2 — Variables That Draw"
+            ins={{ range: "5-6, 9-10" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Plan, Then Compare Some Input</h3>
+          <h3>Task 3: Plan, Then Add a Second Tower</h3>
           <ul>
             <li>
-              The four comments describe a wind-speed check. Write the code under
-              them.
+              The comments describe a smaller tower to the left. Write the code
+              under them.
             </li>
             <li>
-              Remember to cast the input. An uncast comparison can behave in ways
-              you will not expect, and Activity 1.8 explained why.
+              <b class="text-sn-theme">Every number must be derived.</b> Its x
+              comes from <CodeSnippet
+                code="towerX"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />, its width from <CodeSnippet
+                code="towerWidth"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              />. No new literal positions.
             </li>
             <li>
-              "NOT exactly zero" is one comparison, not two. Look back at the six
-              operators.
+              Then change <CodeSnippet
+                code="towerX"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to 260 and run. <b>Both</b> towers should move, still correctly
+              spaced. If only one moved, something is still hard-coded.
             </li>
           </ul>
 
@@ -440,138 +367,32 @@ Wind is moving: true
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Booleans and Comparison"
-            ins={{ range: "16-21" }}
+            title="p5 Lab 2 — Variables That Draw"
+            ins={{ range: "11-15" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Break It With One Character</h3>
+          <h3>Challenge (Optional): One Knob</h3>
           <ul>
             <li>
-              Copy this line to the bottom of your program:{" "}
-              <CodeSnippet
-                code="let check = temperature === 50;"
+              Add a variable at the top called <CodeSnippet
+                code="scale"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> and display <CodeSnippet
-                code="check"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> and <CodeSnippet
-                code="temperature"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />.
+              /> and use it so that changing it alone resizes{" "}
+              <i>both</i> towers together.
             </li>
             <li>
-              Now delete two of the equals signs so it reads{" "}
-              <CodeSnippet
-                code="temperature = 50"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              />. Run it again.
+              Test it at 0.5 and at 1.7. Everything should stay in proportion and
+              stay on the canvas.
             </li>
             <li>
-              Write a comment explaining what happened to both variables, and why
-              no error appeared.
+              This is harder than it looks. Getting one number to control a whole
+              composition is the actual skill.
             </li>
           </ul>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
-
-        <!-- Exam Notation -->
-        <section id="exam-notation">
-          <h2>Same Idea, Exam Notation</h2>
-
-          <div class="row g-3 my-4">
-            <div class="col-md-6">
-              <Code
-                code={NotationJs}
-                frame="code"
-                lang="javascript"
-                title="JavaScript"
-                showLineNumbers={false}
-              />
-            </div>
-            <div class="col-md-6">
-              <Code
-                code={NotationPseudo}
-                frame="code"
-                lang="txt"
-                title="Exam Notation"
-                showLineNumbers={false}
-              />
-            </div>
-          </div>
-
-          <p>
-            <b class="text-sn-theme">
-              This is the panel where the two notations disagree most.
-            </b>{" "}
-            Read the middle column carefully.
-          </p>
-
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Meaning</th>
-                  <th>JavaScript</th>
-                  <th>Exam notation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Put a value into a variable</td>
-                  <td><code>=</code></td>
-                  <td><code>←</code></td>
-                </tr>
-                <tr>
-                  <td><b>Is equal to</b></td>
-                  <td><code>===</code></td>
-                  <td><b><code>=</code></b></td>
-                </tr>
-                <tr>
-                  <td>Is not equal to</td>
-                  <td><code>!==</code></td>
-                  <td><code>≠</code></td>
-                </tr>
-                <tr>
-                  <td>Greater or equal</td>
-                  <td><code>&gt;=</code></td>
-                  <td><code>≥</code></td>
-                </tr>
-                <tr>
-                  <td>Less or equal</td>
-                  <td><code>&lt;=</code></td>
-                  <td><code>≤</code></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p>
-            <b>
-              A single <code>=</code> means assignment in JavaScript and equality
-              on the exam.
-            </b>{" "}
-            The same character, two opposite jobs, depending on which notation
-            you are reading.
-          </p>
-
-          <p>
-            Because the exam uses <code>←</code> for assignment, there is no
-            ambiguity <i>within</i> the notation &mdash; the confusion only
-            happens when you switch between the two. When you see{" "}
-            <code>score = 100</code> on an exam question, it is asking a
-            question, not setting a value.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -580,19 +401,26 @@ Wind is moving: true
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Verify your program works correctly.</p>
+          <p>Your finished sketch should show all of the following.</p>
 
-          <Code
-            code={ExampleOutput}
-            frame="terminal"
-            lang="txt"
-            showLineNumbers={false}
-            title="Example Output"
-            mark={{
-              label: "Yours depends on the wind speed you enter",
-              range: "10-11",
-            }}
-          />
+          <ul>
+            <li>Two towers, the second smaller and to the left of the first.</li>
+            <li>Each tower a circle sitting on a rectangle, properly centered.</li>
+            <li>The two towers in different colors.</li>
+            <li>
+              <b>The real test:</b> changing <CodeSnippet
+                code="towerX"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> to any value moves both towers together and keeps them lined up.
+            </li>
+          </ul>
+
+          <p>
+            If changing that one number breaks the layout, you have a hard-coded
+            value left somewhere. Find it.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -605,16 +433,16 @@ Wind is moving: true
 
           <ol>
             <li>
-              <code>passed</code> stores the answer to a question rather than a
-              number. Why is that more useful than storing the score again?
+              In Task 1 you moved the tower by editing numbers. How many did you
+              change, and what would happen if you missed one?
             </li>
             <li>
-              Explain the difference between <code>=</code> and <code>===</code>{" "}
-              in JavaScript, as if to someone who has never programmed.
+              Explain why <code>towerX - towerWidth / 2</code> centers the
+              rectangle, in your own words.
             </li>
             <li>
-              On the exam, a single <code>=</code> means "is equal to." Describe a
-              mistake you could make by forgetting that.
+              You have now used variables in the terminal and on a canvas. Which
+              made their usefulness more obvious to you, and why?
             </li>
           </ol>
         </section>
