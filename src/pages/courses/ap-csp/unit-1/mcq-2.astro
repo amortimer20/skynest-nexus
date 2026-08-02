@@ -1,0 +1,232 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `score ← 74
+IF(score ≥ 70)
+{
+  DISPLAY("Pass")
+}
+ELSE
+{
+  DISPLAY("Fail")
+}
+DISPLAY("Done")`;
+
+const Q2 = `let temp = 15;
+
+if (temp > 20) {
+  console.log("Warm");
+} else {
+  console.log("Cold");
+}
+console.log("Reading complete");`;
+
+const Q3 = `a ← 5
+b ← 5
+DISPLAY(a = b)`;
+
+const Q5 = `let count = 3;
+
+if (count = 5) {
+  console.log("Five");
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 2</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; 9 minutes &middot; cumulative
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Five exam-style questions covering Activity 1.1 through 1.11. This
+            set is weighted toward <b>booleans and selection</b>, but it is
+            <b>cumulative</b> &mdash; two of these five are about material from
+            Set 1.
+          </p>
+
+          <p>
+            Same drill as last time. <b>Set a timer for 9 minutes.</b> Work them
+            out on paper; do not run the code. Mark each answer <b>sure</b> or
+            <b>unsure</b>. Guess rather than leave a blank &mdash; the AP exam
+            has no penalty for a wrong answer.
+          </p>
+
+          <p>
+            <b>One of these five is written in exam notation rather than
+            JavaScript, and one mixes the two deliberately.</b> That is not a
+            trick. The multiple-choice section is written in reference-sheet
+            notation, and Question 3 is where the two notations disagree most.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer. One asks you to select
+            <i>all</i> that apply.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does the following program display?</p>
+
+          <Code
+            code={Q1}
+            frame="code"
+            lang="txt"
+            title="Question 1 — exam notation"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>Pass</code></li>
+            <li>(B) <code>Fail</code></li>
+            <li>(C) <code>Pass Done</code></li>
+            <li>(D) <code>Fail Done</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>What does the following code display?</p>
+
+          <Code
+            code={Q2}
+            frame="code"
+            lang="javascript"
+            title="Question 2"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>Warm</code> then <code>Reading complete</code></li>
+            <li>(B) <code>Cold</code> then <code>Reading complete</code></li>
+            <li>(C) <code>Cold</code> only</li>
+            <li>(D) <code>Warm</code> and <code>Cold</code> and <code>Reading complete</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>What does the following program display?</p>
+
+          <Code
+            code={Q3}
+            frame="code"
+            lang="txt"
+            title="Question 3 — exam notation"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) <code>5</code></li>
+            <li>(B) <code>true</code></li>
+            <li>(C) <code>false</code></li>
+            <li>(D) Nothing. The program has an error.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4 &mdash; Select all that apply</h3>
+
+          <p>
+            A variable <code>age</code> holds the number <code>16</code>. Which
+            of the following expressions evaluate to <code>true</code>?
+          </p>
+
+          <ul>
+            <li>(A) <code>age &gt;= 16</code></li>
+            <li>(B) <code>age !== 16</code></li>
+            <li>(C) <code>age &lt; 18</code></li>
+            <li>(D) <code>age === "16"</code></li>
+            <li>(E) <code>age &gt; 15</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            A student writes the following JavaScript and is surprised by what
+            happens. What is wrong with it?
+          </p>
+
+          <Code
+            code={Q5}
+            frame="code"
+            lang="javascript"
+            title="Question 5"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>(A) Nothing. It correctly displays nothing, because 3 is not 5.</li>
+            <li>
+              (B) The condition assigns 5 to <code>count</code> instead of
+              comparing, so the branch runs.
+            </li>
+            <li>(C) <code>count</code> should have been declared with <code>const</code>.</li>
+            <li>(D) The <code>if</code> is missing an <code>else</code>.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off.
+          </p>
+
+          <p>
+            <b>The sure-but-wrong answers are the most useful thing in this
+            submission.</b> An unsure-and-wrong answer means you knew to slow
+            down. A sure-and-wrong answer means something you believe is not
+            true, and that is what a question set is for.
+          </p>
+
+          <p>
+            Worth <b>2 points</b>, graded on completion.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
