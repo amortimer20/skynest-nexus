@@ -30,6 +30,24 @@ list[smallest] = temp;`;
 const Figure4 = `list[i] = list[smallest];
 list[smallest] = list[i];   // both are now the same value`;
 
+const Figure5 = `n         binary    linear    sort
+8         4         8         28
+16        5         16        120
+32        6         32        496
+1000000   20        1000000   499999500000`;
+
+const Figure6 = `Double the list.
+
+  binary search    one more step
+  linear search    twice the steps
+  selection sort   about four times the steps`;
+
+const Figure7 = `n     doubling
+8     256
+16    65536
+32    4294967296
+64    18446744073709551616`;
+
 const Task1 = `let scores = [42, 17, 93, 8, 55, 31];
 
 function selectionSort(list) {
@@ -58,27 +76,60 @@ function selectionSort(list) {
 }
 
 selectionSort(scores);
-`;
-
-const Task2 = `// Add this below the first call.
 
 console.log("");
 console.log("--- a list that is already sorted ---");
 selectionSort([8, 17, 31, 42, 55, 93]);
 `;
 
-const Task3 = `let names = ["Ines", "Ravi", "Nadia", "Owen", "Priya"];
-let scores = [72, 95, 88, 61, 79];
+const Task2 = `function halvings(n) {
+  let steps = 0;
+  let left = n;
 
-// Sort these into a leaderboard: highest score first.
+  while (left > 0) {
+    steps = steps + 1;
+    left = Math.floor(left / 2);
+  }
+
+  return steps;
+}
+
+function pairs(n) {
+  return (n * (n - 1)) / 2;
+}
+
+function doubling(n) {
+  let total = 1;
+
+  for (let i = 0; i < n; i++) {
+    total = total * 2;
+  }
+
+  return total;
+}
+
+let sizes = [8, 16, 32, 64];
+
+console.log("n\\tbinary\\tlinear\\tsort\\tdoubling");
+
+for (let i = 0; i < sizes.length; i++) {
+  let n = sizes[i];
+  console.log(n + "\\t" + halvings(n) + "\\t" + n + "\\t" + pairs(n) + "\\t" + doubling(n));
+}
+`;
+
+const Task3 = `// A computer does one billion steps per second.
 //
-// The two lists have to stay lined up. If Ravi's 95 moves to the
-//   front, "Ravi" has to move with it.
+// For each of these, work out roughly how long the job takes
+//   and write the answer in a comment:
 //
-// Print the finished leaderboard as numbered lines.
+//   1. Linear search through 1 billion records.
+//   2. Binary search through 1 billion sorted records.
+//   3. Selection sort on 1 million records.
+//   4. A doubling algorithm on an input of 64.
 //
-// Then answer in a comment: what breaks if you sort scores
-//   and forget to move names?
+// One of these four does not finish in your lifetime.
+//   Say which, and by how much you missed.
 `;
 
 const ExampleOutput = `After pass 1: 8,17,93,42,55,31
@@ -86,7 +137,21 @@ After pass 2: 8,17,93,42,55,31
 After pass 3: 8,17,31,42,55,93
 After pass 4: 8,17,31,42,55,93
 After pass 5: 8,17,31,42,55,93
+Comparisons: 15
+
+--- a list that is already sorted ---
+After pass 1: 8,17,31,42,55,93
+After pass 2: 8,17,31,42,55,93
+After pass 3: 8,17,31,42,55,93
+After pass 4: 8,17,31,42,55,93
+After pass 5: 8,17,31,42,55,93
 Comparisons: 15`;
+
+const TableOutput = `n	binary	linear	sort	doubling
+8	4	8	28	256
+16	5	16	120	65536
+32	6	32	496	4294967296
+64	7	64	2016	18446744073709552000`;
 
 const NotationJs = `let temp = list[i];
 list[i] = list[smallest];
@@ -95,6 +160,18 @@ list[smallest] = temp;`;
 const NotationPseudo = `temp ← aList[i]
 aList[i] ← aList[smallest]
 aList[smallest] ← temp`;
+
+const NotationCount = `i ← 1
+REPEAT UNTIL(i > n)
+{
+  j ← 1
+  REPEAT UNTIL(j > n)
+  {
+    <one step>
+    j ← j + 1
+  }
+  i ← i + 1
+}`;
 //#endregion
 ---
 
@@ -106,7 +183,7 @@ aList[smallest] ← temp`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 2.12: Sorting and Comparing Algorithms</h1>
+        <h1>Activity 2.12: Sorting and Algorithmic Efficiency</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -114,27 +191,34 @@ aList[smallest] ← temp`;
           <Presentation>
             <section>
               <h2>Activity 2.12</h2>
-              <h3 class="text-sn-theme">Sorting and Comparing Algorithms</h3>
+              <h3 class="text-sn-theme">Sorting and Algorithmic Efficiency</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Selection Sort</p>
-              <p>Swapping Without Losing a Value</p>
-              <p>Work That Does Not Depend on Luck</p>
+              <p>Sorting as a Cost</p>
+              <p>What Happens When the Input Grows</p>
+              <p>Reasonable and Unreasonable Time</p>
             </section>
 
             <section>
               <h2>Why Bother Sorting</h2>
               <p>Last session: binary search needs a sorted list.</p>
               <p class="fragment">So somebody has to sort it.</p>
-              <p class="fragment">That somebody is you, today.</p>
+              <p class="fragment">And that costs something. Today is about what.</p>
             </section>
 
             <section>
-              <h2>How You Would Do It by Hand</h2>
+              <h2>Watch Three of Them Run</h2>
+              <p>Same list. Same finished order.</p>
+              <p class="fragment">Completely different behavior on the way there.</p>
+              <p class="fragment">And a different amount of work.</p>
+            </section>
+
+            <section>
+              <h2>One of Them, in Code</h2>
+              <p>Find the smallest. Move it to the front. Repeat on the rest.</p>
               <Code code={Figure1} frame="code" lang="txt" title="Selection Sort" showLineNumbers={false} />
-              <p class="fragment">Find the smallest. Move it to the front. Repeat on the rest.</p>
             </section>
 
             <section>
@@ -145,27 +229,15 @@ aList[smallest] ← temp`;
             </section>
 
             <section>
-              <h2>A Loop Inside a Loop</h2>
-              <p>Outer loop: which position are we filling?</p>
-              <p class="fragment">Inner loop: what is the smallest thing left?</p>
-              <p class="fragment">You met this shape at 1.21. Now it is doing something.</p>
-            </section>
-
-            <section>
-              <h2>The Swap</h2>
+              <h2>The Swap Needs Three Lines</h2>
               <Code code={Figure3} frame="code" lang="javascript" title="Three Lines, Not Two" showLineNumbers={false} />
-              <p class="fragment">Why three?</p>
-            </section>
-
-            <section>
-              <h2>Because Two Loses One</h2>
-              <Code code={Figure4} frame="code" lang="javascript" title="The Broken Version" showLineNumbers={false} />
+              <Code code={Figure4} frame="code" lang="javascript" title="The Broken Version" showLineNumbers={false} class="fragment" />
               <p class="fragment">The first line overwrites the value the second line needs.</p>
-              <p class="fragment"><code>temp</code> exists to hold it for one line.</p>
+              <p class="fragment"><code>temp</code> exists to hold it for exactly one line.</p>
             </section>
 
             <section>
-              <h2>Watch What It Does Not Know</h2>
+              <h2>Now Watch What It Does Not Know</h2>
               <p>Some passes change nothing at all.</p>
               <p class="fragment">The list can be finished with three passes left to run.</p>
               <p class="fragment"><b>Selection sort has no way to notice.</b></p>
@@ -175,16 +247,66 @@ aList[smallest] ← temp`;
               <h2>Which Means</h2>
               <p>An already-sorted list costs exactly the same as a scrambled one.</p>
               <p class="fragment">15 comparisons either way, on six items.</p>
-              <p class="fragment">No best case. That is unusual, and it is worth knowing.</p>
+              <p class="fragment"><b>No best case.</b> Contrast that with linear search, which got faster when it got lucky.</p>
+            </section>
+
+            <section>
+              <h2>That Number Is the Real Subject</h2>
+              <p>We have been counting comparisons for three sessions.</p>
+              <p class="fragment">Not seconds &mdash; a fast computer makes a bad algorithm look fine until the input grows.</p>
+              <p class="fragment"><b>Steps as the input grows</b> is the measurement.</p>
+            </section>
+
+            <section>
+              <h2>Everything You Have Written This Unit</h2>
+              <Code code={Figure5} frame="code" lang="txt" title="Steps for a List of n" showLineNumbers={false} />
+              <p class="fragment">Look at the bottom row.</p>
+            </section>
+
+            <section>
+              <h2>The Shape Matters, Not the Number</h2>
+              <Code code={Figure6} frame="code" lang="txt" title="Double the Input" showLineNumbers={false} />
+              <p class="fragment">One more step. Twice. Four times.</p>
+              <p class="fragment">Those three answers are the whole subject.</p>
+            </section>
+
+            <section>
+              <h2>Where the Shapes Come From</h2>
+              <p><b>Halving</b> the problem each pass &rarr; one more step per doubling.</p>
+              <p class="fragment"><b>One loop</b> over the list &rarr; steps grow with <code>n</code>.</p>
+              <p class="fragment"><b>A loop inside a loop</b> &rarr; steps grow with <code>n</code> squared. That is the sort.</p>
+            </section>
+
+            <section>
+              <h2>Then There Is This</h2>
+              <Code code={Figure7} frame="code" lang="txt" title="Doubling" showLineNumbers={false} />
+              <p class="fragment">Every <code>+1</code> to the input <b>doubles</b> the work.</p>
+              <p class="fragment">At n = 64, a billion steps a second takes <b>585 years</b>.</p>
+            </section>
+
+            <section>
+              <h2>Two Categories</h2>
+              <p><b>Reasonable time:</b> <b>polynomial or lower</b> &mdash; constant, halving, linear, square, cube.</p>
+              <p class="fragment"><b>Unreasonable time:</b> <b>exponential</b> or <b>factorial</b>.</p>
+              <p class="fragment">Binary search is on the reasonable side, and it is faster than linear. <i>Or lower</i> is doing real work in that sentence.</p>
+            </section>
+
+            <section>
+              <h2>Read That Boundary Carefully</h2>
+              <p><code>n</code> cubed on a million items is a very long time. It is still called reasonable.</p>
+              <p class="fragment">Reasonable: buy a machine 1000&times; faster, solve a much bigger problem.</p>
+              <p class="fragment">Unreasonable: buy a machine 1000&times; faster, and handle about <b>ten more items</b>.</p>
+              <p class="fragment">The line is not about being fast. It is about whether hardware can ever rescue you.</p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Describing selection sort as repeatedly finding the smallest</li>
-                <li>Explaining why a swap needs three assignments</li>
-                <li>Counting the comparisons a sort performs</li>
-                <li>Showing that selection sort does the same work on any input</li>
+                <li>Describing selection sort, and why a swap needs three assignments</li>
+                <li>Measuring an algorithm by counting how many times a statement executes</li>
+                <li>Showing that two correct algorithms for one problem can cost differently</li>
+                <li>Distinguishing reasonable from unreasonable running time</li>
+                <li>Explaining why a faster computer does not fix an unreasonable algorithm</li>
               </ul>
             </section>
 
@@ -195,9 +317,13 @@ aList[smallest] ← temp`;
                   <dt>Selection sort</dt>
                   <dd>Repeatedly select the smallest remaining item and place it next.</dd>
                   <dt>Swap</dt>
-                  <dd>Exchange two values, using a third variable to avoid losing one.</dd>
-                  <dt>Pass</dt>
-                  <dd>One full trip of the outer loop.</dd>
+                  <dd>Exchange two values, using a third variable so neither is lost.</dd>
+                  <dt>Efficiency</dt>
+                  <dd>An estimate of the computational resources an algorithm uses, as a function of the size of the input.</dd>
+                  <dt>Reasonable time</dt>
+                  <dd>Polynomial efficiency or lower &mdash; constant, halving, linear, square, cube.</dd>
+                  <dt>Unreasonable time</dt>
+                  <dd>Exponential or factorial efficiency.</dd>
                 </dl>
               </div>
             </section>
@@ -212,50 +338,59 @@ aList[smallest] ← temp`;
 
           <p>
             Create a new <b>JavaScript program</b> named{" "}
-            <b class="text-sn-theme">2-12-sort</b>.
+            <b class="text-sn-theme">2-12-efficiency</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Sort It</h3>
+          <h3>Task 1: What a Sort Costs</h3>
           <ul>
             <li>Write the code below and run it.</li>
             <li>
-              <b>Two of the five passes change nothing.</b> Find them, and say in
-              a comment why the list did not move on those passes.
+              <b>Two of the five passes on the scrambled list change nothing.</b>{" "}
+              Find them, and say in a comment why the list did not move.
+            </li>
+            <li>
+              <b>Then compare the two comparison counts.</b> Record both. Linear
+              search got faster when it got lucky &mdash; say why this sort does
+              not.
             </li>
           </ul>
-          <Code code={Task1} frame="code" lang="javascript" title="Selection Sort" class="mt-3" />
+          <Code code={Task1} frame="code" lang="javascript" title="Sorting" class="mt-3" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Sort Something Already Sorted</h3>
+          <h3>Task 2: From One Sort to Every Algorithm</h3>
           <ul>
-            <li>Add the extra call and run it again.</li>
+            <li>Start a new file and write the code below.</li>
             <li>
-              <b>Compare the two comparison counts.</b> Record both in a comment.
+              Look down each column as <code>n</code> doubles.{" "}
+              <b>Write in a comment what happens to each one</b>, in words rather
+              than numbers.
             </li>
             <li>
-              Then answer: linear search got faster when it got lucky. Why does
-              this sort not?
+              The <code>sort</code> column and the <code>doubling</code> column
+              both look big at n = 8. Say which you would rather be stuck with at
+              n = 1000, and why the answer is obvious once you look at n = 64.
             </li>
           </ul>
-          <Code code={Task2} frame="code" lang="javascript" title="Selection Sort" class="mt-3" />
+          <Code code={Task2} frame="code" lang="javascript" title="Efficiency" class="mt-3" />
 
           <hr class="my-4" />
 
-          <h3>Task 3: A Leaderboard</h3>
+          <h3>Task 3: Put a Time on It</h3>
           <ul>
             <li>Fill in the comment block.</li>
           </ul>
-          <Code code={Task3} frame="code" lang="javascript" title="Selection Sort" class="mt-3" />
+          <Code code={Task3} frame="code" lang="javascript" title="Efficiency" class="mt-3" />
 
           <h5 class="mt-4">Challenge (optional)</h5>
           <ul>
             <li>
-              Add a check that skips the swap when <code>smallest</code> is
-              already <code>i</code>. Count how many swaps that saves on the Task 1
-              list. Then explain why the <b>comparison</b> count did not budge.
+              Print <code>doubling(64)</code> and compare its last few digits
+              against the value on the slide. <b>They do not match.</b> Explain
+              what happened, using what you know from Activity 1.2 about how many
+              bits a number gets.
             </li>
           </ul>
         </section>
@@ -294,9 +429,10 @@ aList[smallest] ← temp`;
             read it.
           </p>
 
+          <h3 class="mt-5">But one thing does not line up at all</h3>
+
           <p>
-            <b>One difference that matters more here than usual.</b> On the
-            reference sheet, <code>aList ← bList</code> assigns a{" "}
+            On the reference sheet, <code>aList ← bList</code> assigns a{" "}
             <b>copy</b> of the list. In JavaScript it does not &mdash; it makes a
             second name for the same list, and sorting through one name changes
             what you see through the other.
@@ -307,6 +443,45 @@ aList[smallest] ← temp`;
             expect the original to be untouched. <b>The same question in
             JavaScript would have a different answer.</b> This is the single
             biggest mismatch between the two notations in the whole course.
+          </p>
+
+          <h3 class="mt-5">Counting steps in notation</h3>
+
+          <Code
+            code={NotationCount}
+            frame="code"
+            lang="txt"
+            title="A Loop Inside a Loop"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Counting steps is an exam skill, and it usually arrives as a
+            nested loop like this one.</b> The question is almost always the same:
+            how many times does the inner statement run?
+          </p>
+
+          <ul>
+            <li>
+              <b>Read the bounds, not the shape.</b> Two nested loops that each
+              run <code>n</code> times give <code>n</code> squared steps. Two
+              nested loops where the inner one runs 3 times give <code>3n</code>{" "}
+              &mdash; which grows like <code>n</code>, not like <code>n</code>{" "}
+              squared.
+            </li>
+            <li>
+              <b><code>REPEAT n TIMES</code> gives you no counter.</b> When you
+              need the index you keep it yourself, which is why the notation is
+              longer than the JavaScript.
+            </li>
+          </ul>
+
+          <p>
+            <b>And one thing you will not be asked for.</b> There is a formal
+            notation for describing efficiency, and it is explicitly out of scope
+            for this course and this exam. <i>Twice the input, four times the
+            work</i> is the level of answer the exam wants.
           </p>
         </section>
 
@@ -323,12 +498,23 @@ aList[smallest] ← temp`;
             frame="terminal"
             lang="txt"
             showLineNumbers={false}
-            title="Example Output"
+            title="Task 1 Output"
+          />
+
+          <p class="mt-4">And Task 2 this.</p>
+
+          <Code
+            code={TableOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Task 2 Output"
           />
 
           <p class="mt-3">
-            Your leaderboard in Task 3 will look different, but Ravi must be
-            first and Owen must be last.
+            The columns are separated by tabs, so they may line up differently
+            depending on your screen. <b>The last number is worth a second
+            look</b> &mdash; see the optional challenge.
           </p>
         </section>
 
@@ -343,7 +529,8 @@ aList[smallest] ← temp`;
           <ol>
             <li>Sorting six items took 15 comparisons. Binary search on six items takes about three. When is it worth paying the 15?</li>
             <li>Selection sort cannot tell that it has finished early. Describe, in words, what you would have to add so it could.</li>
-            <li>In Task 3 the names had to move with the scores. What does that tell you about the risk of keeping related data in two separate lists?</li>
+            <li>An algorithm taking <code>n</code> cubed steps is called reasonable, and one that doubles is called unreasonable. Why is the line drawn between those two rather than somewhere else?</li>
+            <li>Your computer gets a thousand times faster overnight. Which of the four columns benefits least, and why?</li>
           </ol>
         </section>
 

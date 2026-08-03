@@ -5,108 +5,124 @@ import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `n         binary    linear    sort
-8         4         8         28
-16        5         16        120
-32        6         32        496
-1000000   20        1000000   499999500000`;
+const Figure1 = `stops     routes to check
+5         24
+10        362880
+15        87178291200
+20        121645100408832000`;
 
-const Figure2 = `Double the list.
+const Figure2 = `Depot -> Chen    2 blocks     nearest
+Chen  -> Alvarez 6 blocks     nearest of what is left
+Alvarez -> Boyd  4 blocks
+Boyd  -> Emeka   4 blocks
+Emeka -> Diaz    12 blocks    the only one left
+Diaz  -> Depot   8 blocks     the trip home
 
-  binary search    one more step
-  linear search    twice the steps
-  selection sort   about four times the steps`;
+Total: 36 blocks`;
 
-const Figure3 = `n     doubling
-8     256
-16    65536
-32    4294967296
-64    18446744073709551616`;
+const Figure3 = `Best possible route: 24 blocks
 
-const Task1 = `function halvings(n) {
-  let steps = 0;
-  let left = n;
+The heuristic gave 36.
+Fifty percent worse, found instantly.`;
 
-  while (left > 0) {
-    steps = steps + 1;
-    left = Math.floor(left / 2);
-  }
+const Figure4 = `function willItStop(program) {
+  // return true if program eventually halts
+  // return false if it runs forever
+}`;
 
-  return steps;
-}
-
-function pairs(n) {
-  return (n * (n - 1)) / 2;
-}
-
-let sizes = [8, 16, 32, 64];
-
-console.log("n\\tbinary\\tlinear\\tsort");
-
-for (let i = 0; i < sizes.length; i++) {
-  let n = sizes[i];
-  console.log(n + "\\t" + halvings(n) + "\\t" + n + "\\t" + pairs(n));
-}
-`;
-
-const Task2 = `// Add this procedure and this extra column.
-
-function doubling(n) {
+const Task1 = `function routeCount(stops) {
   let total = 1;
 
-  for (let i = 0; i < n; i++) {
-    total = total * 2;
+  for (let i = 1; i < stops; i++) {
+    total = total * i;
   }
 
   return total;
 }
 
-console.log("");
-console.log("n\\tdoubling");
+let sizes = [5, 10, 15, 20];
 
 for (let i = 0; i < sizes.length; i++) {
   let n = sizes[i];
-  console.log(n + "\\t" + doubling(n));
+  console.log(n + " stops: " + routeCount(n) + " routes");
 }
 `;
 
-const Task3 = `// A computer does one billion steps per second.
-//
-// For each of these, work out roughly how long the job takes
-//   and write the answer in a comment:
-//
-//   1. Linear search through 1 billion records.
-//   2. Binary search through 1 billion sorted records.
-//   3. Selection sort on 1 million records.
-//   4. A doubling algorithm on an input of 64.
-//
-// One of these four does not finish in your lifetime.
-//   Say which, and by how much you missed.
+const Task2 = `let names = ["Depot", "Alvarez", "Boyd", "Chen", "Diaz", "Emeka"];
+let xs = [0, 2, 4, 0, 0, 4];
+let ys = [0, 6, 4, 2, 8, 0];
+
+function distance(a, b) {
+  let dx = xs[a] - xs[b];
+  let dy = ys[a] - ys[b];
+
+  if (dx < 0) {
+    dx = -dx;
+  }
+
+  if (dy < 0) {
+    dy = -dy;
+  }
+
+  return dx + dy;
+}
+
+function nearestRoute() {
+  let visited = [0];
+  let current = 0;
+  let total = 0;
+
+  while (visited.length < names.length) {
+    let best = -1;
+    let bestDistance = 0;
+
+    for (let i = 0; i < names.length; i++) {
+      if (visited.indexOf(i) === -1) {
+        let d = distance(current, i);
+
+        if (best === -1 || d < bestDistance) {
+          best = i;
+          bestDistance = d;
+        }
+      }
+    }
+
+    visited.push(best);
+    total = total + bestDistance;
+    console.log("  go to " + names[best] + " (" + bestDistance + " blocks)");
+    current = best;
+  }
+
+  total = total + distance(current, 0);
+  console.log("  back to Depot (" + distance(current, 0) + " blocks)");
+  console.log("Total: " + total + " blocks");
+  return total;
+}
+
+nearestRoute();
 `;
 
-const ExampleOutput = `n	binary	linear	sort
-8	4	8	28
-16	5	16	120
-32	6	32	496
-64	7	64	2016`;
+const Task3 = `// The best possible route for these six stops is 24 blocks.
+// Your heuristic found 36.
+//
+// 1. Look at the printed route. Find the single leg that went wrong,
+//    and say in a comment why the heuristic walked into it.
+//
+// 2. The rule was "always go to the nearest unvisited stop."
+//    Write a different rule in a comment. It does not have to be
+//    better -- it has to be a rule a computer could follow.
+//
+// 3. Answer: could you check all 120 routes for six stops by hand?
+//    Could you check all of them for twenty stops? What changed?
+`;
 
-const NotationJs = `for (let i = 0; i < n; i++) {
-  for (let j = 0; j < n; j++) {
-    // one step
-  }
-}`;
-
-const NotationPseudo = `i ← 1
-REPEAT UNTIL(i > n)
-{
-  j ← 1
-  REPEAT UNTIL(j > n)
-  {
-    <one step>
-    j ← j + 1
-  }
-  i ← i + 1
-}`;
+const ExampleOutput = `  go to Chen (2 blocks)
+  go to Alvarez (6 blocks)
+  go to Boyd (4 blocks)
+  go to Emeka (4 blocks)
+  go to Diaz (12 blocks)
+  back to Depot (8 blocks)
+Total: 36 blocks`;
 //#endregion
 ---
 
@@ -118,7 +134,7 @@ REPEAT UNTIL(i > n)
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 2.13: Algorithmic Efficiency</h1>
+        <h1>Activity 2.13: Problems, Heuristics, and Undecidability</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -126,21 +142,14 @@ REPEAT UNTIL(i > n)
           <Presentation>
             <section>
               <h2>Activity 2.13</h2>
-              <h3 class="text-sn-theme">Algorithmic Efficiency</h3>
+              <h3 class="text-sn-theme">Problems, Heuristics, and Undecidability</h3>
             </section>
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Problems and Instances</p>
-              <p>What Happens When the Input Grows</p>
-              <p>Reasonable and Unreasonable Time</p>
-            </section>
-
-            <section>
-              <h2>Why Not Just Time It</h2>
-              <p>A fast computer makes a bad algorithm look fine.</p>
-              <p class="fragment">Until the input gets bigger.</p>
-              <p class="fragment">So we count <b>steps as the input grows</b>, not seconds.</p>
+              <p>Optimization Problems Too Big to Solve Exactly</p>
+              <p>Heuristics</p>
+              <p>Decidable and Undecidable</p>
             </section>
 
             <section>
@@ -148,64 +157,113 @@ REPEAT UNTIL(i > n)
               <p>A <b>problem</b> is a general description of a task.</p>
               <p class="fragment">An <b>instance</b> of it includes specific input.</p>
               <p class="fragment"><i>Sorting</i> is a problem. <i>Sorting [2, 3, 1, 7]</i> is an instance.</p>
-              <p class="fragment">Efficiency is about the problem, not one instance.</p>
+              <p class="fragment">Keep both words. They come back at the end of the session.</p>
             </section>
 
             <section>
-              <h2>And Two Kinds of Problem</h2>
+              <h2>A Delivery Van</h2>
+              <p>Six stops. Visit them all, come back to the depot.</p>
+              <p class="fragment">What is the shortest route?</p>
+              <p class="fragment">Yesterday's word for that: an <b>optimization problem</b>. Best among many.</p>
+              <p class="fragment">Easy to state. Try every order and pick the best.</p>
+            </section>
+
+            <section>
+              <h2>Two Kinds of Problem</h2>
               <p>A <b>decision problem</b> has a yes-or-no answer.</p>
-              <p class="fragment"><i>Is there a path from A to B?</i></p>
-              <p class="fragment">An <b>optimization problem</b> looks for the best answer among many.</p>
-              <p class="fragment"><i>What is the shortest path from A to B?</i></p>
-              <p class="fragment">Both come back tomorrow, and it matters which is which.</p>
+              <p class="fragment"><i>Is there a route under 30 blocks?</i></p>
+              <p class="fragment">An <b>optimization problem</b> looks for the best among many.</p>
+              <p class="fragment"><i>What is the shortest route?</i> &mdash; which is the one we just asked.</p>
             </section>
 
             <section>
-              <h2>Everything You Have Written This Unit</h2>
-              <Code code={Figure1} frame="code" lang="txt" title="Steps for a List of n" showLineNumbers={false} />
-              <p class="fragment">Look at the bottom row.</p>
+              <h2>How Many Orders</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Every Possible Route" showLineNumbers={false} />
+              <p class="fragment">At a million routes a second, twenty stops takes <b>3,857 years</b>.</p>
             </section>
 
             <section>
-              <h2>The Shape Matters, Not the Number</h2>
-              <Code code={Figure2} frame="code" lang="txt" title="Double the Input" showLineNumbers={false} />
-              <p class="fragment">One more step. Twice. Four times.</p>
-              <p class="fragment">Those three answers are the whole subject.</p>
+              <h2>This Is Not a Slow Computer Problem</h2>
+              <p>Routes grow by <b>factorial</b>, which is unreasonable time.</p>
+              <p class="fragment">Twenty-one stops is twenty times worse than twenty.</p>
+              <p class="fragment">No machine you can buy changes that.</p>
             </section>
 
             <section>
-              <h2>Where the Shapes Come From</h2>
-              <p><b>Halving</b> the problem each pass &rarr; one more step per doubling.</p>
-              <p class="fragment"><b>One loop</b> over the list &rarr; steps grow with <code>n</code>.</p>
-              <p class="fragment"><b>A loop inside a loop</b> &rarr; steps grow with <code>n</code> squared.</p>
+              <h2>So Stop Insisting on the Best</h2>
+              <p>A <b>heuristic</b> produces a solution that is <b>not guaranteed to be optimal</b>,</p>
+              <p class="fragment">used when guaranteeing the optimal one is impractical.</p>
+              <p class="fragment">Note the word <i>impractical</i>. Not impossible.</p>
             </section>
 
             <section>
-              <h2>Then There Is This</h2>
-              <Code code={Figure3} frame="code" lang="txt" title="Doubling" showLineNumbers={false} />
-              <p class="fragment">Every <code>+1</code> to the input <b>doubles</b> the work.</p>
-              <p class="fragment">At n = 64, a billion steps a second takes <b>585 years</b>.</p>
+              <h2>A Very Simple Rule</h2>
+              <p>Always drive to the nearest stop you have not visited yet.</p>
+              <Code code={Figure2} frame="code" lang="txt" title="Nearest First" showLineNumbers={false} />
+              <p class="fragment">Six decisions instead of 120 routes.</p>
             </section>
 
             <section>
-              <h2>Two Categories</h2>
-              <p><b>Reasonable time:</b> <b>polynomial or lower</b> &mdash; constant, halving, linear, square, cube.</p>
-              <p class="fragment"><b>Unreasonable time:</b> <b>exponential</b> or <b>factorial</b>.</p>
-              <p class="fragment">Binary search is on the reasonable side, and it is faster than linear. <i>Or lower</i> is doing real work in that sentence.</p>
+              <h2>And How Good Was It</h2>
+              <Code code={Figure3} frame="code" lang="txt" title="The Cost of Being Fast" showLineNumbers={false} />
+              <p class="fragment">Every single step took the closest option.</p>
+              <p class="fragment">And it still stranded Diaz out at the far edge.</p>
             </section>
 
             <section>
-              <h2>Read That Boundary Carefully</h2>
-              <p><code>n</code> cubed on a million items is a very long time.</p>
-              <p class="fragment">It is still called reasonable.</p>
-              <p class="fragment">The line is not about being fast. It is about whether a bigger computer can ever save you.</p>
+              <h2>That Is What a Heuristic Is</h2>
+              <p>Greedy at every step, not clever about the end.</p>
+              <p class="fragment">You trade a guarantee for an answer you can actually get.</p>
+              <p class="fragment">Routing apps, seating charts, packing trucks &mdash; all heuristics.</p>
             </section>
 
             <section>
-              <h2>Why That Line Is Drawn There</h2>
-              <p>Reasonable: buy a machine 1000&times; faster, solve a much bigger problem.</p>
-              <p class="fragment">Unreasonable: buy a machine 1000&times; faster, and handle about <b>ten more items</b>.</p>
-              <p class="fragment">That is the difference. Hardware cannot rescue you.</p>
+              <h2>Start With the Easy Half</h2>
+              <p>A <b>decidable problem</b> is a decision problem you can always answer with an algorithm.</p>
+              <p class="fragment"><i>Is this number even?</i> Correct output, every input, always.</p>
+              <p class="fragment">Almost everything you have written this year is one.</p>
+            </section>
+
+            <section>
+              <h2>Write Me This Procedure</h2>
+              <Code code={Figure4} frame="code" lang="javascript" title="Does It Stop?" showLineNumbers={false} />
+              <p class="fragment">Given any program, does it eventually finish, or run forever?</p>
+              <p class="fragment">Yes or no. <b>That is a decision problem too.</b></p>
+              <p class="fragment">Useful. Every programmer would want it.</p>
+            </section>
+
+            <section>
+              <h2>It Cannot Be Written</h2>
+              <p>Not "nobody has managed yet."</p>
+              <p class="fragment"><b>Proved impossible in 1936, by Alan Turing.</b></p>
+              <p class="fragment">This is the <b>halting problem</b>.</p>
+            </section>
+
+            <section>
+              <h2>Undecidable</h2>
+              <p>A problem is <b>undecidable</b> if <b>no algorithm can be constructed that is always capable of providing a correct yes-or-no answer.</b></p>
+              <p class="fragment">Not slow. Not unsolved. <b>Impossible.</b></p>
+            </section>
+
+            <section>
+              <h2>Read <i>Always</i> Carefully</h2>
+              <p>An undecidable problem can still have <b>instances</b> you can solve.</p>
+              <p class="fragment">Some programs obviously stop. Some obviously do not.</p>
+              <p class="fragment">What cannot exist is one algorithm that handles <b>every</b> instance.</p>
+            </section>
+
+            <section>
+              <h2>Three Different Walls</h2>
+              <p><b>Reasonable time:</b> polynomial or lower. Just write it.</p>
+              <p class="fragment"><b>Unreasonable time:</b> exponential or factorial. Solvable, not at real sizes. Use a heuristic.</p>
+              <p class="fragment"><b>Undecidable:</b> no algorithm exists. Some instances, never all.</p>
+            </section>
+
+            <section>
+              <h2>Do Not Merge the Last Two</h2>
+              <p>A heuristic helps with an <b>unreasonable</b> problem.</p>
+              <p class="fragment">It does <b>nothing whatsoever</b> for an undecidable one.</p>
+              <p class="fragment">Different walls, and the exam tests whether you know that.</p>
             </section>
 
             <section>
@@ -213,9 +271,11 @@ REPEAT UNTIL(i > n)
               <ul>
                 <li>Telling a problem apart from an instance of it</li>
                 <li>Telling a decision problem apart from an optimization problem</li>
-                <li>Measuring an algorithm by counting how many times a statement executes</li>
-                <li>Distinguishing reasonable from unreasonable running time</li>
-                <li>Explaining why a faster computer does not fix an unreasonable algorithm</li>
+                <li>Explaining why some solvable problems cannot be solved at real sizes</li>
+                <li>Identifying a situation where a heuristic is the appropriate choice</li>
+                <li>Telling a decidable problem apart from an undecidable one</li>
+                <li>Explaining why an undecidable problem can still have solvable instances</li>
+                <li>Telling the three walls apart, given a problem</li>
               </ul>
             </section>
 
@@ -229,12 +289,14 @@ REPEAT UNTIL(i > n)
                   <dd>One with a yes-or-no answer.</dd>
                   <dt>Optimization problem</dt>
                   <dd>One that looks for the best solution among many.</dd>
-                  <dt>Efficiency</dt>
-                  <dd>An estimate of the computational resources an algorithm uses, as a function of the size of the input.</dd>
-                  <dt>Reasonable time</dt>
-                  <dd>Polynomial efficiency or lower &mdash; constant, halving, linear, square, cube.</dd>
-                  <dt>Unreasonable time</dt>
-                  <dd>Exponential or factorial efficiency.</dd>
+                  <dt>Heuristic</dt>
+                  <dd>An approach producing a solution that is not guaranteed to be optimal, used when guaranteeing the optimal one is impractical.</dd>
+                  <dt>Decidable problem</dt>
+                  <dd>A decision problem an algorithm can answer correctly for all inputs.</dd>
+                  <dt>Undecidable problem</dt>
+                  <dd>One for which no algorithm can be constructed that always gives a correct yes-or-no answer.</dd>
+                  <dt>Halting problem</dt>
+                  <dd>Deciding whether an arbitrary program eventually stops. Undecidable.</dd>
                 </dl>
               </div>
             </section>
@@ -249,114 +311,54 @@ REPEAT UNTIL(i > n)
 
           <p>
             Create a new <b>JavaScript program</b> named{" "}
-            <b class="text-sn-theme">2-13-efficiency</b>.
+            <b class="text-sn-theme">2-13-routes</b>.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Task 1: Build the Table</h3>
+          <h3>Task 1: Count the Routes</h3>
           <ul>
             <li>Write the code below and run it.</li>
             <li>
-              Look down each column as <code>n</code> doubles.{" "}
-              <b>Write in a comment what happens to each one</b>, in words rather
-              than numbers.
+              <b>In a comment:</b> at a million routes per second, how long does
+              the twenty-stop case take? Show your arithmetic, not just the
+              answer.
             </li>
           </ul>
-          <Code code={Task1} frame="code" lang="javascript" title="Efficiency" class="mt-3" />
+          <Code code={Task1} frame="code" lang="javascript" title="Routes" class="mt-3" />
 
           <hr class="my-4" />
 
-          <h3>Task 2: Add the Fourth Shape</h3>
+          <h3>Task 2: Take the Nearest One</h3>
           <ul>
-            <li>Add the extra procedure and column, and run it again.</li>
+            <li>Write this into the same file, below Task 1, and run it.</li>
             <li>
-              <b>In a comment:</b> the sort column and the doubling column both
-              look big at n = 8. Say which one you would rather be stuck with at
-              n = 1000, and why the answer is obvious once you look at n = 64.
+              Follow the printed route on paper. Plot the six stops from{" "}
+              <code>xs</code> and <code>ys</code> on a grid and draw the path.
+            </li>
+            <li>
+              <b>Then mark the leg you would not have chosen.</b>
             </li>
           </ul>
-          <Code code={Task2} frame="code" lang="javascript" title="Efficiency" class="mt-3" />
+          <Code code={Task2} frame="code" lang="javascript" title="Routes" class="mt-3" />
 
           <hr class="my-4" />
 
-          <h3>Task 3: Put a Time on It</h3>
+          <h3>Task 3: Judge the Rule</h3>
           <ul>
             <li>Fill in the comment block.</li>
           </ul>
-          <Code code={Task3} frame="code" lang="javascript" title="Efficiency" class="mt-3" />
+          <Code code={Task3} frame="code" lang="javascript" title="Routes" class="mt-3" />
 
           <h5 class="mt-4">Challenge (optional)</h5>
           <ul>
             <li>
-              Print <code>doubling(64)</code> and compare the last few digits
-              against the value on the slide. <b>They do not match.</b> Explain
-              what happened, using what you know from Activity 1.2 about how many
-              bits a number gets.
+              Change <code>nearestRoute</code> so it can start anywhere, then run
+              it from all six starting points and report the best total it finds.
+              This is still a heuristic. Say what it now costs, and whether it
+              found the 24.
             </li>
           </ul>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
-
-        <!-- Exam Notation -->
-        <section id="exam-notation">
-          <h2>Same Idea, Exam Notation</h2>
-
-          <div class="row g-3 my-4">
-            <div class="col-md-6">
-              <Code
-                code={NotationJs}
-                frame="code"
-                lang="javascript"
-                title="JavaScript"
-                showLineNumbers={false}
-              />
-            </div>
-            <div class="col-md-6">
-              <Code
-                code={NotationPseudo}
-                frame="code"
-                lang="txt"
-                title="Exam Notation"
-                showLineNumbers={false}
-              />
-            </div>
-          </div>
-
-          <p>
-            <b>Counting steps is an exam skill, and it usually arrives as a
-            nested loop like this one.</b> The question is almost always the
-            same: how many times does the inner statement run?
-          </p>
-
-          <ul>
-            <li>
-              <b>Read the bounds, not the shape.</b> Two nested loops that each
-              run <code>n</code> times give <code>n</code> squared steps. Two
-              nested loops where the inner one runs 3 times give <code>3n</code>{" "}
-              &mdash; which grows like <code>n</code>, not like <code>n</code>{" "}
-              squared.
-            </li>
-            <li>
-              <b><code>REPEAT n TIMES</code> gives you no counter.</b> When you
-              need the index, you keep it yourself &mdash; which is why the
-              notation on the right is longer than the JavaScript on the left.
-            </li>
-          </ul>
-
-          <p>
-            The written-response section asks a version of this about your own
-            code: <b>state how many times the body of your first loop
-            executes.</b> Same skill, your program instead of theirs.
-          </p>
-
-          <p>
-            <b>And one thing you will not be asked for.</b> There is a formal
-            notation for describing efficiency, and it is explicitly out of scope
-            for this course and this exam. <i>Twice the input, four times the
-            work</i> is the level of answer the exam wants.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -365,7 +367,7 @@ REPEAT UNTIL(i > n)
         <section id="checkpoint">
           <h2>Checkpoint</h2>
 
-          <p>Task 1 should produce exactly this.</p>
+          <p>Task 2 should produce exactly this.</p>
 
           <Code
             code={ExampleOutput}
@@ -376,8 +378,9 @@ REPEAT UNTIL(i > n)
           />
 
           <p class="mt-3">
-            The columns are separated by tabs, so they may line up differently
-            depending on your screen. The numbers are what matter.
+            <b>36 is the right answer for this heuristic.</b> It is also the wrong
+            answer for the problem, and knowing the difference is the point of
+            the session.
           </p>
         </section>
 
@@ -390,9 +393,9 @@ REPEAT UNTIL(i > n)
           <p>Answer these before submitting your work.</p>
 
           <ol>
-            <li>An algorithm taking <code>n</code> cubed steps is called reasonable, and one that doubles is called unreasonable. In your own words, why is the line drawn between those two rather than somewhere else?</li>
-            <li>Your computer gets a thousand times faster overnight. Which of the four columns benefits least, and why?</li>
-            <li>Binary search beats linear search at every size in your table except the very smallest. Give a reason someone might still write the linear one.</li>
+            <li>The heuristic made the locally best choice six times in a row and finished 50% worse than the best route. Explain how both of those can be true at once.</li>
+            <li>Name something you use that almost certainly runs on a heuristic. Say what a guaranteed-best answer would have cost.</li>
+            <li>A slow problem and an undecidable problem both leave you without an answer. Why is it still worth having two different words for them? Use the word <b>instance</b> in your answer.</li>
           </ol>
         </section>
 
