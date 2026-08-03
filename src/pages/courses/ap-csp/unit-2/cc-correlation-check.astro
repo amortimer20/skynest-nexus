@@ -1,0 +1,93 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `Streaming went up every year and CD sales went down every year.
+Somebody wants to put "streaming killed the CD" in a
+presentation. Check the data and tell them whether they can
+say that.`;
+
+const SampleOutput = `streams vs cds move the same way in 0 of 4 changes
+streams vs cds move OPPOSITE in 4 of 4`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-7" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 7
+        </a>
+
+        <h1>Code Challenge: Correlation Check</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-7">Set 7</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Write a procedure that compares two lists year by year and counts how often they move the <b>same</b> way and how often they move <b>opposite</b>.</li>
+            <li>The answer here is a perfect opposite in every single year. <b>Do not stop there.</b></li>
+            <li><b>The deliverable is a written verdict, not a number.</b> Say what the data supports, what it does not, and what you would need to collect to settle it.</li>
+            <li>This one is more dangerous than the ice cream example at 2.18, because the plausible explanation might even be right. Say why that makes it harder, not easier.</li>
+            <li>Name at least one other thing that changed over those same years and could be driving both.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>Four out of four, and it still is not proof.</b> A correlation found in
+            data does not necessarily indicate a causal relationship &mdash; and that
+            holds even when the story sounds obviously true.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-correlation-check</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

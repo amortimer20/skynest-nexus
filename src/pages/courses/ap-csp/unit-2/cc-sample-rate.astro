@@ -1,0 +1,95 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `How often do we actually need to measure? Every reading costs
+storage and I do not want to pay for readings that tell me
+nothing new. Show me the trade.`;
+
+const SampleOutput = `  every 20: 3 samples, total error 1013.9
+  every 10: 5 samples, total error 915.9
+  every 5: 9 samples, total error 419.5
+  every 2: 21 samples, total error 102.4
+  every 1: 41 samples, total error 0.0`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-7" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 7
+        </a>
+
+        <h1>Code Challenge: Sample Rate</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-7">Set 7</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li><code>signal(t)</code> from Activity 2.16 is your stand-in for the real world. Do not change it &mdash; it represents something you do not control.</li>
+            <li>For each sample rate: count the samples, then <b>measure how wrong the reconstruction is</b>. Rebuild a value for every whole <code>t</code> from your samples and add up the gaps.</li>
+            <li>How you rebuild the missing values is your decision. Holding the last sample is the simplest; guessing between two is better. Say which you chose.</li>
+            <li><b>The output has to show the trade, not just two columns.</b> More samples, less error &mdash; the client wants to know where to stop.</li>
+            <li>In your requirements list: name the rate you would recommend and what you gave up to pick it.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>Look at the step from 20 to 10.</b> Nearly double the samples and the
+            error barely moves. Then 10 to 5 halves it. <b>The saving is not evenly
+            spread</b>, and finding where it pays off is the actual challenge.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-sample-rate</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

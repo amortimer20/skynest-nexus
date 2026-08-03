@@ -1,0 +1,100 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `Our sensor logger keeps recording nonsense and nobody notices
+until the report is wrong. I want it to refuse a value that
+will not fit, and say so, instead of quietly storing garbage.`;
+
+const SampleOutput = `  200 stored in 8 bits
+  255 stored in 8 bits
+  256 does not fit in 8 bits (max 255)
+  1000 does not fit in 8 bits (max 255)
+  -3 does not fit in 8 bits (max 255)
+with 16 bits:
+  200 stored in 16 bits
+  255 stored in 16 bits
+  256 stored in 16 bits
+  1000 stored in 16 bits
+  -3 does not fit in 16 bits (max 65535)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-7" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 7
+        </a>
+
+        <h1>Code Challenge: Overflow Guard</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-7">Set 7</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>The largest value <i>n</i> bits can hold is one less than 2 to the <i>n</i>. Calculate that; do not hardcode 255.</li>
+            <li>The bit width is a <b>parameter</b>. The same procedure has to work for 8 bits and 16.</li>
+            <li>Reject anything below zero as well. Say in your requirements list what you decided about negatives and why.</li>
+            <li><b>Return something the caller can test.</b> Printing a complaint is not enough if the caller then stores the value anyway.</li>
+            <li>This is 2.16's overflow, caught instead of suffered.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>Widening to 16 bits rescues three of the five and not the fourth.</b> A
+            negative reading is a different kind of wrong, and no number of bits fixes
+            it &mdash; that distinction belongs in your requirements list.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-overflow-guard</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

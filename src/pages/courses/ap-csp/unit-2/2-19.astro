@@ -1,0 +1,416 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `What people typed into the "city" box:
+
+  New York
+  new york
+  NY
+  N.Y.
+  New York City
+  new york city
+
+Six spellings. One city.`;
+
+const Figure2 = `age entries:   17  -4  16  999  18  0  17  15
+
+average of everything   134.8
+average of the sensible ones   16.6`;
+
+const Figure3 = `Survey of how students get to school.
+
+  Collected: from a form posted on the school website.
+
+  Missing: anyone without home internet.
+
+Collect ten times as many responses.
+  Still missing the same people.`;
+
+const Task1 = `let entries = ["New York", "new york", "NY", "New York", "n.y.", "Boston", "BOSTON", "boston"];
+
+let variants = ["new york", "ny", "n.y.", "new york city"];
+let standard = "New York";
+
+function clean(entry) {
+  let lower = entry.toLowerCase();
+
+  for (let i = 0; i < variants.length; i++) {
+    if (lower === variants[i]) {
+      return standard;
+    }
+  }
+
+  if (lower === "boston") {
+    return "Boston";
+  }
+
+  return entry;
+}
+
+let cleaned = [];
+
+for (let i = 0; i < entries.length; i++) {
+  let out = clean(entries[i]);
+  console.log(entries[i] + "  ->  " + out);
+  cleaned.push(out);
+}
+
+function countOf(list, target) {
+  let n = 0;
+
+  for (let i = 0; i < list.length; i++) {
+    if (list[i] === target) {
+      n = n + 1;
+    }
+  }
+
+  return n;
+}
+
+console.log("");
+console.log("Before cleaning, exact matches for 'New York': " + countOf(entries, "New York"));
+console.log("After cleaning,  exact matches for 'New York': " + countOf(cleaned, "New York"));
+`;
+
+const Task2 = `let ages = [17, -4, 16, 999, 18, 0, 17, 15];
+
+let kept = [];
+let dropped = 0;
+
+for (let i = 0; i < ages.length; i++) {
+  if (ages[i] >= 13 && ages[i] <= 19) {
+    kept.push(ages[i]);
+  } else {
+    console.log("  dropped " + ages[i]);
+    dropped = dropped + 1;
+  }
+}
+
+let total = 0;
+
+for (let i = 0; i < kept.length; i++) {
+  total = total + kept[i];
+}
+
+let allTotal = 0;
+
+for (let i = 0; i < ages.length; i++) {
+  allTotal = allTotal + ages[i];
+}
+
+console.log("");
+console.log("Kept " + kept.length + " of " + ages.length + ", dropped " + dropped);
+console.log("Average of what was kept: " + (total / kept.length).toFixed(1));
+console.log("Average if you had kept everything: " + (allTotal / ages.length).toFixed(1));
+`;
+
+const Task3 = `// A survey asks how students get to school. It was posted as a
+// form on the school website.
+//
+// 1. Write a list of at least four groups of students whose answers
+//    would be missing or under-counted, and say why for each.
+//
+// 2. Pick one of your groups. Describe what the survey would
+//    conclude about travel to school, and how that conclusion
+//    would be wrong.
+//
+// 3. The school runs the survey again and gets ten times as many
+//    responses. Explain, in a comment, why that does not fix the
+//    problem.
+//
+// 4. Describe one change to HOW the data is collected that would
+//    actually help. Not more data -- different collection.
+`;
+
+const ExampleOutput = `New York  ->  New York
+new york  ->  New York
+NY  ->  New York
+New York  ->  New York
+n.y.  ->  New York
+Boston  ->  Boston
+BOSTON  ->  Boston
+boston  ->  Boston
+
+Before cleaning, exact matches for 'New York': 2
+After cleaning,  exact matches for 'New York': 5`;
+
+const FilterOutput = `  dropped -4
+  dropped 999
+  dropped 0
+
+Kept 5 of 8, dropped 3
+Average of what was kept: 16.6
+Average if you had kept everything: 134.8`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.19: Cleaning, Bias, and Scale</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.19</h2>
+              <h3 class="text-sn-theme">Cleaning, Bias, and Scale</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Cleaning Without Changing Meaning</p>
+              <p>Bias Comes From Collection</p>
+              <p>When One Computer Is Not Enough</p>
+            </section>
+
+            <section>
+              <h2>Every Dataset Has Problems</h2>
+              <p>Regardless of size.</p>
+              <p class="fragment">Data that needs cleaning. Data that is incomplete. Data that is invalid.</p>
+              <p class="fragment">And sources that have to be combined before any of it means anything.</p>
+            </section>
+
+            <section>
+              <h2>Where the Mess Comes From</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="An Open Text Box" showLineNumbers={false} />
+              <p class="fragment">Nobody did anything wrong. They typed into an open field.</p>
+              <p class="fragment"><b>How people abbreviate, spell, and capitalize varies from person to person.</b></p>
+            </section>
+
+            <section>
+              <h2>Cleaning, Defined Carefully</h2>
+              <p><b>Making the data uniform without changing its meaning.</b></p>
+              <p class="fragment">Both halves matter. <code>NY</code> and <code>new york</code> become the same word.</p>
+              <p class="fragment">If you turned <code>Newark</code> into <code>New York</code>, that is not cleaning. That is damage.</p>
+            </section>
+
+            <section>
+              <h2>Then There Is Data That Is Just Wrong</h2>
+              <Code code={Figure2} frame="code" lang="txt" title="Invalid Entries" showLineNumbers={false} />
+              <p class="fragment">Three bad entries out of eight moved the average by <b>118 years</b>.</p>
+              <p class="fragment">Nothing crashed. Nothing warned you.</p>
+            </section>
+
+            <section>
+              <h2>But Throwing Things Away Is a Decision</h2>
+              <p>You chose the valid range. You chose what counts as impossible.</p>
+              <p class="fragment">Someone else's range would give a different answer.</p>
+              <p class="fragment"><b>Say what you dropped and why.</b> Every time.</p>
+            </section>
+
+            <section>
+              <h2>Now the One That Cannot Be Cleaned</h2>
+              <Code code={Figure3} frame="code" lang="txt" title="Who Is Missing" showLineNumbers={false} />
+              <p class="fragment">The data you have is accurate. The data you are missing is the problem.</p>
+            </section>
+
+            <section>
+              <h2>Say It Plainly</h2>
+              <p><b>Problems of bias are often created by the type or source of the data being collected.</b></p>
+              <p class="fragment"><b>Bias is not eliminated by simply collecting more data.</b></p>
+              <p class="fragment">Ten times as much of the same gap is still the same gap.</p>
+            </section>
+
+            <section>
+              <h2>This Is the Same Idea as mcq-12 Q6</h2>
+              <p>A hiring tool trained on who the company hired before.</p>
+              <p class="fragment">The records were accurate. The pattern in them was the problem.</p>
+              <p class="fragment">More records, same pattern.</p>
+            </section>
+
+            <section>
+              <h2>One Last Thing: Size</h2>
+              <p><b>The size of a dataset affects how much information you can extract from it.</b></p>
+              <p class="fragment">Too small and there is no pattern to find.</p>
+              <p class="fragment">Too large and one computer cannot process it.</p>
+            </section>
+
+            <section>
+              <h2>Which Becomes an Engineering Problem</h2>
+              <p>Large datasets may require <b>parallel systems</b> &mdash; many computers working at once.</p>
+              <p class="fragment"><b>Scalability</b> is whether a system can keep up as the data grows.</p>
+              <p class="fragment">We come back to parallel computing properly in Quarter 3.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Cleaning data to make it uniform without changing its meaning</li>
+                <li>Filtering invalid entries, and reporting what was dropped</li>
+                <li>Explaining that bias comes from the type or source of data collected</li>
+                <li>Explaining why more data does not remove bias</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Cleaning data</dt>
+                  <dd>Making data uniform without changing its meaning.</dd>
+                  <dt>Invalid data</dt>
+                  <dd>Entries that cannot be true, whatever the source says.</dd>
+                  <dt>Bias</dt>
+                  <dd>A problem created by the type or source of the data collected. Not fixed by collecting more.</dd>
+                  <dt>Scalability</dt>
+                  <dd>Whether a system's capacity can keep up as the data grows.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-19-cleaning</b>.
+          </p>
+
+          <p>
+            <code>toLowerCase()</code> is new. It hands back a copy of a string
+            with every letter lowered, and it leaves the original alone &mdash;
+            which is exactly what you need to compare two spellings without
+            destroying either.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Make It Uniform</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              The count goes from 2 to 5. <b>In a comment: what was wrong with the
+              first count?</b> Nothing was miscounted.
+            </li>
+            <li>
+              <b>Add <code>NYC</code> to the data and make it clean correctly.</b>{" "}
+              You should only have to touch one line.
+            </li>
+            <li>
+              In a comment: name a city name that would be <b>ruined</b> if you
+              cleaned too aggressively.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Cleaning" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Throw Some Away</h3>
+          <ul>
+            <li>Start a new file. Write the code below and run it.</li>
+            <li>
+              <b>Two averages, 118 apart.</b> Record both, and say in a comment
+              which one you would publish.
+            </li>
+            <li>
+              <b>You chose 13 to 19.</b> In a comment: name someone whose real
+              answer your filter would have thrown away, and say whether that
+              changes your range.
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Filtering" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: The One You Cannot Code Away</h3>
+          <ul>
+            <li>
+              <b>No code for this one.</b> Fill in the comment block in a file of
+              its own.
+            </li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Bias" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Change <code>clean</code> so the variants live in{" "}
+              <b>two parallel lists</b> &mdash; one of spellings, one of the
+              standard form each maps to &mdash; instead of one list plus an{" "}
+              <code>if</code> per city. Then say how many lines you now change to
+              add a third city, and compare that to the original.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Task 1 should produce exactly this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Task 1"
+          />
+
+          <p class="mt-4">And Task 2 this.</p>
+
+          <Code
+            code={FilterOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Task 2"
+          />
+
+          <p class="mt-3">
+            Task 3 has no output. It has four written answers, and the fourth one
+            is the one that matters.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Cleaning is defined as making data uniform <i>without changing its meaning</i>. Describe a change that makes data uniform and <b>does</b> change its meaning.</li>
+            <li>Task 2's bad entries moved the average by 118 and produced no error. Explain why that makes invalid data more dangerous than data that crashes your program.</li>
+            <li>More data fixes a dataset that is too small. It does not fix one that is biased. Explain the difference between those two problems.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

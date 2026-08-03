@@ -1,0 +1,187 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `bits ← [1, 0, 1, 1]
+total ← 0
+place ← 1
+i ← LENGTH(bits)
+
+REPEAT UNTIL(i < 1)
+{
+  IF(bits[i] = 1)
+  {
+    total ← total + place
+  }
+  place ← place * 2
+  i ← i - 1
+}
+
+DISPLAY(total)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 14</h1>
+
+        <h4 class="text-sn-theme">Six questions &middot; 11 minutes &middot; cumulative</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Six questions through Activity 2.20, weighted toward{" "}
+            <b>data representation and the problems datasets have</b>.
+          </p>
+
+          <p>
+            Question 1 is in exam notation. The rest are the kind of reasoning
+            question the Data big idea is made of &mdash; <b>17&ndash;22% of the
+            multiple-choice section</b>, and Quarter 2 is the only place this
+            course teaches it.
+          </p>
+
+          <p>
+            <b>Set a timer for 11 minutes.</b> Work them out on paper; do not
+            run the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer, one asks you to select
+            <i>all</i> that apply, and the last is about the impact of computing
+            rather than about data itself.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q1} frame="code" lang="txt" title="Question 1" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) 4</li>
+            <li>(B) 13</li>
+            <li>(C) 11</li>
+            <li>(D) 1011</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            A row of 20 characters is put through a <b>lossless</b> compression
+            algorithm and comes out as 24 characters. Which statement is best
+            supported?
+          </p>
+
+          <ul>
+            <li>(A) The original had little redundancy for this algorithm to exploit</li>
+            <li>(B) The algorithm is broken and cannot be lossless</li>
+            <li>(C) Information was lost during compression</li>
+            <li>(D) The compression ratio is 0.83</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>Which of these are true?</p>
+
+          <ul>
+            <li>(A) Analog data changes in discrete steps rather than smoothly</li>
+            <li>(B) Analog data can be closely approximated digitally using sampling</li>
+            <li>(C) Using digital data to approximate real-world analog data is an example of abstraction</li>
+            <li>(D) Too low a sample rate can make two different signals produce identical samples</li>
+            <li>(E) Sampling stores the original analog signal exactly</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            A counter is stored in 8 bits. It is at 255 and the program adds 1.
+            What has happened?
+          </p>
+
+          <ul>
+            <li>(A) The program stops with a syntax error</li>
+            <li>(B) An overflow error &mdash; the value is outside the range the storage defines</li>
+            <li>(C) The value is rounded to the nearest storable number</li>
+            <li>(D) The storage grows to 9 bits automatically</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            A survey is collected through a form on a school website. Which action
+            is most likely to <b>reduce bias</b> in the result?
+          </p>
+
+          <ul>
+            <li>(A) Collect ten times as many responses through the same form</li>
+            <li>(B) Remove any responses that look unusual</li>
+            <li>(C) Compress the dataset so it is faster to process</li>
+            <li>(D) Collect responses through an additional channel that reaches people the form misses</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6 &mdash; Impact of Computing</h3>
+
+          <p>
+            A photo-sharing service strips location information out of photo
+            metadata before publishing them. This most directly addresses a
+            concern about:
+          </p>
+
+          <ul>
+            <li>(A) Privacy</li>
+            <li>(B) Compression ratios</li>
+            <li>(C) Overflow errors</li>
+            <li>(D) Scalability</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

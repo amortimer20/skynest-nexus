@@ -1,0 +1,323 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-2-20-target.png";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `Mon 412   Tue 388   Wed 401   Thu 455   Fri 423
+
+The biggest is 10% above the smallest.`;
+
+const Figure2 = `share = (value - base) / (biggest - base)
+
+  base 0     ->  every bar is nearly full height
+  base 380   ->  Tuesday almost vanishes`;
+
+const Task1 = `let days   = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+let visits = [412, 388, 401, 455, 423];
+
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+  noStroke();
+  background(24, 26, 34);
+
+  drawChart(0, 30, "counting from 0");
+}
+
+function drawChart(base, top, label) {
+  fill(230);
+  textSize(12);
+  text(label, 200, top);
+
+  let height = 120;
+  let biggest = 0;
+
+  for (let i = 0; i < visits.length; i++) {
+    if (visits[i] > biggest) {
+      biggest = visits[i];
+    }
+  }
+
+  for (let i = 0; i < days.length; i++) {
+    let share = (visits[i] - base) / (biggest - base);
+    let h = share * height;
+
+    fill(90, 160, 220);
+    rect(50 + i * 62, top + 20 + height - h, 40, h);
+
+    fill(200);
+    textSize(10);
+    text(days[i], 50 + i * 62 + 20, top + 20 + height + 12);
+    text(visits[i], 50 + i * 62 + 20, top + 20 + height + 26);
+  }
+}
+`;
+
+const Task2 = `// One line changes. Add a second call to drawChart.
+
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+  noStroke();
+  background(24, 26, 34);
+
+  drawChart(0, 30, "counting from 0");
+  drawChart(380, 220, "counting from 380");
+}
+`;
+
+const Task3 = `// Both charts are drawn from the same five numbers and neither
+// one prints anything false.
+//
+// 1. Add a horizontal line at the average to BOTH charts.
+//    Label it.
+//
+// 2. Write a one-sentence headline for each chart -- the headline
+//    a newspaper would run if it had only seen that chart.
+//
+// 3. Then pick the dataset yourself. Replace visits with five
+//    numbers of your own where the two charts tell the SAME story,
+//    and say what is true about your numbers that makes that happen.
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.20: p5 Lab 11 &mdash; Visualizing a Dataset</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="Two bar charts of the same five numbers. In the top chart, counting from zero, all five bars are nearly the same height. In the bottom chart, counting from 380, Thursday towers over Tuesday." width={400} class="img-fluid rounded" />
+          </div>
+
+          <p>
+            By the end of <b>Task 2</b> you have two charts of the{" "}
+            <b>same five numbers</b>. In the top one the days look nearly
+            identical. In the bottom one Thursday looks like several times
+            Tuesday.
+          </p>
+
+          <p>
+            <b>Neither chart is lying.</b> Every bar is the right height for its
+            own scale, and both are labeled with the real numbers. One line of
+            code separates them.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>p5 Lab 11</h2>
+              <h3 class="text-sn-theme">Visualizing a Dataset</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Chart Is a Program</p>
+              <p>The Baseline Decides the Story</p>
+              <p>What a Chart Hides</p>
+            </section>
+
+            <section>
+              <h2>The Last Step of the Data Block</h2>
+              <p>2.18: data becomes information.</p>
+              <p class="fragment">2.19: and it has to be cleaned first.</p>
+              <p class="fragment">Today: how you show somebody what you found.</p>
+            </section>
+
+            <section>
+              <h2>Five Numbers</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Weekday Visits" showLineNumbers={false} />
+              <p class="fragment">A quiet week. Nothing much happened.</p>
+            </section>
+
+            <section>
+              <h2>One Line Decides Everything</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="Where the Bars Start" showLineNumbers={false} />
+              <p class="fragment">Same data. Same labels. Same code.</p>
+              <p class="fragment">Two completely different impressions.</p>
+            </section>
+
+            <section>
+              <h2>And Neither One Is False</h2>
+              <p>Every bar is the correct height for its scale.</p>
+              <p class="fragment">Every number is printed underneath it.</p>
+              <p class="fragment"><b>A chart can mislead without containing a single wrong value.</b></p>
+            </section>
+
+            <section>
+              <h2>Which Is the Real Lesson of This Block</h2>
+              <p>2.16: correct samples, misleading picture.</p>
+              <p class="fragment">2.19: accurate records, biased conclusion.</p>
+              <p class="fragment">Today: true bars, false impression.</p>
+              <p class="fragment">Three sessions, one pattern.</p>
+            </section>
+
+            <section>
+              <h2>So Read Charts Like This</h2>
+              <p>Where does the axis start?</p>
+              <p class="fragment">What is <i>not</i> plotted?</p>
+              <p class="fragment">Who chose the range?</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a program that turns a dataset into a chart</li>
+                <li>Using a parameter to change the chart's baseline</li>
+                <li>Explaining how a chart can mislead without any wrong values</li>
+                <li>Naming what to check when reading somebody else's chart</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Visualization</dt>
+                  <dd>A chart, graph, or other visual form used to communicate what was found in data.</dd>
+                  <dt>Baseline</dt>
+                  <dd>The value an axis starts counting from. Choosing it is a decision, not a fact.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js sketch</b> named{" "}
+            <b class="text-sn-theme">2-20-chart</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: One Honest Chart</h3>
+          <ul>
+            <li>Create the sketch below and run it.</li>
+            <li>
+              <code>drawChart</code> takes three parameters. <b>In a comment: name
+              each one and say what changes when you change it.</b>
+            </li>
+            <li>
+              Change one number in <code>visits</code> and run it again. More than
+              one bar moves. <b>Work out why</b> &mdash; the answer is in the line
+              that finds <code>biggest</code>.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="p5 Lab 11" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: The Same Data, Told Differently</h3>
+          <ul>
+            <li>Replace <code>setup</code> with the version below and run it.</li>
+            <li>
+              <b>Do not change anything else.</b> One argument is different between
+              the two calls.
+            </li>
+            <li>
+              In a comment: <b>which chart would you put in a report</b> asking for
+              more staff on Thursdays, and which would you put in one arguing the
+              week is steady? Be honest about it.
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="p5 Lab 11" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Read Your Own Charts</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="p5 Lab 11" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Add a fourth parameter for bar color, and draw the bar for the
+              busiest day in a different one. Then say whether that helped a
+              reader or just decorated the chart &mdash; and how you would tell
+              the difference.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>
+            Two charts of the same five numbers, both labeled with the real values,
+            with an average line on each.
+          </p>
+
+          <p>
+            <b>Then answer this before you submit:</b> a reader sees only your
+            bottom chart. Write the sentence they would say about Tuesday. Then say
+            what the top chart would have told them instead.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Both charts printed the true numbers underneath every bar. Explain why that was not enough to stop the bottom one from misleading.</li>
+            <li>You chose your own five numbers in Task 3 so both charts agreed. What had to be true about them?</li>
+            <li>Name one thing you will now check before believing a chart in a news article.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

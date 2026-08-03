@@ -1,0 +1,398 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `11111111   255   the largest an 8-bit register can hold
+      +1
+--------
+00000000     0   the 1 has nowhere to go`;
+
+const Figure2 = `0.1 + 0.2   ->   0.30000000000000004
+
+0.1 + 0.2 === 0.3   ->   false`;
+
+const Figure3 = `the real signal    a smooth curve, values changing continuously
+
+3 samples          |     |     |          you cannot tell it was a curve
+21 samples         ||||||||||||||||||||   the shape is obvious`;
+
+const Task1 = `let reading = 250;
+
+for (let i = 0; i < 8; i++) {
+  let stored = reading % 256;
+  console.log("sensor says " + reading + ", the 8-bit register holds " + stored);
+  reading = reading + 1;
+}
+`;
+
+const Task2 = `console.log("");
+console.log("0.1 + 0.2 = " + (0.1 + 0.2));
+console.log("is it 0.3? " + (0.1 + 0.2 === 0.3));
+
+console.log("");
+let total = 0;
+for (let i = 0; i < 10; i++) {
+  total = total + 0.1;
+}
+console.log("0.1 added ten times = " + total);
+console.log("is it 1? " + (total === 1));
+
+console.log("");
+let big = 1;
+for (let i = 0; i < 64; i++) {
+  big = big * 2;
+}
+console.log("2 to the 64th, as JavaScript sees it: " + big);
+console.log("the true value is 18446744073709551616");
+`;
+
+const Task3 = `// signal() stands in for a microphone. Do not change it.
+function signal(t) {
+  return 50 + 40 * Math.sin(t / 5);
+}
+
+function sampleAt(step) {
+  let samples = [];
+
+  for (let t = 0; t <= 40; t = t + step) {
+    samples.push(Math.round(signal(t)));
+  }
+
+  return samples;
+}
+
+let rates = [20, 10, 5, 2];
+
+for (let i = 0; i < rates.length; i++) {
+  let s = sampleAt(rates[i]);
+  console.log("every " + rates[i] + " units: " + s.length + " samples -> " + s);
+}
+
+// Then answer these in comments:
+//   a) The real signal rises and falls smoothly. At which sample
+//      rate does that first become visible in the numbers?
+//   b) The slowest rate reports 50, 20, 90. Describe a completely
+//      different signal that would produce those same three numbers.
+//   c) Sampling more often costs storage. Where would you set the
+//      rate for a voice recording app, and why not higher?
+`;
+
+const ExampleOutput = `sensor says 250, the 8-bit register holds 250
+sensor says 251, the 8-bit register holds 251
+sensor says 252, the 8-bit register holds 252
+sensor says 253, the 8-bit register holds 253
+sensor says 254, the 8-bit register holds 254
+sensor says 255, the 8-bit register holds 255
+sensor says 256, the 8-bit register holds 0
+sensor says 257, the 8-bit register holds 1
+
+0.1 + 0.2 = 0.30000000000000004
+is it 0.3? false
+
+0.1 added ten times = 0.9999999999999999
+is it 1? false
+
+2 to the 64th, as JavaScript sees it: 18446744073709552000
+the true value is 18446744073709551616`;
+
+const SamplingOutput = `every 20 units: 3 samples -> 50,20,90
+every 10 units: 5 samples -> 50,86,20,39,90
+every 5 units: 9 samples -> 50,84,86,56,20,12,39,76,90
+every 2 units: 21 samples -> 50,66,79,87,90,86,77,63,48,32,20,12,10,15,25,39,55,70,82,89,90`;
+
+const NotationPseudo = `big ← 1
+
+REPEAT 64 TIMES
+{
+  big ← big * 2
+}
+
+DISPLAY(big)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.16: The Limits of Bits</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.16</h2>
+              <h3 class="text-sn-theme">The Limits of Bits</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Overflow</p>
+              <p>Round-Off</p>
+              <p>Analog, Digital, and Sampling</p>
+            </section>
+
+            <section>
+              <h2>Yesterday: Eight Bits Hold 256 Values</h2>
+              <p>Today: what happens when you need the 257th.</p>
+            </section>
+
+            <section>
+              <h2>Nowhere to Put It</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Overflow" showLineNumbers={false} />
+              <p class="fragment">An <b>overflow error</b>: the number is outside the range the storage defines.</p>
+              <p class="fragment">The count does not stop. It wraps.</p>
+            </section>
+
+            <section>
+              <h2>Now the Other One</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="Round-Off" showLineNumbers={false} />
+              <p class="fragment">This is not a bug in JavaScript.</p>
+              <p class="fragment"><b>Some real numbers cannot be stored exactly in a fixed number of bits.</b></p>
+            </section>
+
+            <section>
+              <h2>Why Not</h2>
+              <p>One third in decimal is 0.3333... forever.</p>
+              <p class="fragment">You write down as many digits as you have room for and stop.</p>
+              <p class="fragment">One tenth is that number, in base 2.</p>
+            </section>
+
+            <section>
+              <h2>So Never Do This</h2>
+              <p><code>if (total === 1)</code> on numbers you calculated.</p>
+              <p class="fragment">Check whether the difference is small enough instead.</p>
+              <p class="fragment">You met the tail end of this at 1.9. Now you know why.</p>
+            </section>
+
+            <section>
+              <h2>A Different Kind of Limit</h2>
+              <p><b>Analog</b> data changes smoothly, not in steps.</p>
+              <p class="fragment">Pitch and volume of music. The colors in a painting. A sprinter's position in a race.</p>
+              <p class="fragment">There is no "next value." There is always something in between.</p>
+            </section>
+
+            <section>
+              <h2>Computers Cannot Store That</h2>
+              <p>Bits come in whole units. Smooth does not.</p>
+              <p class="fragment">So you <b>sample</b>: measure the value at regular intervals.</p>
+              <p class="fragment">Each sample is stored in a fixed number of bits.</p>
+            </section>
+
+            <section>
+              <h2>How Often Is Often Enough</h2>
+              <Code code={Figure3} frame="code" lang="txt" title="Sampling" showLineNumbers={false} />
+              <p class="fragment">Too few samples and different signals become indistinguishable.</p>
+            </section>
+
+            <section>
+              <h2>And This Is Abstraction Again</h2>
+              <p>Using digital data to approximate real-world analog data <b>is</b> an abstraction.</p>
+              <p class="fragment">You keep the main idea and discard the rest.</p>
+              <p class="fragment">A recording is not the sound. It is close enough.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Explaining overflow as a value outside the range the storage defines</li>
+                <li>Explaining why some real numbers are stored as approximations</li>
+                <li>Distinguishing analog data from digital data</li>
+                <li>Describing sampling, and judging when a sample rate is too low</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Overflow error</dt>
+                  <dd>An error that occurs when a computer tries to handle a number outside the defined range of values.</dd>
+                  <dt>Round-off error</dt>
+                  <dd>The error introduced when a real number is stored as an approximation.</dd>
+                  <dt>Analog data</dt>
+                  <dd>Data whose values change smoothly rather than in discrete intervals.</dd>
+                  <dt>Sampling</dt>
+                  <dd>Measuring the value of an analog signal at regular intervals.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-16-limits</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: An 8-Bit Register</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              <b>Predict the line for 256 before you run it.</b> Write your
+              prediction in a comment.
+            </li>
+            <li>
+              In a comment: the sensor is still counting correctly. Say exactly
+              where the information is being lost.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Limits" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Numbers That Are Nearly Right</h3>
+          <ul>
+            <li>Add the code below and run it.</li>
+            <li>
+              All three of these surprise people.{" "}
+              <b>Record what each one printed</b>, then say in a comment which of
+              the three is a <i>range</i> problem and which are <i>precision</i>{" "}
+              problems.
+            </li>
+            <li>
+              The last one is Activity 2.12's optional challenge. If you did it
+              there, say whether the explanation you gave then still holds.
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Limits" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Sampling a Signal</h3>
+          <ul>
+            <li>Start a new file. Write the code below, run it, and fill in the comments.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Sampling" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Write <code>closeEnough(a, b)</code> that returns <code>true</code>{" "}
+              when two numbers differ by less than a tiny amount. Use it to make
+              the <code>total === 1</code> check from Task 2 pass. Then say what
+              you had to decide, and why there is no universally right answer to
+              it.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation &mdash; and It Behaves Differently</h2>
+
+          <Code
+            code={NotationPseudo}
+            frame="code"
+            lang="txt"
+            title="Exam Notation"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>This displays the exact value.</b> All twenty digits of it, ending{" "}
+            <code>...551616</code>.
+          </p>
+
+          <p>
+            The reference sheet's language stores integers in <b>as much space as
+            they need</b>, limited only by the memory of the computer. Many real
+            programming languages &mdash; including the one you have been writing
+            all year &mdash; use a fixed number of bits instead, and that is where
+            overflow and round-off come from.
+          </p>
+
+          <p>
+            <b>So this is one of the few places where the exam's language is not a
+            simplified JavaScript &mdash; it is a different language with different
+            behavior.</b> An exam question about a very large number is not testing
+            whether you know your runtime's limits. It is asking for the arithmetic.
+          </p>
+
+          <p class="text-body-secondary">
+            <code>REPEAT 64 TIMES</code> is used here rather than a counted loop
+            because nothing in the body needs to know which pass it is on. When you
+            do need the number, you keep it yourself &mdash; the sheet's{" "}
+            <code>REPEAT n TIMES</code> gives you no counter.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Tasks 1 and 2 together should produce exactly this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Tasks 1 and 2"
+          />
+
+          <p class="mt-4">And Task 3 this.</p>
+
+          <Code
+            code={SamplingOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Task 3"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Overflow and round-off both come from having a fixed number of bits. Explain the difference between them in your own words.</li>
+            <li>A recording of a song is an abstraction of the song. Say what got kept and what got thrown away.</li>
+            <li>The three-sample version of the signal was not wrong &mdash; every number in it was measured correctly. Explain how a set of correct measurements can still be misleading.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

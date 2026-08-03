@@ -1,0 +1,276 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Ambiguous = `Here is the sign-up sheet from the open evening. People typed
+their own names in and it shows. I need to know how many
+actual different people signed up.`;
+
+const Questions = `Questions this brief does not answer
+
+  - Is "chen, ines" the same person as "CHEN, INES"?
+  - Is "okafor,ravi" the same as "Okafor, Ravi"?
+  - An entry that is just "?" -- drop it, or count it?
+  - What about a blank line?
+  - Two real people genuinely called Ravi Okafor. Then what?
+
+MY DECISIONS
+  - Case does not matter. Spacing does not matter.
+  - An entry with no comma is not a name. Dropped.
+  - Every drop gets printed with a reason.
+  - Two identical real names WILL be merged. This is wrong
+    and I am saying so rather than pretending it cannot happen.`;
+
+const pool = [
+  { slug: "cc-byte-reader", title: "Byte Reader", stars: 1, after: "2.14" },
+  { slug: "cc-storage-estimate", title: "Storage Estimate", stars: 2, after: "2.15" },
+  { slug: "cc-overflow-guard", title: "Overflow Guard", stars: 2, after: "2.16" },
+  { slug: "cc-compression-picker", title: "Compression Picker", stars: 2, after: "2.17" },
+  { slug: "cc-metadata-search", title: "Metadata Search", stars: 2, after: "2.18" },
+  { slug: "cc-clean-the-list", title: "Clean the List", stars: 3, after: "2.19" },
+];
+
+const bonus = [
+  { slug: "cc-sample-rate", title: "Sample Rate", stars: 3, after: "2.16" },
+  { slug: "cc-correlation-check", title: "Correlation Check", stars: 3, after: "2.18" },
+];
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge Set 7</h1>
+
+        <h4 class="text-sn-theme">Complete any 5 of the 6 below.</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Set Is For</h2>
+
+          <p>
+            <b>This is the smallest set in the course, and deliberately so.</b>{" "}
+            Most of the Data block is reasoning rather than code, and forcing
+            twelve code challenges out of <i>what a chart hides</i> would produce
+            filler.
+          </p>
+
+          <p>
+            Set 5 was the shape of a procedure. Set 6 was picking the algorithm.
+            <b> This one is about the answer you hand back.</b>
+          </p>
+
+          <p>
+            Every brief here asks for a number that somebody is going to act on
+            &mdash; buy storage, trust a count, put a claim in a presentation. So
+            three of them explicitly require <b>a recommendation, not a table</b>,
+            and one of them requires you to name a case where your own rule gets
+            it wrong.
+          </p>
+
+          <p>
+            Same rule as always: <b>write your requirements list before you write
+            any code</b>, and submit both.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="shape">
+          <h2>The Data Is Messier Than the Brief Admits</h2>
+
+          <p>Here is the whole Clean the List brief:</p>
+
+          <Code
+            code={Ambiguous}
+            frame="code"
+            lang="txt"
+            title="From the Clean the List brief"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <i>How many actual different people</i> sounds like a counting problem.
+            It is a <b>deciding</b> problem, and the deciding all happens before
+            you count:
+          </p>
+
+          <Code
+            code={Questions}
+            frame="code"
+            lang="txt"
+            title="Requirements — the questions half"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Read the last decision again.</b> The rule merges two real people
+            who happen to share a name, and the requirements list says so out loud
+            rather than hoping nobody notices.
+          </p>
+
+          <p>
+            <b>That is the habit this set is built to teach.</b> Activity 2.19's
+            filter threw away three ages and moved an average by 118 years. Every
+            cleaning rule discards something. Naming what yours discards is the
+            difference between a result and a claim.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="recommend">
+          <h2>Three of These Want a Recommendation</h2>
+
+          <p>
+            <b>Compression Picker</b>, <b>Storage Estimate</b>, and{" "}
+            <b>Sample Rate</b> all ask you to end with advice.
+          </p>
+
+          <p>
+            A table of ratios is not an answer to <i>when should I bother</i>. A
+            column of byte counts is not an answer to <i>how much should I buy</i>.
+            <b> You have to pick a number and defend it</b>, and your requirements
+            list is where the defense goes.
+          </p>
+
+          <p class="text-body-secondary">
+            This is the first set that grades whether the output is usable by
+            someone who did not write it. Storage Estimate says so in the brief:{" "}
+            <i>give me numbers I can read.</i>
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="challenges">
+          <h2>The Challenges</h2>
+
+          <p>Pick <b>any five</b>.</p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              pool.map((c) => (
+                <li class="mb-2">
+                  <i class="si-terminal text-sn-theme me-2"></i>
+                  <a href={`/courses/ap-csp/unit-2/${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">
+                    &mdash; after Activity {c.after}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Six in the pool and five required</b>, so there is one you can skip
+            and no more. Pick the one you skip on purpose.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bonus">
+          <h2>If Five Is Not Enough</h2>
+
+          <p>
+            These two are <b>extra credit</b>, worth 3 points each on top of the
+            set.
+          </p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              bonus.map((c) => (
+                <li class="mb-2">
+                  <i class="si-flask text-sn-yellow me-2"></i>
+                  <a href={`/courses/ap-csp/unit-2/${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">
+                    &mdash; after Activity {c.after}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <p class="mt-3">
+            <b>Correlation Check is the harder of the two, and not because of the
+            code.</b> The code is twenty lines. The difficulty is that the story
+            you are asked to check might actually be true &mdash; and the data
+            still does not prove it.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="start-here">
+          <h2>If the Part 6 Quiz Went Badly</h2>
+
+          <p>
+            These three are the repair kit. <b>They count toward your five</b>
+            &mdash; this is not extra work, it is a different order to do it in.
+          </p>
+
+          <ul>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-byte-reader">Byte Reader</a>
+              &mdash; bits, numbers, and characters as three readings of one thing
+            </li>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-overflow-guard">Overflow Guard</a>
+              &mdash; why a fixed number of bits has a ceiling
+            </li>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-compression-picker">Compression Picker</a>
+              &mdash; redundancy, ratios, and when compression costs you
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For <b>each</b> challenge you complete, submit:</p>
+
+          <ol>
+            <li>
+              <b>Your requirements list</b> &mdash; including what your program
+              throws away, and what it would get wrong.
+            </li>
+            <li><b>Your program file.</b></li>
+          </ol>
+
+          <p>
+            This set is worth <b>5 points</b>, graded on completion. Extra
+            credit is on top and does not replace any of the five.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenges
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

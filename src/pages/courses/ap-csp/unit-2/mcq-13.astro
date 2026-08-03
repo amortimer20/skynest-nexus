@@ -1,0 +1,223 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Passage = `THE SMART WATER METER
+
+A city has replaced its water meters. The old ones were read by
+hand once every three months. The new ones measure the flow
+through the pipe every fifteen minutes and send the reading over
+the mobile phone network to the utility.
+
+Each reading arrives with the meter's identifier, the time it was
+taken, and the strength of the network signal. The utility keeps
+this alongside the reading itself.
+
+The finer measurements let the utility spot leaks. A household
+that uses water steadily all night almost certainly has a running
+tap or a broken pipe, and the utility now writes to those
+households within a week. Under the old system a leak could run
+for three months before anyone noticed.
+
+The utility also publishes neighborhood totals, with individual
+households removed, for researchers. One published study found
+that neighborhoods with higher water use also had higher rates of
+household debt. A newspaper reported this as evidence that water
+bills were pushing families into debt.
+
+Some meters sit in basements where the mobile signal is weak.
+Those meters report less often, and sometimes send readings that
+are obviously wrong -- a flow rate no household pipe could carry.
+The utility discards any reading above a threshold it has set.
+
+The city offers a lower rate to households that agree to let the
+utility control their water heater during peak demand. Taking part
+requires a smartphone app.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 13: Reading Passage</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; one passage &middot; 12 minutes
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>The second reading-passage set in the course.</b> Five of the
+            seventy questions on the AP exam share one passage about a computing
+            innovation, and reasoning about computing innovations is{" "}
+            <b class="text-sn-theme">28&ndash;33% of the multiple-choice section</b>{" "}
+            &mdash; more than any other skill, including writing code.
+          </p>
+
+          <p>
+            <b>This one is harder than the first.</b> The Part 0 passage asked you
+            to notice effects. This one asks you to notice effects <i>and</i> to
+            apply what you have learned about data in this block &mdash; sampling,
+            metadata, cleaning, and correlation are all in the passage, none of
+            them named.
+          </p>
+
+          <h4>How to Do This One</h4>
+
+          <ul>
+            <li>
+              <b>Read the whole passage first.</b> All of it, before you look at a
+              single question.
+            </li>
+            <li><b>Set a timer for 12 minutes.</b> The reading is part of it.</li>
+            <li>
+              <b>Every answer is in the passage or follows from it.</b> Nothing
+              here needs outside knowledge about water utilities. If you find
+              yourself using something you already believed, check that the passage
+              actually says it.
+            </li>
+            <li>Mark each answer <b>sure</b> or <b>unsure</b>, as always.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="passage">
+          <h2>The Passage</h2>
+
+          <Code
+            code={Passage}
+            frame="code"
+            lang="txt"
+            title="Read this before looking at the questions"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>
+            The new meters take a reading every fifteen minutes instead of once
+            every three months. This change is best described as:
+          </p>
+
+          <ul>
+            <li>(A) Increasing the sample rate</li>
+            <li>(B) Compressing the data</li>
+            <li>(C) Cleaning the data</li>
+            <li>(D) Removing metadata</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            Each reading arrives with the meter's identifier, the time, and the
+            signal strength. Which statement about that additional information is
+            best supported by the passage?
+          </p>
+
+          <ul>
+            <li>(A) It is metadata, and deleting it would change the recorded flow values</li>
+            <li>(B) It is metadata, and it is what lets the utility tell one meter's readings from another's</li>
+            <li>(C) It is the primary data, and the flow reading is metadata about it</li>
+            <li>(D) It is a compressed form of the flow reading</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>
+            Which of these are supported by the passage as <b>problems with the
+            data</b> the utility collects?
+          </p>
+
+          <ul>
+            <li>(A) Meters in weak-signal locations report less often than others</li>
+            <li>(B) Some readings are impossible values that have to be discarded</li>
+            <li>(C) The utility has set a threshold, so what counts as impossible is a decision it made</li>
+            <li>(D) The readings are stored without any time attached</li>
+            <li>(E) Neighborhood totals cannot be calculated from individual readings</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            The newspaper reported the study as evidence that water bills were
+            pushing families into debt. Which is the strongest objection to that
+            reporting?
+          </p>
+
+          <ul>
+            <li>(A) The study used neighborhood totals, so the water data is unreliable</li>
+            <li>(B) Household debt cannot be measured accurately</li>
+            <li>(C) The utility should not have published the data at all</li>
+            <li>(D) Two things rising together does not establish that one causes the other, and something else could be raising both</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            The lower rate requires a smartphone app. Which effect does this most
+            directly create?
+          </p>
+
+          <ul>
+            <li>(A) The utility collects less metadata from those households</li>
+            <li>(B) Leak detection becomes less accurate across the city</li>
+            <li>(C) Households without a smartphone cannot access the cheaper rate</li>
+            <li>(D) The sample rate falls for participating households</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off.
+          </p>
+
+          <p>
+            <b>And one written answer, in a sentence or two:</b> the passage says
+            the utility discards any reading above a threshold it has set. Name one
+            way that could go wrong, using what you know from Activity 2.19.
+          </p>
+
+          <p>Worth <b>2 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

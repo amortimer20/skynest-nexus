@@ -1,0 +1,100 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `Here is the sign-up sheet from the open evening. People typed
+their own names in and it shows. I need to know how many
+actual different people signed up.`;
+
+const SampleOutput = `  dropped "chen, ines" (duplicate of one already kept)
+  dropped "CHEN, INES" (duplicate of one already kept)
+  dropped "okafor,ravi" (duplicate of one already kept)
+  dropped "" (not a name)
+  dropped "?" (not a name)
+
+Unique people: 3 (from 8 entries, 5 dropped)
+  chen,ines
+  okafor,ravi
+  diaz,nadia`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-7" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 7
+        </a>
+
+        <h1>Code Challenge: Clean the List</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-7">Set 7</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li><b>Underspecified on purpose.</b> Is <code>chen, ines</code> the same person as <code>CHEN, INES</code>? Almost certainly. Decide, write it down, and be consistent.</li>
+            <li>Spacing varies too. <code>okafor,ravi</code> and <code>Okafor, Ravi</code> are the same signature with a different thumb.</li>
+            <li>Some entries are not names at all. Decide what disqualifies an entry and say so.</li>
+            <li><b>Report what you dropped and why</b>, one line each. A count with no audit trail is not trustworthy.</li>
+            <li>In your requirements list, name one pair of entries your rule gets <b>wrong</b>. Every rule has one; finding yours is the challenge.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            Eight entries, three people. <b>Notice the output is lowercase and
+            unspaced</b> &mdash; that is the cleaned form, and a decision worth
+            defending. Would you show that to the person who signed up?
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-clean-the-list</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

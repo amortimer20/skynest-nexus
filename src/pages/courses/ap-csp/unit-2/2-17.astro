@@ -1,0 +1,341 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `bbbbbbbbbwwwwwwwwwbb      20 characters
+
+b9w9b2                     6 characters
+
+ratio 6 / 20 = 0.30`;
+
+const Figure2 = `bwbwbwbwbwbwbwbwbwbw      20 characters
+
+b1w1b1w1b1w1b1w1b1w1b1w1b1w1b1w1b1w1b1w1    40 characters
+
+ratio 40 / 20 = 2.00`;
+
+const Figure3 = `LOSSLESS    guarantees you can rebuild the original exactly
+            usually saves less
+
+LOSSY       only lets you rebuild an approximation
+            usually saves more`;
+
+const Task1 = `function encode(data) {
+  let out = "";
+  let i = 0;
+
+  while (i < data.length) {
+    let run = 1;
+
+    while (i + run < data.length && data[i + run] === data[i]) {
+      run = run + 1;
+    }
+
+    out = out + data[i] + run;
+    i = i + run;
+  }
+
+  return out;
+}
+
+function decode(code) {
+  let out = "";
+
+  for (let i = 0; i < code.length; i = i + 2) {
+    let symbol = code[i];
+    let count = Number(code[i + 1]);
+
+    for (let j = 0; j < count; j++) {
+      out = out + symbol;
+    }
+  }
+
+  return out;
+}
+
+function report(label, data) {
+  let code = encode(data);
+
+  console.log(label);
+  console.log("  original: " + data + " (" + data.length + ")");
+  console.log("  encoded:  " + code + " (" + code.length + ")");
+  console.log("  ratio:    " + (code.length / data.length).toFixed(2));
+  console.log("  restored: " + (decode(code) === data ? "identical" : "DIFFERENT"));
+}
+
+report("Sky over a rooftop:", "bbbbbbbbbwwwwwwwwwbb");
+`;
+
+const Task2 = `// Add these two calls below the first one.
+
+console.log("");
+report("A textured wall:", "bbbwwbbbbwwwbbwwwwbb");
+console.log("");
+report("A checkerboard:", "bwbwbwbwbwbwbwbwbwbw");
+`;
+
+const Task3 = `let signal = [50, 66, 79, 87, 90, 86, 77, 63, 48, 32];
+
+// This is a run of samples, like the ones from 2.16.
+//
+// Build a LOSSY compression:
+//   1. Keep every other value. Report how many you kept.
+//   2. Rebuild a full-length list from what you kept, guessing the
+//      missing values as the average of their two neighbors.
+//   3. Print the original and the rebuilt list.
+//   4. Add up how far off each rebuilt value is, and print the total.
+//
+// Then answer in comments:
+//   a) What is the compression ratio?
+//   b) Compare it to the best ratio run-length encoding managed on
+//      Task 1's data. Which saved more?
+//   c) This one can never say "identical". Name a situation where
+//      you would use it anyway, and one where you absolutely would not.
+`;
+
+const ExampleOutput = `Sky over a rooftop:
+  original: bbbbbbbbbwwwwwwwwwbb (20)
+  encoded:  b9w9b2 (6)
+  ratio:    0.30
+  restored: identical
+
+A textured wall:
+  original: bbbwwbbbbwwwbbwwwwbb (20)
+  encoded:  b3w2b4w3b2w4b2 (14)
+  ratio:    0.70
+  restored: identical
+
+A checkerboard:
+  original: bwbwbwbwbwbwbwbwbwbw (20)
+  encoded:  b1w1b1w1b1w1b1w1b1w1b1w1b1w1b1w1b1w1b1w1 (40)
+  ratio:    2.00
+  restored: identical`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.17: Compression</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.17</h2>
+              <h3 class="text-sn-theme">Compression</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Redundancy Is What You Sell</p>
+              <p>Lossless and Lossy</p>
+              <p>Choosing Between Them</p>
+            </section>
+
+            <section>
+              <h2>Activity 1.2 Showed You This</h2>
+              <p>You saw a file get smaller. You did not calculate anything.</p>
+              <p class="fragment">Today you do the arithmetic and find the limit.</p>
+            </section>
+
+            <section>
+              <h2>A Row of Pixels</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Run-Length Encoding" showLineNumbers={false} />
+              <p class="fragment">Do not store nine b's. Store <i>b, nine times</i>.</p>
+              <p class="fragment">To a third of the size, and nothing is lost.</p>
+            </section>
+
+            <section>
+              <h2>Now Try It on This</h2>
+              <Code code={Figure2} frame="code" lang="txt" title="No Runs at All" showLineNumbers={false} />
+              <p class="fragment"><b>It doubled.</b></p>
+            </section>
+
+            <section>
+              <h2>Which Tells You What Compression Actually Sells</h2>
+              <p>Not size. <b>Redundancy.</b></p>
+              <p class="fragment">How much you save depends on how much repetition was in the original <i>and</i> on the algorithm you used.</p>
+              <p class="fragment">No redundancy, no saving. Sometimes a loss.</p>
+            </section>
+
+            <section>
+              <h2>Fewer Bits Is Not Less Information</h2>
+              <p><code>b9w9b2</code> holds everything <code>bbbbbbbbbwwwwwwwwwbb</code> held.</p>
+              <p class="fragment">Six characters. Same information.</p>
+              <p class="fragment">Size and information are not the same quantity.</p>
+            </section>
+
+            <section>
+              <h2>Two Families</h2>
+              <Code code={Figure3} frame="code" lang="txt" title="Lossless and Lossy" showLineNumbers={false} />
+              <p class="fragment">Run-length encoding is lossless. That is why <code>decode</code> exists.</p>
+            </section>
+
+            <section>
+              <h2>So How Do You Choose</h2>
+              <p><b>Quality or exact reconstruction matters most</b> &rarr; lossless.</p>
+              <p class="fragment"><b>Size or transmission time matters most</b> &rarr; lossy.</p>
+              <p class="fragment">A contract, a medical scan, a program's source code: lossless. Always.</p>
+            </section>
+
+            <section>
+              <h2>One Question to Test Yourself</h2>
+              <p>Your program's source code, compressed lossily.</p>
+              <p class="fragment">It is 40% smaller and <i>almost</i> the same.</p>
+              <p class="fragment">What does <i>almost the same source code</i> mean?</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Calculating a compression ratio</li>
+                <li>Explaining why saving depends on redundancy and on the algorithm</li>
+                <li>Distinguishing lossless from lossy compression</li>
+                <li>Choosing between them for a stated context, and defending the choice</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Data compression</dt>
+                  <dd>Reducing the number of bits stored or transmitted.</dd>
+                  <dt>Redundancy</dt>
+                  <dd>Repetition in the original data. It is what compression exploits.</dd>
+                  <dt>Lossless</dt>
+                  <dd>Guarantees complete reconstruction of the original.</dd>
+                  <dt>Lossy</dt>
+                  <dd>Allows reconstruction of an approximation only, and usually saves more.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-17-compression</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Encode and Decode</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              <b>The last line is the important one.</b> Say in a comment what{" "}
+              <code>restored: identical</code> proves, and which family of
+              compression that puts this algorithm in.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Compression" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Three Levels of Redundancy</h3>
+          <ul>
+            <li>Add the two extra calls and run it again.</li>
+            <li>
+              <b>All three rows are exactly 20 characters</b> and the ratios are
+              0.30, 0.70, and 2.00. Record them, and say in a comment what changed
+              between the rows &mdash; it is not the size.
+            </li>
+            <li>
+              One of them came out <b>bigger</b>. In a comment: is that a bug in
+              the algorithm? Defend your answer.
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Compression" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Now Lose Something</h3>
+          <ul>
+            <li>Start a new file and fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Lossy" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Run <code>encode</code> on a row with a run of <b>ten or more</b>{" "}
+              of the same character, then <code>decode</code> it. It comes back
+              wrong. Work out why, and describe a fix. <b>You do not have to build
+              the fix</b> &mdash; describing the fault precisely is the exercise.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Tasks 1 and 2 together should produce exactly this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">
+            <b>All three must say <code>identical</code>.</b> If one does not, the
+            encoder and the decoder disagree about the format &mdash; and a
+            lossless algorithm that cannot rebuild the original is not lossless.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>The checkerboard row compressed to twice its original size. Explain what that says about the relationship between the data and the algorithm.</li>
+            <li>Your lossy version in Task 3 saved more than run-length encoding did on the sky row. Why is that not enough to make it the better choice?</li>
+            <li><code>b9w9b2</code> is 6 characters and holds what 20 characters held. Explain, in one sentence, why fewer bits does not mean less information.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

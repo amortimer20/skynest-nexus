@@ -1,0 +1,317 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-2-15-target.png";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `fill(120, 180, 235);   // "sky"
+
+  red    120
+  green  180
+  blue   235`;
+
+const Figure2 = `let reds   = [120, 214,  90, 178,  70];
+let greens = [180, 190, 140,  60,  80];
+let blues  = [235, 130,  80,  50, 100];`;
+
+const Task1 = `let names = ["sky", "sand", "moss", "brick", "slate"];
+let reds   = [120, 214,  90, 178,  70];
+let greens = [180, 190, 140,  60,  80];
+let blues  = [235, 130,  80,  50, 100];
+
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+  textSize(11);
+  noStroke();
+  background(24, 26, 34);
+
+  for (let i = 0; i < names.length; i++) {
+    drawSwatch(i, 20 + i * 74);
+  }
+}
+
+function drawSwatch(index, x) {
+  fill(reds[index], greens[index], blues[index]);
+  rect(x, 30, 60, 40);
+  fill(230);
+  text(names[index], x + 30, 84);
+}
+`;
+
+const Task2 = `let names = ["sky", "sand", "moss", "brick", "slate"];
+let reds   = [120, 214,  90, 178,  70];
+let greens = [180, 190, 140,  60,  80];
+let blues  = [235, 130,  80,  50, 100];
+
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+  textSize(11);
+  noStroke();
+  background(24, 26, 34);
+
+  for (let i = 0; i < names.length; i++) {
+    drawSwatch(i, 20 + i * 74);
+    drawChannels(i, 20 + i * 74);
+  }
+
+  fill(230);
+  textSize(13);
+  text("each color is three numbers", 200, 380);
+}
+
+function drawSwatch(index, x) {
+  fill(reds[index], greens[index], blues[index]);
+  rect(x, 30, 60, 40);
+  fill(230);
+  textSize(11);
+  text(names[index], x + 30, 84);
+}
+
+function drawChannels(index, x) {
+  let values = [reds[index], greens[index], blues[index]];
+  let colors = [[220, 70, 70], [70, 200, 90], [80, 130, 240]];
+
+  for (let c = 0; c < 3; c++) {
+    let h = values[c] * 0.7;
+    fill(colors[c][0], colors[c][1], colors[c][2]);
+    rect(x + c * 20, 330 - h, 16, h);
+    fill(200);
+    textSize(9);
+    text(values[c], x + c * 20 + 8, 342);
+  }
+}
+`;
+
+const Task3 = `// Add a second row of swatches underneath the first.
+//
+// In the second row, round every channel down to the nearest 64
+//   before you use it. So 120 becomes 64, and 235 becomes 192.
+//   Hint: subtract the remainder, then you already have the value.
+//
+// That gives each channel 4 possible values instead of 256,
+//   which is 2 bits per channel instead of 8.
+//
+// Then answer in comments:
+//   a) How many colors can the reduced version make? Show the
+//      arithmetic.
+//   b) Which of the five swatches changed the most? Why that one?
+//   c) You threw away three quarters of the bits. Was the picture
+//      three quarters worse?
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.15: p5 Lab 10 &mdash; Color as Data</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="Five color swatches labeled sky, sand, moss, brick and slate, with a red, green and blue bar under each showing its channel values" width={400} class="img-fluid rounded" />
+          </div>
+
+          <p>
+            By the end of <b>Task 2</b>, each swatch has its three channel values
+            drawn as bars underneath it. <b>The color and the chart are the same
+            information</b> &mdash; one you read with your eyes, one you read with
+            numbers.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>p5 Lab 10</h2>
+              <h3 class="text-sn-theme">Color as Data</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Color Is Three Numbers</p>
+              <p>Bit Depth</p>
+              <p>Drawing Data About Data</p>
+            </section>
+
+            <section>
+              <h2>You Have Been Doing This Since Lab 1</h2>
+              <Code code={Figure1} frame="code" lang="javascript" title="fill()" showLineNumbers={false} />
+              <p class="fragment">Three numbers, 0 to 255. One byte each.</p>
+              <p class="fragment">Three bytes for one color.</p>
+            </section>
+
+            <section>
+              <h2>So a Palette Is a Dataset</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="Three Parallel Lists" showLineNumbers={false} />
+              <p class="fragment">Same shape as the leaderboards and the score lists.</p>
+              <p class="fragment">And anything you can put in a list, you can chart.</p>
+            </section>
+
+            <section>
+              <h2>Today's Move</h2>
+              <p>Draw the swatch <b>and</b> draw its numbers.</p>
+              <p class="fragment">Same information, twice, in two forms.</p>
+            </section>
+
+            <section>
+              <h2>Then Take Some Bits Away</h2>
+              <p>8 bits per channel gives 256 levels.</p>
+              <p class="fragment">Drop to 2 bits and you get <b>4</b>.</p>
+              <p class="fragment">Activity 1.2 showed you this with a slider. Now you build it.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Treating a palette as three parallel lists of numbers</li>
+                <li>Drawing both a color and its channel values</li>
+                <li>Reducing bit depth and calculating how many colors remain</li>
+                <li>Judging whether fewer bits meant proportionally less information</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Channel</dt>
+                  <dd>One of the three numbers &mdash; red, green, or blue &mdash; that make a color.</dd>
+                  <dt>Bit depth</dt>
+                  <dd>How many bits are used per channel, which sets how many levels are possible.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js sketch</b> named{" "}
+            <b class="text-sn-theme">2-15-color</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: The Swatches</h3>
+          <ul>
+            <li>Create the sketch below and run it.</li>
+            <li>
+              Change one number in <code>greens</code> and run it again. Only one
+              swatch should move.
+            </li>
+            <li>
+              <b>Add a sixth color</b> of your own. You have to add to three lists,
+              not one &mdash; note that in a comment.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="p5 Lab 10" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Draw the Numbers Too</h3>
+          <ul>
+            <li>Replace it with the version below and run it.</li>
+            <li>
+              <b>Read the chart, not the swatches.</b> Which color has the most
+              blue? Which has the least green? Check your answers against the
+              swatches afterwards.
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="p5 Lab 10" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Take the Bits Away</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="p5 Lab 10" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Make the bit depth a parameter: <code>drawRow(y, levels)</code>,
+              where <code>levels</code> is 256, 4, or 2. Then draw three rows and
+              say where the picture stops being usable.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>
+            Five swatches with three labeled bars underneath each, and a second
+            row at reduced bit depth.
+          </p>
+
+          <p>
+            <b>Then answer this before you submit:</b> your reduced row gives each
+            channel 4 levels. How many colors is that in total, and how does it
+            compare to 256 levels per channel? <b>Show the arithmetic</b> &mdash;
+            the answer is more dramatic than most people guess.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>The swatch and the bars carry the same information. Name one thing each form shows you better than the other.</li>
+            <li>You cut each channel from 8 bits to 2 and the swatches were still recognizable. What does that suggest about how much of the original data was actually needed?</li>
+            <li>Adding a sixth color meant editing three lists in step. What could go wrong if you edited two of them and got distracted?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,196 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `let original = "bbbbbbbbbwwwwwwwwwbb";
+let encoded = "b9w9b2";
+
+let ratio = original.length / encoded.length;
+
+console.log("Original: " + original.length + " characters");
+console.log("Encoded:  " + encoded.length + " characters");
+console.log("Compression ratio: " + ratio.toFixed(2));`;
+
+const Bug2 = `function colorCount(bitsPerChannel) {
+  let levels = bitsPerChannel * 2;
+  return levels * levels * levels;
+}
+
+console.log("2 bits per channel: " + colorCount(2) + " colors");
+console.log("8 bits per channel: " + colorCount(8) + " colors");`;
+
+const Bug3 = `let readings = ["12.7", "13.2", "12.9"];
+
+let total = 0;
+
+for (let i = 0; i < readings.length; i++) {
+  total = total + parseInt(readings[i]);
+}
+
+console.log("Readings: " + readings);
+console.log("Average temperature: " + (total / readings.length).toFixed(2));`;
+
+const Bug4 = `let ages = [17, 16, 999, 18, 15];
+
+let kept = [];
+
+for (let i = 0; i < ages.length; i++) {
+  if (ages[i] >= 13 && ages[i] <= 19) {
+    kept.push(ages[i]);
+  }
+}
+
+let total = 0;
+
+for (let i = 0; i < ages.length; i++) {
+  total = total + ages[i];
+}
+
+console.log("Kept " + kept.length + " valid ages out of " + ages.length);
+console.log("Average of the valid ages: " + (total / kept.length).toFixed(1));`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Data</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four programs that report a number about some data.{" "}
+            <b>All four run. All four print a number. Every one of those numbers
+            is wrong.</b>
+          </p>
+
+          <p>
+            There is nothing to fix in the <i>data</i> here &mdash; the datasets
+            are fine. The faults are in the arithmetic and in one cast, and none
+            of them announces itself.
+          </p>
+
+          <p>
+            <b>The technique for this page is to check every number against
+            something you can work out yourself.</b> All four are small enough to
+            do on paper, which is exactly why they were chosen.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            This should report the compression ratio. It reports{" "}
+            <code>3.33</code>.
+          </p>
+
+          <Code code={Bug1} frame="code" lang="javascript" title="Bug 1" class="mb-3" />
+
+          <p>
+            <b>Also:</b> a colleague reads <code>3.33</code> and says{" "}
+            <i>"great, three times smaller."</i> They have reached the right
+            conclusion from a wrong number. Explain how that is possible, and why
+            it makes this bug more dangerous rather than less.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            This should report how many colors a given bit depth can make. It says
+            8 bits per channel gives <code>4096</code>.
+          </p>
+
+          <Code code={Bug2} frame="code" lang="javascript" title="Bug 2" class="mb-3" />
+
+          <p>
+            <b>Also:</b> the real answer for 8 bits is a number you have seen
+            before. State it, and say where in the course you met it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            Three temperature readings, all between 12 and 14. This reports an
+            average of <code>12.33</code>.
+          </p>
+
+          <p class="text-body-secondary">
+            <code>parseInt</code> is not the cast this course taught. It converts a
+            string to a <b>whole number</b>, discarding anything after the decimal
+            point, and it does it without complaining.
+          </p>
+
+          <Code code={Bug3} frame="code" lang="javascript" title="Bug 3" class="mb-3" />
+
+          <p>
+            <b>Also:</b> work out the correct average by hand. Then say how far off
+            the program was, and whether you would have noticed if you had not been
+            told to check.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            This filters out an impossible age and then reports the average of what
+            is left. It says the average of four teenagers is <code>266.3</code>.
+          </p>
+
+          <Code code={Bug4} frame="code" lang="javascript" title="Bug 4" class="mb-3" />
+
+          <p>
+            <b>Also:</b> the filtering loop is correct and the counting is correct.
+            Name the exact line where the program stops talking about the data it
+            said it was talking about.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            For each program: one sentence on what was wrong, the corrected line,
+            and the answers to the <b>Also</b> questions.
+          </p>
+
+          <p>
+            <b>And one more, for the set as a whole:</b> Bug 4 printed{" "}
+            <code>266.3</code> as the average age of four teenagers. Say what
+            check, applied to any of these four programs, would have caught the
+            fault immediately &mdash; and why nobody applies it.
+          </p>
+
+          <p>Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

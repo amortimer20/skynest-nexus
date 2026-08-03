@@ -1,0 +1,387 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `DATA           412, 388, 401, 455, 623, 947, 890
+
+INFORMATION    weekends are roughly twice as busy as weekdays`;
+
+const Figure2 = `THE DATA        a 12 megapixel image
+
+THE METADATA    taken 2026-07-14
+                device: phone camera
+                48.8584 N, 2.2945 E
+                4.2 MB`;
+
+const Figure3 = `month   cones sold   drownings
+May            120           3
+Jun            260           7
+Jul            410          11
+Aug            395          10
+Sep            180           4`;
+
+const Task1 = `let days   = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+let visits = [412, 388, 401, 455, 623, 947, 890];
+
+function summarize(labels, values) {
+  let total = 0;
+  let busiest = 0;
+
+  for (let i = 0; i < values.length; i++) {
+    total = total + values[i];
+
+    if (values[i] > values[busiest]) {
+      busiest = i;
+    }
+  }
+
+  let average = total / values.length;
+
+  console.log("Total visits: " + total);
+  console.log("Average per day: " + average.toFixed(1));
+  console.log("Busiest day: " + labels[busiest] + " with " + values[busiest]);
+
+  let aboveAverage = 0;
+
+  for (let i = 0; i < values.length; i++) {
+    if (values[i] > average) {
+      aboveAverage = aboveAverage + 1;
+    }
+  }
+
+  console.log("Days above average: " + aboveAverage + " of " + values.length);
+}
+
+summarize(days, visits);
+`;
+
+const Task2 = `let months    = ["May", "Jun", "Jul", "Aug", "Sep"];
+let iceCream  = [120, 260, 410, 395, 180];
+let drownings = [3, 7, 11, 10, 4];
+
+for (let i = 0; i < months.length; i++) {
+  console.log(months[i] + ": " + iceCream[i] + " cones, " + drownings[i] + " drownings");
+}
+
+let bothUp = 0;
+let bothDown = 0;
+
+for (let i = 1; i < months.length; i++) {
+  if (iceCream[i] > iceCream[i - 1] && drownings[i] > drownings[i - 1]) {
+    bothUp = bothUp + 1;
+  }
+  if (iceCream[i] < iceCream[i - 1] && drownings[i] < drownings[i - 1]) {
+    bothDown = bothDown + 1;
+  }
+}
+
+console.log("");
+console.log("Months where both rose: " + bothUp);
+console.log("Months where both fell: " + bothDown);
+console.log("They moved together in " + (bothUp + bothDown) + " of " + (months.length - 1) + " changes.");
+`;
+
+const Task3 = `let photoData = "a 12 megapixel image";
+let photoMeta = ["taken 2026-07-14", "device: phone camera", "48.8584 N, 2.2945 E", "4.2 MB"];
+
+function describe(data, meta) {
+  console.log("The data itself: " + data);
+  console.log("Data about the data:");
+
+  for (let i = 0; i < meta.length; i++) {
+    console.log("  - " + meta[i]);
+  }
+}
+
+describe(photoData, photoMeta);
+
+console.log("");
+photoMeta[2] = "location removed";
+console.log("After stripping the location from the metadata:");
+describe(photoData, photoMeta);
+
+console.log("");
+console.log("Is the image itself any different? " + (photoData === "a 12 megapixel image" ? "no" : "yes"));
+
+// Then answer these in comments:
+//   a) You deleted the location. What happened to the image?
+//   b) Name two things this metadata lets you do that you could not
+//      do with a folder of images and no metadata at all.
+//   c) A social network strips location metadata before publishing a
+//      photo. Say who that protects, and what it costs.
+`;
+
+const ExampleOutput = `Total visits: 4116
+Average per day: 588.0
+Busiest day: Sat with 947
+Days above average: 3 of 7`;
+
+const CorrelationOutput = `May: 120 cones, 3 drownings
+Jun: 260 cones, 7 drownings
+Jul: 410 cones, 11 drownings
+Aug: 395 cones, 10 drownings
+Sep: 180 cones, 4 drownings
+
+Months where both rose: 2
+Months where both fell: 2
+They moved together in 4 of 4 changes.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.18: Information, Metadata, and Correlation</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.18</h2>
+              <h3 class="text-sn-theme">Information, Metadata, and Correlation</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Data Is Not Information</p>
+              <p>Metadata</p>
+              <p>Moving Together Is Not Causing</p>
+            </section>
+
+            <section>
+              <h2>Two Different Words</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Data and Information" showLineNumbers={false} />
+              <p class="fragment"><b>Information is the facts and patterns you extract from data.</b></p>
+              <p class="fragment">The numbers were always there. The sentence took work.</p>
+            </section>
+
+            <section>
+              <h2>What That Work Looks Like</h2>
+              <p>Totals. Averages. Maximums. Counts above a threshold.</p>
+              <p class="fragment">You have written every one of those already.</p>
+              <p class="fragment">Data gives you the chance to spot a trend. It does not hand you one.</p>
+            </section>
+
+            <section>
+              <h2>One Source Is Often Not Enough</h2>
+              <p>Visit counts tell you Saturday is busy.</p>
+              <p class="fragment">They do not tell you <i>why</i>, or whether it was raining, or what the staffing was.</p>
+              <p class="fragment"><b>Reaching a conclusion often means combining sources.</b></p>
+            </section>
+
+            <section>
+              <h2>Now: Data About Data</h2>
+              <Code code={Figure2} frame="code" lang="txt" title="Metadata" showLineNumbers={false} />
+              <p class="fragment">Activity 1.2 had you find this on your own phone.</p>
+              <p class="fragment">Today: what it is <i>for</i>.</p>
+            </section>
+
+            <section>
+              <h2>What Metadata Buys You</h2>
+              <p><b>Finding.</b> Every photo from July, without opening any of them.</p>
+              <p class="fragment"><b>Organizing.</b> Group by place, sort by date.</p>
+              <p class="fragment"><b>Managing.</b> Know the size before you download it.</p>
+              <p class="fragment">Metadata is what makes a pile of files into something searchable.</p>
+            </section>
+
+            <section>
+              <h2>And the Part People Get Wrong</h2>
+              <p><b>Changing or deleting metadata does not change the primary data.</b></p>
+              <p class="fragment">Strip the location from a photo and the photo is untouched.</p>
+              <p class="fragment">Pixel for pixel identical. You removed a label, not an image.</p>
+            </section>
+
+            <section>
+              <h2>Last Idea, and It Is the Slippery One</h2>
+              <Code code={Figure3} frame="code" lang="txt" title="Two Columns" showLineNumbers={false} />
+              <p class="fragment">These rise together and fall together. Every single month.</p>
+            </section>
+
+            <section>
+              <h2>So Does Ice Cream Cause Drowning</h2>
+              <p class="fragment">No.</p>
+              <p class="fragment">It is summer. People swim more <i>and</i> buy more ice cream.</p>
+              <p class="fragment">Something is causing both, and it is in neither column.</p>
+            </section>
+
+            <section>
+              <h2>State It Carefully</h2>
+              <p><b>A correlation found in data does not necessarily indicate that a causal relationship exists.</b></p>
+              <p class="fragment">Additional research is needed to understand the exact nature of the relationship.</p>
+              <p class="fragment">The data was not wrong. The conclusion was.</p>
+            </section>
+
+            <section>
+              <h2>Why This Matters More Than It Sounds</h2>
+              <p>A program can find correlations by the thousand.</p>
+              <p class="fragment">It cannot tell you which of them mean anything.</p>
+              <p class="fragment">That part is still yours.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Distinguishing data from information</li>
+                <li>Describing what information can be extracted from metadata</li>
+                <li>Explaining that changing metadata leaves the primary data untouched</li>
+                <li>Explaining why a correlation does not establish a cause</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Information</dt>
+                  <dd>The collection of facts and patterns extracted from data.</dd>
+                  <dt>Metadata</dt>
+                  <dd>Data about data. Used for finding, organizing, and managing information.</dd>
+                  <dt>Correlation</dt>
+                  <dd>Two things moving together. Not by itself evidence that one causes the other.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-18-information</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Turn Data Into Information</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              <b>Then write one sentence</b>, in a comment, that a manager could
+              act on. Not a number &mdash; a sentence. That sentence is the
+              information; the four printed lines are only the ingredients.
+            </li>
+            <li>
+              Add one more finding of your own to <code>summarize</code>, and say
+              why you chose it.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Information" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Two Columns That Agree</h3>
+          <ul>
+            <li>Start a new file. Write the code below and run it.</li>
+            <li>
+              <b>They move together in every single change.</b> Write down, in a
+              comment, the conclusion someone might jump to.
+            </li>
+            <li>
+              Then write the <b>actual</b> explanation, and name the thing that is
+              causing both &mdash; the thing that appears in neither list.
+            </li>
+            <li>
+              Finally: what data would you need to <i>collect</i> to check your
+              explanation?
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Correlation" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: The Data About the Data</h3>
+          <ul>
+            <li>Start a new file. Write the code below, run it, and fill in the comments.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Metadata" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Write <code>findByMonth(month)</code> that searches a list of photo
+              metadata and returns the matching ones &mdash; without ever touching
+              an image. Then say which search from Activity 2.9 or 2.10 you used,
+              and whether the metadata list would let you use the faster one.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Task 1 should produce exactly this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Task 1"
+          />
+
+          <p class="mt-4">And Task 2 this.</p>
+
+          <Code
+            code={CorrelationOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Task 2"
+          />
+
+          <p class="mt-3">
+            Task 3's output ends with <code>no</code>, and that single word is the
+            whole point of the task.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Your program printed four numbers and you wrote one sentence. Which of those is the information, and what did the other one give you?</li>
+            <li>Deleting the location metadata left the image identical. Explain why that is still a meaningful thing to have done.</li>
+            <li>Every month in Task 2 agreed. Explain why perfect agreement across every month still does not prove a cause.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

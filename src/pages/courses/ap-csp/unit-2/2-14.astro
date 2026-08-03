@@ -1,0 +1,442 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `place value   128  64  32  16   8   4   2   1
+position        7   6   5   4   3   2   1   0`;
+
+const Figure2 = `  1   0   1   1   0   1   1   0
+128   0  32  16   0   4   2   0
+
+128 + 32 + 16 + 4 + 2  =  182`;
+
+const Figure3 = `182 MOD 2 = 0     ->  0        left with (182 - 0) / 2 = 91
+ 91 MOD 2 = 1     ->  10       left with (91 - 1) / 2  = 45
+ 45 MOD 2 = 1     ->  110      left with (45 - 1) / 2  = 22
+ 22 MOD 2 = 0     ->  0110     left with 11
+ 11 MOD 2 = 1     ->  10110    left with 5
+  5 MOD 2 = 1     ->  110110   left with 2
+  2 MOD 2 = 0     ->  0110110  left with 1
+  1 MOD 2 = 1     -> 10110110  left with 0.  Stop.`;
+
+const Figure4 = `01000001
+
+  as a number      65
+  as a character   A
+  as a color       a very dark blue-ish value
+  as a switch bank off on off off off off off on`;
+
+const Task1 = `function toBinary(n) {
+  let bits = "";
+  let left = n;
+
+  while (left > 0) {
+    let bit = left % 2;
+    bits = bit + bits;
+    left = (left - bit) / 2;
+  }
+
+  if (bits === "") {
+    bits = "0";
+  }
+
+  return bits;
+}
+
+let numbers = [5, 12, 64, 182, 255];
+
+for (let i = 0; i < numbers.length; i++) {
+  console.log(numbers[i] + " -> " + toBinary(numbers[i]));
+}
+`;
+
+const Task2 = `// Add this below toBinary, in the same file.
+
+function toDecimal(bits) {
+  let total = 0;
+  let place = 1;
+
+  for (let i = bits.length - 1; i >= 0; i--) {
+    if (bits[i] === "1") {
+      total = total + place;
+    }
+    place = place * 2;
+  }
+
+  return total;
+}
+
+console.log("");
+console.log("--- round trip ---");
+
+for (let i = 0; i < numbers.length; i++) {
+  let there = toBinary(numbers[i]);
+  let back = toDecimal(there);
+  console.log(numbers[i] + " -> " + there + " -> " + back);
+}
+`;
+
+const Task3 = `let mixed = ["1010", "111", "10000", "1", "1101"];
+
+// Put these in order, smallest value first.
+//
+// You already have toDecimal. You already have a sort from 2.12.
+//   Do not convert them by hand.
+//
+// Print each one with its decimal value beside it.
+//
+// Then answer these in comments:
+//   a) "111" is 3 digits and "1010" is 4. Which is the bigger
+//      number? Does counting digits always tell you which is
+//      bigger, and what has to be true for that to work?
+//   b) Now compare "0111" and "1010". Same length. What do you
+//      do instead?
+`;
+
+const ExampleOutput = `5 -> 101
+12 -> 1100
+64 -> 1000000
+182 -> 10110110
+255 -> 11111111
+
+--- round trip ---
+5 -> 101 -> 5
+12 -> 1100 -> 12
+64 -> 1000000 -> 64
+182 -> 10110110 -> 182
+255 -> 11111111 -> 255`;
+
+const NotationJs = `function toBinary(n) {
+  let bits = "";
+  let left = n;
+
+  while (left > 0) {
+    let bit = left % 2;
+    bits = bit + bits;
+    left = (left - bit) / 2;
+  }
+
+  return bits;
+}`;
+
+const NotationPseudo = `PROCEDURE bitsOf(n)
+{
+  bits ← []
+  left ← n
+
+  REPEAT UNTIL(left = 0)
+  {
+    bit ← left MOD 2
+    INSERT(bits, 1, bit)
+    left ← (left - bit) / 2
+  }
+
+  RETURN(bits)
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.14: Binary Numbers and What Bits Represent</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.14</h2>
+              <h3 class="text-sn-theme">Binary Numbers and What Bits Represent</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Place Value in Base 2</p>
+              <p>Converting Both Ways</p>
+              <p>The Same Bits, Different Meanings</p>
+            </section>
+
+            <section>
+              <h2>You Have Met Bits Already</h2>
+              <p>Activity 1.2: eight switches, 256 combinations.</p>
+              <p class="fragment">Today you calculate with them instead of counting them.</p>
+            </section>
+
+            <section>
+              <h2>Base 10 Works the Same Way</h2>
+              <p><b>4,271</b> is 4 thousands, 2 hundreds, 7 tens, 1 one.</p>
+              <p class="fragment">Each position is worth <b>ten to the power of its position</b>.</p>
+              <p class="fragment">Base 2 changes the ten. Nothing else.</p>
+            </section>
+
+            <section>
+              <h2>The Only Table You Need</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Place Values" showLineNumbers={false} />
+              <p class="fragment">Positions count from <b>0</b>, on the right.</p>
+              <p class="fragment">Each is the base raised to the power of its position.</p>
+            </section>
+
+            <section>
+              <h2>Binary to Decimal</h2>
+              <Code code={Figure2} frame="code" lang="txt" title="10110110" showLineNumbers={false} />
+              <p class="fragment">A digit's value is the bit times its place value.</p>
+              <p class="fragment">Add up the ones. Ignore the zeros.</p>
+            </section>
+
+            <section>
+              <h2>Decimal to Binary</h2>
+              <p>The other direction needs an operator you met in week two.</p>
+              <Code code={Figure3} frame="code" lang="txt" title="182 to Binary" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Read That Again</h2>
+              <p><code>MOD 2</code> gives you the bit.</p>
+              <p class="fragment">Subtract it and halve, and you have the next one.</p>
+              <p class="fragment">Subtract the remainder, then divide. <b>Third time this course.</b></p>
+            </section>
+
+            <section>
+              <h2>Comparing Binary Numbers</h2>
+              <p>Which is bigger: <code>111</code> or <code>1010</code>?</p>
+              <p class="fragment">7 and 10. <b>The longer one wins</b> &mdash; when there are no leading zeros.</p>
+              <p class="fragment">Same length? Compare left to right, first difference decides.</p>
+            </section>
+
+            <section>
+              <h2>Now the Interesting Part</h2>
+              <Code code={Figure4} frame="code" lang="txt" title="One Byte, Four Readings" showLineNumbers={false} />
+              <p class="fragment">Nothing in those eight bits says which one is correct.</p>
+            </section>
+
+            <section>
+              <h2>Bits Have No Meaning of Their Own</h2>
+              <p><b>The same sequence of bits represents different types of data in different contexts.</b></p>
+              <p class="fragment">The context comes from the program, not the bits.</p>
+              <p class="fragment">That is why opening a photo as text gives you garbage.</p>
+            </section>
+
+            <section>
+              <h2>Grouping Bits Is Abstraction</h2>
+              <p>Eight bits become a number. Numbers become a character. Three numbers become a color.</p>
+              <p class="fragment">Each layer lets you stop thinking about the one below it.</p>
+              <p class="fragment">Same idea as 2.5, one level further down.</p>
+            </section>
+
+            <section>
+              <h2>An Aside: Hex</h2>
+              <p><code>#3B82F6</code> is three bytes written in <b>base 16</b>.</p>
+              <p class="fragment">Four bits per digit, so one byte is exactly two digits.</p>
+              <p class="fragment"><b>Not on the exam.</b> Useful for your own sketches, so it is worth five minutes.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Calculating the binary equivalent of a decimal number, and the reverse</li>
+                <li>Explaining place value in base 2 in terms of the base and the position</li>
+                <li>Comparing and ordering binary numbers</li>
+                <li>Explaining why the same bits can represent different types of data</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Bit</dt>
+                  <dd>Short for binary digit. Either 0 or 1.</dd>
+                  <dt>Byte</dt>
+                  <dd>Eight bits.</dd>
+                  <dt>Place value</dt>
+                  <dd>The base raised to the power of the position, counting from 0 on the right.</dd>
+                  <dt>Abstraction</dt>
+                  <dd>Reducing complexity by focusing on the main idea and hiding what does not matter here.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-14-binary</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Decimal to Binary</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              <b>Work out 12 by hand first</b>, using the table from the slides,
+              and check it against what the program says.
+            </li>
+            <li>
+              In a comment: <code>64</code> comes out as a 1 followed by six
+              zeros. Say why every power of 2 looks like that.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Binary" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: And Back Again</h3>
+          <ul>
+            <li>Add <code>toDecimal</code> and the round-trip loop.</li>
+            <li>
+              Every line should end with the number it started with.{" "}
+              <b>If one does not, one of the two procedures is wrong</b> &mdash;
+              and the round trip is how you found out.
+            </li>
+            <li>
+              In a comment: <code>toDecimal</code> walks the string{" "}
+              <b>backwards</b>. Why does it have to?
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Binary" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Put Them in Order</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Binary" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Call <code>toBinary(0)</code>. The <code>while</code> loop never
+              runs, which is why the <code>if</code> at the bottom exists. Then
+              write <code>toHex(n)</code> for color codes &mdash; the same loop
+              with <code>MOD 16</code>, and a way to print 10 through 15 as{" "}
+              <code>A</code> through <code>F</code>.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            <b>The reference sheet has no way to build up a string</b>, so the
+            exam-notation version collects the bits in a <b>list</b> instead.
+          </p>
+
+          <ul>
+            <li>
+              <code>INSERT(bits, 1, bit)</code> shifts everything right and puts
+              the new bit at position 1. That is how you add to the{" "}
+              <b>front</b> of a list, which is what this loop needs.
+            </li>
+            <li>
+              <code>APPEND</code> would put each bit at the <b>end</b> instead,
+              and you would get the whole number backwards. Two operations, one
+              character apart in effect, completely different answer.
+            </li>
+          </ul>
+
+          <p>
+            <b>Everything else is the same, and notice what did the work:</b>{" "}
+            <code>MOD</code> and division. You met both in Activity 1.6, used
+            them again for the binary-search midpoint at 2.10, and here they are
+            a third time. <b>The reference sheet is small, so the same few
+            operators keep coming back.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Tasks 1 and 2 together should produce exactly this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">
+            Your Task 3 output will be five lines, in order, each with its decimal
+            value.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>The round trip in Task 2 is a test, not a feature. Explain what it can catch that reading the code cannot.</li>
+            <li><code>01000001</code> is the number 65 and the letter A and a color. What decides which one it is?</li>
+            <li>Base 10 needs ten digits and base 2 needs two. Explain what a digit's position tells you, in a sentence that works for both.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

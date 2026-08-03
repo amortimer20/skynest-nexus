@@ -1,0 +1,91 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `We compress every image row the same way and I have a feeling
+it is not always helping. Check it for me and tell me when to
+bother.`;
+
+const SampleOutput = `  a plain sky: ratio 0.15 -> lossless is worth it
+  a horizon: ratio 0.30 -> lossless is worth it
+  dense text: ratio 1.50 -> do not compress this way`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-7" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 7
+        </a>
+
+        <h1>Code Challenge: Compression Picker</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-7">Set 7</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Reuse the run-length encoder from 2.17. You do not need to decode anything here &mdash; only measure.</li>
+            <li>Report the <b>ratio</b>, not the sizes. A ratio is comparable across rows of different lengths; a size is not.</li>
+            <li><b>Then give a recommendation per row.</b> The client asked when to bother; a table of ratios is not an answer to that.</li>
+            <li>Test at least one row that gets bigger. If none of your test data does, you have not tested the interesting case.</li>
+            <li>In your requirements list: what ratio is your cutoff, and why that number?</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            All three rows are the same length. <b>What changed is the redundancy</b>,
+            and the third one costs you 50% for the privilege of being compressed.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-compression-picker</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
