@@ -4,34 +4,34 @@ import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const P1 = `scores <- [7, 3, 9]
+const P1 = `scores ← [7, 3, 9]
 
 FOR EACH s IN scores
 {
   DISPLAY(s)
 }`;
-const P2 = `values <- [4, 8, 15]
-total <- 0
-i <- 1
+const P2 = `values ← [4, 8, 15]
+total ← 0
+i ← 1
 
 REPEAT LENGTH(values) TIMES
 {
-  total <- total + values[i]
-  i <- i + 1
+  total ← total + values[i]
+  i ← i + 1
 }
 DISPLAY(total)`;
-const P3 = `items <- [5, 10, 15, 20]
-count <- 0
+const P3 = `items ← [5, 10, 15, 20]
+count ← 0
 
 FOR EACH v IN items
 {
   IF(v > 8)
   {
-    count <- count + 1
+    count ← count + 1
   }
 }
 DISPLAY(count)`;
-const RefCard = `a <- expression          assign a copy of the result to a
+const RefCard = `a ← expression          assign a copy of the result to a
 DISPLAY(expression)      show the value, FOLLOWED BY A SPACE
 INPUT()                  take a value from the user
 
@@ -52,8 +52,8 @@ REPEAT n TIMES           no counter variable is provided
 REPEAT UNTIL(condition)  repeats UNTIL true - the inverse of while
 { ... }
 
-aList <- [v1, v2, v3]    FIRST ELEMENT IS aList[1]
-aList <- bList           assigns a COPY of bList
+aList ← [v1, v2, v3]    FIRST ELEMENT IS aList[1]
+aList ← bList           assigns a COPY of bList
 LENGTH(aList)            number of elements
 APPEND(aList, value)     add to the end, length + 1
 INSERT(aList, i, value)  shift right from i, place value at i

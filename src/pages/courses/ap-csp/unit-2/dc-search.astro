@@ -1,0 +1,229 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `let crew = ["Vega", "Orion", "Lyra", "Draco"];
+
+function find(name) {
+  for (let i = 0; i < crew.length; i++) {
+    if (crew[i] === name) {
+      return i;
+    } else {
+      return -1;
+    }
+  }
+}
+
+console.log(find("Vega"));
+console.log(find("Lyra"));
+console.log(find("Nope"));`;
+
+const Bug2 = `let ids = [10, 20, 30, 40, 50];
+let target = 35;
+
+let low = 0;
+let high = ids.length - 1;
+
+while (low <= high) {
+  let mid = Math.floor((low + high) / 2);
+
+  if (ids[mid] === target) {
+    console.log("found at " + mid);
+    break;
+  }
+
+  if (ids[mid] < target) {
+    low = mid;
+  } else {
+    high = mid - 1;
+  }
+}
+
+console.log("done");`;
+
+const Bug3 = `let ids = [40, 10, 50, 20, 30];
+
+function binarySearch(list, target) {
+  let low = 0;
+  let high = list.length - 1;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+
+    if (list[mid] === target) {
+      return mid;
+    }
+
+    if (list[mid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  return -1;
+}
+
+console.log("looking for 10 -> " + binarySearch(ids, 10));
+console.log("looking for 50 -> " + binarySearch(ids, 50));
+console.log("looking for 20 -> " + binarySearch(ids, 20));`;
+
+const Bug4 = `let scores = [10, 20, 30];
+
+function find(list, target) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i] = target) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+console.log("looking for 30 -> " + find(scores, 30));
+console.log("the list is now " + scores);`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Search</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four searches. <b>Not one of them crashes.</b> There is no error
+            message anywhere on this page, and that is the point of it.
+          </p>
+
+          <p>
+            <b>Three of them give you a confident wrong answer. One never gives
+            you an answer at all.</b>
+          </p>
+
+          <p>
+            A search that returns <code>-1</code> looks exactly the same whether
+            the item is genuinely missing or your code is broken. So you cannot
+            debug these by reading the output. <b>You have to check the output
+            against a list you can see.</b>
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            This should find any name in the crew list. It finds exactly one of
+            them.
+          </p>
+
+          <Code code={Bug1} frame="code" lang="javascript" title="Bug 1" class="mb-3" />
+
+          <p>
+            <b>Also:</b> <code>"Lyra"</code> is in the list and the program says
+            it is not. Say which line decided that, and on which pass of the
+            loop.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            <b>This one does not stop.</b> 35 is not in the list, and the program
+            never gets to the last line.
+          </p>
+
+          <p class="text-body-secondary">
+            Read it before you run it. If you do run it, be ready to stop it.
+          </p>
+
+          <Code code={Bug2} frame="code" lang="javascript" title="Bug 2" class="mb-3" />
+
+          <p>
+            <b>Also:</b> trace <code>low</code>, <code>mid</code>, and{" "}
+            <code>high</code> until they stop changing, and write down the three
+            values it gets stuck on. <b>One character fixes this.</b>
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            The procedure is a correct binary search. Copy it out and check it
+            against Activity 2.10 if you like &mdash; there is nothing wrong with
+            it.
+          </p>
+
+          <p>
+            It reports that 10 and 20 are missing. Both are in the list. It finds
+            50.
+          </p>
+
+          <Code code={Bug3} frame="code" lang="javascript" title="Bug 3" class="mb-3" />
+
+          <p>
+            <b>Also:</b> the fix is not in the procedure. Say what it is, and then
+            explain why 50 was found anyway.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            This should find 30 at index 2. It says index 0, and then the list
+            has changed.
+          </p>
+
+          <Code code={Bug4} frame="code" lang="javascript" title="Bug 4" class="mb-3" />
+
+          <p>
+            <b>Also:</b> this is one keystroke. Say what the condition on that
+            line actually evaluates to, and why it counted as true.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            For each program: one sentence on what was wrong, the corrected line,
+            and the answers to the <b>Also</b> questions.
+          </p>
+
+          <p>
+            <b>And one more, for the set as a whole:</b> three of these four gave
+            a wrong answer with no error message. Name one thing you could add to
+            a search program so that a wrong answer would be noticed.
+          </p>
+
+          <p>Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

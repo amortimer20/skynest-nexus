@@ -1,0 +1,384 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `n         binary    linear    sort
+8         4         8         28
+16        5         16        120
+32        6         32        496
+1000000   20        1000000   499999500000`;
+
+const Figure2 = `Double the list.
+
+  binary search    one more step
+  linear search    twice the steps
+  selection sort   about four times the steps`;
+
+const Figure3 = `n     doubling
+8     256
+16    65536
+32    4294967296
+64    18446744073709551616`;
+
+const Task1 = `function halvings(n) {
+  let steps = 0;
+  let left = n;
+
+  while (left > 0) {
+    steps = steps + 1;
+    left = Math.floor(left / 2);
+  }
+
+  return steps;
+}
+
+function pairs(n) {
+  return (n * (n - 1)) / 2;
+}
+
+let sizes = [8, 16, 32, 64];
+
+console.log("n\\tbinary\\tlinear\\tsort");
+
+for (let i = 0; i < sizes.length; i++) {
+  let n = sizes[i];
+  console.log(n + "\\t" + halvings(n) + "\\t" + n + "\\t" + pairs(n));
+}
+`;
+
+const Task2 = `// Add this procedure and this extra column.
+
+function doubling(n) {
+  let total = 1;
+
+  for (let i = 0; i < n; i++) {
+    total = total * 2;
+  }
+
+  return total;
+}
+
+console.log("");
+console.log("n\\tdoubling");
+
+for (let i = 0; i < sizes.length; i++) {
+  let n = sizes[i];
+  console.log(n + "\\t" + doubling(n));
+}
+`;
+
+const Task3 = `// A computer does one billion steps per second.
+//
+// For each of these, work out roughly how long the job takes
+//   and write the answer in a comment:
+//
+//   1. Linear search through 1 billion records.
+//   2. Binary search through 1 billion sorted records.
+//   3. Selection sort on 1 million records.
+//   4. A doubling algorithm on an input of 64.
+//
+// One of these four does not finish in your lifetime.
+//   Say which, and by how much you missed.
+`;
+
+const ExampleOutput = `n	binary	linear	sort
+8	4	8	28
+16	5	16	120
+32	6	32	496
+64	7	64	2016`;
+
+const NotationJs = `for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    // one step
+  }
+}`;
+
+const NotationPseudo = `i ← 1
+REPEAT UNTIL(i > n)
+{
+  j ← 1
+  REPEAT UNTIL(j > n)
+  {
+    <one step>
+    j ← j + 1
+  }
+  i ← i + 1
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.13: Algorithmic Efficiency</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.13</h2>
+              <h3 class="text-sn-theme">Algorithmic Efficiency</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Counting Steps, Not Seconds</p>
+              <p>What Happens When the Input Grows</p>
+              <p>Reasonable and Unreasonable Time</p>
+            </section>
+
+            <section>
+              <h2>Why Not Just Time It</h2>
+              <p>A fast computer makes a bad algorithm look fine.</p>
+              <p class="fragment">Until the input gets bigger.</p>
+              <p class="fragment">So we count <b>steps as the input grows</b>, not seconds.</p>
+            </section>
+
+            <section>
+              <h2>Everything You Have Written This Unit</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Steps for a List of n" showLineNumbers={false} />
+              <p class="fragment">Look at the bottom row.</p>
+            </section>
+
+            <section>
+              <h2>The Shape Matters, Not the Number</h2>
+              <Code code={Figure2} frame="code" lang="txt" title="Double the Input" showLineNumbers={false} />
+              <p class="fragment">One more step. Twice. Four times.</p>
+              <p class="fragment">Those three answers are the whole subject.</p>
+            </section>
+
+            <section>
+              <h2>Where the Shapes Come From</h2>
+              <p><b>Halving</b> the problem each pass &rarr; one more step per doubling.</p>
+              <p class="fragment"><b>One loop</b> over the list &rarr; steps grow with <code>n</code>.</p>
+              <p class="fragment"><b>A loop inside a loop</b> &rarr; steps grow with <code>n</code> squared.</p>
+            </section>
+
+            <section>
+              <h2>Then There Is This</h2>
+              <Code code={Figure3} frame="code" lang="txt" title="Doubling" showLineNumbers={false} />
+              <p class="fragment">Every <code>+1</code> to the input <b>doubles</b> the work.</p>
+              <p class="fragment">At n = 64, a billion steps a second takes <b>585 years</b>.</p>
+            </section>
+
+            <section>
+              <h2>Two Categories</h2>
+              <p><b>Reasonable time:</b> steps grow like <code>n</code>, <code>n</code> squared, <code>n</code> cubed &mdash; a power of the input.</p>
+              <p class="fragment"><b>Unreasonable time:</b> steps grow by doubling, or faster.</p>
+            </section>
+
+            <section>
+              <h2>Read That Boundary Carefully</h2>
+              <p><code>n</code> cubed on a million items is a very long time.</p>
+              <p class="fragment">It is still called reasonable.</p>
+              <p class="fragment">The line is not about being fast. It is about whether a bigger computer can ever save you.</p>
+            </section>
+
+            <section>
+              <h2>Why That Line Is Drawn There</h2>
+              <p>Reasonable: buy a machine 1000&times; faster, solve a much bigger problem.</p>
+              <p class="fragment">Unreasonable: buy a machine 1000&times; faster, and handle about <b>ten more items</b>.</p>
+              <p class="fragment">That is the difference. Hardware cannot rescue you.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Measuring an algorithm by counting steps as the input grows</li>
+                <li>Recognizing the halving, linear, and squared shapes in code</li>
+                <li>Distinguishing reasonable from unreasonable running time</li>
+                <li>Explaining why a faster computer does not fix an unreasonable algorithm</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Efficiency</dt>
+                  <dd>How the number of steps grows as the input grows.</dd>
+                  <dt>Reasonable time</dt>
+                  <dd>Steps grow like a power of the input &mdash; <code>n</code>, <code>n</code> squared, and so on.</dd>
+                  <dt>Unreasonable time</dt>
+                  <dd>Steps grow by doubling or faster as the input grows by one.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-13-efficiency</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Build the Table</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              Look down each column as <code>n</code> doubles.{" "}
+              <b>Write in a comment what happens to each one</b>, in words rather
+              than numbers.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Efficiency" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Add the Fourth Shape</h3>
+          <ul>
+            <li>Add the extra procedure and column, and run it again.</li>
+            <li>
+              <b>In a comment:</b> the sort column and the doubling column both
+              look big at n = 8. Say which one you would rather be stuck with at
+              n = 1000, and why the answer is obvious once you look at n = 64.
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Efficiency" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Put a Time on It</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Efficiency" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Print <code>doubling(64)</code> and compare the last few digits
+              against the value on the slide. <b>They do not match.</b> Explain
+              what happened, using what you know from Activity 1.2 about how many
+              bits a number gets.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            <b>Counting steps is an exam skill, and it usually arrives as a
+            nested loop like this one.</b> The question is almost always the
+            same: how many times does the inner statement run?
+          </p>
+
+          <ul>
+            <li>
+              <b>Read the bounds, not the shape.</b> Two nested loops that each
+              run <code>n</code> times give <code>n</code> squared steps. Two
+              nested loops where the inner one runs 3 times give <code>3n</code>{" "}
+              &mdash; which grows like <code>n</code>, not like <code>n</code>{" "}
+              squared.
+            </li>
+            <li>
+              <b><code>REPEAT n TIMES</code> gives you no counter.</b> When you
+              need the index, you keep it yourself &mdash; which is why the
+              notation on the right is longer than the JavaScript on the left.
+            </li>
+          </ul>
+
+          <p>
+            The written-response section asks a version of this about your own
+            code: <b>state how many times the body of your first loop
+            executes.</b> Same skill, your program instead of theirs.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Task 1 should produce exactly this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">
+            The columns are separated by tabs, so they may line up differently
+            depending on your screen. The numbers are what matter.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>An algorithm taking <code>n</code> cubed steps is called reasonable. In your own words, why is that a sensible name for something that slow?</li>
+            <li>Your computer gets a thousand times faster overnight. Which of the four columns benefits least, and why?</li>
+            <li>Binary search beats linear search at every size in your table except the very smallest. Give a reason someone might still write the linear one.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

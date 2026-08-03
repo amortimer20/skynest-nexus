@@ -1,0 +1,329 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp/img/lab-2-11-target.png";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `function drawBar(index, x) {
+  let h = values[index] * 2.5;
+  fill(80, 100, 140);
+  rect(x, 320 - h, 38, h);
+}`;
+
+const Figure2 = `if (index === found) {
+  fill(60, 200, 110);      // green: this is the one
+} else if (index === current) {
+  fill(240, 190, 60);      // yellow: checking it now
+} else {
+  fill(80, 100, 140);      // blue: not looked at
+}`;
+
+const Task1 = `let values = [42, 17, 93, 8, 55, 31, 76, 24];
+
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+  textSize(14);
+  noStroke();
+
+  background(20, 30, 50);
+
+  for (let i = 0; i < values.length; i++) {
+    drawBar(i, 20 + i * 46);
+  }
+}
+
+function drawBar(index, x) {
+  let h = values[index] * 2.5;
+  fill(80, 100, 140);
+  rect(x, 320 - h, 38, h);
+  fill(230);
+  text(values[index], x + 19, 335);
+}
+`;
+
+const Task2 = `let values = [42, 17, 93, 8, 55, 31, 76, 24];
+let target = 55;
+let current = -1;
+let found = -1;
+
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+  textSize(14);
+  noStroke();
+}
+
+function draw() {
+  background(20, 30, 50);
+
+  for (let i = 0; i < values.length; i++) {
+    drawBar(i, 20 + i * 46);
+  }
+
+  fill(230);
+  text("Looking for " + target, 200, 30);
+
+  if (found >= 0) {
+    text("Found at index " + found, 200, 370);
+  } else if (current >= values.length - 1) {
+    text("Not in the list", 200, 370);
+  } else {
+    text("Click to check the next one", 200, 370);
+  }
+}
+
+function drawBar(index, x) {
+  let h = values[index] * 2.5;
+
+  if (index === found) {
+    fill(60, 200, 110);
+  } else if (index === current) {
+    fill(240, 190, 60);
+  } else {
+    fill(80, 100, 140);
+  }
+
+  rect(x, 320 - h, 38, h);
+  fill(230);
+  text(values[index], x + 19, 335);
+}
+
+function mousePressed() {
+  if (found >= 0) {
+    return;
+  }
+
+  current = current + 1;
+
+  if (current < values.length && values[current] === target) {
+    found = current;
+  }
+}
+`;
+
+const Task3 = `// Add a counter.
+//   Show how many bars have been checked so far, on the canvas.
+//
+// Then change the target to a value that is NOT in the list,
+//   and click all the way through.
+//   The final count is the worst case you measured at 2.9.
+//
+// Then answer, in a comment on the canvas or in the code:
+//   how many clicks would this take on a list of 800 bars?
+`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.11: p5 Lab 9 &mdash; Visualizing a Search</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- What You're Building -->
+        <section id="target">
+          <h2>What You're Building</h2>
+
+          <div class="text-center my-4">
+            <Image src={TargetImage} alt="Eight blue bars labeled with their values, with the bar for 55 highlighted in green and the caption Found at index 4" width={400} class="img-fluid rounded" />
+          </div>
+
+          <p>
+            By the end of <b>Task 2</b>, each click checks the next bar. The bar
+            being checked turns yellow; when the target is found it turns green
+            and the search stops. This is five clicks in, looking for 55.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Task 3 is not shown.</b> That one is yours to work out.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>p5 Lab 9</h2>
+              <h3 class="text-sn-theme">Visualizing a Search</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Data as a Picture</p>
+              <p>One Step Per Click</p>
+              <p>Watching the Worst Case</p>
+            </section>
+
+            <section>
+              <h2>A List You Can See</h2>
+              <Code code={Figure1} frame="code" lang="javascript" title="One Bar" showLineNumbers={false} />
+              <p class="fragment">Height comes from the value. Position comes from the index.</p>
+              <p class="fragment">Two parameters, and between them they draw the whole list.</p>
+            </section>
+
+            <section>
+              <h2>Color Carries the State</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="Three States" showLineNumbers={false} />
+              <p class="fragment">Not looked at. Looking now. Found.</p>
+              <p class="fragment">The search has not changed. You can just see it.</p>
+            </section>
+
+            <section>
+              <h2>One Click, One Step</h2>
+              <p>At 2.9 the loop ran to completion instantly.</p>
+              <p class="fragment">Here <i>you</i> are the loop.</p>
+              <p class="fragment">Each click does exactly one comparison.</p>
+            </section>
+
+            <section>
+              <h2>What That Buys You</h2>
+              <p>The check count stops being a number in the output.</p>
+              <p class="fragment">It becomes how many times you had to click.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Drawing a list as bars using a procedure with two parameters</li>
+                <li>Using color to show the state of a search</li>
+                <li>Advancing a linear search one comparison per click</li>
+                <li>Measuring the worst case by clicking through it</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Visualization</dt>
+                  <dd>A picture of data or a process that makes its shape visible.</dd>
+                  <dt>State</dt>
+                  <dd>What the program currently knows &mdash; here, which bar it is on and whether it has found the target.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>p5.js sketch</b> named{" "}
+            <b class="text-sn-theme">2-11-search</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: The List as Bars</h3>
+          <ul>
+            <li>Create the sketch below and run it.</li>
+            <li>
+              Change one value in <code>values</code> and run it again. Only one
+              bar should move.
+            </li>
+            <li>
+              <b>In a comment:</b> <code>drawBar</code> takes two parameters.
+              Which one decides the height, and which decides the position?
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="p5 Lab 9" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: One Click, One Check</h3>
+          <ul>
+            <li>Replace it with the version below and run it. Click through the search.</li>
+            <li>Count your clicks. It should take five to find 55.</li>
+            <li>
+              Change <code>target</code> to <code>24</code> and click through
+              again. <b>Record how many clicks that took.</b>
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="p5 Lab 9" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Count the Worst Case</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="p5 Lab 9" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Make the bars that have already been ruled out fade to a darker
+              color instead of staying blue. Then say what that fading is showing
+              you that the yellow bar alone does not.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>
+            Clicking should advance the search exactly one bar at a time, the
+            current bar should be visibly different from the rest, and the search
+            should stop once the target is found.
+          </p>
+
+          <p>
+            <b>Then answer this before you submit:</b> your sketch found 55 in
+            five clicks. On a list of 800 bars, how many clicks would the worst
+            case take? You do not need to build it &mdash; you need to know why
+            the answer is 800.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>The search logic here is the same as 2.9. What did seeing it change about your understanding of it, if anything? An honest "nothing" is a fine answer if you can say why.</li>
+            <li>This sketch cannot visualize binary search without one change to the data. What is it?</li>
+            <li><code>mousePressed()</code> advances the search, and <code>drawBar()</code> draws it. Only one of those two counts as a student-developed procedure. Which one, and why?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

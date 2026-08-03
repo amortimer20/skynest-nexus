@@ -1,0 +1,447 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `Guess a number from 1 to 100.
+
+  50?  too high     -> now it is 1 to 49
+  25?  too low      -> now it is 26 to 49
+  37?  too low      -> now it is 38 to 49
+  43?  too high     -> now it is 38 to 42
+  40?  too low      -> now it is 41 to 42
+  41?  yes
+
+Six guesses. Never more than seven.`;
+
+const Figure2 = `let low = 0;
+let high = list.length - 1;
+
+while (low <= high) {
+  let mid = Math.floor((low + high) / 2);
+
+  if (list[mid] === target) {
+    return mid;
+  }
+
+  if (list[mid] < target) {
+    low = mid + 1;
+  } else {
+    high = mid - 1;
+  }
+}
+
+return -1;`;
+
+const Figure3 = `[104, 211, 358, 407, 512, 663, 729, 810]   sorted
+[104, 729, 358, 407, 512, 663, 211, 810]   two swapped`;
+
+const Task1 = `let ids = [104, 211, 358, 407, 512, 663, 729, 810];
+
+function binarySearch(list, target) {
+  let low = 0;
+  let high = list.length - 1;
+  let checks = 0;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+    checks = checks + 1;
+
+    if (list[mid] === target) {
+      console.log(target + " found at index " + mid + " after " + checks + " checks");
+      return mid;
+    }
+
+    if (list[mid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  console.log(target + " not found after " + checks + " checks");
+  return -1;
+}
+
+binarySearch(ids, 104);
+binarySearch(ids, 810);
+binarySearch(ids, 407);
+binarySearch(ids, 500);
+`;
+
+const Task2 = `// Add this to the same file, below binarySearch.
+
+function linearSearch(list, target) {
+  let checks = 0;
+
+  for (let i = 0; i < list.length; i++) {
+    checks = checks + 1;
+    if (list[i] === target) {
+      console.log(target + " found at index " + i + " after " + checks + " checks");
+      return i;
+    }
+  }
+
+  console.log(target + " not found after " + checks + " checks");
+  return -1;
+}
+
+console.log("--- binary ---");
+binarySearch(ids, 810);
+console.log("--- linear ---");
+linearSearch(ids, 810);
+
+console.log("--- binary ---");
+binarySearch(ids, 104);
+console.log("--- linear ---");
+linearSearch(ids, 104);
+`;
+
+const Task3 = `let scrambled = [104, 729, 358, 407, 512, 663, 211, 810];
+
+// 211 and 729 are both in this list. Only their positions changed.
+//
+// 1. Run binarySearch on scrambled, looking for 211. Record what it says.
+// 2. Run linearSearch on scrambled, looking for 211. Record what it says.
+// 3. In a comment, answer: which one lied, and why did it not crash?
+//
+// Then find a value that binary search STILL finds correctly in
+// scrambled, and explain in a comment why that one got lucky.
+`;
+
+const ExampleOutput = `104 found at index 0 after 3 checks
+810 found at index 7 after 4 checks
+407 found at index 3 after 1 checks
+500 not found after 3 checks`;
+
+const NotationJs = `function binarySearch(list, target) {
+  let low = 0;
+  let high = list.length - 1;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+    if (list[mid] === target) {
+      return mid;
+    }
+    if (list[mid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return -1;
+}`;
+
+const NotationPseudo = `PROCEDURE binarySearch(aList, target)
+{
+  low ← 1
+  high ← LENGTH(aList)
+
+  REPEAT UNTIL(low > high)
+  {
+    sum ← low + high
+    mid ← (sum - (sum MOD 2)) / 2
+
+    IF(aList[mid] = target)
+    {
+      RETURN(mid)
+    }
+    IF(aList[mid] < target)
+    {
+      low ← mid + 1
+    }
+    ELSE
+    {
+      high ← mid - 1
+    }
+  }
+  RETURN(-1)
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.10: Binary Search</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.10</h2>
+              <h3 class="text-sn-theme">Binary Search</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Halving the Problem</p>
+              <p>The Sorted Requirement</p>
+              <p>Failing Quietly</p>
+            </section>
+
+            <section>
+              <h2>You Already Know This One</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Guess My Number" showLineNumbers={false} />
+              <p class="fragment">Nobody guesses 1, then 2, then 3.</p>
+            </section>
+
+            <section>
+              <h2>Why Six and Not Fifty</h2>
+              <p>Every guess throws away <b>half</b> of what is left.</p>
+              <p class="fragment">100 &rarr; 50 &rarr; 25 &rarr; 12 &rarr; 6 &rarr; 3 &rarr; 1</p>
+              <p class="fragment">Seven halvings and 100 possibilities are gone.</p>
+            </section>
+
+            <section>
+              <h2>The Same Idea in Code</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="Binary Search" showLineNumbers={false} />
+              <p class="fragment"><code>low</code> and <code>high</code> are the edges of what is left.</p>
+              <p class="fragment">Each pass moves one edge past the middle.</p>
+            </section>
+
+            <section>
+              <h2>Read the Two Edges</h2>
+              <p>Too small? The answer is to the <b>right</b>. Move <code>low</code>.</p>
+              <p class="fragment">Too big? To the <b>left</b>. Move <code>high</code>.</p>
+              <p class="fragment">When they cross, there is nothing left to look at.</p>
+            </section>
+
+            <section>
+              <h2>The Price</h2>
+              <p>Binary search only works on a <b>sorted</b> list.</p>
+              <p class="fragment">Not "usually works better." Only works.</p>
+            </section>
+
+            <section>
+              <h2>And Here Is the Nasty Part</h2>
+              <Code code={Figure3} frame="code" lang="txt" title="Two Values Swapped" showLineNumbers={false} />
+              <p class="fragment">Search the second one for <code>211</code>.</p>
+              <p class="fragment"><b>It reports not found.</b> 211 is right there.</p>
+            </section>
+
+            <section>
+              <h2>No Error. No Crash.</h2>
+              <p>A confident, wrong answer.</p>
+              <p class="fragment">Those are worse than crashes. A crash tells you.</p>
+            </section>
+
+            <section>
+              <h2>So Which One Do You Use?</h2>
+              <p><b>Unsorted, or searched once:</b> linear.</p>
+              <p class="fragment"><b>Sorted, and searched often:</b> binary.</p>
+              <p class="fragment">There is no winner. There is a fit.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Explaining binary search as repeated halving</li>
+                <li>Tracking <code>low</code>, <code>mid</code>, and <code>high</code> through a search</li>
+                <li>Comparing check counts against linear search on the same list</li>
+                <li>Showing that binary search on unsorted data fails silently</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Binary search</dt>
+                  <dd>Repeatedly halve a sorted list until the target is found or nothing is left.</dd>
+                  <dt>Midpoint</dt>
+                  <dd>The index halfway between the current low and high.</dd>
+                  <dt>Silent failure</dt>
+                  <dd>A wrong answer produced with no error message.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-10-binary</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Halving</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              <b>One of these four takes only one check.</b> Before you run it,
+              predict which, and say why in a comment.
+            </li>
+            <li>Then trace the search for 500 by hand, writing down <code>low</code>, <code>mid</code>, and <code>high</code> on each pass.</li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Binary Search" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Side by Side</h3>
+          <ul>
+            <li>Add <code>linearSearch</code> and the comparison calls.</li>
+            <li>
+              Record all four check counts in a comment. <b>Linear wins one of
+              these two matchups.</b> Say which, and why that is not an argument
+              for using linear search.
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Binary Search" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Break It</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Binary Search" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Change <code>low = mid + 1</code> to <code>low = mid</code> and run
+              Task 1 again. Describe exactly what happens and why the{" "}
+              <code>+ 1</code> was load-bearing.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>Two things change, and the second one is the interesting one.</p>
+          <ul>
+            <li>
+              <b>The edges start at 1 and <code>LENGTH(aList)</code></b>, not{" "}
+              <code>0</code> and <code>length - 1</code>. Same list, different
+              numbers on the page.
+            </li>
+            <li>
+              <b>The reference sheet has no <code>Math.floor()</code>, and its{" "}
+              <code>/</code> is true division.</b> On the sheet,{" "}
+              <code>9 / 2</code> is <code>4.5</code> &mdash; and there is no
+              element at index 4.5.
+            </li>
+          </ul>
+
+          <p>
+            So the midpoint has to be rounded down using only what the sheet
+            gives you, and <b>you have already done this</b>. It is the trick from
+            Activity 1.6: <b>subtract the remainder, then divide.</b>
+          </p>
+
+          <ul>
+            <li>
+              <code>sum</code> is 9 &rarr; <code>9 MOD 2</code> is 1 &rarr;{" "}
+              <code>(9 - 1) / 2</code> is <b>4</b>, a whole index.
+            </li>
+            <li>
+              <code>sum</code> is 12 &rarr; <code>12 MOD 2</code> is 0 &rarr;{" "}
+              <code>12 / 2</code> is <b>6</b>. Already whole, nothing to remove.
+            </li>
+          </ul>
+
+          <p>
+            <b>Worth sitting with.</b> The reference sheet is small on purpose,
+            and a small toolset means some familiar operations have to be rebuilt
+            out of the pieces that exist. Notice which piece did the work:{" "}
+            <code>MOD</code>, which you met in the second week of the course.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Task 1 should produce exactly this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">
+            <b>If your counts differ, your midpoint or your edge update is
+            wrong.</b> Trace the 500 case by hand and compare against your table
+            from Task 1.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Searching for 104 took binary search three checks and linear search one. Explain why binary search is still the better choice for this list.</li>
+            <li>In Task 3, binary search gave a wrong answer and no error. Describe a situation where that would be genuinely dangerous.</li>
+            <li>Sorting a list takes work. When is it worth sorting a list just so you can binary search it?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

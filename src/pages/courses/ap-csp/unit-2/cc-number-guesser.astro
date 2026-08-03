@@ -1,0 +1,97 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `Flip the guessing game around. I think of a number from 1 to
+100 and the computer guesses it. I will tell it higher or
+lower. It should not take all day.`;
+
+const SampleOutput = `Guess 1: is it 50? -> h
+Guess 2: is it 75? -> l
+Guess 3: is it 62? -> h
+Guess 4: is it 68? -> h
+Guess 5: is it 71? -> h
+Guess 6: is it 73? -> y
+Got it in 6 guesses.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/unit-2/cc-set-6" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 6
+        </a>
+
+        <h1>Code Challenge: Number Guesser</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code code={Brief} frame="code" lang="txt" title="What they asked for" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> Input,
+            calculate, output, and anything you had to decide for yourself. See{" "}
+            <a href="/courses/ap-csp/unit-2/cc-set-6">Set 6</a> for what that looks like.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>This is binary search with a person instead of a list. <code>low</code> and <code>high</code> are still the edges of what is left.</li>
+            <li>Use <code>prompt()</code> to collect the reply. Decide what the user types and say so on screen before you ask.</li>
+            <li>Print the guess number so the count is visible.</li>
+            <li><b>Handle a liar.</b> If the answers are inconsistent, <code>low</code> will pass <code>high</code> and there is nothing left. Say so rather than looping forever.</li>
+            <li>In your requirements list: what is the largest number of guesses this can ever need for 1 to 100? Work it out before you run it.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="sample-output">
+          <h2>Sample Output</h2>
+
+          <Code code={SampleOutput} frame="terminal" title="Sample Output" lang="txt" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            The secret was 73 and it took six. <b>Seven is the most it can ever
+            take</b> for a range of 100, and your requirements list should have
+            said so before you ran it.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program file, named{" "}
+            <b class="text-sn-theme">cc-number-guesser</b>.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

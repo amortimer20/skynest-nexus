@@ -1,0 +1,195 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const P1 = `aList ← [7, 2, 9, 4]
+
+temp ← aList[1]
+aList[1] ← aList[3]
+aList[3] ← temp
+
+FOR EACH item IN aList
+{
+  DISPLAY(item)
+}`;
+const P2 = `aList ← [42, 17, 93, 8, 55]
+
+smallest ← 1
+j ← 2
+
+REPEAT UNTIL(j > LENGTH(aList))
+{
+  IF(aList[j] < aList[smallest])
+  {
+    smallest ← j
+  }
+  j ← j + 1
+}
+
+temp ← aList[1]
+aList[1] ← aList[smallest]
+aList[smallest] ← temp
+
+DISPLAY(smallest)
+FOR EACH item IN aList
+{
+  DISPLAY(item)
+}`;
+const P3 = `bList ← [5, 1, 3]
+aList ← bList
+
+i ← 1
+REPEAT UNTIL(i > LENGTH(aList) - 1)
+{
+  smallest ← i
+  j ← i + 1
+  REPEAT UNTIL(j > LENGTH(aList))
+  {
+    IF(aList[j] < aList[smallest])
+    {
+      smallest ← j
+    }
+    j ← j + 1
+  }
+  temp ← aList[i]
+  aList[i] ← aList[smallest]
+  aList[smallest] ← temp
+  i ← i + 1
+}
+
+FOR EACH item IN aList
+{
+  DISPLAY(item)
+}
+FOR EACH item IN bList
+{
+  DISPLAY(item)
+}`;
+const RefCard = `a ← expression            assign a COPY of the result to a
+aList ← bList            assigns a COPY of bList
+                         changing one does NOT change the other
+
+aList[i]                 element at i.  FIRST ELEMENT IS aList[1]
+aList[i] ← x             store x at position i
+aList[i] ← aList[j]      copy one element onto another
+LENGTH(aList)            how many elements
+
+FOR EACH item IN aList { }     first to last
+
+REPEAT UNTIL(condition)  repeats UNTIL it becomes true
+IF(condition) { } ELSE { }     the only two selection forms`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Pseudocode Challenge: Tracing a Sort</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Three problems about moving values around inside a list. The third
+            one is the biggest difference between exam notation and JavaScript
+            in the whole course, and it is worth more than the other two put
+            together.
+          </p>
+
+          <p>
+            <b>Do this on paper.</b> There is nothing to run. On exam day you
+            get this notation printed and no computer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="reference">
+          <h2>Reference Card</h2>
+
+          <Code code={RefCard} frame="code" lang="txt" title="Exam Notation — what you have so far" showLineNumbers={false} class="mt-3" />
+        </section>
+
+        <hr />
+
+        <section id="problems">
+          <h2>The Problems</h2>
+
+          <hr class="my-4" />
+
+          <h3>Problem 1 &mdash; trace</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={P1} frame="code" lang="txt" title="Problem 1" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            <b>Then answer this:</b> delete the first line and the third line, so
+            only <code>aList[1] ← aList[3]</code> remains. What does the list
+            hold now, and which value is gone for good?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 2 &mdash; trace</h3>
+
+          <p>
+            This is <b>one pass</b> of selection sort. What does it display?
+          </p>
+
+          <Code code={P2} frame="code" lang="txt" title="Problem 2" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            <b>Then answer this:</b> the list is not sorted when this finishes.
+            How many more passes would it take, and which position does the next
+            pass fill?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 3 &mdash; trace</h3>
+
+          <p>
+            <code>aList</code> gets sorted. What do the two loops at the bottom
+            display?
+          </p>
+
+          <Code code={P3} frame="code" lang="txt" title="Problem 3" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            <b>Then answer this, and it is the whole problem:</b> write the same
+            thing in JavaScript, with <code>let aList = bList;</code> on the
+            second line. <b>The two answers are different.</b> Say why, and say
+            which one the exam expects.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your three answers. For Problem 3, both versions of the second
+            output &mdash; the exam-notation one and the JavaScript one.
+          </p>
+
+          <p>Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

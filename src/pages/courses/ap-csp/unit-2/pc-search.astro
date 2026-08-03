@@ -1,0 +1,225 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const P1 = `aList ← [8, 3, 9, 3, 5]
+target ← 3
+i ← 1
+count ← 0
+
+REPEAT UNTIL(i > LENGTH(aList))
+{
+  IF(aList[i] = target)
+  {
+    DISPLAY(i)
+    count ← count + 1
+  }
+  i ← i + 1
+}
+
+DISPLAY(count)`;
+const P2 = `aList ← [4, 11, 19, 26, 33, 41, 58, 70, 82]
+
+PROCEDURE search(list, target)
+{
+  low ← 1
+  high ← LENGTH(list)
+
+  REPEAT UNTIL(low > high)
+  {
+    sum ← low + high
+    mid ← (sum - (sum MOD 2)) / 2
+    DISPLAY(mid)
+
+    IF(list[mid] = target)
+    {
+      RETURN(mid)
+    }
+    IF(list[mid] < target)
+    {
+      low ← mid + 1
+    }
+    ELSE
+    {
+      high ← mid - 1
+    }
+  }
+  RETURN(-1)
+}
+
+result ← search(aList, 58)
+DISPLAY(result)`;
+const P3 = `aList ← [4, 11, 19, 26, 33, 41, 58, 70, 82]
+
+PROCEDURE search(list, target)
+{
+  low ← 1
+  high ← LENGTH(list)
+
+  REPEAT UNTIL(low > high)
+  {
+    sum ← low + high
+    mid ← (sum - (sum MOD 2)) / 2
+    DISPLAY(mid)
+
+    IF(list[mid] = target)
+    {
+      RETURN(mid)
+    }
+    IF(list[mid] < target)
+    {
+      low ← mid + 1
+    }
+    ELSE
+    {
+      high ← mid - 1
+    }
+  }
+  RETURN(-1)
+}
+
+result ← search(aList, 30)
+DISPLAY(result)`;
+const RefCard = `a ← expression            assign a COPY of the result to a
+DISPLAY(expression)      show it, FOLLOWED BY A SPACE
+=  ≠  >  <  ≥  ≤            comparison.  = means EQUALS
+
+aList[1]                 THE FIRST ELEMENT. Not aList[0]
+LENGTH(aList)            how many elements
+
+a MOD b                  remainder.  17 MOD 5 is 2
+a / b                    TRUE division.  17 / 5 is 3.4
+                         there is no rounding operator on the sheet
+
+REPEAT UNTIL(condition)  repeats UNTIL it becomes true
+                         the INVERSE of a while loop
+
+IF(condition) { } ELSE { }     the only two selection forms`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Pseudocode Challenge: Tracing a Search</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Three searches in exam notation. <b>Two of them are binary searches,
+            which is a recurring exam pattern</b> &mdash; you are given a list
+            and a target and asked what happens, with no computer in the room.
+          </p>
+
+          <p>
+            <b>Watch the indexing.</b> Every list on this page starts at 1. The
+            same search in JavaScript would return a number one lower.
+          </p>
+
+          <p>
+            <b>Do this on paper.</b> There is nothing to run. On exam day you
+            get this notation printed and no computer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="reference">
+          <h2>Reference Card</h2>
+
+          <Code code={RefCard} frame="code" lang="txt" title="Exam Notation — what you have so far" showLineNumbers={false} class="mt-3" />
+        </section>
+
+        <hr />
+
+        <section id="problems">
+          <h2>The Problems</h2>
+
+          <hr class="my-4" />
+
+          <h3>Problem 1 &mdash; trace</h3>
+
+          <p>What does this display? Write down every character, including the spaces.</p>
+
+          <Code code={P1} frame="code" lang="txt" title="Problem 1" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            <b>Then answer this:</b> <code>DISPLAY</code> puts a space after
+            every value. Write out the exact output string, and say how many
+            characters long it is.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 2 &mdash; trace</h3>
+
+          <p>
+            Build a table with a row per pass: <code>low</code>,{" "}
+            <code>high</code>, <code>mid</code>, and the value at{" "}
+            <code>aList[mid]</code>. Then say what is displayed and what is
+            returned.
+          </p>
+
+          <Code code={P2} frame="code" lang="txt" title="Problem 2" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            <b>Then answer this:</b> the list has nine items and this search
+            touched very few of them. How many comparisons did it make, and what
+            is the most it could ever make on a list of nine?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 3 &mdash; trace</h3>
+
+          <p>
+            Same procedure, and <b>30 is not in the list</b>. Build the table
+            again. What is displayed, and what is returned?
+          </p>
+
+          <Code code={P3} frame="code" lang="txt" title="Problem 3" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            <b>Then answer this:</b> the loop ended because{" "}
+            <code>low</code> passed <code>high</code>. Write down the values they
+            held on that last pass, and explain what it means for the range
+            between them to be empty.
+          </p>
+
+          <p>
+            <b>And this:</b> <code>mid</code> is written as{" "}
+            <code>(sum - (sum MOD 2)) / 2</code> rather than{" "}
+            <code>(low + high) / 2</code>. Give an example where the second one
+            produces something that is not a valid index.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your three answers, plus the trace tables for Problems 2 and 3.
+          </p>
+
+          <p>Worth <b>3 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

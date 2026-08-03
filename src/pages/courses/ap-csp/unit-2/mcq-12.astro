@@ -1,0 +1,181 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `let steps = 0;
+let n = 25;
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < 4; j++) {
+    steps = steps + 1;
+  }
+}
+
+console.log(steps);`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 12</h1>
+
+        <h4 class="text-sn-theme">Six questions &middot; 11 minutes &middot; cumulative</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Six questions through Activity 2.14, weighted toward{" "}
+            <b>algorithms, efficiency, and what cannot be computed</b>.
+          </p>
+
+          <p>
+            <b>Sessions 36 to 40 are the highest-value ground on the whole
+            exam.</b> Algorithm reasoning is the largest single slice of the
+            multiple-choice section. This set is worth more attention than its
+            two points suggest.
+          </p>
+
+          <p>
+            <b>Set a timer for 11 minutes.</b> Work them out on paper; do not
+            run the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer, one asks you to select
+            <i>all</i> that apply, and the last is about data or the impact of
+            computing rather than about code.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q1} frame="code" lang="javascript" title="Question 1" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) 25</li>
+            <li>(B) 100</li>
+            <li>(C) 625</li>
+            <li>(D) 4</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            The number of steps an algorithm takes grows like <b>n cubed</b> as
+            the input grows. This algorithm is described as running in:
+          </p>
+
+          <ul>
+            <li>(A) Unreasonable time</li>
+            <li>(B) Constant time</li>
+            <li>(C) No time at all</li>
+            <li>(D) Reasonable time</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>Which of these are true of a <b>heuristic</b>?</p>
+
+          <ul>
+            <li>(A) It guarantees the best possible answer</li>
+            <li>(B) It produces an answer in a reasonable amount of time</li>
+            <li>(C) It is used when finding the exact best answer would take too long</li>
+            <li>(D) Its answer may be worse than the best possible one</li>
+            <li>(E) It makes an undecidable problem decidable</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            A problem for which no algorithm can be written that always gives a
+            correct yes-or-no answer is called:
+          </p>
+
+          <ul>
+            <li>(A) Undecidable</li>
+            <li>(B) Unreasonable</li>
+            <li>(C) Unsorted</li>
+            <li>(D) A heuristic</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            Selection sort runs on a list of 6 numbers that is{" "}
+            <b>already in order</b>. How many comparisons does it make?
+          </p>
+
+          <ul>
+            <li>(A) 0</li>
+            <li>(B) 5</li>
+            <li>(C) 15</li>
+            <li>(D) 6</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6 &mdash; Data and Impact</h3>
+
+          <p>
+            A company builds a tool to rank job applications. It is trained on
+            the company's own hiring records from the past ten years, during
+            which the company rarely hired women as engineers. The tool now ranks
+            applications from women lower. This is best described as:
+          </p>
+
+          <ul>
+            <li>(A) A heuristic</li>
+            <li>(B) Bias in a computing innovation</li>
+            <li>(C) Data compression</li>
+            <li>(D) Redundancy</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

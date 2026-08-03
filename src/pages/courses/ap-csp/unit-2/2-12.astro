@@ -1,0 +1,367 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `[42, 17, 93, 8, 55, 31]
+
+Look at everything. The smallest is 8.
+Put it at the front, and move 42 to where 8 was.
+
+[8, 17, 93, 42, 55, 31]
+ ^^ done. Never look at it again.
+
+Now do the same to what is left.`;
+
+const Figure2 = `let smallest = i;
+
+for (let j = i + 1; j < list.length; j++) {
+  if (list[j] < list[smallest]) {
+    smallest = j;
+  }
+}`;
+
+const Figure3 = `let temp = list[i];
+list[i] = list[smallest];
+list[smallest] = temp;`;
+
+const Figure4 = `list[i] = list[smallest];
+list[smallest] = list[i];   // both are now the same value`;
+
+const Task1 = `let scores = [42, 17, 93, 8, 55, 31];
+
+function selectionSort(list) {
+  let comparisons = 0;
+
+  for (let i = 0; i < list.length - 1; i++) {
+    let smallest = i;
+
+    for (let j = i + 1; j < list.length; j++) {
+      comparisons = comparisons + 1;
+
+      if (list[j] < list[smallest]) {
+        smallest = j;
+      }
+    }
+
+    let temp = list[i];
+    list[i] = list[smallest];
+    list[smallest] = temp;
+
+    console.log("After pass " + (i + 1) + ": " + list);
+  }
+
+  console.log("Comparisons: " + comparisons);
+  return list;
+}
+
+selectionSort(scores);
+`;
+
+const Task2 = `// Add this below the first call.
+
+console.log("");
+console.log("--- a list that is already sorted ---");
+selectionSort([8, 17, 31, 42, 55, 93]);
+`;
+
+const Task3 = `let names = ["Ines", "Ravi", "Nadia", "Owen", "Priya"];
+let scores = [72, 95, 88, 61, 79];
+
+// Sort these into a leaderboard: highest score first.
+//
+// The two lists have to stay lined up. If Ravi's 95 moves to the
+//   front, "Ravi" has to move with it.
+//
+// Print the finished leaderboard as numbered lines.
+//
+// Then answer in a comment: what breaks if you sort scores
+//   and forget to move names?
+`;
+
+const ExampleOutput = `After pass 1: 8,17,93,42,55,31
+After pass 2: 8,17,93,42,55,31
+After pass 3: 8,17,31,42,55,93
+After pass 4: 8,17,31,42,55,93
+After pass 5: 8,17,31,42,55,93
+Comparisons: 15`;
+
+const NotationJs = `let temp = list[i];
+list[i] = list[smallest];
+list[smallest] = temp;`;
+
+const NotationPseudo = `temp ← aList[i]
+aList[i] ← aList[smallest]
+aList[smallest] ← temp`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.12: Sorting and Comparing Algorithms</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.12</h2>
+              <h3 class="text-sn-theme">Sorting and Comparing Algorithms</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Selection Sort</p>
+              <p>Swapping Without Losing a Value</p>
+              <p>Work That Does Not Depend on Luck</p>
+            </section>
+
+            <section>
+              <h2>Why Bother Sorting</h2>
+              <p>Last session: binary search needs a sorted list.</p>
+              <p class="fragment">So somebody has to sort it.</p>
+              <p class="fragment">That somebody is you, today.</p>
+            </section>
+
+            <section>
+              <h2>How You Would Do It by Hand</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Selection Sort" showLineNumbers={false} />
+              <p class="fragment">Find the smallest. Move it to the front. Repeat on the rest.</p>
+            </section>
+
+            <section>
+              <h2>Finding the Smallest</h2>
+              <Code code={Figure2} frame="code" lang="javascript" title="The Inner Loop" showLineNumbers={false} />
+              <p class="fragment">This is Algorithm A from 2.9, running on part of the list.</p>
+              <p class="fragment">It tracks the <b>index</b>, not the value. You need to know where it was.</p>
+            </section>
+
+            <section>
+              <h2>A Loop Inside a Loop</h2>
+              <p>Outer loop: which position are we filling?</p>
+              <p class="fragment">Inner loop: what is the smallest thing left?</p>
+              <p class="fragment">You met this shape at 1.21. Now it is doing something.</p>
+            </section>
+
+            <section>
+              <h2>The Swap</h2>
+              <Code code={Figure3} frame="code" lang="javascript" title="Three Lines, Not Two" showLineNumbers={false} />
+              <p class="fragment">Why three?</p>
+            </section>
+
+            <section>
+              <h2>Because Two Loses One</h2>
+              <Code code={Figure4} frame="code" lang="javascript" title="The Broken Version" showLineNumbers={false} />
+              <p class="fragment">The first line overwrites the value the second line needs.</p>
+              <p class="fragment"><code>temp</code> exists to hold it for one line.</p>
+            </section>
+
+            <section>
+              <h2>Watch What It Does Not Know</h2>
+              <p>Some passes change nothing at all.</p>
+              <p class="fragment">The list can be finished with three passes left to run.</p>
+              <p class="fragment"><b>Selection sort has no way to notice.</b></p>
+            </section>
+
+            <section>
+              <h2>Which Means</h2>
+              <p>An already-sorted list costs exactly the same as a scrambled one.</p>
+              <p class="fragment">15 comparisons either way, on six items.</p>
+              <p class="fragment">No best case. That is unusual, and it is worth knowing.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Describing selection sort as repeatedly finding the smallest</li>
+                <li>Explaining why a swap needs three assignments</li>
+                <li>Counting the comparisons a sort performs</li>
+                <li>Showing that selection sort does the same work on any input</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Selection sort</dt>
+                  <dd>Repeatedly select the smallest remaining item and place it next.</dd>
+                  <dt>Swap</dt>
+                  <dd>Exchange two values, using a third variable to avoid losing one.</dd>
+                  <dt>Pass</dt>
+                  <dd>One full trip of the outer loop.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Create a new <b>JavaScript program</b> named{" "}
+            <b class="text-sn-theme">2-12-sort</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Sort It</h3>
+          <ul>
+            <li>Write the code below and run it.</li>
+            <li>
+              <b>Two of the five passes change nothing.</b> Find them, and say in
+              a comment why the list did not move on those passes.
+            </li>
+          </ul>
+          <Code code={Task1} frame="code" lang="javascript" title="Selection Sort" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Sort Something Already Sorted</h3>
+          <ul>
+            <li>Add the extra call and run it again.</li>
+            <li>
+              <b>Compare the two comparison counts.</b> Record both in a comment.
+            </li>
+            <li>
+              Then answer: linear search got faster when it got lucky. Why does
+              this sort not?
+            </li>
+          </ul>
+          <Code code={Task2} frame="code" lang="javascript" title="Selection Sort" class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: A Leaderboard</h3>
+          <ul>
+            <li>Fill in the comment block.</li>
+          </ul>
+          <Code code={Task3} frame="code" lang="javascript" title="Selection Sort" class="mt-3" />
+
+          <h5 class="mt-4">Challenge (optional)</h5>
+          <ul>
+            <li>
+              Add a check that skips the swap when <code>smallest</code> is
+              already <code>i</code>. Count how many swaps that saves on the Task 1
+              list. Then explain why the <b>comparison</b> count did not budge.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam Notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationJs}
+                frame="code"
+                lang="javascript"
+                title="JavaScript"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            The swap is one of the few places where the two notations line up
+            almost exactly. <code>aList[i] ← aList[j]</code> is written on the
+            reference sheet as its own list operation, so the exam expects you to
+            read it.
+          </p>
+
+          <p>
+            <b>One difference that matters more here than usual.</b> On the
+            reference sheet, <code>aList ← bList</code> assigns a{" "}
+            <b>copy</b> of the list. In JavaScript it does not &mdash; it makes a
+            second name for the same list, and sorting through one name changes
+            what you see through the other.
+          </p>
+
+          <p>
+            So a sort question in exam notation can hand you two list names and
+            expect the original to be untouched. <b>The same question in
+            JavaScript would have a different answer.</b> This is the single
+            biggest mismatch between the two notations in the whole course.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Task 1 should produce exactly this.</p>
+
+          <Code
+            code={ExampleOutput}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            title="Example Output"
+          />
+
+          <p class="mt-3">
+            Your leaderboard in Task 3 will look different, but Ravi must be
+            first and Owen must be last.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Sorting six items took 15 comparisons. Binary search on six items takes about three. When is it worth paying the 15?</li>
+            <li>Selection sort cannot tell that it has finished early. Describe, in words, what you would have to add so it could.</li>
+            <li>In Task 3 the names had to move with the scores. What does that tell you about the risk of keeping related data in two separate lists?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

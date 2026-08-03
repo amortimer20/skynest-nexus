@@ -1,0 +1,190 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `let items = [4, 9, 4, 7];
+
+function find(list, target) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i] === target) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+console.log(find(items, 4));
+console.log(find(items, 5));`;
+
+const Q2 = `aList ← [3, 6, 9, 12, 15]
+i ← 1
+total ← 0
+
+REPEAT UNTIL(i > LENGTH(aList))
+{
+  total ← total + aList[i]
+  i ← i + 2
+}
+
+DISPLAY(total)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 11</h1>
+
+        <h4 class="text-sn-theme">Six questions &middot; 11 minutes &middot; cumulative</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Six questions through Activity 2.10, weighted toward <b>searching</b>.
+            One of them is in exam notation rather than JavaScript, which is
+            deliberate.
+          </p>
+
+          <p>
+            <b>Set a timer for 11 minutes.</b> Work them out on paper; do not
+            run the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer, one asks you to select
+            <i>all</i> that apply, and the last is about data or the impact of
+            computing rather than about code.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q1} frame="code" lang="javascript" title="Question 1" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>0</code> then <code>0</code></li>
+            <li>(B) <code>2</code> then <code>-1</code></li>
+            <li>(C) <code>0</code> then <code>-1</code></li>
+            <li>(D) <code>0</code> then <code>4</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            A sorted list holds 16 items. What is the <b>greatest</b> number of
+            comparisons a binary search could need to find an item, or determine
+            it is absent?
+          </p>
+
+          <ul>
+            <li>(A) 4</li>
+            <li>(B) 5</li>
+            <li>(C) 8</li>
+            <li>(D) 16</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>Which of these are true of <b>binary search</b>?</p>
+
+          <ul>
+            <li>(A) It requires the list to be sorted</li>
+            <li>(B) It always finds the target in exactly one comparison</li>
+            <li>(C) Each comparison rules out about half of what is left</li>
+            <li>(D) It works on any list, sorted or not</li>
+            <li>(E) On an unsorted list it may report a value as missing when it is present</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q2} frame="code" lang="txt" title="Question 4" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>45</code></li>
+            <li>(B) <code>18</code></li>
+            <li>(C) <code>24</code></li>
+            <li>(D) <code>27</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            A correct binary search procedure is given a list that is{" "}
+            <b>not</b> sorted. Which is most likely to happen?
+          </p>
+
+          <ul>
+            <li>(A) It stops with an index error</li>
+            <li>(B) It sorts the list first, then searches it</li>
+            <li>(C) It may report a value as missing even though it is in the list</li>
+            <li>(D) It always returns index 0</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6 &mdash; Data and Impact</h3>
+
+          <p>
+            A city publishes its bus arrival times as open data so anyone can
+            build an app with it. Residents without a smartphone or home internet
+            cannot use any of those apps. The gap between those two groups is
+            best described as:
+          </p>
+
+          <ul>
+            <li>(A) The digital divide</li>
+            <li>(B) Data compression</li>
+            <li>(C) Metadata</li>
+            <li>(D) A heuristic</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>2 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

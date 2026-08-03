@@ -1,0 +1,263 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Ambiguous = `We had seven applicants and I have their scores. Give me the
+ones worth interviewing, best first.`;
+
+const Questions = `Questions this brief does not answer
+
+  - Worth interviewing above what score? Nobody said.
+  - How many do I show? "Best first" implies a few, not all.
+  - What if more people clear the bar than I am showing?
+    Silently drop them, or say how many are hiding?
+  - Two applicants tied on 88. Who goes first?
+
+MY DECISIONS
+  - Cutoff is a parameter, default 75. Not hardcoded.
+  - Show 3, and print a count of how many more cleared the bar.
+  - Ties keep their original order. Stated at the top of the file.`;
+
+const pool = [
+  { slug: "cc-roll-call", title: "Roll Call", stars: 1, after: "2.9" },
+  { slug: "cc-high-score", title: "High Score", stars: 1, after: "2.9" },
+  { slug: "cc-word-count", title: "Log Counter", stars: 2, after: "2.9" },
+  { slug: "cc-seat-finder", title: "Seat Finder", stars: 2, after: "2.10" },
+  { slug: "cc-podium", title: "Podium", stars: 2, after: "2.12" },
+  { slug: "cc-step-counter", title: "Step Counter", stars: 2, after: "2.13" },
+  { slug: "cc-merge-lists", title: "Merge", stars: 3, after: "2.12" },
+  { slug: "cc-shortlist", title: "Shortlist", stars: 3, after: "2.13" },
+];
+
+const bonus = [
+  { slug: "cc-bubble-sort", title: "Bubble Sort", stars: 3, after: "2.12" },
+  { slug: "cc-number-guesser", title: "Number Guesser", stars: 3, after: "2.10" },
+];
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge Set 6</h1>
+
+        <h4 class="text-sn-theme">Complete any 5 of the 8 below.</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Set Is For</h2>
+
+          <p>
+            Set 5 was about the shape of a procedure. <b>This one is about
+            picking the algorithm.</b>
+          </p>
+
+          <p>
+            Not one of these briefs says <i>use binary search</i> or{" "}
+            <i>sort it first</i>. They describe a job. Working out which
+            algorithm the job needs &mdash; and whether the data lets you use it
+            &mdash; is the whole exercise.
+          </p>
+
+          <p>
+            <b>Two of them will punish you for choosing wrong in a way you can
+            see.</b> Seat Finder gives a confident wrong answer if the list is
+            not sorted. Merge gets an angry note from the client if you glue and
+            sort.
+          </p>
+
+          <p>
+            Same rule as always: <b>write your requirements list before you
+            write any code</b>, and submit both.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="shape">
+          <h2>The Brief Never Names the Algorithm</h2>
+
+          <p>
+            It also, often, does not name the numbers. Here is the whole
+            Shortlist brief:
+          </p>
+
+          <Code
+            code={Ambiguous}
+            frame="code"
+            lang="txt"
+            title="From the Shortlist brief"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            Twenty-two words, and at least four unanswered questions inside them.
+            Here is what should end up in your requirements list:
+          </p>
+
+          <Code
+            code={Questions}
+            frame="code"
+            lang="txt"
+            title="Requirements — the questions half"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Notice the last decision.</b> Ties are the sort of thing that
+            never comes up until real data arrives with one in it. A requirements
+            list that spots the tie before the code does is doing its job.
+          </p>
+
+          <p>
+            <b>And notice the first one.</b> The cutoff became a parameter rather
+            than a number typed into the middle of the procedure. That is the
+            habit Set 5 drilled, still applying.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="counting">
+          <h2>Most of These Ask You to Count</h2>
+
+          <p>
+            Log Counter, Seat Finder, Merge, and Step Counter all want a number
+            of steps reported alongside the answer. That is not busywork.
+          </p>
+
+          <p>
+            <b>Reporting the cost is how you tell whether you picked the right
+            algorithm.</b> A search that always takes eight checks on eight items
+            is not a binary search, whatever you called the procedure. The count
+            is the evidence.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="challenges">
+          <h2>The Challenges</h2>
+
+          <p>Pick <b>any five</b>.</p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              pool.map((c) => (
+                <li class="mb-2">
+                  <i class="si-terminal text-sn-theme me-2"></i>
+                  <a href={`/courses/ap-csp/unit-2/${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">
+                    &mdash; after Activity {c.after}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="bonus">
+          <h2>If Five Is Not Enough</h2>
+
+          <p>
+            These two are <b>extra credit</b>, worth 3 points each on top of the
+            set.
+          </p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              bonus.map((c) => (
+                <li class="mb-2">
+                  <i class="si-flask text-sn-yellow me-2"></i>
+                  <a href={`/courses/ap-csp/unit-2/${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">
+                    &mdash; after Activity {c.after}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <p class="mt-3">
+            <b>Bubble Sort is the more interesting of the two.</b> It beats
+            selection sort on one kind of input and loses to it on another, and
+            the challenge is to say which one you would actually ship.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="start-here">
+          <h2>If the Part 5 Quiz Went Badly</h2>
+
+          <p>
+            These three are the repair kit. <b>They count toward your five</b>
+            &mdash; this is not extra work, it is a different order to do it in.
+          </p>
+
+          <ul>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-roll-call">Roll Call</a>
+              &mdash; linear search, and why it is sometimes the only option
+            </li>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-seat-finder">Seat Finder</a>
+              &mdash; binary search, and the sorted requirement
+            </li>
+            <li>
+              <a href="/courses/ap-csp/unit-2/cc-step-counter">Step Counter</a>
+              &mdash; efficiency, once the first two are solid
+            </li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For <b>each</b> challenge you complete, submit:</p>
+
+          <ol>
+            <li>
+              <b>Your requirements list</b> &mdash; including which algorithm you
+              chose and what in the brief told you it was allowed.
+            </li>
+            <li><b>Your program file.</b></li>
+          </ol>
+
+          <p>
+            This set is worth <b>5 points</b>, graded on completion. Extra
+            credit is on top and does not replace any of the five.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenges
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
