@@ -131,7 +131,7 @@ REPEAT UNTIL(i > n)
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Counting Steps, Not Seconds</p>
+              <p>Problems and Instances</p>
               <p>What Happens When the Input Grows</p>
               <p>Reasonable and Unreasonable Time</p>
             </section>
@@ -141,6 +141,23 @@ REPEAT UNTIL(i > n)
               <p>A fast computer makes a bad algorithm look fine.</p>
               <p class="fragment">Until the input gets bigger.</p>
               <p class="fragment">So we count <b>steps as the input grows</b>, not seconds.</p>
+            </section>
+
+            <section>
+              <h2>Two Words Before We Start</h2>
+              <p>A <b>problem</b> is a general description of a task.</p>
+              <p class="fragment">An <b>instance</b> of it includes specific input.</p>
+              <p class="fragment"><i>Sorting</i> is a problem. <i>Sorting [2, 3, 1, 7]</i> is an instance.</p>
+              <p class="fragment">Efficiency is about the problem, not one instance.</p>
+            </section>
+
+            <section>
+              <h2>And Two Kinds of Problem</h2>
+              <p>A <b>decision problem</b> has a yes-or-no answer.</p>
+              <p class="fragment"><i>Is there a path from A to B?</i></p>
+              <p class="fragment">An <b>optimization problem</b> looks for the best answer among many.</p>
+              <p class="fragment"><i>What is the shortest path from A to B?</i></p>
+              <p class="fragment">Both come back tomorrow, and it matters which is which.</p>
             </section>
 
             <section>
@@ -172,8 +189,9 @@ REPEAT UNTIL(i > n)
 
             <section>
               <h2>Two Categories</h2>
-              <p><b>Reasonable time:</b> steps grow like <code>n</code>, <code>n</code> squared, <code>n</code> cubed &mdash; a power of the input.</p>
-              <p class="fragment"><b>Unreasonable time:</b> steps grow by doubling, or faster.</p>
+              <p><b>Reasonable time:</b> <b>polynomial or lower</b> &mdash; constant, halving, linear, square, cube.</p>
+              <p class="fragment"><b>Unreasonable time:</b> <b>exponential</b> or <b>factorial</b>.</p>
+              <p class="fragment">Binary search is on the reasonable side, and it is faster than linear. <i>Or lower</i> is doing real work in that sentence.</p>
             </section>
 
             <section>
@@ -193,8 +211,9 @@ REPEAT UNTIL(i > n)
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Measuring an algorithm by counting steps as the input grows</li>
-                <li>Recognizing the halving, linear, and squared shapes in code</li>
+                <li>Telling a problem apart from an instance of it</li>
+                <li>Telling a decision problem apart from an optimization problem</li>
+                <li>Measuring an algorithm by counting how many times a statement executes</li>
                 <li>Distinguishing reasonable from unreasonable running time</li>
                 <li>Explaining why a faster computer does not fix an unreasonable algorithm</li>
               </ul>
@@ -204,12 +223,18 @@ REPEAT UNTIL(i > n)
               <h2>Key Terms</h2>
               <div class="text-start">
                 <dl>
+                  <dt>Problem / instance</dt>
+                  <dd>A general task, versus that task with specific input.</dd>
+                  <dt>Decision problem</dt>
+                  <dd>One with a yes-or-no answer.</dd>
+                  <dt>Optimization problem</dt>
+                  <dd>One that looks for the best solution among many.</dd>
                   <dt>Efficiency</dt>
-                  <dd>How the number of steps grows as the input grows.</dd>
+                  <dd>An estimate of the computational resources an algorithm uses, as a function of the size of the input.</dd>
                   <dt>Reasonable time</dt>
-                  <dd>Steps grow like a power of the input &mdash; <code>n</code>, <code>n</code> squared, and so on.</dd>
+                  <dd>Polynomial efficiency or lower &mdash; constant, halving, linear, square, cube.</dd>
                   <dt>Unreasonable time</dt>
-                  <dd>Steps grow by doubling or faster as the input grows by one.</dd>
+                  <dd>Exponential or factorial efficiency.</dd>
                 </dl>
               </div>
             </section>
@@ -325,6 +350,13 @@ REPEAT UNTIL(i > n)
             code: <b>state how many times the body of your first loop
             executes.</b> Same skill, your program instead of theirs.
           </p>
+
+          <p>
+            <b>And one thing you will not be asked for.</b> There is a formal
+            notation for describing efficiency, and it is explicitly out of scope
+            for this course and this exam. <i>Twice the input, four times the
+            work</i> is the level of answer the exam wants.
+          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -358,7 +390,7 @@ REPEAT UNTIL(i > n)
           <p>Answer these before submitting your work.</p>
 
           <ol>
-            <li>An algorithm taking <code>n</code> cubed steps is called reasonable. In your own words, why is that a sensible name for something that slow?</li>
+            <li>An algorithm taking <code>n</code> cubed steps is called reasonable, and one that doubles is called unreasonable. In your own words, why is the line drawn between those two rather than somewhere else?</li>
             <li>Your computer gets a thousand times faster overnight. Which of the four columns benefits least, and why?</li>
             <li>Binary search beats linear search at every size in your table except the very smallest. Give a reason someone might still write the linear one.</li>
           </ol>

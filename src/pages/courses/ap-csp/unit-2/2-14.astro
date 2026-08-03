@@ -147,15 +147,16 @@ Total: 36 blocks`;
 
             <section>
               <h2>Key Concepts</h2>
-              <p>Problems Too Big to Solve Exactly</p>
+              <p>Optimization Problems Too Big to Solve Exactly</p>
               <p>Heuristics</p>
-              <p>Problems With No Algorithm at All</p>
+              <p>Decidable and Undecidable</p>
             </section>
 
             <section>
               <h2>A Delivery Van</h2>
               <p>Six stops. Visit them all, come back to the depot.</p>
               <p class="fragment">What is the shortest route?</p>
+              <p class="fragment">Yesterday's word for that: an <b>optimization problem</b>. Best among many.</p>
               <p class="fragment">Easy to state. Try every order and pick the best.</p>
             </section>
 
@@ -167,15 +168,16 @@ Total: 36 blocks`;
 
             <section>
               <h2>This Is Not a Slow Computer Problem</h2>
-              <p>Yesterday's word for that: <b>unreasonable time</b>.</p>
+              <p>Routes grow by <b>factorial</b>, which is unreasonable time.</p>
               <p class="fragment">Twenty-one stops is twenty times worse than twenty.</p>
               <p class="fragment">No machine you can buy changes that.</p>
             </section>
 
             <section>
               <h2>So Stop Insisting on the Best</h2>
-              <p>A <b>heuristic</b> is a rule that finds a good answer quickly,</p>
-              <p class="fragment">with no promise that it is the best one.</p>
+              <p>A <b>heuristic</b> produces a solution that is <b>not guaranteed to be optimal</b>,</p>
+              <p class="fragment">used when guaranteeing the optimal one is impractical.</p>
+              <p class="fragment">Note the word <i>impractical</i>. Not impossible.</p>
             </section>
 
             <section>
@@ -206,9 +208,17 @@ Total: 36 blocks`;
             </section>
 
             <section>
+              <h2>Start With the Easy Half</h2>
+              <p>A <b>decidable problem</b> is a decision problem you can always answer with an algorithm.</p>
+              <p class="fragment"><i>Is this number even?</i> Correct output, every input, always.</p>
+              <p class="fragment">Almost everything you have written this year is one.</p>
+            </section>
+
+            <section>
               <h2>Write Me This Procedure</h2>
               <Code code={Figure4} frame="code" lang="javascript" title="Does It Stop?" showLineNumbers={false} />
               <p class="fragment">Given any program, does it eventually finish, or run forever?</p>
+              <p class="fragment">Yes or no. <b>That is a decision problem too.</b></p>
               <p class="fragment">Useful. Every programmer would want it.</p>
             </section>
 
@@ -221,23 +231,38 @@ Total: 36 blocks`;
 
             <section>
               <h2>Undecidable</h2>
-              <p>A problem is <b>undecidable</b> if no algorithm can be built that always gives a correct yes-or-no answer.</p>
+              <p>A problem is <b>undecidable</b> if <b>no algorithm can be constructed that is always capable of providing a correct yes-or-no answer.</b></p>
               <p class="fragment">Not slow. Not unsolved. <b>Impossible.</b></p>
             </section>
 
             <section>
+              <h2>Read <i>Always</i> Carefully</h2>
+              <p>An undecidable problem can still have <b>instances</b> you can solve.</p>
+              <p class="fragment">Some programs obviously stop. Some obviously do not.</p>
+              <p class="fragment">What cannot exist is one algorithm that handles <b>every</b> instance.</p>
+            </section>
+
+            <section>
               <h2>Three Different Walls</h2>
-              <p><b>Reasonable time:</b> just write it.</p>
-              <p class="fragment"><b>Unreasonable time:</b> solvable, but not at real sizes. Use a heuristic.</p>
-              <p class="fragment"><b>Undecidable:</b> no algorithm exists. Handle some cases; never all.</p>
+              <p><b>Reasonable time:</b> polynomial or lower. Just write it.</p>
+              <p class="fragment"><b>Unreasonable time:</b> exponential or factorial. Solvable, not at real sizes. Use a heuristic.</p>
+              <p class="fragment"><b>Undecidable:</b> no algorithm exists. Some instances, never all.</p>
+            </section>
+
+            <section>
+              <h2>Do Not Merge the Last Two</h2>
+              <p>A heuristic helps with an <b>unreasonable</b> problem.</p>
+              <p class="fragment">It does nothing whatsoever for an <b>undecidable</b> one.</p>
+              <p class="fragment">Different walls.</p>
             </section>
 
             <section>
               <h2>Today's Objectives</h2>
               <ul>
                 <li>Explaining why some solvable problems cannot be solved at real sizes</li>
-                <li>Applying a heuristic and measuring how far off it lands</li>
-                <li>Defining an undecidable problem</li>
+                <li>Identifying a situation where a heuristic is the appropriate choice</li>
+                <li>Telling a decidable problem apart from an undecidable one</li>
+                <li>Explaining why an undecidable problem can still have solvable instances</li>
                 <li>Telling the three walls apart, given a problem</li>
               </ul>
             </section>
@@ -247,9 +272,11 @@ Total: 36 blocks`;
               <div class="text-start">
                 <dl>
                   <dt>Heuristic</dt>
-                  <dd>A rule that produces a good-enough answer quickly, without guaranteeing the best one.</dd>
+                  <dd>An approach producing a solution that is not guaranteed to be optimal, used when guaranteeing the optimal one is impractical.</dd>
+                  <dt>Decidable problem</dt>
+                  <dd>A decision problem an algorithm can answer correctly for all inputs.</dd>
                   <dt>Undecidable problem</dt>
-                  <dd>A problem for which no algorithm can always give a correct yes-or-no answer.</dd>
+                  <dd>One for which no algorithm can be constructed that always gives a correct yes-or-no answer.</dd>
                   <dt>Halting problem</dt>
                   <dd>Deciding whether an arbitrary program eventually stops. Undecidable.</dd>
                 </dl>
@@ -350,7 +377,7 @@ Total: 36 blocks`;
           <ol>
             <li>The heuristic made the locally best choice six times in a row and finished 50% worse than the best route. Explain how both of those can be true at once.</li>
             <li>Name something you use that almost certainly runs on a heuristic. Say what a guaranteed-best answer would have cost.</li>
-            <li>A slow problem and an undecidable problem both leave you without an answer. Why is it still worth having two different words for them?</li>
+            <li>A slow problem and an undecidable problem both leave you without an answer. Why is it still worth having two different words for them? Use the word <b>instance</b> in your answer.</li>
           </ol>
         </section>
 
