@@ -1,0 +1,222 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q2 = `let points = [3, 7, 2, 9];
+
+function setup() {
+  createCanvas(400, 400);
+  drawGrid(5, 5);
+}
+
+function drawGrid(rows, cols) {
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      ellipse(c * 60 + 40, r * 60 + 40, 40, 40);
+    }
+  }
+}
+
+function mousePressed() {
+  drawGrid(3, 3);
+}
+
+function scoreFor(player) {
+  return points[player] * 10;
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 16</h1>
+
+        <h4 class="text-sn-theme">
+          Seven questions &middot; 10 minutes &middot; the Create Task rules
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>The only question set in this course about rules rather than
+            code.</b> Every question here is something that decides points on the
+            Create Task, and every answer is something you were told at session 53.
+          </p>
+
+          <p>
+            <b>This one is worth getting to 7 out of 7.</b> Not because it is easy
+            &mdash; two of these are genuinely subtle &mdash; but because the cost
+            of not knowing them is measured in exam points rather than in homework
+            points.
+          </p>
+
+          <p>
+            <b>Set a timer for 10 minutes.</b> Mark each answer <b>sure</b> or
+            <b> unsure</b>. Guess rather than leave a blank.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>You start building at session 55</b>, and from that session on I
+            cannot tell you whether you have these right. This set comes back
+            before then.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>
+            The Create Performance Task is scored out of 6 points. Which statement
+            about where those points come from is accurate?
+          </p>
+
+          <ul>
+            <li>(A) All six points are earned from the program, video, and Project Reference submitted in class</li>
+            <li>(B) Two points are earned from the submitted work, and four from the written responses on the exam</li>
+            <li>(C) Four points are earned from the program code, and two from the video</li>
+            <li>(D) The six points are split evenly between the submitted work and the exam</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2 &mdash; Select all that apply</h3>
+
+          <p>
+            A student builds their Create Task program in p5.js. Which of these
+            count as <b>student-developed procedures</b>?
+          </p>
+
+          <Code code={Q2} frame="code" lang="javascript" title="Every procedure defined below was written by the student" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>setup</code></li>
+            <li>(B) <code>drawGrid</code></li>
+            <li>(C) <code>mousePressed</code></li>
+            <li>(D) <code>scoreFor</code></li>
+            <li>(E) <code>ellipse</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>
+            Which of these would cause a student to <b>lose</b> the Program
+            Requirements point?
+          </p>
+
+          <ul>
+            <li>(A) Their procedure does not have a parameter</li>
+            <li>(B) The selection and the iteration appear in two different procedures</li>
+            <li>(C) Their list contains only one element</li>
+            <li>(D) The program produces no output</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            Which parts of the Create Performance Task may a student work on
+            <b> with a partner</b>?
+          </p>
+
+          <ul>
+            <li>(A) The program code only</li>
+            <li>(B) The program code and the video</li>
+            <li>(C) The program code and the Personalized Project Reference</li>
+            <li>(D) All three components</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            A student's Personalized Project Reference shows their program code with
+            the comments still in it. What is the consequence?
+          </p>
+
+          <ul>
+            <li>(A) They lose the Program Requirements point</li>
+            <li>(B) They lose one written-response point</li>
+            <li>(C) They are asked to resubmit the reference</li>
+            <li>(D) They score zero on the entire Create Performance Task, including the written responses</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6</h3>
+
+          <p>
+            A Create Task program must include a list whose data is <b>used</b>. A
+            program's list counts as being used when the program:
+          </p>
+
+          <ul>
+            <li>(A) creates new data from the list's existing data, or accesses multiple elements of it</li>
+            <li>(B) declares the list and assigns values to it</li>
+            <li>(C) displays one element of the list</li>
+            <li>(D) passes the list to a procedure</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 7</h3>
+
+          <p>
+            A student finds a shuffling function on a programming forum and adds new
+            functionality to it. To use it legitimately in their Create Task, they
+            must:
+          </p>
+
+          <ul>
+            <li>(A) rewrite it so that no line matches the original</li>
+            <li>(B) get permission from the person who posted it</li>
+            <li>(C) name where the code came from in their program documentation</li>
+            <li>(D) move it inside a procedure of their own</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Seven answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>5 points</b>, graded on
+            completion.
+          </p>
+
+          <p>
+            <b>And one written answer, in a sentence or two:</b> Question 3 has three
+            options that describe things the rubric explicitly allows. Pick one of
+            them and say why it might still be a bad idea in your own program.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

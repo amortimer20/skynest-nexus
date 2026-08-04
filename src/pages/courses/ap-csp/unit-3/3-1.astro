@@ -1,0 +1,539 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const SixRows = `WHAT YOU SUBMIT                              earns 2 points
+
+  Video ............................. 0-1
+  Program Requirements .............. 0-1
+
+WHAT YOU WRITE ON EXAM DAY                   earns 4 points
+
+  Written Response 1 ................ 0-1
+  Written Response 2(a) ............. 0-1
+  Written Response 2(b) ............. 0-1
+  Written Response 2(c) ............. 0-1
+
+                                     TOTAL   6`;
+
+const FourPrompts = `WR1     Name an expected user of your program.
+        Describe one way your design meets that user's needs.
+
+WR2(a)  Find the FIRST loop in your Procedure segment.
+        How many times does its body run?
+        Describe a condition or error that would make it loop forever.
+
+WR2(b)  Find the procedure in your Procedure (i) segment.
+        Describe a change that would cause a RUN-TIME error,
+        and explain why.
+
+WR2(c)  You are given isEqual(value1, value2).
+        Using YOUR list, explain in detailed steps an algorithm
+        that counts how many elements equal a certain value.`;
+
+const RequirementsList = `1  INPUT       the program asks for something and uses the answer
+
+2  LIST        a list the program actually needs
+
+3  PROCEDURE   one you wrote, with a parameter that changes
+               what it does
+
+4  ALGORITHM   sequencing, selection and iteration
+               inside that procedure's body
+
+5  CALLS       you call that procedure
+
+6  OUTPUT      based on the input and the functionality`;
+
+const NotStudentDeveloped = `function setup() { ... }          p5 calls it       NOT yours
+function draw() { ... }           p5 calls it       NOT yours
+function mousePressed() { ... }   p5 calls it       NOT yours
+function keyPressed() { ... }     p5 calls it       NOT yours
+
+function drawTree(x, y, size) { ... }               YOURS`;
+
+const Attribution = `// This code was provided as starter code by my teacher.
+function shuffle(list) {
+  ...
+}`;
+
+const AuditGrid = `Open your Build 2 program. Answer from the code, not from memory.
+
+  A list, more than one element ............ yes / no
+  The list is actually used ................ yes / no
+  A procedure you wrote .................... yes / no
+  You call it .............................. yes / no
+  Selection somewhere ...................... yes / no
+  Iteration somewhere ...................... yes / no
+
+  ALL SIX?  -> that row scores 1 on the real thing.`;
+
+const PprCheck = `Find these four things in your Build 2 program.
+Write the line number of each.
+
+  Procedure (i)   the procedure, with its parameter        line ____
+  Procedure (ii)  where you call it                        line ____
+  List (i)        where data goes INTO the list            line ____
+  List (ii)       where that list's data gets USED         line ____
+
+Now cover your screen and answer WR2(a) about it.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.1: The Create Task &mdash; What It Is and What the Rules Are</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Where You Are</h2>
+
+          <p>
+            <b>The Create Performance Task is 30% of your AP exam grade.</b> You have
+            twelve sessions: today and one more to prepare, then ten to build and
+            submit.
+          </p>
+
+          <p>
+            You have done this twice already. <b>Build 1 taught scoping. Build 2
+            taught duration.</b> The requirements are the same six you have met
+            before. <b class="text-sn-theme">What is different is that this one
+            counts, and that from session 55 onward I cannot help you.</b>
+          </p>
+
+          <p>
+            Today is not a build session. <b>Today is the rules</b>, and one of them
+            costs you the whole task if you get it wrong.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.1</h2>
+              <h3 class="text-sn-theme">The Create Task &mdash; What It Is and What the Rules Are</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Six Points, and Where They Come From</p>
+              <p>What Counts as Yours</p>
+              <p>The Rules That Cost Everything</p>
+            </section>
+
+            <section>
+              <h2>It Is Scored Out of Six</h2>
+              <Code code={SixRows} frame="code" lang="txt" title="The Whole Rubric" showLineNumbers={false} />
+              <p class="fragment">Six rows. Each one is worth exactly one point.</p>
+            </section>
+
+            <section>
+              <h2>Read That Again</h2>
+              <p><b>Two points come from what you submit.</b></p>
+              <p class="fragment"><b class="text-sn-theme">Four come from what you write on exam day.</b></p>
+              <p class="fragment">About your own program. From memory. In sixty minutes.</p>
+            </section>
+
+            <section>
+              <h2>So What Is the Program For?</h2>
+              <p>It is worth two points directly.</p>
+              <p class="fragment">And it is the <b>subject of the other four</b>.</p>
+              <p class="fragment">
+                A program you cannot explain is a program that scores 2 out of 6,
+                no matter how good it is.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Four Questions</h2>
+              <Code code={FourPrompts} frame="code" lang="txt" title="You Will Answer These in May" showLineNumbers={false} />
+              <p class="fragment">You will have your Project Reference in front of you. Nothing else.</p>
+            </section>
+
+            <section>
+              <h2>You Have Practiced Three of Them</h2>
+              <p><b>WR2(a)</b> is a trace. You have done twenty.</p>
+              <p class="fragment"><b>WR2(b)</b> is a debug challenge in reverse.</p>
+              <p class="fragment"><b>WR2(c)</b> is prose pseudocode &mdash; session 4, and every set since.</p>
+              <p class="fragment">This is why those pages existed.</p>
+            </section>
+
+            <section>
+              <h2>The Six Requirements</h2>
+              <Code code={RequirementsList} frame="code" lang="txt" title="Same Six as Build 2" showLineNumbers={false} />
+              <p class="fragment">Nothing new. You have satisfied these twice.</p>
+            </section>
+
+            <section>
+              <h2>What Counts as Yours</h2>
+              <Code code={NotStudentDeveloped} frame="code" lang="javascript" title="Student-Developed" showLineNumbers={false} />
+              <p class="fragment">
+                The College Board: <i>event handlers are built-in abstractions and
+                will therefore not be considered student-developed.</i>
+              </p>
+            </section>
+
+            <section>
+              <h2>A Name for That</h2>
+              <p>Code that runs when something happens, rather than in order from the top.</p>
+              <p class="fragment">That is <b class="text-sn-theme">event-driven programming</b>.</p>
+              <p class="fragment">
+                It is a real and useful way to build. <b>It is also not what
+                requirement 3 is asking for.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>You Cannot Submit Build 2</h2>
+              <p>The College Board: you may not submit work from <i>practice performance tasks</i>.</p>
+              <p class="fragment"><b>Build 1 and Build 2 were practice performance tasks.</b></p>
+              <p class="fragment">Start something new. Today you are going to audit Build 2, not reuse it.</p>
+            </section>
+
+            <section>
+              <h2>Two Ways to Score Zero</h2>
+              <p><b>1.</b> Comments left in the Project Reference.</p>
+              <p class="fragment"><b>2.</b> Code you did not write, uncredited.</p>
+              <p class="fragment">
+                Not zero on that row. <b class="text-sn-theme">Zero on the whole
+                task, including the four written responses.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>On AI</h2>
+              <p><b>Not in this course.</b> You write your own code.</p>
+              <p class="fragment">
+                The College Board allows it with credit. <b>This class does not
+                allow it at all.</b>
+              </p>
+              <p class="fragment">
+                And here is the part that is not about rules: <b>four of the six
+                points are you explaining your own loop, from memory, in May.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Crediting What Is Not Yours</h2>
+              <Code code={Attribution} frame="code" lang="javascript" title="How to Cite" showLineNumbers={false} />
+              <p class="fragment">Starter code, a library, anything from a site. Name where it came from.</p>
+              <p class="fragment">And <b>existing code must be extended</b> &mdash; added to, not handed in.</p>
+            </section>
+
+            <section>
+              <h2>You May Work Together</h2>
+              <p>On <b>the program code</b> &mdash; ideas, building, debugging, testing.</p>
+              <p class="fragment">
+                <b class="text-sn-theme">Not</b> on the video. <b class="text-sn-theme">Not</b> on the
+                Project Reference.
+              </p>
+              <p class="fragment">Those two are yours alone, and that is a College Board rule.</p>
+            </section>
+
+            <section>
+              <h2>Why Collaboration Is In the Rules at All</h2>
+              <p>Because it produces better software, and the exam says so.</p>
+              <p class="fragment">
+                A program built by people with <b>different backgrounds and
+                different blind spots</b> has fewer of them.
+              </p>
+              <p class="fragment">
+                It is also <b>how bias gets caught</b> &mdash; which comes back at
+                session 72.
+              </p>
+            </section>
+
+            <section>
+              <h2>Working Together Is a Skill</h2>
+              <p>Communication.</p>
+              <p class="fragment">Consensus building.</p>
+              <p class="fragment">Conflict resolution.</p>
+              <p class="fragment">Negotiation.</p>
+              <p class="fragment"><b>Named on the exam. Practiced in pairs.</b></p>
+            </section>
+
+            <section>
+              <h2>Sessions 53 and 54</h2>
+              <p>Preparation. <b>Ask me anything.</b></p>
+              <p class="fragment">Ideas, scope, whether your plan is any good. This is the window.</p>
+            </section>
+
+            <section>
+              <h2>Sessions 55 to 64</h2>
+              <p>The official task. <b class="text-sn-theme">I cannot give you feedback.</b></p>
+              <p class="fragment">Not on your code, not on your plan, not on your writing.</p>
+              <p class="fragment">
+                I can fix a broken machine and I can show you how to make a PDF.{" "}
+                <b>That is the whole list.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>So Use Tomorrow</h2>
+              <p>Session 54 is the last day I can tell you your plan is too big.</p>
+              <p class="fragment">Every question you save for session 57 is a question nobody answers.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Naming the six rubric rows and where each point comes from</li>
+                <li>Explaining why four of six points depend on explaining your own code</li>
+                <li>Identifying which procedures in a program are student-developed</li>
+                <li>Stating the collaboration boundaries and the attribution requirement</li>
+                <li>Auditing an existing program against the six requirements</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Student-developed</dt>
+                  <dd>Written by you, individually or with a partner. Calls to libraries and event handlers do not count.</dd>
+                  <dt>Event-driven programming</dt>
+                  <dd>Program statements run when triggered, rather than through the sequential flow of control.</dd>
+                  <dt>Personalized Project Reference</dt>
+                  <dd>Four code segments you take into the exam. Comments stripped.</dd>
+                  <dt>Attribution</dt>
+                  <dd>Naming the origin of code you did not write. Required, and cheap.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The rubric in detail -->
+        <section id="rubric">
+          <h2>The Six Rows, In Detail</h2>
+
+          <p>
+            <b>This is the whole rubric.</b> There is no partial credit inside a row
+            &mdash; each one is one point or nothing.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Row</th>
+                  <th>Earns the point when&hellip;</th>
+                  <th class="text-end">Pts</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Video</b></td>
+                  <td>The video shows the program <b>running</b>, with input, functionality, and output. Screenshots do not count.</td>
+                  <td class="text-end">1</td>
+                </tr>
+                <tr>
+                  <td><b>Program Requirements</b></td>
+                  <td>The code has a list, a procedure, a call to it, selection, and iteration.</td>
+                  <td class="text-end">1</td>
+                </tr>
+                <tr>
+                  <td><b>Written Response 1</b></td>
+                  <td>You name an expected user <b>and</b> describe one way the design meets that user's needs.</td>
+                  <td class="text-end">1</td>
+                </tr>
+                <tr>
+                  <td><b>Written Response 2(a)</b></td>
+                  <td>You state how many times the loop body runs <b>and</b> describe what would make it loop forever.</td>
+                  <td class="text-end">1</td>
+                </tr>
+                <tr>
+                  <td><b>Written Response 2(b)</b></td>
+                  <td>You describe a change causing a run-time error <b>and</b> explain why.</td>
+                  <td class="text-end">1</td>
+                </tr>
+                <tr>
+                  <td><b>Written Response 2(c)</b></td>
+                  <td>You explain an algorithm counting matching list elements, in enough detail that someone else could code it.</td>
+                  <td class="text-end">1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5 class="mt-4">Three things that lose the Program Requirements point</h5>
+          <ul>
+            <li>The list has <b>one element</b>.</li>
+            <li>The list is <b>never used</b>, or its use does not matter.</li>
+            <li>The selection or the iteration is <b>trivial</b> &mdash; it does not change what the program does.</li>
+          </ul>
+
+          <p>
+            <b>Notice the word <i>and</i> in four of those rows.</b> Half an answer
+            earns nothing. Written Response 1 with a user named and no design
+            description is worth the same as a blank page.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Requirement 4 -->
+        <section id="requirement-four">
+          <h2>Requirement 4, One More Time</h2>
+
+          <p>
+            <b>Sequencing, selection and iteration inside your procedure's body.</b>
+            You have been audited on this once already, at Build 2 session 49.
+          </p>
+
+          <p>
+            Here is something honest about it. <b>The Program Requirements row does
+            not actually check that they are inside the procedure.</b> It only checks
+            that they exist somewhere in the program.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Requirement 4 still decides two of your six
+            points, and here is how.</b> Written Response 2(a) asks about the
+            <b> first loop in your Procedure segment</b>. Written Response 2(b) asks
+            about <b>the procedure in your Procedure (i) segment</b>.
+          </p>
+
+          <p>
+            <b>If your procedure has no loop in it, there is nothing for you to
+            answer.</b> Not a lost project point &mdash; a lost exam point, on a
+            question you cannot skip.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <p>
+            <b>No new code today.</b> Open your Build 2 program and be honest with
+            it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Audit Build 2 Against the Rubric</h3>
+          <ul>
+            <li>Answer all six from the code in front of you, not from what you remember writing.</li>
+            <li>Write the line number next to each <b>yes</b>.</li>
+          </ul>
+          <Code code={AuditGrid} frame="code" lang="txt" title="The Program Requirements Row" class="mt-3" showLineNumbers={false} />
+
+          <p class="mt-3">
+            <b>A <i>no</i> here is good news.</b> You found it in August rather than
+            in May, on a program that was never going to be submitted anyway.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Find the Four Segments</h3>
+          <ul>
+            <li>These are the four things your Project Reference will hold.</li>
+            <li>Find them in Build 2 and write down where they are.</li>
+          </ul>
+          <Code code={PprCheck} frame="code" lang="txt" title="The Four Segments" class="mt-3" showLineNumbers={false} />
+
+          <p class="mt-3">
+            <b>Then do the last line.</b> Cover the screen and answer Written
+            Response 2(a) out loud to the person next to you: how many times does
+            that loop run, and what would make it run forever?
+          </p>
+
+          <p>
+            <b class="text-sn-theme">That is the exam.</b> If it was hard with the
+            program two feet away, it will be harder in May with only four code
+            segments on the desk.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: One Idea, Written Down</h3>
+          <ul>
+            <li><b>Something new.</b> Not Build 2, and not Build 2 with features added.</li>
+            <li>Two sentences on what it does, and one line naming what its list would hold.</li>
+            <li>You will bring this to session 54 and turn it into a plan.</li>
+          </ul>
+
+          <p>
+            <b>This is not a commitment.</b> You can change it tomorrow. It exists so
+            that session 54 does not open with a blank page &mdash; which is how
+            students lose the one session where I am still allowed to help.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Before you leave, you should be able to answer these without looking.</p>
+
+          <ul>
+            <li>How many points is the Create Task worth, and how many come from what you submit?</li>
+            <li>Name one procedure in your Build 2 program that is <b>not</b> student-developed.</li>
+            <li>What are the two ways to score zero on the entire task?</li>
+            <li>Which two components may you <b>not</b> collaborate on?</li>
+            <li>Which sessions are the last ones where you can ask me whether your plan is any good?</li>
+          </ul>
+
+          <p class="mt-3">
+            <b>The last one matters most today.</b> The answer is <b>this session and
+            the next</b>, and after that the honest answer to <i>is this good
+            enough</i> is that I am not allowed to tell you.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Four of the six points are earned by explaining your own code from memory. Describe one thing that changes about how you will build, knowing that.</li>
+            <li>Your Build 2 program failed at least one line of the Task 1 audit, or it passed all six. Either way &mdash; what will you do differently in the new program?</li>
+            <li>The rules say you may collaborate on code but not on the video or the Project Reference. Why do you think those two are treated differently?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your completed audit, your four segment line numbers, and your one idea
+            with its list.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

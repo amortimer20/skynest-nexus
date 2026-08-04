@@ -1,0 +1,385 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Spec = `PROGRAM: ..........................................
+
+WHAT IT DOES, in two sentences:
+  ..................................................
+  ..................................................
+
+WHO WOULD USE IT, and what they need from it:
+  ..................................................
+
+INPUT      what you ask for, and how ...............
+LIST       its name, what is in it .................
+           and why the program breaks without it ...
+PROCEDURE  its name ................................
+PARAMETER  and what changes when it changes ........
+INSIDE IT  the loop ................................
+           the decision ............................
+OUTPUT     what comes out, and what it depends on ..`;
+
+const TenLines = `Something WORKING at the end of every session.
+Not "keep going" -- something you could show me.
+
+  55  ............................................
+  56  ............................................
+  57  ............................................
+  58  ............................................
+  59  ............................................
+  60  ............................................
+  61  ............................................
+  62  ............................................
+  63  the Project Reference
+  64  the video, and submit
+
+FIRST THING I CUT if I run out of time:
+  ..............................................`;
+
+const IncrementalVsNot = `INCREMENTAL                    ALL AT ONCE
+
+55  list + print it            55  write everything
+56  the procedure, called      56  write everything
+57  the loop inside it         57  write everything
+58  the decision               58  write everything
+59  input                      59  nothing runs yet
+60  output tidy                60  still nothing runs
+61  a second feature           61  panic
+62  polish                     62  panic
+
+Working at 8 checkpoints.       Working at 0.`;
+
+const WrOneTest = `Say your program's purpose out loud in one sentence.
+
+  Does it name a PERSON?           yes / no
+  Does it name what they NEED?     yes / no
+
+If either is no, you cannot answer Written Response 1,
+and Written Response 1 is one of your six points.`;
+
+const TestData = `Three inputs, written BEFORE you build:
+
+  a normal one ........  input ______  expected ______
+  the smallest one ....  input ______  expected ______
+  one just past the
+  edge ...............  input ______  expected ______
+
+The last one is where programs break.
+You have known this since session 10.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.2: The Create Task &mdash; The Proposal</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Last Day I Can Help</h2>
+
+          <p>
+            <b>No code today.</b> Today you write a specification and I approve it.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">This is the last session where I am allowed to
+            tell you your plan is too big, your list is decoration, or your procedure
+            has nothing in it.</b> From session 55 the answer to every question like
+            that is that I cannot say.
+          </p>
+
+          <p>
+            <b>Use me.</b> Twenty minutes of me telling you something is wrong today
+            is worth more than eight sessions of building the wrong thing.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.2</h2>
+              <h3 class="text-sn-theme">The Create Task &mdash; The Proposal</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Specification</p>
+              <p>Incremental Development</p>
+              <p>Deciding the Cut in Advance</p>
+            </section>
+
+            <section>
+              <h2>What You Are Writing</h2>
+              <p>A <b class="text-sn-theme">specification</b> &mdash; a written statement of what the program must do.</p>
+              <p class="fragment">You have written two of these. The Build 1 and Build 2 gate sheets were specifications.</p>
+              <p class="fragment">This is the same thing with its proper name on it.</p>
+            </section>
+
+            <section>
+              <h2>Where a Specification Comes From</h2>
+              <p><b>Investigation.</b> You find out what is needed before you decide what to build.</p>
+              <p class="fragment">Surveys. Interviews. Watching someone try to do the thing.</p>
+              <p class="fragment">You have ten minutes, not ten weeks &mdash; so ask <b>one person</b> what would be useful.</p>
+            </section>
+
+            <section>
+              <h2>Why That Matters for Your Grade</h2>
+              <p>Written Response 1: <i>name an expected user, and describe one way your design meets their needs.</i></p>
+              <p class="fragment"><b>You cannot answer that in May if you never decided who it was for.</b></p>
+              <p class="fragment">One of your six points is decided today, not in the exam room.</p>
+            </section>
+
+            <section>
+              <h2>Two Ways to Build Eight Sessions</h2>
+              <Code code={IncrementalVsNot} frame="code" lang="txt" title="Incremental, or Not" showLineNumbers={false} />
+              <p class="fragment">The left column is <b class="text-sn-theme">incremental development</b>.</p>
+            </section>
+
+            <section>
+              <h2>Incremental</h2>
+              <p><b>Break the problem into pieces. Make each piece work before adding the next.</b></p>
+              <p class="fragment">That is the definition, and it is on the exam.</p>
+              <p class="fragment">It is also the only way to have something to submit if session 61 goes badly.</p>
+            </section>
+
+            <section>
+              <h2>And Iterative</h2>
+              <p><b>Going back.</b> Revising an earlier decision because testing told you to.</p>
+              <p class="fragment">Not a sign you planned badly.</p>
+              <p class="fragment">
+                The exam calls a development process <b>iterative</b> when it{" "}
+                <i>requires refinement and revision based on feedback, testing, or
+                reflection throughout</i>.
+              </p>
+            </section>
+
+            <section>
+              <h2>So Your Ten Lines Will Be Wrong</h2>
+              <p>They were wrong at Build 1. They were wrong at Build 2.</p>
+              <p class="fragment"><b>Write them anyway.</b></p>
+              <p class="fragment">A plan you deviate from is navigation. No plan is drifting.</p>
+            </section>
+
+            <section>
+              <h2>Name the Cut Now</h2>
+              <p>What is the first thing to go if you run out of time?</p>
+              <p class="fragment">Decide it today, while it costs nothing.</p>
+              <p class="fragment">At session 61 you will not be making a good decision about this.</p>
+            </section>
+
+            <section>
+              <h2>The Journal</h2>
+              <p><b>One line at the end of every session.</b> What you did, and what you were in the middle of.</p>
+              <p class="fragment">It is worth <b>40 points</b>, graded on whether it is there.</p>
+              <p class="fragment">
+                Not on whether it is good &mdash; because judging whether it is good
+                would be feedback, and I am not allowed to give you any.
+              </p>
+            </section>
+
+            <section>
+              <h2>What the Journal Is Really For</h2>
+              <p>Session 58 opens and you have forgotten everything.</p>
+              <p class="fragment">Also: <b>it is where Written Response 1 comes from.</b></p>
+              <p class="fragment">Design decisions, written down while you remember why you made them.</p>
+            </section>
+
+            <section>
+              <h2>One More Thing to Write Today</h2>
+              <p><b>Three test inputs</b>, and what each should produce.</p>
+              <p class="fragment">A normal one. The smallest one. <b class="text-sn-theme">One just past the edge.</b></p>
+              <p class="fragment">You have been finding boundary bugs since session 10. Same skill, your own program.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing a specification that names a user and their need</li>
+                <li>Planning eight sessions incrementally, with something working at each step</li>
+                <li>Explaining the difference between an incremental and an iterative process</li>
+                <li>Naming in advance what will be cut</li>
+                <li>Identifying test inputs at and just beyond the extremes</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Specification</dt>
+                  <dd>A statement of the requirements for a program.</dd>
+                  <dt>Incremental development</dt>
+                  <dd>Breaking a problem into smaller pieces and making each one work before adding it to the whole.</dd>
+                  <dt>Iterative development</dt>
+                  <dd>Refining and revising based on feedback, testing, or reflection &mdash; including revisiting earlier phases.</dd>
+                  <dt>Investigation</dt>
+                  <dd>Finding out a program's requirements before designing it &mdash; surveys, interviews, user testing, observation.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The gate -->
+        <section id="gate">
+          <h2>The Gate</h2>
+
+          <p>
+            <b>Fill this in. Bring it to me. No code until it is initialed.</b>
+          </p>
+
+          <Code code={Spec} frame="code" lang="txt" title="Your Specification" showLineNumbers={false} class="mt-3" />
+
+          <h5 class="mt-4">Ten lines for ten sessions</h5>
+
+          <Code code={TenLines} frame="code" lang="txt" title="The Plan" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>Sessions 63 and 64 are already spent</b> &mdash; the Project Reference
+            and the video. That leaves you <b>eight</b>. Plan eight, not ten.
+          </p>
+
+          <h5 class="mt-4">The seven checks</h5>
+
+          <p>I will ask you these. About a minute each.</p>
+
+          <ol>
+            <li>Can you name the list, and say why the program breaks without it?</li>
+            <li>Can you name the procedure and its parameter, and say what changes when the parameter changes?</li>
+            <li>Is there a loop <b>and</b> a decision inside that procedure?</li>
+            <li>Eight lines for eight sessions, each one something I could check?</li>
+            <li>What will you cut first?</li>
+            <li><b>Who is this for, and what do they need from it?</b></li>
+            <li><b>Is this a new program?</b></li>
+          </ol>
+
+          <p class="mt-3">
+            <b>Checks 6 and 7 are new.</b> Six is Written Response 1, decided in
+            advance. <b>Seven is because you may not submit Build 2 or any part of
+            it</b> &mdash; that is a College Board rule about practice performance
+            tasks, and it is not negotiable.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Ask One Person</h3>
+          <ul>
+            <li>Describe your idea to someone in the room in two sentences.</li>
+            <li>Ask them: <b>what would make this actually useful to you?</b></li>
+            <li>Write down what they said, even if you disagree with it.</li>
+          </ul>
+
+          <p>
+            <b>That is investigation, and it takes three minutes.</b> The exam calls
+            surveys, interviews, user testing and direct observation the ways to do
+            it. You just did the second one.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: The Purpose Test</h3>
+          <Code code={WrOneTest} frame="code" lang="txt" title="Can You Answer WR1?" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>&quot;A game&quot; fails this test. &quot;Anyone&quot; fails this
+            test.</b> Fix the sentence until it names somebody and something they
+            need.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: The Specification and the Plan</h3>
+          <ul>
+            <li>Fill in both sheets above.</li>
+            <li>Bring them to me for approval.</li>
+            <li><b>Then start building.</b> Session 55 is not the start &mdash; today is, once you are approved.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Three Test Inputs</h3>
+          <Code code={TestData} frame="code" lang="txt" title="Before You Build" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>Writing these before the code is the point.</b> Test data invented
+            afterward tends to be data the program already handles.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>
+            <b>An initialed specification, an eight-line plan, a named first cut, and
+            three test inputs.</b>
+          </p>
+
+          <p>
+            If you are not approved by the end of this session, you start session 55
+            without a plan &mdash; and session 55 is the first day I cannot help you
+            make one. <b class="text-sn-theme">Do not leave here unapproved.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>What did the person you asked in Task 1 say, and did it change your plan? &quot;No&quot; is a fine answer if you say why.</li>
+            <li>Your Build 2 plan was wrong somewhere. Which line of it went wrong, and what did you do about it at the time?</li>
+            <li>Explain the difference between an <b>incremental</b> and an <b>iterative</b> development process, in your own words, using your own plan as the example.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your initialed specification, your eight-line plan, your three test
+            inputs, and your reflection.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
