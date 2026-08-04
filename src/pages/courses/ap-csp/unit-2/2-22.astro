@@ -1,0 +1,470 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Figure1 = `QUARTER 1 gave you the pieces.
+  input, variables, decisions, loops, lists
+
+QUARTER 2 gave you three ways to think about them.
+  ABSTRACTION   package it up and stop looking inside
+  ALGORITHMS    two correct answers can cost differently
+  DATA          the number is not the same as the truth`;
+
+const Figure2 = `THE PATTERN THIS QUARTER KEPT MAKING
+
+  2.10   a correct search, a wrong answer, no error
+  2.14   the same bits, four different meanings
+  2.16   every sample measured right, the shape lost
+  2.19   every record accurate, the conclusion biased
+  2.20   every bar true, the impression false
+
+  Correct is not the same as right.`;
+
+const Notation = `a ← expression           assign a COPY of the result
+aList ← bList            assigns a COPY of the list
+DISPLAY(expression)      show it, FOLLOWED BY A SPACE
+=  ≠  >  <  ≥  ≤            comparison.  = means EQUALS
+
+aList[1]                 THE FIRST ELEMENT
+LENGTH(aList)            how many
+INSERT(aList, i, value)  shift right, place at i
+APPEND(aList, value)     place at the end
+REMOVE(aList, i)         remove and shift left
+
+a MOD b                  remainder
+a / b                    TRUE division.  17 / 5 is 3.4
+                         there is no rounding operator
+
+REPEAT n TIMES { }       no loop counter is provided
+REPEAT UNTIL(cond) { }   repeats UNTIL it becomes true
+FOR EACH item IN aList { }
+
+IF(cond) { } ELSE { }    the only two selection forms
+
+PROCEDURE name(p1, p2)
+{
+  RETURN(expression)     hands back AND exits immediately
+}
+result ← name(a, b)`;
+
+const T1 = `let size = 10;
+
+function grow(size) {
+  size = size * 2;
+  return size;
+}
+
+console.log(grow(size));
+console.log(size);`;
+
+const T2 = `let ids = [3, 8, 15, 22, 30, 41, 56];
+
+function find(list, target) {
+  let low = 0;
+  let high = list.length - 1;
+  let checks = 0;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+    checks = checks + 1;
+
+    if (list[mid] === target) {
+      return checks;
+    }
+    if (list[mid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  return -1;
+}
+
+console.log(find(ids, 22));
+console.log(find(ids, 3));
+console.log(find(ids, 7));`;
+
+const T3 = `PROCEDURE label(n)
+{
+  IF(n MOD 2 = 0)
+  {
+    RETURN("even")
+  }
+  RETURN("odd")
+}
+
+aList ← [4, 7, 10]
+
+FOR EACH item IN aList
+{
+  DISPLAY(label(item))
+}`;
+
+const T4 = `let steps = 0;
+let n = 6;
+
+for (let i = 0; i < n; i++) {
+  for (let j = i + 1; j < n; j++) {
+    steps = steps + 1;
+  }
+}
+
+console.log(steps);`;
+
+const T5 = `bList ← [2, 4, 6]
+aList ← bList
+
+aList[2] ← 99
+
+FOR EACH item IN aList
+{
+  DISPLAY(item)
+}
+FOR EACH item IN bList
+{
+  DISPLAY(item)
+}`;
+
+const T6 = `function toDecimal(bits) {
+  let total = 0;
+  let place = 1;
+
+  for (let i = bits.length - 1; i >= 0; i--) {
+    if (bits[i] === "1") {
+      total = total + place;
+    }
+    place = place * 2;
+  }
+
+  return total;
+}
+
+console.log(toDecimal("11010"));
+console.log(toDecimal("100000"));`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.22: Quarter 2 Review</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 2.22</h2>
+              <h3 class="text-sn-theme">Quarter 2 Review</h3>
+            </section>
+
+            <section>
+              <h2>What This Quarter Was</h2>
+              <Code code={Figure1} frame="code" lang="txt" title="Three Ways of Thinking" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Abstraction</h2>
+              <p>A procedure with a parameter. Then you stop looking inside it.</p>
+              <p class="fragment">Scope is what makes that safe &mdash; inward no, outward yes.</p>
+              <p class="fragment">And you built two projects on it.</p>
+            </section>
+
+            <section>
+              <h2>Algorithms</h2>
+              <p>Linear search never fails. Binary search is far faster and needs sorted data.</p>
+              <p class="fragment">Reasonable time is polynomial or lower. Unreasonable is exponential or factorial.</p>
+              <p class="fragment">Some problems have no algorithm at all.</p>
+            </section>
+
+            <section>
+              <h2>Data</h2>
+              <p>Bits mean nothing until a program says what they are.</p>
+              <p class="fragment">Fixed bits have limits: overflow, round-off, sampling.</p>
+              <p class="fragment">And information is something you extract, not something you receive.</p>
+            </section>
+
+            <section>
+              <h2>But Here Is the Thread</h2>
+              <Code code={Figure2} frame="code" lang="txt" title="Five Times, One Idea" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Correct Is Not the Same as Right</h2>
+              <p>Every one of those five produced accurate output.</p>
+              <p class="fragment">Every one of them could mislead somebody.</p>
+              <p class="fragment"><b>That is the most transferable thing in the quarter</b>, and it is not on the reference sheet.</p>
+            </section>
+
+            <section>
+              <h2>What the Exam Will Ask You</h2>
+              <p><b>Algorithms and Programming: 30&ndash;35%</b> of the multiple choice.</p>
+              <p class="fragment"><b>Data: 17&ndash;22%.</b></p>
+              <p class="fragment">Between them, roughly half the paper. That was this quarter.</p>
+            </section>
+
+            <section>
+              <h2>Today</h2>
+              <p>Six traces. Then the checklist. Then the checkpoint.</p>
+              <p class="fragment">Then you run your Build 2 program for everybody.</p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Notation -->
+        <section id="notation">
+          <h2>The Exam Notation, Assembled</h2>
+
+          <p>
+            <b>Everything you have met, on one card.</b> You get this booklet on
+            exam day and a proctor collects it afterwards. Read it before the traces.
+          </p>
+
+          <Code
+            code={Notation}
+            frame="code"
+            lang="txt"
+            title="Exam Notation — the whole of it, so far"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Three things on that card cost more marks than the rest put
+            together:</b>
+          </p>
+
+          <ul>
+            <li>
+              <code>DISPLAY</code> emits a <b>trailing space</b>, so consecutive
+              calls give space-separated output.
+            </li>
+            <li>
+              <b>Lists start at 1.</b> Every index answer is one higher than the
+              JavaScript equivalent.
+            </li>
+            <li>
+              <code>aList ← bList</code> assigns a <b>copy</b>. In JavaScript it
+              does not, and the same program gives different answers in the two
+              notations.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Traces -->
+        <section id="traces">
+          <h2>Warm-Up: Six Traces</h2>
+
+          <p>
+            <b>On paper. No running anything.</b> Four in JavaScript, two in exam
+            notation, and the notation is not labeled in the order you would
+            expect &mdash; check which one you are in before you answer.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Trace 1 &mdash; JavaScript</h3>
+          <p>What does this display?</p>
+          <Code code={T1} frame="code" lang="javascript" title="Trace 1" showLineNumbers={false} class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Trace 2 &mdash; JavaScript</h3>
+          <p>Three numbers. Build a table for the first call before you answer.</p>
+          <Code code={T2} frame="code" lang="javascript" title="Trace 2" showLineNumbers={false} class="mb-3" />
+          <p>
+            <b>Then answer:</b> one of these is found in a single check. Say why
+            that value, and not because you were lucky.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Trace 3 &mdash; Exam Notation</h3>
+          <p>What does this display? <b>Every character, including spaces.</b></p>
+          <Code code={T3} frame="code" lang="txt" title="Trace 3" showLineNumbers={false} class="mb-3" />
+          <p>
+            <b>Then answer:</b> there is no <code>ELSE</code> and the procedure
+            still always returns exactly one value. Explain why.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Trace 4 &mdash; JavaScript</h3>
+          <p>What does this display?</p>
+          <Code code={T4} frame="code" lang="javascript" title="Trace 4" showLineNumbers={false} class="mb-3" />
+          <p>
+            <b>Then answer:</b> you have seen this number this quarter, attached to
+            a different algorithm on a list of the same length. Which one, and why
+            is that not a coincidence?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Trace 5 &mdash; Exam Notation</h3>
+          <p>What does this display?</p>
+          <Code code={T5} frame="code" lang="txt" title="Trace 5" showLineNumbers={false} class="mb-3" />
+          <p>
+            <b>Then answer:</b> write the same thing in JavaScript with{" "}
+            <code>let aList = bList;</code> and <code>aList[1] = 99;</code>.{" "}
+            <b>The answers differ.</b> Say which one the exam expects.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Trace 6 &mdash; JavaScript</h3>
+          <p>What does this display?</p>
+          <Code code={T6} frame="code" lang="javascript" title="Trace 6" showLineNumbers={false} class="mb-3" />
+          <p>
+            <b>Then answer:</b> the second one is a power of 2. Say how you can
+            tell from the bits alone, without adding anything up.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checklist -->
+        <section id="checklist">
+          <h2>Before the Checkpoint</h2>
+
+          <p>
+            <b>Go down this list and mark anything you cannot do without looking
+            it up.</b> Whatever you mark is your revision, and there is nothing
+            else on the list worth spending time on.
+          </p>
+
+          <h3 class="mt-4">Abstraction</h3>
+          <ul>
+            <li>Write a procedure with two parameters and a return value</li>
+            <li>Predict what a shadowed parameter does to the variable outside</li>
+            <li>Say why a procedure can see outward but not inward</li>
+            <li>
+              <b>Name a procedure in your own code that would count as
+              student-developed &mdash; and one that would not</b>
+            </li>
+          </ul>
+
+          <h3 class="mt-4">Algorithms</h3>
+          <ul>
+            <li>Trace a linear search and give its worst case for a list of n</li>
+            <li>Trace a binary search and count the comparisons</li>
+            <li>Say what binary search requires, and what happens if it does not have it</li>
+            <li>Count the executions of a statement inside nested loops</li>
+            <li>
+              Say what makes a running time <b>reasonable</b> rather than
+              unreasonable
+            </li>
+            <li>Define an undecidable problem, and a heuristic</li>
+            <li>Tell a decision problem from an optimization problem</li>
+          </ul>
+
+          <h3 class="mt-4">Data</h3>
+          <ul>
+            <li>Convert decimal to binary and back</li>
+            <li>Compare and order binary numbers</li>
+            <li>Say why the same byte can be a number, a letter, or a color</li>
+            <li>Explain overflow, and explain round-off, and say how they differ</li>
+            <li>Describe sampling, and say what too low a rate loses</li>
+            <li>Calculate a compression ratio; choose lossless or lossy for a context</li>
+            <li>Say what metadata is <i>for</i>, and what changing it does not change</li>
+            <li>Explain why a correlation does not establish a cause</li>
+            <li>
+              Explain why collecting more data does not remove bias
+            </li>
+          </ul>
+
+          <h3 class="mt-4">Notation</h3>
+          <ul>
+            <li>Translate a <code>while</code> loop into <code>REPEAT UNTIL</code></li>
+            <li>Give the trailing-space output of two consecutive <code>DISPLAY</code> calls</li>
+            <li>Convert a JavaScript index answer into the exam's 1-based equivalent</li>
+            <li>
+              <b>State what <code>aList ← bList</code> does, and what JavaScript
+              does instead</b>
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>The Checkpoint</h2>
+
+          <p>
+            <b>Same session, straight after this. 30 minutes, on paper, closed
+            notes.</b>
+          </p>
+
+          <ul>
+            <li><b>Exam format and exam pace.</b> Mixed notation, with no warning about which is which.</li>
+            <li><b>Includes a multi-select question</b> &mdash; select all that apply, no partial credit for a partial answer.</li>
+            <li>Covers the whole quarter, weighted the way the exam is: algorithms heaviest, then data.</li>
+            <li><b>40 points</b>, which is just under 7% of the quarter.</li>
+          </ul>
+
+          <p>
+            <b>Then the gallery walk.</b> Everybody runs their Build 2 program.
+            Bring it working, or bring it broken and be able to say what broke.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>
+              You wrote two projects this quarter. What did Build 2 teach you that
+              Build 1 could not have?
+            </li>
+            <li>
+              Pick one of the five items in the <i>correct is not the same as
+              right</i> list. Describe a situation outside this class where the
+              same trap would matter.
+            </li>
+            <li>
+              Quarter 3 opens with the Create Task. Name the one requirement you are
+              least confident about, and what you will do about it before session
+              53.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your six trace answers with the follow-up questions, your marked
+            checklist, and the reflection.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Quarter Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

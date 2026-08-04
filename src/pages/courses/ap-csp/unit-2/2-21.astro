@@ -1,0 +1,658 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const GateForm = `Program: <name>
+What it does: <two sentences>
+
+Input:      <what you ask for, and how>
+List:       <its name, what is in it, why the program needs it>
+Procedure:  <its name, its parameters>
+Inside it:  <the loop, and the decision>
+Output:     <what comes out, and what it depends on>
+
+Six sessions. What is done by the end of each one?
+  46  the plan (this)
+  47  ...
+  48  ...
+  49  ...   (requirement 4 gets checked this session)
+  50  ...
+  51  ...
+
+What I will cut first if I run out of time:
+  <name it now, while it is cheap>`;
+
+const ReqFourShape = `function priceFor(tier) {
+  let total = 0;
+
+  for (let i = 0; i < items.length; i++) {
+    if (tiers[i] === tier) {
+      // ... add it up
+    }
+  }
+
+  if (total === 0) {
+    // ... nothing in that tier
+  }
+
+  return total;
+}`;
+
+const PprSegments = `PROCEDURE (i)   the procedure itself -- name, parameters,
+                and an algorithm with sequencing, selection
+                and iteration inside its body
+
+PROCEDURE (ii)  where you call it
+
+LIST (i)        where the data goes into the list
+
+LIST (ii)       where that same list's data gets used`;
+
+const Scale = `BUILD 1 was two sessions.
+  A person could use it in under two minutes.
+
+BUILD 2 is six.
+  So it can be three times as big?
+
+  No.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Build 2: The Long One</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- The Brief -->
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <p>
+            <b>Six sessions of building.</b> You choose what to make &mdash;
+            terminal or p5, your call. <b>100 points</b>, which is the largest
+            single item in the quarter.
+          </p>
+
+          <p>
+            Only two things are imposed, and they are the same two the Create Task
+            will impose in Quarter 3: it must use a <b>list</b>, and a{" "}
+            <b>student-developed procedure with a parameter that affects
+            functionality</b>.
+          </p>
+
+          <p>
+            <b>Everything else is yours.</b> That is not generosity &mdash; it is
+            the point. The Create Task hands you a blank page and eight sessions,
+            and this is the last time you get to find out what you do with one
+            while it still only costs points.
+          </p>
+
+          <p>
+            <b>There is a practice Personalized Project Reference, and it is
+            homework due at session 52.</b> Four pasted code segments with{" "}
+            <b>the comments stripped out</b>. More on that below, and read it
+            before session 51 rather than on the night.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>No video.</b> That component is mechanical &mdash; one minute, no
+            narration, show input and output &mdash; and it lands at session 64
+            with the real thing. Nothing about it needs six sessions of rehearsal.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Build 2</h2>
+              <h3 class="text-sn-theme">The Long One</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Scoping Six Sessions</p>
+              <p>All Six Requirements</p>
+              <p>Coming Back Cold on Day Four</p>
+            </section>
+
+            <section>
+              <h2>You Have Done This Once</h2>
+              <p>Session 34: you wrote a plan. Session 35: you read it out loud.</p>
+              <p class="fragment">Most of you said <i>"I had to cut..."</i></p>
+              <p class="fragment">Today that memory is the most useful thing in the room.</p>
+            </section>
+
+            <section>
+              <h2>The Arithmetic Is a Trap</h2>
+              <Code code={Scale} frame="code" lang="txt" title="Three Times the Sessions" showLineNumbers={false} />
+              <p class="fragment">Six sessions does not buy you three times the program.</p>
+            </section>
+
+            <section>
+              <h2>Because Day Four Is Not Like Day One</h2>
+              <p>You come back to code you wrote three sessions ago.</p>
+              <p class="fragment">You will find a bug you cannot reproduce.</p>
+              <p class="fragment">You will decide halfway through that the structure is wrong.</p>
+              <p class="fragment"><b>Half of Build 2 is spent on Build 2.</b></p>
+            </section>
+
+            <section>
+              <h2>Which Is the Whole Reason This Block Is Long</h2>
+              <p>Build 1 taught you scoping.</p>
+              <p class="fragment"><b>Build 2 teaches duration.</b></p>
+              <p class="fragment">They are different skills and one block cannot do both.</p>
+            </section>
+
+            <section>
+              <h2>Two Requirements Imposed</h2>
+              <p>A <b>list</b> the program actually needs.</p>
+              <p class="fragment">A <b>procedure you wrote, with a parameter that changes what it does</b>.</p>
+              <p class="fragment">That is all. The idea is yours.</p>
+            </section>
+
+            <section>
+              <h2>But Aim at All Six</h2>
+              <p>The Create Task scores six requirements.</p>
+              <p class="fragment">Four came free in Build 1. Two more are on the rubric here.</p>
+              <p class="fragment">If you hit all six in Build 2, Quarter 3 is a repeat, not a first attempt.</p>
+            </section>
+
+            <section>
+              <h2>And Number Four Again</h2>
+              <p>Sequencing, selection, and iteration <b>inside your procedure's body</b>.</p>
+              <p class="fragment">You cleared it once at Build 1.</p>
+              <p class="fragment"><b>I am checking it again at session 49</b>, because people who got away with it assume they have it.</p>
+            </section>
+
+            <section>
+              <h2>If You Build in p5</h2>
+              <p><code>setup()</code>, <code>draw()</code> and <code>mousePressed()</code> are <b>not yours</b>.</p>
+              <p class="fragment">The College Board excludes event handlers and main methods.</p>
+              <p class="fragment">You need one alongside them that is. <b>Fifth time you have heard this.</b></p>
+            </section>
+
+            <section>
+              <h2>Today: The Gate</h2>
+              <p><b>No code until your plan is approved.</b></p>
+              <p class="fragment">And your plan now includes a <b>session-by-session</b> breakdown.</p>
+              <p class="fragment">Plus one line naming what you will cut first.</p>
+            </section>
+
+            <section>
+              <h2>Name the Cut Now</h2>
+              <p>Everyone cut something at Build 1.</p>
+              <p class="fragment">Deciding what goes <i>while you are calm</i> is worth more than deciding at session 50.</p>
+            </section>
+
+            <section>
+              <h2>And One New Thing</h2>
+              <p>A <b>practice Personalized Project Reference</b>, due session 52.</p>
+              <p class="fragment">Four code segments from your own program.</p>
+              <p class="fragment"><b>With the comments taken out.</b></p>
+            </section>
+
+            <section>
+              <h2>Read That Twice</h2>
+              <p>The real Create Task submits the same code <b>two ways</b>.</p>
+              <p class="fragment">Program Code: <b>with</b> comments. Required.</p>
+              <p class="fragment">Project Reference: <b>without</b> them. Comments there score you <b>zero on the whole task.</b></p>
+            </section>
+
+            <section>
+              <h2>Session 52</h2>
+              <p>Quarter checkpoint, exam format, 30 minutes.</p>
+              <p class="fragment">Then a <b>gallery walk</b> &mdash; everyone runs their program, half the room circulates, then swap.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Scoping a six-session project against your own Build 1 experience</li>
+                <li>Naming, in advance, what you will cut first</li>
+                <li>Planning session by session rather than as one block of time</li>
+                <li>Identifying which of your procedures satisfies the Create Task</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Personalized Project Reference</dt>
+                  <dd>Four pasted code segments submitted with the Create Task, with no comments.</dd>
+                  <dt>Gallery walk</dt>
+                  <dd>Everyone runs their program; half the room circulates while half demonstrates, then swap.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Requirements -->
+        <section id="requirements">
+          <h2>All Six Requirements</h2>
+
+          <p>
+            <b>Two are imposed and all six are on the rubric.</b> These are the
+            Create Task's own words, and they will not change in Quarter 3.
+          </p>
+
+          <ol>
+            <li class="mb-2">
+              <b>Input</b> &mdash; from the user, a device, an online data stream,
+              or a file. <code>prompt()</code> in the terminal;{" "}
+              <code>mousePressed()</code> in p5.
+            </li>
+            <li class="mb-2">
+              <b>At least one list</b> storing data that manages complexity and
+              serves the program's purpose. <b>Imposed.</b> The test is still
+              deletion &mdash; remove it and the program should break.
+            </li>
+            <li class="mb-2">
+              <b>At least one student-developed procedure</b> with a name, a return
+              type if necessary, and <b>one or more parameters that have an effect
+              on its functionality</b>. <b>Imposed.</b>
+            </li>
+            <li class="mb-2">
+              <b>An algorithm with sequencing, selection, and iteration inside that
+              procedure's body.</b> Checked at session 49.
+            </li>
+            <li class="mb-2">
+              <b>Calls</b> to that procedure.
+            </li>
+            <li class="mb-2">
+              <b>Output</b> based on the input and the functionality. Textual,
+              visual, audible, or tactile.
+            </li>
+          </ol>
+
+          <p>
+            <b>Requirements 5 and 6 arrive free if the rest are real.</b> They are
+            on the rubric at 5 points each anyway, because a procedure that is never
+            called is a procedure you did not need.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Requirement 4 -->
+        <section id="requirement-four">
+          <h2>Requirement 4, and Why It Gets Checked Twice</h2>
+
+          <p>
+            <b>This is the requirement that is satisfied program-wide and missed
+            procedure-locally.</b> Build 1 drilled it and you cleared it. That is
+            exactly why it is worth re-checking &mdash; a student who got away with
+            it once assumes it is handled.
+          </p>
+
+          <Code
+            code={ReqFourShape}
+            frame="code"
+            lang="javascript"
+            title="All three, inside one procedure"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            Statements in order, a loop, and a decision &mdash; all between the
+            braces of a procedure that takes a parameter. <b>Bodies left out on
+            purpose.</b> Your program is yours.
+          </p>
+
+          <p>
+            <b>At session 49 I will ask you to put a finger on your procedure's
+            opening and closing brace and name the three structures between
+            them.</b> Session 49 is early enough to restructure. Session 51 is not.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Scoping -->
+        <section id="scoping">
+          <h2>How Big Is Six Sessions</h2>
+
+          <p>
+            <b>Build 1's rule was that a person could use the finished thing in
+            under two minutes.</b> There is no equivalent rule here, because the
+            constraint has changed shape.
+          </p>
+
+          <p>
+            <b>Here is the honest guidance.</b> A six-session project is roughly a
+            two-session project with:
+          </p>
+
+          <ul>
+            <li>a second thing it can do, chosen by the user;</li>
+            <li>data that persists across the whole run rather than one answer;</li>
+            <li>output somebody would actually want to look at;</li>
+            <li>and <b>three sessions of finding out what is wrong with it.</b></li>
+          </ul>
+
+          <p>
+            <b>That last line is not padding.</b> It is the median experience, and
+            plans that do not budget for it are the plans that get cut in half at
+            session 50.
+          </p>
+
+          <h3 class="mt-5">If you want a starting point</h3>
+
+          <p>
+            You do not have to use one of these. They are here so nobody spends
+            session 46 staring at a blank page.
+          </p>
+
+          <ul>
+            <li>
+              <b>A study planner.</b> Add subjects with a time cost, then ask it what
+              fits in the hours you have tonight. This was the over-scoped example on
+              the Build 1 brief &mdash; at six sessions it is about right.
+            </li>
+            <li>
+              <b>A quiz that keeps score across rounds</b> and tells you which
+              category you are weakest in.
+            </li>
+            <li>
+              <b>A budget tracker.</b> Log spending against categories, then report by
+              category with a warning when one is over.
+            </li>
+            <li>
+              <b>A team drafter.</b> Players with ratings, drafted into balanced
+              teams, with the imbalance reported.
+            </li>
+            <li>
+              <b>p5: a drawing tool</b> where the mouse places shapes from a palette
+              you can cycle, with an undo.
+            </li>
+            <li>
+              <b>p5: a data dashboard</b> for a dataset you care about, with more than
+              one view of it. Lab 11 is the starting sketch.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Session 46 -->
+        <section id="gate">
+          <h2>Session 46: The Gate</h2>
+
+          <p>
+            <b>No code until your plan is approved.</b> Same rule as Build 1, and
+            the plan is longer this time.
+          </p>
+
+          <Code
+            code={GateForm}
+            frame="code"
+            lang="txt"
+            title="What to hand me"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Two parts of that are new and both matter more than the idea.</b>
+          </p>
+
+          <ul>
+            <li>
+              <b>The session-by-session breakdown.</b> Six lines. Not <i>"build the
+              main part"</i> &mdash; something you could be held to. This is the
+              first time you have had to plan duration rather than scope.
+            </li>
+            <li>
+              <b>The line naming what you will cut first.</b> Everybody cut
+              something at Build 1. Deciding now, calmly, is worth more than
+              deciding at session 50 with a broken program.
+            </li>
+          </ul>
+
+          <p>
+            <b>Expect me to ask you about Build 1.</b> What did you drop, and what
+            is different about this plan? A plan that ignores what happened last
+            time is not a plan, it is optimism.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The build -->
+        <section id="build">
+          <h2>Sessions 47&ndash;51: The Build</h2>
+
+          <p>
+            Five sessions of work. Two things happen inside them that are not
+            "keep going."
+          </p>
+
+          <h3 class="mt-4">Session 49 &mdash; the requirement 4 audit</h3>
+
+          <p>
+            Everyone gets checked. <b>Point at your procedure's braces and name the
+            statement, the loop, and the <code>if</code> between them.</b> If one is
+            missing you restructure that session, which is why the check is here and
+            not at 51.
+          </p>
+
+          <h3 class="mt-4">Every session &mdash; the day-four problem</h3>
+
+          <p>
+            You will come back to code you have not read for days.{" "}
+            <b>Spend the first three minutes of each session reading what you wrote
+            last time before you type anything.</b> It feels like waste. It is the
+            cheapest three minutes in the block.
+          </p>
+
+          <p>
+            <b>And write down what you were in the middle of before you leave.</b>{" "}
+            One line, in a comment. Future you has forgotten.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The PPR -->
+        <section id="ppr">
+          <h2>The Practice Project Reference</h2>
+
+          <p>
+            <b>Homework, due at session 52.</b> Four code segments pasted from your
+            own program.
+          </p>
+
+          <Code
+            code={PprSegments}
+            frame="code"
+            lang="txt"
+            title="The four segments"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>And every comment taken out.</b>
+          </p>
+
+          <h3 class="mt-4">Why we are practicing this now</h3>
+
+          <p>
+            In Quarter 3 the Create Task submits your code <b>twice</b>. Component
+            A is the full program <b>with comments</b> &mdash; comments are required
+            there, for attribution. Component C is these four segments{" "}
+            <b>with no comments at all</b>.
+          </p>
+
+          <p>
+            <b>Leaving comments in the Project Reference scores zero on the entire
+            Create Task</b> &mdash; including the written responses you answer in
+            May. It is 30% of your exam grade, lost to a copy-and-paste habit.
+          </p>
+
+          <p>
+            <b>There is a second way to score zero and it is a deadline.</b> If the
+            Project Reference is not submitted as final on time, you sit the
+            written-response section without it, answering four questions about your
+            own program from memory.
+          </p>
+
+          <p>
+            <b>Both of those are worth rehearsing on something that costs 15 points
+            instead of 30% of an exam.</b> That is what this is.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Session 52 -->
+        <section id="share-out">
+          <h2>Session 52: Checkpoint, Then the Gallery Walk</h2>
+
+          <p>
+            <b>Quarter checkpoint first</b> &mdash; 30 minutes, exam format. Then 20
+            minutes of share-out.
+          </p>
+
+          <p>
+            <b>It is a gallery walk, not presentations.</b> Everyone runs their
+            program at their own machine. Half the room circulates while half
+            demonstrates, then you swap. Twenty-five presentations do not fit in
+            twenty minutes and most of the room stops watching by the sixth.
+          </p>
+
+          <p>
+            <b>When you are circulating, ask two questions at every machine:</b> what
+            is the list for, and which procedure is the one that counts? You will
+            answer those about your own program in Quarter 3, and hearing twenty-four
+            other answers first is worth more than demonstrating once.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Rubric -->
+        <section id="rubric">
+          <h2>Rubric</h2>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>What</th>
+                  <th class="text-end">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Proposal approved at the session 46 gate, with a session-by-session plan and a named first cut</td>
+                  <td class="text-end">10</td>
+                </tr>
+                <tr>
+                  <td>Input &mdash; the program asks for something and uses the answer</td>
+                  <td class="text-end">5</td>
+                </tr>
+                <tr>
+                  <td>A list the program actually needs</td>
+                  <td class="text-end">10</td>
+                </tr>
+                <tr>
+                  <td>A procedure you wrote, with a parameter that changes what it does</td>
+                  <td class="text-end">15</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Sequencing, selection, and iteration inside that procedure's body</b>
+                  </td>
+                  <td class="text-end">15</td>
+                </tr>
+                <tr>
+                  <td>Calls to that procedure</td>
+                  <td class="text-end">5</td>
+                </tr>
+                <tr>
+                  <td>Output based on the input and the functionality</td>
+                  <td class="text-end">5</td>
+                </tr>
+                <tr>
+                  <td>Sustained work across the block, including the session 49 audit</td>
+                  <td class="text-end">10</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Practice Project Reference &mdash; four segments, comments stripped, on time</b>
+                  </td>
+                  <td class="text-end">15</td>
+                </tr>
+                <tr>
+                  <td>Gallery walk &mdash; ran your program, answered both questions</td>
+                  <td class="text-end">10</td>
+                </tr>
+                <tr>
+                  <td class="fw-bold">Total</td>
+                  <td class="text-end fw-bold">100</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-body-secondary">
+            <b>Same omission as Build 1:</b> nothing on this list scores how ambitious
+            the idea was, or whether everything you planned got finished. A project
+            that got cut to its named first cut and works loses nothing here.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Four things:</p>
+
+          <ol>
+            <li>Your <b>session 46 plan</b>, as approved on the day.</li>
+            <li>Your <b>program</b>, with comments.</li>
+            <li>
+              Your <b>practice Project Reference</b> &mdash; four segments,{" "}
+              <b>no comments</b>.
+            </li>
+            <li>
+              One line naming <b>your procedure and its parameter</b>, so I know
+              which one to check requirement 4 against.
+            </li>
+          </ol>
+
+          <p>
+            <b>Items 2 and 3 contain the same code and must differ in exactly one
+            way.</b> If you can hand those in correctly here, the Quarter 3 version
+            is a formality.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Build Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

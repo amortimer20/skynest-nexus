@@ -1,0 +1,200 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `aList ← [5, 10, 15, 20]
+
+PROCEDURE doubleAt(list, i)
+{
+  RETURN(list[i] * 2)
+}
+
+DISPLAY(doubleAt(aList, 2))
+DISPLAY(doubleAt(aList, 4))`;
+
+const Q4 = `let count = 5;
+
+function bump() {
+  let count = 0;
+  count = count + 1;
+  return count;
+}
+
+console.log(bump());
+console.log(count);`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 15</h1>
+
+        <h4 class="text-sn-theme">
+          Six questions &middot; 11 minutes &middot; the whole quarter
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>The last question set of the quarter, and the one that is shaped
+            like the checkpoint.</b> Everything from Activity 2.1 to 2.20 is in
+            scope, weighted the way the exam weights it &mdash; algorithms
+            heaviest, then data.
+          </p>
+
+          <p>
+            <b>Two things are different about this set.</b> The notation is mixed
+            and not announced, and one question spans three separate topics at
+            once. That is what the checkpoint does too, which is why this arrives
+            first.
+          </p>
+
+          <p>
+            <b>Set a timer for 11 minutes.</b> Work them out on paper; do not run
+            the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess rather
+            than leave a blank.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Do this before the checkpoint, not after.</b> Whatever you get wrong
+            here is your revision list, and the checklist on Activity 2.22 will
+            tell you where to look.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <p>
+            Four have exactly one correct answer, one asks you to select
+            <i>all</i> that apply, and the last is about the impact of computing.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q1} frame="code" lang="txt" title="Question 1" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>10 20</code></li>
+            <li>(B) <code>20 40</code></li>
+            <li>(C) <code>30 40</code></li>
+            <li>(D) An error, because <code>list[4]</code> is out of bounds</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            A sorted list holds <b>100</b> items. What is the greatest number of
+            comparisons a binary search could need to find an item, or determine
+            that it is absent?
+          </p>
+
+          <ul>
+            <li>(A) 5</li>
+            <li>(B) 6</li>
+            <li>(C) 50</li>
+            <li>(D) 7</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>Which of these are true?</p>
+
+          <ul>
+            <li>(A) An algorithm whose step count grows like <code>n</code> cubed runs in a reasonable amount of time</li>
+            <li>(B) A heuristic guarantees the optimal solution</li>
+            <li>(C) An undecidable problem may still have some instances that can be solved algorithmically</li>
+            <li>(D) Two nested loops give <code>n</code> squared steps only if both bounds depend on <code>n</code></li>
+            <li>(E) Collecting more data eliminates bias in a dataset</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q4} frame="code" lang="javascript" title="Question 4" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>1</code> then <code>5</code></li>
+            <li>(B) <code>1</code> then <code>6</code></li>
+            <li>(C) <code>6</code> then <code>6</code></li>
+            <li>(D) An error</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            A 40-character row of pixel data is run through a <b>lossless</b>
+            run-length encoder and comes out as 12 characters. Which statement is
+            best supported?
+          </p>
+
+          <ul>
+            <li>(A) Some of the original detail was discarded to reach 12 characters</li>
+            <li>(B) The original had a lot of repetition, and the row can be rebuilt exactly</li>
+            <li>(C) The compression ratio is 3.33</li>
+            <li>(D) A lossy algorithm would have produced a larger result</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6 &mdash; Impact of Computing</h3>
+
+          <p>
+            A mapping service asks its users to report road closures, and uses
+            those reports to reroute other drivers. Gathering contributions from a
+            large group of people this way is called:
+          </p>
+
+          <ul>
+            <li>(A) Data compression</li>
+            <li>(B) A heuristic</li>
+            <li>(C) Crowdsourcing</li>
+            <li>(D) Metadata</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>5 points</b>, graded on
+            completion.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
