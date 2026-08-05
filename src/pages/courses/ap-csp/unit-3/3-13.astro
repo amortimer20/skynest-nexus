@@ -1,0 +1,385 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const TwoSources = `COMPUTING INNOVATIONS CAN REFLECT EXISTING
+HUMAN BIASES BECAUSE OF
+
+  biases written into the ALGORITHMS
+
+    or
+
+  biases in the DATA used by the innovation
+
+Two sources. Session 44 taught one of them.`;
+
+const AllLevels = `"BIASES CAN BE EMBEDDED AT ALL LEVELS OF
+ SOFTWARE DEVELOPMENT."
+
+  what problem you chose to solve
+  who you asked about it
+  which data you could get
+  which variables you kept
+  where you set a threshold
+  who tested it
+  who it shipped to
+
+Every one of those is a decision.`;
+
+const Salary = `let priorSalary = [52000, 41000, 55000, 38000];
+let yearsExperience = [5, 5, 6, 6];
+
+function offerFor(i) {
+  let offer = priorSalary[i] + (priorSalary[i] / 10);
+
+  if (yearsExperience[i] >= 6) {
+    offer = offer + 2000;
+  }
+
+  return offer;
+}`;
+
+const Amplify = `TWO CANDIDATES, IDENTICAL EXPERIENCE
+
+  prior salary    52,000        41,000
+  gap                    11,000
+
+  offer           57,200        45,100
+  gap                    12,100
+
+The algorithm did not merely pass the gap along.
+It made it BIGGER.`;
+
+const Intent = `"Algorithms can be intentionally or
+ unintentionally biased."
+
+Nobody in this example wanted this outcome.
+The program has no opinion about anybody.
+
+It is still doing harm, and somebody chose
+the variable.`;
+
+const Appropriate = `THE SAME VARIABLE, TWO VERDICTS
+
+  AGE in a life insurance premium ...... appropriate
+  AGE in a hiring decision ............. not
+
+  POSTCODE in a delivery estimate ...... appropriate
+  POSTCODE in a loan decision .......... not
+
+"Is this variable biased?" is the wrong question.
+"Biased FOR WHAT USE?" is the right one.`;
+
+const Collab = `FROM SESSION 53
+
+  "Collaboration that includes diverse perspectives
+   helps avoid bias in the development of
+   computing innovations."
+
+The people in the room are part of the algorithm.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.13: Computing Bias</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>You Have Had Half of This Already</h2>
+
+          <p>
+            <b>Session 44 taught that bias comes from the data</b> &mdash; from the type
+            or source of what was collected, and that collecting more of it does not
+            help.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The exam names two sources, and the other one is
+            the algorithm itself.</b> Today is that half: a program with no bug in it,
+            doing harm, because of a variable somebody chose to include.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.13</h2>
+              <h3 class="text-sn-theme">Computing Bias</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Two Sources: Algorithm and Data</p>
+              <p>A Correct Program Doing Harm</p>
+              <p>Biased For What Use</p>
+            </section>
+
+            <section>
+              <h2>Two Sources</h2>
+              <Code code={TwoSources} frame="code" lang="txt" title="IOC-1.D.1" showLineNumbers={false} />
+              <p class="fragment">Say <b>both</b> in an answer. One of them is half the mark.</p>
+            </section>
+
+            <section>
+              <h2>The Program</h2>
+              <Code code={Salary} frame="code" lang="javascript" title="A Starting Offer" showLineNumbers={false} />
+              <p class="fragment">No syntax error. No logic error. It does exactly what it says.</p>
+            </section>
+
+            <section>
+              <h2>Two Candidates, Same Experience</h2>
+              <Code code={Amplify} frame="code" lang="txt" title="What It Produces" showLineNumbers={false} />
+              <p class="fragment"><b class="text-sn-theme">The gap grew by ten percent.</b></p>
+            </section>
+
+            <section>
+              <h2>Where Is the Bias?</h2>
+              <p>Not in the arithmetic. The arithmetic is right.</p>
+              <p class="fragment">
+                <b>In the choice to use prior salary at all.</b>
+              </p>
+              <p class="fragment">
+                If people were historically underpaid, prior salary <b>records that</b>
+                &mdash; and this program treats the record as a fact about the person.
+              </p>
+            </section>
+
+            <section>
+              <h2>Nobody Wanted This</h2>
+              <Code code={Intent} frame="code" lang="txt" title="Intentionally or Unintentionally" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>It Is Not a Bug</h2>
+              <p>A bug is when a program does something other than what it was written to do.</p>
+              <p class="fragment">This program does exactly what it was written to do.</p>
+              <p class="fragment"><b>There is nothing to fix. There is something to decide.</b></p>
+            </section>
+
+            <section>
+              <h2>Every Level</h2>
+              <Code code={AllLevels} frame="code" lang="txt" title="IOC-1.D.3" showLineNumbers={false} />
+              <p class="fragment">Bias is not one line. <b>It is a series of choices, most of them invisible later.</b></p>
+            </section>
+
+            <section>
+              <h2>The Question People Ask Wrong</h2>
+              <Code code={Appropriate} frame="code" lang="txt" title="For What Use?" showLineNumbers={false} />
+              <p class="fragment">A variable is not biased on its own. <b>A use of it can be.</b></p>
+            </section>
+
+            <section>
+              <h2>What You Are Asked to Do About It</h2>
+              <p>
+                <b>&quot;Programmers should take action to reduce bias in algorithms
+                &hellip; as a way of combating existing human biases.&quot;</b>
+              </p>
+              <p class="fragment">Not <i>avoid creating</i> bias. <b>Combat existing bias.</b></p>
+              <p class="fragment">The bias was already in the world. The program inherited it.</p>
+            </section>
+
+            <section>
+              <h2>One Thing That Helps</h2>
+              <Code code={Collab} frame="code" lang="txt" title="Session 53, Again" showLineNumbers={false} />
+              <p class="fragment">
+                A room that has all been paid fairly will not think to check.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Naming both sources of bias in computing innovations</li>
+                <li>Explaining how a correct program can produce a biased outcome</li>
+                <li>Explaining that bias can be embedded at all levels of development</li>
+                <li>Judging whether a variable is appropriate <b>for a given use</b></li>
+                <li>Describing actions that reduce bias</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Computing bias</dt>
+                  <dd>An innovation reflecting existing human bias, through its algorithms or through its data.</dd>
+                  <dt>Proxy variable</dt>
+                  <dd>A variable that stands in for something else &mdash; often for something you were not allowed to use.</dd>
+                  <dt>Unintentional bias</dt>
+                  <dd>Bias produced without anyone intending it. The exam says algorithms can be biased either way.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Read the Program</h3>
+
+          <Code code={Salary} frame="code" lang="javascript" title="offerFor" class="mt-3" />
+
+          <p><b>Candidates: Rivera 52,000 / 5 years · Chen 41,000 / 5 years · Okafor 55,000 / 6 years · Sandoval 38,000 / 6 years.</b></p>
+
+          <ol>
+            <li><b>Work out all four offers by hand.</b></li>
+            <li>Rivera and Chen have <b>identical experience</b>. What is the difference in their offers?</li>
+            <li>What was the difference in their <b>prior</b> salaries?</li>
+            <li><b>Compare those two numbers.</b> What has the algorithm done to the gap?</li>
+            <li>Is there a syntax error? A logic error? <b>Is the arithmetic correct?</b></li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Locate the Bias</h3>
+
+          <ol>
+            <li>
+              <b>Which line is the problem?</b> Quote it.
+            </li>
+            <li>
+              <b>Explain in two sentences why that line can produce a biased outcome</b>,
+              even though it contains no mistake.
+            </li>
+            <li>
+              The exam names two sources of bias. <b>Which is this one</b>, and describe
+              what the <b>other</b> kind would look like in this same program.
+            </li>
+            <li>
+              <b>Is this bias intentional or unintentional?</b> Does the answer change
+              whether it does harm?
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Now Decide Something</h3>
+
+          <p>
+            <b>You are asked to fix it. There are three options and none of them is
+            free.</b>
+          </p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>Option</th><th>What it fixes</th><th>What it costs, or fails to fix</th></tr></thead>
+            <tbody>
+              <tr><td><b>A.</b> Remove <code>priorSalary</code>; base the offer on a fixed band for the role plus experience</td><td></td><td></td></tr>
+              <tr><td><b>B.</b> Keep <code>priorSalary</code> but publish that it is used</td><td></td><td></td></tr>
+              <tr><td><b>C.</b> Keep it, and add a rule that no offer may be more than 10% below the band midpoint</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <ol>
+            <li><b>Which would you choose, and why?</b> Full sentences.</li>
+            <li><b>What does your choice still not fix?</b> Every option leaves something.</li>
+            <li>
+              <b>Who should make this decision?</b> Not &quot;the programmer&quot; &mdash;
+              say who, and why them.
+            </li>
+          </ol>
+
+          <p>
+            <b class="text-sn-theme">There is no correct answer to question 1 and there
+            is a correct answer to question 2.</b> Every option leaves something behind,
+            and naming it is the skill.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Appropriate For What?</h3>
+
+          <p>
+            For each variable and use, say <b>appropriate</b> or <b>not</b>, and give a
+            reason.
+          </p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>Variable</th><th>Used to decide</th><th>Appropriate?</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>Age</td><td>a life insurance premium</td><td></td><td></td></tr>
+              <tr><td>Age</td><td>who gets a job interview</td><td></td><td></td></tr>
+              <tr><td>Postcode</td><td>a delivery time estimate</td><td></td><td></td></tr>
+              <tr><td>Postcode</td><td>a loan application</td><td></td><td></td></tr>
+              <tr><td>Typing speed</td><td>hiring a data entry clerk</td><td></td><td></td></tr>
+              <tr><td>Which school you attended</td><td>hiring a graduate</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            <b>Two of these variables appear twice with different answers.</b> Explain
+            what that proves about the question &quot;is this variable biased?&quot;
+          </p>
+
+          <p>
+            <b>Then: the last row.</b> Which school somebody attended is not a protected
+            characteristic and it may still be a <b>proxy</b> for one. Explain how.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Name <b>both</b> sources of bias in computing innovations.</li>
+            <li>Can a program with no errors in it be biased?</li>
+            <li>At how many levels of development can bias be embedded?</li>
+            <li>Why is &quot;is this variable biased?&quot; the wrong question?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>The program in Task 1 made an 11,000 gap into a 12,100 gap. Explain in one sentence why a percentage-based rule amplifies whatever difference it starts with.</li>
+            <li>Session 44 said collecting more data does not remove bias. Explain why collecting more salary histories would not have helped this program either.</li>
+            <li>The exam says programmers should act to <b>combat existing</b> human biases, not merely avoid adding new ones. Explain what that asks of a programmer beyond &quot;be fair.&quot;</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

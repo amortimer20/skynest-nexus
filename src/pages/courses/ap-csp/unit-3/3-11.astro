@@ -1,0 +1,368 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const WhatCounts = `A COMPUTING INNOVATION
+
+  includes a program as an integral part
+  of its function
+
+  PHYSICAL              a self-driving car
+  NONPHYSICAL SOFTWARE  photo editing software
+  NONPHYSICAL CONCEPT   e-commerce
+
+A hammer is not one. A spreadsheet is.`;
+
+const BothAtOnce = `GPS IN A CAR
+
+  BENEFICIAL   it predicts your arrival time by
+               tracking your speed and distance
+
+  HARMFUL      the police obtain that data and
+               issue a speeding ticket
+
+Same innovation. Same feature. Same data.`;
+
+const TheSkill = `SKILL 5.C -- DESCRIBE THE IMPACT OF A
+COMPUTING INNOVATION
+
+  Identification requires BOTH
+
+    the classification    beneficial or harmful
+    the justification     and why, and for whom
+
+"It's bad" is not an answer.
+"It's harmful to X because Y" is.`;
+
+const Unintended = `NOT EVERY EFFECT IS ANTICIPATED
+
+  targeted advertising      helps businesses
+                            misused at individual
+                            and aggregate levels
+
+  machine learning and      enabled medicine,
+  data mining               business, science
+                            also used to discriminate
+                            against groups
+
+Both rows are the exam's own examples.`;
+
+const TwoTruths = `TWO STATEMENTS THAT MUST BE HELD TOGETHER
+
+  "Responsible programmers TRY to consider the
+   unintended ways their innovations can be used."
+
+  "It is NOT POSSIBLE for a programmer to consider
+   all the ways a computing innovation can be used."
+
+The second is not an excuse for skipping the first.`;
+
+const Scale = `RAPID SHARING
+
+  "Rapid sharing of a program, or running a program
+   with a large number of users, can result in
+   significant impacts beyond the intended purpose
+   or control of the programmer."
+
+Ten users and ten million users are different
+programs, even when the code is identical.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.11: Beneficial and Harmful Effects</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Largest Thing on the Exam</h2>
+
+          <p>
+            <b>Reasoning about computing innovations is 28 to 33% of the
+            multiple-choice section</b> &mdash; more than any other skill, including
+            writing code. The next eight sessions are that skill.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">And it is not an opinion exercise.</b> There is a
+            right way to answer these questions and a wrong way, and the difference is
+            whether you say <b>who</b> an effect lands on and <b>why</b>.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.11</h2>
+              <h3 class="text-sn-theme">Beneficial and Harmful Effects</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>What Counts as an Innovation</p>
+              <p>Both, At the Same Time</p>
+              <p>Classification Plus Justification</p>
+            </section>
+
+            <section>
+              <h2>What Counts</h2>
+              <Code code={WhatCounts} frame="code" lang="txt" title="A Computing Innovation" showLineNumbers={false} />
+              <p class="fragment">The test: <b>is a program an integral part of how it works?</b></p>
+            </section>
+
+            <section>
+              <h2>People Make Them</h2>
+              <p>The exam's first statement on the topic: <b>people create computing innovations.</b></p>
+              <p class="fragment">Which sounds obvious and is doing work.</p>
+              <p class="fragment">
+                Nothing here happened <i>to</i> anybody. <b>Somebody chose it.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>The Central Fact</h2>
+              <Code code={BothAtOnce} frame="code" lang="txt" title="One Effect, Two Readings" showLineNumbers={false} />
+              <p class="fragment">
+                <b>A single effect can be beneficial and harmful</b> &mdash; to
+                different people, or to the same person.
+              </p>
+            </section>
+
+            <section>
+              <h2>Not Two Effects. One.</h2>
+              <p>The GPS is not doing a good thing and also a bad thing.</p>
+              <p class="fragment"><b>It is doing one thing: recording where you were and how fast.</b></p>
+              <p class="fragment">Whether that is good depends entirely on who is holding the data.</p>
+            </section>
+
+            <section>
+              <h2>So How Do You Answer?</h2>
+              <Code code={TheSkill} frame="code" lang="txt" title="Both Halves" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Sentence That Scores</h2>
+              <p><b>&quot;This is harmful to <i>who</i> because <i>why</i>.&quot;</b></p>
+              <p class="fragment">Name a person or a group. Name the mechanism.</p>
+              <p class="fragment">&quot;It invades privacy&quot; names neither.</p>
+            </section>
+
+            <section>
+              <h2>Nobody Saw It Coming</h2>
+              <Code code={Unintended} frame="code" lang="txt" title="The Exam's Own Examples" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Two Things Both True</h2>
+              <Code code={TwoTruths} frame="code" lang="txt" title="Hold Both" showLineNumbers={false} />
+              <p class="fragment">You are responsible for trying. You will still miss things.</p>
+            </section>
+
+            <section>
+              <h2>And Scale Changes Everything</h2>
+              <Code code={Scale} frame="code" lang="txt" title="Beyond the Programmer's Control" showLineNumbers={false} />
+              <p class="fragment">Your Create Task had one user. That was the easy version.</p>
+            </section>
+
+            <section>
+              <h2>It Cuts the Other Way Too</h2>
+              <p>Unintended effects are not only harmful.</p>
+              <p class="fragment">
+                Advances in computing have <b>increased creativity in other
+                fields</b> &mdash; medicine, engineering, communications, the arts.
+              </p>
+              <p class="fragment">Mostly by accident.</p>
+            </section>
+
+            <section>
+              <h2>And Tasks Change Shape</h2>
+              <p><b>&quot;The way people complete tasks often changes to incorporate new computing innovations.&quot;</b></p>
+              <p class="fragment">Not just faster. <b>Different.</b></p>
+              <p class="fragment">Nobody writes letters faster. They stopped writing letters.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Deciding whether something is a computing innovation</li>
+                <li>Explaining how one effect can be both beneficial and harmful</li>
+                <li>Answering with a classification <b>and</b> a justification</li>
+                <li>Describing effects beyond an innovation's intended purpose</li>
+                <li>Explaining why scale produces effects the programmer cannot control</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Computing innovation</dt>
+                  <dd>Something that includes a program as an integral part of its function. Physical, nonphysical software, or a nonphysical concept.</dd>
+                  <dt>Effect</dt>
+                  <dd>An impact, a result, or an outcome. Beneficial and harmful effects are contextual and interpretive.</dd>
+                  <dt>Identification</dt>
+                  <dd>Both the classification of an effect and the justification for that classification.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <p><b>On paper. Full sentences everywhere &mdash; this is a writing session.</b></p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Is It a Computing Innovation?</h3>
+
+          <p><b>Yes or no, and if yes, which of the three kinds.</b></p>
+
+          <ol>
+            <li>A hammer</li>
+            <li>A smart doorbell</li>
+            <li>Online shopping</li>
+            <li>A spreadsheet program</li>
+            <li>A paper map</li>
+            <li>A self-driving car</li>
+            <li>A digital thermometer that shows a number and stores nothing</li>
+          </ol>
+
+          <p>
+            <b>Item 7 is deliberately hard.</b> Argue it either way and say what your
+            answer depends on.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: One Effect, Two Readings</h3>
+
+          <p>
+            For each innovation, <b>name a single feature</b> &mdash; not two &mdash;
+            and describe how that one feature is beneficial to somebody and harmful to
+            somebody.
+          </p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>Innovation</th><th>The one feature</th><th>Beneficial to whom, why</th><th>Harmful to whom, why</th></tr></thead>
+            <tbody>
+              <tr><td>A school app that shows parents live attendance</td><td></td><td></td><td></td></tr>
+              <tr><td>Automatic photo tagging of faces</td><td></td><td></td><td></td></tr>
+              <tr><td>A delivery app that ranks drivers by speed</td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            <b class="text-sn-theme">The hard rule: it has to be the same feature in
+            both columns.</b> If your harm comes from a different feature than your
+            benefit, you have described two effects and answered a different question.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Fix the Answers</h3>
+
+          <p>Each of these would score zero. <b>Rewrite it so it would score.</b></p>
+
+          <ol>
+            <li>&quot;Social media is bad for people.&quot;</li>
+            <li>&quot;Online shopping is convenient.&quot;</li>
+            <li>&quot;Facial recognition invades privacy.&quot;</li>
+            <li>&quot;Self-driving cars are dangerous.&quot;</li>
+            <li>&quot;Streaming music helps artists reach fans.&quot;</li>
+          </ol>
+
+          <p>
+            <b>Each rewrite must name who and why.</b> Two of these five are{" "}
+            <i>positive</i> claims that score zero for the same reason as the negative
+            ones &mdash; say which, and why that is the same problem.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Beyond the Intended Purpose</h3>
+
+          <p>
+            <b>Pick one innovation</b> from Task 2, or one of your own.
+          </p>
+
+          <ol>
+            <li><b>What was it built for?</b> One sentence.</li>
+            <li><b>Describe a use its creators did not intend</b> that is beneficial.</li>
+            <li><b>Describe one that is harmful.</b></li>
+            <li>
+              <b>Could the programmers have anticipated either?</b> Answer using both
+              of the exam's statements: that responsible programmers try, and that
+              considering every use is not possible.
+            </li>
+            <li>
+              <b>Now change the scale.</b> Ten users, then ten million. What becomes
+              possible at ten million that was not possible at ten?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>What is the test for whether something is a computing innovation?</li>
+            <li>What <b>two</b> things does identifying an effect require?</li>
+            <li>Can a single effect be both beneficial and harmful? To whom?</li>
+            <li>Is a programmer expected to anticipate every use of their program?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>&quot;People create computing innovations.&quot; Explain why the exam bothers to say something so obvious.</li>
+            <li>You wrote a program in Quarter 3 with one user. Describe one harmful effect it could have had if ten million people used it.</li>
+            <li>Task 3 had two positive statements that score zero. Explain why a compliment is as unhelpful as an insult on this kind of question.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks in full sentences, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

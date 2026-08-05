@@ -1,0 +1,392 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const IP = `INTELLECTUAL PROPERTY
+
+  "Material created on a computer is the
+   intellectual property of the creator or
+   an organization."
+
+  Ease of access and distribution of digitized
+  information raises concerns regarding
+
+    OWNERSHIP        who has it
+    VALUE            what it is worth
+    USE              what may be done with it`;
+
+const Plagiarism = `PLAGIARISM
+
+  "The use of material created by someone else
+   WITHOUT PERMISSION and PRESENTED AS ONE'S OWN
+   is plagiarism, and may have legal consequences."
+
+Two conditions. Both matter.`;
+
+const Three = `THREE LEGAL WAYS TO USE SOMEONE ELSE'S WORK
+
+  CREATIVE COMMONS   a public copyright license that
+                     enables free distribution of an
+                     otherwise copyrighted work
+
+  OPEN SOURCE        programs made freely available,
+                     which may be redistributed and
+                     modified
+
+  OPEN ACCESS        online research output, free of
+                     restrictions on access and of
+                     many restrictions on use`;
+
+const Rule = `AND THE RULE THAT COVERS EVERYTHING ELSE
+
+  "The use of material created by someone other
+   than you SHOULD ALWAYS BE CITED."
+
+You already followed this. Session 53.`;
+
+const Enabled = `THE PART THAT IS NOT A WARNING
+
+  "Creative Commons, open source, and open access
+   have ENABLED BROAD ACCESS to digital information."
+
+These licenses are not loopholes.
+They are how a great deal of the useful internet
+came to exist.`;
+
+const Raise = `COMPUTING INNOVATIONS THAT RAISE CONCERNS
+-- the exam's own examples
+
+  software that allows access to digital media
+    downloads and streaming
+
+  algorithms that include bias
+
+  devices that collect and analyze data by
+    continuously monitoring activity`;
+
+const Divide = `AND ONE MORE
+
+  "The digital divide raises ETHICAL concerns
+   around computing."
+
+Session 71 was about access.
+This is the sentence that makes it an ethics topic.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.15: Legal and Ethical Concerns</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Rule You Already Followed</h2>
+
+          <p>
+            <b>At session 53 you were told to credit any code you did not write.</b> You
+            did it, or you did not need to, and either way it was a rule handed to you
+            without much of a reason.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">This session is the reason</b> &mdash; and the three
+            licenses that make it possible to legally use other people's work at all.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.15</h2>
+              <h3 class="text-sn-theme">Legal and Ethical Concerns</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Intellectual Property</p>
+              <p>Three Licenses</p>
+              <p>Always Cite</p>
+            </section>
+
+            <section>
+              <h2>It Belongs to Somebody</h2>
+              <Code code={IP} frame="code" lang="txt" title="Intellectual Property" showLineNumbers={false} />
+              <p class="fragment">Made on a computer, and it is already owned. <b>No filing required.</b></p>
+            </section>
+
+            <section>
+              <h2>Why Digital Makes It Hard</h2>
+              <p>A copy costs nothing and is identical.</p>
+              <p class="fragment">
+                Which is exactly why <b>ease of access and distribution</b> is the phrase
+                the exam uses.
+              </p>
+              <p class="fragment">The problem is not that copying is wrong. It is that copying is <b>free</b>.</p>
+            </section>
+
+            <section>
+              <h2>Plagiarism Has Two Conditions</h2>
+              <Code code={Plagiarism} frame="code" lang="txt" title="Both Halves" showLineNumbers={false} />
+              <p class="fragment"><b>Without permission</b>, and <b>presented as your own</b>.</p>
+            </section>
+
+            <section>
+              <h2>So Credit Changes Everything</h2>
+              <p>Using someone's code <b>with</b> credit is not plagiarism.</p>
+              <p class="fragment">Using it <b>without</b> credit is &mdash; even if you were allowed to use it.</p>
+              <p class="fragment"><b class="text-sn-theme">Permission and attribution are different things.</b></p>
+            </section>
+
+            <section>
+              <h2>Three Ways to Use It Legally</h2>
+              <Code code={Three} frame="code" lang="txt" title="Named by the Exam" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Distinction Worth Keeping</h2>
+              <p><b>Open source</b> is about <b>programs</b> &mdash; free to use, redistribute, and modify.</p>
+              <p class="fragment"><b>Open access</b> is about <b>research output</b> &mdash; free to read and largely free to use.</p>
+              <p class="fragment"><b>Creative Commons</b> is a <b>license</b> a creator applies to their own work.</p>
+            </section>
+
+            <section>
+              <h2>Creative Commons Is a Choice</h2>
+              <p>Not the absence of copyright. <b>A copyright holder choosing to grant rights.</b></p>
+              <p class="fragment">
+                Used when the creator <i>wants</i> others to share, use, and build on
+                the work.
+              </p>
+              <p class="fragment">A teacher publishing lessons hoping somebody improves them.</p>
+            </section>
+
+            <section>
+              <h2>And Then the Catch-All</h2>
+              <Code code={Rule} frame="code" lang="txt" title="Always" showLineNumbers={false} />
+              <p class="fragment">Not &quot;when required.&quot; <b>Always.</b></p>
+            </section>
+
+            <section>
+              <h2>This Is Not Only a Warning</h2>
+              <Code code={Enabled} frame="code" lang="txt" title="What They Built" showLineNumbers={false} />
+              <p class="fragment">Most of the tools you have used this year exist because of one of these three.</p>
+            </section>
+
+            <section>
+              <h2>Where Concerns Come From</h2>
+              <Code code={Raise} frame="code" lang="txt" title="The Exam's Examples" showLineNumbers={false} />
+              <p class="fragment">The second one was last session's whole topic.</p>
+            </section>
+
+            <section>
+              <h2>Information Can Harm</h2>
+              <p>
+                <b>&quot;Malicious information can disguise itself as legitimate
+                information&quot;</b>, which makes it hard to tell what is real.
+              </p>
+              <p class="fragment">
+                And computing plays a role in <b>social and political issues</b>, which
+                raises concerns of its own.
+              </p>
+            </section>
+
+            <section>
+              <h2>And One Sentence That Reaches Back</h2>
+              <Code code={Divide} frame="code" lang="txt" title="IOC-1.F.10" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Explaining that material created on a computer is intellectual property</li>
+                <li>Stating both conditions that make something plagiarism</li>
+                <li>Distinguishing Creative Commons, open source, and open access</li>
+                <li>Explaining that material not created by you should always be cited</li>
+                <li>Explaining how computing innovations raise legal and ethical concerns</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Intellectual property</dt>
+                  <dd>Material created by someone, belonging to its creator or their organization.</dd>
+                  <dt>Plagiarism</dt>
+                  <dd>Using material created by someone else, without permission, presented as one's own.</dd>
+                  <dt>Creative Commons</dt>
+                  <dd>A public copyright license enabling free distribution of an otherwise copyrighted work.</dd>
+                  <dt>Open source</dt>
+                  <dd>Programs made freely available, which may be redistributed and modified.</dd>
+                  <dt>Open access</dt>
+                  <dd>Online research output free of restrictions on access and of many restrictions on use.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Is It Plagiarism?</h3>
+
+          <p>
+            <b>Plagiarism needs both conditions: without permission, and presented as
+            your own.</b> For each, say yes or no and which condition decides it.
+          </p>
+
+          <ol>
+            <li>You copy a function from a forum and add a comment naming where it came from</li>
+            <li>You copy a function from a forum and say nothing</li>
+            <li>You use an open source library and list it in your documentation</li>
+            <li>You use an open source library and say nothing</li>
+            <li>You paraphrase somebody's explanation in your own words with no credit</li>
+            <li>Your teacher gives you starter code and you add a comment saying so</li>
+          </ol>
+
+          <p>
+            <b class="text-sn-theme">Item 4 is the one that catches people.</b> The
+            license permits the use. Say what is still wrong, and which of the two
+            conditions it fails.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Which License?</h3>
+
+          <p><b>Creative Commons</b>, <b>open source</b>, or <b>open access</b>?</p>
+
+          <ol>
+            <li>A photograph a creator has licensed for anyone to share and adapt with credit</li>
+            <li>A programming library you can download, use, and modify</li>
+            <li>A published research paper anybody can read without paying</li>
+            <li>A set of teaching materials a teacher published hoping others improve them</li>
+            <li>An operating system whose source code anybody can inspect</li>
+          </ol>
+
+          <p>
+            <b>Then, in one sentence each:</b> what kind of <i>thing</i> does each of the
+            three apply to? <b>That is the distinction the exam tests.</b>
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Not Only a Warning</h3>
+
+          <p>
+            The exam says these three have <b>enabled broad access to digital
+            information.</b>
+          </p>
+
+          <ol>
+            <li>
+              <b>Name one thing you used this year</b> that exists because of open source
+              or open access.
+            </li>
+            <li>
+              <b>Describe what would be different</b> if every tool had to be bought
+              individually.
+            </li>
+            <li>
+              A creator who applies a Creative Commons license <b>gives up money they
+              could have charged.</b> Give one reason somebody would do that.
+            </li>
+            <li>
+              <b>Now the other side.</b> Sites that failed to protect intellectual
+              property have been shut down and fined. Explain why safeguarding IP and
+              enabling broad access are <b>both</b> reasonable goals, and where they
+              conflict.
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Two Concerns, Properly Argued</h3>
+
+          <p>
+            <b>Pick two</b> of the exam's own examples: media download and streaming
+            software, algorithms that include bias, or devices that continuously monitor
+            activity.
+          </p>
+
+          <p>For each, in full sentences:</p>
+
+          <ol>
+            <li><b>What legal concern</b> does it raise, and for whom?</li>
+            <li><b>What ethical concern</b> does it raise, and how is that different from the legal one?</li>
+            <li><b>Name a beneficiary.</b> Somebody is better off, or it would not exist.</li>
+            <li><b>Who should decide</b> what is allowed here? Not &quot;the government&quot; on its own &mdash; say who and why.</li>
+          </ol>
+
+          <p>
+            <b>Question 2 is the graded one.</b> Legal and ethical are not synonyms &mdash;
+            something can be legal and wrong, or illegal and defensible. <b>Your answer
+            has to show the gap.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Who owns material created on a computer?</li>
+            <li>Name <b>both</b> conditions for plagiarism.</li>
+            <li>What is the difference between open source and open access?</li>
+            <li>When should material created by someone else be cited?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>At session 53 you were told to credit code you did not write. Now that you know why, describe what the rule is actually protecting.</li>
+            <li>Something can be legal and still wrong. Give an example from computing, and say what makes it one and not the other.</li>
+            <li>&quot;The digital divide raises ethical concerns around computing.&quot; Explain how session 71's topic becomes an ethics question rather than an access question.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks in full sentences, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

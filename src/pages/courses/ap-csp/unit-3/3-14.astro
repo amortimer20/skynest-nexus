@@ -1,0 +1,379 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Two = `CROWDSOURCING
+
+  the practice of obtaining input or information
+  from a large number of people via the Internet
+
+CITIZEN SCIENCE
+
+  scientific research conducted in whole or part by
+  distributed individuals, many of whom may not be
+  scientists, who contribute relevant data to
+  research using their own computing devices
+
+Citizen science is a KIND of crowdsourcing,
+aimed at research.`;
+
+const Enables = `WIDESPREAD ACCESS TO INFORMATION AND
+PUBLIC DATA FACILITATES
+
+  identifying problems
+  developing solutions
+  disseminating results
+
+All three. Not just "finding things out."`;
+
+const Funding = `A NEW MODEL FOR COLLABORATION
+
+  "Crowdsourcing offers new models for
+   collaboration, such as connecting businesses
+   or social causes with funding."
+
+Many people, small contributions, no institution
+in the middle deciding what deserves money.`;
+
+const Suited = `WHAT CITIZEN SCIENCE IS GOOD FOR
+
+  counting fireflies across a whole coastline
+    lots of people, no training, cheap equipment
+
+WHAT IT IS NOT GOOD FOR
+
+  testing a vaccine on volunteers
+    needs a trained professional, controlled
+    conditions, and accountability
+
+The question is not "are these people clever."
+It is what the task actually requires.`;
+
+const Accuracy = `THE COST
+
+  Anyone can contribute -- so anyone can contribute
+  something wrong.
+
+  And with the ease of posting a legitimate
+  crowdfunding cause comes the ease of posting
+  a false one.
+
+Openness is the feature. It is also the hole.`;
+
+const Skill = `THE SKILL FOR THIS TOPIC IS 1.C
+
+  "Explain how collaboration affects the
+   development of a solution."
+
+That is a Big Idea 1 skill, assessed here.
+You met it at session 53.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.14: Crowdsourcing and Citizen Science</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Optimistic Session</h2>
+
+          <p>
+            <b>Two sessions of harms and one of unequal access.</b> This one is about
+            something computing made possible that was not possible before: getting
+            useful work from a very large number of people who are not organized into
+            anything.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">It has a cost too</b>, and the cost is the same
+            property that makes it work.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.14</h2>
+              <h3 class="text-sn-theme">Crowdsourcing and Citizen Science</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Two Related Definitions</p>
+              <p>What the Crowd Is Good For</p>
+              <p>Openness Cuts Both Ways</p>
+            </section>
+
+            <section>
+              <h2>Two Definitions</h2>
+              <Code code={Two} frame="code" lang="txt" title="Both Are Examinable" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Detail People Drop</h2>
+              <p>Citizen science: <b>using their own computing devices.</b></p>
+              <p class="fragment">Not a lab's equipment. Their phone, their laptop, their spare processor time.</p>
+              <p class="fragment">Which is what makes it possible at all &mdash; and what limits what it can measure.</p>
+            </section>
+
+            <section>
+              <h2>Three Things It Enables</h2>
+              <Code code={Enables} frame="code" lang="txt" title="IOC-1.E.1" showLineNumbers={false} />
+              <p class="fragment"><b>Identifying</b> a problem is on that list, before solving one.</p>
+            </section>
+
+            <section>
+              <h2>Sometimes the Crowd Finds the Problem</h2>
+              <p>Not just the answer. <b>The question.</b></p>
+              <p class="fragment">
+                Thousands of people noticing the same thing is itself a finding, and
+                no institution had to commission it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Money, Too</h2>
+              <Code code={Funding} frame="code" lang="txt" title="A New Model" showLineNumbers={false} />
+              <p class="fragment">A community garden gets funded by people who walk past it.</p>
+            </section>
+
+            <section>
+              <h2>What Is It Actually Good For?</h2>
+              <Code code={Suited} frame="code" lang="txt" title="Fit the Task" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Test</h2>
+              <p><b>Does the task need many observers, or does it need trained ones?</b></p>
+              <p class="fragment">Many, cheap, spread out, low skill &rarr; the crowd is ideal.</p>
+              <p class="fragment">Few, expensive, controlled, accountable &rarr; the crowd is the wrong tool.</p>
+            </section>
+
+            <section>
+              <h2>Human Capability, Enhanced</h2>
+              <p><b>&quot;Human capabilities can be enhanced by collaboration via computing.&quot;</b></p>
+              <p class="fragment">
+                A hundred thousand people counting fireflies is not a hundred thousand
+                small results.
+              </p>
+              <p class="fragment"><b>It is one result nobody could have produced alone.</b></p>
+            </section>
+
+            <section>
+              <h2>And the Cost</h2>
+              <Code code={Accuracy} frame="code" lang="txt" title="The Same Property" showLineNumbers={false} />
+              <p class="fragment">You cannot have open contribution and vetted contribution.</p>
+            </section>
+
+            <section>
+              <h2>Which You Have Seen Before</h2>
+              <p>Open protocols let the internet grow, and let anyone connect. <b>Session 66.</b></p>
+              <p class="fragment">Crowdsourcing lets anyone contribute, including badly.</p>
+              <p class="fragment"><b>Openness is a trade, not a free gift.</b></p>
+            </section>
+
+            <section>
+              <h2>One Thing You Owe the Crowd</h2>
+              <p>If you use something the crowd gave you, <b>credit it.</b></p>
+              <p class="fragment">
+                You did this on the Create Task. <b>Session 74 is why it is a rule.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>The Skill Being Assessed</h2>
+              <Code code={Skill} frame="code" lang="txt" title="Not What You Expect" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Defining crowdsourcing and citizen science, and relating them</li>
+                <li>Naming what widespread access to public data enables</li>
+                <li>Judging whether a task suits a crowd</li>
+                <li>Explaining how crowdsourcing connects causes with funding</li>
+                <li>Explaining how collaboration affects the development of a solution</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Crowdsourcing</dt>
+                  <dd>Obtaining input or information from a large number of people via the internet.</dd>
+                  <dt>Citizen science</dt>
+                  <dd>Research conducted in whole or part by distributed individuals, many not scientists, contributing data using their own computing devices.</dd>
+                  <dt>Dissemination</dt>
+                  <dd>Spreading results. The third thing public data access makes easier.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Which Is It?</h3>
+
+          <p>
+            For each: <b>crowdsourcing</b>, <b>citizen science</b>, <b>both</b>, or
+            <b> neither</b>. One reason each.
+          </p>
+
+          <ol>
+            <li>Volunteers photograph and log every bird they see in one county</li>
+            <li>A map app asks drivers to report road closures</li>
+            <li>A company pays a research firm to survey a thousand shoppers</li>
+            <li>People donate spare processor time to help analyze telescope data</li>
+            <li>A site collects small donations to fund a community garden</li>
+            <li>Volunteers transcribe handwritten historical weather records</li>
+          </ol>
+
+          <p>
+            <b>Item 3 is the one to be careful with.</b> Say what makes it different
+            from the others.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Suited, or Not</h3>
+
+          <p>For each task, say whether a crowd could do it and <b>what the task actually requires</b>.</p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>Task</th><th>Crowd?</th><th>What it requires</th></tr></thead>
+            <tbody>
+              <tr><td>Counting fireflies along a coastline</td><td></td><td></td></tr>
+              <tr><td>Testing a new medicine on volunteers</td><td></td><td></td></tr>
+              <tr><td>Spotting flooded roads after a storm</td><td></td><td></td></tr>
+              <tr><td>Diagnosing a specific patient's illness</td><td></td><td></td></tr>
+              <tr><td>Transcribing a million handwritten records</td><td></td><td></td></tr>
+              <tr><td>Deciding a prison sentence</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            <b>The last row is not a scientific task at all.</b> Say why it belongs on
+            this list anyway.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Design One</h3>
+
+          <p>
+            <b>Design a citizen science project for your own area.</b> Something a crowd
+            could genuinely do.
+          </p>
+
+          <ol>
+            <li><b>The question</b> you are trying to answer. One sentence.</li>
+            <li><b>What each contributor does</b>, and roughly how long it takes them.</li>
+            <li><b>What device</b> they use. It must be one they already own.</li>
+            <li><b>Why a crowd</b> rather than three trained researchers.</li>
+            <li><b>How the data could be wrong</b>, and one thing you would do about it.</li>
+            <li><b>How you would disseminate the result.</b></li>
+          </ol>
+
+          <p>
+            <b class="text-sn-theme">Question 5 is the one that separates a real design
+            from a nice idea.</b> Every crowdsourced dataset has bad entries in it &mdash;
+            you met that at session 44.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: The Same Property, Twice</h3>
+
+          <p>
+            <b>Openness makes crowdsourcing work and makes it exploitable.</b>
+          </p>
+
+          <ol>
+            <li>
+              Describe <b>one benefit</b> that exists <i>only because</i> anyone can
+              contribute.
+            </li>
+            <li>
+              Describe <b>one harm</b> that exists <i>only because</i> anyone can
+              contribute.
+            </li>
+            <li>
+              <b>Propose a rule</b> that would reduce the harm. <b>Then say what benefit
+              your rule also reduces.</b>
+            </li>
+            <li>
+              Session 66 said the internet's protocols are <b>open</b>, and that this is
+              why it could grow. <b>Describe what these two topics have in common.</b>
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Define crowdsourcing.</li>
+            <li>Define citizen science, including <b>whose devices</b> are used.</li>
+            <li>Name the three things widespread access to public data facilitates.</li>
+            <li>Give one task a crowd suits and one it does not, with the reason.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>&quot;Human capabilities can be enhanced by collaboration via computing.&quot; Describe a result your Task 3 project could produce that no single person could produce alone, however hard they worked.</li>
+            <li>Crowdsourced data is vast and often not technical. Explain why that is a reasonable trade for some questions and a disqualifying problem for others.</li>
+            <li>You had to credit any code you did not write on the Create Task. Explain what that rule has in common with crowdsourcing.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, including your project design, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

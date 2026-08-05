@@ -1,0 +1,369 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Definition = `THE DIGITAL DIVIDE
+
+  differing access to computing devices and
+  the Internet, based on
+
+    socioeconomic
+    geographic
+    demographic
+
+  characteristics
+
+Not "some people don't have the internet."
+Access that varies, and varies with those things.`;
+
+const Chain = `FROM SESSION 66
+
+  "Access to the Internet depends on the ability
+   to connect a computing device to an
+   Internet-connected device."
+
+Access is a CHAIN. It ends where the chain ends.`;
+
+const Four = `IT AFFECTS
+
+  GROUPS       and       INDIVIDUALS
+
+IT RAISES ISSUES OF
+
+  equity      access      influence
+
+BOTH
+
+  globally    and    locally`;
+
+const Actions = `AND IT IS NOT WEATHER
+
+  "The digital divide is affected by the actions of
+   individuals, organizations, and governments."
+
+Somebody's decisions widen it.
+Somebody's decisions narrow it.`;
+
+const NineHours = `WHY THIS COURSE WORKS THE WAY IT DOES
+
+  The College Board requires a MINIMUM OF 9 HOURS
+  of class time for the Create Performance Task.
+
+  Why in class, and not as homework?
+
+  Because a student without a computer or internet
+  at home would otherwise be unable to do it.
+
+You spent ten sessions on that task.
+That was a digital divide policy.`;
+
+const Local = `LOOK CLOSER THAN "COUNTRIES"
+
+  Two students in the same school:
+
+    one has a laptop and fast broadband at home
+    one shares a phone with two siblings
+
+  Same country. Same town. Same classroom.
+  Same assignment due tomorrow.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.12: The Digital Divide</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>One Definition, Precisely</h2>
+
+          <p>
+            <b>This is a short topic with one learning objective and five statements</b>,
+            and it is asked about constantly &mdash; because it is the clearest example
+            of a computing effect that lands on people unevenly.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">It is also the reason this class is arranged the
+            way it is</b>, which is not something you can say about most topics on an
+            exam.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.12</h2>
+              <h3 class="text-sn-theme">The Digital Divide</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Differing Access, and What It Varies With</p>
+              <p>Groups and Individuals, Globally and Locally</p>
+              <p>Somebody's Actions</p>
+            </section>
+
+            <section>
+              <h2>The Definition</h2>
+              <Code code={Definition} frame="code" lang="txt" title="Say All Three Words" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Three Words to Keep</h2>
+              <p><b>Socioeconomic</b> &mdash; money, and what money buys.</p>
+              <p class="fragment"><b>Geographic</b> &mdash; where you are.</p>
+              <p class="fragment"><b>Demographic</b> &mdash; age, and other characteristics of a population.</p>
+              <p class="fragment">The exam lists all three. <b>An answer with one of them is a third of an answer.</b></p>
+            </section>
+
+            <section>
+              <h2>You Already Have the Mechanism</h2>
+              <Code code={Chain} frame="code" lang="txt" title="Session 66" showLineNumbers={false} />
+              <p class="fragment">Infrastructure has to reach you before access is even a question.</p>
+            </section>
+
+            <section>
+              <h2>Four Things It Is Not Only</h2>
+              <Code code={Four} frame="code" lang="txt" title="Both Sides of Each" showLineNumbers={false} />
+              <p class="fragment"><b>Individuals, not only groups. Locally, not only globally.</b></p>
+            </section>
+
+            <section>
+              <h2>The Local Half Is the One People Skip</h2>
+              <Code code={Local} frame="code" lang="txt" title="Same Classroom" showLineNumbers={false} />
+              <p class="fragment">The divide is not a map. <b>It is in this room.</b></p>
+            </section>
+
+            <section>
+              <h2>Influence Is the Third Word</h2>
+              <p>Equity and access are the obvious two.</p>
+              <p class="fragment">
+                <b>Influence</b> is the one worth thinking about: if a policy is
+                announced online, who hears it?
+              </p>
+              <p class="fragment">Who gets consulted? Whose complaints get counted?</p>
+            </section>
+
+            <section>
+              <h2>It Is Not Weather</h2>
+              <Code code={Actions} frame="code" lang="txt" title="Somebody Decided" showLineNumbers={false} />
+              <p class="fragment"><b>Individuals. Organizations. Governments.</b> All three are named.</p>
+            </section>
+
+            <section>
+              <h2>Which Means It Can Be Narrowed</h2>
+              <p>Free public wireless. Loaned devices. Classes for people who have access and not the training.</p>
+              <p class="fragment">Infrastructure programs reaching unserved communities.</p>
+              <p class="fragment"><b>None of those are inevitable. Somebody chose them.</b></p>
+            </section>
+
+            <section>
+              <h2>Including in Here</h2>
+              <Code code={NineHours} frame="code" lang="txt" title="Nine Hours" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>And the Optional Sessions</h2>
+              <p>This class offers time outside lessons to work on your programs.</p>
+              <p class="fragment">
+                <b class="text-sn-theme">That is an individual's action affecting the
+                digital divide.</b>
+              </p>
+              <p class="fragment">Which is IOC-1.C.5, and you are standing in it.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Defining the digital divide with all three characteristics</li>
+                <li>Explaining that it affects individuals as well as groups</li>
+                <li>Explaining that it operates locally as well as globally</li>
+                <li>Naming the issues it raises: equity, access, influence</li>
+                <li>Explaining how individuals, organizations and governments affect it</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Digital divide</dt>
+                  <dd>Differing access to computing devices and the internet, based on socioeconomic, geographic or demographic characteristics.</dd>
+                  <dt>Equity</dt>
+                  <dd>Whether people are given what they need to have a fair chance &mdash; not whether they are given the same thing.</dd>
+                  <dt>Influence</dt>
+                  <dd>Whose voice reaches a decision. The issue the digital divide raises that is easiest to miss.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Which Characteristic?</h3>
+
+          <p>
+            For each situation, say whether the access gap is mainly
+            <b> socioeconomic</b>, <b>geographic</b>, or <b>demographic</b> &mdash; and
+            note where more than one applies.
+          </p>
+
+          <ol>
+            <li>A village forty miles from the nearest fiber line</li>
+            <li>A family that cannot afford a monthly broadband bill</li>
+            <li>An eighty-year-old who has a tablet and has never been shown how to use it</li>
+            <li>A student who shares one phone with two siblings</li>
+            <li>A country whose government restricts which sites can be reached</li>
+            <li>A neighborhood where providers chose not to build because too few people would subscribe</li>
+          </ol>
+
+          <p>
+            <b>Item 6 is the interesting one.</b> Which characteristic is it, and which
+            of the three actors &mdash; individuals, organizations, governments &mdash;
+            made the decision?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Groups and Individuals, Globally and Locally</h3>
+
+          <p><b>Four boxes. Fill in a real example for each.</b></p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th></th><th>Affecting a group</th><th>Affecting an individual</th></tr></thead>
+            <tbody>
+              <tr><td><b>Globally</b></td><td></td><td></td></tr>
+              <tr><td><b>Locally</b></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            <b class="text-sn-theme">The local-individual box is the one most students
+            leave vague.</b> Make it specific enough that somebody could be helped by
+            it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Equity, Access, and Influence</h3>
+
+          <p>
+            <b>A town council announces road closures only on a social media
+            account.</b>
+          </p>
+
+          <ol>
+            <li>Describe the <b>access</b> problem in one sentence.</li>
+            <li>Describe the <b>equity</b> problem. How is it different from the access problem?</li>
+            <li>
+              Describe the <b>influence</b> problem. <b>Who ends up with less say in
+              what the council does</b>, and by what mechanism?
+            </li>
+            <li><b>Propose one change</b> the council could make. Say which of the three problems it fixes and which it does not.</li>
+          </ol>
+
+          <p>
+            <b>Question 4 is the graded one.</b> A change that fixes all three is
+            usually a change nobody could afford.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: This Class</h3>
+
+          <p>
+            The College Board requires <b>at least nine hours of class time</b> for the
+            Create Performance Task rather than letting it be homework.
+          </p>
+
+          <ol>
+            <li><b>Explain why</b>, using the definition of the digital divide.</li>
+            <li>
+              <b>Who would have been disadvantaged</b> if the task had been set as
+              homework? Name the characteristic.
+            </li>
+            <li>
+              This class also offers optional sessions outside lesson time. <b>Which of
+              the three actors is that</b>, and what does it fix?
+            </li>
+            <li>
+              <b>Name one thing about this course that still assumes access you might
+              not have.</b> Be honest; this is a real question.
+            </li>
+          </ol>
+
+          <p>
+            <b class="text-sn-theme">Question 4 is the one worth answering
+            carefully</b>, and the answers get read.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Define the digital divide, including <b>all three</b> characteristics.</li>
+            <li>Does it affect only groups?</li>
+            <li>Does it exist only between countries?</li>
+            <li>Name the three issues it raises.</li>
+            <li>Name the three kinds of actor whose actions affect it.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>&quot;Access&quot; and &quot;equity&quot; are different problems. Explain the difference using an example where somebody has access and still does not have equity.</li>
+            <li>The digital divide is affected by the actions of individuals. Name one action a single person could take that would narrow it for one other person.</li>
+            <li>Session 66 said access depends on connecting to an internet-connected device. Explain how that one sentence predicts most of this session.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

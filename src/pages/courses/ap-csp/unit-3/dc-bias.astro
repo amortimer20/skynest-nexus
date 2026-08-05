@@ -1,0 +1,198 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Program = `let names          = ["Rivera", "Chen", "Okafor", "Sandoval"];
+let priorSalary    = [52000, 41000, 55000, 38000];
+let yearsExperience = [5, 5, 6, 6];
+
+function offerFor(i) {
+  let offer = priorSalary[i] + (priorSalary[i] / 10);
+
+  if (yearsExperience[i] >= 6) {
+    offer = offer + 2000;
+  }
+
+  return offer;
+}
+
+for (let i = 0; i < names.length; i++) {
+  console.log(names[i] + ": " + offerFor(i));
+}`;
+
+const Output = `Rivera: 57200
+Chen: 45100
+Okafor: 62500
+Sandoval: 43800`;
+
+const Different = `THIS CHALLENGE IS NOT LIKE THE OTHERS.
+
+Every debug challenge you have done had a defect
+that made the program WRONG.
+
+  a syntax error   it would not run
+  a logic error    it ran and gave a wrong answer
+
+This program has neither.
+
+  It runs.
+  Its arithmetic is correct.
+  Its output is exactly what the code says.
+
+And it should not be used.`;
+
+const NotAFix = `THERE IS NO LINE TO CORRECT.
+
+Do not look for one.
+
+Your job is to find where the harm comes from,
+say why, and then make a decision --
+knowing that every option costs something.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: The Correct Program</h1>
+
+        <h4 class="text-sn-theme">
+          No faults to fix &middot; on paper &middot; this one is different
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <Code code={Different} frame="code" lang="txt" title="Read This First" showLineNumbers={false} class="my-3" />
+
+          <Code code={NotAFix} frame="code" lang="txt" title="And This" showLineNumbers={false} class="my-3" />
+
+          <p class="text-body-secondary">
+            <b>Paper only. Full sentences.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="program">
+          <h2>The Program</h2>
+
+          <p>
+            A company uses this to work out what to offer a new hire. <b>All four
+            candidates applied for the same role.</b>
+          </p>
+
+          <Code code={Program} frame="code" lang="javascript" title="offerFor" class="mb-4" />
+
+          <h3>What It Prints</h3>
+
+          <Code code={Output} frame="terminal" lang="txt" title="Correct Output" showLineNumbers={false} class="mb-4" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <h3>1. Confirm It Works</h3>
+          <ol>
+            <li><b>Work out all four offers by hand.</b> Do they match the output?</li>
+            <li>Is there a syntax error? A logic error? Does the procedure do what its name says?</li>
+            <li>Trace <code>offerFor(2)</code> line by line. Is every step correct?</li>
+          </ol>
+
+          <h3 class="mt-4">2. Find the Harm</h3>
+          <ol>
+            <li>
+              <b>Rivera and Chen have identical experience.</b> What is the difference in
+              their offers?
+            </li>
+            <li>What was the difference in their <b>prior</b> salaries?</li>
+            <li>
+              <b>Compare those two numbers.</b> What has this program done to the gap it
+              was given? <b>Say it as a percentage.</b>
+            </li>
+            <li>
+              <b>Which line causes this?</b> Quote it, and explain in two sentences why
+              that line can produce a biased outcome despite containing no mistake.
+            </li>
+          </ol>
+
+          <h3 class="mt-4">3. Which Kind of Bias</h3>
+          <ol>
+            <li>
+              The exam names <b>two</b> sources of bias in computing innovations. Name
+              both, and say which this is.
+            </li>
+            <li>
+              <b>Describe what the other kind would look like in this same program.</b>
+            </li>
+            <li>
+              Is this bias <b>intentional or unintentional</b>? Does your answer change
+              whether it does harm?
+            </li>
+            <li>
+              &quot;Biases can be embedded at all levels of software development.&quot;
+              <b> Name three separate decisions</b> that went into this program, any of
+              which could have introduced bias.
+            </li>
+          </ol>
+
+          <h3 class="mt-4">4. Decide Something</h3>
+
+          <p><b>Three options. None is free.</b></p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>Option</th><th>What it fixes</th><th>What it costs or leaves unfixed</th></tr></thead>
+            <tbody>
+              <tr><td><b>A.</b> Remove <code>priorSalary</code>. Offer a fixed band for the role, plus the experience bonus</td><td></td><td></td></tr>
+              <tr><td><b>B.</b> Keep <code>priorSalary</code>, but publish that it is used</td><td></td><td></td></tr>
+              <tr><td><b>C.</b> Keep it, and add a floor: no offer below 90% of the band midpoint</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <ol>
+            <li><b>Which do you choose, and why?</b></li>
+            <li><b>What does your choice still not fix?</b></li>
+            <li>
+              <b>Who should make this decision?</b> Not &quot;the programmer&quot; &mdash;
+              name who, and why them.
+            </li>
+          </ol>
+
+          <p class="mt-3">
+            <b class="text-sn-theme">Question 1 has no correct answer. Question 2
+            does.</b> Every option leaves something behind, and naming it is the whole
+            skill.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            All four sections in full sentences, including your completed options table
+            and your choice with its reasoning.
+          </p>
+
+          <p>Worth <b>4 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
