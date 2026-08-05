@@ -46,6 +46,31 @@ while (n <= 4) {
 
 console.log("Total:", total);`;
 const Figure7 = `Total: 10`;
+const Figure8 = `let playing = true;
+
+while (playing) {
+  let roll = Math.floor(Math.random() * 6) + 1;
+  console.log("You rolled a " + roll + ".");
+
+  playing = confirm("Roll again?");
+}
+
+console.log("Thanks for playing.");`;
+const Figure9 = `You rolled a 4.
+Roll again? [y/N] y
+You rolled a 1.
+Roll again? [y/N] y
+You rolled a 2.
+Roll again? [y/N] n
+Thanks for playing.`;
+const Figure10 = `let again = prompt("Roll again? (y/n)");
+
+while (again === "y") {
+  let roll = Math.floor(Math.random() * 6) + 1;
+  console.log("You rolled a " + roll + ".");
+
+  again = prompt("Roll again? (y/n)");
+}`;
 const NotationJs = `let count = 5;
 
 while (count > 0) {
@@ -113,7 +138,7 @@ console.log("");
 
 // Ask the user for a crew size and cast it
 // While the answer is less than 1 or more than 8, say it is invalid and ask again
-// Once it is valid, confirm the crew size
+// Once it is valid, display the crew size
 `;
 const ExampleOutput = `10
 8
@@ -281,6 +306,80 @@ Crew of 4 confirmed.
               </p>
             </section>
 
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Loop the User Controls</h2>
+              <p>
+                Every loop so far stopped when a <i>number</i> ran out. A loop can
+                also stop when <b class="text-sn-theme">the person decides it
+                should.</b>
+              </p>
+              <Code
+                code={Figure8}
+                frame="code"
+                title="Demo"
+                lang="javascript"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Loop the User Controls</h2>
+              <Code
+                code={Figure9}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <CodeSnippet code="confirm()" lang={"javascript"} theme={"material-theme-ocean"} inline /> came from Activity 1.11. It hands back a
+                boolean, and <b class="text-sn-theme">a boolean is exactly what a{" "}
+                <CodeSnippet code="while" lang={"javascript"} theme={"material-theme-ocean"} inline /> test needs.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Find the Three Parts</h2>
+              <p>Same three parts as every other loop:</p>
+              <ul>
+                <li class="fragment">
+                  <b>Setup:</b>{" "}
+                  <CodeSnippet code="let playing = true;" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; so the
+                  first round always happens
+                </li>
+                <li class="fragment">
+                  <b>Test:</b>{" "}
+                  <CodeSnippet code="while (playing)" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; already a
+                  boolean, so no comparison needed
+                </li>
+                <li class="fragment">
+                  <b>Change:</b>{" "}
+                  <CodeSnippet code="playing = confirm(...)" lang={"javascript"} theme={"material-theme-ocean"} inline /> &mdash; the
+                  user supplies it
+                </li>
+              </ul>
+              <p class="fragment">
+                Forget the last line and you have an infinite loop, exactly like
+                forgetting <CodeSnippet code="count = count - 1" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Version Without <CodeSnippet code="confirm()" lang={"javascript"} theme={"material-theme-ocean"} inline /></h2>
+              <Code
+                code={Figure10}
+                frame="code"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                <b class="text-sn-theme">You have to ask twice.</b> Once before the
+                loop to get the test started, and again at the bottom. Two copies
+                of the same question is two places to make a mistake.
+              </p>
+            </section>
+
             <section>
               <h2>The Third Building Block</h2>
               <p>
@@ -300,6 +399,10 @@ Crew of 4 confirmed.
                 <li>Identifying the setup, test, and change in any loop</li>
                 <li>Recognizing and fixing an infinite loop</li>
                 <li>Using an accumulator to build a result</li>
+                <li>
+                  Letting the user end a loop with{" "}
+                  <CodeSnippet code="confirm()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                </li>
               </ul>
             </section>
 
@@ -428,6 +531,32 @@ Crew of 4 confirmed.
               instantly when it happens by accident.
             </li>
             <li>Delete the broken copy before submitting.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional): Toss Until They Stop You</h3>
+          <ul>
+            <li>
+              At the bottom of your program, write a coin toss that repeats while{" "}
+              <CodeSnippet code="confirm()" lang={"javascript"} theme={"material-theme-ocean"} inline /> says yes. One toss per pass,
+              so this is a single loop and not a loop inside a loop.
+            </li>
+            <li>
+              Set the flag to <CodeSnippet code="true" lang={"javascript"} theme={"material-theme-ocean"} inline /> before the loop.
+              If you start it at <CodeSnippet code="false" lang={"javascript"} theme={"material-theme-ocean"} inline />, nothing runs
+              at all &mdash; work out why before you fix it.
+            </li>
+            <li>
+              Keep a count of tosses and a count of heads, and display both at the
+              end. Two accumulators, declared <b>before</b> the loop so they
+              survive it.
+            </li>
+            <li>
+              <b>Remember only <CodeSnippet code="y" lang={"javascript"} theme={"material-theme-ocean"} inline /> means yes.</b>{" "}
+              Typing <CodeSnippet code="yes" lang={"javascript"} theme={"material-theme-ocean"} inline /> ends the program, which
+              looks like a bug until you remember the rule.
+            </li>
           </ul>
         </section>
 

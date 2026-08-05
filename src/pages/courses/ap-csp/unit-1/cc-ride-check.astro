@@ -11,7 +11,7 @@ it, so I want the screen to say it.`;
 
 const SampleOutput = `Height (inches): 52
 Age: 9
-Riding with an adult? yes
+Riding with an adult? [y/N] y
 
 You may ride.`;
 //#endregion
@@ -63,6 +63,13 @@ You may ride.`;
             <li>Two conditions have to both be true for the normal case. That is one operator.</li>
             <li>The exception is a third condition that overrides the age rule. That is a different operator.</li>
             <li>Getting told no is not enough. A rider should be told which requirement they missed.</li>
+            <li>
+              The adult question is a yes or no, so collect it with{" "}
+              <code>confirm()</code> from Activity 1.11 rather than{" "}
+              <code>prompt()</code>. It gives you a boolean you can drop straight
+              into the condition &mdash; no cast, and no checking the spelling of
+              what they typed.
+            </li>
           </ul>
         </section>
 

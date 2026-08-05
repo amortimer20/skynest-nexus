@@ -25,6 +25,15 @@ const Figure6 = `console.log("7" === 7);
 console.log("7" == 7);`;
 const Figure7 = `false
 true`;
+const Figure8 = `let ready = confirm("Ready to start?");
+
+console.log("Ready:", ready);`;
+const Figure9 = `Ready to start? [y/N] y
+Ready: true`;
+const Figure10 = `let raw = prompt("Ready to start? (y/n)");
+let ready = raw === "y";
+
+let readyAgain = confirm("Ready to start?");`;
 const NotationJs = `let score = 85;
 let passed = score >= 60;
 let perfect = score === 100;
@@ -76,6 +85,9 @@ console.log("");
 // Store whether the wind is at or above 40
 // Store whether the wind is NOT exactly zero
 // Display both results with labels
+
+// Ask with confirm() whether the boat is in open water
+// Display that answer with a label
 `;
 const ExampleOutput = `Temperature: 31
 Above freezing: true
@@ -88,6 +100,9 @@ Exactly freezing: false
 Wind speed? 12
 High wind: false
 Wind is moving: true
+
+In open water? [y/N] y
+Open water: true
 `;
 //#endregion
 ---
@@ -116,6 +131,7 @@ Wind is moving: true
               <p>Comparisons Produce Values</p>
               <p>Storing a Comparison</p>
               <p>Assignment vs. Equality</p>
+              <p>Asking the User Directly</p>
             </section>
 
             <section data-auto-animate>
@@ -309,6 +325,92 @@ Wind is moving: true
               </p>
             </section>
 
+            <section data-auto-animate>
+              <h2>A Boolean Without a Comparison</h2>
+              <p>
+                Every boolean so far came out of a comparison. There is one more
+                way to get one: <b class="text-sn-theme">ask the person running
+                the program.</b>
+              </p>
+              <Code
+                code={Figure8}
+                frame="code"
+                lang="javascript"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <Code
+                code={Figure9}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+                class="fragment"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Boolean Without a Comparison</h2>
+              <p>
+                <CodeSnippet
+                  code="confirm()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> asks a yes-or-no question and hands back a real boolean.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">Nothing needs casting.</b>{" "}
+                <CodeSnippet
+                  code="prompt()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> always gives you a string, which is why Activity 1.9 made you
+                wrap it in <CodeSnippet code="Number()" lang={"javascript"} theme={"material-theme-ocean"} inline />.{" "}
+                <CodeSnippet
+                  code="confirm()"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> gives you <CodeSnippet code="true" lang={"javascript"} theme={"material-theme-ocean"} inline /> or{" "}
+                <CodeSnippet code="false" lang={"javascript"} theme={"material-theme-ocean"} inline /> and nothing else.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Only <CodeSnippet code="y" lang={"javascript"} theme={"material-theme-ocean"} inline /> Means Yes</h2>
+              <p>
+                Look at the <CodeSnippet code="[y/N]" lang={"txt"} theme={"material-theme-ocean"} inline /> hint. It is telling you
+                the rule.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">Only <CodeSnippet code="y" lang={"javascript"} theme={"material-theme-ocean"} inline /> or{" "}
+                <CodeSnippet code="Y" lang={"javascript"} theme={"material-theme-ocean"} inline /> count as yes.</b> Everything
+                else is a no &mdash; including the word{" "}
+                <CodeSnippet code="yes" lang={"javascript"} theme={"material-theme-ocean"} inline />, which surprises people.
+              </p>
+              <p class="fragment">
+                The capital <CodeSnippet code="N" lang={"txt"} theme={"material-theme-ocean"} inline /> is the default. Pressing
+                Enter without typing anything is a no.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Why Not Just Ask With <CodeSnippet code="prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline />?</h2>
+              <Code
+                code={Figure10}
+                frame="code"
+                lang="javascript"
+                showLineNumbers={false}
+              />
+              <p class="fragment">
+                Both lines end up with a boolean. The first one takes two steps
+                and a string comparison you have to get exactly right.{" "}
+                <b class="text-sn-theme">The second is one step and cannot be
+                spelled wrong.</b>
+              </p>
+            </section>
+
             <section>
               <h2>Today's Objectives</h2>
               <ul>
@@ -317,6 +419,10 @@ Wind is moving: true
                 <li>Naming boolean variables as questions</li>
                 <li>
                   Telling assignment and equality apart
+                </li>
+                <li>
+                  Getting a boolean straight from the user with{" "}
+                  <CodeSnippet code="confirm()" lang={"javascript"} theme={"material-theme-ocean"} inline />
                 </li>
               </ul>
             </section>
@@ -342,6 +448,15 @@ Wind is moving: true
                   <dd>
                     Asking whether two values match, written with{" "}
                     <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                  </dd>
+                  <dt>
+                    <CodeSnippet code="confirm()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+                  </dt>
+                  <dd>
+                    Asks the user a yes-or-no question and returns a boolean.
+                    Only <CodeSnippet code="y" lang={"javascript"} theme={"material-theme-ocean"} inline /> or{" "}
+                    <CodeSnippet code="Y" lang={"javascript"} theme={"material-theme-ocean"} inline /> means{" "}
+                    <CodeSnippet code="true" lang={"javascript"} theme={"material-theme-ocean"} inline />.
                   </dd>
                 </dl>
               </div>
@@ -434,6 +549,16 @@ Wind is moving: true
               "NOT exactly zero" is one comparison, not two. Look back at the six
               operators.
             </li>
+            <li>
+              The last two comments do not need a comparison at all.{" "}
+              <CodeSnippet
+                code="confirm()"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> already hands you a boolean, so store it and display it.{" "}
+              <b>Do not wrap it in <CodeSnippet code="Number()" lang={"javascript"} theme={"material-theme-ocean"} inline />.</b>
+            </li>
           </ul>
 
           <Code
@@ -441,7 +566,7 @@ Wind is moving: true
             frame="code"
             lang="javascript"
             title="Booleans and Comparison"
-            ins={{ range: "16-21" }}
+            ins={{ range: "16-24" }}
           />
 
           <hr class="my-4" />
@@ -572,6 +697,26 @@ Wind is moving: true
             <code>score = 100</code> on an exam question, it is asking a
             question, not setting a value.
           </p>
+
+          <div class="alert alert-secondary mt-4">
+            <p class="mb-2">
+              <b class="text-sn-theme">
+                There is no <code>confirm()</code> on the exam.
+              </b>{" "}
+              The reference sheet has exactly one way to get input,{" "}
+              <code>INPUT()</code>, and it is not typed &mdash; it just returns
+              whatever the user gave.
+            </p>
+            <p class="mb-0">
+              So a yes-or-no question on an exam question looks like{" "}
+              <code>answer ← INPUT()</code> followed by a comparison. That is the{" "}
+              <code>prompt()</code> shape, not the <code>confirm()</code> shape.{" "}
+              <b>
+                <code>confirm()</code> is a convenience JavaScript gives you and
+                the exam does not.
+              </b>
+            </p>
+          </div>
         </section>
 
         <Divider variant="8" classes="my-5" />
