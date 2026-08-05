@@ -1,0 +1,247 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Day = `EXAM DAY — THREE HOURS, TWO SECTIONS
+
+  SECTION I   Multiple choice
+              70 questions · 120 minutes
+              the Exam Reference Sheet is provided
+
+  SECTION II  Written responses
+              4 prompts · 60 minutes
+              your Personalized Project Reference is
+              provided (if you submitted it as final)
+
+The Create Task project you submitted in class is
+already scored. Nothing today can change it.`;
+
+const Formats = `THREE KINDS OF MULTIPLE-CHOICE QUESTION
+
+  57  single-select          pick one
+   5  one shared reading      one computing-innovation
+      passage, five questions passage; read it once, first
+   8  multi-select           the question tells you how
+                             many to pick — pick exactly
+                             that many
+
+13 of the 70 are not ordinary single-select.
+You have practiced all three.`;
+
+const Pacing1 = `SECTION I PACING — 1 min 43 sec per question
+
+  • a hard one is worth the same as an easy one.
+    Mark it, move on, come back.
+  • read the reading passage ONCE before its five
+    questions, not five times.
+  • a code question in notation? run the eight
+    mismatches. Index from 1. REPEAT UNTIL is inverted.
+  • guess rather than leave a blank. Nothing is
+    subtracted for a wrong answer.`;
+
+const Pacing2 = `SECTION II PACING — four prompts in 60 minutes
+
+  read all four first.
+  WR2(c) first — the counting algorithm you already know.
+  then WR2(a), WR2(b), WR1.
+  leave six minutes to check every AND has both halves.
+
+Your PPR is in front of you. Your program is not.
+Answer from the four code segments only.`;
+
+const Bring = `WHAT YOU NEED, AND WHAT IS ALREADY THERE
+
+  provided   the Exam Reference Sheet (Section I)
+  provided   your Personalized Project Reference
+             (Section II)
+  bring      pencils, and whatever your exam center
+             tells you
+
+  you do NOT bring notes, your program, or this
+  course. Section II is you and your four segments.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.6: The Exam-Day Briefing</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Last Session</h2>
+
+          <p>
+            <b>Everything is taught. The Create Task is submitted and scored.</b> This
+            session is logistics and a plan for three hours &mdash; so that on the day,
+            nothing about the shape of the exam is a surprise and all of your attention
+            goes to the questions.
+          </p>
+
+          <Code code={Day} frame="code" lang="txt" title="What the Day Is" showLineNumbers={false} class="my-4" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 4.6</h2>
+              <h3 class="text-sn-theme">The Exam-Day Briefing</h3>
+            </section>
+
+            <section>
+              <h2>Two Sections, One Afternoon</h2>
+              <p><b>70 multiple choice in 120 minutes.</b></p>
+              <p class="fragment"><b>Four written responses in 60 minutes.</b></p>
+              <p class="fragment">Both are provided what they need &mdash; the reference sheet, and your PPR.</p>
+            </section>
+
+            <section>
+              <h2>You Are Not Starting Cold</h2>
+              <p>You have done half-length MCQ runs and a full-length one.</p>
+              <p class="fragment">You have written all four responses under the clock and marked them.</p>
+              <p class="fragment"><b>Today is the map, not new ground.</b></p>
+            </section>
+
+            <section>
+              <h2>Section I: Pace, Then Return</h2>
+              <p>1 minute 43 seconds a question, on average.</p>
+              <p class="fragment"><b>A hard one is worth the same as an easy one.</b> Mark it and move.</p>
+              <p class="fragment">Never leave a blank &mdash; nothing is subtracted for a wrong answer.</p>
+            </section>
+
+            <section>
+              <h2>The Reference Sheet Is Given</h2>
+              <p>You do not memorize the notation. You <b>read</b> it under time.</p>
+              <p class="fragment">Which is why session 12 drilled the eight mismatches.</p>
+              <p class="fragment">Index from 1. <code>REPEAT UNTIL</code> is inverted. The robot turns relative to itself.</p>
+            </section>
+
+            <section>
+              <h2>Section II: Your Own Program</h2>
+              <p>Four prompts, your Project Reference in hand.</p>
+              <p class="fragment"><b>Not your program &mdash; the four segments you chose.</b></p>
+              <p class="fragment">You have written these exact four responses already.</p>
+            </section>
+
+            <section>
+              <h2>The Six-Minute Check</h2>
+              <p>Leave it at the end of Section II.</p>
+              <p class="fragment">Every prompt with <b>AND</b> in it &mdash; both halves answered?</p>
+              <p class="fragment">It recovers more points than any single response.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Knowing the shape and timing of both exam sections</li>
+                <li>Pacing the multiple-choice section, and handling all three formats</li>
+                <li>Pacing the written-response section against the PPR</li>
+                <li>Knowing what is provided and what to bring</li>
+              </ul>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Formats -->
+        <section id="formats">
+          <h2>The Three Multiple-Choice Formats</h2>
+
+          <Code code={Formats} frame="code" lang="txt" title="Not All Single-Select" showLineNumbers={false} class="mb-4" />
+
+          <ul>
+            <li><b>The reading-passage set:</b> read the passage once, carefully, before the five questions &mdash; not once per question. You did this on three question sets during the year.</li>
+            <li><b>Multi-select:</b> the question states how many answers to choose. <b>Choose exactly that many</b> &mdash; a partial selection does not earn the question.</li>
+            <li><b>Robots in a grid</b> appear in the code questions. Direction is relative to the robot; an illegal move stops the program.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Pacing -->
+        <section id="pacing">
+          <h2>The Two Clocks</h2>
+
+          <Code code={Pacing1} frame="code" lang="txt" title="Section I" showLineNumbers={false} class="mb-4" />
+          <Code code={Pacing2} frame="code" lang="txt" title="Section II" showLineNumbers={false} />
+
+          <p class="mt-3">
+            <b class="text-sn-theme">Both clocks reward the same discipline: finish
+            everything roughly, then use the time you saved to fix the weakest
+            answers.</b> A perfect answer to question 1 and a blank for question 70
+            scores worse than two decent ones.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Bring -->
+        <section id="bring">
+          <h2>What Is Provided, What You Bring</h2>
+
+          <Code code={Bring} frame="code" lang="txt" title="No Surprises" showLineNumbers={false} class="mb-4" />
+
+          <p>
+            <b>The two things you rely on most are provided</b> &mdash; the reference
+            sheet for Section I and your Project Reference for Section II. Your job
+            all year was to be able to <b>use</b> them under time, not to carry them
+            in.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">One reassurance worth stating plainly:</b> your
+            classroom grade and your AP score are different numbers, and the College
+            Board says so. Walk in having prepared; the number arrives in July.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>How long is each section, and how many questions or prompts?</li>
+            <li>What is provided in each section?</li>
+            <li>Should you ever leave a multiple-choice question blank?</li>
+            <li>On a multi-select question, how many answers do you choose?</li>
+            <li>In Section II, what do you have in front of you &mdash; your program, or something else?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Good Luck</h2>
+
+          <p>
+            You have written a program, submitted it, reviewed all five Big Ideas,
+            drilled the notation, and rehearsed the written responses under the clock.
+            <b> There is nothing left to learn &mdash; only to do it on the day.</b>
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            You Are Ready
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

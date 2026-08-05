@@ -1,0 +1,244 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Eight = `EIGHT PLACES THE SHEET IS NOT JAVASCRIPT
+
+  1  lists start at index 1, not 0
+  2  aList ← bList COPIES the list
+  3  an out-of-bounds index STOPS the program
+  4  REPEAT UNTIL is the inverse of while
+  5  no indexed for-loop; keep the counter by hand
+  6  no ELSE IF — nest IF inside ELSE
+  7  RANDOM(a, b) includes both a and b
+  8  the robot: direction is relative; illegal move
+     stops the program`;
+
+const DrillA_js = `let names = ["Ana", "Ben", "Cy"];
+
+for (let i = 0; i < names.length; i++) {
+  console.log(names[i]);
+}`;
+
+const DrillA_ref = `names ← ["Ana", "Ben", "Cy"]
+i ← 1
+
+REPEAT LENGTH(names) TIMES
+{
+  DISPLAY(names[i])
+  i ← i + 1
+}`;
+
+const DrillB = `x ← 10
+
+REPEAT UNTIL(x < 3)
+{
+  DISPLAY(x)
+  x ← x - 2
+}`;
+
+const DrillC = `aList ← [1, 2, 3]
+bList ← aList
+bList[1] ← 99
+
+DISPLAY(aList[1])`;
+
+const Robot = `The robot faces RIGHT. It runs:
+
+  MOVE_FORWARD()
+  ROTATE_LEFT()
+  MOVE_FORWARD()
+
+ROTATE_LEFT turns it 90° counter-clockwise.
+Which way is it facing at the end, and how many
+cells has it moved from the start?`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.5: The Reference Sheet Under Time</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Eight Points, Every One Worth a Question</h2>
+
+          <p>
+            <b>The multiple-choice section is written in the exam's own notation, not
+            in JavaScript.</b> You have translated between the two all year. Under
+            time, in May, the eight places they differ are where a fluent reader
+            slows down and a careless one loses marks.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Barron's teaches you the notation. It does not
+            know which eight trip you.</b> This course does &mdash; you have met each of
+            them in a specific session &mdash; and today is drilling the switch until it
+            is fast.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The eight -->
+        <section id="eight">
+          <h2>The Eight, on One Card</h2>
+
+          <Code code={Eight} frame="code" lang="txt" title="Carry This" showLineNumbers={false} class="mb-4" />
+
+          <p>
+            <b>Ordered by what they cost.</b> The first three change the answer
+            silently &mdash; the code looks fine and returns something wrong or stops
+            dead. The rest change the shape of the code you write or read.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Drills -->
+        <section id="drills">
+          <h2>The Drills</h2>
+
+          <p>
+            <b>Time yourself. Two minutes each.</b> That is roughly the pace a
+            code question demands on the real paper.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Drill 1: Translate to Notation</h3>
+          <p>Rewrite this JavaScript in reference-sheet notation.</p>
+          <Code code={DrillA_js} frame="code" lang="javascript" title="JavaScript" class="mt-3" />
+          <p class="mt-3">
+            <b>Two mismatches are waiting here:</b> there is no indexed{" "}
+            <code>for</code> loop, and the first element is index <b>1</b>. A correct
+            answer keeps its own counter:
+          </p>
+          <Code code={DrillA_ref} frame="code" lang="txt" title="One correct answer" showLineNumbers={false} class="mt-3" />
+          <p class="mt-2">
+            <b>If you wrote <code>i ← 0</code>, you skipped a real element and ran off
+            the end</b> &mdash; and on the sheet, running off the end stops the program.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Drill 2: Trace It</h3>
+          <p>Exactly what does this display? Every value.</p>
+          <Code code={DrillB} frame="code" lang="txt" title="Reference notation" class="mt-3" />
+          <p class="mt-3">
+            <b>Answer: <code>10 8 6 4</code>.</b> The loop runs <b>until</b> <code>x &lt; 3</code>
+            becomes true &mdash; so it runs while <code>x</code> is still 3 or more.
+          </p>
+          <p>
+            <b class="text-sn-theme">A student who reads <code>REPEAT UNTIL(x &lt; 3)</code>
+            as <code>while (x &lt; 3)</code> gets nothing at all</b> &mdash; <code>10 &lt; 3</code>
+            is false, so their loop never runs. That single inversion is the fourth
+            mismatch, and it turns a right answer into a blank.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Drill 3: The Subtle One</h3>
+          <p>What does this display?</p>
+          <Code code={DrillC} frame="code" lang="txt" title="Reference notation" class="mt-3" />
+          <p class="mt-3">
+            <b>Answer: <code>1</code>.</b> On the sheet, <code>bList ← aList</code>
+            makes a <b>copy</b>. Changing <code>bList</code> does not touch{" "}
+            <code>aList</code>, so <code>aList[1]</code> is still 1.
+          </p>
+          <p>
+            <b>The same-looking JavaScript gives 99.</b> There <code>let b = a</code>
+            makes both names point at one array, and <code>b[0] = 99</code> changes
+            what <code>a</code> sees too. <b class="text-sn-theme">Same code shape,
+            opposite answer &mdash; this is the one that inverts your instinct rather
+            than shifting an index.</b>
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Drill 4: The Robot</h3>
+          <Code code={Robot} frame="code" lang="txt" title="Grid navigation" class="mt-3" />
+          <p class="mt-3">
+            <b>Answer: facing up, two cells from the start.</b> Right one cell, then{" "}
+            <code>ROTATE_LEFT</code> turns it to face up (a left turn from facing right
+            is a quarter-turn to up), then forward one more. <b>Two moves, an
+            L-shape.</b>
+          </p>
+          <p>
+            <b class="text-sn-theme">The trap is reading <code>ROTATE_LEFT</code> as
+            &quot;move left on the grid.&quot;</b> It rotates the robot relative to the
+            way it is facing &mdash; the eighth mismatch, and the one nothing else in
+            this course teaches.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Apply -->
+        <section id="apply">
+          <h2>Run the Set Against the Clock</h2>
+
+          <p>
+            <b>Barron's and the question bank have dozens of code questions in
+            notation.</b> Do a timed set now &mdash; and for every one you miss, name{" "}
+            <b>which of the eight</b> caught you.
+          </p>
+
+          <ul>
+            <li>Set a timer at <b>1 minute 43 seconds per question</b> &mdash; the real pace.</li>
+            <li>Miss one? Write the mismatch number next to it, 1 through 8.</li>
+            <li><b>A pattern in the numbers is your revision list</b> &mdash; if you keep writing &quot;1&quot;, indexing is the thing to drill, not &quot;notation&quot; in general.</li>
+          </ul>
+
+          <p class="mt-3">
+            <b>This is the cheapest protection on the exam.</b> Every code question on
+            the paper is decided by whether you switched notations correctly, and
+            these eight are the whole of the switch.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>What index is the first element of a list on the reference sheet?</li>
+            <li>Does <code>aList ← bList</code> copy the list or share it?</li>
+            <li><code>REPEAT UNTIL(c)</code> runs while <code>c</code> is what?</li>
+            <li>What happens when a program uses a list index that is out of bounds?</li>
+            <li>In the robot block, is a direction relative to the grid or to the robot?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your four drills, and a timed notation set with a mismatch number written
+            beside every miss.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
