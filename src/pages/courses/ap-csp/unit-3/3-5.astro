@@ -1,0 +1,310 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const VideoRules = `THE VIDEO
+
+  shows        input
+               program functionality
+               output
+
+  length       1 minute or less
+  size         30 MB or less
+  format       .webm  .mp4  .wmv  .avi  .mov
+
+  no voice narration      text captions are fine
+  no identifying info     no name, no school
+
+  It must show the program RUNNING.
+  Screenshots and storyboards earn nothing.`;
+
+const Shots = `A 45-SECOND PLAN
+
+  0:00  the program starts
+  0:05  you type something in            [ INPUT ]
+  0:12  it does the interesting thing    [ FUNCTIONALITY ]
+  0:30  the result appears               [ OUTPUT ]
+  0:40  one more input, a different
+        result                           proves input matters
+  0:45  stop`;
+
+const ThreeThings = `WHAT GOES TO THE COLLEGE BOARD
+
+  A  Program Code             PDF, comments IN
+  B  Video                    the program running
+  C  Project Reference        4 segments, comments OUT
+
+  All three submitted as FINAL, or none are scored.`;
+
+const FinalCheck = `BEFORE YOU PRESS SUBMIT AS FINAL
+
+  A  is this my whole program?
+  A  are my comments in it?
+  A  is anything in here not mine, and did I credit it?
+
+  B  does it show input, functionality AND output?
+  B  under a minute? under 30 MB?
+  B  is my name or my school visible anywhere?
+  B  is it my program RUNNING, not pictures of it?
+
+  C  four segments?
+  C  zero comments? checked by two people?
+  C  10 pt or larger, not blurry?
+
+  ALL  can I answer the four prompts from C alone?
+
+You cannot revise after this.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.5: The Video, and Final Submission</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Session 64</h2>
+
+          <p>
+            <b>One point, and the end of the task.</b> The video is worth exactly one
+            of your six points, and it is the easiest of the six to earn and one of
+            the easiest to lose on a technicality.
+          </p>
+
+          <Code code={ThreeThings} frame="code" lang="txt" title="Three Components" showLineNumbers={false} class="my-4" />
+
+          <p>
+            <b class="text-sn-theme">All three must be submitted as final or none of
+            them are scored.</b> And once a component is final you cannot change it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.5</h2>
+              <h3 class="text-sn-theme">The Video, and Final Submission</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Three Things to Show</p>
+              <p>The Constraints</p>
+              <p>Submitted as Final</p>
+            </section>
+
+            <section>
+              <h2>The Video Rules</h2>
+              <Code code={VideoRules} frame="code" lang="txt" title="One Point" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Three Things, Or No Point</h2>
+              <p><b>Input.</b> Something going in.</p>
+              <p class="fragment"><b>Functionality.</b> The program doing its thing.</p>
+              <p class="fragment"><b>Output.</b> Something coming out.</p>
+              <p class="fragment">All three, in one video, under a minute.</p>
+            </section>
+
+            <section>
+              <h2>The Trap</h2>
+              <p>A beautiful video of a program that is <b>already finished</b>.</p>
+              <p class="fragment">No input shown. No point.</p>
+              <p class="fragment"><b>Show yourself typing something.</b></p>
+            </section>
+
+            <section>
+              <h2>Forty-Five Seconds Is Plenty</h2>
+              <Code code={Shots} frame="code" lang="txt" title="A Plan" showLineNumbers={false} />
+              <p class="fragment">The second input is not required. It is the cheapest way to prove input matters.</p>
+            </section>
+
+            <section>
+              <h2>No Talking</h2>
+              <p><b>No voice narration.</b> That is a rule, not a preference.</p>
+              <p class="fragment"><b>Text captions are allowed</b> and they are how you point at things.</p>
+              <p class="fragment">Two or three captions. Not a screenplay.</p>
+            </section>
+
+            <section>
+              <h2>Nothing Identifying</h2>
+              <p>No name. No school. Not in the video, not in the filename.</p>
+              <p class="fragment">Watch for it in the corner of your screen &mdash; a logged-in username, a file path.</p>
+            </section>
+
+            <section>
+              <h2>It Must Be Running</h2>
+              <p>Screenshots earn nothing. A storyboard earns nothing.</p>
+              <p class="fragment">The scorer has to see the program <b>execute</b>.</p>
+            </section>
+
+            <section>
+              <h2>Then: All Three, As Final</h2>
+              <Code code={ThreeThings} frame="code" lang="txt" title="Together" showLineNumbers={false} />
+              <p class="fragment">Only files submitted as <b>final</b> are sent for scoring.</p>
+            </section>
+
+            <section>
+              <h2>The Attestation</h2>
+              <p>You will be asked to confirm you followed the guidelines and did not plagiarize.</p>
+              <p class="fragment">Read it rather than clicking it.</p>
+              <p class="fragment">Uncredited code that is not yours is <b class="text-sn-theme">zero on the whole task</b>.</p>
+            </section>
+
+            <section>
+              <h2>And You Cannot Revise</h2>
+              <p>Final means final. There is no second version.</p>
+              <p class="fragment"><b>So the checklist happens before, not after.</b></p>
+            </section>
+
+            <section>
+              <h2>One Last Thing</h2>
+              <p>Your classroom grade and your AP score are different numbers.</p>
+              <p class="fragment">The College Board says so directly. Do not be surprised by it in July.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Recording a video showing input, functionality and output</li>
+                <li>Meeting the length, size, narration and privacy constraints</li>
+                <li>Submitting all three components as final</li>
+                <li>Checking each component against its own requirements first</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Program functionality</dt>
+                  <dd>The behavior of a program during execution &mdash; often described by how a user interacts with it.</dd>
+                  <dt>Submitted as final</dt>
+                  <dd>The state required for a component to be scored. Cannot be revised.</dd>
+                  <dt>Attestation</dt>
+                  <dd>Your confirmation that you followed the guidelines and did not plagiarize.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Plan the Shots</h3>
+          <ul>
+            <li>Write down what happens at each moment <b>before</b> you record.</li>
+            <li>Name where the <b>input</b>, the <b>functionality</b> and the <b>output</b> appear.</li>
+            <li>If you cannot point at all three, the video will not earn the point.</li>
+          </ul>
+
+          <Code code={Shots} frame="code" lang="txt" title="Use This Shape" showLineNumbers={false} class="mt-3" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Record It</h3>
+          <ul>
+            <li><b>Do a throwaway take first.</b> Everyone's first take is too long.</li>
+            <li>Check the length and the file size before you go further.</li>
+            <li>Watch it once, all the way through, looking for your own name on screen.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Make the Code PDF</h3>
+          <ul>
+            <li><b>Your whole program, with the comments in.</b></li>
+            <li>Confirm anything you did not write is credited in a comment.</li>
+            <li>This is a different file from your Project Reference. <b>Do not mix them up</b> &mdash; the reference has no comments and this one does.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: The Final Check, Then Submit</h3>
+
+          <Code code={FinalCheck} frame="code" lang="txt" title="Every Line, Out Loud" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>Work down it line by line.</b> Twelve checks, about four minutes, and
+            they are the last four minutes in which anything can be fixed.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Then submit all three as final.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li><b>Component A</b> &mdash; program code PDF, comments in, sources credited</li>
+            <li><b>Component B</b> &mdash; video under a minute and under 30 MB, showing input, functionality and output, no narration, nothing identifying</li>
+            <li><b>Component C</b> &mdash; four segments, no comments, 10 pt or larger</li>
+            <li><b>All three submitted as final</b></li>
+          </ul>
+
+          <p class="mt-3">
+            <b>The task is done.</b> What is left is the written responses in May, and
+            those are answered from Component C.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these after you submit.</p>
+
+          <ol>
+            <li>Ten sessions ago you wrote an eight-line plan. Which line survived, and which one did not?</li>
+            <li>You worked for ten sessions without feedback. Name one thing you would have asked, and say how you resolved it instead.</li>
+            <li>Four of your six points are answered in May from four code segments. How confident are you, and what would you go back and change about your program to make those answers easier?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Confirmation that all three components are final, your shot plan, and your
+            reflection.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Task Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

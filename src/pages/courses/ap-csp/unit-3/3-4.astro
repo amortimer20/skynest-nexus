@@ -1,0 +1,329 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const FourSegments = `PROCEDURE (i)    the procedure itself
+                 its name, its parameters, and an algorithm
+                 with sequencing, selection and iteration
+                 in its body
+
+PROCEDURE (ii)   where you call it
+
+LIST (i)         where data goes INTO the list
+
+LIST (ii)        where that same list's data gets USED`;
+
+const WithComments = `// works out the total for one tier
+// tiers[] and prices[] stay in the same order
+function priceFor(tier) {
+  let total = 0;              // running sum
+
+  for (let i = 0; i < prices.length; i++) {
+    if (tiers[i] === tier) {
+      total = total + prices[i];
+    }
+  }
+
+  return total;
+}`;
+
+const WithoutComments = `function priceFor(tier) {
+  let total = 0;
+
+  for (let i = 0; i < prices.length; i++) {
+    if (tiers[i] === tier) {
+      total = total + prices[i];
+    }
+  }
+
+  return total;
+}`;
+
+const Rules = `THE PROJECT REFERENCE
+
+  no comments        anywhere, in any segment
+  no course content  no assignment text, no notes
+  at least 10 pt     readable
+  not blurry
+
+  Comments or course content here = ZERO
+  on the whole Create Task, including the four
+  written responses.`;
+
+const SelfTest = `Cover your program. Look ONLY at your four segments.
+
+  WR1     Who is this for, and how does the design
+          meet their need?                      ____
+  WR2(a)  How many times does the first loop in
+          Procedure (i) run?                    ____
+          What would make it run forever?       ____
+  WR2(b)  A change to that procedure causing a
+          run-time error, and why?              ____
+  WR2(c)  Using LIST (i)'s list -- count the
+          elements equal to a value.            ____
+
+Any blank means the wrong code is in your reference.
+Today you can still change it.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.4: The Personalized Project Reference</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Session 63</h2>
+
+          <p>
+            <b>No building today.</b> Today you make the four-page document you take
+            into the exam in May.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Four of your six points are answered from this
+            document and nothing else.</b> Not from your program &mdash; you will not
+            have your program. From four code segments on a desk.
+          </p>
+
+          <p>
+            <b>You have done this once</b>, as the practice reference at Build 2. The
+            rules are the same and this time they count.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.4</h2>
+              <h3 class="text-sn-theme">The Personalized Project Reference</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Four Segments</p>
+              <p>Comments Are Documentation</p>
+              <p>Choosing Code You Can Talk About</p>
+            </section>
+
+            <section>
+              <h2>What It Is</h2>
+              <Code code={FourSegments} frame="code" lang="txt" title="Four Code Segments" showLineNumbers={false} />
+              <p class="fragment">That is all of it. Four pieces of your own program.</p>
+            </section>
+
+            <section>
+              <h2>The Rules</h2>
+              <Code code={Rules} frame="code" lang="txt" title="Read Twice" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Comments Are Required. And Forbidden.</h2>
+              <p><b>Component A</b> &mdash; your program code PDF &mdash; must include your comments.</p>
+              <p class="fragment"><b>Component C</b> &mdash; this reference &mdash; must have none.</p>
+              <p class="fragment">Same code. Submitted twice. One version stripped.</p>
+            </section>
+
+            <section>
+              <h2>That Is Not a Contradiction</h2>
+              <p>Comments are <b class="text-sn-theme">program documentation</b> &mdash; written for people, ignored by the computer.</p>
+              <p class="fragment">Your code PDF is judged partly on whether you credited your sources. Comments are where you do that.</p>
+              <p class="fragment">The reference is a memory aid for <i>you</i>. Notes in it would be notes into an exam.</p>
+            </section>
+
+            <section>
+              <h2>Documentation Is More Than Comments</h2>
+              <p>A written description of what a piece of code does and how it was built.</p>
+              <p class="fragment">Comments are one form. <b>Your journal is another.</b></p>
+              <p class="fragment">Some environments have no comments at all &mdash; and then you document some other way.</p>
+            </section>
+
+            <section>
+              <h2>Strip Them Carefully</h2>
+              <Code code={WithComments} frame="code" lang="javascript" title="Component A -- comments in" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Like This</h2>
+              <Code code={WithoutComments} frame="code" lang="javascript" title="Component C -- comments out" showLineNumbers={false} />
+              <p class="fragment">Three gone, including the one at the end of a line.</p>
+            </section>
+
+            <section>
+              <h2>The One People Miss</h2>
+              <p>The comment on the <b>same line as code</b>.</p>
+              <p class="fragment"><code>let total = 0;   // running sum</code></p>
+              <p class="fragment">It does not look like a comment when you are scanning for whole lines.</p>
+            </section>
+
+            <section>
+              <h2>Now the Harder Question</h2>
+              <p>Which four segments do you choose?</p>
+              <p class="fragment">The instinct is: the best-looking code.</p>
+              <p class="fragment"><b class="text-sn-theme">The right answer is: the code you can answer four questions about.</b></p>
+            </section>
+
+            <section>
+              <h2>So Test It Before You Submit</h2>
+              <p>Cover your program. Look only at your four segments.</p>
+              <p class="fragment">Answer all four prompts.</p>
+              <p class="fragment">
+                <b>A blank means you picked the wrong code</b> &mdash; and today is
+                the last day you can pick different code.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Deadline</h2>
+              <p>Submit all three components as <b>final</b>.</p>
+              <p class="fragment"><b class="text-sn-theme">Miss the reference deadline and you do not get it on exam day.</b></p>
+              <p class="fragment">Four questions about your own program, from memory, with nothing in front of you.</p>
+            </section>
+
+            <section>
+              <h2>And You Cannot Revise</h2>
+              <p>Once a component is submitted as final, that is the version scored.</p>
+              <p class="fragment">There is no fixing it later. Check before you press it.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Assembling the four required code segments</li>
+                <li>Explaining what program documentation is and what comments are for</li>
+                <li>Removing every comment, including in-line ones</li>
+                <li>Choosing segments by whether they can be written about</li>
+                <li>Testing the reference against all four written-response prompts</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Program documentation</dt>
+                  <dd>A written description of what code does and how it was developed.</dd>
+                  <dt>Comment</dt>
+                  <dd>Documentation written into the program, read by people, with no effect on how the program runs.</dd>
+                  <dt>Submitted as final</dt>
+                  <dd>The state a component must reach to be scored. Cannot be revised afterward.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Choose the Four Segments</h3>
+          <ul>
+            <li>Find each of the four in your program and note where it is.</li>
+            <li>
+              <b>Procedure (i) must contain a parameter that affects what the
+              procedure does</b>, and an algorithm with sequencing, selection and
+              iteration in its body.
+            </li>
+            <li><b>List (ii) must show the list being <i>used</i></b> &mdash; new data made from it, or more than one element read. Storing it is List (i)'s job.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Strip Every Comment</h3>
+          <ul>
+            <li>Whole-line comments, and <b>comments at the end of a line of code</b>.</li>
+            <li>Then read all four segments once more, slowly, looking only for comments.</li>
+            <li><b>Then have someone else read them for the same thing.</b> They may not help you write it; they may certainly tell you a comment is still there.</li>
+          </ul>
+
+          <p>
+            <b>Keep your commented version.</b> Component A needs it. You are making a
+            second copy, not editing the original.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: The Self-Test</h3>
+
+          <Code code={SelfTest} frame="code" lang="txt" title="Can You Answer From the Reference Alone?" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>Do this before you submit anything.</b> A reference that cannot answer
+            the four prompts is worth two points instead of six, and the only day you
+            can change it is today.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The College Board recommends exactly this
+            check</b> &mdash; practicing a set of written responses to confirm the code
+            in your reference is enough to answer them.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Make the PDF</h3>
+          <ul>
+            <li><b>At least 10 pt. Not blurry.</b></li>
+            <li>Nothing on the page but your code &mdash; no headings copied from an assignment, no notes to yourself.</li>
+            <li>Read it once as a picture rather than as code, checking for anything that is not program code.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Four segments, correctly chosen</li>
+            <li><b>Zero comments</b>, checked twice and by someone else</li>
+            <li>All four prompts answerable from the reference alone</li>
+            <li>A readable PDF, 10 pt or larger</li>
+          </ul>
+
+          <p class="mt-3">
+            <b>Do not submit as final until session 64</b>, when all three components
+            go together. But it must be <i>ready</i> today.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your finished Project Reference, and your Task 3 self-test with all five
+            lines filled in.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

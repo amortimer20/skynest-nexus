@@ -1,0 +1,334 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Permitted = `WHAT I CAN DO FOR YOU, SESSIONS 55-64
+
+  fix a machine that will not work
+  sort out the network
+  help you save or find a file
+  show you how to export a PDF
+  tell you a deadline
+
+WHAT I CANNOT DO
+
+  everything else`;
+
+const Journal = `SESSION 57
+
+  Did:        the loop inside pickFor(), works for 3 tags
+  Middle of:  it breaks when the tag list is empty
+  Decided:    empty list returns "nothing found" rather
+              than crashing -- simpler for the user
+  Next:       the if inside the procedure`;
+
+const SelfAudit = `Run this on YOURSELF at session 58. Nobody is coming.
+
+  Put a finger on your procedure's opening brace.
+  Put a finger on its closing brace.
+
+  Between those two fingers, is there:
+
+    a statement that just runs .......... yes / no
+    a loop .............................. yes / no
+    an if ............................... yes / no
+
+  Three yes?  You have requirement 4.
+  Fewer?      You have four sessions to fix it.
+              At session 61 you will not.`;
+
+const Stuck = `WHEN YOU ARE STUCK AND I CANNOT HELP
+
+  1  Read your journal from last session.
+  2  Say the bug out loud to another person.
+     They are allowed to help you with code.
+  3  Put a print statement above the line that
+     misbehaves. Then one below it.
+  4  Make the smallest version that still breaks.
+  5  Check the boundary. It is usually the boundary.
+  6  Go to your plan. Cut the thing you said
+     you would cut.`;
+
+const DailyRoutine = `START OF EVERY SESSION      three minutes, before you type
+  read your journal line
+  run the program
+
+END OF EVERY SESSION        one minute, before you leave
+  write the journal line`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.3: The Create Task &mdash; The Build</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Sessions 55&ndash;62</h2>
+
+          <p>
+            <b>Eight sessions. Your plan is approved. Build it.</b>
+          </p>
+
+          <p>
+            <b class="text-sn-theme">From today I cannot give you feedback on your
+            program, your plan, or your writing.</b> That is a College Board rule
+            about the task, not a decision I made, and it applies until all three
+            components are submitted as final.
+          </p>
+
+          <Code code={Permitted} frame="code" lang="txt" title="The Whole List" showLineNumbers={false} class="my-4" />
+
+          <p>
+            <b>You may still work with other students on your program code</b>
+            &mdash; ideas, building, debugging, testing. <b>Not</b> on your video and
+            <b> not</b> on your Project Reference.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.3</h2>
+              <h3 class="text-sn-theme">The Create Task &mdash; The Build</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>The Daily Routine</p>
+              <p>Auditing Yourself</p>
+              <p>Getting Unstuck Without Me</p>
+            </section>
+
+            <section>
+              <h2>Today the Room Changes</h2>
+              <p>It looks the same. You build the same way.</p>
+              <p class="fragment"><b>I stop answering questions about your program.</b></p>
+              <p class="fragment">Ask me anyway if you like. The answer will be that I cannot say.</p>
+            </section>
+
+            <section>
+              <h2>Three Minutes at the Start</h2>
+              <Code code={DailyRoutine} frame="code" lang="txt" title="Every Session" showLineNumbers={false} />
+              <p class="fragment">It feels like waste. It is the cheapest three minutes in the block.</p>
+            </section>
+
+            <section>
+              <h2>One Minute at the End</h2>
+              <p>Write the journal line <b>before you leave</b>, not when you get home.</p>
+              <p class="fragment">Worth <b>40 points</b>, graded on whether it is there.</p>
+              <p class="fragment">Not on whether it is good &mdash; judging that would be feedback.</p>
+            </section>
+
+            <section>
+              <h2>What Goes In It</h2>
+              <Code code={Journal} frame="code" lang="txt" title="A Real One" showLineNumbers={false} />
+              <p class="fragment">Four lines. Sixty seconds.</p>
+            </section>
+
+            <section>
+              <h2>Why the Third Line Matters</h2>
+              <p><b>Decided:</b> is where Written Response 1 comes from.</p>
+              <p class="fragment"><i>Name an expected user, and describe one way your design meets their needs.</i></p>
+              <p class="fragment">You are writing that answer now, a line at a time, while you still remember why.</p>
+            </section>
+
+            <section>
+              <h2>Session 58: Audit Yourself</h2>
+              <p>At Build 2 I checked requirement 4 for everybody.</p>
+              <p class="fragment"><b class="text-sn-theme">This time nobody is coming.</b></p>
+              <p class="fragment">Session 58 is on your plan. Do it there.</p>
+            </section>
+
+            <section>
+              <h2>Why 58 and Not 61</h2>
+              <p>Adding a loop to a procedure at session 58 is an afternoon.</p>
+              <p class="fragment">At session 61 it is a rewrite you do not have time for.</p>
+              <p class="fragment">Build 2 taught you this at session 49. Same lesson, no teacher.</p>
+            </section>
+
+            <section>
+              <h2>When You Are Stuck</h2>
+              <p>You will be stuck. Everyone is stuck at least twice.</p>
+              <p class="fragment">And this time I cannot get you out.</p>
+              <p class="fragment"><b>So here is the list you use instead.</b></p>
+            </section>
+
+            <section>
+              <h2>The List</h2>
+              <Code code={Stuck} frame="code" lang="txt" title="Six Things, In Order" showLineNumbers={false} />
+              <p class="fragment">Number 2 is legal and it is the best one.</p>
+            </section>
+
+            <section>
+              <h2>Number 6 Is Not Failure</h2>
+              <p>You named your first cut at session 54, when it was cheap to decide.</p>
+              <p class="fragment"><b>Cutting it is the plan working, not the plan failing.</b></p>
+              <p class="fragment">A finished smaller program scores. An unfinished bigger one does not.</p>
+            </section>
+
+            <section>
+              <h2>Test Your Three Inputs</h2>
+              <p>You wrote them at session 54. A normal one, the smallest, one past the edge.</p>
+              <p class="fragment">Run all three at session 62. <b>Before</b> you make the video.</p>
+              <p class="fragment">The third one is where Written Response 2(b) lives.</p>
+            </section>
+
+            <section>
+              <h2>Two Sessions You Cannot Spend Building</h2>
+              <p><b>63</b> is the Project Reference.</p>
+              <p class="fragment"><b>64</b> is the video and submission.</p>
+              <p class="fragment">If you are still writing features at 62, you have already lost them.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Working productively without instructor feedback on the task</li>
+                <li>Keeping a development journal of design decisions</li>
+                <li>Auditing your own procedure against requirement 4</li>
+                <li>Using a systematic process to get unstuck</li>
+                <li>Testing against inputs decided in advance</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Development journal</dt>
+                  <dd>A record of design choices and their effect on the program's function.</dd>
+                  <dt>Incremental</dt>
+                  <dd>Each piece works before the next is added. Your eight-line plan.</dd>
+                  <dt>Iterative</dt>
+                  <dd>Going back and revising an earlier decision because testing told you to.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Routine -->
+        <section id="routine">
+          <h2>The Daily Routine</h2>
+
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr><th>When</th><th>How long</th><th>What</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Start</b></td>
+                  <td>3 min</td>
+                  <td>Read your last journal line. <b>Run the program.</b> Do not type until you have done both.</td>
+                </tr>
+                <tr>
+                  <td><b>End</b></td>
+                  <td>1 min</td>
+                  <td>Write the journal line. <b>Before you leave the room.</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>Running it first is the half students skip</b>, and it is the half that
+            catches the bug you introduced in the last five minutes of the previous
+            session and never saw.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Self audit -->
+        <section id="self-audit">
+          <h2>Session 58: The Self-Audit</h2>
+
+          <Code code={SelfAudit} frame="code" lang="txt" title="Requirement 4" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            <b>At Build 2 an adult walked the room and checked this for everybody.</b>
+            Twelve students found out their procedure body was one line long, and all
+            twelve had time to fix it.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">This time you check yourself, and the honest
+            answer is the only useful one.</b> Writing <i>yes</i> three times because
+            you would like it to be true costs you a point in May.
+          </p>
+
+          <h5 class="mt-4">And while you are there</h5>
+
+          <ul>
+            <li><b>Is the loop inside the procedure the <i>first</i> loop in it?</b> That is the one Written Response 2(a) asks about.</li>
+            <li><b>Does your list have more than one element, and does something read more than one of them?</b> A one-element list loses a point on its own.</li>
+            <li><b>Does your parameter change what the procedure does?</b> Change one argument at one call site and watch.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Stuck -->
+        <section id="stuck">
+          <h2>Getting Unstuck</h2>
+
+          <Code code={Stuck} frame="code" lang="txt" title="In This Order" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            <b>Step 2 is the one to actually use.</b> Collaboration on program code is
+            permitted, and explaining a bug out loud to another person solves it more
+            often than any other technique on the list.
+          </p>
+
+          <p>
+            <b>Step 4 is the one that works when step 2 does not.</b> Copy the broken
+            part into a new file and delete everything that is not needed to make it
+            break. What is left is the bug.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>By the End of Session 62</h2>
+
+          <ul>
+            <li>A program that <b>runs</b>, satisfying all six requirements</li>
+            <li><b>Eight journal entries</b>, one per session</li>
+            <li>Your <b>three test inputs run</b>, with what each produced</li>
+            <li>The self-audit from session 58, answered honestly</li>
+          </ul>
+
+          <p class="mt-3">
+            <b>Sessions 63 and 64 are not building sessions.</b> Whatever the program
+            does at the end of session 62 is what you are submitting.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Build
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

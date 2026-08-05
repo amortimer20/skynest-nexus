@@ -1,0 +1,217 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const P1 = `scores ← [88, 42, 95, 60, 71]
+
+PROCEDURE countAbove(aList, limit)
+{
+  found ← 0
+  i ← 1
+
+  REPEAT UNTIL(i > LENGTH(aList))
+  {
+    IF(aList[i] > limit)
+    {
+      found ← found + 1
+    }
+    i ← i + 1
+  }
+
+  RETURN(found)
+}
+
+DISPLAY(countAbove(scores, 65))`;
+
+const P2 = `PROCEDURE halve(n)
+{
+  steps ← 0
+  left ← n
+
+  REPEAT UNTIL(left = 0)
+  {
+    steps ← steps + 1
+    left ← (left - (left MOD 2)) / 2
+  }
+
+  RETURN(steps)
+}`;
+
+const P3 = `PROCEDURE grid(n)
+{
+  total ← 0
+  i ← 1
+
+  REPEAT UNTIL(i > n)
+  {
+    j ← 1
+
+    REPEAT UNTIL(j > n)
+    {
+      total ← total + 1
+      j ← j + 1
+    }
+
+    i ← i + 1
+  }
+
+  RETURN(total)
+}`;
+
+const Prompt = `WRITTEN RESPONSE 2(a)
+
+  Identify the number of times the body of the
+  iteration statement will execute.
+
+  AND describe a condition or error that would
+  cause an infinite loop.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Written Response Rehearsal: The Loop</h1>
+
+        <h4 class="text-sn-theme">
+          Three problems &middot; on paper &middot; this is Written Response 2(a)
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            <b>This is one of your six Create Task points, rehearsed on somebody
+            else's code.</b> In May you will answer it about your own program, with
+            only your Project Reference in front of you.
+          </p>
+
+          <Code code={Prompt} frame="code" lang="txt" title="The Real Prompt" showLineNumbers={false} class="my-3" />
+
+          <p>
+            <b>Notice the word <i>and</i>.</b> Both halves or nothing &mdash; a
+            correct count with no infinite-loop answer scores the same as a blank
+            page.
+          </p>
+
+          <p>
+            <b>These are in exam notation on purpose.</b> Your own program is in
+            JavaScript, but the exam's multiple-choice questions use the reference
+            sheet, and counting is counting. If the notation slows you down, that is
+            the thing to fix before May.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Paper only. Do not run these.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="problems">
+          <h2>The Problems</h2>
+
+          <hr class="my-4" />
+
+          <h3>Problem 1</h3>
+
+          <Code code={P1} frame="code" lang="txt" title="countAbove" showLineNumbers={false} class="mb-3" />
+
+          <ol>
+            <li><b>How many times does the loop body execute?</b></li>
+            <li><b>What does the program display?</b> Be exact.</li>
+            <li>Describe <b>one change</b> that would make this loop run forever, and say why it never stops.</li>
+            <li>
+              Now a harder one. <b>Without changing the loop at all</b>, describe a
+              value of <code>aList</code> that makes the body execute
+              <b> zero</b> times.
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Problem 2</h3>
+
+          <Code code={P2} frame="code" lang="txt" title="halve" showLineNumbers={false} class="mb-3" />
+
+          <ol>
+            <li>
+              <b>How many times does the body execute</b> for each of these?
+              <code>halve(20)</code>, <code>halve(7)</code>,
+              <code> halve(1)</code>, <code>halve(0)</code>.
+            </li>
+            <li>One of those four is worth pausing on. Which, and why?</li>
+            <li>
+              Someone replaces <code>left &larr; (left - (left MOD 2)) / 2</code>
+              with <code>left &larr; left / 2</code>. <b>The loop now runs
+              forever.</b> Explain precisely why &mdash; the answer is not
+              &quot;because it is wrong.&quot;
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Problem 3</h3>
+
+          <Code code={P3} frame="code" lang="txt" title="grid" showLineNumbers={false} class="mb-3" />
+
+          <ol>
+            <li><b>How many times does the inner body execute</b> for <code>grid(3)</code>, <code>grid(4)</code>, and <code>grid(5)</code>?</li>
+            <li>
+              <b>There are two loops here.</b> Written Response 2(a) asks about the
+              <b> first iteration statement</b>. Which one is that, and how many
+              times does <i>its</i> body execute for <code>grid(4)</code>?
+            </li>
+            <li>
+              Someone moves <code>j &larr; 1</code> so that it sits <b>above</b> the
+              outer loop instead of inside it. <b>What does <code>grid(4)</code>
+              return now?</b> Explain what happened.
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Then: Your Own</h3>
+
+          <p>
+            <b>Find the first loop inside a procedure in your own program.</b> Write
+            out an answer to Written Response 2(a) about it &mdash; both halves, in
+            full sentences.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">If you cannot find a loop inside one of your own
+            procedures, that is the most useful thing this page will tell you.</b>
+            You have sessions left to fix it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            All three problems answered, plus your own Written Response 2(a) in full
+            sentences.
+          </p>
+
+          <p>Worth <b>5 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

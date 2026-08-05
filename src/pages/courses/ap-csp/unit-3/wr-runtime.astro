@@ -1,0 +1,167 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Program = `let temps = [18, 22, 31, 27, 15];
+
+function hottest(list) {
+  let best = list[0];
+
+  for (let i = 1; i < list.length; i++) {
+    if (list[i] > best) {
+      best = list[i];
+    }
+  }
+
+  return best;
+}
+
+console.log("Hottest: " + hottest(temps).toFixed(1));`;
+
+const Prompt = `WRITTEN RESPONSE 2(b)
+
+  Describe a change to the procedure that will
+  result in a RUN-TIME error.
+
+  AND explain why the change will result in a
+  run-time error.`;
+
+const Changes = `A   Change the call to  hottest(temps[0])
+
+B   Change temps to an empty list:  let temps = [];
+
+C   Change the loop to start at  i = 0  instead of  i = 1
+
+D   Change the loop condition to  i <= list.length
+
+E   Change the last line of hottest to  return bests;
+
+F   Change  list[i] > best  to  list[i] < best`;
+
+const ThreeKinds = `RUN-TIME ERROR    the program stops while running
+
+LOGIC ERROR       the program finishes and the answer is wrong
+
+NO EFFECT         the program finishes with the same answer`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Written Response Rehearsal: The Run-Time Error</h1>
+
+        <h4 class="text-sn-theme">
+          Six changes &middot; on paper &middot; this is Written Response 2(b)
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <Code code={Prompt} frame="code" lang="txt" title="The Real Prompt" showLineNumbers={false} class="my-3" />
+
+          <p>
+            <b>Both halves again.</b> Describe the change <i>and</i> explain why it
+            causes a run-time error.
+          </p>
+
+          <p>
+            <b>This page is in JavaScript, not exam notation, and that is
+            deliberate.</b> The reference sheet does not define any run-time errors
+            &mdash; it says nothing about what happens if you read past the end of a
+            list. <b class="text-sn-theme">Run-time errors are a fact about a
+            language, not about an algorithm</b>, and in May you will be writing about
+            your own JavaScript.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Paper only. Do not run these.</b> The whole skill is predicting, and
+            running it first is the one way to learn nothing.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="problem">
+          <h2>The Program</h2>
+
+          <Code code={Program} frame="code" lang="javascript" title="hottest" class="mb-4" />
+
+          <p>
+            It prints <code>Hottest: 31.0</code>. <b>Six changes are proposed
+            below.</b> One at a time, from the original.
+          </p>
+
+          <h3 class="mt-4">Three Possible Outcomes</h3>
+
+          <Code code={ThreeKinds} frame="code" lang="txt" title="Sort Each Change Into One" showLineNumbers={false} class="mb-4" />
+
+          <p>
+            <b>Written Response 2(b) asks for the first kind only.</b> The other two
+            are here because students hand in the wrong kind, confidently, and lose
+            the point.
+          </p>
+
+          <Code code={Changes} frame="code" lang="txt" title="The Six Changes" showLineNumbers={false} class="mb-4" />
+
+          <h3 class="mt-4">For Each One</h3>
+
+          <ol>
+            <li><b>Which of the three outcomes?</b></li>
+            <li><b>Why?</b> One sentence. If it is a run-time error, say what the program tries to do that it cannot.</li>
+            <li>If it finishes, <b>what does it print?</b></li>
+          </ol>
+
+          <p class="mt-3">
+            <b>All three outcomes appear, and no, I am not telling you how many of
+            each.</b> A count would let you stop thinking once you had found them.
+            <b> At least one of the six will surprise you</b>, and the one that
+            surprises you is the reason this page exists.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Then: Your Own</h3>
+
+          <p>
+            <b>Find the procedure you will paste into Procedure (i) of your Project
+            Reference.</b> Write out an answer to Written Response 2(b) about it
+            &mdash; a change, and why it causes a run-time error.
+          </p>
+
+          <p>
+            <b>It must be a change to that procedure</b>, and it must genuinely stop
+            the program. <b class="text-sn-theme">&quot;Change the greater-than to a
+            less-than&quot; is a logic error and earns nothing.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            A table with a row for each of the six changes &mdash; outcome, why, and
+            what it prints. Plus your own Written Response 2(b) in full sentences.
+          </p>
+
+          <p>Worth <b>5 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

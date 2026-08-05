@@ -1,0 +1,213 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Prompt = `WRITTEN RESPONSE 2(c)
+
+  You are given the procedure  isEqual(value1, value2),
+  which returns true if the two values are equal and
+  false otherwise.
+
+  Using the list from your Personalized Project Reference,
+  explain in detailed steps an algorithm that counts the
+  number of elements equal to a certain value.
+
+  Your explanation must be detailed enough for someone
+  else to write the program code.`;
+
+const Given = `PROCEDURE isEqual(value1, value2)
+{
+  <this is given to you. You do not write it.>
+}
+
+  isEqual(4, 4)        returns true
+  isEqual("a", "b")    returns false`;
+
+const Checklist = `The four things the algorithm MUST do:
+
+  1  go through EVERY element of the list
+  2  call isEqual on each element
+  3  keep a running count
+  4  produce the count -- store it, return it, or display it
+
+Miss any one and the point is gone.`;
+
+const Model = `colors ← ["red", "blue", "red", "green", "red"]
+
+PROCEDURE countMatching(aList, target)
+{
+  count ← 0
+  i ← 1
+
+  REPEAT UNTIL(i > LENGTH(aList))
+  {
+    IF(isEqual(aList[i], target))
+    {
+      count ← count + 1
+    }
+
+    i ← i + 1
+  }
+
+  RETURN(count)
+}`;
+
+const BadOne = `count ← 0
+i ← 1
+
+REPEAT UNTIL(isEqual(aList[i], target))
+{
+  i ← i + 1
+}
+
+RETURN(i)`;
+
+const BadTwo = `Go through the list and count how many
+match the value, then return the count.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Written Response Rehearsal: The Algorithm</h1>
+
+        <h4 class="text-sn-theme">
+          Four problems &middot; on paper &middot; this is Written Response 2(c)
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <Code code={Prompt} frame="code" lang="txt" title="The Real Prompt" showLineNumbers={false} class="my-3" />
+
+          <p>
+            <b>This is the most predictable question on the exam.</b> It is the same
+            algorithm every year, over whatever list you happen to have put in your
+            Project Reference. <b class="text-sn-theme">You can walk in already
+            knowing how to answer it.</b>
+          </p>
+
+          <p>
+            <b>You may write it in code, in exam notation, as numbered steps, or as
+            a paragraph in English.</b> All four are explicitly allowed. What is not
+            allowed is vagueness.
+          </p>
+
+          <Code code={Checklist} frame="code" lang="txt" title="What Earns the Point" showLineNumbers={false} class="my-3" />
+
+          <p class="text-body-secondary">
+            <b>Paper only.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="problems">
+          <h2>The Problems</h2>
+
+          <hr class="my-4" />
+
+          <h3>Problem 1 &mdash; What You Are Given</h3>
+
+          <Code code={Given} frame="code" lang="txt" title="isEqual" showLineNumbers={false} class="mb-3" />
+
+          <ol>
+            <li>The exam gives you <code>isEqual</code>. <b>Why does it bother?</b> You could write <code>aList[i] = target</code> instead.</li>
+            <li>What would <code>isEqual</code> have to do that <code>=</code> might not, if the list held something more complicated than numbers?</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Problem 2 &mdash; Read a Model</h3>
+
+          <Code code={Model} frame="code" lang="txt" title="countMatching" showLineNumbers={false} class="mb-3" />
+
+          <ol>
+            <li><b>Point at each of the four required things</b> in the checklist above. Write the line number of each.</li>
+            <li>What does <code>countMatching(colors, &quot;red&quot;)</code> return?</li>
+            <li>What does <code>countMatching(colors, &quot;yellow&quot;)</code> return? <b>Is that a failure?</b></li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Problem 3 &mdash; Two Answers That Score Zero</h3>
+
+          <p><b>Both of these were handed in by someone who understood the problem.</b> Neither earns the point.</p>
+
+          <h5 class="mt-4">Attempt A</h5>
+
+          <Code code={BadOne} frame="code" lang="txt" title="Attempt A" showLineNumbers={false} class="mb-3" />
+
+          <ol>
+            <li><b>Name every one of the four requirements this misses.</b></li>
+            <li>What does it actually compute?</li>
+            <li>Describe an input that makes it fail badly, not just return the wrong number.</li>
+          </ol>
+
+          <h5 class="mt-4">Attempt B</h5>
+
+          <Code code={BadTwo} frame="code" lang="txt" title="Attempt B" showLineNumbers={false} class="mb-3" />
+
+          <ol>
+            <li>
+              Everything in it is <b>true</b>. Why does it still score nothing?
+            </li>
+            <li>
+              The prompt says <i>detailed enough for someone else to write the
+              program code</i>. <b>Rewrite Attempt B so it passes that test</b>,
+              staying in English.
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Problem 4 &mdash; Your Own</h3>
+
+          <p>
+            <b>Use the list from your own program.</b> Write the full Written
+            Response 2(c) answer: name your list, pick a value, and give the
+            algorithm.
+          </p>
+
+          <p>
+            Then check it against the four-item checklist yourself.
+            <b> All four, or it is not finished.</b>
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Keep this answer.</b> The version you write today
+            is very close to the version you will write in May &mdash; only the list
+            name changes.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            All four problems, plus your own Written Response 2(c) checked against
+            the four-item checklist.
+          </p>
+
+          <p>Worth <b>5 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
