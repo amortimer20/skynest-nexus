@@ -17,17 +17,20 @@ A COMPUTER NETWORK      devices that can send or receive
 
   and a computer network IS a computing system`;
 
-const Diagram = `                100          100
-          A ---------- B ---------- D
-           \\                       |
-        50  \\                      | 40
-             \\        50           |
-              C ------------------ E
-                                  / \\
-                             25  /   \\  200
-                                /     \\
-                               G ----- F
-                                  200
+const Diagram = `                   100
+              A --------- B
+              |            \\
+           50 |             \\ 100
+              |              \\
+              C ------------- D
+                     50       |
+                              | 40
+                              E
+                             / \\
+                        25  /   \\ 200
+                           /     \\
+                          G ----- F
+                             200
 
   Every number is the link's bandwidth in Mbps.`;
 
@@ -35,7 +38,7 @@ const Wrong = `WRONG                      RIGHT
 
 "the internet is fast"     bandwidth is 40 Mbps
 
-"a good connection"        the path is A-B-D-E-G
+"a good connection"        the path is A-B-D-E-F-G
 
 "it goes to the router"    routing is the process of
                            FINDING the path`;
