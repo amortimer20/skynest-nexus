@@ -1,0 +1,306 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Three = `REDUNDANCY
+
+  the inclusion of extra components that can be
+  used to mitigate failure if other components fail
+
+FAULT TOLERANT
+
+  when a system can support failures and still
+  continue to function
+
+The first one is how you get the second one.`;
+
+const Diagram = `                100          100
+          A ---------- B ---------- D
+           \\                       |
+        50  \\                      | 40
+             \\        50           |
+              C ------------------ E
+                                  / \\
+                             25  /   \\  200
+                                /     \\
+                               G ----- F
+                                  200`;
+
+const Cost = `REDUNDANCY IS NOT FREE
+
+  "Redundancy within a system often requires
+   additional resources but can provide the
+   benefit of fault tolerance."
+
+Extra links cost money, power, and maintenance.
+Somebody decided the cost was worth it.`;
+
+const ThreeVerbs = `THE EXAM ASKS THREE DIFFERENT THINGS
+
+  a. describe the BENEFITS of fault tolerance
+  b. explain HOW a given system is fault tolerant
+  c. identify VULNERABILITIES to failure in a system
+
+  (c) is the one students do not practice.`;
+
+const Failures = `TEST EACH FAILURE SEPARATELY
+
+  the A-B link fails ......... can A still reach G?
+  the A-C link fails ......... can A still reach G?
+  the D-E link fails ......... can A still reach G?
+  device B fails ............. can A still reach G?
+  device D fails ............. can A still reach G?
+  device E fails ............. can A still reach G?
+  device F fails ............. can A still reach G?`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.9: Fault Tolerance and Redundancy</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Why It Does Not Fall Over</h2>
+
+          <p>
+            <b>Last session ended with a network that has no owner, no fixed routes,
+            and rules anyone can implement.</b> That should be fragile.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">It is the opposite, and the reason is that there
+            is more than one way to get anywhere.</b>
+          </p>
+
+          <p>
+            <b>Today you will break the network on purpose</b> and find out exactly
+            where it can and cannot survive.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.9</h2>
+              <h3 class="text-sn-theme">Fault Tolerance and Redundancy</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Redundancy and Fault Tolerance</p>
+              <p>Finding the Single Point of Failure</p>
+              <p>Redundancy Costs Something</p>
+            </section>
+
+            <section>
+              <h2>Two Words, In Order</h2>
+              <Code code={Three} frame="code" lang="txt" title="Cause and Effect" showLineNumbers={false} />
+              <p class="fragment">Redundancy is the mechanism. Fault tolerance is the property.</p>
+            </section>
+
+            <section>
+              <h2>The Simplest Redundancy</h2>
+              <p><b>More than one path between two devices.</b></p>
+              <p class="fragment">The exam says that in exactly those words.</p>
+              <p class="fragment">One path is a single point of failure. Two is a choice.</p>
+            </section>
+
+            <section>
+              <h2>What Happens When Something Breaks</h2>
+              <p>If a device or connection fails, <b>subsequent data is sent by a different route</b>&hellip;</p>
+              <p class="fragment"><b class="text-sn-theme">&hellip;if possible.</b></p>
+              <p class="fragment">Those two words are the whole session. Sometimes it is not possible.</p>
+            </section>
+
+            <section>
+              <h2>Why This Is Not Optional</h2>
+              <p>The exam's reason: elements of complex systems fail <b>at unexpected times, often in groups</b>.</p>
+              <p class="fragment">Not <i>if</i> something fails. <b>When.</b></p>
+              <p class="fragment">A system designed on the assumption that nothing breaks is a system that stops.</p>
+            </section>
+
+            <section>
+              <h2>It Also Helps It Grow</h2>
+              <p>Redundant routing options increase <b>reliability</b>&hellip;</p>
+              <p class="fragment">&hellip;and help the internet <b>scale</b> to more devices and more people.</p>
+              <p class="fragment">Same word as last session. It comes back.</p>
+            </section>
+
+            <section>
+              <h2>And It Is Not Free</h2>
+              <Code code={Cost} frame="code" lang="txt" title="The Trade-Off" showLineNumbers={false} />
+              <p class="fragment">You have seen this shape all year. Compression. Sorting. Sampling.</p>
+            </section>
+
+            <section>
+              <h2>Abstraction, Again</h2>
+              <p>The exam: the internet is fault tolerant <b>with abstractions for routing and transmitting data</b>.</p>
+              <p class="fragment">You do not know which path your data took. <b>You do not need to.</b></p>
+              <p class="fragment">That is what an abstraction buys. Session 31 said the same thing about a procedure.</p>
+            </section>
+
+            <section>
+              <h2>Three Different Questions</h2>
+              <Code code={ThreeVerbs} frame="code" lang="txt" title="Read the Verb" showLineNumbers={false} />
+              <p class="fragment">Today is mostly (c).</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Defining redundancy and fault tolerance, and stating how they relate</li>
+                <li>Describing the benefits of fault tolerance</li>
+                <li>Explaining how a given network is fault tolerant</li>
+                <li>Identifying vulnerabilities to failure in a network</li>
+                <li>Explaining that redundancy requires additional resources</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Redundancy</dt>
+                  <dd>The inclusion of extra components that can be used to mitigate failure of a system if other components fail.</dd>
+                  <dt>Fault tolerant</dt>
+                  <dd>Able to support failures and still continue to function.</dd>
+                  <dt>Single point of failure</dt>
+                  <dd>A component whose failure disconnects part of the system. The thing redundancy removes.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <p><b>Same seven devices. On paper. Cover a link with your finger to fail it.</b></p>
+
+          <Code code={Diagram} frame="code" lang="txt" title="The Network" showLineNumbers={false} class="mb-4" />
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Break One Thing at a Time</h3>
+
+          <Code code={Failures} frame="code" lang="txt" title="Seven Failures" showLineNumbers={false} class="mt-3" />
+
+          <ul>
+            <li>For each failure, <b>can A still reach G?</b> If yes, give a path that works.</li>
+            <li>If no, say <b>which devices become unreachable from A</b>.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Name the Weak Points</h3>
+
+          <ol>
+            <li><b>Which single devices, if they failed, would split the network into two disconnected pieces?</b> There is more than one.</li>
+            <li><b>Which single link, if it failed, would do the same?</b></li>
+            <li>For each one you found: <b>what would you add to fix it?</b> One new link is enough for each.</li>
+            <li>You proposed some new links. <b>What does each one cost?</b> Answer in the exam's vocabulary, not in dollars.</li>
+          </ol>
+
+          <p>
+            <b class="text-sn-theme">Question 1 is the one worth the time.</b> It is
+            the exam's third verb &mdash; <i>identify vulnerabilities to failure in a
+            system</i> &mdash; and it is the one nobody practices.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Explain It Three Ways</h3>
+
+          <p>The exam asks three different things about fault tolerance. <b>Answer all three about this network</b>, in full sentences.</p>
+
+          <ol>
+            <li><b>Describe a benefit</b> of this network being fault tolerant.</li>
+            <li><b>Explain how</b> this network is fault tolerant. Name specific devices and links.</li>
+            <li><b>Identify its vulnerabilities</b> to failure.</li>
+          </ol>
+
+          <p>
+            <b>Answer 2 and answer 3 are about the same network and they say opposite
+            things.</b> Both are true. Say why that is not a contradiction.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Design One</h3>
+
+          <p>
+            <b>Draw a five-device network</b> where <b>no single device failure</b> can
+            disconnect any other device from any other.
+          </p>
+
+          <ul>
+            <li>What is the <b>fewest links</b> you can do it with?</li>
+            <li>Prove it: test all five device failures.</li>
+            <li>Now compare your link count to the seven-device diagram's eight links. <b>What did the diagram trade away?</b></li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Define redundancy and fault tolerance, and say which causes which.</li>
+            <li>&quot;Data is sent by a different route <b>if possible</b>.&quot; Give an example from the diagram where it is not possible.</li>
+            <li>What does redundancy cost?</li>
+            <li>Why does the exam say elements fail &quot;often in groups&quot;?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>You found devices whose failure splits the network. Real networks have these too. Why would anyone build a network with a single point of failure in it?</li>
+            <li>Fault tolerance is described as coming <b>with abstractions for routing and transmitting data</b>. Explain what you are being allowed to ignore, and name one time this year you were allowed to ignore something in the same way.</li>
+            <li>Your Task 4 network survives any single device failure. Describe a <b>pair</b> of failures it would not survive.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, including your drawn network, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

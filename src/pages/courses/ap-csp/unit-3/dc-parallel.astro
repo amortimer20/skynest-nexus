@@ -1,0 +1,183 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Program = `let tasks = [15, 25, 35, 45];
+let processors = 2;
+let unsplittable = 20;        // seconds that cannot be shared out
+
+function sequentialTime(list) {
+  let total = unsplittable;
+
+  for (let i = 0; i < list.length; i++) {
+    total = total + list[i];
+  }
+
+  return total;
+}
+
+function parallelTime(list, howMany) {
+  let longest = 0;
+
+  for (let i = 0; i < list.length; i++) {
+    if (list[i] > longest) {
+      longest = list[i];
+    }
+  }
+
+  return longest;
+}
+
+function speedup(seq, par) {
+  return par / seq;
+}
+
+let seq = sequentialTime(tasks);
+let par = parallelTime(tasks, processors);
+
+console.log("sequential: " + seq + "s");
+console.log("parallel:   " + par + "s");
+console.log("speedup:    " + speedup(seq, par).toFixed(2));`;
+
+const Output = `sequential: 140s
+parallel:   45s
+speedup:    0.32`;
+
+const Correct = `sequential: 140s
+parallel:   80s
+speedup:    1.75`;
+
+const Hint = `THREE THINGS ARE WRONG.
+
+  One is a formula written backwards.
+  One is a parameter that is accepted and ignored.
+  One is a number that was added in one place
+    and should have been added in two.
+
+The task times are 15, 25, 35, 45.
+There are 2 processors.
+20 seconds cannot be shared out.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Parallel Timing</h1>
+
+        <h4 class="text-sn-theme">
+          Three faults &middot; on paper &middot; no computer needed
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            <b>This program is supposed to work out how long a job takes.</b> It runs
+            without error and every number it prints is wrong.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">There are no syntax errors and nothing crashes.</b>
+            All three faults are logic errors &mdash; the kind that produce a
+            confident, plausible, incorrect answer.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Work on paper.</b> You can find all three by reading, and reading is the
+            skill being tested.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="program">
+          <h2>The Program</h2>
+
+          <Code code={Program} frame="code" lang="javascript" title="Parallel Timing" class="mb-4" />
+
+          <h3>What It Prints</h3>
+
+          <Code code={Output} frame="terminal" lang="txt" title="Wrong" showLineNumbers={false} class="mb-4" />
+
+          <h3>What It Should Print</h3>
+
+          <Code code={Correct} frame="terminal" lang="txt" title="Right" showLineNumbers={false} class="mb-4" />
+
+          <Code code={Hint} frame="code" lang="txt" title="What You Are Looking For" showLineNumbers={false} />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <h3>Fault 1</h3>
+          <ol>
+            <li>Which line is wrong?</li>
+            <li>What is it computing instead of what it should compute?</li>
+            <li>Write the corrected line.</li>
+            <li><b>How would you have noticed this without being told the right answer?</b></li>
+          </ol>
+
+          <h3 class="mt-4">Fault 2</h3>
+          <ol>
+            <li>Which procedure is wrong, and what is it ignoring?</li>
+            <li><b>Work out the correct value by hand.</b> Show the split you chose across the two processors.</li>
+            <li>Is there more than one split that gives the correct answer?</li>
+            <li>
+              This procedure takes a parameter called <code>howMany</code> and never
+              uses it. <b>What did we call that in Quarter 2?</b>
+            </li>
+          </ol>
+
+          <h3 class="mt-4">Fault 3</h3>
+          <ol>
+            <li>What does <code>unsplittable</code> represent, and where is it correctly used?</li>
+            <li>Where else does it belong, and why?</li>
+            <li>What would the program print if <code>unsplittable</code> were 0?</li>
+          </ol>
+
+          <h3 class="mt-4">All Three Fixed</h3>
+          <ol>
+            <li>Write out the three corrected lines or procedures.</li>
+            <li>
+              <b>Now change <code>processors</code> to 4</b> and give the new parallel
+              time and speedup, by hand.
+            </li>
+            <li>
+              Change it to 100. <b>What is the parallel time now, and why does it stop
+              going down?</b>
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            All three faults identified with corrected lines, your hand-worked split,
+            and the answers for 4 processors and 100 processors.
+          </p>
+
+          <p>Worth <b>5 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,228 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q7 = `Four independent tasks:
+
+  Task One      20 seconds
+  Task Two      30 seconds
+  Task Three    40 seconds
+  Task Four     50 seconds
+
+The computer has TWO identical processors that can
+run in parallel. Each runs one task at a time, and
+each task must run on a single processor.`;
+
+const Q8 = `A job takes 140 seconds when run sequentially.
+
+Run in parallel, the same job takes 70 seconds.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 21</h1>
+
+        <h4 class="text-sn-theme">
+          Nine questions &middot; 15 minutes &middot; Computer Systems and Networks
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>The whole of Big Idea 4, which is three topics and about 11 to 15% of
+            the multiple-choice section.</b> Activities 3.6 to 3.10.
+          </p>
+
+          <p>
+            <b>Two of these are arithmetic</b> and they are the questions worth the
+            most practice, because they are the only ones in this block where you can
+            be confidently, checkably wrong.
+          </p>
+
+          <p>
+            <b>Set a timer for 15 minutes.</b> Mark each answer <b>sure</b> or
+            <b> unsure</b>. Guess rather than leave a blank.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>Which of the following is <b>not</b> a computing device?</p>
+
+          <ul>
+            <li>(A) A router</li>
+            <li>(B) A smart sensor that reports temperature</li>
+            <li>(C) An ethernet cable</li>
+            <li>(D) A printer that can run its own diagnostics</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            The bandwidth of a computer network is best described as the maximum
+            amount of data that can be sent in a fixed amount of time. It is usually
+            measured in:
+          </p>
+
+          <ul>
+            <li>(A) bits per second</li>
+            <li>(B) packets per path</li>
+            <li>(C) devices per network</li>
+            <li>(D) seconds per bit</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>
+            The internet uses <b>open</b> protocols. Which statement best describes
+            what that means, and why it matters?
+          </p>
+
+          <ul>
+            <li>(A) The protocols can be changed by any user at any time, so the network adapts quickly</li>
+            <li>(B) The protocols are free to use but their rules are kept secret, so the network stays secure</li>
+            <li>(C) Any device may join the network without being assigned an address</li>
+            <li>(D) The rules are published and non-proprietary, so anyone can build a device that connects</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4 &mdash; Select all that apply</h3>
+
+          <p>Which of these are true of packets travelling across the internet?</p>
+
+          <ul>
+            <li>(A) They may arrive at the destination out of order</li>
+            <li>(B) They may not arrive at all</li>
+            <li>(C) They contain metadata used for routing and for reassembly</li>
+            <li>(D) All packets in one message follow the same path</li>
+            <li>(E) A packet's data cannot be split across more than one packet</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            Which statement about the internet and the World Wide Web is accurate?
+          </p>
+
+          <ul>
+            <li>(A) The internet is a system of linked pages, and the Web is the hardware that carries them</li>
+            <li>(B) The World Wide Web is a system of linked pages, programs and files, and it uses the internet</li>
+            <li>(C) They are two names for the same network</li>
+            <li>(D) The internet uses the World Wide Web to route data between networks</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6</h3>
+
+          <p>
+            A network engineer wants to make a network more fault tolerant. Which
+            change most directly achieves that?
+          </p>
+
+          <ul>
+            <li>(A) Increasing the bandwidth of the busiest link</li>
+            <li>(B) Replacing UDP with TCP throughout the network</li>
+            <li>(C) Reducing the number of devices so there are fewer things to fail</li>
+            <li>(D) Adding a second path between two devices that currently have only one</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 7</h3>
+
+          <Code code={Q7} frame="code" lang="txt" title="Four Tasks, Two Processors" showLineNumbers={false} class="mb-3" />
+
+          <p>
+            Which best approximates the <b>minimum possible time</b> to run all four
+            tasks?
+          </p>
+
+          <ul>
+            <li>(A) 50 seconds</li>
+            <li>(B) 70 seconds</li>
+            <li>(C) 90 seconds</li>
+            <li>(D) 140 seconds</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 8</h3>
+
+          <Code code={Q8} frame="code" lang="txt" title="Speedup" showLineNumbers={false} class="mb-3" />
+
+          <p>What is the speedup of the parallel solution?</p>
+
+          <ul>
+            <li>(A) 0.50</li>
+            <li>(B) 1.75</li>
+            <li>(C) 2.00</li>
+            <li>(D) 70.00</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 9</h3>
+
+          <p>
+            A research problem requires more memory than any single available computer
+            has. Which computational model addresses this, and why?
+          </p>
+
+          <ul>
+            <li>(A) Distributed computing, because it uses multiple devices and so is not limited to one machine's resources</li>
+            <li>(B) Parallel computing, because multiple processors can each hold part of the data</li>
+            <li>(C) Sequential computing, because processing one item at a time uses the least memory</li>
+            <li>(D) Parallel computing, because its speedup grows without limit as processors are added</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Nine answers, each marked <b>sure</b> or <b>unsure</b>, plus how far you
+            got when the timer went off. Worth <b>5 points</b>, graded on completion.
+          </p>
+
+          <p>
+            <b>And show your working for Questions 7 and 8.</b> For Question 7, write
+            down which tasks you put on which processor.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,320 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Definition = `THE INTERNET
+
+  a computer network
+  consisting of interconnected networks
+  that uses standardized, open communication protocols
+
+Every word in that sentence is doing work.`;
+
+const ProtocolTask = `DESIGN A PROTOCOL
+
+  Two people. One is the sender, one is the receiver.
+  The sender has a five-word message.
+  You may only pass single slips of paper.
+
+  Write down the RULES before you start:
+
+    how does the receiver know a message has begun?
+    how does it know which slip comes first?
+    how does it know the message has ended?
+    what happens if a slip goes missing?
+
+  Then swap your rules with another pair and
+  try to use THEIRS instead of your own.`;
+
+const Open = `OPEN                        PROPRIETARY
+
+anyone can read the rules   the rules are owned
+anyone can build a device   you need permission
+that speaks it
+
+  -> the network can grow    -> the network cannot`;
+
+const Scalable = `SCALABILITY
+
+  the capacity for a system to change in size
+  and scale to meet new demands
+
+The internet was DESIGNED to be scalable.
+Open protocols are how.`;
+
+const Addresses = `HOW MANY DEVICES CAN YOU NAME?
+
+  with 8 bits    2^8  = 256 addresses
+  with 16 bits   2^16 = 65,536
+  with 32 bits   2^32 = 4,294,967,296
+  with 128 bits  2^128 = a number with 39 digits
+
+There are more than 4 billion people.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.7: The Internet, and Why It Could Grow</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>One Sentence, Then the Consequences</h2>
+
+          <Code code={Definition} frame="code" lang="txt" title="The Definition" showLineNumbers={false} class="my-4" />
+
+          <p>
+            <b>Today is about the last four words.</b> Standardized and open
+            protocols are the reason the internet was able to grow from four
+            computers to billions <b class="text-sn-theme">without anyone being in
+            charge of it.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.7</h2>
+              <h3 class="text-sn-theme">The Internet, and Why It Could Grow</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Protocol Is an Agreement</p>
+              <p>Open, Not Owned</p>
+              <p>Scalability</p>
+            </section>
+
+            <section>
+              <h2>A Network of Networks</h2>
+              <p>Not one network. <b>Interconnected networks.</b></p>
+              <p class="fragment">Your home network. Your school's. Your phone company's.</p>
+              <p class="fragment">The internet is what happens when they agree on how to talk.</p>
+            </section>
+
+            <section>
+              <h2>A Protocol</h2>
+              <p><b>An agreed-upon set of rules that specify the behavior of a system.</b></p>
+              <p class="fragment">Not software. Not hardware. <b>An agreement.</b></p>
+              <p class="fragment">You already follow several. &quot;Hello?&quot; when you answer a phone is one.</p>
+            </section>
+
+            <section>
+              <h2>Standardized</h2>
+              <p>Everyone follows the <b>same</b> rules.</p>
+              <p class="fragment">Not the best possible rules. The same ones.</p>
+              <p class="fragment">A brilliant protocol nobody else uses is worth nothing.</p>
+            </section>
+
+            <section>
+              <h2>Open</h2>
+              <Code code={Open} frame="code" lang="txt" title="The Difference That Mattered" showLineNumbers={false} />
+              <p class="fragment"><b>Open means non-proprietary.</b> The rules are published and free to use.</p>
+            </section>
+
+            <section>
+              <h2>Which Buys You This</h2>
+              <Code code={Scalable} frame="code" lang="txt" title="Scalability" showLineNumbers={false} />
+              <p class="fragment">A new kind of device can join without permission from anybody.</p>
+            </section>
+
+            <section>
+              <h2>Access Is a Chain</h2>
+              <p>The exam is precise about this: access to the internet depends on being able to connect a device to <b>an internet-connected device</b>.</p>
+              <p class="fragment">Not to &quot;the internet.&quot; To something already on it.</p>
+              <p class="fragment">Which is why the edges of the network are where access runs out. <b>Session 71.</b></p>
+            </section>
+
+            <section>
+              <h2>Routing Is Dynamic</h2>
+              <p><b>Usually dynamic. Not specified in advance.</b></p>
+              <p class="fragment">Nobody wrote down the path your data will take.</p>
+              <p class="fragment">It is worked out while the data is moving, and it can be different next time.</p>
+            </section>
+
+            <section>
+              <h2>Which Sounds Fragile</h2>
+              <p>Nobody in charge. No fixed routes. Rules anyone can implement.</p>
+              <p class="fragment"><b class="text-sn-theme">It is the opposite of fragile, and session 68 is why.</b></p>
+            </section>
+
+            <section>
+              <h2>How Many Devices Can You Name?</h2>
+              <Code code={Addresses} frame="code" lang="txt" title="Scaling, in Bits" showLineNumbers={false} />
+              <p class="fragment">This is 2.14's place value, doing something.</p>
+            </section>
+
+            <section>
+              <h2>Worth Knowing, Not Memorizing</h2>
+              <p>The specific bit counts are <b>not on your exam</b>.</p>
+              <p class="fragment">
+                <b>The idea is:</b> a fixed number of bits is a fixed number of names,
+                and running out of names is a limit on growth.
+              </p>
+              <p class="fragment">You met that at 2.16. It was called overflow.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Defining a protocol as an agreed-upon set of rules</li>
+                <li>Explaining why open, standardized protocols allowed the internet to scale</li>
+                <li>Defining scalability</li>
+                <li>Explaining that routing on the internet is dynamic</li>
+                <li>Designing a protocol and discovering what it must specify</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Protocol</dt>
+                  <dd>An agreed-upon set of rules that specify the behavior of a system.</dd>
+                  <dt>Open protocol</dt>
+                  <dd>Non-proprietary. The rules are published, and anyone may implement them.</dd>
+                  <dt>Scalability</dt>
+                  <dd>The capacity for a system to change in size and scale to meet new demands.</dd>
+                  <dt>Dynamic routing</dt>
+                  <dd>Paths are worked out as data moves, not specified in advance.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Invent a Protocol</h3>
+
+          <p><b>In pairs. Paper only. This takes about twelve minutes and it is the whole point of the session.</b></p>
+
+          <Code code={ProtocolTask} frame="code" lang="txt" title="The Rules of Passing Slips" showLineNumbers={false} class="mt-3" />
+
+          <p class="mt-3">
+            <b>Write your rules down before you send anything.</b> Then swap rule
+            sheets with another pair and send a message using <b>their</b> protocol
+            instead of yours.
+          </p>
+
+          <ul>
+            <li><b>What did their rules not say</b> that you needed?</li>
+            <li><b>What did yours not say?</b></li>
+            <li>Did either pair handle a missing slip? What happened when one went missing on purpose?</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Standardize It</h3>
+
+          <ul>
+            <li>As a whole class, agree <b>one</b> protocol that everybody will use.</li>
+            <li>Write it on the board. <b>Four rules or fewer.</b></li>
+          </ul>
+
+          <p>
+            Then answer, in writing: <b>whose protocol won, and was it the best
+            one?</b> If it was not the best one, why did it win anyway?
+          </p>
+
+          <p>
+            <b class="text-sn-theme">That question is the history of the internet in
+            one sentence.</b>
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Open Versus Owned</h3>
+
+          <p>Imagine your class protocol is <b>owned</b> by one pair, who charge for permission to use it.</p>
+
+          <ol>
+            <li>A new student joins and wants to send a message. What do they have to do first?</li>
+            <li>Another class invents a rival protocol. What happens now?</li>
+            <li><b>Describe one thing that becomes impossible</b> that was easy before.</li>
+            <li>Now say it in exam vocabulary: what has the owned version <b>lost</b>?</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Names Run Out</h3>
+
+          <ul>
+            <li>With <b>8 bits</b>, how many devices can be given a unique address? Show the arithmetic.</li>
+            <li>With <b>16 bits</b>? With <b>32</b>?</li>
+            <li>There are over 8 billion people. <b>Is 32 bits enough for one device each?</b></li>
+            <li>Going from 32 bits to 128 does not add 96 addresses. <b>What does it do?</b> You do not need to work out the number.</li>
+          </ul>
+
+          <p>
+            <b>The specific numbers are not examinable.</b> The idea is: a fixed
+            number of bits is a fixed number of names.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Define a protocol without using the word &quot;rules&quot; twice.</li>
+            <li>What does <b>open</b> mean, and what is the opposite word?</li>
+            <li>Define scalability.</li>
+            <li>Is the path your data takes decided before it is sent?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Your class agreed one protocol in Task 2. What did the pairs whose protocol lost have to give up, and what did everybody gain?</li>
+            <li>The internet has no owner and no fixed routes. Name one thing that makes harder, and one thing that makes possible.</li>
+            <li>&quot;Access to the internet depends on connecting a device to an internet-connected device.&quot; Explain what that sentence implies about somebody living a long way from anybody else.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Your protocol rules, the class protocol, all four tasks, and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

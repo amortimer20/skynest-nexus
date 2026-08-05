@@ -1,0 +1,329 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Ladder = `A COMPUTING DEVICE      runs a program
+                        phone, laptop, router, smart sensor
+
+A COMPUTING SYSTEM      devices + programs, one purpose
+                        a checkout till, a card reader,
+                        and the shop's stock software
+
+A COMPUTER NETWORK      devices that can send or receive
+                        data to each other
+
+  and a computer network IS a computing system`;
+
+const Diagram = `                100          100
+          A ---------- B ---------- D
+           \\                       |
+        50  \\                      | 40
+             \\        50           |
+              C ------------------ E
+                                  / \\
+                             25  /   \\  200
+                                /     \\
+                               G ----- F
+                                  200
+
+  Every number is the link's bandwidth in Mbps.`;
+
+const Wrong = `WRONG                      RIGHT
+
+"the internet is fast"     bandwidth is 40 Mbps
+
+"a good connection"        the path is A-B-D-E-G
+
+"it goes to the router"    routing is the process of
+                           FINDING the path`;
+
+const PathTable = `A path from A to G is a SEQUENCE of directly
+connected devices, starting at A and ending at G.
+
+  A-B-D-E-G          4 links
+  A-B-D-E-F-G        5 links
+  ...
+
+How many are there in total? Find them all.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.6: Devices, Systems, and Networks</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>A New Kind of Session</h2>
+
+          <p>
+            <b>The Create Task is submitted.</b> The next thirteen sessions are the
+            two Big Ideas this course has not touched yet, and they are worth
+            <b> about a third of the multiple-choice section</b> between them.
+          </p>
+
+          <p>
+            <b>There is no code in this block.</b> There is a great deal of precise
+            vocabulary, and precision is what gets tested. <b class="text-sn-theme">
+            &quot;The internet is fast&quot; earns nothing. &quot;The bandwidth of
+            that link is 40 megabits per second&quot; earns the mark.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.6</h2>
+              <h3 class="text-sn-theme">Devices, Systems, and Networks</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Three Words That Nest</p>
+              <p>Paths and Routing</p>
+              <p>Bandwidth Is a Number</p>
+            </section>
+
+            <section>
+              <h2>Three Words, One Ladder</h2>
+              <Code code={Ladder} frame="code" lang="txt" title="Nested Definitions" showLineNumbers={false} />
+              <p class="fragment">Each one is built from the one above it.</p>
+            </section>
+
+            <section>
+              <h2>A Computing Device Runs a Program</h2>
+              <p>That is the whole test.</p>
+              <p class="fragment">A router runs a program. <b>It is a computing device.</b></p>
+              <p class="fragment">A smart sensor runs a program. So is that.</p>
+              <p class="fragment">A cable does not. <b>It is not.</b></p>
+            </section>
+
+            <section>
+              <h2>A Network Is a Kind of System</h2>
+              <p>The exam states this directly: <i>a computer network is a type of computing system</i>.</p>
+              <p class="fragment">So every network is a system. <b>Not every system is a network.</b></p>
+              <p class="fragment">A single laptop running one program is a system and not a network.</p>
+            </section>
+
+            <section>
+              <h2>A Path Is a Sequence</h2>
+              <p>Between a <b>sender</b> and a <b>receiver</b>.</p>
+              <p class="fragment">A sequence of <b>directly connected</b> devices, starting at the sender and ending at the receiver.</p>
+              <p class="fragment">Not a wire. A list of devices.</p>
+            </section>
+
+            <section>
+              <h2>Routing Is the Finding</h2>
+              <p><b>Routing is the process of finding a path from sender to receiver.</b></p>
+              <p class="fragment">The path is the answer. Routing is the work of getting it.</p>
+              <p class="fragment">Students say &quot;it routes to the server.&quot; <b>That sentence has no meaning on the exam.</b></p>
+            </section>
+
+            <section>
+              <h2>Bandwidth</h2>
+              <p><b>The maximum amount of data that can be sent in a fixed amount of time.</b></p>
+              <p class="fragment">Measured in <b>bits per second</b>.</p>
+              <p class="fragment">A capacity, not a speed. <b>Not how fast one thing arrives &mdash; how much fits.</b></p>
+            </section>
+
+            <section>
+              <h2>The Analogy, and Its Limit</h2>
+              <p>A wider road carries more cars per minute.</p>
+              <p class="fragment">It does not make any one car faster.</p>
+              <p class="fragment"><b>Bandwidth is the width of the road.</b></p>
+            </section>
+
+            <section>
+              <h2>Precision Is the Skill</h2>
+              <Code code={Wrong} frame="code" lang="txt" title="Say It Properly" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Distinguishing a computing device, a computing system, and a computer network</li>
+                <li>Defining a path as a sequence of directly connected devices</li>
+                <li>Explaining routing as the process of finding a path</li>
+                <li>Defining bandwidth and stating its units</li>
+                <li>Finding every path between two devices on a network diagram</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Computing device</dt>
+                  <dd>A physical artifact that can run a program.</dd>
+                  <dt>Computing system</dt>
+                  <dd>A group of computing devices and programs working together for a common purpose.</dd>
+                  <dt>Computer network</dt>
+                  <dd>A group of interconnected computing devices capable of sending or receiving data. A type of computing system.</dd>
+                  <dt>Path</dt>
+                  <dd>A sequence of directly connected computing devices beginning at the sender and ending at the receiver.</dd>
+                  <dt>Routing</dt>
+                  <dd>The process of finding a path from sender to receiver.</dd>
+                  <dt>Bandwidth</dt>
+                  <dd>The maximum amount of data that can be sent in a fixed amount of time, usually measured in bits per second.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The network -->
+        <section id="network">
+          <h2>The Network</h2>
+
+          <p>
+            <b>Seven devices. Eight links.</b> Every session in this block uses this
+            diagram, so copy it into your notes now.
+          </p>
+
+          <Code code={Diagram} frame="code" lang="txt" title="Seven Devices" showLineNumbers={false} class="mb-3" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <p><b>On paper. No computer needed for any of this.</b></p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Sort Them</h3>
+
+          <p>For each of these, say whether it is a <b>computing device</b>, a <b>computing system</b>, a <b>computer network</b>, or <b>none</b>. One word each, and a reason.</p>
+
+          <ol>
+            <li>A smart thermostat</li>
+            <li>An ethernet cable</li>
+            <li>A school's laptops, printers, and the wireless they share</li>
+            <li>A calculator</li>
+            <li>A single laptop running one program</li>
+            <li>A supermarket till, its card reader, and the stock software they both talk to</li>
+            <li>The internet</li>
+          </ol>
+
+          <p>
+            <b>Two of these belong in more than one category.</b> Say which, and say
+            why that is not a contradiction.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Find Every Path</h3>
+
+          <Code code={PathTable} frame="code" lang="txt" title="A to G" showLineNumbers={false} class="mt-3" />
+
+          <ul>
+            <li><b>List every path from A to G</b> that does not visit any device twice.</li>
+            <li>Write each as a sequence of device names, like <code>A-B-D-E-G</code>.</li>
+            <li>How many are there?</li>
+          </ul>
+
+          <p>
+            <b>Then: how many paths are there from A to D?</b> And from B to C?
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: The Bandwidth of a Path</h3>
+
+          <p>
+            The diagram gives a bandwidth for each <b>link</b>. It does not give one
+            for a <b>path</b>.
+          </p>
+
+          <ul>
+            <li><b>Work out the bandwidth of each A-to-G path you found.</b> Explain your reasoning before you give a number.</li>
+            <li><b>Which path carries the most data per second?</b></li>
+            <li>Count its links. <b>Is it the shortest path?</b></li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">That last answer is the interesting one</b>, and
+            it is why a network does not simply always pick the path with the fewest
+            hops.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Say It Properly</h3>
+
+          <p>Rewrite each sentence so that it would earn a mark. Use the right word for the right thing.</p>
+
+          <ol>
+            <li>&quot;The internet is really fast at my house.&quot;</li>
+            <li>&quot;My laptop routes to the school server.&quot;</li>
+            <li>&quot;There's a good connection between A and G.&quot;</li>
+            <li>&quot;The cable is a computing device because data goes through it.&quot;</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Without looking:</p>
+
+          <ul>
+            <li>What is the one test for whether something is a computing device?</li>
+            <li>Is every computer network a computing system? Is every computing system a network?</li>
+            <li>What is the difference between a <b>path</b> and <b>routing</b>?</li>
+            <li>What are the units of bandwidth?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Bandwidth is a capacity, not a speed. Describe a situation where a network has plenty of bandwidth and something still feels slow.</li>
+            <li>The highest-bandwidth path from A to G is not the one with the fewest links. Explain why in one sentence a non-programmer would understand.</li>
+            <li>The exam says a computer network <b>is</b> a type of computing system. Why is it useful to have both words rather than just one?</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

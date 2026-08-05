@@ -1,0 +1,352 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Packet = `A PACKET
+
+  +-----------------------------------------+
+  |  METADATA        |  the chunk of data   |
+  |                  |                      |
+  |  where from      |  ...part of the      |
+  |  where to        |     actual message   |
+  |  which number    |                      |
+  +-----------------------------------------+
+
+  The metadata is for two jobs:
+    ROUTING       getting it there
+    REASSEMBLY    putting it back in order`;
+
+const Stream = `A DATA STREAM
+
+  information passed through the internet
+  as a stream of chunks
+
+  each chunk encapsulated in a packet`;
+
+const ThreeOutcomes = `PACKETS MAY ARRIVE
+
+  in order
+  out of order
+  not at all
+
+All three are normal. The exam says so.`;
+
+const Protocols = `THREE PROTOCOLS NAMED BY THE EXAM
+
+  IP     addressing and routing
+  TCP    breaks data into packets, and re-requests
+         packets that did not arrive
+  UDP    sends without checking for missing packets
+
+  TCP is reliable and slower.
+  UDP is faster and does not guarantee delivery.`;
+
+const InternetVsWeb = `THE INTERNET                THE WORLD WIDE WEB
+
+a computer network of       a system of linked pages,
+interconnected networks     programs, and files
+
+the wires, the routers,     what you look at
+the devices
+
+                            HTTP is a protocol
+                            used by the Web
+
+  The World Wide Web USES the Internet.
+  They are not the same thing.`;
+
+const Activity = `THE MESSAGE
+
+  Cut a sentence into six pieces.
+  Number them 1 to 6 on the back.
+
+  Shuffle. Hand them over one at a time,
+  in whatever order they come.
+
+  Then: throw one away without telling
+  the receiver which.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.8: Packets, and the Web That Is Not the Internet</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Two Topics, One Session</h2>
+
+          <p>
+            <b>First: how data actually crosses a network.</b> It is cut into pieces,
+            the pieces travel separately, and they may not arrive in the order they
+            left.
+          </p>
+
+          <p>
+            <b>Second: a distinction the exam asks about directly.</b> The internet
+            and the World Wide Web are not the same thing, and{" "}
+            <b class="text-sn-theme">almost everybody uses the words as if they
+            were.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.8</h2>
+              <h3 class="text-sn-theme">Packets, and the Web That Is Not the Internet</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Data Streams and Packets</p>
+              <p>Out of Order Is Normal</p>
+              <p>The Internet Is Not the Web</p>
+            </section>
+
+            <section>
+              <h2>Data Does Not Travel Whole</h2>
+              <Code code={Stream} frame="code" lang="txt" title="A Data Stream" showLineNumbers={false} />
+              <p class="fragment">Chunks. Each one wrapped in a packet.</p>
+            </section>
+
+            <section>
+              <h2>What Is In a Packet</h2>
+              <Code code={Packet} frame="code" lang="txt" title="Data and Metadata" showLineNumbers={false} />
+              <p class="fragment">You have met the word <b>metadata</b> before. Session 43.</p>
+            </section>
+
+            <section>
+              <h2>Same Idea, New Place</h2>
+              <p>At 2.18, metadata was the date and place attached to a photo.</p>
+              <p class="fragment">Here it is the address and number attached to a chunk of data.</p>
+              <p class="fragment"><b>Data about the data. Both times.</b></p>
+            </section>
+
+            <section>
+              <h2>Two Jobs</h2>
+              <p><b>Routing</b> &mdash; the metadata says where the packet is going.</p>
+              <p class="fragment"><b>Reassembly</b> &mdash; the metadata says which piece this is.</p>
+              <p class="fragment">Take away the numbers and the message cannot be rebuilt.</p>
+            </section>
+
+            <section>
+              <h2>Three Things That Can Happen</h2>
+              <Code code={ThreeOutcomes} frame="code" lang="txt" title="All Normal" showLineNumbers={false} />
+              <p class="fragment">Different packets can take different paths. So they can overtake each other.</p>
+            </section>
+
+            <section>
+              <h2>Not At All</h2>
+              <p>Packets go missing. Routinely.</p>
+              <p class="fragment">This is not a fault. It is a design assumption.</p>
+              <p class="fragment"><b>Something has to notice, and ask again.</b></p>
+            </section>
+
+            <section>
+              <h2>Three Protocols</h2>
+              <Code code={Protocols} frame="code" lang="txt" title="IP, TCP, UDP" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Why You Would Ever Choose UDP</h2>
+              <p>A live video call. A packet arrives late.</p>
+              <p class="fragment">Do you want it? <b>No.</b> That moment has passed.</p>
+              <p class="fragment">Re-requesting it would make things worse, not better.</p>
+            </section>
+
+            <section>
+              <h2>A Trade-Off, Again</h2>
+              <p><b>TCP</b> &mdash; you get everything, eventually.</p>
+              <p class="fragment"><b>UDP</b> &mdash; you get what arrives, immediately.</p>
+              <p class="fragment">Neither is better. It depends what you are sending.</p>
+            </section>
+
+            <section>
+              <h2>Now the Other Half</h2>
+              <Code code={InternetVsWeb} frame="code" lang="txt" title="Two Different Things" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The One-Sentence Version</h2>
+              <p><b>The internet is a network. The Web is a system of linked pages, programs, and files.</b></p>
+              <p class="fragment"><b class="text-sn-theme">The Web uses the internet.</b></p>
+              <p class="fragment">An email is on the internet and not on the Web.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Explaining how data is sent as a stream of packets</li>
+                <li>Describing what packet metadata is for</li>
+                <li>Stating that packets may arrive in order, out of order, or not at all</li>
+                <li>Naming IP, TCP and UDP, and describing the TCP/UDP trade-off</li>
+                <li>Distinguishing the internet from the World Wide Web</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Data stream</dt>
+                  <dd>Information passed through the internet as chunks of data.</dd>
+                  <dt>Packet</dt>
+                  <dd>A chunk of data plus metadata used for routing and for reassembly.</dd>
+                  <dt>IP</dt>
+                  <dd>A protocol responsible for addressing and routing.</dd>
+                  <dt>TCP</dt>
+                  <dd>A protocol that breaks data into packets and re-requests packets that do not arrive.</dd>
+                  <dt>UDP</dt>
+                  <dd>A protocol that sends without checking for missing packets.</dd>
+                  <dt>World Wide Web</dt>
+                  <dd>A system of linked pages, programs, and files, which uses the internet. HTTP is one of its protocols.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Send a Message in Pieces</h3>
+
+          <p><b>In pairs. Paper only.</b></p>
+
+          <Code code={Activity} frame="code" lang="txt" title="Six Packets" showLineNumbers={false} class="mt-3" />
+
+          <ol>
+            <li><b>Round one:</b> numbers on the back. Shuffle, hand over one at a time. Can the receiver rebuild the sentence?</li>
+            <li><b>Round two:</b> a new sentence, <b>no numbers at all</b>. Shuffle and hand over. Now what?</li>
+            <li><b>Round three:</b> numbers back on, but <b>throw one piece away</b> without saying which.</li>
+          </ol>
+
+          <p>
+            <b>For round three, answer in writing:</b> how did the receiver know
+            something was missing, and how did they know <b>which</b> thing? Could
+            they have known either of those without the numbers?
+          </p>
+
+          <p>
+            <b class="text-sn-theme">You have just built the part of TCP that matters.</b>
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Two Kinds of Message</h3>
+
+          <p>For each, say whether you would rather use <b>TCP</b> or <b>UDP</b>, and give the reason in one sentence.</p>
+
+          <ol>
+            <li>Downloading a program you are about to install</li>
+            <li>A live video call</li>
+            <li>A bank transfer</li>
+            <li>A multiplayer game sending each player's position sixty times a second</li>
+            <li>A photo sent in a message</li>
+          </ol>
+
+          <p>
+            <b>One of these five is genuinely arguable.</b> Say which, and argue both
+            sides.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Which One Is It?</h3>
+
+          <p>For each, say whether it is <b>the internet</b>, <b>the World Wide Web</b>, or <b>both</b>.</p>
+
+          <ol>
+            <li>A fiber optic cable under the Atlantic</li>
+            <li>A page you visit with a link on it</li>
+            <li>An email travelling from one server to another</li>
+            <li>HTTP</li>
+            <li>A router in your house</li>
+            <li>A video call</li>
+          </ol>
+
+          <p>
+            <b>Then, in one sentence each:</b> name something on the internet that is
+            not on the Web, and explain why the Web could not exist without the
+            internet but the internet existed without the Web.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Back to the Diagram</h3>
+
+          <p>Use the seven-device network from Activity 3.6.</p>
+
+          <ul>
+            <li>A message is cut into <b>four packets</b> and sent from A to G. <b>They do not all take the same path.</b> List a plausible path for each.</li>
+            <li>Explain how the receiver at G puts them back in order despite that.</li>
+            <li>One packet never arrives. <b>Which protocol notices, and what does it do?</b></li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>What two jobs does a packet's metadata do?</li>
+            <li>Name the three things that can happen to a packet.</li>
+            <li>What is the difference between TCP and UDP, in one sentence?</li>
+            <li>Is HTTP part of the internet or part of the Web?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>In round two you sent a message with no packet numbers. Describe what the receiver had to do instead, and why that would not work for a message of a thousand pieces.</li>
+            <li>&quot;Packets may arrive out of order&quot; sounds like a fault. Explain why it is a consequence of something the network does <b>on purpose</b>.</li>
+            <li>Most people use &quot;the internet&quot; to mean the Web. Does that matter outside an exam? Argue either way.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
