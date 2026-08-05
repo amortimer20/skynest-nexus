@@ -1,0 +1,413 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Strong = `A STRONG PASSWORD
+
+  "something that is easy for a user to remember
+   but would be difficult for someone else to guess
+   BASED ON KNOWLEDGE OF THAT USER"
+
+Not "hard for a computer to guess."
+Hard for someone who KNOWS things about you.`;
+
+const Factors = `MULTIFACTOR AUTHENTICATION
+
+  at least TWO of these three categories
+
+    KNOWLEDGE    something you know
+    POSSESSION   something you have
+    INHERENCE    something you are
+
+  Each step adds a layer that must be broken
+  to gain unauthorized access.`;
+
+const Two = `TWO PASSWORDS IS NOT TWO FACTORS
+
+  password + security question    both KNOWLEDGE
+                                  -> one factor
+
+  password + code to your phone   knowledge
+                                  + possession
+                                  -> two factors`;
+
+const Encryption = `ENCRYPTION    encoding data to prevent
+              unauthorized access
+
+DECRYPTION    decoding it
+
+SYMMETRIC KEY
+  one key, used for both
+  both sides must keep the same secret
+
+PUBLIC KEY  (asymmetric)
+  a PUBLIC key encrypts
+  a PRIVATE key decrypts
+
+  the sender does not need the receiver's
+  private key to encrypt a message`;
+
+const Excluded = `WHAT IS NOT ON YOUR EXAM
+
+  "Specific mathematical procedures for encryption
+   and decryption are BEYOND THE SCOPE of this
+   course and the AP Exam."
+
+No ciphers. No modular arithmetic. No key math.
+
+What IS examinable: what each approach is FOR,
+and which key does which job.`;
+
+const Certificates = `CERTIFICATE AUTHORITIES
+
+  issue digital certificates that VALIDATE THE
+  OWNERSHIP of encryption keys used in secure
+  communications
+
+  and are BASED ON A TRUST MODEL
+
+Encryption proves a message was not read.
+A certificate is how you know whose key it was.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.17: Authentication and Encryption</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Two Different Questions</h2>
+
+          <p>
+            <b>Authentication asks: are you who you say you are?</b>
+            <b class="text-sn-theme"> Encryption asks: can anyone else read this?</b>
+          </p>
+
+          <p>
+            They are constantly confused, they solve different problems, and the exam
+            tests both.
+          </p>
+
+          <Code code={Excluded} frame="code" lang="txt" title="Read This First" showLineNumbers={false} class="my-4" />
+
+          <p>
+            <b>You will not be computing anything today.</b> That is not a
+            simplification &mdash; it is an explicit exclusion in the framework.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.17</h2>
+              <h3 class="text-sn-theme">Authentication and Encryption</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>What Makes a Password Strong</p>
+              <p>Two Factors, Not Two Passwords</p>
+              <p>Which Key Does Which Job</p>
+            </section>
+
+            <section>
+              <h2>Authentication</h2>
+              <p><b>Measures that protect devices and information from unauthorized access.</b></p>
+              <p class="fragment">Examples the exam names: <b>strong passwords</b> and <b>multifactor authentication</b>.</p>
+            </section>
+
+            <section>
+              <h2>What Makes a Password Strong</h2>
+              <Code code={Strong} frame="code" lang="txt" title="Read the Last Line" showLineNumbers={false} />
+              <p class="fragment"><b class="text-sn-theme">Based on knowledge of that user.</b></p>
+            </section>
+
+            <section>
+              <h2>Which Changes the Advice</h2>
+              <p>Your birthday is a weak password. So is your dog's name.</p>
+              <p class="fragment">Not because they are short. <b>Because someone who knows you can guess them.</b></p>
+              <p class="fragment">
+                And session 75 was about how much a stranger can find out about you.
+              </p>
+            </section>
+
+            <section>
+              <h2>PII Feeds This Directly</h2>
+              <p>A weak password is one that <b>PII can predict</b>.</p>
+              <p class="fragment">Your birthday, your street, your school, your pet.</p>
+              <p class="fragment">All of that is available. <b>Yesterday's session was the reason.</b></p>
+            </section>
+
+            <section>
+              <h2>Multifactor</h2>
+              <Code code={Factors} frame="code" lang="txt" title="Three Categories" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Distinction That Gets Tested</h2>
+              <Code code={Two} frame="code" lang="txt" title="Count the Categories" showLineNumbers={false} />
+              <p class="fragment"><b>Two of the same category is one factor.</b></p>
+            </section>
+
+            <section>
+              <h2>Now the Other Question</h2>
+              <p><b>Encryption</b> &mdash; encoding data to prevent unauthorized access.</p>
+              <p class="fragment"><b>Decryption</b> &mdash; decoding it.</p>
+              <p class="fragment">
+                Authentication decides <i>who gets in</i>. Encryption decides
+                <i> who can read it</i>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Two Approaches</h2>
+              <Code code={Encryption} frame="code" lang="txt" title="Symmetric and Public Key" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Problem Symmetric Has</h2>
+              <p>One key, and both sides need it.</p>
+              <p class="fragment"><b>So how do you send them the key?</b></p>
+              <p class="fragment">Not over the channel you are trying to protect.</p>
+            </section>
+
+            <section>
+              <h2>What Public Key Solves</h2>
+              <p>The <b>public</b> key is public. Anyone may have it. It only <b>encrypts</b>.</p>
+              <p class="fragment">The <b>private</b> key never travels. It <b>decrypts</b>.</p>
+              <p class="fragment">
+                <b class="text-sn-theme">The sender does not need the receiver's private
+                key to encrypt a message.</b> That is the whole trick.
+              </p>
+            </section>
+
+            <section>
+              <h2>But Whose Public Key Is It?</h2>
+              <p>Anyone can publish a key and claim it is somebody's.</p>
+              <p class="fragment">Encryption does not answer that question.</p>
+            </section>
+
+            <section>
+              <h2>Certificates Do</h2>
+              <Code code={Certificates} frame="code" lang="txt" title="A Trust Model" showLineNumbers={false} />
+              <p class="fragment">You trust the certificate because you trust who issued it.</p>
+            </section>
+
+            <section>
+              <h2>Which Is Not Nothing</h2>
+              <p><b>A trust model means the security rests on somebody's reputation</b>, not on mathematics.</p>
+              <p class="fragment">If a certificate authority is compromised, so is everyone relying on it.</p>
+              <p class="fragment">Redundancy had this shape too. <b>Session 68.</b></p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Explaining what makes a password strong, in the exam's terms</li>
+                <li>Naming the three authentication categories and counting factors</li>
+                <li>Defining encryption and decryption</li>
+                <li>Distinguishing symmetric key from public key encryption</li>
+                <li>Explaining what certificate authorities do</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Authentication</dt>
+                  <dd>Measures protecting devices and information from unauthorized access.</dd>
+                  <dt>Multifactor authentication</dt>
+                  <dd>Access granted only after presenting evidence from at least two of: knowledge, possession, inherence.</dd>
+                  <dt>Encryption / decryption</dt>
+                  <dd>Encoding data to prevent unauthorized access, and decoding it.</dd>
+                  <dt>Symmetric key</dt>
+                  <dd>One key for both encryption and decryption.</dd>
+                  <dt>Public key encryption</dt>
+                  <dd>A public key encrypts; a private key decrypts.</dd>
+                  <dt>Certificate authority</dt>
+                  <dd>Issues digital certificates validating ownership of encryption keys, based on a trust model.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <p>
+            <b>No arithmetic anywhere on this page.</b> Specific mathematical procedures
+            for encryption are outside the scope of this course and the exam.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Strong, or Just Long?</h3>
+
+          <p>
+            The exam's test: <b>easy for the user to remember, difficult for someone
+            else to guess based on knowledge of that user.</b>
+          </p>
+
+          <p>For each, say <b>strong</b> or <b>weak</b>, and give the reason in the exam's terms.</p>
+
+          <ol>
+            <li>Your dog's name and the year you were born</li>
+            <li>Your school's name spelled backwards</li>
+            <li>Four unrelated words you chose at random</li>
+            <li>A ten-character string of symbols you keep on a note in your bag</li>
+            <li>Your street name with a symbol on the end</li>
+          </ol>
+
+          <p>
+            <b>Item 4 satisfies half the test and fails the other half.</b> Say which
+            half, and why that makes it a bad password in practice.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Then connect it back:</b> for items 1, 2 and 5,
+            name where somebody could find out the thing they would need to guess it.
+            <b> Use yesterday's session.</b>
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Count the Factors</h3>
+
+          <p>
+            For each, name the <b>category</b> of each piece of evidence, then say how
+            many <b>factors</b> it is.
+          </p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>The login asks for</th><th>Categories</th><th>How many factors</th></tr></thead>
+            <tbody>
+              <tr><td>A password, then a security question</td><td></td><td></td></tr>
+              <tr><td>A password, then a code sent to your phone</td><td></td><td></td></tr>
+              <tr><td>A fingerprint</td><td></td><td></td></tr>
+              <tr><td>A fingerprint, then a PIN</td><td></td><td></td></tr>
+              <tr><td>A password, then your mother's maiden name, then your first pet</td><td></td><td></td></tr>
+              <tr><td>A physical key card, then a fingerprint</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            <b>Two rows ask for three pieces of evidence and are still not three
+            factors.</b> Say which, and why.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Which Key, Which Job</h3>
+
+          <p>
+            <b>Ana wants to send Ben a message nobody else can read.</b> They have never
+            met and have no shared secret.
+          </p>
+
+          <ol>
+            <li><b>Could they use symmetric key encryption?</b> Say what problem they hit.</li>
+            <li>
+              With public key encryption: <b>whose key does Ana use, and is it the public
+              or the private one?</b>
+            </li>
+            <li><b>Whose key decrypts the message, and which one?</b></li>
+            <li>
+              <b>Does Ana ever need Ben's private key?</b> Answer in one sentence, in the
+              exam's words.
+            </li>
+            <li>
+              Someone intercepts the message <b>and has Ben's public key.</b> Can they
+              read it? Why not?
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Whose Key Is It?</h3>
+
+          <p>
+            <b>A stranger sends Ana a public key claiming to be Ben's.</b> Encryption
+            cannot tell her whether that is true.
+          </p>
+
+          <ol>
+            <li><b>What goes wrong</b> if she uses it? Be specific about who reads the message.</li>
+            <li><b>What does a certificate authority do</b> about this?</li>
+            <li>
+              The exam says certificates are <b>based on a trust model</b>. Explain what
+              that phrase means for where the security actually rests.
+            </li>
+            <li>
+              <b>What happens if a certificate authority is compromised?</b> Connect this
+              to something from session 68.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>What makes a password strong, in the exam's exact terms?</li>
+            <li>Name the three categories, and how many are needed for multifactor.</li>
+            <li>In public key encryption, which key encrypts and which decrypts?</li>
+            <li>What do certificate authorities validate?</li>
+            <li>What are you <b>not</b> expected to do with encryption on this exam?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>The exam defines a strong password as hard to guess <b>based on knowledge of that user</b>. Explain how session 75 makes that definition harder to satisfy than it sounds.</li>
+            <li>Public key encryption lets two strangers exchange a secret without ever sharing one. Explain in your own words why that is surprising.</li>
+            <li>Certificates rest on a trust model rather than on mathematics. Describe one risk that creates, and compare it to a single point of failure in a network.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

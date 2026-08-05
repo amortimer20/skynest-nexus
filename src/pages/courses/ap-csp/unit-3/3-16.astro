@@ -1,0 +1,409 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const PII = `PERSONALLY IDENTIFIABLE INFORMATION (PII)
+
+  information about an individual that identifies,
+  links, relates, or describes them
+
+  Social Security number      medical information
+  age                         financial information
+  race                        biometric data
+  phone number(s)
+
+Four verbs. "Describes them" is much wider
+than "names them."`;
+
+const Collected = `WHAT GETS RECORDED WITHOUT YOU DOING ANYTHING
+
+  search engines      a history of your searches
+  websites            a history of who viewed them
+  devices, websites
+  and networks        your location
+
+  programs            where you have been, how you
+                      got there, and how long you
+                      stayed`;
+
+const Aggregation = `THE IDEA THAT MATTERS MOST
+
+  "Disparate personal data, such as geolocation,
+   cookies, and browsing history, can be AGGREGATED
+   to create knowledge about an individual."
+
+No single item identifies you.
+Put them together and they do.`;
+
+const Benefit = `AND IT IS NOT ALL COST
+
+  PII and other information placed online can be
+  used to ENHANCE a user's online experiences.
+
+  PII stored online can SIMPLIFY making online
+  purchases.
+
+Both of those are in the framework.
+The trade is real in both directions.`;
+
+const Unintended = `USED IN WAYS THAT WERE NOT INTENDED
+
+  an email message may be forwarded
+  tweets can be retweeted
+  social media posts can be viewed by
+    potential employers
+
+And: "Once information is placed online,
+it is difficult to delete."`;
+
+const Deduce = `THE ONE THAT ENDS THE SESSION
+
+  "Information posted to social media services can
+   be used by others. Combining information posted
+   on social media AND OTHER SOURCES can be used to
+   DEDUCE PRIVATE INFORMATION ABOUT YOU."
+
+Not information you posted.
+Information you did not post, worked out from
+information you did.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.16: PII, Aggregation, and Privacy</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Last Three Sessions</h2>
+
+          <p>
+            <b>Everything so far in this block has been about effects on people in
+            general.</b> The last three are about effects on <i>you</i> &mdash; your
+            data, your accounts, and the people who want them.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">And the central idea today is one you have already
+            met, at session 43.</b> You stripped the location out of a photo's metadata
+            and the image did not change. Today is what happens when nobody strips it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.16</h2>
+              <h3 class="text-sn-theme">PII, Aggregation, and Privacy</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>What Counts as PII</p>
+              <p>Aggregation</p>
+              <p>Difficult to Delete</p>
+            </section>
+
+            <section>
+              <h2>The Definition</h2>
+              <Code code={PII} frame="code" lang="txt" title="PII" showLineNumbers={false} />
+              <p class="fragment">Identifies, <b>links</b>, <b>relates</b>, or <b>describes</b>.</p>
+            </section>
+
+            <section>
+              <h2>Wider Than You Think</h2>
+              <p><b>Age is on the list. Race is on the list.</b></p>
+              <p class="fragment">Neither identifies anyone on its own.</p>
+              <p class="fragment">
+                They are PII because they <b>describe</b> a person &mdash; and because
+                of what happens when you combine them.
+              </p>
+            </section>
+
+            <section>
+              <h2>Collected Without You Acting</h2>
+              <Code code={Collected} frame="code" lang="txt" title="Just By Existing Online" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Read That Last One Again</h2>
+              <p><b>Where you have been. How you got there. How long you stayed.</b></p>
+              <p class="fragment">That is not a location. <b>That is a pattern of life.</b></p>
+              <p class="fragment">And no single record of it is remarkable.</p>
+            </section>
+
+            <section>
+              <h2>Which Is the Whole Point</h2>
+              <Code code={Aggregation} frame="code" lang="txt" title="Aggregation" showLineNumbers={false} />
+              <p class="fragment">
+                <b class="text-sn-theme">Harmless plus harmless plus harmless can equal
+                identified.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>You Have Seen This Shape</h2>
+              <p>Session 43: metadata on a photo. Date, device, location.</p>
+              <p class="fragment">Each one boring. Together: <b>where you were, when, and with what.</b></p>
+              <p class="fragment">This is that, at the scale of everything you do.</p>
+            </section>
+
+            <section>
+              <h2>It Buys You Things</h2>
+              <Code code={Benefit} frame="code" lang="txt" title="Both Directions" showLineNumbers={false} />
+              <p class="fragment">Saved addresses. Recommendations that are right. One-tap payment.</p>
+            </section>
+
+            <section>
+              <h2>And It Has a Price List</h2>
+              <p>Search history can be used <b>to suggest websites</b>&hellip;</p>
+              <p class="fragment">&hellip;or <b>for targeted marketing</b>.</p>
+              <p class="fragment">
+                Same data. Same mechanism. <b>Session 70's single effect, viewed two
+                ways.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Curation Can Be Exploited</h2>
+              <p>
+                <b>&quot;Commercial and governmental curation of information may be
+                exploited if privacy and other protections are ignored.&quot;</b>
+              </p>
+              <p class="fragment">The data was gathered for one reason. It is available for others.</p>
+            </section>
+
+            <section>
+              <h2>It Escapes</h2>
+              <Code code={Unintended} frame="code" lang="txt" title="Beyond What You Meant" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>And It Can Be Used Against You</h2>
+              <p>
+                <b>PII can be used to stalk or steal the identity of a person</b>, or to
+                aid in planning other criminal acts.
+              </p>
+              <p class="fragment">That sentence is in the framework, in those words.</p>
+            </section>
+
+            <section>
+              <h2>The Sentence That Ends the Session</h2>
+              <Code code={Deduce} frame="code" lang="txt" title="Deduce" showLineNumbers={false} />
+              <p class="fragment">You control what you post. <b>You do not control what it implies.</b></p>
+            </section>
+
+            <section>
+              <h2>One Thing You Can Do</h2>
+              <p>
+                <b>&quot;Users can control the permissions programs have for collecting
+                user information. Users should review the permission settings of
+                programs to protect their privacy.&quot;</b>
+              </p>
+              <p class="fragment">The framework's one piece of practical advice on this topic.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Defining PII and recognizing what counts</li>
+                <li>Describing what is collected without any deliberate action</li>
+                <li>Explaining aggregation, and why harmless data stops being harmless</li>
+                <li>Describing both the benefits and the risks of PII online</li>
+                <li>Explaining why information online is difficult to delete</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>PII</dt>
+                  <dd>Personally identifiable information &mdash; information that identifies, links, relates to, or describes an individual.</dd>
+                  <dt>Aggregation</dt>
+                  <dd>Combining disparate data to create knowledge about an individual that no single item provided.</dd>
+                  <dt>Curation</dt>
+                  <dd>The gathering and organizing of information by a commercial or governmental body.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Is It PII?</h3>
+
+          <p>
+            <b>The definition is: identifies, links, relates to, or describes an
+            individual.</b> Yes or no, and which of the four verbs applies.
+          </p>
+
+          <ol>
+            <li>A Social Security number</li>
+            <li>Your age</li>
+            <li>The model of phone you own</li>
+            <li>A fingerprint</li>
+            <li>The town you live in</li>
+            <li>A list of every website you visited last Tuesday</li>
+            <li>Your favorite color</li>
+          </ol>
+
+          <p>
+            <b>Items 3, 5 and 7 are the arguable ones.</b> For each, describe what
+            would have to be combined with it to make it identify somebody.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Build a Person From Nothing</h3>
+
+          <p>
+            <b>Four pieces of data. None of them names anybody.</b>
+          </p>
+
+          <table class="table table-sm align-middle mt-3">
+            <tbody>
+              <tr><td><b>1</b></td><td>A phone was at a particular school between 8am and 3pm on weekdays</td></tr>
+              <tr><td><b>2</b></td><td>The same phone is at one address every night</td></tr>
+              <tr><td><b>3</b></td><td>It searched for &quot;driving test near me&quot; three times last month</td></tr>
+              <tr><td><b>4</b></td><td>It was at a hospital on a Tuesday afternoon</td></tr>
+            </tbody>
+          </table>
+
+          <ol>
+            <li><b>What do you know about this person</b> after item 1 alone? After 1 and 2 together?</li>
+            <li>What does item 3 add?</li>
+            <li>
+              <b>Could you narrow this to a single individual?</b> Say what else you
+              would need.
+            </li>
+            <li>
+              <b>Item 4 is different from the other three.</b> Say how, and why that
+              matters more than the rest.
+            </li>
+            <li>
+              <b>Which single item, removed, would help most?</b> Defend your choice.
+            </li>
+          </ol>
+
+          <p>
+            <b class="text-sn-theme">This is aggregation, and none of the four items is
+            PII on its own.</b>
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: The Trade, Honestly</h3>
+
+          <p>For each, name <b>what you get</b> and <b>what you give</b>.</p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>Feature</th><th>What you get</th><th>What you give</th></tr></thead>
+            <tbody>
+              <tr><td>A shop saving your address and card</td><td></td><td></td></tr>
+              <tr><td>A map app suggesting your usual route home</td><td></td><td></td></tr>
+              <tr><td>A music app building a weekly recommendation list</td><td></td><td></td></tr>
+              <tr><td>A fitness band recording your heart rate all day</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <ol>
+            <li><b>Which of the four would you accept?</b> There is no right answer.</li>
+            <li><b>Which would you refuse, and what exactly are you refusing?</b></li>
+            <li>
+              For the one you would refuse: <b>is the risk the data itself, or what it
+              could be combined with?</b>
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Difficult to Delete</h3>
+
+          <p>
+            <b>A student posts something they regret. They delete it an hour later.</b>
+          </p>
+
+          <ol>
+            <li><b>Name three places it could still exist.</b></li>
+            <li>Why does &quot;I deleted it&quot; not mean &quot;it is gone&quot;?</li>
+            <li>
+              The framework says information can be used in ways that were not
+              intended, and gives three examples. <b>Name all three.</b>
+            </li>
+            <li>
+              <b>Now the harder one.</b> Somebody works out something private about this
+              student that the student never posted, by combining what they did post
+              with something else. <b>Give a plausible example.</b>
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Give the four verbs in the definition of PII.</li>
+            <li>Name three things collected about you without any deliberate action.</li>
+            <li>What is aggregation, and why does it matter?</li>
+            <li>Name one benefit of PII being stored online.</li>
+            <li>What can users do about permissions?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>At session 43 you deleted the location from a photo's metadata and the image was unchanged. Explain what that activity was really demonstrating, now that you have met aggregation.</li>
+            <li>&quot;Age&quot; is listed as PII and age alone identifies nobody. Explain why it is on the list anyway.</li>
+            <li>Name one permission on a device you use. Say what it enables and what it costs, and whether you would turn it off.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

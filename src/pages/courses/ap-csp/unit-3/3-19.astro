@@ -1,0 +1,346 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Quarter = `WHAT QUARTER 3 WAS
+
+  53-64   the Create Performance Task
+          30% of your AP exam grade, submitted
+
+  65-69   Computer Systems and Networks
+          11-15% of the multiple-choice section
+
+  70-77   Impact of Computing
+          21-26% of the multiple-choice section
+
+Between them, the two content blocks are about
+a third of the multiple-choice paper.`;
+
+const Card = `THE CARD -- everything worth carrying into May
+
+NETWORKS
+  computing device        can run a program
+  computing system        devices + programs, one purpose
+  computer network        a TYPE of computing system
+  path                    a sequence of directly
+                          connected devices
+  routing                 the PROCESS of finding a path
+  bandwidth               max data in a fixed time,
+                          in bits per second
+  protocol                an agreed-upon set of rules
+  open                    non-proprietary, published
+  scalability             capacity to change in size
+                          to meet new demands
+  packet                  a chunk of data + metadata
+                          for routing AND reassembly
+  packets may arrive      in order, out of order,
+                          or not at all
+  IP TCP UDP              the three named protocols
+  the Web                 linked pages, programs, files
+                          -- it USES the internet
+  redundancy              extra components to mitigate
+                          failure
+  fault tolerant          supports failures and still
+                          functions
+  sequential              sum of all steps
+  parallel                sequential tasks + longest
+                          parallel task
+                          (if every task gets a processor)
+  distributed             multiple DEVICES
+  speedup                 sequential / parallel
+
+IMPACT
+  computing innovation    includes a program as an
+                          integral part of its function
+  identification          classification AND justification
+  one effect              can be beneficial AND harmful
+  digital divide          differing access, by socioeconomic,
+                          geographic, demographic
+                          -- groups AND individuals
+                          -- globally AND locally
+  it raises               equity, access, influence
+  affected by             individuals, organizations,
+                          governments
+  bias enters via         the ALGORITHM or the DATA
+                          -- at all levels
+  crowdsourcing           input from many people via
+                          the internet
+  citizen science         research by distributed
+                          individuals, using THEIR OWN
+                          devices
+  plagiarism              without permission AND
+                          presented as one's own
+  always cite             material created by others
+  Creative Commons        a license a creator applies
+  open source             programs
+  open access             research output
+  PII                     identifies, links, relates to,
+                          or DESCRIBES an individual
+  aggregation             disparate data combined to
+                          create knowledge about a person
+  strong password         hard to guess BASED ON
+                          KNOWLEDGE OF THAT USER
+  multifactor             2+ of knowledge, possession,
+                          inherence
+  symmetric               one key for both
+  public key              public encrypts, private decrypts
+  certificate authority   validates key ownership,
+                          on a TRUST MODEL
+  malware                 damages or takes partial control
+  virus                   malware that COPIES ITSELF
+  phishing                tricks a user into providing
+                          information
+  keylogging              records every keystroke
+  rogue access point      unauthorized access to a
+                          secure network
+  all systems             have exploitable flaws`;
+
+const Q4 = `QUARTER 4 -- WHAT IT IS
+
+  MCQ practice by Big Idea, weighted ABOVE session
+    share for Data and Impact of Computing
+
+  all three question formats
+    single-select, multi-select, reading passage
+
+  written response practice against YOUR OWN
+    Personalized Project Reference
+
+  full timed practice exams, at least two
+
+  targeted reteach, driven by your results
+
+Nothing new is taught. Everything is rehearsed.`;
+
+const WhatYouOwn = `AND ONE THING YOU ALREADY OWN
+
+  Your Personalized Project Reference is submitted.
+  It is four code segments you chose.
+
+  In May you answer four questions about it,
+  from memory, in sixty minutes.
+
+  That is FOUR OF YOUR SIX Create Task points --
+  and Quarter 4 is where you practice them.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.19: Quarter 3 Review</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>Three Things Today</h2>
+
+          <p>
+            <b>A review, the quarter checkpoint, and a look at Quarter 4.</b> The
+            checkpoint is 40 points and covers sessions 65 to 77 &mdash; not the Create
+            Task, which was already assessed.
+          </p>
+
+          <Code code={Quarter} frame="code" lang="txt" title="Where the Quarter Went" showLineNumbers={false} class="my-4" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.19</h2>
+              <h3 class="text-sn-theme">Quarter 3 Review</h3>
+            </section>
+
+            <section>
+              <h2>What This Quarter Was</h2>
+              <Code code={Quarter} frame="code" lang="txt" title="Three Blocks" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Thing to Notice</h2>
+              <p>You wrote no new programs after session 64.</p>
+              <p class="fragment">
+                And you covered <b>about a third of the multiple-choice paper.</b>
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">This is the part of the exam that is won by
+                precision with words.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Three Arguments Made Repeatedly</h2>
+              <p><b>More of a resource does not fix a structural limit.</b></p>
+              <p class="fragment">More data does not fix bias. More processors do not shorten the sequential portion.</p>
+              <p class="fragment">Sessions 44, 69, and 72.</p>
+            </section>
+
+            <section>
+              <h2>Two</h2>
+              <p><b>Openness is a feature and a vulnerability, and it is the same property.</b></p>
+              <p class="fragment">Open protocols let the internet grow &mdash; and let anyone connect.</p>
+              <p class="fragment">Open contribution makes crowdsourcing work &mdash; and lets anyone contribute badly.</p>
+            </section>
+
+            <section>
+              <h2>Three</h2>
+              <p><b>A correct program can still be the wrong thing to ship.</b></p>
+              <p class="fragment">The salary program had no defect in it.</p>
+              <p class="fragment">The anonymized data was correctly anonymized and identified four people.</p>
+            </section>
+
+            <section>
+              <h2>What the Checkpoint Asks</h2>
+              <p>Definitions, precisely. <b>Two calculations.</b> And two written answers.</p>
+              <p class="fragment">
+                The written ones are scored the way the exam scores them:
+                <b> classification and justification.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>And Then Quarter 4</h2>
+              <Code code={Q4} frame="code" lang="txt" title="Nothing New" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Part You Should Care About</h2>
+              <Code code={WhatYouOwn} frame="code" lang="txt" title="Four of Six" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>One Honest Warning</h2>
+              <p>You submitted your Project Reference weeks ago.</p>
+              <p class="fragment">
+                <b>In May you will have forgotten how your own code works.</b>
+              </p>
+              <p class="fragment">Everybody does. That is what Quarter 4 is for.</p>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The card -->
+        <section id="card">
+          <h2>The Card</h2>
+
+          <p>
+            <b>Everything from sessions 65 to 77 worth carrying into May.</b> Copy it,
+            print it, or rewrite it in your own words &mdash; the last of those is worth
+            the most.
+          </p>
+
+          <Code code={Card} frame="code" lang="txt" title="Quarter 3, On One Page" showLineNumbers={false} class="mb-3" />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Self diagnostic -->
+        <section id="diagnostic">
+          <h2>Before the Checkpoint</h2>
+
+          <p>
+            <b>Mark anything you cannot do without looking it up. Whatever you mark is
+            your revision.</b>
+          </p>
+
+          <h5 class="mt-4">Networks</h5>
+          <ul>
+            <li>Distinguish a computing device, a computing system and a computer network &mdash; <b>3.6</b></li>
+            <li>Say what routing is, without describing a path &mdash; <b>3.6</b></li>
+            <li>Give the units of bandwidth &mdash; <b>3.6</b></li>
+            <li>Say what <i>open</i> means and why it let the internet scale &mdash; <b>3.7</b></li>
+            <li>Define scalability &mdash; <b>3.7</b></li>
+            <li>Say what packet metadata is for &mdash; both jobs &mdash; <b>3.8</b></li>
+            <li>Name the three things that can happen to a packet &mdash; <b>3.8</b></li>
+            <li>Choose between TCP and UDP and justify it &mdash; <b>3.8</b></li>
+            <li>Distinguish the internet from the World Wide Web &mdash; <b>3.8</b></li>
+            <li>Define redundancy and fault tolerance, and say which causes which &mdash; <b>3.9</b></li>
+            <li><b>Identify a single point of failure in a diagram</b> &mdash; <b>3.9</b></li>
+            <li>Calculate sequential and parallel times <b>with a processor limit</b> &mdash; <b>3.10</b></li>
+            <li>Calculate speedup, the right way up &mdash; <b>3.10</b></li>
+            <li>Say why more processors stop helping &mdash; <b>3.10</b></li>
+          </ul>
+
+          <h5 class="mt-4">Impact</h5>
+          <ul>
+            <li>Say what makes something a computing innovation &mdash; <b>3.11</b></li>
+            <li><b>Give a classification and a justification, naming who</b> &mdash; <b>3.11</b></li>
+            <li>Explain how one effect is both beneficial and harmful &mdash; <b>3.11</b></li>
+            <li>Define the digital divide with <b>all three</b> characteristics &mdash; <b>3.12</b></li>
+            <li>Name the three issues it raises and the three actors &mdash; <b>3.12</b></li>
+            <li>Name <b>both</b> sources of bias &mdash; <b>3.13</b></li>
+            <li>Explain how a correct program can be biased &mdash; <b>3.13</b></li>
+            <li>Define crowdsourcing and citizen science &mdash; <b>3.14</b></li>
+            <li>Judge whether a task suits a crowd &mdash; <b>3.14</b></li>
+            <li>Give <b>both</b> conditions for plagiarism &mdash; <b>3.15</b></li>
+            <li>Distinguish Creative Commons, open source and open access &mdash; <b>3.15</b></li>
+            <li>Define PII, including all four verbs &mdash; <b>3.16</b></li>
+            <li><b>Explain aggregation</b> &mdash; <b>3.16</b></li>
+            <li>Say what makes a password strong, in the exam's terms &mdash; <b>3.17</b></li>
+            <li>Count authentication factors correctly &mdash; <b>3.17</b></li>
+            <li>Say which key encrypts and which decrypts &mdash; <b>3.17</b></li>
+            <li>Distinguish malware from a virus &mdash; <b>3.18</b></li>
+            <li>Define phishing, keylogging and a rogue access point &mdash; <b>3.18</b></li>
+          </ul>
+
+          <p class="mt-3">
+            <b>How many did you mark?</b> ______
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The three in bold are the ones students most often
+            cannot do under time pressure.</b> If you marked any of them, start there.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these after the checkpoint.</p>
+
+          <ol>
+            <li>You spent ten sessions on the Create Task with no feedback from anyone. Name one thing that made that harder than you expected, and one thing that made it easier.</li>
+            <li>Sessions 65 to 77 had no programming in them at all. Did that change how you studied? Be honest.</li>
+            <li>In May you answer four questions about code you wrote months ago. <b>Which of the four worries you most</b>, and what would you want to practice first in Quarter 4?</li>
+          </ol>
+
+          <p class="mt-3">
+            <b>Question 3's answers decide what Quarter 4 spends its time on.</b> Answer
+            it properly.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Your marked diagnostic and your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Quarter Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

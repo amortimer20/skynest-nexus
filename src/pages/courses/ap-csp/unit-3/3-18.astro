@@ -1,0 +1,381 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Definitions = `MALWARE
+
+  software intended to damage a computing system
+  or to take partial control over its operation
+
+COMPUTER VIRUS
+
+  a malicious program that can COPY ITSELF and gain
+  access to a computer in an unauthorized way
+
+  often attaches to legitimate programs and starts
+  running independently
+
+A virus is a kind of malware.
+Not all malware copies itself.`;
+
+const Flaws = `THE SENTENCE WORTH MEMORIZING
+
+  "ALL real-world systems have errors or design
+   flaws that can be exploited to compromise them.
+
+   Regular software updates help fix errors that
+   could compromise a computing system."
+
+Not "badly written systems." All of them.`;
+
+const Three = `THREE WAYS IN -- IOC-2.C
+
+  PHISHING            tricks a user into providing
+                      personal information
+
+  KEYLOGGING          a program recording every
+                      keystroke, to gain fraudulent
+                      access to passwords and other
+                      confidential information
+
+  ROGUE ACCESS POINT  a wireless access point that
+                      gives unauthorized access to
+                      secure networks`;
+
+const Public = `DATA ON PUBLIC NETWORKS
+
+  "Data sent over public networks can be
+   intercepted, analyzed, and modified."
+
+Three verbs. The third one is the one
+people do not expect.`;
+
+const Link = `AND THE DELIVERY MECHANISM
+
+  "A malicious link can be disguised on a web page."
+
+The link text says one thing.
+Where it goes is another.`;
+
+const Defense = `WHAT ACTUALLY HELPS
+
+  virus and malware scanning software
+  regular software updates
+  reviewing program permissions
+
+Three defenses, all named in the framework,
+none of them clever.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 3.18: Malware and Unauthorized Access</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Last Content Session of the Quarter</h2>
+
+          <p>
+            <b>Session 76 was how access is meant to be controlled.</b> This is how it
+            gets taken anyway &mdash; three named techniques, three named defenses, and
+            one sentence about why no system is safe by construction.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">This session is definitions.</b> Precise ones, and
+            the exam distinguishes between things that sound alike.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 3.18</h2>
+              <h3 class="text-sn-theme">Malware and Unauthorized Access</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Malware and Viruses Are Not the Same Word</p>
+              <p>Three Ways In</p>
+              <p>Every System Has Flaws</p>
+            </section>
+
+            <section>
+              <h2>Two Definitions</h2>
+              <Code code={Definitions} frame="code" lang="txt" title="Not Interchangeable" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>The Difference That Gets Tested</h2>
+              <p><b>Malware</b> is the category: software meant to damage or take partial control.</p>
+              <p class="fragment"><b>A virus</b> is malware that <b>copies itself</b> and attaches to legitimate programs.</p>
+              <p class="fragment">Every virus is malware. <b>Not all malware is a virus.</b></p>
+            </section>
+
+            <section>
+              <h2>Why Any of It Works</h2>
+              <Code code={Flaws} frame="code" lang="txt" title="IOC-2.B.10" showLineNumbers={false} />
+              <p class="fragment"><b class="text-sn-theme">All</b> real-world systems.</p>
+            </section>
+
+            <section>
+              <h2>Which Is Not Pessimism</h2>
+              <p>It is the reason updates exist.</p>
+              <p class="fragment">
+                <b>If flaws were unusual, an update would be an apology.</b> Because
+                they are universal, an update is maintenance.
+              </p>
+              <p class="fragment">Session 68 said elements of complex systems fail at unexpected times. Same idea.</p>
+            </section>
+
+            <section>
+              <h2>Three Named Techniques</h2>
+              <Code code={Three} frame="code" lang="txt" title="Learn All Three" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Phishing Is Not Technical</h2>
+              <p>It does not break anything. <b>It asks you.</b></p>
+              <p class="fragment">
+                A message that looks legitimate, a site that looks like the real one,
+                and you type your password into it.
+              </p>
+              <p class="fragment"><b>The strongest password in the world does not help here.</b></p>
+            </section>
+
+            <section>
+              <h2>Keylogging Records Everything</h2>
+              <p>Every keystroke. Passwords, card numbers, messages.</p>
+              <p class="fragment">
+                <b>Which means multifactor authentication is doing something a strong
+                password cannot</b> &mdash; a code sent to your phone was never typed.
+              </p>
+            </section>
+
+            <section>
+              <h2>Rogue Access Points</h2>
+              <Code code={Public} frame="code" lang="txt" title="Three Verbs" showLineNumbers={false} />
+              <p class="fragment">
+                A <b>rogue access point</b> is a wireless access point giving
+                unauthorized access to a secure network.
+              </p>
+            </section>
+
+            <section>
+              <h2>Modified Is the Surprising One</h2>
+              <p>Intercepted &mdash; somebody read it.</p>
+              <p class="fragment">Analyzed &mdash; somebody studied it.</p>
+              <p class="fragment"><b>Modified &mdash; somebody changed it and passed it on.</b></p>
+              <p class="fragment">Which is why encryption matters on a network you do not control.</p>
+            </section>
+
+            <section>
+              <h2>The Disguise</h2>
+              <Code code={Link} frame="code" lang="txt" title="A Malicious Link" showLineNumbers={false} />
+              <p class="fragment">The text of a link and its destination are two different things.</p>
+            </section>
+
+            <section>
+              <h2>What Helps</h2>
+              <Code code={Defense} frame="code" lang="txt" title="Three Defenses" showLineNumbers={false} />
+              <p class="fragment">Unglamorous, and they are what the framework names.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Distinguishing malware from a computer virus</li>
+                <li>Explaining why all real-world systems have exploitable flaws</li>
+                <li>Defining phishing, keylogging, and rogue access points</li>
+                <li>Explaining what can happen to data on a public network</li>
+                <li>Naming the defenses the framework identifies</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Malware</dt>
+                  <dd>Software intended to damage a computing system or take partial control over its operation.</dd>
+                  <dt>Computer virus</dt>
+                  <dd>A malicious program that can copy itself and gain unauthorized access, often by attaching to legitimate programs.</dd>
+                  <dt>Phishing</dt>
+                  <dd>A technique that attempts to trick a user into providing personal information.</dd>
+                  <dt>Keylogging</dt>
+                  <dd>Using a program to record every keystroke, to gain fraudulent access to passwords and confidential information.</dd>
+                  <dt>Rogue access point</dt>
+                  <dd>A wireless access point that gives unauthorized access to secure networks.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Today's Work</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Name the Technique</h3>
+
+          <p>
+            <b>Phishing</b>, <b>keylogging</b>, <b>rogue access point</b>, <b>virus</b>,
+            or <b>none of these</b>. One reason each.
+          </p>
+
+          <ol>
+            <li>An email that looks like it is from your bank, asking you to confirm your password</li>
+            <li>A free wireless network in a cafe, set up by somebody who is not the cafe</li>
+            <li>A program that attaches itself to a game and spreads to other programs when the game runs</li>
+            <li>A hidden program recording everything typed on a shared library computer</li>
+            <li>A website that guesses passwords by trying a million common ones</li>
+            <li>A link whose text says one address and which leads to another</li>
+          </ol>
+
+          <p>
+            <b>Item 5 is real and it is not one of the named techniques.</b> Say what the
+            framework <i>would</i> call the defense against it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Which Defense Would Have Helped?</h3>
+
+          <p>
+            For each attack, say whether <b>a strong password</b>, <b>multifactor
+            authentication</b>, <b>encryption</b>, <b>scanning software</b>, or
+            <b> a software update</b> would have helped &mdash; and say why the others
+            would not.
+          </p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>Attack</th><th>What helps</th><th>Why the others do not</th></tr></thead>
+            <tbody>
+              <tr><td>Phishing &mdash; the user typed their password into a fake site</td><td></td><td></td></tr>
+              <tr><td>Keylogging on a shared computer</td><td></td><td></td></tr>
+              <tr><td>Data read on a rogue access point</td><td></td><td></td></tr>
+              <tr><td>A virus attached to a downloaded program</td><td></td><td></td></tr>
+              <tr><td>An attacker exploiting a known flaw in old software</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            <b class="text-sn-theme">Row 1 is the important one.</b> A strong password
+            does not help against phishing. Say what does, and why.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: All Systems Have Flaws</h3>
+
+          <p>
+            <b>&quot;All real-world systems have errors or design flaws that can be
+            exploited to compromise them.&quot;</b>
+          </p>
+
+          <ol>
+            <li><b>Explain what that sentence rules out</b> as a security strategy.</li>
+            <li>
+              If flaws are universal, <b>why is a regular update schedule a defense</b>
+              rather than an admission of failure?
+            </li>
+            <li>
+              <b>Your own Create Task program has flaws in it.</b> Name one thing about
+              it you would want to fix if a stranger were going to use it.
+            </li>
+            <li>
+              Session 68 said elements of complex systems fail <b>at unexpected times,
+              often in groups.</b> Describe what these two statements have in common.
+            </li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Intercepted, Analyzed, Modified</h3>
+
+          <p>
+            <b>Data sent over a public network can be intercepted, analyzed, and
+            modified.</b>
+          </p>
+
+          <ol>
+            <li>Describe a harm from data being <b>intercepted</b>.</li>
+            <li>
+              Describe a harm from it being <b>analyzed</b> that is different from
+              simply being read. <b>Use a word from session 75.</b>
+            </li>
+            <li>
+              Describe a harm from it being <b>modified</b>. <b>This one is worse than
+              the other two</b> &mdash; say why.
+            </li>
+            <li><b>Which of these does encryption prevent, and which does it not?</b></li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>What is the difference between malware and a computer virus?</li>
+            <li>Which real-world systems have exploitable flaws?</li>
+            <li>Define phishing, keylogging, and a rogue access point.</li>
+            <li>Name the three things that can happen to data on a public network.</li>
+            <li>Name three defenses the framework identifies.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer these before submitting your work.</p>
+
+          <ol>
+            <li>Phishing does not break anything technical. Explain why that makes it harder to defend against than a technical attack.</li>
+            <li>Keylogging captures a typed password. Explain what multifactor authentication does that a stronger password could not.</li>
+            <li>&quot;All real-world systems have flaws.&quot; Explain how that sentence changes what &quot;secure&quot; can reasonably mean.</li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>All four tasks, plus your reflection.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

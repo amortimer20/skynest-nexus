@@ -1,0 +1,211 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Program = `let names       = ["Ade","Bianca","Cyrus","Dara","Elian",
+                   "Farah","Gus","Hana","Ivo","Jo"];
+let grade       = [11, 11, 11, 12, 12, 11, 12, 11, 12, 11];
+let homeroom    = ["B","B","C","A","A","B","A","C","A","B"];
+let birthMonth  = ["Mar","Sep","Mar","Jul","Mar",
+                   "Sep","Nov","Jul","Jul","Mar"];
+let club        = ["Chess","Chess","Robotics","Robotics","Chess",
+                   "Debate","Robotics","Debate","Chess","Robotics"];
+
+// Publish the club sign-ups, anonymized.
+function publish() {
+  console.log("grade  homeroom  birth  club");
+
+  for (let i = 0; i < names.length; i++) {
+    console.log(grade[i] + "     " + homeroom[i] +
+                "         " + birthMonth[i] + "    " + club[i]);
+  }
+}
+
+publish();`;
+
+const Output = `grade  homeroom  birth  club
+11     B         Mar    Chess
+11     B         Sep    Chess
+11     C         Mar    Robotics
+12     A         Jul    Robotics
+12     A         Mar    Chess
+11     B         Sep    Debate
+12     A         Nov    Robotics
+11     C         Jul    Debate
+12     A         Jul    Chess
+11     B         Mar    Robotics`;
+
+const TheClaim = `THE CLAIM
+
+  "The names are removed, so the data is anonymous."
+
+The names ARE removed. The output above contains
+no name and no student number.
+
+Test the claim.`;
+
+const WhoKnows = `WHAT A READER MIGHT ALREADY KNOW
+
+  Homeroom lists are posted on the wall.
+  Birthdays get announced in assembly.
+
+  So a reader may plausibly know, for any student,
+  their grade, their homeroom, and their birth month.
+
+They do not need the names list.
+They need to recognize a row.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: The Anonymous Data</h1>
+
+        <h4 class="text-sn-theme">
+          On paper &middot; the program is correct &middot; the claim is not
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            <b>A school wants to publish which clubs are popular</b> without revealing
+            who joined what. Somebody wrote this, removed the names, and published the
+            result.
+          </p>
+
+          <Code code={TheClaim} frame="code" lang="txt" title="The Claim" showLineNumbers={false} class="my-3" />
+
+          <p>
+            <b class="text-sn-theme">The program does exactly what it says.</b> There is
+            no bug. <b>The defect is in what somebody believed the output meant.</b>
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Paper only.</b> You can do all of this by reading the table.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="program">
+          <h2>The Program</h2>
+
+          <Code code={Program} frame="code" lang="javascript" title="publish" class="mb-4" />
+
+          <h3>What It Publishes</h3>
+
+          <Code code={Output} frame="terminal" lang="txt" title="Ten Rows, No Names" showLineNumbers={false} class="mb-4" />
+
+          <Code code={WhoKnows} frame="code" lang="txt" title="Before You Start" showLineNumbers={false} />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <h3>1. Break the Claim</h3>
+          <ol>
+            <li>
+              <b>Which rows are the only row with their combination of grade, homeroom
+              and birth month?</b> List them.
+            </li>
+            <li><b>How many of the ten students are uniquely identified this way?</b></li>
+            <li>
+              For each one you found, <b>name the student</b> (you have the names list)
+              and say <b>what has now been published about them.</b>
+            </li>
+            <li>
+              <b>Which students are safe, and why?</b> What do they have that the others
+              do not?
+            </li>
+          </ol>
+
+          <h3 class="mt-4">2. Name What Happened</h3>
+          <ol>
+            <li>
+              No single published column identifies anybody. <b>What is the word for
+              combining data this way to create knowledge about an individual?</b>
+            </li>
+            <li>
+              <b>Is grade PII? Is homeroom? Is birth month?</b> Answer for each, then
+              answer for all three together.
+            </li>
+            <li>
+              The definition of PII has four verbs. <b>Which one applies to a birth
+              month?</b>
+            </li>
+            <li>
+              <b>Is there a syntax error? A logic error?</b> Does <code>publish</code>{" "}
+              do what its name says?
+            </li>
+          </ol>
+
+          <h3 class="mt-4">3. Fix It</h3>
+
+          <p><b>Four options. Work out what each actually achieves.</b></p>
+
+          <table class="table table-sm align-middle mt-3">
+            <thead><tr><th>Option</th><th>How many students remain uniquely identified?</th><th>What is lost</th></tr></thead>
+            <tbody>
+              <tr><td><b>A.</b> Also remove <code>birthMonth</code></td><td></td><td></td></tr>
+              <tr><td><b>B.</b> Also remove <code>homeroom</code>, keep birth month</td><td></td><td></td></tr>
+              <tr><td><b>C.</b> Publish only the totals per club, no rows at all</td><td></td><td></td></tr>
+              <tr><td><b>D.</b> Publish rows only where at least three students share the combination</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+
+          <ol>
+            <li><b>Work out the numbers for A and B by hand.</b> One of them fixes it completely.</li>
+            <li><b>Which option would you choose, and what does the school lose?</b></li>
+            <li>
+              <b>Option C loses the most and is the safest.</b> Say what question the
+              school can no longer answer with it.
+            </li>
+          </ol>
+
+          <h3 class="mt-4">4. The General Lesson</h3>
+          <ol>
+            <li>
+              <b>Write one sentence</b> that a person publishing any dataset should check
+              before they publish it.
+            </li>
+            <li>
+              At session 43 you removed the location from a photo's metadata and the
+              image was unchanged. <b>Explain how that activity and this one are the same
+              idea from opposite directions.</b>
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            All four sections, including your completed options table with the numbers
+            worked out for A and B.
+          </p>
+
+          <p>Worth <b>4 points</b>, graded on completion.</p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
