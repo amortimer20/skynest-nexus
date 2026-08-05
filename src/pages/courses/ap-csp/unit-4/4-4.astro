@@ -1,0 +1,209 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Rubric = `EACH ROW IS ONE POINT OR NOTHING. NO HALVES.
+
+WR1   earns the point when the response
+        • identifies an expected user
+      AND
+        • describes one way the design meets that
+          user's need
+
+WR2(a) earns the point when the response
+        • states how many times the loop body runs
+      AND
+        • describes a condition or change causing an
+          infinite loop
+
+WR2(b) earns the point when the response
+        • describes a change producing a run-time error
+      AND
+        • explains why it is a run-time error
+
+WR2(c) earns the point when the algorithm
+        • iterates over every element of the list
+        • calls isEqual on each element
+        • keeps a running count
+        • correctly produces that count`;
+
+const ZeroPatterns = `THE FIVE WAYS A REAL ANSWER STILL SCORES ZERO
+
+  WR1    a user and a design feature that do not
+         connect to each other
+  WR2(a) the count, with no infinite-loop change
+  WR2(b) a logic error described as a run-time error
+         (the program still finishes)
+  WR2(c) "count how many match" — true, and not
+         detailed enough to code from
+  WR2(c) an algorithm that stops at the first match
+         instead of checking every element`;
+
+const HowToMark = `MARK LIKE A READER, NOT A FRIEND
+
+  For each row, find BOTH required parts in the
+  writing. If you have to assume a part was meant,
+  it is not there — score it 0.
+
+  A reader gives no credit for what you clearly
+  understood but did not write down.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.4: Marking the Written Responses</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The First Real Feedback</h2>
+
+          <p>
+            <b>Since session 55 nobody has been allowed to tell you whether a written
+            response was any good.</b> That rule is over &mdash; the task is submitted
+            &mdash; and today you learn to mark these the way a reader does.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Marking your own answer against the criteria is
+            the single fastest way to improve it.</b> Once you can see why a plausible
+            answer scores zero, you stop writing plausible answers.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- The rubric -->
+        <section id="rubric">
+          <h2>The Scoring Criteria</h2>
+
+          <p>
+            <b>These are the real rows.</b> Four points, one per response, each earned
+            in full or not at all.
+          </p>
+
+          <Code code={Rubric} frame="code" lang="txt" title="What Earns Each Point" showLineNumbers={false} class="mb-4" />
+
+          <p>
+            <b>Notice the word <code>AND</code> in three of the four</b>, and the four
+            bullets in WR2(c) that all have to be present. <b>There is no partial
+            credit inside a row.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- How to mark -->
+        <section id="how">
+          <h2>How a Reader Marks</h2>
+
+          <Code code={HowToMark} frame="code" lang="txt" title="The Rule" showLineNumbers={false} class="mb-4" />
+
+          <p>
+            <b>This is the hard part, and it is the point of the session.</b> When you
+            mark your own work you know what you meant. A reader does not. <b>If a
+            required part is not written down, it is not there</b> &mdash; however
+            obviously you understood it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Zero patterns -->
+        <section id="zeros">
+          <h2>Five Answers That Look Right and Score Zero</h2>
+
+          <Code code={ZeroPatterns} frame="code" lang="txt" title="Learn to Spot These" showLineNumbers={false} class="mb-4" />
+
+          <p>
+            <b>Every one of these is an answer a student who understood the material
+            would write.</b> They fail on a missing half, a wrong error type, or a
+            description too loose to code from &mdash; not on a misunderstanding. <b>The
+            reader cannot see your understanding, only your sentences.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Mark -->
+        <section id="mark">
+          <h2>Mark Them</h2>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Mark Your Own</h3>
+          <ul>
+            <li>Take your four responses from session 4.3.</li>
+            <li>For each, find both required parts in your own writing. Score it 1 or 0.</li>
+            <li>For every 0, write one sentence: <b>what was missing?</b></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Mark a Partner's</h3>
+          <ul>
+            <li>Swap with someone. Mark theirs against the same criteria.</li>
+            <li><b>Mark only what is written</b>, not what you can tell they meant.</li>
+            <li>Compare your marks to the ones they gave themselves. <b>Where you disagree is where the learning is.</b></li>
+          </ul>
+
+          <p class="mt-3">
+            <b class="text-sn-theme">A partner marks like a reader more easily than you
+            do</b>, because they cannot see what you meant &mdash; only what you wrote.
+            That is exactly the reader's position in May.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Rewrite One</h3>
+          <ul>
+            <li>Pick the response you scored lowest.</li>
+            <li>Rewrite it so it earns the point &mdash; add the missing half, fix the error type, or make the algorithm detailed enough to code from.</li>
+            <li>Mark it again.</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>How much partial credit is available inside a single row?</li>
+            <li>What is the rule about parts you understood but did not write down?</li>
+            <li>Name the WR2(b) answer that scores zero despite being a real change to the code.</li>
+            <li>Which of your four responses needs the most work before May?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your self-marked responses, your partner's marks, and one rewritten
+            response with its new score.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

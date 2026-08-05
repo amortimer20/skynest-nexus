@@ -1,0 +1,164 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Conditions = `EXAM CONDITIONS
+
+  60 minutes on the clock. One sitting.
+  Your Personalized Project Reference in front of you.
+  Nothing else — no program, no notes, no phone.
+
+  Four prompts. Answer all four.
+  Write in full sentences.`;
+
+const Prompts = `WR1  — Program Design, Function, and Purpose
+  Identify an expected user of your program, and
+  describe one way the design meets that user's needs.
+
+WR2(a) — Algorithm Development
+  For the first iteration statement in your Procedure
+  segment: how many times does its body execute, and
+  what change would make it loop forever?
+
+WR2(b) — Errors and Testing
+  For the procedure in part (i): describe a change that
+  causes a run-time error, and explain why.
+
+WR2(c) — Data and Procedural Abstraction
+  You are given isEqual(value1, value2). Using the list
+  in your Data segment, explain in detailed steps an
+  algorithm that counts how many elements equal a
+  certain value.`;
+
+const Pacing = `A CLOCK THAT WORKS
+
+  0:00   read all four prompts first
+  0:05   WR2(c)  — the one you can almost pre-write
+  0:18   WR2(a)  — count, then the infinite-loop change
+  0:30   WR2(b)  — the run-time error, and why
+  0:42   WR1     — user, then the need
+  0:54   read all four back. Check every AND is answered
+  1:00   stop`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.3: The Full Written-Response Set, Timed</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Real Thing, Once, Before May</h2>
+
+          <p>
+            <b>You have written all four of these responses on separate days.</b>
+            Today you write them the way the exam asks &mdash; four prompts, sixty
+            minutes, your Project Reference and nothing else.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The point of today is not the responses. It is the
+            clock.</b> Four good answers you cannot finish in an hour score exactly as
+            well as four blank pages. Pacing is the skill this session trains.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Conditions -->
+        <section id="conditions">
+          <h2>The Conditions</h2>
+
+          <Code code={Conditions} frame="code" lang="txt" title="Set Up Like the Exam" showLineNumbers={false} class="mb-4" />
+
+          <p>
+            <b>Put everything away except your Project Reference.</b> In May that is
+            all you will have &mdash; not your program, not this course, not your
+            earlier answers. Practicing with more than that is practicing the wrong
+            thing.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Prompts -->
+        <section id="prompts">
+          <h2>The Four Prompts</h2>
+
+          <Code code={Prompts} frame="code" lang="txt" title="Answer All Four" showLineNumbers={false} class="mb-4" />
+
+          <p>
+            <b>The wording on your real exam will differ slightly.</b> The four
+            categories do not. If you can answer these four, you can answer the ones
+            you will be given.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Pacing -->
+        <section id="pacing">
+          <h2>A Suggested Clock</h2>
+
+          <Code code={Pacing} frame="code" lang="txt" title="Sixty Minutes" showLineNumbers={false} class="mb-4" />
+
+          <ul>
+            <li><b>Read all four before writing anything.</b> Five minutes that stops you starting the wrong answer.</li>
+            <li><b>WR2(c) first</b> &mdash; it is the most predictable, so it is where you bank an early point and settle down.</li>
+            <li><b>Leave six minutes at the end</b> to check that every prompt with an <b>AND</b> in it has both halves.</li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">The six-minute check at the end recovers more
+            points than any single answer.</b> Half-answered prompts are the most
+            common way to lose marks here, and they are the easiest to catch.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Run -->
+        <section id="run">
+          <h2>Run It</h2>
+
+          <ol>
+            <li>Project Reference out. Everything else away.</li>
+            <li>Sixty minutes on the clock, and do not stop it.</li>
+            <li>Answer all four, in full sentences.</li>
+            <li>Keep your answers &mdash; session 4.4 is marking them.</li>
+          </ol>
+
+          <p>
+            <b>If the clock runs out with a prompt unfinished, stop anyway and note
+            where you were.</b> That is information: it tells you which response to
+            speed up next time, and running over hides it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Your four timed responses, and a note of where you were when the clock stopped.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,300 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Sample = `let steps = [8200, 4500, 11000, 8200, 3000, 12500, 7600];
+let goal = 8000;
+
+function daysAtGoal(log, target) {
+  let count = 0;
+
+  for (let i = 0; i < log.length; i++) {
+    if (log[i] >= target) {
+      count = count + 1;
+    }
+  }
+
+  return count;
+}
+
+let hit = daysAtGoal(steps, goal);
+console.log("You hit your goal on " + hit + " of " + steps.length + " days.");`;
+
+const PromptC = `WRITTEN RESPONSE 2(c) — Data and Procedural Abstraction
+
+You are given isEqual(value1, value2), which returns
+true if the two values are equal and false otherwise.
+
+Using the list in your Data segment, explain in
+detailed steps an algorithm that counts the number of
+elements equal to a certain value.
+
+Your explanation must be detailed enough for someone
+else to write the program code.`;
+
+const ChecklistC = `THE FOUR THINGS THE ALGORITHM MUST DO
+
+  1  go through EVERY element of the list
+  2  call isEqual on each element
+  3  keep a running count
+  4  produce the count — return it, store it,
+     or display it
+
+Miss any one and the point is gone.`;
+
+const WorkedC = `Using the list 'steps':
+
+  1. Make a variable count and set it to 0.
+  2. Look at each element of steps in turn, from the
+     first to the last, until every element has been
+     looked at.
+  3. For each element, call isEqual with that element
+     and the target value.
+  4. If isEqual returns true, add 1 to count.
+  5. After every element has been checked, count holds
+     the number of elements equal to the target.
+     Return count.`;
+
+const PromptWR1 = `WRITTEN RESPONSE 1 — Program Design, Function, and Purpose
+
+  • identify an expected USER of your program
+  AND
+  • describe one way the program's DESIGN meets that
+    user's needs.
+
+Both parts, and the second must connect to the first.`;
+
+const WorkedWR1 = `An expected user is someone trying to build a daily
+walking habit who wants to know whether they are
+keeping it up.
+
+The design meets that user's need because the program
+counts how many days out of the week reached their
+chosen goal and reports it as "X of 7 days" — so the
+user sees at a glance whether they are on track,
+without reading through every day's number themselves.`;
+
+const BadWR1 = `ANSWERS THAT SCORE ZERO
+
+  "The user is anyone who wants to track steps."
+    — 'anyone' is not a user.
+
+  "It's a helpful fitness app."
+    — names no need and no design feature.
+
+  "The user is a runner. The design uses a loop."
+    — a user and a design feature, but the design
+      is not connected to the RUNNER'S need.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 4.2: Written Responses 2(c) and 1</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Brief -->
+        <section id="brief">
+          <h2>The Other Two Points</h2>
+
+          <p>
+            <b>The remaining two written responses.</b> WR2(c) is an algorithm you can
+            walk in already knowing how to write &mdash; it is the same shape every
+            year. WR1 is about who your program is for.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">WR2(c) is the most predictable question on the
+            exam.</b> Same algorithm, over whatever list you happen to have put in your
+            reference. You rehearsed it at <code>wr-algorithm</code>. Today you write
+            the version you will hand in.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 4.2</h2>
+              <h3 class="text-sn-theme">Written Responses 2(c) and 1</h3>
+            </section>
+
+            <section>
+              <h2>WR2(c) Is Almost Free</h2>
+              <p>It is the same algorithm every year: <b>count how many elements equal a value.</b></p>
+              <p class="fragment">You are handed <code>isEqual</code>. You supply the loop and the count.</p>
+              <p class="fragment">Learn it once now and it is a guaranteed point in May.</p>
+            </section>
+
+            <section>
+              <h2>Four Things, All Four Required</h2>
+              <p>Go through <b>every</b> element.</p>
+              <p class="fragment">Call <code>isEqual</code> on each.</p>
+              <p class="fragment">Keep a running <b>count</b>.</p>
+              <p class="fragment">Produce it &mdash; return, store, or display.</p>
+            </section>
+
+            <section>
+              <h2>"Detailed Enough for Someone Else to Code"</h2>
+              <p>That is the phrase in the prompt, and it is the bar.</p>
+              <p class="fragment">&quot;Count how many match&quot; is true and scores nothing.</p>
+              <p class="fragment">It has to be steps somebody could follow without guessing.</p>
+            </section>
+
+            <section>
+              <h2>WR1: Name a Person and a Need</h2>
+              <p>An <b>expected user</b> &mdash; a specific someone, not &quot;anyone&quot;.</p>
+              <p class="fragment">And one way the <b>design</b> meets <b>that</b> user's need.</p>
+              <p class="fragment">The two halves have to connect.</p>
+            </section>
+
+            <section>
+              <h2>The WR1 Trap</h2>
+              <p>A user, and a design feature, that have nothing to do with each other.</p>
+              <p class="fragment"><i>&quot;The user is a runner. The design uses a loop.&quot;</i></p>
+              <p class="fragment">True, true, and zero &mdash; the loop does not meet the runner's need.</p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Writing the WR2(c) counting algorithm against your own list, all four requirements</li>
+                <li>Making the description detailed enough to code from</li>
+                <li>Identifying a specific expected user of your program</li>
+                <li>Connecting one design feature to that user's need</li>
+              </ul>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Worked: WR2(c) -->
+        <section id="wr2c">
+          <h2>Worked Example &mdash; WR2(c)</h2>
+
+          <p>The same fictional program:</p>
+          <Code code={Sample} frame="code" lang="javascript" class="mb-4" />
+
+          <Code code={PromptC} frame="code" lang="txt" title="The Prompt" showLineNumbers={false} class="mb-4" />
+
+          <Code code={ChecklistC} frame="code" lang="txt" title="The Four Requirements" showLineNumbers={false} class="mb-4" />
+
+          <p>A full-credit answer:</p>
+          <Code code={WorkedC} frame="code" lang="txt" title="Detailed Enough to Code" showLineNumbers={false} />
+
+          <h5 class="mt-4">Check it against the four</h5>
+          <ul>
+            <li><b>Every element</b> &mdash; &quot;from the first to the last, until every element has been looked at.&quot;</li>
+            <li><b>Calls <code>isEqual</code></b> &mdash; on each element and the target.</li>
+            <li><b>Running count</b> &mdash; a variable that starts at 0 and goes up.</li>
+            <li><b>Produces it</b> &mdash; returns <code>count</code>.</li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">The clause students drop is &quot;until every
+            element has been looked at.&quot;</b> Without it, the description could stop
+            at the first match &mdash; and a reader could not tell whether you meant to
+            count or just to find.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Worked: WR1 -->
+        <section id="wr1">
+          <h2>Worked Example &mdash; WR1</h2>
+
+          <Code code={PromptWR1} frame="code" lang="txt" title="The Prompt" showLineNumbers={false} class="mb-4" />
+
+          <p>A full-credit answer:</p>
+          <Code code={WorkedWR1} frame="code" lang="txt" title="User, and Need Met" showLineNumbers={false} class="mb-4" />
+
+          <p>And the ones that do not earn it:</p>
+          <Code code={BadWR1} frame="code" lang="txt" title="Three Ways to Score Zero" showLineNumbers={false} />
+
+          <p class="mt-3">
+            <b>The third bad answer is the instructive one.</b> It has a real user and
+            a real design feature &mdash; and it still scores zero, because the design
+            feature is not described as meeting <b>that user's</b> need. <b>The two
+            halves have to connect.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Apply -->
+        <section id="apply">
+          <h2>Now Your Own Program</h2>
+
+          <p><b>Open your Project Reference.</b> Both responses, in full sentences, on paper.</p>
+
+          <hr class="my-4" />
+
+          <h3>Your WR2(c)</h3>
+          <ul>
+            <li>Name the list in your Data segment.</li>
+            <li>Pick a value to count &mdash; any value the list could hold.</li>
+            <li>Write the algorithm in numbered steps, and check it against all four requirements yourself.</li>
+            <li><b>The clause to include:</b> that the algorithm looks at every element, not just until it finds one.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Your WR1</h3>
+          <ul>
+            <li>Name <b>one specific expected user.</b> Not &quot;anyone&quot;, not &quot;people&quot; &mdash; a person with a situation.</li>
+            <li>Describe <b>one feature of your design</b> and say <b>how it meets that user's need.</b></li>
+            <li>Read it back: does the design half connect to the user half? If they are two separate facts, rewrite until they meet.</li>
+          </ul>
+
+          <p class="mt-3">
+            <b class="text-sn-theme">Keep both answers.</b> The WR2(c) you write today
+            is nearly the WR2(c) you write in May &mdash; only the list name and the
+            value change. This is the cheapest exam point available to you.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Name the four things a WR2(c) algorithm must do.</li>
+            <li>Why does &quot;count how many match&quot; score zero?</li>
+            <li>Why is &quot;anyone who wants to track steps&quot; not a valid WR1 user?</li>
+            <li>What makes the third bad WR1 answer fail, even though both its halves are real?</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Your WR2(c) and WR1, in full sentences, about your own program.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
