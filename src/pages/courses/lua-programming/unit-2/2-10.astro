@@ -1,0 +1,1110 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+const HEAD = `-- main.lua
+
+local Enemy = require("enemy")
+local collision = require("collision")
+`;
+
+const STATE1 = `
+local ship
+local font
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+local spawnTimer = 0
+local spawnEvery = 0.8
+local score = 0
+local lives = 3
+local invuln = 0
+local gameState = "menu"
+`;
+
+const STATE2 = `
+local ship
+local font
+local spawnEvery = 0.8
+local gameState = "menu"
+
+local player
+local bullets
+local fireCooldown
+local enemies
+local spawnTimer
+local score
+local lives
+local invuln
+
+local function resetGame()
+  player = { x = 400, y = 500, size = 40, speed = 300 }
+  bullets = {}
+  fireCooldown = 0
+  enemies = {}
+  spawnTimer = 0
+  score = 0
+  lives = 3
+  invuln = 0
+end
+`;
+
+const STATE3 = `
+local ship
+local font
+local titleFont
+local spawnEvery = 0.8
+local gameState = "menu"
+
+local player
+local bullets
+local fireCooldown
+local enemies
+local spawnTimer
+local score
+local lives
+local invuln
+
+local function resetGame()
+  player = { x = 400, y = 500, size = 40, speed = 300 }
+  bullets = {}
+  fireCooldown = 0
+  enemies = {}
+  spawnTimer = 0
+  score = 0
+  lives = 3
+  invuln = 0
+end
+`;
+
+const LOAD1 = `
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+  font = love.graphics.newFont(20)
+  love.graphics.setFont(font)
+end
+`;
+
+const LOAD2 = `
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+  font = love.graphics.newFont(20)
+  love.graphics.setFont(font)
+  resetGame()
+end
+`;
+
+const LOAD3 = `
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+  font = love.graphics.newFont(20)
+  titleFont = love.graphics.newFont(48)
+  love.graphics.setFont(font)
+  resetGame()
+end
+`;
+
+const KEY1 = `
+function love.keypressed(key)
+  if key == "escape" then
+    love.event.quit()
+  elseif key == "space" and gameState ~= "playing" then
+    gameState = "playing"
+  end
+end
+`;
+
+const KEY2 = `
+function love.keypressed(key)
+  if key == "escape" then
+    love.event.quit()
+  elseif key == "space" and gameState ~= "playing" then
+    resetGame()
+    gameState = "playing"
+  end
+end
+`;
+
+const U_GATE = `
+function love.update(dt)
+  if gameState ~= "playing" then
+    return
+  end
+
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+`;
+
+const U_TIMERS = `
+  fireCooldown = fireCooldown - dt
+  invuln = invuln - dt
+
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+`;
+
+const U_SPAWN = `
+  spawnTimer = spawnTimer - dt
+  if spawnTimer <= 0 then
+    table.insert(enemies, Enemy.new(math.random(40, love.graphics.getWidth() - 40)))
+    spawnTimer = spawnEvery
+  end
+
+  for i = #enemies, 1, -1 do
+    local e = enemies[i]
+    e:update(dt)
+    if e.y > love.graphics.getHeight() + 20 then
+      table.remove(enemies, i)
+    end
+  end
+`;
+
+const U_HIT = `
+  if invuln <= 0 then
+    for i = #enemies, 1, -1 do
+      if collision.overlaps(enemies[i], player) then
+        table.remove(enemies, i)
+        lives = lives - 1
+        invuln = 2
+        if lives <= 0 then
+          gameState = "gameover"
+        end
+        break
+      end
+    end
+  end
+`;
+
+const U_TAIL = `
+  for i = #enemies, 1, -1 do
+    for j = #bullets, 1, -1 do
+      if collision.overlaps(enemies[i], bullets[j]) then
+        table.remove(bullets, j)
+        enemies[i].hp = enemies[i].hp - 1
+        if enemies[i].hp <= 0 then
+          table.remove(enemies, i)
+          score = score + 1
+        end
+        break
+      end
+    end
+  end
+end
+`;
+
+const HUD = `
+local function drawHud()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Score: " .. score, 10, 12)
+
+  for i = 1, lives do
+    local x = love.graphics.getWidth() - 24 - (i - 1) * 30
+    love.graphics.draw(ship, x, 24, 0, 1, 1, ship:getWidth() / 2, ship:getHeight() / 2)
+  end
+end
+`;
+
+const OVERLAY_FN = `
+local function drawOverlay(title, subtitle)
+  love.graphics.setColor(0, 0, 0, 0.7)
+  love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.setFont(titleFont)
+  love.graphics.printf(title, 0, 220, love.graphics.getWidth(), "center")
+
+  love.graphics.setFont(font)
+  love.graphics.printf(subtitle, 0, 300, love.graphics.getWidth(), "center")
+end
+`;
+
+const D_WORLD = `
+function love.draw()
+  local blink = invuln > 0 and math.floor(invuln * 10) % 2 == 1
+
+  if not blink then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+  end
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  drawHud()
+`;
+
+const D_TEXT12 = `
+  if gameState == "menu" then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.printf("SKYNEST", 0, 220, love.graphics.getWidth(), "center")
+    love.graphics.printf("Press space to play", 0, 300, love.graphics.getWidth(), "center")
+  elseif gameState == "gameover" then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.printf("GAME OVER", 0, 220, love.graphics.getWidth(), "center")
+    love.graphics.printf("Press space to play again", 0, 300, love.graphics.getWidth(), "center")
+  end
+end`;
+
+const D_TEXT3 = `
+  if gameState == "menu" then
+    drawOverlay("SKYNEST", "Press space to play")
+  elseif gameState == "gameover" then
+    drawOverlay("GAME OVER", "Score " .. score .. " - press space to play again")
+  end
+end`;
+
+//#region CodeSnippets
+const EnemyModule = `-- enemy.lua
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120, hp = 2 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.setColor(1, 0.3, 0.4)
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+
+return Enemy`;
+
+const CollisionModule = `-- collision.lua
+
+local collision = {}
+
+function collision.overlaps(a, b)
+  return a.x - a.size / 2 < b.x + b.size / 2
+     and a.x + a.size / 2 > b.x - b.size / 2
+     and a.y - a.size / 2 < b.y + b.size / 2
+     and a.y + a.size / 2 > b.y - b.size / 2
+end
+
+return collision`;
+
+const Figure1 = `function love.update(dt)
+  if gameState ~= "playing" then
+    return
+  end
+
+  -- the entire game, exactly as it was
+end
+
+function love.draw()
+  -- the world, always
+
+  if gameState == "menu" then
+    -- a title
+  elseif gameState == "gameover" then
+    -- a score and a prompt
+  end
+end`;
+
+const Figure2 = `-- A question, asked every frame: true sixty times a second
+function love.update(dt)
+  if love.keyboard.isDown("space") then
+    fire()
+  end
+end
+
+-- A doorbell, rung once, at the moment the key goes down
+function love.keypressed(key)
+  if key == "space" then
+    startGame()
+  end
+end`;
+
+const Figure3 = `-- Belongs to the program. Made once, in love.load.
+local ship
+local font
+local spawnEvery = 0.8
+local gameState = "menu"
+
+-- Belongs to one run. Made again every time a run starts.
+local player
+local bullets
+local score
+local lives`;
+
+const Figure4 = `love.graphics.printf("GAME OVER", 0, 220, love.graphics.getWidth(), "center")`;
+
+const Figure5 = `love.graphics.setColor(0, 0, 0, 0.7)
+love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+
+love.graphics.setColor(1, 1, 1)`;
+
+const Task1 =
+  HEAD + STATE1 + LOAD1 + KEY1 + U_GATE + U_TIMERS + U_SPAWN + U_HIT +
+  U_TAIL + HUD + D_WORLD + D_TEXT12;
+const Task2 =
+  HEAD + STATE2 + LOAD2 + KEY2 + U_GATE + U_TIMERS + U_SPAWN + U_HIT +
+  U_TAIL + HUD + D_WORLD + D_TEXT12;
+const Task3 =
+  HEAD + STATE3 + LOAD3 + KEY2 + U_GATE + U_TIMERS + U_SPAWN + U_HIT +
+  U_TAIL + HUD + OVERLAY_FN + D_WORLD + D_TEXT3;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.10: Game States</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Your game has no beginning and no end. It starts mid-battle before
+            the window has finished appearing, and when your third life goes it
+            quietly puts everything back and carries on as though nothing
+            happened.{" "}
+            <b class="text-sn-theme">Both problems are the same problem: the
+            game is always in exactly one situation, and nothing in your code
+            says which.</b>
+          </p>
+
+          <p>
+            The fix is a single variable holding a string.
+          </p>
+
+          <h3 class="mt-5">A state machine is one variable and two questions</h3>
+
+          <p>
+            <CodeSnippet
+              code={`local gameState = "menu"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            will hold one of{" "}
+            <CodeSnippet
+              code={`"menu"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />,{" "}
+            <CodeSnippet
+              code={`"playing"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, or{" "}
+            <CodeSnippet
+              code={`"gameover"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. Two places ask what it says.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            That is the whole technique. No library, no table of transition
+            rules, no pattern with a name in a book. Strings compare by value in
+            Lua, so{" "}
+            <CodeSnippet
+              code={`gameState == "gameover"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            does exactly what it looks like, and{" "}
+            <b>a string beats a number here purely because you can read it</b>{" "}
+            &mdash; nobody has ever debugged{" "}
+            <CodeSnippet
+              code="gameState == 2"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            happily.
+          </p>
+
+          <h3 class="mt-5">Two lines, not sixty</h3>
+
+          <p>
+            The guard on{" "}
+            <CodeSnippet
+              code="love.update"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is an <b class="text-sn-theme">early return</b>, and the reason
+            matters. Wrapping the sixty-line body in an{" "}
+            <CodeSnippet
+              code="if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            would indent every line of it, so your next diff shows sixty changed
+            lines of which none actually changed. Two lines at the top say the
+            same thing and leave the rest of the function alone.
+          </p>
+
+          <p>
+            Notice that only <i>update</i> is gated.{" "}
+            <CodeSnippet
+              code="love.draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            keeps running in every state, which is why the game-over screen can
+            sit on top of your frozen final moment for free.{" "}
+            <b>Stopping the simulation and stopping the picture are different
+            decisions</b>, and separating them is most of what a state machine
+            buys you.
+          </p>
+
+          <h3 class="mt-5">isDown is a question; keypressed is a doorbell</h3>
+
+          <p>
+            This is the one genuinely new LÖVE concept on the page, and it is
+            the difference between a menu that works and a menu you never see.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="two kinds of input"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            <CodeSnippet
+              code="love.keyboard.isDown"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            reports a <b>condition</b>: it is true on all sixty frames of a
+            one-second keypress. That is exactly right for holding left, and
+            exactly wrong for a menu.{" "}
+            <CodeSnippet
+              code="love.keypressed"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is an <b>event</b>: LÖVE calls it once, when the key goes down, and
+            does not call it again until you let go and press it again. Key
+            repeat is off unless you switch it on with{" "}
+            <CodeSnippet
+              code="love.keyboard.setKeyRepeat(true)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            Getting this wrong has a memorable symptom. You die with space held
+            down, because you were shooting. If the restart is written with{" "}
+            <CodeSnippet
+              code="isDown"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, the very next frame sees space still down and starts a new game.
+            I measured it:{" "}
+            <b class="text-sn-theme">the game-over screen is on screen for one
+            frame, 0.0167 seconds</b>, and the player has no idea they died. The
+            menu at startup does not appear at all.
+          </p>
+
+          <p>
+            The rule is general and outlives this game.{" "}
+            <b>Continuous actions want state; moments want events.</b> Walking,
+            steering, and holding fire are state. Jumping, pausing, confirming,
+            and firing one shot per press are events.
+          </p>
+
+          <h3 class="mt-5">Restarting is not setting gameState back</h3>
+
+          <p>
+            Task 1 flips the variable and nothing else, which is the honest
+            first attempt and it is broken.{" "}
+            <CodeSnippet
+              code="lives"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is still zero, the enemies from your last run are still falling, and{" "}
+            <CodeSnippet
+              code="invuln"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is still counting down from whenever it last ran out. Under the
+            harness the restarted game shows{" "}
+            <b>zero life icons and ends on the next thing you touch.</b>
+          </p>
+
+          <p>
+            The reliable fix is one function that owns every value belonging to a
+            single run, called from{" "}
+            <CodeSnippet
+              code="love.load"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            <i>and</i> from the restart.{" "}
+            <b class="text-sn-theme">If those two paths set the game up
+            differently, the second game you play is not the same game as the
+            first</b>, and the difference will be a variable you forgot rather
+            than one you chose.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            The state block splits in two, and the split is the point. Where a
+            variable is declared now tells you how long it lives: the top group
+            is made once and lasts as long as the program, the bottom group is
+            made fresh for every run. Nothing enforces this &mdash;{" "}
+            <b>it is a convention that makes the forgotten-variable bug visible
+            instead of invisible.</b>
+          </p>
+
+          <p>
+            Rebuilding the player as a whole new table is easier than putting its
+            fields back one at a time, and it cannot leave a field behind. The
+            bare{" "}
+            <CodeSnippet
+              code="local player"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is nil until{" "}
+            <CodeSnippet
+              code="resetGame"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            runs, the same shape{" "}
+            <CodeSnippet
+              code="ship"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            has had since Activity 2.4.
+          </p>
+
+          <h3 class="mt-5">Text in the middle of the window</h3>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            <CodeSnippet
+              code="printf"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            takes a width to work within and an alignment. Give it the whole
+            window and{" "}
+            <CodeSnippet
+              code={`"center"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and it centers the line for you, so <b>you never measure text</b> and
+            the title stays centered if the window changes size. The{" "}
+            <CodeSnippet
+              code="0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is the left edge of that width, not the left edge of the text.
+          </p>
+
+          <h3 class="mt-5">Dimming the world, and one fact about alpha</h3>
+
+          <Code
+            code={Figure5}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            A fourth argument to{" "}
+            <CodeSnippet
+              code="setColor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is alpha, on the same 0 to 1 scale as the colors. A black rectangle
+            over the whole window at{" "}
+            <CodeSnippet
+              code="0.7"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            leaves your game faintly visible underneath, which is why the
+            game-over screen is worth looking at.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Alpha is not carried over.</b> LÖVE's source
+            defaults the fourth argument to 1 whenever you leave it out, so the
+            plain three-argument{" "}
+            <CodeSnippet
+              code="setColor(1, 1, 1)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            on the next line puts you back to fully opaque without your having to
+            think about it. This is the one piece of graphics state that does not
+            behave the way Activity 2.2 taught you to expect, and it behaves the
+            more convenient way.
+          </p>
+
+          <p>
+            The font, meanwhile, is as sticky as ever.{" "}
+            <CodeSnippet
+              code="drawOverlay"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            switches to the big font and switches back, and if it forgets the
+            second half your score reads at forty-eight points from the next
+            frame onward.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            enemy.lua and collision.lua are untouched again. Everything here is
+            main.lua.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Three states and a doorbell</h3>
+          <ul>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code={`local gameState = "menu"`}
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              to the state block.
+            </li>
+            <li>
+              Guard{" "}
+              <CodeSnippet
+                code="love.update"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              with an early return. <b>Do not indent the body.</b>
+            </li>
+            <li>
+              Replace the silent reset with{" "}
+              <CodeSnippet
+                code={`gameState = "gameover"`}
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              when the last life goes.
+            </li>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="love.keypressed"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Space starts a game from either non-playing state; escape
+              quits. <b>LÖVE does not quit on escape by default</b> &mdash; that
+              only happens on its error screen, so this is yours to write.
+            </li>
+            <li>
+              Draw the title and the game-over prompt after the HUD, so they sit
+              on top of everything.
+            </li>
+            <li>
+              <b class="text-sn-theme">Play it, die, and restart.</b> You will
+              land in a game with no lives that ends immediately. That is not
+              your mistake, it is Task 2.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "17, 27-34, 36-39, 87, 137-146" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: One place that starts a game</h3>
+          <ul>
+            <li>
+              Split the state block: assets and settings keep their values, and
+              everything that belongs to a single run becomes a bare{" "}
+              <CodeSnippet
+                code="local"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              with no initializer.
+            </li>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="resetGame()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              above{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and give every one of those variables its starting value there.
+              Build the player as a fresh table.
+            </li>
+            <li>
+              Call it from{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and from{" "}
+              <CodeSnippet
+                code="love.keypressed"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. <b>Two callers, one definition of what a new game is.</b>
+            </li>
+            <li>
+              Restart and count the icons. Three, every time, however you got
+              there.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "10-29, 37, 44" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Screens worth looking at</h3>
+          <ul>
+            <li>
+              Add a{" "}
+              <CodeSnippet
+                code="titleFont"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              at size 48, built in{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              beside the one you already have.
+            </li>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="drawOverlay(title, subtitle)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />: a dim full-window rectangle, the title in the big font, the
+              subtitle in the normal one. <b>Set the font back before you
+              leave.</b>
+            </li>
+            <li>
+              Both screens now cost one line each, and the game-over line can
+              show the score because the score is still sitting there.
+            </li>
+            <li>
+              Die on purpose and look at it. Your last frame is still visible
+              behind the dimming, because you never stopped drawing it.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "8, 37, 135-146, 167, 169" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              <b>Add a paused state on the p key.</b> Update already returns for
+              anything that is not{" "}
+              <CodeSnippet
+                code={`"playing"`}
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, so pausing costs you one branch in{" "}
+              <CodeSnippet
+                code="love.keypressed"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and one in{" "}
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. <b class="text-sn-theme">That is the early return paying for
+              itself.</b> Note that pause must <i>not</i> call{" "}
+              <CodeSnippet
+                code="resetGame"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, so the one-branch keypressed needs splitting.
+            </li>
+            <li>
+              Keep a best score across runs. The interesting part is not the
+              code, it is deciding that{" "}
+              <CodeSnippet
+                code="bestScore"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              belongs in the top half of the state block and never inside{" "}
+              <CodeSnippet
+                code="resetGame"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. It is the same lifetime question as everything else on this
+              page.
+            </li>
+            <li>
+              Add a{" "}
+              <CodeSnippet
+                code={`"ready"`}
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              state that counts three, two, one before play starts. It needs a
+              timer counted down in update, which means update can no longer
+              return on every non-playing state &mdash; the guard becomes a
+              choice rather than a gate.
+            </li>
+            <li>
+              Make escape return to the menu while playing and quit only from the
+              menu. Two lines, and it is how nearly every game you have played
+              behaves.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <ul>
+            <li>
+              The game opens on a title over a dimmed, motionless field. Nothing
+              spawns and nothing falls until you press space.
+            </li>
+            <li>
+              Your third life ends the run.{" "}
+              <b>GAME OVER appears over your frozen last moment</b>, with the
+              score you finished on.
+            </li>
+            <li>
+              Space starts a fresh run: three icons, score zero, an empty sky.
+            </li>
+            <li>Escape quits from anywhere.</li>
+          </ul>
+
+          <p>
+            If you never see the game-over screen, the restart is reading{" "}
+            <CodeSnippet
+              code="isDown"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            rather than waiting for{" "}
+            <CodeSnippet
+              code="keypressed"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. If the second game has no lives,{" "}
+            <CodeSnippet
+              code="resetGame"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is not being called from{" "}
+            <CodeSnippet
+              code="love.keypressed"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. If the world vanishes behind solid black, the overlay's{" "}
+            <CodeSnippet
+              code="setColor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is missing its fourth argument. And if your score suddenly renders
+            enormous, <CodeSnippet
+              code="drawOverlay"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            never set the font back.
+          </p>
+
+          <p>
+            One thing worth noticing before you move on:{" "}
+            <b class="text-sn-theme">the game is finished.</b> It begins, it can
+            be lost, and it can be played again. Everything after this activity
+            makes it better rather than more complete.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-9"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-2/2-11"
+          >
+            Next: Sound and Polish <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
