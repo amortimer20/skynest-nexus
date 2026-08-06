@@ -1,0 +1,532 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `skynest/
+  main.lua`;
+
+const Figure2 = `function love.load()
+  -- runs once, at the start
+end
+
+function love.update(dt)
+  -- runs every frame, before draw
+end
+
+function love.draw()
+  -- runs every frame, after update
+end`;
+
+const Figure3 = `function love.conf(t)
+  t.window.width = 800
+  t.window.height = 600
+  t.window.title = "Skynest"
+end`;
+
+const Task1 = `-- main.lua
+
+function love.draw()
+  love.graphics.print("Skynest online", 20, 20)
+end`;
+
+const Task2 = `-- main.lua
+
+local frames = 0
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+end
+
+function love.update(dt)
+  frames = frames + 1
+end
+
+function love.draw()
+  love.graphics.print("Skynest online", 20, 20)
+  love.graphics.print("Frames drawn: " .. frames, 20, 40)
+end`;
+
+const Task3Conf = `-- conf.lua
+
+function love.conf(t)
+  t.window.width = 800
+  t.window.height = 600
+  t.window.title = "Skynest"
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.1: Your First LÖVE Window</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            <b class="text-sn-theme">LÖVE adds no Lua.</b> Everything in Unit 1
+            is everything you need. What LÖVE adds is a window, a clock, a way
+            to draw, and a way to read the keyboard &mdash; and it hands those to
+            you through ordinary Lua functions you write.
+          </p>
+
+          <p>
+            Get it from <b>love2d.org</b> and install the version for your
+            machine. Ask your teacher if the download is blocked; on macOS in
+            particular an unsigned copy can be stopped before it ever opens.
+          </p>
+
+          <h3 class="mt-5">A game is a folder</h3>
+
+          <p>
+            Not a file. LÖVE looks for a folder containing a{" "}
+            <b class="text-sn-theme">main.lua</b>, and that is the whole
+            requirement.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="none"
+            lang="txt"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            To run it, <b>drag the folder onto the LÖVE application</b>. That
+            works everywhere and needs no setup. If you would rather use the
+            terminal you can run{" "}
+            <CodeSnippet
+              code="love ."
+              lang={"sh"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            from inside the folder, once LÖVE is on your path.
+          </p>
+
+          <h3 class="mt-5">LÖVE calls you</h3>
+
+          <p>
+            This is the one genuinely new idea on the page, and it is worth
+            slowing down for. In Unit 1 <i>your</i> file ran from top to bottom
+            and finished. Here, <b class="text-sn-theme">LÖVE runs the loop and
+            calls your functions</b>. You do not call it, and you never write
+            the loop.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              runs <b>once</b>. Set things up here.
+            </li>
+            <li>
+              <CodeSnippet
+                code="love.update(dt)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              runs <b>every frame</b> &mdash; roughly sixty times a second. All
+              your thinking goes here.
+            </li>
+            <li>
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              runs every frame too, straight after update. All your drawing goes
+              here, and <b>nothing else</b>.
+            </li>
+          </ul>
+
+          <p>
+            You do not have to define all three. A file with only{" "}
+            <CodeSnippet
+              code="love.draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is a valid game, which is where Task 1 starts.
+          </p>
+
+          <p>
+            <b>Notice what these are.</b>{" "}
+            <CodeSnippet
+              code="love"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is a table, and{" "}
+            <CodeSnippet
+              code="function love.draw()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            stores a function in it under the key{" "}
+            <CodeSnippet
+              code="draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. That is Activity 1.10 and Activity 1.7, and there is no framework
+            magic in it &mdash; LÖVE checks whether that key holds a function and
+            calls it if so.
+          </p>
+
+          <h3 class="mt-5">Settings live in conf.lua</h3>
+
+          <p>
+            An optional second file next to main.lua, read <i>before</i> the
+            window is made &mdash; which is why the window size cannot be set
+            from{" "}
+            <CodeSnippet
+              code="love.load"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="conf.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            LÖVE fills{" "}
+            <CodeSnippet
+              code="t"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            with every default first and then hands it to you, so you only
+            override what you care about. The defaults are <b>800 by 600</b>,
+            not resizable.
+          </p>
+
+          <h3 class="mt-5">One thing to expect from Activity 1.4</h3>
+
+          <p>
+            <b class="text-sn-theme">LÖVE runs an older Lua than the one you
+            installed for Unit 1.</b> Numbers print without the trailing{" "}
+            <CodeSnippet
+              code=".0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, so{" "}
+            <CodeSnippet
+              code="10 / 2"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            shows as{" "}
+            <CodeSnippet
+              code="5"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            here. Two more consequences worth knowing now:{" "}
+            <CodeSnippet
+              code="//"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            does not exist, so keep using{" "}
+            <CodeSnippet
+              code="math.floor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />; and{" "}
+            <b>
+              <CodeSnippet
+                code="math.random"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              gives the identical sequence every run unless you seed it
+            </b>, exactly as Activity 1.4 warned.
+          </p>
+
+          <h3 class="mt-5">Where the print output goes</h3>
+
+          <p>
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            still works and is still your best debugging tool, but it writes to a
+            terminal, not the window. Launch from a terminal and you will see it.
+            To put text <i>in</i> the window you need{" "}
+            <CodeSnippet
+              code="love.graphics.print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which is a different function and belongs in{" "}
+            <CodeSnippet
+              code="love.draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Make a folder called <b class="text-sn-theme">skynest</b>. Everything
+            in Unit 2 goes in it, and you will keep adding to the same project
+            all the way to the end.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: The smallest possible game</h3>
+          <ul>
+            <li>
+              Create <b>main.lua</b> in that folder with nothing but a{" "}
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Print some text at 20, 20.</li>
+            <li>
+              Drag the folder onto LÖVE. <b>A window should open with your text
+              in the top-left corner.</b>
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Prove the loop is running</h3>
+          <ul>
+            <li>
+              Add a{" "}
+              <CodeSnippet
+                code="frames"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              counter as a{" "}
+              <CodeSnippet
+                code="local"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              at the top of the file.
+            </li>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="love.update"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and increase it by one each frame.
+            </li>
+            <li>Draw the count under your text, and add a dark background.</li>
+            <li>
+              <b class="text-sn-theme">The number should climb fast &mdash;
+              about 60 per second.</b> That is the loop, and you never wrote it.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "3-12, 15" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Set up the window</h3>
+          <ul>
+            <li>
+              Add a <b class="text-sn-theme">conf.lua</b> beside main.lua &mdash;
+              a second file, not a change to the first.
+            </li>
+            <li>Set the width, height, and title.</li>
+            <li>
+              Run it again. <b>The title bar should change</b>, which is how you
+              know LÖVE found the file.
+            </li>
+            <li>
+              Then deliberately misspell{" "}
+              <CodeSnippet
+                code="love.conf"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              as{" "}
+              <CodeSnippet
+                code="love.config"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and run once more. <b>No error</b> &mdash; you just silently get
+              the defaults, because LÖVE looked up a key that was not there.
+              Activity 1.10 explains why that is not a special case.
+            </li>
+          </ul>
+
+          <Code code={Task3Conf} frame="code" lang="lua" title="conf.lua" />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Track elapsed <b>seconds</b> instead of frames by adding{" "}
+              <CodeSnippet
+                code="dt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              rather than 1, and print it with{" "}
+              <CodeSnippet
+                code="string.format"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              to one decimal place. The next two activities are built on the
+              difference between those two numbers.
+            </li>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="print(frames)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              inside update, launch from a terminal, and watch it scroll. Then
+              take it out again.
+            </li>
+            <li>
+              Set{" "}
+              <CodeSnippet
+                code="t.window.resizable = true"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and drag the window edge. Note that your text stays put &mdash;
+              Activity 2.2 covers why, and what to do about it.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>
+            There is no terminal output to compare from here on. What you should
+            have:
+          </p>
+
+          <ul>
+            <li>An <b>800 by 600</b> window titled <b>Skynest</b>.</li>
+            <li>A very dark background rather than LÖVE's default.</li>
+            <li>Two lines of text in the top-left corner.</li>
+            <li>
+              <b class="text-sn-theme">A frame count climbing by roughly 60 each
+              second.</b>
+            </li>
+          </ul>
+
+          <p>
+            If the window opens but is blank, your drawing is probably in{" "}
+            <CodeSnippet
+              code="love.update"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. If nothing opens at all, LÖVE could not find{" "}
+            <b>main.lua</b> &mdash; check that you dragged the <i>folder</i> and
+            not the file.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a class="btn btn-outline-light" href="/courses/lua-programming/">
+            Course Index
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-2/2-2"
+          >
+            Next: Drawing to the Screen <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

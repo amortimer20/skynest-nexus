@@ -1,0 +1,691 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local a = { x = 1, y = 2 }
+local b = { x = 10, y = 20 }
+
+local ok = pcall(function() return a + b end)
+print("did it work?", ok)`;
+const Figure1Out = `did it work?\tfalse`;
+
+const Figure2 = `local Vec = {}
+Vec.__index = Vec
+
+function Vec.new(x, y)
+  return setmetatable({ x = x, y = y }, Vec)
+end
+
+function Vec.__add(a, b)
+  return Vec.new(a.x + b.x, a.y + b.y)
+end
+
+function Vec.__tostring(v)
+  return "(" .. v.x .. ", " .. v.y .. ")"
+end
+
+local a = Vec.new(1, 2)
+local b = Vec.new(10, 20)
+
+print(a + b)`;
+const Figure2Out = `(11, 22)`;
+
+const Task1 = `-- main.lua - vectors with operators
+
+local Vec = {}
+Vec.__index = Vec
+
+function Vec.new(x, y)
+  return setmetatable({ x = x, y = y }, Vec)
+end
+
+function Vec.__add(a, b)
+  return Vec.new(a.x + b.x, a.y + b.y)
+end
+
+function Vec.__tostring(v)
+  return "(" .. v.x .. ", " .. v.y .. ")"
+end
+
+local a = Vec.new(1, 2)
+local b = Vec.new(10, 20)
+
+print(a + b)`;
+const Task1Out = `(11, 22)`;
+
+const Task2 = `-- main.lua - vectors with operators
+
+local Vec = {}
+Vec.__index = Vec
+
+function Vec.new(x, y)
+  return setmetatable({ x = x, y = y }, Vec)
+end
+
+function Vec.__add(a, b)
+  return Vec.new(a.x + b.x, a.y + b.y)
+end
+
+function Vec.__sub(a, b)
+  return Vec.new(a.x - b.x, a.y - b.y)
+end
+
+function Vec.__mul(v, s)
+  return Vec.new(v.x * s, v.y * s)
+end
+
+function Vec.__unm(v)
+  return Vec.new(-v.x, -v.y)
+end
+
+function Vec.__tostring(v)
+  return "(" .. v.x .. ", " .. v.y .. ")"
+end
+
+local a = Vec.new(1, 2)
+local b = Vec.new(10, 20)
+
+print(a + b)
+print(b - a)
+print(a * 3)
+print(-a)`;
+const Task2Out = `(11, 22)
+(9, 18)
+(3, 6)
+(-1, -2)`;
+
+const Task3 = `-- main.lua - vectors with operators
+
+local Vec = {}
+Vec.__index = Vec
+
+function Vec.new(x, y)
+  return setmetatable({ x = x, y = y }, Vec)
+end
+
+function Vec.__add(a, b)
+  return Vec.new(a.x + b.x, a.y + b.y)
+end
+
+function Vec.__sub(a, b)
+  return Vec.new(a.x - b.x, a.y - b.y)
+end
+
+function Vec.__mul(v, s)
+  return Vec.new(v.x * s, v.y * s)
+end
+
+function Vec.__unm(v)
+  return Vec.new(-v.x, -v.y)
+end
+
+function Vec.__eq(a, b)
+  return a.x == b.x and a.y == b.y
+end
+
+function Vec.__tostring(v)
+  return "(" .. v.x .. ", " .. v.y .. ")"
+end
+
+local a = Vec.new(1, 2)
+local b = Vec.new(10, 20)
+
+print(a + b)
+print(b - a)
+print(a * 3)
+print(-a)
+print(a == Vec.new(1, 2))
+
+local pos = Vec.new(100, 200)
+local vel = Vec.new(5, -3)
+local dt = 2
+
+pos = pos + vel * dt
+print(pos)`;
+
+const Checkpoint = `(11, 22)
+(9, 18)
+(3, 6)
+(-1, -2)
+true
+(110, 194)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus: Operators on Your Own Types</h1>
+        <p class="text-sn-theme">
+          Optional &mdash; builds on Activity 1.11. Nothing in Unit 2 requires
+          it, but Unit 2 gets nicer if you have it.
+        </p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Activity 1.11 used one metatable field,{" "}
+            <CodeSnippet
+              code="__index"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, to make method lookup fall back to a class table. There are
+            about twenty more fields, and each one lets you say{" "}
+            <b class="text-sn-theme">what a built-in operator should do when it
+            meets your type</b>.
+          </p>
+
+          <p>Out of the box, it does not know.</p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Adding two tables is an error, and reasonably so &mdash; Lua has no
+            idea what you meant. Define{" "}
+            <CodeSnippet
+              code="__add"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and you have told it.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Two things happened there.{" "}
+            <CodeSnippet
+              code="a + b"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            called your function, and{" "}
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            showed a readable vector instead of{" "}
+            <CodeSnippet
+              code="table: 0x14b2f30"
+              lang={"txt"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; because{" "}
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            asks{" "}
+            <CodeSnippet
+              code="__tostring"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            first.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">
+              <CodeSnippet
+                code="__tostring"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is the one to add to everything.
+            </b>{" "}
+            Debugging a game full of tables that all print as hex addresses is
+            genuinely miserable, and this is a four-line fix per type.
+          </p>
+
+          <h3 class="mt-5">The ones worth knowing</h3>
+
+          <div class="table-responsive">
+            <table class="table table-dark table-sm">
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Triggered by</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>__add</code></td><td><code>a + b</code></td></tr>
+                <tr><td><code>__sub</code></td><td><code>a - b</code></td></tr>
+                <tr><td><code>__mul</code></td><td><code>a * b</code></td></tr>
+                <tr><td><code>__div</code></td><td><code>a / b</code></td></tr>
+                <tr><td><code>__unm</code></td><td><code>-a</code></td></tr>
+                <tr><td><code>__eq</code></td><td><code>a == b</code></td></tr>
+                <tr><td><code>__lt</code></td><td><code>a &lt; b</code></td></tr>
+                <tr><td><code>__concat</code></td><td><code>a .. b</code></td></tr>
+                <tr><td><code>__tostring</code></td><td><code>print(a)</code>, <code>tostring(a)</code></td></tr>
+                <tr><td><code>__call</code></td><td><code>a()</code></td></tr>
+                <tr><td><code>__index</code></td><td>a key that is not there</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>Three rules that will save you an afternoon.</b>
+          </p>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="__eq"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is only consulted when <b>both</b> sides are tables. Comparing your
+              vector to a number is simply false, and your function never runs.
+            </li>
+            <li>
+              There is no{" "}
+              <CodeSnippet
+                code="__ne"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              or{" "}
+              <CodeSnippet
+                code="__gt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Lua builds{" "}
+              <CodeSnippet
+                code="~="
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              from{" "}
+              <CodeSnippet
+                code="__eq"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code=">"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              by swapping the operands into{" "}
+              <CodeSnippet
+                code="__lt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              <b class="text-sn-theme">Skip{" "}
+              <CodeSnippet
+                code="__len"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.</b>{" "}
+              Plain Lua honors it for tables and <b>LÖVE does not</b> &mdash; the
+              same code gives a different answer in Unit 2. Write a{" "}
+              <CodeSnippet
+                code=":length()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              method instead.
+            </li>
+          </ul>
+
+          <p>
+            <b>One caution on where this belongs.</b> Operators are for types
+            where the arithmetic is genuinely obvious &mdash; vectors, colors,
+            money, times. Giving{" "}
+            <CodeSnippet
+              code="Enemy"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            an{" "}
+            <CodeSnippet
+              code="__add"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            because you could is how code becomes unreadable. If a reader has to
+            look up what{" "}
+            <CodeSnippet
+              code="+"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            means here, use a named method.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are building
+            a 2D vector &mdash; the single most useful small type in game
+            programming, and the reason this page exists.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Add and print</h3>
+          <ul>
+            <li>
+              Make a <b>Vec</b> class exactly as in Activity 1.11, with an{" "}
+              <CodeSnippet
+                code="x"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and a{" "}
+              <CodeSnippet
+                code="y"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Give it{" "}
+              <CodeSnippet
+                code="__add"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="__tostring"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Print the sum of two vectors <b>directly</b> &mdash; no{" "}
+              <CodeSnippet
+                code="tostring"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              call needed.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Subtract, scale, negate</h3>
+          <ul>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="__sub"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />,{" "}
+              <CodeSnippet
+                code="__mul"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and{" "}
+              <CodeSnippet
+                code="__unm"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Note that{" "}
+              <CodeSnippet
+                code="__mul"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              takes a vector and a <b>number</b>, not two vectors. Multiplying
+              two vectors has several possible meanings, so leave it out rather
+              than pick one.
+            </li>
+            <li>Print all four results.</li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "14-24, 34-36" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Equality, and the line this was all for</h3>
+          <ul>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="__eq"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and confirm that two separately-made vectors with the same numbers
+              compare equal. <b>Without it they never would</b>, because two
+              different tables are two different tables.
+            </li>
+            <li>
+              Then write the payoff line:{" "}
+              <CodeSnippet
+                code="pos = pos + vel * dt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              That is the entire movement step of a game, on one line, reading
+              exactly like the physics it came from. Compare it to writing{" "}
+              <CodeSnippet
+                code="pos.x = pos.x + vel.x * dt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and the same again for y.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "26-29, 41-48" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Add a{" "}
+              <CodeSnippet
+                code="Vec:length()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              method using{" "}
+              <CodeSnippet
+                code="math.sqrt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. A method, not{" "}
+              <CodeSnippet
+                code="__len"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; you were warned why.
+            </li>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="__lt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              comparing lengths, then{" "}
+              <CodeSnippet
+                code="table.sort"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              a list of vectors with no comparison function at all.
+            </li>
+            <li>
+              Give a <b>Color</b> type the same treatment, and check that{" "}
+              <CodeSnippet
+                code="__mul"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              by a number does something sensible at the edges. Clamping belongs
+              in the metamethod.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">(110, 194)</b> &mdash; two steps of velocity
+            applied to a position, written the way you would write it on paper.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a class="btn btn-outline-light" href="/courses/lua-programming/">
+            Course Index
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/bonus-inheritance"
+          >
+            Next: Inheritance <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

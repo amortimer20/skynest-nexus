@@ -1,0 +1,697 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local line = "score=1200 lives=3 name=Ada"
+
+print(line:match("score=(%d+)"))
+print(line:match("(%a+)=(%d+)"))`;
+const Figure1Out = `1200
+score\t1200`;
+
+const Figure2 = `local line = "score=1200 lives=3 name=Ada"
+
+for key, value in line:gmatch("(%w+)=(%w+)") do
+  print(key, value)
+end`;
+const Figure2Out = `score\t1200
+lives\t3
+name\tAda`;
+
+const Figure3 = `local line = "score=1200 lives=3 name=Ada"
+
+print((line:gsub("%d+", "#")))
+
+local padded = "   Skynest   "
+print("[" .. padded:match("^%s*(.-)%s*$") .. "]")`;
+const Figure3Out = `score=# lives=# name=Ada
+[Skynest]`;
+
+const Task1 = `-- main.lua - string patterns
+
+local line = "score=1200 lives=3 name=Ada"
+
+print(line:match("score=(%d+)"))
+print(line:match("(%a+)=(%d+)"))`;
+const Task1Out = `1200
+score\t1200`;
+
+const Task2 = `-- main.lua - string patterns
+
+local line = "score=1200 lives=3 name=Ada"
+
+print(line:match("score=(%d+)"))
+print(line:match("(%a+)=(%d+)"))
+
+for key, value in line:gmatch("(%w+)=(%w+)") do
+  print(key, value)
+end`;
+const Task2Out = `1200
+score\t1200
+score\t1200
+lives\t3
+name\tAda`;
+
+const Task3 = `-- main.lua - string patterns
+
+local line = "score=1200 lives=3 name=Ada"
+
+print(line:match("score=(%d+)"))
+print(line:match("(%a+)=(%d+)"))
+
+for key, value in line:gmatch("(%w+)=(%w+)") do
+  print(key, value)
+end
+
+print((line:gsub("%d+", "#")))
+
+local padded = "   Skynest   "
+print("[" .. padded:match("^%s*(.-)%s*$") .. "]")
+
+print(("2026-08-06"):match("(%d+)-(%d+)-(%d+)"))`;
+
+const Checkpoint = `1200
+score\t1200
+score\t1200
+lives\t3
+name\tAda
+score=# lives=# name=Ada
+[Skynest]
+2026\t08\t06`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus: String Patterns</h1>
+        <p class="text-sn-theme">
+          Optional &mdash; nothing in Unit 2 needs it, which is exactly what
+          makes it a clean side trip.
+        </p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Lua has its own miniature language for describing shapes of text.{" "}
+            <b class="text-sn-theme">It is not regular expressions.</b> It is
+            smaller, it is about two hundred lines of C rather than a library,
+            and it covers most of what people actually use regex for.
+          </p>
+
+          <p>
+            The differences that matter, up front, so you stop trying to write
+            regex:
+          </p>
+
+          <ul>
+            <li>
+              <b>
+                <CodeSnippet
+                  code="%"
+                  lang={"lua"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />{" "}
+                is the escape, not{" "}
+                <CodeSnippet
+                  code="\\"
+                  lang={"lua"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </b>. Digits are{" "}
+              <CodeSnippet
+                code="%d"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and a literal dot is{" "}
+              <CodeSnippet
+                code="%."
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              <b>There is no alternation.</b> No{" "}
+              <CodeSnippet
+                code="|"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and no{" "}
+              <CodeSnippet
+                code="(abc)?"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              on a group. Quantifiers apply to <i>one</i> character class only.
+            </li>
+            <li>
+              <b>
+                <CodeSnippet
+                  code="-"
+                  lang={"lua"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />{" "}
+                is the lazy repeat
+              </b>, where regex writes{" "}
+              <CodeSnippet
+                code="*?"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. This one catches everybody.
+            </li>
+          </ul>
+
+          <div class="table-responsive">
+            <table class="table table-dark table-sm">
+              <thead>
+                <tr><th>Class</th><th>Matches</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>%d</code></td><td>a digit</td></tr>
+                <tr><td><code>%a</code></td><td>a letter</td></tr>
+                <tr><td><code>%w</code></td><td>a letter or digit</td></tr>
+                <tr><td><code>%s</code></td><td>whitespace</td></tr>
+                <tr><td><code>%p</code></td><td>punctuation</td></tr>
+                <tr><td><code>.</code></td><td>any character at all</td></tr>
+                <tr><td><code>%D %A %W %S</code></td><td>the opposite of the lowercase one</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            And four repeat markers:{" "}
+            <CodeSnippet
+              code="*"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            none or more,{" "}
+            <CodeSnippet
+              code="+"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            one or more,{" "}
+            <CodeSnippet
+              code="?"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            none or one, and{" "}
+            <CodeSnippet
+              code="-"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            none or more but as few as possible.
+          </p>
+
+          <h3 class="mt-5">Pulling one thing out</h3>
+
+          <p>
+            Parentheses make a <b>capture</b> &mdash; the part you want back
+            rather than just matched.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Two captures return two values, which is Activity 1.7's multiple
+            returns again. With no captures at all,{" "}
+            <CodeSnippet
+              code="match"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            returns the whole matched text; with no match, it returns{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which makes it usable directly in an{" "}
+            <CodeSnippet
+              code="if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            Note the second pattern found only the <i>first</i>{" "}
+            <CodeSnippet
+              code="name=number"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            pair.{" "}
+            <CodeSnippet
+              code="match"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            stops at the first hit.
+          </p>
+
+          <h3 class="mt-5">Pulling out all of them</h3>
+
+          <p>
+            <CodeSnippet
+              code="gmatch"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            returns an iterator &mdash; the same contract from Activity 1.8 &mdash;
+            so it goes straight into a{" "}
+            <CodeSnippet
+              code="for"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            loop.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Three lines to parse a configuration
+            format.</b> This is the pattern you would reach for reading a save
+            file, a level definition, or anything else stored as plain text.
+          </p>
+
+          <h3 class="mt-5">Replacing, and the trim idiom</h3>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b>The extra parentheses around the{" "}
+            <CodeSnippet
+              code="gsub"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            are deliberate.</b> It returns two values &mdash; the new string and
+            how many replacements it made &mdash; and wrapping the call in
+            parentheses throws all but the first away. Without them you would
+            also print the count.
+          </p>
+
+          <p>
+            The second line is <b>the standard Lua trim</b>, and it is worth
+            taking apart because every piece earns its place:
+          </p>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="^"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="$"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              anchor it to the whole string.
+            </li>
+            <li>
+              <CodeSnippet
+                code="%s*"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              eats the spaces at each end.
+            </li>
+            <li>
+              <CodeSnippet
+                code="(.-)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              captures everything between, <b>as little as possible</b>. Use{" "}
+              <CodeSnippet
+                code="(.*)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              instead and the greedy match swallows the trailing spaces, leaving
+              them in your result.
+            </li>
+          </ul>
+
+          <p>
+            <b>Where patterns run out.</b> Anything with nesting &mdash; HTML,
+            JSON, matched brackets &mdash; is not something patterns can do, and
+            neither can regex. If you find yourself building a pattern with five
+            captures and a lot of{" "}
+            <CodeSnippet
+              code="%p"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, stop and write a loop.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are parsing
+            a line of save-file text.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Capture</h3>
+          <ul>
+            <li>
+              Store the line{" "}
+              <CodeSnippet
+                code="score=1200 lives=3 name=Ada"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Pull out just the score as digits.</li>
+            <li>
+              Then write a pattern with <b>two</b> captures that gets a name and
+              a number together.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: All of them</h3>
+          <ul>
+            <li>
+              Loop over every{" "}
+              <CodeSnippet
+                code="key=value"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              pair with{" "}
+              <CodeSnippet
+                code="gmatch"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Use{" "}
+              <CodeSnippet
+                code="%w"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              rather than{" "}
+              <CodeSnippet
+                code="%d"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              for the value, so that <b>Ada</b> is caught as well as the numbers.
+            </li>
+            <li>
+              Try it with{" "}
+              <CodeSnippet
+                code="%d"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              first and watch a line go missing. That is the whole skill: the
+              pattern describes what you expect, and anything you did not expect
+              silently does not appear.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "8-10" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Replace, trim, and split a date</h3>
+          <ul>
+            <li>
+              Replace every run of digits with{" "}
+              <CodeSnippet
+                code="#"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />, remembering the extra parentheses.
+            </li>
+            <li>
+              Trim a padded string with the anchored pattern, and print it inside
+              brackets so you can see the edges.
+            </li>
+            <li>
+              Split{" "}
+              <CodeSnippet
+                code="2026-08-06"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              into three captures in one call.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "12-17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Turn the{" "}
+              <CodeSnippet
+                code="gmatch"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              loop into one that builds a <b>table</b>, so you end up with{" "}
+              <CodeSnippet
+                code="config.score"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="config.name"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Run the values through{" "}
+              <CodeSnippet
+                code="tonumber"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              where they are numeric. <b>You have just written a save-file
+              loader.</b>
+            </li>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="split(text, sep)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              returning a list, using{" "}
+              <CodeSnippet
+                code="gmatch"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Lua has no built-in split, and this is why nobody misses it.
+            </li>
+            <li>
+              Pass a function as{" "}
+              <CodeSnippet
+                code="gsub"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />'s third argument instead of a string. It gets called with each
+              match and its return value is used as the replacement &mdash; so
+              you can double every number in a string in one line.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">[Skynest] with no spaces inside the
+            brackets.</b> If yours has trailing spaces, you used{" "}
+            <CodeSnippet
+              code="(.*)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            where the pattern needed{" "}
+            <CodeSnippet
+              code="(.-)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/bonus-coroutines"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/">
+            Course Index <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,565 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local bullets = {}
+
+table.insert(bullets, { x = 400, y = 470, size = 6, speed = 500 })`;
+
+const Figure2 = `function love.keypressed(key)
+  if key == "space" then
+    -- fires exactly once, however long the key is held
+  end
+end`;
+
+const Figure3 = `for i = #bullets, 1, -1 do
+  local b = bullets[i]
+  b.y = b.y - b.speed * dt
+  if b.y < -20 then
+    table.remove(bullets, i)
+  end
+end`;
+
+const Figure4 = `fireCooldown = fireCooldown - dt
+
+if love.keyboard.isDown("space") and fireCooldown <= 0 then
+  table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+  fireCooldown = 0.15
+end`;
+
+const Task1 = `-- main.lua
+
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.keypressed(key)
+  if key == "space" then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+  end
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+end`;
+
+const Task2 = `-- main.lua
+
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.keypressed(key)
+  if key == "space" then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+  end
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Bullets: " .. #bullets, 10, 10)
+end`;
+
+const Task3 = `-- main.lua
+
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+
+  fireCooldown = fireCooldown - dt
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Bullets: " .. #bullets, 10, 10)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.5: Many Things at Once</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            So far the game has one of everything. A shooter needs an unknown
+            number of bullets, appearing and disappearing constantly, and{" "}
+            <b class="text-sn-theme">that is a list of tables &mdash; Activity
+            1.9 holding Activity 1.10.</b> No new Lua at all.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Each bullet is a small record with its own position and speed. The
+            list starts empty and grows. <b>This one pattern is the rest of the
+            unit</b> &mdash; enemies, particles and pickups are all the same
+            shape.
+          </p>
+
+          <p>
+            Move the whole flock by looping over the list and updating each
+            table, and draw them by looping again. Neither loop cares how many
+            there are.
+          </p>
+
+          <h3 class="mt-5">Firing once per press</h3>
+
+          <p>
+            Activity 2.3 used{" "}
+            <CodeSnippet
+              code="isDown"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which is true on <i>every</i> frame the key is held. Use that to
+            fire and one tap produces thirty bullets.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <CodeSnippet
+              code="love.keypressed"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is a fourth callback, and LÖVE calls it <b>once, at the moment a key
+            goes down</b>. It is the right tool for anything that should happen
+            per press: firing, pausing, confirming a menu.
+          </p>
+
+          <p>
+            <b>Polling for continuous things, events for discrete things.</b>{" "}
+            Movement wants{" "}
+            <CodeSnippet
+              code="isDown"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />; a jump wants{" "}
+            <CodeSnippet
+              code="keypressed"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. Choosing the wrong one is the cause of most "why did it do that
+            fifty times" bugs.
+          </p>
+
+          <h3 class="mt-5">The loop that matters</h3>
+
+          <p>
+            Bullets leave the top of the screen and must be thrown away, or the
+            list grows forever and the game slowly dies. Here is the exact
+            situation Activity 1.9 warned about.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">Backwards, because you are removing.</b>{" "}
+            Remove item 3 going forwards and everything shifts down while your
+            counter goes up, so item 4 lands in slot 3 and is skipped &mdash;
+            you get a bullet that will not die. Going backwards, the only
+            positions that move are ones you have already passed.
+          </p>
+
+          <p>
+            <b>Move and remove in the same loop.</b> Two separate loops would
+            work, but this way each bullet is visited once and the removal test
+            uses the position you just computed.
+          </p>
+
+          <p>
+            Note{" "}
+            <CodeSnippet
+              code="b.y < -20"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            rather than{" "}
+            <CodeSnippet
+              code="b.y < 0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. A bullet is drawn from its center, so at y=0 half of it is still
+            visible. Giving it a little margin means things vanish offscreen
+            rather than winking out in view.
+          </p>
+
+          <h3 class="mt-5">A weapon that fires while held</h3>
+
+          <p>
+            Tapping space for every shot gets old. What you want is to hold it
+            and fire at a fixed rate &mdash; which needs a <b>cooldown</b>, and
+            that is a number you count down with{" "}
+            <CodeSnippet
+              code="dt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Count down every frame; when it reaches zero and the key is held,
+            fire and set it back. <b class="text-sn-theme">0.15 means about six
+            shots a second, on any machine</b>, because the countdown is in
+            seconds rather than frames.
+          </p>
+
+          <p>
+            <b>This is the accumulator pattern</b>, and it is worth naming
+            because Activity 2.6 uses it again for spawning enemies. Any "every
+            so often" in a game is a number and a{" "}
+            <CodeSnippet
+              code="dt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            It does not matter that the cooldown goes slightly negative before
+            you notice &mdash; the test is{" "}
+            <CodeSnippet
+              code="<= 0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and resetting to a fixed value each time keeps the rate honest.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Same <b class="text-sn-theme">skynest</b> folder. Move the ship to
+            the bottom of the screen &mdash; this is a vertical shooter now.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Fire bullets into a list</h3>
+          <ul>
+            <li>
+              Rename your ship table to <b>player</b> and start it near the
+              bottom. Drop the up and down movement; left and right is enough.
+            </li>
+            <li>Add an empty <b>bullets</b> list.</li>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="love.keypressed"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and insert a bullet on space, positioned at the ship's nose.
+            </li>
+            <li>
+              Draw every bullet with an{" "}
+              <CodeSnippet
+                code="ipairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              loop. <b>They will not move yet</b> &mdash; you should get a
+              growing trail of stationary marks.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Move them, and throw them away</h3>
+          <ul>
+            <li>
+              Add a <b>backwards</b> loop in update that moves each bullet up
+              and removes it once it is off the top.
+            </li>
+            <li>Print the live bullet count so you can watch the list drain.</li>
+            <li>
+              <b class="text-sn-theme">Then change the loop to go forwards and
+              hold space.</b> Bullets will start surviving that should have died,
+              and the count will creep up. Change it back once you have seen it.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "28-35, 46-48" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Hold to fire</h3>
+          <ul>
+            <li>
+              Add a <b>fireCooldown</b> variable starting at 0.
+            </li>
+            <li>
+              Delete{" "}
+              <CodeSnippet
+                code="love.keypressed"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              entirely and fire from update instead, gated on the cooldown.
+            </li>
+            <li>
+              Tune the interval. <b>0.15 feels like a weapon; 0.02 feels like a
+              mistake</b>, and both are one number.
+            </li>
+            <li>
+              Try removing the{" "}
+              <CodeSnippet
+                code="fireCooldown = 0.15"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              reset and watch what a weapon with no cooldown does to the count.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "6, 23-28" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Fire <b>two</b> bullets at once, angled slightly apart, by giving
+              each a horizontal speed as well and adding it in the update loop.
+            </li>
+            <li>
+              Make the cooldown a <b>closure</b> from the bonus material in
+              Activity 1.8 &mdash;{" "}
+              <CodeSnippet
+                code="makeCooldown(0.15)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              returning a function you call each frame. It keeps the timer out of
+              your top-level variables.
+            </li>
+            <li>
+              Give bullets a lifetime in seconds instead of an offscreen test,
+              counting down with dt and removing at zero. Which of the two is
+              better depends on whether bullets can ever travel sideways.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <ul>
+            <li>The ship sits near the bottom and slides left and right.</li>
+            <li>
+              Holding space produces a <b>steady stream</b> of yellow bullets,
+              evenly spaced.
+            </li>
+            <li>
+              <b class="text-sn-theme">The bullet count rises while you fire and
+              settles at a constant number</b> rather than climbing forever.
+              That number is your fire rate multiplied by the time a bullet
+              takes to cross the screen.
+            </li>
+          </ul>
+
+          <p>
+            If the count only ever grows, the removal is missing or the loop runs
+            forwards. If bullets appear in bursts, you are still using{" "}
+            <CodeSnippet
+              code="keypressed"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. If they fly off in a solid line, the cooldown is not being reset.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-4"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-2/2-6"
+          >
+            Next: Enemies and Spawn Timers <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

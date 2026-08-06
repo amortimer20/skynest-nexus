@@ -1,0 +1,600 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local Fast = setmetatable({}, { __index = Enemy })
+Fast.__index = Fast`;
+
+const Figure2 = `local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(hp) return setmetatable({ hp = hp }, Enemy) end
+function Enemy:describe() return "hp=" .. self.hp end
+
+local Boss = setmetatable({}, { __index = Enemy })
+Boss.__index = Boss
+function Boss.new(hp) return setmetatable(Enemy.new(hp), Boss) end
+
+function Boss:describe()
+  return "BOSS! " .. Enemy.describe(self)
+end
+
+print(Enemy.new(10):describe())
+print(Boss.new(500):describe())`;
+const Figure2Out = `hp=10
+BOSS! hp=500`;
+
+const Task1 = `-- main.lua - enemy hierarchy
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(hp, speed)
+  return setmetatable({ hp = hp, speed = speed or 1 }, Enemy)
+end
+
+function Enemy:kind()
+  return "Enemy"
+end
+
+function Enemy:describe()
+  return string.format("%s hp=%d speed=%d", self:kind(), self.hp, self.speed)
+end
+
+print(Enemy.new(10):describe())`;
+const Task1Out = `Enemy hp=10 speed=1`;
+
+const Task2 = `-- main.lua - enemy hierarchy
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(hp, speed)
+  return setmetatable({ hp = hp, speed = speed or 1 }, Enemy)
+end
+
+function Enemy:kind()
+  return "Enemy"
+end
+
+function Enemy:describe()
+  return string.format("%s hp=%d speed=%d", self:kind(), self.hp, self.speed)
+end
+
+local Fast = setmetatable({}, { __index = Enemy })
+Fast.__index = Fast
+
+function Fast.new(hp)
+  return setmetatable(Enemy.new(hp, 5), Fast)
+end
+
+function Fast:kind()
+  return "Fast"
+end
+
+print(Enemy.new(10):describe())
+print(Fast.new(3):describe())`;
+const Task2Out = `Enemy hp=10 speed=1
+Fast hp=3 speed=5`;
+
+const Task3 = `-- main.lua - enemy hierarchy
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(hp, speed)
+  return setmetatable({ hp = hp, speed = speed or 1 }, Enemy)
+end
+
+function Enemy:kind()
+  return "Enemy"
+end
+
+function Enemy:describe()
+  return string.format("%s hp=%d speed=%d", self:kind(), self.hp, self.speed)
+end
+
+local Fast = setmetatable({}, { __index = Enemy })
+Fast.__index = Fast
+
+function Fast.new(hp)
+  return setmetatable(Enemy.new(hp, 5), Fast)
+end
+
+function Fast:kind()
+  return "Fast"
+end
+
+local Boss = setmetatable({}, { __index = Enemy })
+Boss.__index = Boss
+
+function Boss.new(hp)
+  return setmetatable(Enemy.new(hp, 1), Boss)
+end
+
+function Boss:kind()
+  return "Boss"
+end
+
+function Boss:describe()
+  return "!! " .. Enemy.describe(self) .. " !!"
+end
+
+print(Enemy.new(10):describe())
+print(Fast.new(3):describe())
+print(Boss.new(500):describe())`;
+
+const Checkpoint = `Enemy hp=10 speed=1
+Fast hp=3 speed=5
+!! Boss hp=500 speed=1 !!`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus: Inheritance</h1>
+        <p class="text-sn-theme">
+          Optional &mdash; builds on Activity 1.11. Useful in Unit 2 the moment
+          you want a second kind of enemy.
+        </p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Activity 1.11 gave you the rule:{" "}
+            <b class="text-sn-theme">
+              <CodeSnippet
+                code="__index"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              means "if the key is not here, look there."
+            </b>{" "}
+            Inheritance is that rule applied a second time.
+          </p>
+
+          <p>
+            An instance falls back to its class. Make the <i>class</i> fall back
+            to another class, and a lookup that misses both ends up at the
+            parent. There is no new mechanism &mdash; it is one extra link in the
+            same chain.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="The two lines that do it"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Read them separately, because they are doing different jobs and
+            beginners routinely write only one:
+          </p>
+
+          <ul>
+            <li>
+              <b>Line 1</b> gives the <b>Fast table itself</b> a metatable, so
+              that <i>Fast</i> falls back to <i>Enemy</i>. This is the
+              inheritance.
+            </li>
+            <li>
+              <b>Line 2</b> sets Fast up as a fallback for <i>its own
+              instances</i>, exactly as in Activity 1.11. This is the class part.
+            </li>
+          </ul>
+
+          <p>
+            So a lookup on a Fast instance takes up to three hops: the instance,
+            then Fast, then Enemy. Miss all three and you get{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, as always.
+          </p>
+
+          <h3 class="mt-5">Overriding, and why it works</h3>
+
+          <p>
+            Because lookup stops at the <b>first</b> table that has the key,
+            defining a method on the child simply wins. Nothing needs to be
+            marked virtual or overridable &mdash; that concept does not exist
+            here.
+          </p>
+
+          <p>
+            The interesting consequence:{" "}
+            <b class="text-sn-theme">an inherited method that calls{" "}
+            <CodeSnippet
+              code="self:kind()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            gets the child's version</b>, because the lookup starts from the
+            actual instance every time. That is polymorphism, and it falls out of
+            the fallback rule rather than being a feature.
+          </p>
+
+          <h3 class="mt-5">Calling the parent's version</h3>
+
+          <p>
+            There is no{" "}
+            <CodeSnippet
+              code="super"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. You name the parent directly and pass{" "}
+            <CodeSnippet
+              code="self"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            yourself.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Note the dot:{" "}
+            <CodeSnippet
+              code="Enemy.describe(self)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, not{" "}
+            <CodeSnippet
+              code="Enemy:describe()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.</b>{" "}
+            The colon would pass <i>Enemy</i> as self, and you would be
+            describing the class rather than the boss. This is the single most
+            common bug on this page.
+          </p>
+
+          <p>
+            Writing{" "}
+            <CodeSnippet
+              code="self:describe()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            inside{" "}
+            <CodeSnippet
+              code="Boss:describe"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is worse &mdash; it finds Boss's version and calls itself forever.
+          </p>
+
+          <h3 class="mt-5">Before you build a hierarchy</h3>
+
+          <p>
+            <b>Games usually want composition more than inheritance.</b> Three
+            levels deep, and working out where a method actually lives becomes a
+            chore. The common alternative is to give one Enemy type a table of
+            behavior &mdash; a{" "}
+            <CodeSnippet
+              code="behavior"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            field holding functions, swapped per enemy.
+          </p>
+
+          <p>
+            One level, as here, is genuinely useful and easy to read. Reach for a
+            second level only when you can name what it buys you.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are building
+            the enemy types for a game that does not exist yet.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: The base type</h3>
+          <ul>
+            <li>
+              Make an <b>Enemy</b> class with <b>hp</b> and <b>speed</b>, speed
+              defaulting to 1.
+            </li>
+            <li>
+              Give it a{" "}
+              <CodeSnippet
+                code="kind()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              returning its name, and a{" "}
+              <CodeSnippet
+                code="describe()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              that uses{" "}
+              <CodeSnippet
+                code="self:kind()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              <b>The call to{" "}
+              <CodeSnippet
+                code="self:kind()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is the whole point of the exercise</b> &mdash; do not inline the
+              string.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: A child that overrides one method</h3>
+          <ul>
+            <li>
+              Make <b>Fast</b> inherit from Enemy with the two lines from the
+              concept section.
+            </li>
+            <li>
+              Give it its own constructor that calls{" "}
+              <CodeSnippet
+                code="Enemy.new"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and then re-parents the result to Fast.
+            </li>
+            <li>
+              Override only{" "}
+              <CodeSnippet
+                code="kind()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. <b>Do not write a describe method.</b>
+            </li>
+            <li>
+              The inherited{" "}
+              <CodeSnippet
+                code="describe"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              should nevertheless say "Fast". If it says "Enemy", you called{" "}
+              <CodeSnippet
+                code="Enemy.kind()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              somewhere instead of{" "}
+              <CodeSnippet
+                code="self:kind()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "18-28, 30" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: A child that extends the parent's method</h3>
+          <ul>
+            <li>Make a <b>Boss</b> that also inherits from Enemy.</li>
+            <li>
+              Override{" "}
+              <CodeSnippet
+                code="describe()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              to wrap the parent's version in markers, rather than rewriting it.
+            </li>
+            <li>
+              Use{" "}
+              <CodeSnippet
+                code="Enemy.describe(self)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              with a <b>dot</b>. Try the colon once, deliberately, and read what
+              you get &mdash; it is instructive.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "29-43, 46" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Put all three in a list and{" "}
+              <CodeSnippet
+                code="ipairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              over it calling{" "}
+              <CodeSnippet
+                code="describe()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              on each. <b>One loop, three behaviors, no{" "}
+              <CodeSnippet
+                code="if"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              /></b> &mdash; that is what the hierarchy bought you.
+            </li>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="Enemy:isA(class)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              that walks the metatable chain with{" "}
+              <CodeSnippet
+                code="getmetatable"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and reports whether the given class appears in it.
+            </li>
+            <li>
+              Rewrite Fast using <b>composition</b> instead: one Enemy class with
+              a{" "}
+              <CodeSnippet
+                code="behavior"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              table. Then decide which version you would rather add a fourth
+              enemy to.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Fast says "Fast" from a method it never
+            defined</b>, and Boss reuses the parent's text without copying it.
+            Both come from the same fallback rule you learned for one class.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/bonus-metatables"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/bonus-coroutines"
+          >
+            Next: Coroutines <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

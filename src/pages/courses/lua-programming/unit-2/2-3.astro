@@ -1,0 +1,547 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `-- wrong: speed depends on the computer
+ship.x = ship.x + 5
+
+-- right: 300 pixels per second, on any computer
+ship.x = ship.x + 300 * dt`;
+
+const Figure2 = `if love.keyboard.isDown("left", "a") then
+  ship.x = ship.x - ship.speed * dt
+end`;
+
+const Figure3 = `local half = ship.size / 2
+ship.x = math.max(half, math.min(love.graphics.getWidth() - half, ship.x))`;
+
+const Task1 = `-- main.lua
+
+local ship = { x = 400, y = 300, size = 40, speed = 300 }
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+end
+
+function love.draw()
+  love.graphics.setColor(0.2, 0.8, 1)
+  love.graphics.rectangle("fill", ship.x - ship.size / 2, ship.y - ship.size / 2, ship.size, ship.size)
+end`;
+
+const Task2 = `-- main.lua
+
+local ship = { x = 400, y = 300, size = 40, speed = 300 }
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    ship.x = ship.x - ship.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    ship.x = ship.x + ship.speed * dt
+  end
+  if love.keyboard.isDown("up", "w") then
+    ship.y = ship.y - ship.speed * dt
+  end
+  if love.keyboard.isDown("down", "s") then
+    ship.y = ship.y + ship.speed * dt
+  end
+end
+
+function love.draw()
+  love.graphics.setColor(0.2, 0.8, 1)
+  love.graphics.rectangle("fill", ship.x - ship.size / 2, ship.y - ship.size / 2, ship.size, ship.size)
+end`;
+
+const Task3 = `-- main.lua
+
+local ship = { x = 400, y = 300, size = 40, speed = 300 }
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    ship.x = ship.x - ship.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    ship.x = ship.x + ship.speed * dt
+  end
+  if love.keyboard.isDown("up", "w") then
+    ship.y = ship.y - ship.speed * dt
+  end
+  if love.keyboard.isDown("down", "s") then
+    ship.y = ship.y + ship.speed * dt
+  end
+
+  local half = ship.size / 2
+  ship.x = math.max(half, math.min(love.graphics.getWidth() - half, ship.x))
+  ship.y = math.max(half, math.min(love.graphics.getHeight() - half, ship.y))
+end
+
+function love.draw()
+  love.graphics.setColor(0.2, 0.8, 1)
+  love.graphics.rectangle("fill", ship.x - ship.size / 2, ship.y - ship.size / 2, ship.size, ship.size)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.3: Movement and Delta Time</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Activity 2.2 ended on the fact that makes movement possible: the
+            screen is wiped and redrawn every frame.{" "}
+            <b class="text-sn-theme">So you never move anything. You store a
+            position, change the number, and draw at wherever it now is.</b>
+          </p>
+
+          <p>
+            Which gives a clean division of labor, and it is worth holding to
+            strictly:
+          </p>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="love.update"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              changes numbers. It draws nothing.
+            </li>
+            <li>
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              reads numbers. It changes nothing.
+            </li>
+          </ul>
+
+          <p>
+            Break that and you get bugs that only appear at certain frame rates,
+            which are among the least pleasant kinds to find.
+          </p>
+
+          <h3 class="mt-5">What dt is for</h3>
+
+          <p>
+            <CodeSnippet
+              code="dt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is <b>delta time</b> &mdash; how many seconds passed since the last
+            frame. At 60 frames a second it is about{" "}
+            <CodeSnippet
+              code="0.0167"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">Adding a fixed amount ties your game's
+            speed to the computer it runs on.</b> On a 144&nbsp;Hz monitor the
+            first line moves the ship almost two and a half times faster than on
+            a 60&nbsp;Hz one. The player did nothing differently; the game is
+            just a different game.
+          </p>
+
+          <p>
+            Multiplying by{" "}
+            <CodeSnippet
+              code="dt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            fixes it, and the arithmetic is worth doing once by hand. At 60
+            frames a second you add{" "}
+            <CodeSnippet
+              code="300 * 0.0167"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            = about 5 pixels, sixty times &mdash; 300 pixels. At 30 frames a
+            second you add about 10 pixels, thirty times &mdash; 300 pixels
+            again.
+          </p>
+
+          <p>
+            <b>So the number becomes a unit you can reason about.</b>{" "}
+            <CodeSnippet
+              code="speed = 300"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            means 300 pixels per second, which crosses an 800-pixel window in
+            under three seconds. That is a design decision you can make on
+            paper.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The rule: any number you add every frame
+            gets multiplied by dt.</b> Movement, rotation, fuel drain, cooldowns.
+            Anything you set once does not.
+          </p>
+
+          <h3 class="mt-5">Reading the keyboard</h3>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <CodeSnippet
+              code="love.keyboard.isDown"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            asks whether a key is held <b>right now</b>, and takes several keys
+            at once &mdash; true if any of them is down. That is how you support
+            arrows and WASD in one line.
+          </p>
+
+          <p>
+            <b>Four separate</b>{" "}
+            <CodeSnippet
+              code="if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            <b>statements, not{" "}
+            <CodeSnippet
+              code="elseif"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            /></b>. With a chain, holding up and right would only move you up.
+            Separate tests let both run, and diagonal movement falls out for
+            free.
+          </p>
+
+          <p>
+            This is <i>polling</i> &mdash; asking every frame. It suits things
+            that happen continuously while a key is held. For things that happen
+            once per press, like firing, you want{" "}
+            <CodeSnippet
+              code="love.keypressed"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which Activity 2.5 uses.
+          </p>
+
+          <h3 class="mt-5">Staying on screen</h3>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            That is Activity 1.4's{" "}
+            <CodeSnippet
+              code="math.max"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="math.min"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, nested. Read it inside out:{" "}
+            <CodeSnippet
+              code="math.min"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            stops it going too far right,{" "}
+            <CodeSnippet
+              code="math.max"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            stops it going too far left. Together they trap the value in a range,
+            with no{" "}
+            <CodeSnippet
+              code="if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            <b>Clamp after all the movement, not inside each branch.</b> One
+            check at the end of update handles every way the ship could have
+            left, including diagonals.
+          </p>
+
+          <p>
+            The{" "}
+            <CodeSnippet
+              code="half"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is there because this ship is stored by its <i>center</i> &mdash;
+            which is why the draw call subtracts half the size. Storing the
+            center is worth doing: it makes rotation and collision easier later,
+            and it is what Activity 2.4's sprites want too.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Same <b class="text-sn-theme">skynest</b> folder. You are putting a
+            ship on screen and taking control of it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: A ship as data</h3>
+          <ul>
+            <li>
+              Replace Activity 2.2's panel with one table holding{" "}
+              <b>x</b>, <b>y</b>, <b>size</b> and <b>speed</b>.
+            </li>
+            <li>Start it in the middle of the window.</li>
+            <li>
+              Draw it as a square, remembering that x and y are its center, so
+              the rectangle's corner is half a size up and to the left.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Drive it</h3>
+          <ul>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="love.update(dt)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              with four separate{" "}
+              <CodeSnippet
+                code="if"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              statements.
+            </li>
+            <li>Accept arrows and WASD, in one test each.</li>
+            <li>
+              <b>Multiply by dt every time.</b> Then remove the{" "}
+              <CodeSnippet
+                code="* dt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              from one direction and compare how it feels &mdash; it will be far
+              too fast, because you are adding 300 pixels sixty times a second.
+            </li>
+            <li>Hold two keys at once and confirm you move diagonally.</li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "9-23" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Keep it on screen</h3>
+          <ul>
+            <li>
+              Before Task 3, drive off the edge and watch the ship vanish
+              entirely. It is still there, at an x of 2000.
+            </li>
+            <li>
+              Clamp both x and y at the <b>end</b> of update, using the window
+              size rather than 800 and 600.
+            </li>
+            <li>
+              Account for the ship's half-size so it stops flush with the edge
+              rather than half-buried in it.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "22-25" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Hold up and right together and watch the ship move <b>faster</b>{" "}
+              diagonally than it does straight. That is real, and it is because
+              you added a full step in each direction. Fixing it properly needs
+              the length of the movement vector &mdash; the bonus page on
+              operators has exactly the tool.
+            </li>
+            <li>
+              Add a <b>boost</b>: while shift is held, multiply the speed. One
+              extra variable, no new concepts.
+            </li>
+            <li>
+              Give the ship a <b>velocity</b> pair instead of moving x directly
+              &mdash; keys change{" "}
+              <CodeSnippet
+                code="vx"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="vy"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and one line at the end applies them. Then multiply the
+              velocity by 0.9 each frame and you have drift. <b>This is the
+              model Activity 2.5's bullets use.</b>
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <ul>
+            <li>A blue square in the middle of a near-black window.</li>
+            <li>Arrows or WASD move it smoothly in eight directions.</li>
+            <li>
+              <b class="text-sn-theme">It stops at all four edges and cannot
+              leave.</b>
+            </li>
+            <li>
+              Crossing the window takes a little under three seconds &mdash;
+              which is what a speed of 300 in an 800-wide window means.
+            </li>
+          </ul>
+
+          <p>
+            If it moves in jumps rather than smoothly, your movement is in{" "}
+            <CodeSnippet
+              code="love.draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. If it is far too fast, a{" "}
+            <CodeSnippet
+              code="* dt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is missing. If it will not go diagonally, you used{" "}
+            <CodeSnippet
+              code="elseif"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-2"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-2/2-4"
+          >
+            Next: Sprites and Images <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

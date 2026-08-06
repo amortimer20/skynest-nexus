@@ -1,0 +1,548 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local name = "Ada"
+local age = 17
+local onDuty = true
+local assignment = nil
+
+print(name, age, onDuty, assignment)`;
+const Figure1Out = `Ada\t17\ttrue\tnil`;
+
+const Figure2 = `print(type("SKYNEST"))
+print(type(17))
+print(type(true))
+print(type(nil))
+print(type(print))`;
+const Figure2Out = `string
+number
+boolean
+nil
+function`;
+
+const Figure3 = `local reading = 42
+print(reading, type(reading))
+
+reading = "offline"
+print(reading, type(reading))`;
+const Figure3Out = `42\tnumber
+offline\tstring`;
+
+const Figure4 = `do
+  shieldLevel = 100
+end
+
+print(shieldLevel)`;
+const Figure4Out = `100`;
+
+const Figure5 = `do
+  local shieldLevel = 100
+end
+
+print(shieldLevel)`;
+const Figure5Out = `nil`;
+
+const Figure6 = `local playerName = "Ada"
+
+print(playerNmae)`;
+const Figure6Out = `nil`;
+
+const Figure7 = `local a, b = 1, 2
+print(a, b)
+
+a, b = b, a
+print(a, b)`;
+const Figure7Out = `1\t2
+2\t1`;
+
+const Task1 = `-- main.lua - Skynest status board
+
+local shipName = "Skynest"
+local crew = 4
+local online = true
+
+print(shipName, crew, online)`;
+const Task1Out = `Skynest\t4\ttrue`;
+
+const Task2 = `-- main.lua - Skynest status board
+
+local shipName = "Skynest"
+local crew = 4
+local online = true
+local nextPort = nil
+
+print(shipName, crew, online, nextPort)
+print(type(shipName), type(crew), type(online), type(nextPort))`;
+
+const Task3 = `-- main.lua - Skynest status board
+
+local shipName = "Skynest"
+local crew = 4
+local online = true
+local nextPort = nil
+
+print(shipName, crew, online, nextPort)
+print(type(shipName), type(crew), type(online), type(nextPort))
+
+print(shipNmae)`;
+
+const Checkpoint = `Skynest\t4\ttrue\tnil
+string\tnumber\tboolean\tnil
+nil`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.2: Variables, local, and nil</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Lua has no <CodeSnippet
+              code="let"
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />, no{" "}
+            <CodeSnippet
+              code="const"
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and no type names to write. There is exactly one keyword you
+            need, and it is{" "}
+            <CodeSnippet
+              code="local"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            The value decides the type, and you can ask what a value is with{" "}
+            <CodeSnippet
+              code="type()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Notice the last one. <b class="text-sn-theme">A function is a
+            value</b>, the same as a number is. That fact does almost nothing
+            for you today and becomes the most useful thing you know by
+            Activity 1.8.
+          </p>
+
+          <p>
+            Nothing pins a variable to the type it started with, either.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <h3 class="mt-5">Why <code>local</code> is not optional</h3>
+
+          <p>
+            Here is the part of Lua most worth getting right on day one.{" "}
+            <b class="text-sn-theme">If you leave off{" "}
+            <CodeSnippet
+              code="local"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, the variable is global</b> &mdash; visible to every line of
+            every file in your program, for the rest of its run.
+          </p>
+
+          <p>
+            A{" "}
+            <CodeSnippet
+              code="do ... end"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            block is a chunk of code with its own scope. Watch what leaks out of
+            it and what does not.
+          </p>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <Code
+                code={Figure4}
+                frame="code"
+                lang="lua"
+                title="Without local"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure4Out}
+                frame="terminal"
+                lang="txt"
+                title="Output"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={Figure5}
+                frame="code"
+                lang="lua"
+                title="With local"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure5Out}
+                frame="terminal"
+                lang="txt"
+                title="Output"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p class="mt-4">
+            Globals are slower, they collide with each other, and they make a
+            bug in one file able to break a different one. Lua will never warn
+            you. <b>Write{" "}
+            <CodeSnippet
+              code="local"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            every time until leaving it off feels wrong.</b>
+          </p>
+
+          <h3 class="mt-5">nil, and the trap that comes with it</h3>
+
+          <p>
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is Lua's word for <i>nothing here</i>. It is a real value with its
+            own type, and it is what you get from any variable that was never
+            given anything.
+          </p>
+
+          <p>
+            Which produces the single most common Lua bug there is:
+          </p>
+
+          <Code
+            code={Figure6}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure6Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">That typo is not an error.</b>{" "}
+            <CodeSnippet
+              code="playerNmae"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is simply a global nobody ever assigned, so it is{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and Lua prints it without complaint. Your program runs, it is
+            just wrong.
+          </p>
+
+          <p>
+            When something in Lua is mysteriously{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, <b>check your spelling before you check your logic.</b> It is
+            the typo far more often than it is the reasoning.
+          </p>
+
+          <h3 class="mt-5">Several at once</h3>
+
+          <p>
+            Lua lets you assign a whole row of variables on one line, and the
+            right-hand side is worked out before anything is stored. That gives
+            you a swap with no temporary variable.
+          </p>
+
+          <Code
+            code={Figure7}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure7Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Open your <b class="text-sn-theme">main.lua</b> and replace what is
+            in it. You are turning last activity's hard-coded readout into one
+            driven by variables.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Store the readings</h3>
+          <ul>
+            <li>
+              Declare three <CodeSnippet
+                code="local"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              variables: a name, a crew count, and whether the ship is online.
+            </li>
+            <li>Use a string, a number, and a boolean &mdash; one of each.</li>
+            <li>Print all three with a single print call.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Add something you do not know yet</h3>
+          <ul>
+            <li>
+              Add a variable for the next port and set it to{" "}
+              <CodeSnippet
+                code="nil"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. The ship has no orders yet, and that is information worth
+              storing.
+            </li>
+            <li>Print it alongside the others.</li>
+            <li>
+              Add a second print that reports the{" "}
+              <CodeSnippet
+                code="type()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              of all four.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "6, 8-9" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Break it on purpose</h3>
+          <ul>
+            <li>
+              Add a line that prints{" "}
+              <CodeSnippet
+                code="shipNmae"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; the misspelling is the point.
+            </li>
+            <li>
+              Run it. <b>Note that you get no error</b>, and write down in a
+              comment what you got instead.
+            </li>
+            <li>
+              This is the failure you will spend the most time hunting later.
+              Meet it now, while you already know the answer.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "11" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Swap the values of two of your variables on one line, with no
+              third variable, and print them before and after.
+            </li>
+            <li>
+              Delete the word{" "}
+              <CodeSnippet
+                code="local"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              from one declaration. Confirm that the program still runs
+              identically &mdash; then explain to yourself, in a comment, why
+              that is a bad thing rather than a convenience.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Three things to be able to say out loud before moving on: what{" "}
+            <CodeSnippet
+              code="local"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            does, what{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            means, and why a misspelled variable name does not stop the program.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a class="btn btn-outline-light" href="/courses/lua-programming/unit-1/1-1">
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/unit-1/1-3">
+            Next: Working with Strings <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

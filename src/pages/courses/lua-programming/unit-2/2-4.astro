@@ -1,0 +1,517 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local ship
+
+function love.load()
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.draw()
+  love.graphics.draw(ship, 400, 300)
+end`;
+
+const Figure2 = `love.graphics.draw(image, x, y, rotation, scaleX, scaleY, originX, originY)`;
+
+const Figure3 = `-- top-left of the image lands at 400, 300
+love.graphics.draw(ship, 400, 300)
+
+-- center of the image lands at 400, 300
+love.graphics.draw(ship, 400, 300, 0, 1, 1, ship:getWidth() / 2, ship:getHeight() / 2)`;
+
+const Figure4 = `love.graphics.setColor(1, 0.3, 0.3)
+love.graphics.draw(ship, 400, 300)`;
+
+const Task1 = `-- main.lua
+
+local ship
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, 400, 300)
+end`;
+
+const Task2 = `-- main.lua
+
+local ship
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, 400, 300, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+end`;
+
+const Task3 = `-- main.lua
+
+local ship
+local angle = 0
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.update(dt)
+  angle = angle + dt
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, 400, 300, angle, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.4: Sprites and Images</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            A square is a fine ship for testing and a poor ship for playing.
+            Loading a picture is two lines.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Download the sprite and put it in your
+            skynest folder</b>, next to main.lua.
+          </p>
+
+          <p class="my-4">
+            <a
+              class="btn btn-outline-primary"
+              href="/courses/lua-programming/ship.png"
+              download="ship.png"
+            >
+              <i class="si-download"></i> ship.png &mdash; 32 × 32
+            </a>
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">
+              <CodeSnippet
+                code="newImage"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              goes in{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, never in{" "}
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </b>{" "}
+            It reads the file off disk and sends it to the graphics card. Do that
+            sixty times a second and the game will crawl, then run out of memory.
+            <b> Load once, draw many times</b> &mdash; the variable holds the
+            loaded image, and drawing it is cheap.
+          </p>
+
+          <p>
+            Note that{" "}
+            <CodeSnippet
+              code="ship"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is declared at the top of the file but assigned inside{" "}
+            <CodeSnippet
+              code="love.load"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. That is deliberate:{" "}
+            <CodeSnippet
+              code="local"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            inside the function would make a variable that vanishes when it
+            returns, and your draw would find{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. Activity 1.2 and Activity 1.8, still applying.
+          </p>
+
+          <h3 class="mt-5">The full draw call</h3>
+
+          <Code
+            code={Figure2}
+            frame="none"
+            lang="lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Everything after{" "}
+            <CodeSnippet
+              code="y"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is optional, and they must be supplied <b>in order</b> &mdash; to set
+            a scale you have to pass a rotation first, even if it is 0. That is
+            Lua's ordinary positional arguments, not a LÖVE rule.
+          </p>
+
+          <p>
+            <b>Rotation is in radians</b>, not degrees. A full turn is{" "}
+            <CodeSnippet
+              code="2 * math.pi"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />; a quarter turn is{" "}
+            <CodeSnippet
+              code="math.pi / 2"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. If you prefer degrees,{" "}
+            <CodeSnippet
+              code="math.rad(90)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            converts for you.
+          </p>
+
+          <h3 class="mt-5">Origin is the important one</h3>
+
+          <p>
+            By default LÖVE puts the image's <b>top-left corner</b> at the x and
+            y you give it. The origin arguments move that anchor point.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            The origin does two jobs at once, which is why it matters more than
+            it looks. It is <b>the point that lands on x, y</b>, and it is also{" "}
+            <b class="text-sn-theme">the point the image rotates around</b>.
+          </p>
+
+          <p>
+            Leave it at the default and a rotating sprite swings around its own
+            top-left corner, orbiting rather than spinning. Set it to the middle
+            of the image and it turns on the spot. <b>Almost always you want the
+            middle.</b>
+          </p>
+
+          <p>
+            Use{" "}
+            <CodeSnippet
+              code="ship:getWidth() / 2"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            rather than typing 16. Swap in a bigger sprite later and the code
+            still centers it. That colon is Activity 1.11's method call &mdash;
+            the loaded image is an object with methods on it.
+          </p>
+
+          <p>
+            <b>One catch worth knowing now:</b> the origin is measured in the
+            image's own unscaled pixels, before{" "}
+            <CodeSnippet
+              code="sx"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="sy"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            are applied. So half the width is correct whatever scale you draw at,
+            and you never multiply the origin by the scale yourself.
+          </p>
+
+          <h3 class="mt-5">Color tints images</h3>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            That draws the ship <b>red</b>. The current color is multiplied
+            through the image rather than ignored, which is genuinely useful
+            &mdash; it is how you flash an enemy white when it is hit, without a
+            second sprite.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">It is also a reliable source of confusion.</b>{" "}
+            Draw a colored shape, then draw a sprite, and the sprite comes out
+            wearing the shape's color. The state machine from Activity 2.2 does
+            not stop at shapes.
+          </p>
+
+          <p>
+            <b>So set{" "}
+            <CodeSnippet
+              code="love.graphics.setColor(1, 1, 1)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            before drawing any image you want to look normal.</b> White is "no
+            tint." Get into the habit now, because the day it bites you the
+            sprite will simply be the wrong color and nothing will be an error.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Put <b class="text-sn-theme">ship.png</b> in your skynest folder
+            first. If LÖVE cannot find it you will get an error naming the file,
+            which is one of the few loud failures you will meet.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Load it and draw it</h3>
+          <ul>
+            <li>
+              Declare the image variable at the top of the file, and assign it
+              inside{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Draw it at 400, 300 with no extra arguments.</li>
+            <li>
+              <b>Look at where it actually landed.</b> Its top-left corner is at
+              the center of the window, so the sprite sits down and to the right
+              of where you probably expected.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Center it and scale it up</h3>
+          <ul>
+            <li>
+              Add a rotation of <b>0</b>, a scale of <b>2</b> on both axes, and
+              an origin of half the image's width and height.
+            </li>
+            <li>Compute the origin from the image, not from the number 16.</li>
+            <li>
+              <b>It should now be centered</b>, and twice the size. A 32-pixel
+              sprite drawn at 2 is a comfortable 64 pixels.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "12" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Spin it</h3>
+          <ul>
+            <li>
+              Add an{" "}
+              <CodeSnippet
+                code="angle"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              variable and grow it by{" "}
+              <CodeSnippet
+                code="dt"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              each frame &mdash; one radian per second, so a full turn takes a
+              little over six seconds.
+            </li>
+            <li>Pass it as the rotation.</li>
+            <li>
+              <b class="text-sn-theme">Then set the two origin arguments back to
+              0 and run it again.</b> The ship swings in a wide circle instead of
+              turning on the spot. That is the clearest demonstration of what
+              origin does, and it is worth seeing rather than being told.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "4, 11-14, 17" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Bring back Activity 2.3's movement and draw the sprite at the
+              ship's position instead of a square. <b>This is the version you
+              keep</b> &mdash; the rest of the unit builds on it.
+            </li>
+            <li>
+              Make the ship <b>tilt</b> as it moves: set the angle to a small
+              positive number while moving right and a small negative one while
+              moving left, and back to 0 otherwise. It costs four lines and makes
+              the ship feel alive.
+            </li>
+            <li>
+              Tint the ship red while any key is held, using{" "}
+              <CodeSnippet
+                code="setColor"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              before the draw. Then remove the{" "}
+              <CodeSnippet
+                code="setColor(1, 1, 1)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              afterwards and watch the tint leak into everything else you draw.
+            </li>
+            <li>
+              Flip the sprite by passing <b>-2</b> as the horizontal scale. Work
+              out why the origin makes that flip in place rather than jumping
+              sideways.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <ul>
+            <li>
+              A blue arrowhead ship, <b>64 pixels</b> across, exactly in the
+              middle of the window.
+            </li>
+            <li>
+              <b class="text-sn-theme">Turning steadily on the spot</b>, one
+              rotation every six or so seconds.
+            </li>
+            <li>Its colors unchanged &mdash; blue hull, pale cockpit.</li>
+          </ul>
+
+          <p>
+            If it orbits rather than spins, the origin arguments are missing or
+            zero. If it is tiny, the scale is missing. If it is a strange color,
+            something set a color before the draw and never set it back. And if
+            LÖVE refused to start, the file is not in the folder or the name does
+            not match &mdash; that one is case-sensitive on most machines.
+          </p>
+
+          <p>
+            <b>That is the first block.</b> You have a window, a loop, shapes,
+            input, frame-rate-independent movement, and a sprite. Activity 2.5
+            starts the game proper, with a table of bullets &mdash; and it opens
+            by walking a list backwards, exactly as Activity 1.9 said it would.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-3"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/">
+            Course Index <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

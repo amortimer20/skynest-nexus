@@ -1,0 +1,685 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local crew = { "Ada", "Bo", "Cy" }
+
+print(crew[1])
+print(crew[3])
+print(#crew)
+print(crew[4])`;
+const Figure1Out = `Ada
+Cy
+3
+nil`;
+
+const Figure2 = `local crew = { "Ada", "Bo", "Cy" }
+
+for i, name in ipairs(crew) do
+  print(i, name)
+end`;
+const Figure2Out = `1\tAda
+2\tBo
+3\tCy`;
+
+const Figure3 = `local crew = { "Ada", "Bo", "Cy" }
+
+table.insert(crew, "Dee")
+table.insert(crew, 1, "Zed")
+print(table.concat(crew, ", "))
+
+table.remove(crew)
+table.remove(crew, 1)
+print(table.concat(crew, ", "))`;
+const Figure3Out = `Zed, Ada, Bo, Cy, Dee
+Ada, Bo, Cy`;
+
+const Figure4 = `local scores = { 40, 12, 87, 3 }
+
+table.sort(scores)
+print(table.concat(scores, " "))
+
+table.sort(scores, function(a, b) return a > b end)
+print(table.concat(scores, " "))`;
+const Figure4Out = `3 12 40 87
+87 40 12 3`;
+
+const Figure5 = `local nums = { 2, 4, 5, 6 }
+
+for i = 1, #nums do
+  local value = nums[i]
+  if value ~= nil and value % 2 == 0 then
+    table.remove(nums, i)
+  end
+end
+
+print(table.concat(nums, " "))`;
+const Figure5Out = `4 5`;
+
+const Figure6 = `local nums = { 2, 4, 5, 6 }
+
+for i = #nums, 1, -1 do
+  if nums[i] % 2 == 0 then
+    table.remove(nums, i)
+  end
+end
+
+print(table.concat(nums, " "))`;
+const Figure6Out = `5`;
+
+const Task1 = `-- main.lua - Skynest crew roster
+
+local crew = { "Ada", "Bo", "Cy" }
+
+print("Crew size:", #crew)
+print("First:", crew[1])
+print("Last:", crew[#crew])
+
+for i, name in ipairs(crew) do
+  print(i, name)
+end`;
+const Task1Out = `Crew size:\t3
+First:\tAda
+Last:\tCy
+1\tAda
+2\tBo
+3\tCy`;
+
+const Task2 = `-- main.lua - Skynest crew roster
+
+local crew = { "Ada", "Bo", "Cy" }
+
+print("Crew size:", #crew)
+print("First:", crew[1])
+print("Last:", crew[#crew])
+
+for i, name in ipairs(crew) do
+  print(i, name)
+end
+
+table.insert(crew, "Dee")
+table.insert(crew, 1, "Zed")
+print("Roster:", table.concat(crew, ", "))
+
+table.remove(crew, 1)
+print("After launch:", table.concat(crew, ", "))`;
+const Task2Out = `Crew size:\t3
+First:\tAda
+Last:\tCy
+1\tAda
+2\tBo
+3\tCy
+Roster:\tZed, Ada, Bo, Cy, Dee
+After launch:\tAda, Bo, Cy, Dee`;
+
+const Task3 = `-- main.lua - Skynest crew roster
+
+local crew = { "Ada", "Bo", "Cy" }
+
+print("Crew size:", #crew)
+print("First:", crew[1])
+print("Last:", crew[#crew])
+
+for i, name in ipairs(crew) do
+  print(i, name)
+end
+
+table.insert(crew, "Dee")
+table.insert(crew, 1, "Zed")
+print("Roster:", table.concat(crew, ", "))
+
+table.remove(crew, 1)
+print("After launch:", table.concat(crew, ", "))
+
+local scores = { 12, 40, 7, 88, 5 }
+
+for i = #scores, 1, -1 do
+  if scores[i] < 10 then
+    table.remove(scores, i)
+  end
+end
+
+print("Qualified:", table.concat(scores, " "))`;
+
+const Checkpoint = `Crew size:\t3
+First:\tAda
+Last:\tCy
+1\tAda
+2\tBo
+3\tCy
+Roster:\tZed, Ada, Bo, Cy, Dee
+After launch:\tAda, Bo, Cy, Dee
+Qualified:\t12 40 88`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.9: Tables as Lists</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Lua has <b class="text-sn-theme">one</b> data structure. Not one
+            per job &mdash; one, total. It is called a <b>table</b>, and it does
+            the work of arrays, dictionaries, objects, classes, modules, and
+            namespaces. This activity uses it as a list. The next two use the
+            same thing for entirely different purposes.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Positions start at 1.</b> Not 0. This is
+            the single most quoted fact about Lua and the one most likely to
+            trip you.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="#crew"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            counts the items &mdash; the same{" "}
+            <CodeSnippet
+              code="#"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            you used on strings in Activity 1.3. Because counting starts at 1,{" "}
+            <b>the last item is at{" "}
+            <CodeSnippet
+              code="crew[#crew]"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, not{" "}
+            <CodeSnippet
+              code="crew[#crew - 1]"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            /></b>, which is one of the few places 1-indexing is genuinely
+            tidier.
+          </p>
+
+          <p>
+            And reading past the end is <b>not an error</b>. You get{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, exactly like the misspelled variable in Activity 1.2. Same
+            silence, same class of bug.
+          </p>
+
+          <h3 class="mt-5">Walking a list</h3>
+
+          <p>
+            <CodeSnippet
+              code="ipairs"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            hands you the position and the value together, in order, from 1
+            until it hits a gap.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            This is the fourth loop form from Activity 1.8, and{" "}
+            <CodeSnippet
+              code="ipairs"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is an ordinary function returning a closure &mdash; nothing about it
+            is built into the language. If you do not need the position, the
+            convention is to name it{" "}
+            <CodeSnippet
+              code="_"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which is just a variable name that means "ignore me."
+          </p>
+
+          <h3 class="mt-5">Adding and removing</h3>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="table.insert(t, v)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            appends. Give it a position first and it inserts there, shuffling
+            everything else along.{" "}
+            <CodeSnippet
+              code="table.remove(t)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            takes the last one off; with a position it removes that one and
+            closes the gap.{" "}
+            <CodeSnippet
+              code="table.concat"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            joins a list into a string, which is the tidiest way to look at one.
+          </p>
+
+          <h3 class="mt-5">Sorting</h3>
+
+          <p>
+            <CodeSnippet
+              code="table.sort"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            rearranges the list <i>in place</i> &mdash; it returns nothing, so{" "}
+            <CodeSnippet
+              code="local s = table.sort(t)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            gives you nil and is a common first mistake.
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure4Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            The second call passes a function that answers{" "}
+            <i>should a come before b?</i> &mdash; and this is Activity 1.7's
+            "functions are values" doing real work. Swap{" "}
+            <CodeSnippet
+              code=">"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            for{" "}
+            <CodeSnippet
+              code="<"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and the order flips.
+          </p>
+
+          <h3 class="mt-5">
+            The trap that will bite you in Unit 2
+          </h3>
+
+          <p>
+            Removing items while looping <i>forwards</i> is broken, and it fails
+            quietly. Every time you remove one, everything after it slides down a
+            position &mdash; but the loop counter keeps going up, so it steps
+            straight over an item.
+          </p>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <Code
+                code={Figure5}
+                frame="code"
+                lang="lua"
+                title="Forwards — wrong"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure5Out}
+                frame="terminal"
+                lang="txt"
+                title="Output"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={Figure6}
+                frame="code"
+                lang="lua"
+                title="Backwards — right"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6Out}
+                frame="terminal"
+                lang="txt"
+                title="Output"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p class="mt-4">
+            Both were asked to remove every even number.{" "}
+            <b class="text-sn-theme">The forwards version left a 4 behind.</b>{" "}
+            It removed the 2, everything shifted down, and the 4 landed in the
+            position the loop had already passed.
+          </p>
+
+          <p>
+            <b>Loop backwards whenever you remove.</b> Positions after the one
+            you removed are the only ones that move, and going backwards you have
+            already dealt with those. This is not a style preference &mdash; it
+            is the difference between a bullet disappearing and a bullet
+            surviving, and in Unit 2 you will write this exact loop.
+          </p>
+
+          <p>
+            Note the forwards version also needed a{" "}
+            <CodeSnippet
+              code="value ~= nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            guard to avoid crashing outright, because the list got shorter than
+            the count the loop started with. The backwards version needs no
+            guard at all.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are keeping
+            a crew roster, then filtering a list of scores.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Build and read a roster</h3>
+          <ul>
+            <li>Make a list of three crew names.</li>
+            <li>
+              Print the size, the first name, and the last name &mdash; get the
+              last one <b>without typing a 3</b>.
+            </li>
+            <li>
+              Then list them all with{" "}
+              <CodeSnippet
+                code="ipairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Crew changes</h3>
+          <ul>
+            <li>Append a fourth name.</li>
+            <li>Insert a fifth at the <b>front</b>.</li>
+            <li>
+              Print the whole roster on one line with{" "}
+              <CodeSnippet
+                code="table.concat"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Then remove whoever is at the front and print it again.</li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "13-18" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Filter a list safely</h3>
+          <ul>
+            <li>
+              Make a list of scores:{" "}
+              <CodeSnippet
+                code="{ 12, 40, 7, 88, 5 }"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Remove every score below 10.</li>
+            <li>
+              <b>Loop backwards.</b> Then, once it works, change it to loop
+              forwards and see what you get. Keep the broken version in a
+              comment &mdash; it is the most useful thing on this page.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "20-28" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Sort the surviving scores highest first, using a comparison
+              function.
+            </li>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="contains(list, value)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              returning{" "}
+              <CodeSnippet
+                code="true"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              or{" "}
+              <CodeSnippet
+                code="false"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Then make it return the <i>position</i> instead, or nil &mdash;
+              which is more useful and costs nothing extra.
+            </li>
+            <li>
+              Set{" "}
+              <CodeSnippet
+                code="crew[2] = nil"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and then print{" "}
+              <CodeSnippet
+                code="#crew"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and loop it with{" "}
+              <CodeSnippet
+                code="ipairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. <b>A hole in the middle of a list breaks both</b> &mdash;
+              which is exactly why{" "}
+              <CodeSnippet
+                code="table.remove"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              exists instead.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Qualified is 12 40 88</b> &mdash; both the
+            7 and the 5 are gone. If either survived, your loop was going
+            forwards.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/1-8"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/1-10"
+          >
+            Next: Tables as Records <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

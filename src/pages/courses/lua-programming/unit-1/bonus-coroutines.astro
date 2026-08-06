@@ -1,0 +1,688 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local function sequence()
+  print("step 1")
+  coroutine.yield()
+  print("step 2")
+  coroutine.yield()
+  print("step 3")
+end
+
+local co = coroutine.create(sequence)
+
+print("status:", coroutine.status(co))
+coroutine.resume(co)
+coroutine.resume(co)
+coroutine.resume(co)
+print("status:", coroutine.status(co))`;
+const Figure1Out = `status:\tsuspended
+step 1
+step 2
+step 3
+status:\tdead`;
+
+const Figure2 = `local squares = coroutine.wrap(function()
+  for i = 1, 4 do
+    coroutine.yield(i * i)
+  end
+end)
+
+print(squares())
+print(squares())`;
+const Figure2Out = `1
+4`;
+
+const Figure3 = `local function wait(seconds)
+  local elapsed = 0
+  while elapsed < seconds do
+    elapsed = elapsed + coroutine.yield()
+  end
+end
+
+local cutscene = coroutine.create(function()
+  print("Door opens")
+  wait(2)
+  print("Alarm sounds")
+  wait(1)
+  print("Lights out")
+end)
+
+for frame = 1, 8 do
+  if coroutine.status(cutscene) ~= "dead" then
+    coroutine.resume(cutscene, 0.5)
+  end
+end`;
+const Figure3Out = `Door opens
+Alarm sounds
+Lights out`;
+
+const Task1 = `-- main.lua - coroutines
+
+local function sequence()
+  print("step 1")
+  coroutine.yield()
+  print("step 2")
+  coroutine.yield()
+  print("step 3")
+end
+
+local co = coroutine.create(sequence)
+
+print("status:", coroutine.status(co))
+coroutine.resume(co)
+coroutine.resume(co)
+coroutine.resume(co)
+print("status:", coroutine.status(co))`;
+const Task1Out = `status:\tsuspended
+step 1
+step 2
+step 3
+status:\tdead`;
+
+const Task2 = `-- main.lua - coroutines
+
+local function sequence()
+  print("step 1")
+  coroutine.yield()
+  print("step 2")
+  coroutine.yield()
+  print("step 3")
+end
+
+local co = coroutine.create(sequence)
+
+print("status:", coroutine.status(co))
+coroutine.resume(co)
+coroutine.resume(co)
+coroutine.resume(co)
+print("status:", coroutine.status(co))
+
+local squares = coroutine.wrap(function()
+  for i = 1, 4 do
+    coroutine.yield(i * i)
+  end
+end)
+
+print(squares())
+print(squares())
+
+local gen = coroutine.wrap(function()
+  for i = 1, 3 do coroutine.yield(i) end
+end)
+
+for n in gen do
+  print("got", n)
+end`;
+const Task2Out = `status:\tsuspended
+step 1
+step 2
+step 3
+status:\tdead
+1
+4
+got\t1
+got\t2
+got\t3`;
+
+const Task3 = `-- main.lua - coroutines
+
+local function sequence()
+  print("step 1")
+  coroutine.yield()
+  print("step 2")
+  coroutine.yield()
+  print("step 3")
+end
+
+local co = coroutine.create(sequence)
+
+print("status:", coroutine.status(co))
+coroutine.resume(co)
+coroutine.resume(co)
+coroutine.resume(co)
+print("status:", coroutine.status(co))
+
+local squares = coroutine.wrap(function()
+  for i = 1, 4 do
+    coroutine.yield(i * i)
+  end
+end)
+
+print(squares())
+print(squares())
+
+local gen = coroutine.wrap(function()
+  for i = 1, 3 do coroutine.yield(i) end
+end)
+
+for n in gen do
+  print("got", n)
+end
+
+local function wait(seconds)
+  local elapsed = 0
+  while elapsed < seconds do
+    elapsed = elapsed + coroutine.yield()
+  end
+end
+
+local cutscene = coroutine.create(function()
+  print("Door opens")
+  wait(2)
+  print("Alarm sounds")
+  wait(1)
+  print("Lights out")
+end)
+
+for frame = 1, 8 do
+  if coroutine.status(cutscene) ~= "dead" then
+    coroutine.resume(cutscene, 0.5)
+  end
+end`;
+
+const Checkpoint = `status:\tsuspended
+step 1
+step 2
+step 3
+status:\tdead
+1
+4
+got\t1
+got\t2
+got\t3
+Door opens
+Alarm sounds
+Lights out`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus: Coroutines</h1>
+        <p class="text-sn-theme">
+          Optional &mdash; the most distinctively Lua thing in the language, and
+          the one with no real equivalent in most others.
+        </p>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Every function you have written runs from top to bottom and then
+            stops. A <b class="text-sn-theme">coroutine</b> is a function that
+            can pause in the middle, hand control back, and later carry on from
+            exactly where it left off &mdash; with all its local variables still
+            in place.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">Three functions do all the work:</p>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="coroutine.create"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              wraps a function up. <b>It does not run it</b> &mdash; note that
+              nothing printed until the first resume.
+            </li>
+            <li>
+              <CodeSnippet
+                code="coroutine.resume"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              starts it, or continues it from its last pause.
+            </li>
+            <li>
+              <CodeSnippet
+                code="coroutine.yield"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              pauses from the inside and returns control to whoever resumed.
+            </li>
+          </ul>
+
+          <p>
+            <b>This is not a thread.</b> Nothing runs at the same time as
+            anything else, there is no scheduler, and you never need a lock.
+            Control moves between two places, and only one of them is ever
+            running. That is why coroutines are easy to reason about and threads
+            are not.
+          </p>
+
+          <h3 class="mt-5">The shortcut: wrap</h3>
+
+          <p>
+            <CodeSnippet
+              code="coroutine.wrap"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            hands you a plain function instead of a coroutine object. Call the
+            function to resume it, and whatever it yields comes straight back.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Look at what that is. A function you can keep calling, which
+            remembers where it got to and produces the next value.{" "}
+            <b class="text-sn-theme">That is exactly the iterator contract from
+            Activity 1.8</b> &mdash; so a wrapped coroutine can drive a{" "}
+            <CodeSnippet
+              code="for ... in"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            loop directly, and when it finishes it returns nil and the loop
+            stops on its own.
+          </p>
+
+          <p>
+            The difference from a closure iterator is what you can express.{" "}
+            <b>A closure has to reconstruct its position from stored variables
+            every call; a coroutine just keeps standing where it was.</b> For
+            walking a nested structure, that is the difference between a
+            bookkeeping exercise and a recursive function with a yield in it.
+          </p>
+
+          <p>
+            <CodeSnippet
+              code="wrap"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            has one cost:{" "}
+            <CodeSnippet
+              code="create"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            plus{" "}
+            <CodeSnippet
+              code="resume"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            reports errors by returning false, like{" "}
+            <CodeSnippet
+              code="pcall"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, whereas a wrapped one raises them at you. Use{" "}
+            <CodeSnippet
+              code="wrap"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            for iterators and{" "}
+            <CodeSnippet
+              code="create"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            when you want to check the status.
+          </p>
+
+          <h3 class="mt-5">Why a game programmer cares</h3>
+
+          <p>
+            Here is the problem coroutines solve. A game runs one function per
+            frame, sixty times a second. You want to write:{" "}
+            <i>open the door, wait two seconds, sound the alarm, wait one more,
+            cut the lights.</i>
+          </p>
+
+          <p>
+            Without coroutines that becomes a state machine &mdash; a{" "}
+            <CodeSnippet
+              code="phase"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            variable, a timer, and a growing chain of{" "}
+            <CodeSnippet
+              code="elseif"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; and the sequence you wanted is scattered across it. With
+            coroutines you write the sequence.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            The loop stands in for a game's frames, each one worth half a second.{" "}
+            <b class="text-sn-theme">The value passed to{" "}
+            <CodeSnippet
+              code="resume"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            comes back out of{" "}
+            <CodeSnippet
+              code="yield"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            inside the coroutine</b>, which is how{" "}
+            <CodeSnippet
+              code="wait"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            learns how much time went by. Values travel both directions.
+          </p>
+
+          <p>
+            In Unit 2 the frame loop is{" "}
+            <CodeSnippet
+              code="love.update(dt)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and you would resume with the real{" "}
+            <CodeSnippet
+              code="dt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. The cutscene function would not change at all.
+          </p>
+
+          <p>
+            <b>Two things to remember.</b> A dead coroutine cannot be resumed
+            &mdash; check the status or you get a false and a "cannot resume dead
+            coroutine" message. And you cannot yield from inside a normal
+            function called by C code, which in practice means avoid yielding
+            from inside a{" "}
+            <CodeSnippet
+              code="table.sort"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            comparison or a metamethod.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Pause and continue</h3>
+          <ul>
+            <li>
+              Write a function that prints three steps with a{" "}
+              <CodeSnippet
+                code="coroutine.yield()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              between each.
+            </li>
+            <li>Create a coroutine from it and print the status before resuming.</li>
+            <li>Resume three times, then print the status again.</li>
+            <li>
+              <b>Confirm nothing printed until the first resume.</b> Creating is
+              not running.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: A generator, then a loop</h3>
+          <ul>
+            <li>
+              Use{" "}
+              <CodeSnippet
+                code="coroutine.wrap"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              to make something that yields square numbers, and call it twice.
+            </li>
+            <li>
+              Then make a second one and drive it with{" "}
+              <CodeSnippet
+                code="for n in gen do"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              <b>Note that you never wrote a stop condition.</b> The coroutine
+              finished, returned nil, and the loop ended.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "19-34" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: A timed sequence</h3>
+          <ul>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="wait(seconds)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              that keeps yielding until enough time has been handed to it.
+            </li>
+            <li>
+              Write a cutscene coroutine that prints three lines with waits
+              between them.
+            </li>
+            <li>
+              Drive it with a loop of eight frames, each worth <b>0.5</b>,
+              skipping the resume once it is dead.
+            </li>
+            <li>
+              <b class="text-sn-theme">Read the cutscene function on its own.</b>{" "}
+              It is a straight list of instructions with pauses in it &mdash; no
+              state variable, no phase counter. That is the whole argument for
+              coroutines.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "36-55" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Change the frame size to <b>0.25</b> and confirm the cutscene still
+              produces the same three lines, just over more frames. <b>The
+              sequence is written in seconds, not frames</b>, which is the
+              property you want.
+            </li>
+            <li>
+              Make{" "}
+              <CodeSnippet
+                code="wait"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              return how much it overshot by, and have the caller print it.
+            </li>
+            <li>
+              Write a coroutine that walks a <b>nested</b> table and yields every
+              value it finds at any depth, then drive it with{" "}
+              <CodeSnippet
+                code="for v in ..."
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Recursion plus yield makes this about six lines; try it as a
+              closure iterator afterwards and see how much harder it gets.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Three lines from a function that paused twice, across eight frames it
+            knew nothing about.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/bonus-inheritance"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/bonus-patterns"
+          >
+            Next: String Patterns <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

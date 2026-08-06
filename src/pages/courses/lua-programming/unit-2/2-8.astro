@@ -1,0 +1,677 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+const REQ_COLL = `-- main.lua
+
+local collision = require("collision")
+`;
+
+const REQ_BOTH = `-- main.lua
+
+local Enemy = require("enemy")
+local collision = require("collision")
+`;
+
+const STATE = `
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+local spawnTimer = 0
+local spawnEvery = 0.8
+local score = 0
+`;
+
+const ENEMY_INLINE = `
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120, hp = 2 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+`;
+
+const BODY = `
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+
+  fireCooldown = fireCooldown - dt
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+
+  spawnTimer = spawnTimer - dt
+  if spawnTimer <= 0 then
+    table.insert(enemies, Enemy.new(math.random(40, love.graphics.getWidth() - 40)))
+    spawnTimer = spawnEvery
+  end
+
+  for i = #enemies, 1, -1 do
+    local e = enemies[i]
+    e:update(dt)
+    if e.y > love.graphics.getHeight() + 20 then
+      table.remove(enemies, i)
+    end
+  end
+
+  for i = #enemies, 1, -1 do
+    if collision.overlaps(enemies[i], player) then
+      enemies = {}
+      bullets = {}
+      score = 0
+      break
+    end
+  end
+
+  for i = #enemies, 1, -1 do
+    for j = #bullets, 1, -1 do
+      if collision.overlaps(enemies[i], bullets[j]) then
+        table.remove(bullets, j)
+        enemies[i].hp = enemies[i].hp - 1
+        if enemies[i].hp <= 0 then
+          table.remove(enemies, i)
+          score = score + 1
+        end
+        break
+      end
+    end
+  end
+end
+`;
+
+const DRAW_WITH_COLOR = `
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  love.graphics.setColor(1, 0.3, 0.4)
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Score: " .. score, 10, 10)
+end`;
+
+const DRAW_NO_COLOR = `
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Score: " .. score, 10, 10)
+end`;
+
+//#region CodeSnippets
+const CollisionModule = `-- collision.lua
+
+local collision = {}
+
+function collision.overlaps(a, b)
+  return a.x - a.size / 2 < b.x + b.size / 2
+     and a.x + a.size / 2 > b.x - b.size / 2
+     and a.y - a.size / 2 < b.y + b.size / 2
+     and a.y + a.size / 2 > b.y - b.size / 2
+end
+
+return collision`;
+
+const EnemyModule = `-- enemy.lua
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120, hp = 2 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.setColor(1, 0.3, 0.4)
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+
+return Enemy`;
+
+const Figure1 = `skynest/
+  main.lua
+  conf.lua
+  enemy.lua
+  collision.lua
+  ship.png`;
+
+const Figure2 = `local Enemy = require("enemy")
+local collision = require("collision")`;
+
+const Task1 = REQ_COLL + STATE + ENEMY_INLINE + BODY + DRAW_WITH_COLOR;
+const Task2 = REQ_BOTH + STATE + BODY + DRAW_WITH_COLOR;
+const Task3 = REQ_BOTH + STATE + BODY + DRAW_NO_COLOR;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.8: Splitting the Game into Modules</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Your main.lua is past a hundred lines and every activity from here
+            adds more. <b class="text-sn-theme">This is the moment to split it
+            up &mdash; before it hurts, and while the seams are still obvious.</b>
+          </p>
+
+          <p>
+            Nothing new is coming. Activity 1.12 already taught the whole
+            mechanism: a module is a table a file returns, and{" "}
+            <CodeSnippet
+              code="require"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            runs that file once and hands you the table.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="none"
+            lang="txt"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            No paths, no extensions, no build step. LÖVE looks in your game
+            folder, so a file sitting next to main.lua is found by its name
+            alone.
+          </p>
+
+          <h3 class="mt-5">What makes a good seam</h3>
+
+          <p>
+            The test is not "how many lines" but{" "}
+            <b class="text-sn-theme">how much a piece needs to know about
+            everything else.</b> Two things in your file barely know anything:
+          </p>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="overlaps"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              takes two tables and returns a boolean. It has never heard of
+              bullets, enemies, or the player. <b>That is a perfect module</b>{" "}
+              &mdash; it could be dropped into any other game unchanged.
+            </li>
+            <li>
+              <CodeSnippet
+                code="Enemy"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              knows its own position, speed and hp, and nothing about the score
+              or the player. It only needs{" "}
+              <CodeSnippet
+                code="love.graphics"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, which is global anyway.
+            </li>
+          </ul>
+
+          <p>
+            The update loop, by contrast, touches everything at once, and that is
+            why it stays in main.lua. <b>Do not split something just to make the
+            file shorter</b> &mdash; a module that needs six things passed into
+            it has moved the mess rather than removed it.
+          </p>
+
+          <h3 class="mt-5">Two shapes of module</h3>
+
+          <p>
+            <CodeSnippet
+              code="collision.lua"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            returns a table of plain functions &mdash; a toolbox. You call{" "}
+            <CodeSnippet
+              code="collision.overlaps(a, b)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            with a dot.
+          </p>
+
+          <p>
+            <CodeSnippet
+              code="enemy.lua"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            returns a <i>class</i> table &mdash; a thing you make instances from.
+            You call{" "}
+            <CodeSnippet
+              code="Enemy.new(x)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            with a dot and{" "}
+            <CodeSnippet
+              code="e:update(dt)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            with a colon, exactly as before.
+          </p>
+
+          <p>
+            <b>Both are just tables being returned.</b> The difference is
+            entirely in what you put in them, which is the point Activity 1.10
+            kept making.
+          </p>
+
+          <h3 class="mt-5">The name is yours</h3>
+
+          <p>
+            <CodeSnippet
+              code={`local Enemy = require("enemy")`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; the file is lowercase, the variable is capitalized, and
+            nothing enforces either. That is a convention worth following:{" "}
+            <b>lowercase filenames, capitalized class variables</b>, so a reader
+            can tell a class from a toolbox at the point of use.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Remember that require runs the file
+            once.</b> If two files both require enemy.lua, they get the same
+            table &mdash; which is exactly right for a class, and something to
+            watch for if a module ever holds mutable state of its own.
+          </p>
+
+          <h3 class="mt-5">A refactor should change nothing</h3>
+
+          <p>
+            This activity is the first that adds no features. When you finish it
+            the game will look and play <i>identically</i>, and{" "}
+            <b class="text-sn-theme">that is the success condition.</b> If
+            behavior changed, something went wrong in the move.
+          </p>
+
+          <p>
+            So make one change at a time and run after each. Moving two things at
+            once and finding the game broken leaves you guessing which move did
+            it &mdash; and a refactor is the one situation where you have a
+            perfect reference to compare against.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            <b>Run the game first and watch it for a few seconds.</b> That is
+            your reference. Everything below should leave it unchanged.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Extract collision.lua</h3>
+          <ul>
+            <li>
+              Make <b class="text-sn-theme">collision.lua</b> beside main.lua. It
+              creates a table, puts{" "}
+              <CodeSnippet
+                code="overlaps"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              in it, and returns it.
+            </li>
+            <li>
+              Delete the local{" "}
+              <CodeSnippet
+                code="overlaps"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              from main.lua and require the module at the top instead.
+            </li>
+            <li>
+              Update all three call sites to{" "}
+              <CodeSnippet
+                code="collision.overlaps(...)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              <b>Miss one and you get a clear error</b> naming a nil value, which
+              is one of the few loud failures Lua gives you. Run it.
+            </li>
+          </ul>
+
+          <Code
+            code={CollisionModule}
+            frame="code"
+            lang="lua"
+            title="collision.lua"
+          />
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            class="mt-3"
+            ins={{ range: "3" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Extract enemy.lua</h3>
+          <ul>
+            <li>
+              Move the whole <b>Enemy</b> class into{" "}
+              <b class="text-sn-theme">enemy.lua</b> and return it.
+            </li>
+            <li>Delete it from main.lua and require it at the top.</li>
+            <li>
+              <b>Nothing else changes.</b>{" "}
+              <CodeSnippet
+                code="Enemy.new"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="e:update(dt)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              read exactly as they did, because the class was always just a table
+              and now the table arrives from somewhere else.
+            </li>
+          </ul>
+
+          <Code code={EnemyModule} frame="code" lang="lua" title="enemy.lua" />
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            class="mt-3"
+            ins={{ range: "3" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Let the enemy own its color</h3>
+          <ul>
+            <li>
+              Move the{" "}
+              <CodeSnippet
+                code="setColor(1, 0.3, 0.4)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              out of{" "}
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and into{" "}
+              <CodeSnippet
+                code="Enemy:draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              <b class="text-sn-theme">Now main.lua does not know what color an
+              enemy is</b>, and could not tell you if you asked. Making a
+              damaged enemy flash is a change to one file.
+            </li>
+            <li>
+              This is the real prize of the activity. The split was mechanical;
+              <b> moving knowledge across the seam</b> is what makes the split
+              worth having.
+            </li>
+            <li>
+              Watch out for the state machine from Activity 2.2 &mdash; the
+              enemy now leaves the color set to red when it finishes, so the
+              score text needs its{" "}
+              <CodeSnippet
+                code="setColor(1, 1, 1)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              more than ever.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            mark={{ range: "93-95" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Extract <b>bullet.lua</b> the same way. Bullets are plain tables,
+              so decide whether they deserve a class or just a{" "}
+              <CodeSnippet
+                code="bullet.new(x, y)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              factory function &mdash; both are defensible and the reasoning
+              matters more than the answer.
+            </li>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="collision.circles(a, b)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              alongside{" "}
+              <CodeSnippet
+                code="overlaps"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and switch between them by changing one word at the call sites.
+              That is the payoff of a toolbox module.
+            </li>
+            <li>
+              Give enemy.lua a second class that inherits from Enemy, using the
+              bonus inheritance page, and return <i>both</i> from the file in one
+              table. Then require it as{" "}
+              <CodeSnippet
+                code="local enemies = require('enemy')"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and use{" "}
+              <CodeSnippet
+                code="enemies.Fast.new(x)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>
+            <b class="text-sn-theme">The game plays exactly as it did before.</b>{" "}
+            Same speed, same spawn rate, same two hits per enemy, same reset.
+            Nothing about it should feel different.
+          </p>
+
+          <p>What has changed is the shape of the project:</p>
+
+          <ul>
+            <li>Five files instead of three.</li>
+            <li>
+              main.lua holds the game loop and the state it coordinates, and
+              nothing else.
+            </li>
+            <li>
+              <b>collision.lua could be copied into a completely different
+              game</b> and would work.
+            </li>
+          </ul>
+
+          <p>
+            If you get an error naming a nil value, a call site still uses the
+            old bare name. If enemies vanish, check that enemy.lua ends with{" "}
+            <CodeSnippet
+              code="return Enemy"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; a module that returns nothing gives you a{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            with no complaint at the point of require.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-7"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/">
+            Course Index <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

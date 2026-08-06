@@ -1,0 +1,483 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `love.graphics.setColor(1, 0.7, 0.1)`;
+
+const Figure2 = `love.graphics.rectangle("fill", 100, 100, 200, 120)
+love.graphics.rectangle("line", 100, 100, 200, 120)
+love.graphics.circle("fill", 200, 160, 30)
+love.graphics.line(0, 0, 800, 600)`;
+
+const Figure3 = `love.graphics.setColor(1, 0, 0)
+love.graphics.rectangle("fill", 10, 10, 50, 50)
+love.graphics.rectangle("fill", 70, 10, 50, 50)`;
+
+const Task1 = `-- main.lua
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+end
+
+function love.draw()
+  love.graphics.setColor(0.2, 0.6, 0.9)
+  love.graphics.rectangle("fill", 100, 100, 200, 120)
+end`;
+
+const Task2 = `-- main.lua
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+end
+
+function love.draw()
+  love.graphics.setColor(0.2, 0.6, 0.9)
+  love.graphics.rectangle("fill", 100, 100, 200, 120)
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.setLineWidth(3)
+  love.graphics.rectangle("line", 100, 100, 200, 120)
+
+  love.graphics.setColor(1, 0.7, 0.1)
+  love.graphics.circle("fill", 200, 160, 30)
+end`;
+
+const Task3 = `-- main.lua
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+end
+
+function love.draw()
+  love.graphics.setColor(0.2, 0.6, 0.9)
+  love.graphics.rectangle("fill", 100, 100, 200, 120)
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.setLineWidth(3)
+  love.graphics.rectangle("line", 100, 100, 200, 120)
+
+  love.graphics.setColor(1, 0.7, 0.1)
+  love.graphics.circle("fill", 200, 160, 30)
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("REACTOR NOMINAL", love.graphics.getWidth() / 2 - 55, 260)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.2: Drawing to the Screen</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Two facts about the canvas, and then some shapes.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The origin is the top-left, and y grows
+            downward.</b> A larger y is <i>lower</i> on the screen. This trips
+            everyone once and then never again.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Colors run from 0 to 1, not 0 to 255.</b>{" "}
+            This is the single most common thing to get wrong, because most of
+            the internet's LÖVE code predates the change and uses 0&ndash;255.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Red, green, blue, and optionally alpha, each from 0 to 1. If you find
+            a snippet online that says{" "}
+            <CodeSnippet
+              code="setColor(255, 180, 25)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, divide everything by 255. <b>Passing 255 does not error</b>{" "}
+            &mdash; it clamps to 1, so every color comes out pure white and
+            nothing tells you why.
+          </p>
+
+          <h3 class="mt-5">Shapes</h3>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="rectangle(mode, x, y, width, height)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; x and y are the <b>top-left corner</b>, not the middle.
+            </li>
+            <li>
+              <CodeSnippet
+                code="circle(mode, x, y, radius)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; here x and y <i>are</i> the middle. The inconsistency is
+              real and worth remembering.
+            </li>
+            <li>
+              <CodeSnippet
+                code="line(x1, y1, x2, y2, ...)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; as many points as you like, joined in order.
+            </li>
+          </ul>
+
+          <p>
+            The first argument is always{" "}
+            <CodeSnippet
+              code={`"fill"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            or{" "}
+            <CodeSnippet
+              code={`"line"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; solid or outline. Draw the fill first and the outline second,
+            or the fill covers the outline.
+          </p>
+
+          <h3 class="mt-5">Drawing is a state machine</h3>
+
+          <p>
+            This is the part that behaves unlike anything in Unit 1.{" "}
+            <CodeSnippet
+              code="setColor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            does not draw anything and does not belong to any shape.{" "}
+            <b class="text-sn-theme">It changes a setting that stays changed</b>{" "}
+            until something changes it back.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b>Both squares are red.</b> One{" "}
+            <CodeSnippet
+              code="setColor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, two shapes. The same is true of{" "}
+            <CodeSnippet
+              code="setLineWidth"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="setFont"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The bug this causes is always the same
+            shape:</b> something you drew is mysteriously the wrong color,
+            because code <i>above</i> it set a color and never set it back. When
+            that happens, read upward, not at the shape itself.
+          </p>
+
+          <p>
+            The habit that prevents it is to set the color immediately before
+            every group of shapes, even when you think you already know what it
+            is. It costs one line and saves a hunt.
+          </p>
+
+          <h3 class="mt-5">Background, and why the screen is not smeared</h3>
+
+          <p>
+            <CodeSnippet
+              code="setBackgroundColor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            belongs in{" "}
+            <CodeSnippet
+              code="love.load"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, not in draw &mdash; it is a setting, not a drawing call. LÖVE
+            wipes the window to that color before every single{" "}
+            <CodeSnippet
+              code="love.draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            <b>Which means each frame is drawn from scratch.</b> Nothing you drew
+            last frame is still there. That sounds wasteful and is the reason
+            animation works at all: to move something, you do not move it &mdash;
+            you draw it somewhere else next frame. Activity 2.3 is entirely built
+            on that.
+          </p>
+
+          <h3 class="mt-5">Finding the middle</h3>
+
+          <p>
+            <CodeSnippet
+              code="love.graphics.getWidth()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="getHeight()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            report the window size. <b>Use them instead of typing 800 and
+            600</b>, so that changing conf.lua does not silently break your
+            layout.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Keep working in the same <b class="text-sn-theme">skynest</b> folder.
+            You are drawing an instrument panel.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: A filled rectangle</h3>
+          <ul>
+            <li>Clear out Activity 2.1's text and counter.</li>
+            <li>Set a blue color and fill a rectangle at 100, 100.</li>
+            <li>
+              Keep the dark background in{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Outline it, then add a reactor</h3>
+          <ul>
+            <li>
+              Draw a white <b>outline</b> at exactly the same position and size.
+              Set the line width to 3 first.
+            </li>
+            <li>
+              Add an orange filled circle in the middle of the panel. Work out
+              its center from the rectangle's numbers rather than guessing.
+            </li>
+            <li>
+              <b>Set the color before each shape.</b> Then, once it works, delete
+              one of the{" "}
+              <CodeSnippet
+                code="setColor"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              lines and see which shape changes. That is the state machine.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "10-16" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: A label, centered by arithmetic</h3>
+          <ul>
+            <li>
+              Set the color back to white and print a label below the panel.
+            </li>
+            <li>
+              Position it using{" "}
+              <CodeSnippet
+                code="love.graphics.getWidth() / 2"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              rather than a hard-coded 400.
+            </li>
+            <li>
+              <b>Then change the window width in conf.lua</b> and run again. The
+              label follows; the panel does not. That is the difference the
+              function makes.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "17-19" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Subtracting 55 to center the text is a guess. Replace it with a
+              real measurement using{" "}
+              <CodeSnippet
+                code="love.graphics.getFont():getWidth(text)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and it will be exact for any string.
+            </li>
+            <li>
+              Draw the panel from a <b>table</b> &mdash;{" "}
+              <CodeSnippet
+                code="local panel = { x = 100, y = 100, w = 200, h = 120 }"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; and use its fields everywhere. Activity 1.10, and it is how
+              every object in the rest of this unit is stored.
+            </li>
+            <li>
+              Write a{" "}
+              <CodeSnippet
+                code="drawPanel(x, y, w, h)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              function and call it three times at different positions. Your{" "}
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              becomes three lines.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>On a near-black background you should have:</p>
+
+          <ul>
+            <li>A blue filled rectangle with a crisp white outline.</li>
+            <li>An orange circle centered inside it.</li>
+            <li>A white label centered under the panel.</li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">If everything is white, you used
+            0&ndash;255 values.</b> If the outline is missing, it was drawn
+            before the fill and got covered. If the circle is off-center, check
+            that you added <i>half</i> the width and height to the rectangle's
+            corner.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-1"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-2/2-3"
+          >
+            Next: Movement and Delta Time <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

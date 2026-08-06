@@ -1,0 +1,592 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `print(7 + 2)
+print(7 - 2)
+print(7 * 2)
+print(7 / 2)
+print(7 % 2)`;
+const Figure1Out = `9
+5
+14
+3.5
+1`;
+
+const Figure2 = `print(10 / 2)
+print(2 ^ 8)`;
+const Figure2Out54 = `5.0
+256.0`;
+const Figure2OutJit = `5
+256`;
+
+const Figure3 = `print(math.floor(7 / 2))
+print(math.ceil(3.2))
+print(math.max(3, 9, 5))
+print(math.min(3, 9, 5))
+print(math.abs(-4))
+print(math.sqrt(2))`;
+const Figure3Out = `3
+4
+9
+3
+4
+1.4142135623731`;
+
+const Figure4 = `print("42" + 1)
+print("42" .. 1)
+print(tonumber("42") + 1)
+print(tonumber("hello"))`;
+const Figure4Out = `43
+421
+43
+nil`;
+
+const Figure5 = `math.randomseed(os.time())
+
+print(math.random(1, 6))
+print(math.random(1, 6))`;
+const Figure5Out = `4
+1`;
+
+const Task1 = `-- main.lua - Skynest jump computer
+
+local distance = 47
+local fuelPerUnit = 2.5
+
+local totalFuel = distance * fuelPerUnit
+
+print("Distance:", distance)
+print("Fuel needed:", totalFuel)`;
+const Task1Out = `Distance:\t47
+Fuel needed:\t117.5`;
+
+const Task2 = `-- main.lua - Skynest jump computer
+
+local distance = 47
+local fuelPerUnit = 2.5
+local tankSize = 40
+
+local totalFuel = distance * fuelPerUnit
+local tanks = totalFuel / tankSize
+
+print("Distance:", distance)
+print("Fuel needed:", totalFuel)
+print("Tanks to load:", math.ceil(tanks))
+print("Full tanks:", math.floor(tanks))
+print("Left over:", totalFuel % tankSize)`;
+const Task2Out = `Distance:\t47
+Fuel needed:\t117.5
+Tanks to load:\t3
+Full tanks:\t2
+Left over:\t37.5`;
+
+const Task3 = `-- main.lua - Skynest jump computer
+
+math.randomseed(os.time())
+
+local distance = 47
+local fuelPerUnit = 2.5
+local tankSize = 40
+
+local totalFuel = distance * fuelPerUnit
+local tanks = totalFuel / tankSize
+
+print("Distance:", distance)
+print("Fuel needed:", totalFuel)
+print("Tanks to load:", math.ceil(tanks))
+print("Full tanks:", math.floor(tanks))
+print("Left over:", totalFuel % tankSize)
+
+local drift = math.random(-5, 5)
+print("Sensor drift:", drift)
+print("Corrected distance:", distance + drift)`;
+
+const Checkpoint = `Distance:\t47
+Fuel needed:\t117.5
+Tanks to load:\t3
+Full tanks:\t2
+Left over:\t37.5
+Sensor drift:\t-3
+Corrected distance:\t44`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.4: Numbers and Math</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            The arithmetic is the part of Lua with no surprises in it. Five
+            operators, and they do what you expect.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Note that{" "}
+            <CodeSnippet
+              code="7 / 2"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            gives <b>3.5</b>, not 3. Division in Lua never throws away the
+            fraction. If you want a whole number you have to ask for one, which
+            is what{" "}
+            <CodeSnippet
+              code="math.floor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is for.
+          </p>
+
+          <h3 class="mt-5">The one place two Luas disagree</h3>
+
+          <p>
+            This course runs on plain Lua now, and on <b>LÖVE</b> in Unit 2.
+            Those are not quite the same interpreter, and here is the only
+            difference you will actually see:
+          </p>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <Code
+                code={Figure2}
+                frame="code"
+                lang="lua"
+                title="main.lua"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2Out54}
+                frame="terminal"
+                lang="txt"
+                title="Output — Lua 5.4"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={Figure2}
+                frame="code"
+                lang="lua"
+                title="main.lua"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure2OutJit}
+                frame="terminal"
+                lang="txt"
+                title="Output — LÖVE"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Same number, different spelling.</b> Lua
+            5.4 tracks whether a number is a whole number or a decimal and
+            prints{" "}
+            <CodeSnippet
+              code="5.0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            to tell you a division happened. Older Lua, which is what LÖVE runs,
+            has only one kind of number and prints{" "}
+            <CodeSnippet
+              code="5"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. Nothing is wrong with either. Do not be alarmed when the same
+            code prints differently in Unit 2.
+          </p>
+
+          <p>
+            If you ever need the display to match exactly, run the value through{" "}
+            <CodeSnippet
+              code="math.floor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            or{" "}
+            <CodeSnippet
+              code="string.format"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and both will agree.
+          </p>
+
+          <h3 class="mt-5">The math library</h3>
+
+          <p>
+            Anything beyond the five operators lives in{" "}
+            <CodeSnippet
+              code="math"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. These six cover almost everything you will need in Unit 2.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="math.max"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="math.min"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            take as many numbers as you want to give them. In a game they are
+            how you stop a value escaping &mdash; health that cannot go below
+            zero is{" "}
+            <CodeSnippet
+              code="math.max(0, health)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <h3 class="mt-5">Text that looks like a number</h3>
+
+          <p>
+            Lua will quietly convert a numeric string when you do arithmetic on
+            it. This is the reverse of the JavaScript behavior you may have been
+            burned by, and it is worth seeing side by side with{" "}
+            <CodeSnippet
+              code=".."
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure4Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b>Do not rely on that first line.</b> Convert on purpose with{" "}
+            <CodeSnippet
+              code="tonumber"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which hands back{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            when the text is not a number rather than crashing. That{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is your chance to notice bad input before it spreads.
+          </p>
+
+          <h3 class="mt-5">Random numbers, and the line you must not forget</h3>
+
+          <p>
+            <CodeSnippet
+              code="math.random(1, 6)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            gives a whole number from 1 to 6, and{" "}
+            <b class="text-sn-theme">both ends are included</b>.
+          </p>
+
+          <Code
+            code={Figure5}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure5Out}
+            frame="terminal"
+            lang="txt"
+            title="Output — yours will differ"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            That first line matters more than it looks.{" "}
+            <b class="text-sn-theme">Without{" "}
+            <CodeSnippet
+              code="math.randomseed(os.time())"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, LÖVE hands you the exact same "random" numbers every single time
+            you run the program.</b> Lua 5.4 seeds itself and hides the problem;
+            Unit 2 will not. Seed once, at the top of the file, and it is
+            correct everywhere.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are
+            building a jump computer: how much fuel a trip needs, and how many
+            tanks that means loading.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Work out the fuel</h3>
+          <ul>
+            <li>Store a distance and a fuel cost per unit of distance.</li>
+            <li>Multiply them into a <b>totalFuel</b> variable.</li>
+            <li>Print the distance and the fuel needed.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Turn that into tanks</h3>
+          <ul>
+            <li>Add a tank size and divide the fuel by it.</li>
+            <li>
+              Print how many tanks to <b>load</b> &mdash; you cannot load part
+              of a tank, so round up.
+            </li>
+            <li>Print how many will be completely <b>full</b>. Round down.</li>
+            <li>
+              Print what is left over using{" "}
+              <CodeSnippet
+                code="%"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "5, 8, 12-14" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Add a noisy sensor</h3>
+          <ul>
+            <li>
+              Seed the generator at the top of the file. <b>Do this first</b>{" "}
+              &mdash; it is the habit, not the line, that matters.
+            </li>
+            <li>
+              Generate a drift between <b>-5 and 5</b> and print it.
+            </li>
+            <li>Print the distance with the drift applied.</li>
+            <li>
+              Run it several times. The numbers should change. Then comment out
+              the seed line, run it several more times, and see what happens
+              instead.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "3, 18-20" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Print the fuel figure to exactly one decimal place using{" "}
+              <CodeSnippet
+                code="string.format"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and the{" "}
+              <CodeSnippet
+                code="%.1f"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              placeholder.
+            </li>
+            <li>
+              Clamp the corrected distance so it can never drop below zero, in
+              one line, without an{" "}
+              <CodeSnippet
+                code="if"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Roll two dice and print their total. Then work out on paper why{" "}
+              <CodeSnippet
+                code="math.random(2, 12)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is <i>not</i> the same thing.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>
+            The first five lines should match exactly. The last two will differ
+            every run &mdash; that is the point of them.
+          </p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            That is the whole of Lua's data toolkit except one thing.{" "}
+            <b class="text-sn-theme">Numbers, strings, booleans, and nil are
+            four of the five types you will ever use.</b> The fifth is the
+            table, it does the work of arrays, dictionaries, objects, and
+            modules all at once, and it is what the rest of this unit is about.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a class="btn btn-outline-light" href="/courses/lua-programming/unit-1/1-3">
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-light disabled" href="#">
+            Next: Making Decisions (soon)
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

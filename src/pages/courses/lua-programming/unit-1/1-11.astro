@@ -1,0 +1,704 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local ship = { name = "Skynest", charge = 50 }
+
+function ship.report(self)
+  return self.name .. " at " .. self.charge .. "%"
+end
+
+print(ship.report(ship))
+print(ship:report())`;
+const Figure1Out = `Skynest at 50%
+Skynest at 50%`;
+
+const Figure2 = `local Base = { greet = function() return "hi" end }
+local obj = {}
+
+print(type(obj.greet))
+
+setmetatable(obj, { __index = Base })
+
+print(type(obj.greet))
+print(obj.greet())`;
+const Figure2Out = `nil
+function
+hi`;
+
+const Figure3 = `local Ship = {}
+Ship.__index = Ship
+
+function Ship.new(name, charge)
+  return setmetatable({ name = name, charge = charge }, Ship)
+end
+
+function Ship:report()
+  return self.name .. " at " .. self.charge .. "%"
+end
+
+local a = Ship.new("Skynest", 50)
+local b = Ship.new("Vagrant", 92)
+
+print(a:report())
+print(b:report())`;
+const Figure3Out = `Skynest at 50%
+Vagrant at 92%`;
+
+const Task1 = `-- main.lua - Skynest ship objects
+
+local ship = { name = "Skynest", charge = 50 }
+
+function ship.report(self)
+  return self.name .. " at " .. self.charge .. "%"
+end
+
+print(ship.report(ship))
+print(ship:report())`;
+const Task1Out = `Skynest at 50%
+Skynest at 50%`;
+
+const Task2 = `-- main.lua - Skynest ship objects
+
+local Ship = {}
+Ship.__index = Ship
+
+function Ship.new(name, charge)
+  return setmetatable({ name = name, charge = charge }, Ship)
+end
+
+function Ship:report()
+  return self.name .. " at " .. self.charge .. "%"
+end
+
+local skynest = Ship.new("Skynest", 50)
+local vagrant = Ship.new("Vagrant", 92)
+
+print(skynest:report())
+print(vagrant:report())`;
+const Task2Out = `Skynest at 50%
+Vagrant at 92%`;
+
+const Task3 = `-- main.lua - Skynest ship objects
+
+local Ship = {}
+Ship.__index = Ship
+
+function Ship.new(name, charge)
+  return setmetatable({ name = name, charge = charge }, Ship)
+end
+
+function Ship:report()
+  return self.name .. " at " .. self.charge .. "%"
+end
+
+local skynest = Ship.new("Skynest", 50)
+local vagrant = Ship.new("Vagrant", 92)
+
+print(skynest:report())
+print(vagrant:report())
+
+function Ship:recharge(amount)
+  self.charge = math.min(100, self.charge + amount)
+end
+
+skynest:recharge(25)
+vagrant:recharge(25)
+
+print(skynest:report())
+print(vagrant:report())`;
+
+const Checkpoint = `Skynest at 50%
+Vagrant at 92%
+Skynest at 75%
+Vagrant at 100%`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.11: Tables as Objects</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            <b class="text-sn-theme">Lua has no classes.</b> No{" "}
+            <CodeSnippet
+              code="class"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            keyword, no{" "}
+            <CodeSnippet
+              code="new"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            keyword, nothing to import. What it has instead is one small rule
+            that you can build objects out of, and this page is that rule.
+          </p>
+
+          <p>
+            Start from something you already know. A table can hold a function
+            (Activity 1.7), and a table can hold data (Activity 1.10). Put both
+            in the same table and you have most of an object.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Both lines printed the same thing, because{" "}
+            <b class="text-sn-theme">
+              <CodeSnippet
+                code="ship:report()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is exactly{" "}
+              <CodeSnippet
+                code="ship.report(ship)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />
+            </b>. That is the whole of the colon. It passes the thing on the left
+            as the first argument.
+          </p>
+
+          <p>
+            The same shorthand works when you define the function, and it is
+            where{" "}
+            <CodeSnippet
+              code="self"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            comes from &mdash;{" "}
+            <CodeSnippet
+              code="function Ship:report()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is shorthand for{" "}
+            <CodeSnippet
+              code="function Ship.report(self)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.{" "}
+            <CodeSnippet
+              code="self"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is not a keyword. It is an ordinary parameter that the colon declared
+            for you.
+          </p>
+
+          <p>
+            <b>So mixing the two is the classic beginner error.</b> Define with a
+            dot and call with a colon and you get an extra argument nobody
+            expected; define with a colon and call with a dot and{" "}
+            <CodeSnippet
+              code="self"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is nil. Both fail confusingly. <b class="text-sn-theme">Use the
+            colon for both, always</b>, and the problem disappears.
+          </p>
+
+          <h3 class="mt-5">The one rule everything rests on</h3>
+
+          <p>
+            The table above works, but every ship would need its own copy of
+            every function. What you want is for many tables to <i>share</i> one
+            set of functions. That needs the rule.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">
+              <CodeSnippet
+                code="__index"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              means: if a key is not in this table, go look in that one.
+            </b>
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Before the{" "}
+            <CodeSnippet
+              code="setmetatable"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            call,{" "}
+            <CodeSnippet
+              code="obj.greet"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            was nil. Afterwards it finds the function &mdash; without anything
+            being copied into{" "}
+            <CodeSnippet
+              code="obj"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. A <b>metatable</b> is just a table of rules attached to another
+            table, and{" "}
+            <CodeSnippet
+              code="__index"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is the rule for failed lookups.
+          </p>
+
+          <p>
+            Note this is a <i>fallback</i>, not a merge. A key that exists on the
+            object itself always wins, and writing to the object never touches
+            the table it falls back to.
+          </p>
+
+          <h3 class="mt-5">Putting it together: the class pattern</h3>
+
+          <p>
+            Every Lua "class" you will ever read is these four lines, so it is
+            worth being able to write them from memory.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">Reading it one line at a time:</p>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="local Ship = {}"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; the "class" is an ordinary empty table. Capitalized only by
+              convention.
+            </li>
+            <li>
+              <CodeSnippet
+                code="Ship.__index = Ship"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; <b>the line that does the work.</b> It says: when a lookup
+              misses, come back here. Ship is both the class and its own fallback
+              table, which looks circular and is simply thrifty.
+            </li>
+            <li>
+              <CodeSnippet
+                code="Ship.new"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; a plain function that makes a fresh table of data and
+              attaches Ship as its metatable. Nothing about the name{" "}
+              <CodeSnippet
+                code="new"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is special. Note the <b>dot</b>, not a colon: you are not calling
+              it on an instance, because there is not one yet.
+            </li>
+            <li>
+              <CodeSnippet
+                code="function Ship:report()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; a method, stored on the class, found by every instance
+              through the fallback.
+            </li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">The data is per-instance and the methods are
+            shared.</b> Each ship's table holds only its own name and charge. One
+            copy of{" "}
+            <CodeSnippet
+              code="report"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            exists no matter how many ships you make &mdash; which is exactly what
+            you want when Unit 2 has two hundred bullets on screen.
+          </p>
+
+          <h3 class="mt-5">This or a closure?</h3>
+
+          <p>
+            Activity 1.8 built something with methods and private state using
+            nothing but closures. Both approaches are real Lua, and they trade
+            off against each other:
+          </p>
+
+          <ul>
+            <li>
+              <b>Closures</b> give you genuine privacy &mdash; there is no way to
+              reach the captured variable. But every instance carries its own
+              copy of every function.
+            </li>
+            <li>
+              <b>Metatables</b> share one copy of each method across every
+              instance, and cost one extra lookup on a miss. But the fields are
+              all public;{" "}
+              <CodeSnippet
+                code="ship.charge = 9999"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is nobody's business but works fine.
+            </li>
+          </ul>
+
+          <p>
+            <b>For games, metatables win</b>, because you make a lot of instances
+            and privacy is not the problem you have. That is what Unit 2 uses.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are turning
+            the ship record from Activity 1.10 into something you can make many
+            of.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: One table, one method</h3>
+          <ul>
+            <li>
+              Make a single ship table with a name and a charge, then attach a{" "}
+              <CodeSnippet
+                code="report"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              function that takes{" "}
+              <CodeSnippet
+                code="self"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              explicitly.
+            </li>
+            <li>
+              Call it <b>both ways</b> &mdash; once with a dot passing the ship
+              yourself, once with a colon.
+            </li>
+            <li>
+              Two identical lines is the proof that the colon is only shorthand.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Make it a class</h3>
+          <ul>
+            <li>
+              Rewrite it as a <b>Ship</b> table with{" "}
+              <CodeSnippet
+                code="Ship.__index = Ship"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and a{" "}
+              <CodeSnippet
+                code="Ship.new"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              constructor.
+            </li>
+            <li>
+              Define{" "}
+              <CodeSnippet
+                code="report"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              with a colon this time, and drop the explicit{" "}
+              <CodeSnippet
+                code="self"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              parameter.
+            </li>
+            <li>Make <b>two</b> ships with different values and report both.</li>
+            <li>
+              Then try deleting the{" "}
+              <CodeSnippet
+                code="Ship.__index = Ship"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              line and running it. The error you get names the exact thing that
+              line was doing.
+            </li>
+          </ul>
+
+          <Code code={Task2} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Add a method after the ships already exist</h3>
+          <ul>
+            <li>
+              <b>Below</b> the two ships you already created, add a{" "}
+              <CodeSnippet
+                code="recharge"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              method that adds to the charge.
+            </li>
+            <li>
+              Clamp it at 100 with{" "}
+              <CodeSnippet
+                code="math.min"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              from Activity 1.4.
+            </li>
+            <li>Recharge both ships by 25 and report them again.</li>
+            <li>
+              <b class="text-sn-theme">Notice that it works on ships that
+              existed before the method did.</b> Nothing was copied into them
+              when they were made &mdash; they look the method up when it is
+              called, so adding one later reaches every instance already out
+              there.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "20-28" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Add a{" "}
+              <CodeSnippet
+                code="Ship:isCharged()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              returning true at 80 or above, and use it in an{" "}
+              <CodeSnippet
+                code="if"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Give{" "}
+              <CodeSnippet
+                code="Ship.new"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              a default charge of 100 when none is passed, using the{" "}
+              <CodeSnippet
+                code="or"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              idiom from Activity 1.7.
+            </li>
+            <li>
+              Make a <b>list</b> of five ships with{" "}
+              <CodeSnippet
+                code="table.insert"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and report them all in one{" "}
+              <CodeSnippet
+                code="ipairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              loop. <b>This is the shape of every game object in Unit 2</b>{" "}
+              &mdash; a list of instances, walked once per frame.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Vagrant stopped at 100, not 117.</b> The
+            clamp worked, both ships kept their own charge, and one shared method
+            served both. That is object-oriented programming in Lua, and you did
+            it with a table and one metatable field.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/1-10"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/1-12"
+          >
+            Next: Modules and Handling Errors <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

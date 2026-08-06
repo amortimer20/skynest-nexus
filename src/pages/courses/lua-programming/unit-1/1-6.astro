@@ -1,0 +1,598 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `for i = 1, 5 do io.write(" ", i) end
+print()
+for i = 10, 1, -3 do io.write(" ", i) end
+print()
+for i = 0, 1, 0.25 do io.write(" ", i) end
+print()`;
+const Figure1Out = ` 1 2 3 4 5
+ 10 7 4 1
+ 0 0.25 0.5 0.75 1`;
+
+const Figure2 = `local fuel = 10
+
+while fuel > 0 do
+  io.write(" ", fuel)
+  fuel = fuel - 3
+end
+print()`;
+const Figure2Out = ` 10 7 4 1`;
+
+const Figure3 = `local tries = 0
+
+repeat
+  tries = tries + 1
+until tries >= 3
+
+print("tries:", tries)`;
+const Figure3Out = `tries:\t3`;
+
+const Figure4 = `for i = 1, 10 do
+  if i > 4 then break end
+  io.write(" ", i)
+end
+print()`;
+const Figure4Out = ` 1 2 3 4`;
+
+const Figure5 = `for i = 1, 6 do
+  if i % 2 == 0 then goto continue end
+  io.write(" ", i)
+  ::continue::
+end
+print()`;
+const Figure5Out = ` 1 3 5`;
+
+const Task1 = `-- main.lua - Skynest launch sequence
+
+for i = 5, 1, -1 do
+  print("T-minus", i)
+end
+print("LIFTOFF")`;
+const Task1Out = `T-minus\t5
+T-minus\t4
+T-minus\t3
+T-minus\t2
+T-minus\t1
+LIFTOFF`;
+
+const Task2 = `-- main.lua - Skynest launch sequence
+
+for i = 5, 1, -1 do
+  print("T-minus", i)
+end
+print("LIFTOFF")
+
+local fuel = 20
+local distance = 0
+
+while fuel > 0 do
+  fuel = fuel - 6
+  distance = distance + 10
+end
+
+print("Fuel left:", fuel)
+print("Distance:", distance)`;
+const Task2Out = `T-minus\t5
+T-minus\t4
+T-minus\t3
+T-minus\t2
+T-minus\t1
+LIFTOFF
+Fuel left:\t-4
+Distance:\t40`;
+
+const Task3 = `-- main.lua - Skynest launch sequence
+
+for i = 5, 1, -1 do
+  print("T-minus", i)
+end
+print("LIFTOFF")
+
+local fuel = 20
+local distance = 0
+
+while fuel > 0 do
+  fuel = fuel - 6
+  distance = distance + 10
+end
+
+print("Fuel left:", fuel)
+print("Distance:", distance)
+
+for checkpoint = 1, 8 do
+  if checkpoint % 2 == 0 then goto continue end
+  print("Scanning checkpoint", checkpoint)
+  ::continue::
+end`;
+
+const Checkpoint = `T-minus\t5
+T-minus\t4
+T-minus\t3
+T-minus\t2
+T-minus\t1
+LIFTOFF
+Fuel left:\t-4
+Distance:\t40
+Scanning checkpoint\t1
+Scanning checkpoint\t3
+Scanning checkpoint\t5
+Scanning checkpoint\t7`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.6: Loops</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Lua has three loops, and the numeric{" "}
+            <CodeSnippet
+              code="for"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is the one you will reach for most. It reads as{" "}
+            <i>from, to, by</i> &mdash; and{" "}
+            <b class="text-sn-theme">both ends are included</b>.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="for i = 1, 5"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            runs five times, ending <i>on</i> 5. There is no{" "}
+            <CodeSnippet
+              code="i < 5"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            to get wrong and no{" "}
+            <CodeSnippet
+              code="i++"
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            to forget &mdash; Lua has no increment operator at all. The third
+            number is the step, it may be negative, and it may be a fraction.
+          </p>
+
+          <p>
+            <CodeSnippet
+              code="io.write"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is new here. It is like{" "}
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            with no tabs and no line break, which is what you want when building
+            one line out of many pieces.
+          </p>
+
+          <p>
+            <b>Two things the loop variable will not let you do.</b> It only
+            exists inside the loop, so you cannot read{" "}
+            <CodeSnippet
+              code="i"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            after the{" "}
+            <CodeSnippet
+              code="end"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. And assigning to it inside the loop does not change how many
+            times the loop runs &mdash; Lua worked the count out before the
+            first pass.
+          </p>
+
+          <h3 class="mt-5">When you do not know the count</h3>
+
+          <p>
+            <CodeSnippet
+              code="while"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            repeats for as long as its condition holds, and checks{" "}
+            <i>before</i> each pass.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="repeat ... until"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is the same idea upside down. It checks <i>after</i> each pass, so{" "}
+            <b class="text-sn-theme">the body always runs at least once</b>, and
+            the condition says when to <i>stop</i> rather than when to continue.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Both of those conditions are inverted relative to each other. If you
+            ever translate a{" "}
+            <CodeSnippet
+              code="while"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            into a{" "}
+            <CodeSnippet
+              code="repeat"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, the condition has to flip, and forgetting that gives you a loop
+            that runs exactly once or never stops.
+          </p>
+
+          <h3 class="mt-5">Getting out early</h3>
+
+          <p>
+            <CodeSnippet
+              code="break"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            leaves the loop immediately, in any of the three kinds.
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure4Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">There is no{" "}
+            <CodeSnippet
+              code="continue"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            in Lua.</b> This is a genuine gap, and the accepted workaround is a
+            jump to a label at the very bottom of the loop body.
+          </p>
+
+          <Code
+            code={Figure5}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure5Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="goto continue"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            jumps forward to{" "}
+            <CodeSnippet
+              code="::continue::"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, skipping whatever sits between. The label is not a keyword and{" "}
+            <i>continue</i> is not special &mdash; you could call it{" "}
+            <CodeSnippet
+              code="::skip::"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; but everyone writes it this way, so write it this way too.
+          </p>
+
+          <p>
+            <b>The label has to be the last thing in the body.</b> A label with
+            code after it means you jumped past some lines and then ran others,
+            which is not what you meant. And you can usually avoid the whole
+            thing by inverting the test into{" "}
+            <CodeSnippet
+              code="if i % 2 ~= 0 then"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; reach for the jump when the alternative is three levels of
+            nesting.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are running
+            a launch sequence, burning the fuel it takes, and sweeping a row of
+            checkpoints on the way out.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Count down and launch</h3>
+          <ul>
+            <li>
+              Count from <b>5 down to 1</b> with a numeric{" "}
+              <CodeSnippet
+                code="for"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and a negative step.
+            </li>
+            <li>Print LIFTOFF after the loop has finished.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Burn fuel until it runs out</h3>
+          <ul>
+            <li>
+              Start with 20 fuel and 0 distance. Each pass burns <b>6</b> fuel
+              and adds <b>10</b> distance.
+            </li>
+            <li>
+              Loop while there is fuel left, then print both totals.
+            </li>
+            <li>
+              <b>Look hard at the fuel figure.</b> It is negative, and that is
+              genuinely what the code you were asked for does. Work out why
+              before reading on, then write the reason in a comment.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "8-17" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">
+            The condition is checked <i>before</i> the pass, not during it. With
+            2 fuel left the loop still qualifies, then burns 6 anyway.{" "}
+            <b class="text-sn-theme">A loop guard says whether to start a pass,
+            never whether the pass can afford to finish.</b>
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Scan the odd checkpoints only</h3>
+          <ul>
+            <li>Loop over checkpoints <b>1 through 8</b>.</li>
+            <li>
+              Skip the even ones using{" "}
+              <CodeSnippet
+                code="goto continue"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and a label.
+            </li>
+            <li>Print a line for each checkpoint you actually scan.</li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "19-23" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Fix Task 2 so the fuel never goes negative &mdash; the loop should
+              only burn what it can afford.
+            </li>
+            <li>
+              Rewrite Task 3 with no{" "}
+              <CodeSnippet
+                code="goto"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              at all. Two ways exist: invert the condition, or change the loop's
+              step.
+            </li>
+            <li>
+              Convert Task 2's{" "}
+              <CodeSnippet
+                code="while"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              into a{" "}
+              <CodeSnippet
+                code="repeat ... until"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              that behaves the same. Remember the condition has to flip.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            You now have every control structure Lua has. Everything from here
+            is about the one data structure you have not met yet &mdash; and
+            once you have it, loops become the thing you do <i>to</i> it.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/1-5"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/1-7"
+          >
+            Next: Functions <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,625 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+const HEAD = `-- main.lua
+
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+local spawnTimer = 0
+local spawnEvery = 0.8
+local score = 0
+
+local Enemy = {}
+Enemy.__index = Enemy
+`;
+
+const OVERLAPS = `
+local function overlaps(a, b)
+  return a.x - a.size / 2 < b.x + b.size / 2
+     and a.x + a.size / 2 > b.x - b.size / 2
+     and a.y - a.size / 2 < b.y + b.size / 2
+     and a.y + a.size / 2 > b.y - b.size / 2
+end
+`;
+
+const MID = `
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+
+  fireCooldown = fireCooldown - dt
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+
+  spawnTimer = spawnTimer - dt
+  if spawnTimer <= 0 then
+    table.insert(enemies, Enemy.new(math.random(40, love.graphics.getWidth() - 40)))
+    spawnTimer = spawnEvery
+  end
+
+  for i = #enemies, 1, -1 do
+    local e = enemies[i]
+    e:update(dt)
+    if e.y > love.graphics.getHeight() + 20 then
+      table.remove(enemies, i)
+    end
+  end
+`;
+
+const TAIL = `end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  love.graphics.setColor(1, 0.3, 0.4)
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Score: " .. score, 10, 10)
+end`;
+
+const ENEMY_1HP = `
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+`;
+
+const ENEMY_2HP = `
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120, hp = 2 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+`;
+
+const HIT_KILL = `
+  for i = #enemies, 1, -1 do
+    for j = #bullets, 1, -1 do
+      if overlaps(enemies[i], bullets[j]) then
+        table.remove(bullets, j)
+        table.remove(enemies, i)
+        score = score + 1
+        break
+      end
+    end
+  end
+`;
+
+const HIT_HP = `
+  for i = #enemies, 1, -1 do
+    for j = #bullets, 1, -1 do
+      if overlaps(enemies[i], bullets[j]) then
+        table.remove(bullets, j)
+        enemies[i].hp = enemies[i].hp - 1
+        if enemies[i].hp <= 0 then
+          table.remove(enemies, i)
+          score = score + 1
+        end
+        break
+      end
+    end
+  end
+`;
+
+const PLAYER_HIT = `
+  for i = #enemies, 1, -1 do
+    if overlaps(enemies[i], player) then
+      enemies = {}
+      bullets = {}
+      score = 0
+      break
+    end
+  end
+`;
+
+//#region CodeSnippets
+const Figure1 = `local function overlaps(a, b)
+  return a.x - a.size / 2 < b.x + b.size / 2
+     and a.x + a.size / 2 > b.x - b.size / 2
+     and a.y - a.size / 2 < b.y + b.size / 2
+     and a.y + a.size / 2 > b.y - b.size / 2
+end`;
+
+const Figure2 = `for i = #enemies, 1, -1 do
+  for j = #bullets, 1, -1 do
+    if overlaps(enemies[i], bullets[j]) then
+      table.remove(bullets, j)
+      table.remove(enemies, i)
+      score = score + 1
+      break
+    end
+  end
+end`;
+
+const Task1 = HEAD + ENEMY_1HP + OVERLAPS + MID + HIT_KILL + TAIL;
+const Task2 = HEAD + ENEMY_1HP + OVERLAPS + MID + PLAYER_HIT + HIT_KILL + TAIL;
+const Task3 = HEAD + ENEMY_2HP + OVERLAPS + MID + PLAYER_HIT + HIT_HP + TAIL;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.7: Collision Detection</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            You have bullets and you have enemies, and so far they politely
+            ignore each other. Making them interact is one function and one
+            nested loop &mdash; and this is the activity that turns a screensaver
+            into a game.
+          </p>
+
+          <p>
+            Every object in the game carries an <b>x</b>, a <b>y</b> and a{" "}
+            <b>size</b>, with x and y at its <i>center</i>. That was a deliberate
+            choice back in Activity 2.3, and here is the payoff: one function
+            works for any two of them.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            This is an <b class="text-sn-theme">axis-aligned bounding box</b>{" "}
+            test, and the logic is easier read backwards:{" "}
+            <b>two boxes overlap unless one is entirely to the left, right,
+            above, or below the other.</b> Four ways to miss; fail all four and
+            you have a hit.
+          </p>
+
+          <ul>
+            <li>
+              <CodeSnippet
+                code="a.x - a.size / 2"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is a's left edge, and{" "}
+              <CodeSnippet
+                code="b.x + b.size / 2"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is b's right edge. If a's left is past b's right, they miss.
+            </li>
+            <li>
+              The four conditions are joined with{" "}
+              <CodeSnippet
+                code="and"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, so Lua stops at the first false &mdash; most pairs are rejected
+              on the first comparison, which is why this is cheap enough to run
+              on every pair every frame.
+            </li>
+            <li>
+              Strict{" "}
+              <CodeSnippet
+                code="<"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              rather than{" "}
+              <CodeSnippet
+                code="<="
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              means <b>exactly touching edges do not count as a hit</b>. Either
+              convention is defensible; this one avoids objects sticking together
+              when they are merely adjacent.
+            </li>
+          </ul>
+
+          <p>
+            <b>It knows nothing about bullets or enemies.</b> It takes any two
+            tables with those three fields, which is why it will also test the
+            player against an enemy without a single change. Activity 1.7's
+            "write the general thing" instinct, applied.
+          </p>
+
+          <p>
+            Real games use circles for round things and it is often a better fit
+            &mdash; two circles collide when the distance between centers is less
+            than the sum of the radii, which is one line with{" "}
+            <CodeSnippet
+              code="math.sqrt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. Boxes are used here because the objects are boxes.
+          </p>
+
+          <h3 class="mt-5">Checking every pair</h3>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">Both loops run backwards, because both
+            lists can lose an item.</b> This is Activity 1.9's rule twice over,
+            and getting one of them wrong produces a bug that only shows up when
+            two things die on the same frame &mdash; which is exactly when you
+            are least likely to be watching carefully.
+          </p>
+
+          <p>
+            The{" "}
+            <CodeSnippet
+              code="break"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            matters more than it looks. Once{" "}
+            <CodeSnippet
+              code="enemies[i]"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            has been removed, that index no longer refers to the enemy you were
+            testing. <b>Carrying on would compare the next bullet against a
+            different enemy</b>, or against nothing at all. Leaving immediately
+            keeps the loop honest.
+          </p>
+
+          <p>
+            It also means <b>one bullet kills one enemy</b>, which is what a
+            player expects. Without the break a single bullet could clear a whole
+            column.
+          </p>
+
+          <h3 class="mt-5">How expensive is this?</h3>
+
+          <p>
+            Every enemy is compared with every bullet, so twenty enemies and
+            thirty bullets is six hundred checks a frame. <b>That is completely
+            fine</b> &mdash; each check is four comparisons, and modern machines
+            do millions.
+          </p>
+
+          <p>
+            It stops being fine somewhere in the thousands of objects, and the
+            fix then is to stop comparing things that are nowhere near each other
+            (a grid, or sorting by y). <b>Do not build that now.</b> It is worth
+            knowing the ceiling exists and worth knowing you are a long way
+            under it.
+          </p>
+
+          <h3 class="mt-5">When the player is hit</h3>
+
+          <p>
+            The same function, with the player passed in instead of a bullet.
+            What <i>happens</i> on a hit is a design question, and for now the
+            simplest honest answer is to wipe the board and reset the score.
+          </p>
+
+          <p>
+            <b>Assigning{" "}
+            <CodeSnippet
+              code="enemies = {}"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            replaces the list rather than emptying it</b>, and the old one is
+            simply forgotten &mdash; Lua cleans it up. That works here because
+            nothing else is holding a reference to it. It is the same
+            reference-versus-copy question from Activity 1.9's challenge, and
+            this is the case where it does not bite you.
+          </p>
+
+          <p>
+            Do the player check <b>before</b> the bullet check. If both happen on
+            one frame, you want the reset to win rather than to score a point on
+            the frame you died.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>Same file. This is the one that makes it a game.</p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Shoot things down</h3>
+          <ul>
+            <li>
+              Add a <b>score</b> variable and the{" "}
+              <CodeSnippet
+                code="overlaps"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              function above{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Add the nested backwards loop at the end of update. Remove both
+              objects, add a point, and <b>break</b>.
+            </li>
+            <li>Show the score instead of the enemy count.</li>
+            <li>
+              <b class="text-sn-theme">Then delete the break and hold space.</b>{" "}
+              You will see a stream of errors or enemies vanishing in groups.
+              Put it back and reread the paragraph about why.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Let the player be hit</h3>
+          <ul>
+            <li>
+              Add a second loop, <b>before</b> the bullet-versus-enemy one, that
+              tests each enemy against the player.
+            </li>
+            <li>On a hit, clear both lists and reset the score to zero.</li>
+            <li>
+              Stop moving and let an enemy reach you. <b>Everything should
+              vanish and the score should return to 0.</b>
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "80-88" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Tougher enemies</h3>
+          <ul>
+            <li>
+              Give <b>Enemy.new</b> an{" "}
+              <CodeSnippet
+                code="hp"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              field of 2.
+            </li>
+            <li>
+              On a hit, remove the bullet and <b>subtract one hp</b>. Only remove
+              the enemy and score when hp reaches zero.
+            </li>
+            <li>
+              <b>Note where that change went</b> &mdash; the hp lives on the
+              enemy, set by its constructor. Making enemies take five hits is now
+              a single number in one place, which is what the class in Activity
+              2.6 bought you.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "16, 92-96" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Make a damaged enemy <b>look</b> damaged. Give{" "}
+              <CodeSnippet
+                code="Enemy:draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              its own{" "}
+              <CodeSnippet
+                code="setColor"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              based on{" "}
+              <CodeSnippet
+                code="self.hp"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and delete the one in{" "}
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. More knowledge moves into the class.
+            </li>
+            <li>
+              Replace the box test with a <b>circle</b> test and compare how the
+              two feel. Circles are more forgiving at the corners, which players
+              generally prefer.
+            </li>
+            <li>
+              Track a <b>best score</b> that survives the reset. One variable,
+              and it is the first thing in the game that outlives a life.
+            </li>
+            <li>
+              Count how many{" "}
+              <CodeSnippet
+                code="overlaps"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              calls happen per frame and print it. Watching that number grow with
+              the square of the object count is the whole of the performance
+              lesson.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <ul>
+            <li>Bullets destroy enemies, and both disappear.</li>
+            <li>
+              <b class="text-sn-theme">Each enemy takes two hits.</b>
+            </li>
+            <li>The score climbs by one per kill, not per hit.</li>
+            <li>
+              Letting an enemy reach the ship clears the screen and resets the
+              score.
+            </li>
+          </ul>
+
+          <p>
+            If a bullet clears several enemies at once, the{" "}
+            <CodeSnippet
+              code="break"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is missing. If the game crashes with an index error after a hit, one
+            of the loops runs forwards. If nothing ever collides, check that
+            bullets have a{" "}
+            <CodeSnippet
+              code="size"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            field &mdash;{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            arithmetic would error, but a bullet created before you added the
+            field will simply never match.
+          </p>
+
+          <p>
+            <b>You now have a playable game.</b> What is left is everything that
+            makes it feel like one: lives and a real HUD, a menu and a game-over
+            screen, sound. And before any of that, Activity 2.8 splits this file
+            up &mdash; it is past 90 lines and about to get worse.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-6"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/">
+            Course Index <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

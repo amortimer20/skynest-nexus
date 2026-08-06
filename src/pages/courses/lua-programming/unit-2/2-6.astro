@@ -1,0 +1,688 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end`;
+
+const Figure2 = `spawnTimer = spawnTimer - dt
+
+if spawnTimer <= 0 then
+  table.insert(enemies, Enemy.new(math.random(40, love.graphics.getWidth() - 40)))
+  spawnTimer = spawnEvery
+end`;
+
+const Figure3 = `for i = #enemies, 1, -1 do
+  local e = enemies[i]
+  e:update(dt)
+  if e.y > love.graphics.getHeight() + 20 then
+    table.remove(enemies, i)
+  end
+end`;
+
+const Task1 = `-- main.lua
+
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+  table.insert(enemies, Enemy.new(200))
+  table.insert(enemies, Enemy.new(600))
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+
+  fireCooldown = fireCooldown - dt
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+
+  for _, e in ipairs(enemies) do
+    e:update(dt)
+  end
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  love.graphics.setColor(1, 0.3, 0.4)
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Enemies: " .. #enemies, 10, 10)
+end`;
+
+const Task2 = `-- main.lua
+
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+local spawnTimer = 0
+local spawnEvery = 0.8
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+
+  fireCooldown = fireCooldown - dt
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+
+  spawnTimer = spawnTimer - dt
+  if spawnTimer <= 0 then
+    table.insert(enemies, Enemy.new(math.random(40, love.graphics.getWidth() - 40)))
+    spawnTimer = spawnEvery
+  end
+
+  for _, e in ipairs(enemies) do
+    e:update(dt)
+  end
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  love.graphics.setColor(1, 0.3, 0.4)
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Enemies: " .. #enemies, 10, 10)
+end`;
+
+const Task3 = `-- main.lua
+
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+local spawnTimer = 0
+local spawnEvery = 0.8
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+end
+
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+
+  fireCooldown = fireCooldown - dt
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+
+  spawnTimer = spawnTimer - dt
+  if spawnTimer <= 0 then
+    table.insert(enemies, Enemy.new(math.random(40, love.graphics.getWidth() - 40)))
+    spawnTimer = spawnEvery
+  end
+
+  for i = #enemies, 1, -1 do
+    local e = enemies[i]
+    e:update(dt)
+    if e.y > love.graphics.getHeight() + 20 then
+      table.remove(enemies, i)
+    end
+  end
+end
+
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  love.graphics.setColor(1, 0.3, 0.4)
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Enemies: " .. #enemies, 10, 10)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.6: Enemies and Spawn Timers</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Bullets were plain tables, and that was fine because a bullet does
+            almost nothing. Enemies will grow behavior &mdash; they move, they
+            take damage, later they die in interesting ways &mdash; so they are
+            worth making properly.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">This is Activity 1.11, unchanged.</b>
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Four lines you already know: an empty table for the class,{" "}
+            <CodeSnippet
+              code="Enemy.__index = Enemy"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            to make lookups fall back to it, a constructor that attaches it with{" "}
+            <CodeSnippet
+              code="setmetatable"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and methods defined with a colon so they get{" "}
+            <CodeSnippet
+              code="self"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            <b>What it buys you is the shared-method property.</b> Fifty enemies
+            hold fifty positions but there is still exactly one{" "}
+            <CodeSnippet
+              code="update"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            function. And your main loop gets shorter: it says{" "}
+            <CodeSnippet
+              code="e:update(dt)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and stops caring how an enemy moves.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Notice where the knowledge now lives.</b>{" "}
+            The main file no longer knows an enemy's speed or shape. Change{" "}
+            <CodeSnippet
+              code="Enemy:draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            to render a sprite instead of a square and not one line of{" "}
+            <CodeSnippet
+              code="love.draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            changes. That is the whole argument for the pattern, and it is what
+            makes Activity 2.8 possible.
+          </p>
+
+          <h3 class="mt-5">Spawning on a timer</h3>
+
+          <p>
+            The same accumulator you used for the weapon, with a different
+            number.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Starting{" "}
+            <CodeSnippet
+              code="spawnTimer"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            at <b>0</b> means the first enemy arrives immediately rather than
+            after a wait. Start it at{" "}
+            <CodeSnippet
+              code="spawnEvery"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            instead and the player gets a moment of calm first. Both are
+            reasonable; pick deliberately.
+          </p>
+
+          <p>
+            The spawn x is random but <b>inset from the edges</b> &mdash;{" "}
+            <CodeSnippet
+              code="math.random(40, width - 40)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            keeps an enemy from being born half off the screen. And enemies start
+            at a <i>negative</i> y so they slide into view rather than popping
+            into existence at the top edge.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Seed the generator in{" "}
+            <CodeSnippet
+              code="love.load"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.</b> This is the warning from Activity 1.4 coming due: LÖVE's Lua
+            does not seed itself, so without{" "}
+            <CodeSnippet
+              code="math.randomseed(os.time())"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            every playthrough gets the identical wave pattern. It will look
+            deliberate and it is not.
+          </p>
+
+          <h3 class="mt-5">Two lists, the same treatment</h3>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Identical in shape to the bullet loop, and backwards for the same
+            reason. <b>Enemies that reach the bottom are removed</b>, and in a
+            finished game that would also cost the player something &mdash;
+            Activity 2.9 adds lives.
+          </p>
+
+          <p>
+            <b>An enemy leaving the bottom and a bullet leaving the top are the
+            same problem.</b> If you find yourself writing this loop a third
+            time, that is the signal to write a helper that takes a list and a
+            test. Resist it until then; two is not yet a pattern.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>Same file. You are giving the player something to shoot at.</p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: An Enemy class</h3>
+          <ul>
+            <li>
+              Write the <b>Enemy</b> class with{" "}
+              <CodeSnippet
+                code="new"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />,{" "}
+              <CodeSnippet
+                code="update"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              methods.
+            </li>
+            <li>
+              Create <b>two</b> by hand in{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              so you have something on screen before the timer exists.
+            </li>
+            <li>
+              Update and draw them by calling their methods, not by reaching into
+              their fields.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Spawn them on a timer</h3>
+          <ul>
+            <li>Remove the two hand-made enemies.</li>
+            <li>
+              Add <b>spawnTimer</b> and <b>spawnEvery</b>, and seed the random
+              generator in{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Spawn one enemy at a random x every 0.8 seconds.</li>
+            <li>
+              <b>Run it twice and confirm the pattern differs.</b> Then comment
+              out the seed line, run twice more, and watch the exact same wave
+              arrive both times.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "8-9, 57-62" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Let them leave</h3>
+          <ul>
+            <li>
+              Turn the enemy loop into a <b>backwards</b> one and remove any
+              enemy that has gone off the bottom.
+            </li>
+            <li>
+              Watch the count. <b class="text-sn-theme">It should settle at a
+              steady number</b> &mdash; spawning and leaving in balance.
+            </li>
+            <li>
+              Change{" "}
+              <CodeSnippet
+                code="spawnEvery"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              to 0.2 and watch that steady number roughly quadruple. One variable
+              controls the difficulty of the whole game.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "63-64, 66-68" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Give each enemy a <b>random speed</b> as well as a random position,
+              so waves stop arriving in a flat line.
+            </li>
+            <li>
+              Make the game get harder: reduce{" "}
+              <CodeSnippet
+                code="spawnEvery"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              slightly on every spawn, with a{" "}
+              <CodeSnippet
+                code="math.max"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              floor so it never reaches zero.
+            </li>
+            <li>
+              Add a second enemy type that <b>inherits</b> from Enemy and
+              overrides only its speed and color, using the bonus inheritance
+              page. Then spawn one at random and note that your update loop needs
+              no change at all.
+            </li>
+            <li>
+              Give enemies a gentle side-to-side drift by storing a start x and
+              using{" "}
+              <CodeSnippet
+                code="math.sin"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              of an accumulated time.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <ul>
+            <li>Red squares slide down from the top at a steady rate.</li>
+            <li>They appear at different horizontal positions each run.</li>
+            <li>
+              <b class="text-sn-theme">The enemy count rises then holds
+              steady</b> instead of climbing forever.
+            </li>
+            <li>You can still fly and fire; bullets pass straight through.</li>
+          </ul>
+
+          <p>
+            Bullets ignoring enemies is correct for now &mdash; nothing has been
+            told to check. That is Activity 2.7, and it is about twelve lines.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-5"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-2/2-7"
+          >
+            Next: Collision Detection <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,955 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+const HEAD = `-- main.lua
+
+local Enemy = require("enemy")
+local collision = require("collision")
+`;
+
+const STATE1 = `
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+local spawnTimer = 0
+local spawnEvery = 0.8
+local score = 0
+local lives = 3
+`;
+
+const STATE2 = `
+local ship
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+local spawnTimer = 0
+local spawnEvery = 0.8
+local score = 0
+local lives = 3
+local invuln = 0
+`;
+
+const STATE3 = `
+local ship
+local font
+local player = { x = 400, y = 500, size = 40, speed = 300 }
+local bullets = {}
+local fireCooldown = 0
+local enemies = {}
+local spawnTimer = 0
+local spawnEvery = 0.8
+local score = 0
+local lives = 3
+local invuln = 0
+`;
+
+const LOAD1 = `
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+end
+`;
+
+const LOAD3 = `
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+  font = love.graphics.newFont(20)
+  love.graphics.setFont(font)
+end
+`;
+
+const U_MOVE = `
+function love.update(dt)
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+`;
+
+const U_TIMERS1 = `
+  fireCooldown = fireCooldown - dt
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+`;
+
+const U_TIMERS2 = `
+  fireCooldown = fireCooldown - dt
+  invuln = invuln - dt
+
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+`;
+
+const U_SPAWN = `
+  spawnTimer = spawnTimer - dt
+  if spawnTimer <= 0 then
+    table.insert(enemies, Enemy.new(math.random(40, love.graphics.getWidth() - 40)))
+    spawnTimer = spawnEvery
+  end
+
+  for i = #enemies, 1, -1 do
+    local e = enemies[i]
+    e:update(dt)
+    if e.y > love.graphics.getHeight() + 20 then
+      table.remove(enemies, i)
+    end
+  end
+`;
+
+const U_HIT1 = `
+  for i = #enemies, 1, -1 do
+    if collision.overlaps(enemies[i], player) then
+      table.remove(enemies, i)
+      lives = lives - 1
+      if lives <= 0 then
+        lives = 3
+        score = 0
+        enemies = {}
+        bullets = {}
+      end
+      break
+    end
+  end
+`;
+
+const U_HIT2 = `
+  if invuln <= 0 then
+    for i = #enemies, 1, -1 do
+      if collision.overlaps(enemies[i], player) then
+        table.remove(enemies, i)
+        lives = lives - 1
+        invuln = 2
+        if lives <= 0 then
+          lives = 3
+          score = 0
+          enemies = {}
+          bullets = {}
+        end
+        break
+      end
+    end
+  end
+`;
+
+const U_TAIL = `
+  for i = #enemies, 1, -1 do
+    for j = #bullets, 1, -1 do
+      if collision.overlaps(enemies[i], bullets[j]) then
+        table.remove(bullets, j)
+        enemies[i].hp = enemies[i].hp - 1
+        if enemies[i].hp <= 0 then
+          table.remove(enemies, i)
+          score = score + 1
+        end
+        break
+      end
+    end
+  end
+end
+`;
+
+const D_1 = `
+function love.draw()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Score: " .. score, 10, 10)
+  love.graphics.print("Lives: " .. lives, 10, 30)
+end`;
+
+const D_2 = `
+function love.draw()
+  local blink = invuln > 0 and math.floor(invuln * 10) % 2 == 1
+
+  if not blink then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+  end
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Score: " .. score, 10, 10)
+  love.graphics.print("Lives: " .. lives, 10, 30)
+end`;
+
+const D_3 = `
+local function drawHud()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Score: " .. score, 10, 12)
+
+  for i = 1, lives do
+    local x = love.graphics.getWidth() - 24 - (i - 1) * 30
+    love.graphics.draw(ship, x, 24, 0, 1, 1, ship:getWidth() / 2, ship:getHeight() / 2)
+  end
+end
+
+function love.draw()
+  local blink = invuln > 0 and math.floor(invuln * 10) % 2 == 1
+
+  if not blink then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+  end
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  drawHud()
+end`;
+
+//#region CodeSnippets
+const EnemyModule = `-- enemy.lua
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120, hp = 2 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.setColor(1, 0.3, 0.4)
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+
+return Enemy`;
+
+const CollisionModule = `-- collision.lua
+
+local collision = {}
+
+function collision.overlaps(a, b)
+  return a.x - a.size / 2 < b.x + b.size / 2
+     and a.x + a.size / 2 > b.x - b.size / 2
+     and a.y - a.size / 2 < b.y + b.size / 2
+     and a.y + a.size / 2 > b.y - b.size / 2
+end
+
+return collision`;
+
+const Figure1 = `-- Storing the answer: now two things can disagree
+if invuln > 0 then
+  isInvulnerable = true
+else
+  isInvulnerable = false
+end
+
+-- Asking the question: there is nothing to disagree with
+if invuln > 0 then
+  -- still flashing, still safe
+end`;
+
+const Figure2 = `local blink = invuln > 0 and math.floor(invuln * 10) % 2 == 1`;
+
+const Figure3 = `function love.draw()
+  -- The world, in world coordinates
+  drawPlayer()
+  drawBullets()
+  drawEnemies()
+
+  -- The HUD, in screen coordinates, last so nothing can cover it
+  drawHud()
+end`;
+
+const Figure4 = `-- Wrong: builds a brand new font sixty times a second
+function love.draw()
+  love.graphics.setFont(love.graphics.newFont(20))
+end
+
+-- Right: build it once, keep it forever
+function love.load()
+  font = love.graphics.newFont(20)
+  love.graphics.setFont(font)
+end`;
+
+const Figure5 = `for i = 1, lives do
+  local x = love.graphics.getWidth() - 24 - (i - 1) * 30
+  love.graphics.draw(ship, x, 24, 0, 1, 1, ship:getWidth() / 2, ship:getHeight() / 2)
+end`;
+
+const Task1 = HEAD + STATE1 + LOAD1 + U_MOVE + U_TIMERS1 + U_SPAWN + U_HIT1 + U_TAIL + D_1;
+const Task2 = HEAD + STATE2 + LOAD1 + U_MOVE + U_TIMERS2 + U_SPAWN + U_HIT2 + U_TAIL + D_2;
+const Task3 = HEAD + STATE3 + LOAD3 + U_MOVE + U_TIMERS2 + U_SPAWN + U_HIT2 + U_TAIL + D_3;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.9: Score, Lives, and a HUD</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Right now touching an enemy wipes the entire board and silently
+            zeroes your score. It is a placeholder, and it has the worst
+            property a punishment can have:{" "}
+            <b class="text-sn-theme">you cannot tell it happened.</b> The screen
+            simply empties.
+          </p>
+
+          <p>
+            This activity gives you three lives, a moment of safety after being
+            hit, and a heads-up display that shows both. No new LÖVE concepts
+            are involved &mdash; every piece is a number, a countdown, or a loop
+            you have already written.
+          </p>
+
+          <h3 class="mt-5">A timer is a number; a state is a question</h3>
+
+          <p>
+            You want the player to be untouchable for two seconds after a hit.
+            The tempting design is a countdown <i>and</i> a boolean saying
+            whether it is running. Resist it.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="two designs"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            The first version has two facts that must agree, and they will not:
+            forget one assignment on one branch and the player is permanently
+            immortal.{" "}
+            <b class="text-sn-theme">The second stores one number and derives
+            the answer on the spot</b>, which cannot drift because there is
+            nothing to drift from.
+          </p>
+
+          <p>
+            Note that nothing stops the countdown. Subtract{" "}
+            <CodeSnippet
+              code="dt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            every frame and after a minute it is sitting at{" "}
+            <CodeSnippet
+              code="-60"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which answers "am I invulnerable?" perfectly well.{" "}
+            <b>A countdown you never have to remember to stop is simpler than
+            one you do</b>, and it is why the test is{" "}
+            <CodeSnippet
+              code="invuln > 0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            rather than{" "}
+            <CodeSnippet
+              code="invuln ~= 0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. The second version would go wrong on the first frame that
+            overshoots zero, which is every frame.
+          </p>
+
+          <h3 class="mt-5">Why the grace period is not a nicety</h3>
+
+          <p>
+            Task 1 adds lives without it, and the result is worth feeling before
+            you fix it. Enemies arrive about eight tenths of a second apart, and
+            each one that reaches you takes a life.{" "}
+            <b class="text-sn-theme">Three lives are gone in under two
+            seconds</b>, in a stretch where nothing you press changes the
+            outcome.
+          </p>
+
+          <p>
+            With a two-second window the second and third arrivals pass straight
+            through you, and the next life you lose is the one you had time to
+            see coming. The rule generalizes:{" "}
+            <b>a penalty that can repeat before the player can react is not a
+            penalty, it is a deletion.</b>
+          </p>
+
+          <h3 class="mt-5">The flash is how the player knows</h3>
+
+          <p>
+            Invulnerability the player cannot see is indistinguishable from a
+            bug. The fix is one line:
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            Read it right to left.{" "}
+            <CodeSnippet
+              code="invuln * 10"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            counts tenths of a second,{" "}
+            <CodeSnippet
+              code="math.floor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            turns that into a whole number, and{" "}
+            <CodeSnippet
+              code="% 2"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            asks whether it is odd. The answer flips every tenth of a second, so
+            the ship blinks five times a second for as long as the timer runs.
+            The modulo operator from Activity 1.4 is doing all of the work.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Skip the drawing, not the updating.</b> The
+            instinct is to guard the movement code too, and it is wrong: an
+            invulnerable ship still flies, still shoots, still clamps to the
+            screen. It is invisible for a tenth of a second at a time, not
+            absent.
+          </p>
+
+          <h3 class="mt-5">The HUD is drawn last</h3>
+
+          <p>
+            Everything in{" "}
+            <CodeSnippet
+              code="love.draw"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            paints over what came before it, so drawing order is layer order.
+            The HUD has to be last or an enemy at the top of the screen will
+            slide over your score.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            The HUD is also the one thing on screen that does not live in the
+            game world. An enemy at{" "}
+            <CodeSnippet
+              code="x = 400"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is somewhere in the level; the score at{" "}
+            <CodeSnippet
+              code="x = 10"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is glued to the window. That difference matters the moment you add a
+            camera, and it is worth keeping the two kinds of drawing in separate
+            functions from the start.
+          </p>
+
+          <h3 class="mt-5">Draw the lives, do not count them</h3>
+
+          <Code
+            code={Figure5}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            Three small ships in the corner read faster than the text "Lives:
+            3", and the loop has a quiet virtue:{" "}
+            <b class="text-sn-theme">the number of icons is the value of{" "}
+            <CodeSnippet
+              code="lives"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, not a copy of it.</b> There is no way for the display to disagree
+            with the game, which is the same principle as the timer, applied to
+            pixels.
+          </p>
+
+          <p>
+            The <CodeSnippet
+              code="x"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is measured backwards from{" "}
+            <CodeSnippet
+              code="love.graphics.getWidth()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            rather than hard-coded, so the icons stay in the corner if you ever
+            change the window size in conf.lua. The rest of the call is the
+            centering idiom from Activity 2.4, at scale 1 instead of 2.
+          </p>
+
+          <h3 class="mt-5">Fonts are loaded, not typed</h3>
+
+          <p>
+            The default font is small. A bigger one is a file LÖVE has to build
+            glyphs for, which puts it in the same category as{" "}
+            <CodeSnippet
+              code="newImage"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            from Activity 2.4: <b>make it once, in love.load.</b>
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="two versions"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            <CodeSnippet
+              code="setFont"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is sticky in exactly the way{" "}
+            <CodeSnippet
+              code="setColor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is &mdash; the state machine from Activity 2.2 again. Set it once in{" "}
+            <CodeSnippet
+              code="love.load"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and it is still set on frame forty thousand.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Your enemy.lua and collision.lua do not change in this activity.
+            Everything below happens in main.lua.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Lives instead of a wipe</h3>
+          <ul>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="local lives = 3"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              to your state block.
+            </li>
+            <li>
+              Change the player collision so it{" "}
+              <b class="text-sn-theme">removes the enemy that hit you and takes
+              one life</b>, instead of emptying the board. The enemy is
+              destroyed in the crash too, so it should not survive it.
+            </li>
+            <li>
+              When lives reach zero, reset lives, score, and both tables. This is
+              a stand-in: Activity 2.10 replaces it with a real game-over screen.
+            </li>
+            <li>
+              Print the lives under the score for now, so you can watch the
+              number move.
+            </li>
+            <li>
+              <b>Play it and lose on purpose.</b> Stand still in a column of
+              enemies and count how long three lives last. That is the problem
+              Task 2 solves.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "14, 63-70, 105" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Two seconds of grace</h3>
+          <ul>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="local invuln = 0"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and count it down beside{" "}
+              <CodeSnippet
+                code="fireCooldown"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. They are the same pattern, so put them together.
+            </li>
+            <li>
+              Wrap the whole player collision loop in{" "}
+              <CodeSnippet
+                code="if invuln <= 0 then"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. While the timer is running, enemies pass straight through you
+              and are not removed.
+            </li>
+            <li>
+              Set{" "}
+              <CodeSnippet
+                code="invuln = 2"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              at the moment you take the hit.
+            </li>
+            <li>
+              Skip the ship's <b>draw</b> on alternating tenths of a second. Do
+              not touch the update.
+            </li>
+            <li>
+              Lose a life and watch the clock. The next one you can lose is two
+              seconds later, and you will see every frame of the wait.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "15, 35-36, 64-76, 97-102" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: A real HUD</h3>
+          <ul>
+            <li>
+              Add a{" "}
+              <CodeSnippet
+                code="font"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              local, build it at size 20 in{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and set it there. Never in draw.
+            </li>
+            <li>
+              Move the score and lives into their own{" "}
+              <CodeSnippet
+                code="drawHud"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              function, defined above{" "}
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              so the locals it reads already exist.
+            </li>
+            <li>
+              Replace the lives text with one ship icon per life, in the top
+              right corner, positioned from{" "}
+              <CodeSnippet
+                code="getWidth()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Call{" "}
+              <CodeSnippet
+                code="drawHud()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              as the <b class="text-sn-theme">last line</b> of{" "}
+              <CodeSnippet
+                code="love.draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and start it with a white{" "}
+              <CodeSnippet
+                code="setColor"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; the enemies left the color red.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "7, 22-23, 99-108, 126" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Give an extra life every ten points. The obvious test,{" "}
+              <CodeSnippet
+                code="score % 10 == 0"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, is a trap &mdash; it is true on <i>every frame</i> you spend at
+              ten points, which is most of them. Keep a{" "}
+              <CodeSnippet
+                code="nextExtraLife"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              number and raise it when you pass it. <b>The general lesson is
+              that "when it changes" and "what it is now" are different
+              questions</b>, and only one of them survives a game loop.
+            </li>
+            <li>
+              Cap lives at five and make the sixth pickup worth points instead.
+              Your icon loop needs no change at all, which is the payoff for
+              deriving it from the value.
+            </li>
+            <li>
+              Draw a thin damage bar under each enemy from its{" "}
+              <CodeSnippet
+                code="hp"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. It belongs in{" "}
+              <CodeSnippet
+                code="Enemy:draw"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, not the HUD &mdash; it moves with the enemy, so it is world,
+              not screen.
+            </li>
+            <li>
+              Make the blink fade instead of flicker by passing a fourth alpha
+              argument to{" "}
+              <CodeSnippet
+                code="setColor"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              computed from{" "}
+              <CodeSnippet
+                code="invuln"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Remember to set the alpha back to 1 afterwards.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <ul>
+            <li>
+              Three small ships sit in the top right corner and the score is in
+              the top left, in a noticeably larger font than before.
+            </li>
+            <li>
+              Touching an enemy destroys that enemy, removes one icon, and starts
+              the ship flashing. <b>The rest of the board keeps falling.</b>
+            </li>
+            <li>
+              For the next two seconds enemies pass through you harmlessly, and
+              you can still move and shoot the whole time.
+            </li>
+            <li>
+              After the third life everything resets with no announcement. That
+              is expected &mdash; the announcement is Activity 2.10.
+            </li>
+          </ul>
+
+          <p>
+            If the ship never comes back, your{" "}
+            <CodeSnippet
+              code="invuln = invuln - dt"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is somewhere that does not run every frame &mdash; check it is not
+            inside an{" "}
+            <CodeSnippet
+              code="if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. If you lose all three lives at once, the collision loop is not
+            actually wrapped in the invulnerability check. If the score turns
+            red, the HUD is missing its white{" "}
+            <CodeSnippet
+              code="setColor"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />; if it disappears entirely, it is being drawn before the enemies
+            rather than after.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-8"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/">
+            Course Index <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

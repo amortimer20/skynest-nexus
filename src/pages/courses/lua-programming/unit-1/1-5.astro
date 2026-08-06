@@ -1,0 +1,649 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local charge = 45
+
+if charge >= 80 then
+  print("READY")
+elseif charge >= 40 then
+  print("CAUTION")
+else
+  print("GROUNDED")
+end`;
+const Figure1Out = `CAUTION`;
+
+const Figure2 = `print(1 == 1.0, "1" == 1, 3 ~= 4)`;
+const Figure2Out = `true\tfalse\ttrue`;
+
+const Figure3 = `if 0 then print("0 is true") end
+if "" then print("empty string is true") end
+if not nil then print("nil is false") end
+if not false then print("false is false") end`;
+const Figure3Out = `0 is true
+empty string is true
+nil is false
+false is false`;
+
+const Figure4 = `print(nil or "default")
+print(false and "never")
+print(5 and 10)
+print(nil and 10)`;
+const Figure4Out = `default
+false
+10
+nil`;
+
+const Figure5 = `local hp = 0
+
+print(hp > 0 and "alive" or "down")`;
+const Figure5Out = `down`;
+
+const Task1 = `-- main.lua - Skynest docking clearance
+
+local charge = 62
+local crew = 4
+local hullBreach = false
+
+if charge >= 80 then
+  print("Charge: READY")
+elseif charge >= 40 then
+  print("Charge: CAUTION")
+else
+  print("Charge: GROUNDED")
+end`;
+const Task1Out = `Charge: CAUTION`;
+
+const Task2 = `-- main.lua - Skynest docking clearance
+
+local charge = 62
+local crew = 4
+local hullBreach = false
+
+if charge >= 80 then
+  print("Charge: READY")
+elseif charge >= 40 then
+  print("Charge: CAUTION")
+else
+  print("Charge: GROUNDED")
+end
+
+if charge >= 40 and crew >= 2 and not hullBreach then
+  print("Docking: CLEARED")
+else
+  print("Docking: DENIED")
+end`;
+const Task2Out = `Charge: CAUTION
+Docking: CLEARED`;
+
+const Task3 = `-- main.lua - Skynest docking clearance
+
+local charge = 62
+local crew = 4
+local hullBreach = false
+
+if charge >= 80 then
+  print("Charge: READY")
+elseif charge >= 40 then
+  print("Charge: CAUTION")
+else
+  print("Charge: GROUNDED")
+end
+
+if charge >= 40 and crew >= 2 and not hullBreach then
+  print("Docking: CLEARED")
+else
+  print("Docking: DENIED")
+end
+
+local assignment = nil
+local passengers = 0
+
+if assignment then
+  print("Orders:", assignment)
+else
+  print("Orders: none on file")
+end
+
+if passengers then
+  print("Passengers recorded:", passengers)
+end`;
+
+const Checkpoint = `Charge: CAUTION
+Docking: CLEARED
+Orders: none on file
+Passengers recorded:\t0`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.5: Making Decisions</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Conditionals in Lua read almost like English, and there are only
+            three keywords to remember:{" "}
+            <CodeSnippet
+              code="if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />,{" "}
+            <CodeSnippet
+              code="then"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and{" "}
+            <CodeSnippet
+              code="end"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. There are no parentheses around the condition and no braces
+            anywhere.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Note the spelling:{" "}
+            <b class="text-sn-theme">
+              <CodeSnippet
+                code="elseif"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is one word
+            </b>. Writing{" "}
+            <CodeSnippet
+              code="else if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is not an error, but it opens a second{" "}
+            <CodeSnippet
+              code="if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            that needs its own{" "}
+            <CodeSnippet
+              code="end"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and the error you get points at the bottom of your file rather
+            than at the real problem.
+          </p>
+
+          <h3 class="mt-5">Comparing things</h3>
+
+          <p>
+            The comparisons are the usual ones with{" "}
+            <b class="text-sn-theme">one difference: "not equal" is{" "}
+            <CodeSnippet
+              code="~="
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, not{" "}
+            <CodeSnippet
+              code="!="
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            /></b>. There is also only one equals-comparison,{" "}
+            <CodeSnippet
+              code="=="
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; Lua has no{" "}
+            <CodeSnippet
+              code="==="
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            because it never needed one.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Values of different types are never equal, so{" "}
+            <CodeSnippet
+              code={`"1" == 1`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is <b>false</b> with no conversion attempted. That is the strictness
+            JavaScript needs{" "}
+            <CodeSnippet
+              code="==="
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            for, and Lua just does it by default.
+          </p>
+
+          <h3 class="mt-5">
+            The rule that catches everyone
+          </h3>
+
+          <p>
+            Here is the one to tattoo somewhere.{" "}
+            <b class="text-sn-theme">Only{" "}
+            <CodeSnippet
+              code="false"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            are false. Everything else is true.</b>
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b>Zero is true. An empty string is true.</b> An empty table is
+            true. If you have written Python or JavaScript, both of those
+            treat zero and empty text as false, and code you carry over from
+            them will take the wrong branch without ever producing an error.
+          </p>
+
+          <p>
+            It is worth seeing why this is the better design.{" "}
+            <CodeSnippet
+              code="if score then"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            in Lua asks exactly one question &mdash; <i>does a score
+            exist?</i> A player with zero points still has a score. In a
+            language where zero is false, that same line quietly means two
+            different things at once, and you have to write extra code to tell
+            them apart.
+          </p>
+
+          <h3 class="mt-5">and, or, not</h3>
+
+          <p>
+            The logical operators are words, not symbols. There is no{" "}
+            <CodeSnippet
+              code="&&"
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />, no{" "}
+            <CodeSnippet
+              code="||"
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and no{" "}
+            <CodeSnippet
+              code="!"
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            They also do something more interesting than answering true or
+            false. <b class="text-sn-theme">They hand back one of the actual
+            values you gave them.</b>
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure4Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Read them as questions about <i>which value survives</i>.{" "}
+            <CodeSnippet
+              code="a or b"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            gives you <b>a</b> unless a is false or nil, in which case you get{" "}
+            <b>b</b>. That is why{" "}
+            <CodeSnippet
+              code={`name or "stranger"`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is how Lua does default values, and you will use it constantly from
+            Activity 1.7 onward.
+          </p>
+
+          <p>
+            Chain them and you get a stand-in for the ternary operator Lua does
+            not have.
+          </p>
+
+          <Code
+            code={Figure5}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure5Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b>One warning about that pattern.</b> Because it relies on
+            truthiness, it breaks if the middle value can itself be{" "}
+            <CodeSnippet
+              code="false"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            or{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; you would fall through to the third value even when the
+            condition was true. Use it for strings and numbers, and write a real{" "}
+            <CodeSnippet
+              code="if"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            for anything else.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are writing
+            the check a docking bay would run before letting a ship in.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Grade the charge level</h3>
+          <ul>
+            <li>
+              Store a charge percentage, a crew count, and a hull-breach
+              boolean.
+            </li>
+            <li>
+              Report <b>READY</b> at 80 or above, <b>CAUTION</b> at 40 or above,
+              and <b>GROUNDED</b> otherwise.
+            </li>
+            <li>Pick a charge value that lands in the middle branch.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Combine three conditions</h3>
+          <ul>
+            <li>
+              Clear the ship for docking only if the charge is at least 40,{" "}
+              <b>and</b> there are at least 2 crew, <b>and</b> there is no hull
+              breach.
+            </li>
+            <li>
+              Use{" "}
+              <CodeSnippet
+                code="not"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              for the breach rather than comparing it to{" "}
+              <CodeSnippet
+                code="false"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. It reads better and it is what Lua programmers write.
+            </li>
+            <li>Print CLEARED or DENIED.</li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "15-19" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Prove the truthiness rule to yourself</h3>
+          <ul>
+            <li>
+              Add an <b>assignment</b> variable set to{" "}
+              <CodeSnippet
+                code="nil"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and a <b>passengers</b> variable set to <b>0</b>.
+            </li>
+            <li>
+              Test each one directly with{" "}
+              <CodeSnippet
+                code="if assignment then"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; no comparison.
+            </li>
+            <li>
+              <b>Predict both results before you run it.</b> One of the two will
+              surprise you if you came from another language, and that surprise
+              is the whole point of the task.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "21-32" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Replace the CLEARED / DENIED block with a single line using{" "}
+              <CodeSnippet
+                code="and"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="or"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Add a rule that a ship with <b>zero</b> passengers is still
+              allowed to dock, but one with <b>no passenger record at all</b> is
+              not. This is only expressible because zero and nil are different
+              things.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            That last line is the one worth remembering.{" "}
+            <b class="text-sn-theme">The passenger count of zero passed the
+            test.</b> Nothing about it looked conditional, and that is exactly
+            how it will bite you later if you forget.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/1-4"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/1-6"
+          >
+            Next: Loops <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

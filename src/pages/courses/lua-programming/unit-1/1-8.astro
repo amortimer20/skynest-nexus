@@ -1,0 +1,640 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local function makeGreeter(greeting)
+  return function(name)
+    return greeting .. ", " .. name
+  end
+end
+
+local hello = makeGreeter("Hello")
+local hey = makeGreeter("Hey")
+
+print(hello("Ada"))
+print(hey("Bo"))`;
+const Figure1Out = `Hello, Ada
+Hey, Bo`;
+
+const Figure2 = `local function makeCounter()
+  local count = 0
+  return function()
+    count = count + 1
+    return count
+  end
+end
+
+local tick = makeCounter()
+print(tick())
+print(tick())
+print(tick())`;
+const Figure2Out = `1
+2
+3`;
+
+const Figure3 = `local function makeBay()
+  local docked = 0
+
+  local function arrive()
+    docked = docked + 1
+    return docked
+  end
+
+  local function depart()
+    docked = docked - 1
+    return docked
+  end
+
+  return arrive, depart
+end
+
+local arrive, depart = makeBay()
+print(arrive())
+print(arrive())
+print(depart())`;
+const Figure3Out = `1
+2
+1`;
+
+const Figure4 = `local function countdown(n)
+  return function()
+    if n > 0 then
+      n = n - 1
+      return n + 1
+    end
+  end
+end
+
+for t in countdown(3) do
+  print("T-minus", t)
+end`;
+const Figure4Out = `T-minus\t3
+T-minus\t2
+T-minus\t1`;
+
+const Task1 = `-- main.lua - Skynest bay counter
+
+local function makeCounter(label)
+  local count = 0
+  return function()
+    count = count + 1
+    return label .. " #" .. count
+  end
+end
+
+local bayA = makeCounter("Bay A")
+
+print(bayA())
+print(bayA())`;
+const Task1Out = `Bay A #1
+Bay A #2`;
+
+const Task2 = `-- main.lua - Skynest bay counter
+
+local function makeCounter(label)
+  local count = 0
+  return function()
+    count = count + 1
+    return label .. " #" .. count
+  end
+end
+
+local bayA = makeCounter("Bay A")
+local bayB = makeCounter("Bay B")
+
+print(bayA())
+print(bayA())
+print(bayB())
+print(bayA())`;
+const Task2Out = `Bay A #1
+Bay A #2
+Bay B #1
+Bay A #3`;
+
+const Task3 = `-- main.lua - Skynest bay counter
+
+local function makeCounter(label)
+  local count = 0
+  return function()
+    count = count + 1
+    return label .. " #" .. count
+  end
+end
+
+local bayA = makeCounter("Bay A")
+local bayB = makeCounter("Bay B")
+
+print(bayA())
+print(bayA())
+print(bayB())
+print(bayA())
+
+local function countdown(n)
+  return function()
+    if n > 0 then
+      n = n - 1
+      return n + 1
+    end
+  end
+end
+
+for t in countdown(3) do
+  print("T-minus", t)
+end`;
+
+const Checkpoint = `Bay A #1
+Bay A #2
+Bay B #1
+Bay A #3
+T-minus\t3
+T-minus\t2
+T-minus\t1`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.8: Closures and Scope</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Two facts you already have. A function is a value (Activity 1.7).
+            And a{" "}
+            <CodeSnippet
+              code="local"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is only visible inside the block that declared it (Activity 1.2).
+            Put them together and something genuinely useful happens.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">A function defined inside another one can
+            still see the outer locals &mdash; even after the outer function has
+            finished and returned.</b>
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            By the time{" "}
+            <CodeSnippet
+              code={`hello("Ada")`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            runs,{" "}
+            <CodeSnippet
+              code="makeGreeter"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            finished long ago. Its{" "}
+            <CodeSnippet
+              code="greeting"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            should have been gone. It is not, because the returned function still
+            holds onto it. A function bundled together with the variables it
+            captured is called a{" "}
+            <b class="text-sn-theme">closure</b>, and it is the most powerful
+            thing in this unit.
+          </p>
+
+          <p>
+            Note also that <b>each call made its own separate copy</b>.{" "}
+            <CodeSnippet
+              code="hello"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="hey"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            do not share a greeting.
+          </p>
+
+          <h3 class="mt-5">Captured variables can be changed</h3>
+
+          <p>
+            This is where it gets interesting. The closure does not get a
+            snapshot &mdash; it gets the variable itself, and it can write to it.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="count"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            survives between calls and remembers where it got to. It is also{" "}
+            <b>genuinely private</b> &mdash; there is no name you could write
+            outside{" "}
+            <CodeSnippet
+              code="makeCounter"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            that reaches it. No keyword made it private. It is private because
+            of where it was declared.
+          </p>
+
+          <h3 class="mt-5">Two functions, one captured variable</h3>
+
+          <p>
+            Closures made in the same place share what they captured. This is
+            how you build something with several operations and hidden state.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="arrive"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="depart"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            are looking at the same{" "}
+            <CodeSnippet
+              code="docked"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. If you have used objects in another language, notice what you
+            just built without any object syntax: <b>a thing with two methods
+            and one private field.</b> Activity 1.11 does this a different way,
+            and it is worth remembering that this way existed first.
+          </p>
+
+          <h3 class="mt-5">Closures drive for-in loops</h3>
+
+          <p>
+            Activity 1.6 covered three loops. There is a fourth form,{" "}
+            <CodeSnippet
+              code="for x in f do"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and it works by <b>calling a function over and over until it
+            returns nil</b>. A closure is exactly what you need to write one.
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure4Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            The loop calls the returned function, gets 3, then 2, then 1, then{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; and stopping on nil is the entire contract. This matters more
+            than it looks:{" "}
+            <b class="text-sn-theme">
+              <CodeSnippet
+                code="ipairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="pairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, which you will use constantly from Activity 1.9 on, are not
+              special syntax. They are ordinary functions doing what you just
+              did.
+            </b>
+          </p>
+
+          <h3 class="mt-5">Why this is the page that pays off in Unit 2</h3>
+
+          <p>
+            A game is full of things that need to remember something between
+            frames without announcing it to the rest of the program: a spawn
+            timer, a reload delay, a cooldown, a wave counter. Every one of those
+            is a closure, and the alternative is a global, which Activity 1.2
+            already talked you out of.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are building
+            a docking-bay ticket machine, then your own loop.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: A counter that remembers</h3>
+          <ul>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="makeCounter(label)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              which returns a function.
+            </li>
+            <li>
+              The returned function should add one to a private count and give
+              back the label with the number attached.
+            </li>
+            <li>Make one counter and call it twice.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Prove they are independent</h3>
+          <ul>
+            <li>Make a second counter with a different label.</li>
+            <li>
+              Interleave the calls &mdash; A, A, B, A.
+            </li>
+            <li>
+              <b>Predict Bay B's number before running it.</b> If you expect it
+              to be 3, you are thinking of a shared variable, and the output will
+              correct you.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "12, 16-17" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Write your own loop</h3>
+          <ul>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="countdown(n)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              that returns a function counting down from n.
+            </li>
+            <li>
+              When it runs out, let it return nothing &mdash; falling off the end
+              of a function returns{" "}
+              <CodeSnippet
+                code="nil"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, which is the signal the loop is waiting for.
+            </li>
+            <li>
+              Drive it with{" "}
+              <CodeSnippet
+                code="for t in countdown(3) do"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "19-30" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Build{" "}
+              <CodeSnippet
+                code="makeBay()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              returning <i>two</i> functions that share one private count, as in
+              the third figure. Then add a third that only reports the count
+              without changing it.
+            </li>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="makeCooldown(frames)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              that returns a function which reports{" "}
+              <CodeSnippet
+                code="false"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              the first few times it is called and{" "}
+              <CodeSnippet
+                code="true"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              after that. <b>You will genuinely use this in Unit 2</b> &mdash; it
+              is how a weapon stops firing every frame.
+            </li>
+            <li>
+              Make{" "}
+              <CodeSnippet
+                code="countdown"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              count <i>up</i> to a limit instead, then check whether you have
+              accidentally written the numeric{" "}
+              <CodeSnippet
+                code="for"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              loop from scratch.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b>Bay B is on #1 while Bay A is on #3.</b> That is two independent
+            private variables, created by the same three lines of code, with no
+            class and no object anywhere. You have now met the hard half of Lua.
+            The rest of the unit is one data structure.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/1-7"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/1-9"
+          >
+            Next: Tables as Lists <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

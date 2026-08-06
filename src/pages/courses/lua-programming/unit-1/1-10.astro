@@ -1,0 +1,703 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local ship = { name = "Skynest", crew = 4, online = true }
+
+print(ship.name)
+print(ship["crew"])
+print(ship.captain)`;
+const Figure1Out = `Skynest
+4
+nil`;
+
+const Figure2 = `local ship = { name = "Skynest", crew = 4, online = true }
+
+for key, value in pairs(ship) do
+  print(key, value)
+end`;
+const Figure2Out = `online\ttrue
+crew\t4
+name\tSkynest`;
+
+const Figure3 = `local ship = {
+  name = "Skynest",
+  bay = { docked = 2, capacity = 6 },
+}
+
+print(ship.bay.docked)
+print(ship.bay.capacity)
+
+ship.bay.docked = 3
+print(ship.bay.docked)`;
+const Figure3Out = `2
+6
+3`;
+
+const Figure4 = `local ship = { name = "Skynest" }
+
+ship.charge = 98
+print(ship.charge)
+
+ship.charge = nil
+print(ship.charge)`;
+const Figure4Out = `98
+nil`;
+
+const Figure5 = `shipName = "Skynest"
+
+print(_G.shipName)
+print(_G["shipName"])`;
+const Figure5Out = `Skynest
+Skynest`;
+
+const Task1 = `-- main.lua - Skynest ship record
+
+local ship = {
+  name = "Skynest",
+  crew = 4,
+  online = true,
+}
+
+print(ship.name)
+print(ship.crew)
+print(ship.captain)`;
+const Task1Out = `Skynest
+4
+nil`;
+
+const Task2 = `-- main.lua - Skynest ship record
+
+local ship = {
+  name = "Skynest",
+  crew = 4,
+  online = true,
+  bay = { docked = 2, capacity = 6 },
+}
+
+print(ship.name)
+print(ship.crew)
+print(ship.captain)
+
+print("Docked:", ship.bay.docked, "of", ship.bay.capacity)
+
+ship.bay.docked = ship.bay.docked + 1
+print("Docked:", ship.bay.docked, "of", ship.bay.capacity)`;
+const Task2Out = `Skynest
+4
+nil
+Docked:\t2\tof\t6
+Docked:\t3\tof\t6`;
+
+const Task3 = `-- main.lua - Skynest ship record
+
+local ship = {
+  name = "Skynest",
+  crew = 4,
+  online = true,
+  bay = { docked = 2, capacity = 6 },
+}
+
+print(ship.name)
+print(ship.crew)
+print(ship.captain)
+
+print("Docked:", ship.bay.docked, "of", ship.bay.capacity)
+
+ship.bay.docked = ship.bay.docked + 1
+print("Docked:", ship.bay.docked, "of", ship.bay.capacity)
+
+ship.charge = 98
+print("Charge:", ship.charge)
+
+ship.online = nil
+
+local keys = {}
+for key in pairs(ship) do
+  table.insert(keys, key)
+end
+table.sort(keys)
+
+for _, key in ipairs(keys) do
+  print(key, type(ship[key]))
+end`;
+
+const Checkpoint = `Skynest
+4
+nil
+Docked:\t2\tof\t6
+Docked:\t3\tof\t6
+Charge:\t98
+bay\ttable
+charge\tnumber
+crew\tnumber
+name\tstring`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.10: Tables as Records</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Same table, different job. Instead of numbering the slots, you{" "}
+            <b class="text-sn-theme">name</b> them &mdash; and now one table can
+            describe a whole thing rather than a sequence of things.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="ship.name"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code={`ship["name"]`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            are the same thing written two ways. The dot is shorthand and only
+            works for names you could use as a variable; the brackets work for
+            anything, which is what you need when the key is <i>in</i> a
+            variable:{" "}
+            <CodeSnippet
+              code="ship[whichField]"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            A key that was never set is{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. By now you should expect that, and you should also expect that
+            nobody warns you. A typo in a field name behaves exactly like a typo
+            in a variable name.
+          </p>
+
+          <h3 class="mt-5">There is no difference between the two uses</h3>
+
+          <p>
+            This is worth stating plainly, because it is where Lua is genuinely
+            unlike most languages.{" "}
+            <b class="text-sn-theme">A list and a record are the same kind of
+            thing.</b>{" "}
+            <CodeSnippet
+              code={`{ "Ada", "Bo" }`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is shorthand for a table with keys 1 and 2. The numbers were keys all
+            along.
+          </p>
+
+          <p>
+            Which means one table can hold both at once, and{" "}
+            <CodeSnippet
+              code="#"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and{" "}
+            <CodeSnippet
+              code="ipairs"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            simply ignore the named keys. That is occasionally useful and more
+            often confusing, so keep your lists and your records separate until
+            you have a specific reason not to.
+          </p>
+
+          <h3 class="mt-5">Walking a record</h3>
+
+          <p>
+            <CodeSnippet
+              code="pairs"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            visits <i>every</i> key, named or numbered. Its sibling{" "}
+            <CodeSnippet
+              code="ipairs"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            only walks 1, 2, 3 and stops.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output — your order will differ"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Read that caption again: the order is not
+            guaranteed.</b> It is not alphabetical, it is not the order you typed
+            them, and it can differ between one Lua and another &mdash; the same
+            file gives a different order in plain Lua than it does in LÖVE.
+          </p>
+
+          <p>
+            So <b>never rely on it.</b> If you need a predictable order, collect
+            the keys into a list, sort that, and walk the sorted list. It sounds
+            laborious and it is four lines. You will write it in Task 3, and it
+            is the standard Lua idiom rather than a workaround.
+          </p>
+
+          <h3 class="mt-5">Records inside records</h3>
+
+          <p>
+            A value can be another table, all the way down. This is how you
+            describe anything with structure.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b>One caution.</b>{" "}
+            <CodeSnippet
+              code="ship.bay.docked"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            only works if{" "}
+            <CodeSnippet
+              code="ship.bay"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            actually exists. If it is nil, you are asking nil for a field, and{" "}
+            <b class="text-sn-theme">that finally is a real error</b> &mdash; one
+            of the few things in Lua that stops your program rather than shrugging.
+            Activity 1.12 covers what to do about it.
+          </p>
+
+          <h3 class="mt-5">Keys come and go</h3>
+
+          <p>
+            Records are not fixed shapes. Assigning to a new key adds it, and
+            assigning{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            removes it &mdash; there is no separate delete.
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure4Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            "Set to nil" and "was never there" are indistinguishable, which is
+            the price of not having a delete. It is also why{" "}
+            <CodeSnippet
+              code="pairs"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            skips it afterwards &mdash; as far as the table is concerned, the key
+            is gone.
+          </p>
+
+          <h3 class="mt-5">
+            The payoff: your globals were a table the whole time
+          </h3>
+
+          <p>
+            Activity 1.2 warned you that leaving off{" "}
+            <CodeSnippet
+              code="local"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            makes a variable global. Here is what that actually means.
+          </p>
+
+          <Code
+            code={Figure5}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure5Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Every global is a key in one ordinary table
+            called{" "}
+            <CodeSnippet
+              code="_G"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.</b> Writing{" "}
+            <CodeSnippet
+              code="shipName = 'Skynest'"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is a table assignment. So is calling{" "}
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; it is a lookup of the key{" "}
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            in{" "}
+            <CodeSnippet
+              code="_G"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and{" "}
+            <CodeSnippet
+              code="string.format"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is a lookup of{" "}
+            <CodeSnippet
+              code="format"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            in a table stored under{" "}
+            <CodeSnippet
+              code="string"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            Two things fall out of that. A misspelled global returns nil because{" "}
+            <b>you looked up a key that was not there</b> &mdash; it was never a
+            special case. And globals are slower than locals because every use
+            costs a table lookup, while a local is just a slot.
+          </p>
+
+          <p>
+            <b>Do not write to{" "}
+            <CodeSnippet
+              code="_G"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            on purpose.</b> It is here so the language stops looking like it has
+            arbitrary rules. Nothing in Lua is a special case if you know it is
+            tables the whole way down.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are
+            describing one ship properly, rather than with five loose variables
+            like Activity 1.2 did.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Describe the ship</h3>
+          <ul>
+            <li>
+              Make one table with a <b>name</b>, a <b>crew</b> count, and an{" "}
+              <b>online</b> flag.
+            </li>
+            <li>Print the name and the crew using dot access.</li>
+            <li>
+              Print{" "}
+              <CodeSnippet
+                code="ship.captain"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, which you never set. Confirm it is not an error.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Put a table inside it</h3>
+          <ul>
+            <li>
+              Add a <b>bay</b> field holding its own table with{" "}
+              <b>docked</b> and <b>capacity</b>.
+            </li>
+            <li>Print both of those in one line.</li>
+            <li>
+              Dock one more ship by adding 1 to the nested field, then print it
+              again.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "7, 14, 16-17" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Add a key, delete a key, list them in order</h3>
+          <ul>
+            <li>Add a <b>charge</b> field after the fact and print it.</li>
+            <li>
+              Delete the <b>online</b> field by setting it to{" "}
+              <CodeSnippet
+                code="nil"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Collect the remaining keys into a list, sort it, and print each key
+              next to its{" "}
+              <CodeSnippet
+                code="type()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              <b>Do this with the sorted-keys idiom, not with bare{" "}
+              <CodeSnippet
+                code="pairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              /></b>{" "}
+              &mdash; otherwise your output will not match, and it will not match
+              differently on different machines. This task is Activities 1.9 and
+              1.10 combined, which is the point.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "19-32" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Replace the bare{" "}
+              <CodeSnippet
+                code="pairs"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              loop with one that prints only the fields that are <i>not</i>{" "}
+              tables, so nested structures do not clutter the readout.
+            </li>
+            <li>
+              Make a <i>list of ships</i>, each one a record, and print a line
+              per ship. This is the shape almost every game's data has, and it is
+              just Activity 1.9 holding Activity 1.10.
+            </li>
+            <li>
+              Print{" "}
+              <CodeSnippet
+                code="type(_G)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and{" "}
+              <CodeSnippet
+                code="_G.print == print"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. Both answers should now be unsurprising.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Four keys, alphabetical, and <b>online is not among them</b>. Note
+            that <b class="text-sn-theme">bay reports as a table</b> &mdash; a
+            field holding a whole other structure looks no different from the
+            outside, which is the property the next activity builds on.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/1-9"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/1-11"
+          >
+            Next: Tables as Objects <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

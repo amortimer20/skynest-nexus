@@ -1,0 +1,587 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local function area(w, h)
+  return w * h
+end
+
+print(area(3, 4))`;
+const Figure1Out = `12`;
+
+const Figure2 = `local function stats(a, b)
+  return a + b, a * b, math.max(a, b)
+end
+
+print(stats(3, 4))
+
+local sum, product = stats(3, 4)
+print(sum, product)`;
+const Figure2Out = `7\t12\t4
+7\t12`;
+
+const Figure3 = `local function show(a, b)
+  print(a, b)
+end
+
+show(1)
+show(1, 2, 3)`;
+const Figure3Out = `1\tnil
+1\t2`;
+
+const Figure4 = `local function greet(name)
+  name = name or "stranger"
+  return "Hello, " .. name
+end
+
+print(greet("Ada"))
+print(greet())`;
+const Figure4Out = `Hello, Ada
+Hello, stranger`;
+
+const Figure5 = `local function double(n)
+  return n * 2
+end
+
+local operation = double
+print(operation(21))
+
+local function apply(f, value)
+  return f(value)
+end
+
+print(apply(double, 5))`;
+const Figure5Out = `42
+10`;
+
+const Figure6 = `local function count(...)
+  return select("#", ...)
+end
+
+print(count(1, 2, 3), count())`;
+const Figure6Out = `3\t0`;
+
+const Task1 = `-- main.lua - Skynest jump planner
+
+local function jumpCost(distance, rate)
+  local fuel = distance * rate
+  local tanks = math.ceil(fuel / 40)
+  return fuel, tanks
+end
+
+local fuel, tanks = jumpCost(47, 2.5)
+print("Fuel:", fuel)
+print("Tanks:", tanks)`;
+const Task1Out = `Fuel:\t117.5
+Tanks:\t3`;
+
+const Task2 = `-- main.lua - Skynest jump planner
+
+local function jumpCost(distance, rate)
+  rate = rate or 2.5
+  local fuel = distance * rate
+  local tanks = math.ceil(fuel / 40)
+  return fuel, tanks
+end
+
+local fuel, tanks = jumpCost(47)
+print("Fuel:", fuel)
+print("Tanks:", tanks)`;
+const Task2Out = `Fuel:\t117.5
+Tanks:\t3`;
+
+const Task3 = `-- main.lua - Skynest jump planner
+
+local function jumpCost(distance, rate)
+  rate = rate or 2.5
+  local fuel = distance * rate
+  local tanks = math.ceil(fuel / 40)
+  return fuel, tanks
+end
+
+local fuel, tanks = jumpCost(47)
+print("Fuel:", fuel)
+print("Tanks:", tanks)
+
+print("Premium:", jumpCost(47, 3))`;
+
+const Checkpoint = `Fuel:\t117.5
+Tanks:\t3
+Premium:\t141\t4`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.7: Functions</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Functions look how you would guess, and{" "}
+            <b class="text-sn-theme">you should write{" "}
+            <CodeSnippet
+              code="local function"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, not{" "}
+            <CodeSnippet
+              code="function"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            /></b> &mdash; the same global-by-default rule from Activity 1.2
+            applies to function names too.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <h3 class="mt-5">More than one answer</h3>
+
+          <p>
+            Here is Lua's best trick, and one most languages cannot do at all.{" "}
+            <b class="text-sn-theme">A function can return several values</b>,
+            and the caller decides how many to keep.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            No wrapper object, no unpacking step. You met this already without
+            being told &mdash; Activity 1.3's{" "}
+            <CodeSnippet
+              code="code:find('NEST')"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            returned two numbers, and that is why.
+          </p>
+
+          <p>
+            <b>The rule for how many you get:</b> ask for fewer than were
+            returned and the extras are thrown away; ask for more and the
+            missing ones are{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. It never errors either way.
+          </p>
+
+          <h3 class="mt-5">Arguments are just as forgiving</h3>
+
+          <p>
+            Which is a mixed blessing. Lua does not check how many arguments you
+            passed.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Neither call was an error.</b> A missing
+            argument arrives as{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and an extra one is silently dropped. This is the same family of
+            problem as the misspelled variable in Activity 1.2: the program keeps
+            running with a hole in it.
+          </p>
+
+          <p>
+            The upside is that Lua's default-argument idiom falls out of it for
+            free, using the{" "}
+            <CodeSnippet
+              code="or"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            behavior from Activity 1.5.
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure4Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b>The catch you should expect by now:</b>{" "}
+            <CodeSnippet
+              code="x = x or default"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            also replaces a deliberately-passed{" "}
+            <CodeSnippet
+              code="false"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. For a boolean argument you need{" "}
+            <CodeSnippet
+              code="if x == nil then"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            instead, which asks the question you actually meant.
+          </p>
+
+          <h3 class="mt-5">Functions are values</h3>
+
+          <p>
+            Activity 1.2 showed that{" "}
+            <CodeSnippet
+              code="type(print)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is{" "}
+            <CodeSnippet
+              code="function"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />. Here is what that was for.
+          </p>
+
+          <Code
+            code={Figure5}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure5Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            A function can be stored in a variable, passed to another function,
+            and returned from one. <b class="text-sn-theme">Nothing about a
+            function is special &mdash; it is a value like 5 or "hello".</b>{" "}
+            That single fact is what the next activity is built on, and it is how
+            LÖVE will call your code in Unit 2.
+          </p>
+
+          <h3 class="mt-5">Taking however many you get</h3>
+
+          <p>
+            Three dots in the parameter list collects any number of arguments.{" "}
+            <CodeSnippet
+              code={`select("#", ...)`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            counts them.
+          </p>
+
+          <Code
+            code={Figure6}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure6Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            You will not need this often, and it is here mostly so it is not a
+            mystery when you read someone else's Lua.{" "}
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            itself is written this way.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are
+            rebuilding Activity 1.4's jump computer as a function &mdash; which
+            is the point, because a function can be asked more than once.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Return two things at once</h3>
+          <ul>
+            <li>
+              Write a{" "}
+              <CodeSnippet
+                code="jumpCost"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              function taking a distance and a rate.
+            </li>
+            <li>
+              Have it return <b>both</b> the fuel needed and the number of tanks
+              to load, from one{" "}
+              <CodeSnippet
+                code="return"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Catch both values into two variables and print them.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Make the rate optional</h3>
+          <ul>
+            <li>
+              Default the rate to <b>2.5</b> when the caller leaves it out.
+            </li>
+            <li>Change your call so it passes only the distance.</li>
+            <li>
+              The output should not change at all. <b>That is the test</b> &mdash;
+              you added flexibility without changing behavior.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "4, 10" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Feed both returns straight into print</h3>
+          <ul>
+            <li>
+              Call{" "}
+              <CodeSnippet
+                code="jumpCost"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              again at a premium rate of <b>3</b>, this time <b>inside</b> a{" "}
+              <CodeSnippet
+                code="print"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              rather than storing the results first.
+            </li>
+            <li>
+              Both returned values should appear. A call in the last argument
+              position expands to <i>all</i> of its returns.
+            </li>
+            <li>
+              Then try moving it to the front, as{" "}
+              <CodeSnippet
+                code={`print(jumpCost(47, 3), "premium")`}
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and see how many values survive. This trips up experienced Lua
+              programmers, so it is worth seeing once on purpose.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "14" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Add a third return value: a status string of{" "}
+              <b>"OK"</b> or <b>"OVER BUDGET"</b> depending on whether the tanks
+              exceed 3. Then call it and keep only the first and third values.
+            </li>
+            <li>
+              Write a{" "}
+              <CodeSnippet
+                code="describe"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              function that takes <i>another function</i> plus a distance, calls
+              it, and prints the result in a sentence. Pass{" "}
+              <CodeSnippet
+                code="jumpCost"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              into it.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Three values on that last line means both returns arrived from one
+            call. If you only got the fuel figure, your call was not in the last
+            argument position &mdash; which is the lesson, not a mistake.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/1-6"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            href="/courses/lua-programming/unit-1/1-8"
+          >
+            Next: Closures and Scope <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

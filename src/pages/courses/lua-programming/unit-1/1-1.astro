@@ -1,0 +1,384 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `print("Hello, Lua!")`;
+const Figure1Out = `Hello, Lua!`;
+
+const Figure2 = `-- Lua ignores this line.
+
+--[[
+  And every line
+  inside this block.
+]]
+
+print("Only this line runs.")`;
+const Figure2Out = `Only this line runs.`;
+
+const Figure3 = `print("Ada", 42, true)
+print("Ada" .. " " .. "42")`;
+const Figure3Out = `Ada\t42\ttrue
+Ada 42`;
+
+const RunIt = `lua main.lua`;
+
+const Task1 = `print("SKYNEST TERMINAL")`;
+const Task1Out = `SKYNEST TERMINAL`;
+
+const Task2 = `-- main.lua - Skynest terminal readout
+
+print("SKYNEST TERMINAL")
+print("----------------")`;
+const Task2Out = `SKYNEST TERMINAL
+----------------`;
+
+const Task3 = `-- main.lua - Skynest terminal readout
+
+print("SKYNEST TERMINAL")
+print("----------------")
+print("Status:", "ONLINE")
+print("Reactor:", 98, "percent")
+print("Crew:", 4)`;
+
+const Checkpoint = `SKYNEST TERMINAL
+----------------
+Status:\tONLINE
+Reactor:\t98\tpercent
+Crew:\t4`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.1: Meet Lua</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Lua is <b class="text-sn-theme">small on purpose</b>. The whole
+            interpreter is about 32,000 lines of C and compiles down to a few
+            hundred kilobytes. That number is not trivia &mdash; it is the
+            reason you keep running into Lua. It is cheap enough to drop{" "}
+            <i>inside</i> another program, so that is where it usually lives.
+          </p>
+
+          <p>
+            Places you have probably already used Lua without knowing:{" "}
+            <b>Roblox</b> (its Luau language is a Lua dialect), <b>World of
+            Warcraft</b> addons, the <b>Neovim</b> text editor, and{" "}
+            <b>LÖVE</b>, the game framework you will use in Unit 2.
+          </p>
+
+          <p>
+            The name is not an acronym. <b class="text-sn-theme">Lua means
+            "moon" in Portuguese</b> &mdash; it was created at PUC-Rio in
+            Brazil, and it is pronounced <i>LOO-ah</i>.
+          </p>
+
+          <p>
+            One consequence of being small: you can actually finish learning it.
+            That is not true of most languages, and it is most of why this
+            course exists.
+          </p>
+
+          <h3 class="mt-5">Saying something</h3>
+
+          <p>
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            writes a line to the terminal. It is the whole of your output
+            toolkit for now.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            You run a Lua file by handing it to the interpreter. From a terminal
+            in the same folder as your file:
+          </p>
+
+          <Code
+            code={RunIt}
+            frame="terminal"
+            lang="sh"
+            title="Terminal"
+            showLineNumbers={false}
+          />
+
+          <h3 class="mt-5">Notes to yourself</h3>
+
+          <p>
+            Two dashes start a comment. Lua reads to the end of the line and
+            ignores all of it. For several lines at once, use{" "}
+            <CodeSnippet
+              code="--[[ ]]"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <h3 class="mt-5">Printing more than one thing</h3>
+
+          <p>
+            <CodeSnippet
+              code="print"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            takes as many values as you give it, of any type, separated by
+            commas. Watch the spacing carefully &mdash; this catches people.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">Commas insert a tab, not a space.</b> If
+            you want exact control over the spacing, join the pieces yourself
+            with{" "}
+            <CodeSnippet
+              code=".."
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which is Lua's way of gluing two strings together. Activity 1.3
+            is all about that operator.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Make a folder for this course, and inside it create a file named{" "}
+            <b class="text-sn-theme">main.lua</b>. You will run it after every
+            task &mdash; getting into that habit now is worth more than
+            anything else on this page.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Get something on the screen</h3>
+          <ul>
+            <li>
+              Print the line <b>SKYNEST TERMINAL</b>.
+            </li>
+            <li>
+              Run it with{" "}
+              <CodeSnippet
+                code="lua main.lua"
+                lang={"sh"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              before you write anything else.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Label your file and add a rule</h3>
+          <ul>
+            <li>Add a comment at the top saying what the file is.</li>
+            <li>Print a line of dashes underneath the title.</li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "1-2, 4" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">
+            The comment produced nothing, which is the entire point of it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Report the ship's status</h3>
+          <ul>
+            <li>
+              Print three more lines, each passing <b>several values</b> to one{" "}
+              <CodeSnippet
+                code="print"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              call, separated by commas.
+            </li>
+            <li>
+              Mix the types on purpose &mdash; text on some, numbers on others.
+            </li>
+            <li>
+              Look at where the gaps land in the output. Those are the tabs.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "5-7" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Rewrite the <b>Status</b> line so the output reads{" "}
+              <CodeSnippet
+                code="Status: ONLINE"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              with a single space instead of a tab. You will need{" "}
+              <CodeSnippet
+                code=".."
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and one{" "}
+              <CodeSnippet
+                code="print"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              call.
+            </li>
+            <li>
+              Comment out the <b>Crew</b> line without deleting it, and confirm
+              it stops appearing.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Running your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            If you got an error instead, read the line number it gives you and
+            check that every string has both of its quotes. Lua's error messages
+            are short, and they are usually pointing at the right line.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a class="btn btn-outline-light" href="/courses/lua-programming/">
+            Course Index
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/unit-1/1-2">
+            Next: Variables, local, and nil <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

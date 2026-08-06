@@ -1,0 +1,638 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const BayModule = `-- bay.lua - a module is just a table you return
+
+local bay = {}
+
+bay.capacity = 6
+local docked = 0
+
+function bay.dock(count)
+  docked = math.min(bay.capacity, docked + count)
+  return docked
+end
+
+function bay.status()
+  return docked .. " of " .. bay.capacity
+end
+
+return bay`;
+
+const Figure1 = `local bay = require("bay")
+
+print(bay.status())`;
+const Figure1Out = `0 of 6`;
+
+const Figure2 = `local ok, err = pcall(function()
+  error("reactor offline", 0)
+end)
+
+print(ok, err)`;
+const Figure2Out = `false\treactor offline`;
+
+const Figure3 = `local function readCharge(source)
+  assert(type(source) == "table", "expected a table")
+  return source.charge or 0
+end
+
+print(readCharge({ charge = 98 }))
+print(readCharge({}))`;
+const Figure3Out = `98
+0`;
+
+const Task1 = `-- main.lua - Skynest bay controller
+
+local bay = require("bay")
+
+print("Capacity:", bay.capacity)
+
+bay.dock(2)
+print("Status:", bay.status())
+
+bay.dock(9)
+print("Status:", bay.status())
+
+print("Hidden counter:", bay.docked)`;
+const Task1Out = `Capacity:\t6
+Status:\t2 of 6
+Status:\t6 of 6
+Hidden counter:\tnil`;
+
+const Task2 = `-- main.lua - Skynest bay controller
+
+local bay = require("bay")
+
+print("Capacity:", bay.capacity)
+
+bay.dock(2)
+print("Status:", bay.status())
+
+bay.dock(9)
+print("Status:", bay.status())
+
+print("Hidden counter:", bay.docked)
+
+local function readCharge(source)
+  assert(type(source) == "table", "expected a table")
+  return source.charge or 0
+end
+
+print("Charge:", readCharge({ charge = 98 }))
+print("Charge:", readCharge({}))`;
+const Task2Out = `Capacity:\t6
+Status:\t2 of 6
+Status:\t6 of 6
+Hidden counter:\tnil
+Charge:\t98
+Charge:\t0`;
+
+const Task3 = `-- main.lua - Skynest bay controller
+
+local bay = require("bay")
+
+print("Capacity:", bay.capacity)
+
+bay.dock(2)
+print("Status:", bay.status())
+
+bay.dock(9)
+print("Status:", bay.status())
+
+print("Hidden counter:", bay.docked)
+
+local function readCharge(source)
+  assert(type(source) == "table", "expected a table")
+  return source.charge or 0
+end
+
+print("Charge:", readCharge({ charge = 98 }))
+print("Charge:", readCharge({}))
+
+local ok, err = pcall(readCharge, "not a table")
+print("Survived:", ok, err)
+
+local ok2, err2 = pcall(function()
+  error("reactor offline", 0)
+end)
+print("Survived:", ok2, err2)`;
+
+const Checkpoint = `Capacity:\t6
+Status:\t2 of 6
+Status:\t6 of 6
+Hidden counter:\tnil
+Charge:\t98
+Charge:\t0
+Survived:\tfalse\tmain.lua:16: expected a table
+Survived:\tfalse\treactor offline`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.12: Modules and Handling Errors</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            One file is fine until it is four hundred lines. Lua's answer is
+            small and, by now, predictable:{" "}
+            <b class="text-sn-theme">a module is a table that a file
+            returns.</b> There is no module keyword and no export list.
+          </p>
+
+          <Code
+            code={BayModule}
+            frame="code"
+            lang="lua"
+            title="bay.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Every idea in that file is one you already have. A table (1.10).
+            Functions stored in it (1.7). A{" "}
+            <CodeSnippet
+              code="local"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            captured by those functions, which makes it private (1.8). And the
+            last line hands the table to whoever asked.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code={`require("bay")`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            finds <b>bay.lua</b> next to your file, runs it once, and gives you
+            what it returned. <b>Note the name has no{" "}
+            <CodeSnippet
+              code=".lua"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            on it.</b>
+          </p>
+
+          <p>
+            <b class="text-sn-theme">"Runs it once" is the part worth
+            remembering.</b> Require the same module from five files and the
+            file executes a single time; everyone gets the same table, and so
+            everyone shares its state. That is usually what you want and
+            occasionally a surprise.
+          </p>
+
+          <p>
+            The variable name on your side is yours to choose &mdash;{" "}
+            <CodeSnippet
+              code="local dock = require('bay')"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            works just as well. The module has no say in what you call it, which
+            is a nice consequence of it being an ordinary value.
+          </p>
+
+          <h3 class="mt-5">When something is actually wrong</h3>
+
+          <p>
+            Almost nothing in Lua stops your program. A missing variable is nil,
+            a missing table key is nil, a wrong argument count is tolerated.
+            You have been shown this repeatedly, and it is why{" "}
+            <b>Lua bugs tend to surface far away from their cause</b>.
+          </p>
+
+          <p>
+            <CodeSnippet
+              code="error"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is how you stop on purpose, and{" "}
+            <CodeSnippet
+              code="pcall"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            &mdash; protected call &mdash; is how you run something that might
+            fail without going down with it.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <CodeSnippet
+              code="pcall"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            always returns at least two things: <b>whether it survived</b>, and
+            then either the results or the error message. It is the multiple
+            returns from Activity 1.7 doing something genuinely load-bearing.
+          </p>
+
+          <p>
+            The{" "}
+            <CodeSnippet
+              code="0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            in{" "}
+            <CodeSnippet
+              code={`error("...", 0)`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            means <i>do not attach a file and line number</i>. Leave it out and
+            you get{" "}
+            <CodeSnippet
+              code="main.lua:2: reactor offline"
+              lang={"txt"}
+              theme={"material-theme-ocean"}
+              inline
+            />, which is usually more useful &mdash; you will see both forms in
+            the checkpoint.
+          </p>
+
+          <h3 class="mt-5">Checking your assumptions</h3>
+
+          <p>
+            <CodeSnippet
+              code="assert"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is{" "}
+            <CodeSnippet
+              code="error"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            with the condition built in: carry on if the value is truthy, stop
+            with your message if it is not.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b>Use it at the top of a function, on the arguments.</b> That is
+            where an assert earns its keep &mdash; it moves the failure from
+            wherever the bad value eventually caused trouble to the moment it
+            arrived, which is the difference between a two-minute bug and an
+            hour.
+          </p>
+
+          <p>
+            Remember Activity 1.5 while you write them.{" "}
+            <CodeSnippet
+              code="assert(count)"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            passes when count is <b>0</b>, because zero is truthy &mdash; that is
+            the check you wanted. But it also passes for a string, a table, or
+            anything else that is not nil, so assert what you actually mean:{" "}
+            <CodeSnippet
+              code={`assert(type(count) == "number")`}
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Do not reach for{" "}
+            <CodeSnippet
+              code="pcall"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            everywhere.</b> Wrapping your whole program in one turns a crash with
+            a line number into silence, which is worse. Use it where failure is
+            expected and recoverable &mdash; reading a save file that might not
+            exist, loading an image that might be missing &mdash; and let genuine
+            bugs crash loudly while you can still see them.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            This activity needs <b>two files in the same folder</b>. Create{" "}
+            <b class="text-sn-theme">bay.lua</b> with the module shown above,
+            then start a fresh <b class="text-sn-theme">main.lua</b> beside it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Use your module</h3>
+          <ul>
+            <li>
+              Require the bay module and print its{" "}
+              <CodeSnippet
+                code="capacity"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>Dock 2 ships and report the status.</li>
+            <li>
+              Then dock <b>9</b> more and report again. The clamp inside the
+              module should hold it at capacity.
+            </li>
+            <li>
+              Finally, print{" "}
+              <CodeSnippet
+                code="bay.docked"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              from outside. <b>It is nil</b> &mdash; the counter is a{" "}
+              <CodeSnippet
+                code="local"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              inside the module, so nothing out here can reach it. That is a
+              closure doing exactly what Activity 1.8 said it would.
+            </li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Guard a function's input</h3>
+          <ul>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="readCharge(source)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              that asserts its argument is a table, then returns{" "}
+              <CodeSnippet
+                code="source.charge"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              or 0.
+            </li>
+            <li>Call it once with a charge and once with an empty table.</li>
+            <li>
+              Both should succeed. The assert is not doing anything visible yet,
+              which is the normal state of a good assert.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "15-21" }}
+          />
+
+          <Code
+            code={Task2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Survive a failure</h3>
+          <ul>
+            <li>
+              Call{" "}
+              <CodeSnippet
+                code="readCharge"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              with a <b>string</b> through{" "}
+              <CodeSnippet
+                code="pcall"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and print both values it returns.
+            </li>
+            <li>
+              Then raise your own error inside a{" "}
+              <CodeSnippet
+                code="pcall"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, this time with{" "}
+              <CodeSnippet
+                code="0"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              as the second argument.
+            </li>
+            <li>
+              Compare the two messages. <b>One carries a file and line number
+              and one does not</b>, and that is the only difference the{" "}
+              <CodeSnippet
+                code="0"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              made.
+            </li>
+            <li>
+              The program should reach the end and exit normally. Nothing
+              crashed, and you handled two failures.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "23-29" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Add an{" "}
+              <CodeSnippet
+                code="undock(count)"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              function to the module that refuses to go below zero, and give it
+              its own assert.
+            </li>
+            <li>
+              Move the <b>Ship</b> class from Activity 1.11 into a{" "}
+              <b class="text-sn-theme">ship.lua</b> module and require it. This
+              is exactly how Unit 2 is organized, so it is worth doing once
+              now.
+            </li>
+            <li>
+              Require the bay module <i>twice</i> into two different variables,
+              dock through one, and read the status through the other. Predict
+              what you will see before running it &mdash; the answer follows
+              from "runs it once."
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            <b class="text-sn-theme">That is Unit 1.</b> You have the whole
+            language: five types, three loops, functions that return several
+            things, closures, one data structure doing five jobs, and a way to
+            split a program across files. Nothing has been held back for later.
+          </p>
+
+          <p>
+            Unit 2 adds a window, a game loop, and a way to draw. It adds no new
+            Lua. Every enemy will be an instance from Activity 1.11, every list
+            of bullets will be walked backwards as in Activity 1.9, and every
+            timer will be a closure from Activity 1.8.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-1/1-11"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/">
+            Course Index <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

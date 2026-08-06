@@ -1,0 +1,555 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local first = "Ada"
+local last = "Lovelace"
+
+print(first .. " " .. last)
+print(#first)
+print(first:upper())
+print(last:lower())`;
+const Figure1Out = `Ada Lovelace
+3
+ADA
+lovelace`;
+
+const Figure2 = `local unit = "reactor"
+
+print(string.upper(unit))
+print(unit:upper())`;
+const Figure2Out = `REACTOR
+REACTOR`;
+
+const Figure3 = `local unit = "Reactor"
+local charge = 98
+
+print(unit .. " is at " .. charge .. " percent")
+print(string.format("%s is at %d%% charge", unit, charge))`;
+const Figure3Out = `Reactor is at 98 percent
+Reactor is at 98% charge`;
+
+const Figure4 = `local code = "SKYNEST"
+
+print(code:sub(1, 3))
+print(code:sub(-4))
+print(code:sub(2, 2))
+print(code:find("NEST"))`;
+const Figure4Out = `SKY
+NEST
+K
+4\t7`;
+
+const Figure5 = `local banner = [[
++------------------+
+|  SKYNEST  v1.0   |
++------------------+]]
+
+print(banner)`;
+const Figure5Out = `+------------------+
+|  SKYNEST  v1.0   |
++------------------+`;
+
+const Task1 = `-- main.lua - Skynest crew badge
+
+local first = "Ada"
+local last = "Lovelace"
+
+local fullName = first .. " " .. last
+print(fullName)
+print(#fullName)`;
+const Task1Out = `Ada Lovelace
+12`;
+
+const Task2 = `-- main.lua - Skynest crew badge
+
+local first = "Ada"
+local last = "Lovelace"
+local role = "engineer"
+local charge = 98
+
+local fullName = first .. " " .. last
+print(fullName)
+print(#fullName)
+
+print(string.format("%s (%s) - reactor at %d%%", fullName, role:upper(), charge))`;
+
+const Task3 = `-- main.lua - Skynest crew badge
+
+local first = "Ada"
+local last = "Lovelace"
+local role = "engineer"
+local charge = 98
+
+local fullName = first .. " " .. last
+print(fullName)
+print(#fullName)
+
+print(string.format("%s (%s) - reactor at %d%%", fullName, role:upper(), charge))
+
+local code = last:sub(1, 3):upper() .. "-" .. first:sub(1, 1):upper()
+print("Badge ID:", code)`;
+
+const Checkpoint = `Ada Lovelace
+12
+Ada Lovelace (ENGINEER) - reactor at 98%
+Badge ID:\tLOV-A`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.3: Working with Strings</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            Three things about Lua strings will surprise you if you have written
+            JavaScript or Python. <b>You join them with{" "}
+            <CodeSnippet
+              code=".."
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            rather than{" "}
+            <CodeSnippet
+              code="+"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, you measure them with{" "}
+            <CodeSnippet
+              code="#"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            rather than a length property, and they are counted from 1.</b>
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Lua uses a separate operator for joining because{" "}
+            <CodeSnippet
+              code="+"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is reserved for arithmetic and nothing else. If you have ever been
+            bitten by JavaScript quietly turning{" "}
+            <CodeSnippet
+              code={`"16" + 1`}
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            into{" "}
+            <CodeSnippet
+              code={`"161"`}
+              lang={"js"}
+              theme={"material-theme-ocean"}
+              inline
+            />, this is the design that prevents it.
+          </p>
+
+          <h3 class="mt-5">That colon</h3>
+
+          <p>
+            <CodeSnippet
+              code="first:upper()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is shorthand. Every string function really lives in a library called{" "}
+            <CodeSnippet
+              code="string"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and the colon just passes the string in as the first argument.
+            These two lines are the same line.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure2Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            Worth filing away: <b class="text-sn-theme">the colon is not a
+            string feature.</b> It is a general Lua mechanism, and in Activity
+            1.11 you will use the same syntax to build your own objects.
+          </p>
+
+          <h3 class="mt-5">Building a sentence</h3>
+
+          <p>
+            Chaining{" "}
+            <CodeSnippet
+              code=".."
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            works, and numbers convert themselves along the way. It also gets
+            ugly fast, which is what{" "}
+            <CodeSnippet
+              code="string.format"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is for.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure3Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            The placeholders are{" "}
+            <CodeSnippet
+              code="%s"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            for a string and{" "}
+            <CodeSnippet
+              code="%d"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            for a whole number, filled in by the arguments that follow, in
+            order. To print an actual percent sign you write{" "}
+            <CodeSnippet
+              code="%%"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, since a lone{" "}
+            <CodeSnippet
+              code="%"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            means a placeholder is coming.
+          </p>
+
+          <h3 class="mt-5">Taking a string apart</h3>
+
+          <p>
+            <CodeSnippet
+              code="sub"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            cuts out a piece, given a start and an end position.{" "}
+            <b class="text-sn-theme">Both ends are included, and counting
+            starts at 1</b> &mdash; not 0. A negative number counts back from
+            the end.
+          </p>
+
+          <Code
+            code={Figure4}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure4Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            That last line returns <i>two</i> values &mdash; where the match
+            starts and where it ends. Lua functions are allowed to hand back
+            more than one thing, which is unusual and extremely handy. Activity
+            1.7 covers it properly.
+          </p>
+
+          <p>
+            <b>The 1-based counting is not a string quirk.</b> Everything in Lua
+            that has positions counts from 1, including tables. Getting used to
+            it here makes Activity 1.9 much less startling.
+          </p>
+
+          <h3 class="mt-5">Strings that span lines</h3>
+
+          <p>
+            Double square brackets hold a string exactly as you typed it, line
+            breaks and all, with no escaping.
+          </p>
+
+          <Code
+            code={Figure5}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+          <Code
+            code={Figure5Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            A line break immediately after the opening{" "}
+            <CodeSnippet
+              code="[["
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is skipped, which is why the banner above does not start with a
+            blank line.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Start a fresh <b class="text-sn-theme">main.lua</b>. You are
+            building a crew badge line, the kind of thing a game would print
+            above a character.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Join and measure</h3>
+          <ul>
+            <li>Store a first name and a last name in separate variables.</li>
+            <li>
+              Join them into a <b>fullName</b> variable with a space between.
+            </li>
+            <li>Print the full name, then print its length.</li>
+          </ul>
+
+          <Code code={Task1} frame="code" lang="lua" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Format a status line</h3>
+          <ul>
+            <li>Add variables for a role and a charge percentage.</li>
+            <li>
+              Use{" "}
+              <CodeSnippet
+                code="string.format"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              to print one line containing all three.
+            </li>
+            <li>
+              Put the role in capitals, and end with a real percent sign.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "5-6, 12" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Generate a badge ID</h3>
+          <ul>
+            <li>
+              Build a code from the <b>first three letters of the last name</b>,
+              a hyphen, and the <b>first letter of the first name</b>.
+            </li>
+            <li>Make the whole thing uppercase.</li>
+            <li>
+              You can chain calls &mdash;{" "}
+              <CodeSnippet
+                code="last:sub(1, 3):upper()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              works, because{" "}
+              <CodeSnippet
+                code="sub"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              hands back a string and a string has an{" "}
+              <CodeSnippet
+                code="upper"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "14-15" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Print a boxed banner above the badge using a{" "}
+              <CodeSnippet
+                code="[[ ]]"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              string.
+            </li>
+            <li>
+              Change the badge so it uses the <b>last</b> letter of the first
+              name instead of the first. Use a negative position rather than
+              counting the length yourself.
+            </li>
+            <li>
+              Try{" "}
+              <CodeSnippet
+                code={`print(#"café")`}
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and see whether you get what you expected.{" "}
+              <CodeSnippet
+                code="#"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              counts <i>bytes</i>, and some characters take more than one.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <p>Your finished file should produce this.</p>
+
+          <Code
+            code={Checkpoint}
+            frame="terminal"
+            lang="txt"
+            title="Output"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-4">
+            If your badge came out as <b>LOV-A</b> without you counting a single
+            character by hand, you have the idea. If it came out one letter
+            short or long, you have met the 1-based counting for real, which is
+            a better way to learn it than being told.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a class="btn btn-outline-light" href="/courses/lua-programming/unit-1/1-2">
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/unit-1/1-4">
+            Next: Numbers and Math <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
