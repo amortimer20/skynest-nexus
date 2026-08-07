@@ -3,6 +3,7 @@ import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
+import ShotCollision from "../../../../assets/courses/lua-programming/img/2-7-collision.png";
 
 const HEAD = `-- main.lua
 
@@ -559,6 +560,15 @@ const Task3 = HEAD + ENEMY_2HP + OVERLAPS + MID + PLAYER_HIT + HIT_HP + TAIL;
         <!-- Checkpoint -->
         <section id="checkpoint">
           <h2>Check Your Work</h2>
+
+          <img
+            src={ShotCollision.src}
+            alt="Gameplay with a score of 7, four enemies falling and three bullets rising"
+            class="img-fluid rounded d-block mx-auto"
+          />
+          <p class="text-center text-secondary small mt-2 mb-4">
+            Seven kills in. Enemies take two hits, which is why the score climbs a good deal slower than you fire.
+          </p>
 
           <ul>
             <li>Bullets destroy enemies, and both disappear.</li>

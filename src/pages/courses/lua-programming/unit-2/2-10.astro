@@ -3,6 +3,8 @@ import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
+import ShotMenu from "../../../../assets/courses/lua-programming/img/2-10-menu.png";
+import ShotGameOver from "../../../../assets/courses/lua-programming/img/2-10-gameover.png";
 
 const HEAD = `-- main.lua
 
@@ -1021,6 +1023,24 @@ const Task3 =
         <!-- Checkpoint -->
         <section id="checkpoint">
           <h2>Check Your Work</h2>
+
+          <img
+            src={ShotMenu.src}
+            alt="The Skynest title screen with the prompt to press space to play"
+            class="img-fluid rounded d-block mx-auto"
+          />
+          <p class="text-center text-secondary small mt-2 mb-4">
+            The menu. The HUD is under the overlay rather than hidden by it, which is why the score is dimmed instead of missing.
+          </p>
+
+          <img
+            src={ShotGameOver.src}
+            alt="The game over screen with the frozen game world behind it"
+            class="img-fluid rounded d-block mx-auto"
+          />
+          <p class="text-center text-secondary small mt-2 mb-4">
+            Game over. The world behind the text is frozen because update returns early, and the life icons are gone because the loop now runs from 1 to 0.
+          </p>
 
           <ul>
             <li>
