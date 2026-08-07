@@ -304,8 +304,8 @@ end
 
 return collision`;
 
-const Figure1 = `macOS     ~/Library/Application Support/LOVE/skynest
-Windows   %APPDATA%\\LOVE\\skynest
+const Figure1 = `Windows   %APPDATA%\\LOVE\\skynest
+macOS     ~/Library/Application Support/LOVE/skynest
 Linux     ~/.local/share/love/skynest`;
 
 const Figure2 = `-- Looks tidy. Reads a saved 11 as base 2 and hands you 3.
@@ -611,10 +611,13 @@ const Task3 =
               lang={"sh"}
               theme={"material-theme-ocean"}
               inline
-            />, and the one on the right does not run. It also swept up a{" "}
-            <b>.DS_Store</b> that macOS left lying in the folder, which is
-            harmless but tells you something about zipping things you have not
-            looked at.
+            />, and the one on the right does not run. Those are archive
+            listings &mdash; every unzip tool can show you one, whatever it
+            calls the command. Note that the broken one also swept up a{" "}
+            <b>.DS_Store</b> that macOS left lying in the folder; Windows
+            leaves <b>Thumbs.db</b> and <b>desktop.ini</b> around in exactly
+            the same way. Harmless here, but it tells you something about
+            zipping a folder you have not looked inside.
           </p>
 
           <h3 class="mt-5">One file further: fusing</h3>
@@ -803,6 +806,25 @@ const Task3 =
 
           <ul>
             <li>
+              <b>Windows.</b> Open the folder, select <i>all eight files</i>{" "}
+              &mdash; not the folder, the files inside it &mdash; then
+              right-click and compress them. The menu wording differs between
+              Windows 10 and 11, but it is the only compress option there.
+              Rename the .zip you get to <b>skynest.love</b>.
+            </li>
+            <li>
+              <b class="text-sn-theme">Turn file extensions on before you
+              rename anything.</b> If Explorer is hiding them, the file you
+              believe you just named skynest.love is really{" "}
+              <b>skynest.love.zip</b>, and nothing you do to it will work. The
+              View menu has a checkbox for file name extensions. This costs
+              more people more time than every other step on this page put
+              together.
+            </li>
+          </ul>
+
+          <ul>
+            <li>
               <b>macOS or Linux, from the terminal.</b> Note the{" "}
               <CodeSnippet
                 code="cd"
@@ -838,26 +860,21 @@ const Task3 =
 
           <ul>
             <li>
-              <b>Windows, or macOS without the terminal.</b> Open the folder,
-              select <i>all eight files</i> &mdash; not the folder, the files
-              inside it &mdash; and compress the selection. Rename the resulting
-              .zip to <b>skynest.love</b>.
-            </li>
-            <li>
-              <b>Check it before you send it.</b>{" "}
+              <b>Check it before you send it.</b> On Windows, copy the .love,
+              rename the copy back to .zip, and double-click it &mdash;
+              Explorer will show you what is inside. On macOS or Linux,{" "}
               <CodeSnippet
                 code="unzip -l skynest.love"
                 lang={"sh"}
                 theme={"material-theme-ocean"}
                 inline
-              />{" "}
-              on macOS or Linux, or just open the .love in your archive viewer.
-              You want main.lua on the first screen with nothing in front of it.
+              />. Either way you want main.lua sitting at the top with no
+              folder in front of it.
             </li>
             <li>
-              <b>Run the .love itself</b>, not the folder. Double-click it, or
-              drag it onto LÖVE. If you get the no-game screen, your zip has a
-              folder in it.
+              <b>Run the .love itself</b>, not the folder. Drag it onto LÖVE,
+              or double-click it if the installer associated the file type. If
+              you get the no-game screen, your zip has a folder in it.
             </li>
           </ul>
 
