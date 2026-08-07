@@ -22,272 +22,500 @@ import FoCEIcon from "../../../assets/courses/foce/img/foce-icon.svg";
   </div>
 
   <div class="container">
-    <h3>Course Content</h3>
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <h3>About This Course</h3>
 
-    <h4 class="mt-2">Unit 1: Computational Thinking</h4>
-    <div class="accordion mb-5" id="courseAccordion">
-      <!-- Foundations -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseOne"
-            aria-expanded="true"
-            aria-controls="flush-collapseOne"
-          >
-            Foundations
-          </button>
-        </h2>
-        <div
-          id="flush-collapseOne"
-          class="accordion-collapse collapse"
-          data-bs-parent="#courseAccordion"
-        >
-          <div class="accordion-body">
-            <h6 class="text-sn-theme mt-2">Programming Basics</h6>
-            <ListItem><a href="./unit-1/1-1">Activity 1.1: Computer Architecture</a></ListItem>
-            <ListItem><a href="./unit-1/1-2">Activity 1.2: Console Output</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-chain-letter">Chain Letter</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-mail-call">Mail Call</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-ascii-art">ASCII Art</ChallengeItem>
-            <ListItem><a href="./unit-1/1-3">Activity 1.3: Variables and Data Types</a></ListItem>
-            <ListItem><a href="./unit-1/1-4">Activity 1.4: Arithmetic Operations</a></ListItem>
-            <ListItem><a href="./unit-1/1-5">Activity 1.5: Variable Reassignment</a></ListItem>
-            <ListItem><a href="./unit-1/1-6">Activity 1.6: String Interpolation</a></ListItem>
-            <ListItem><a href="./unit-1/1-7">Activity 1.7: Console Input</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-display-clock">Display Clock</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-mad-lib">Mad Lib</ChallengeItem>
-            <ListItem><a href="./unit-1/1-8">Activity 1.8: Console Input and Type Casting</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-simple-math">Simple Math</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-grocery-grab">Grocery Grab</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-backpack-weight">Backpack Weight</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-miles-to-kilometers">Miles to Kilometers</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-celsius-to-fahrenheit">Celsius to Fahrenheit</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-tip-calculator">Tip Calculator</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-line-slope">Line Slope Calculator</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-change-calculator">Change Calculator</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-height-converter">Height Converter</ChallengeItem>
-            <ListItem><a href="./unit-1/1-9">Activity 1.9: Math Functions</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-area-of-a-circle">Area of a Circle</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-fuel-calculator">Fuel Calculator</ChallengeItem>
+        <p>
+          <b class="text-sn-theme">One semester, two halves, and hardware at
+          the end of it.</b> Unit 1 is Python at the terminal, from your first
+          line of output through to a group-built application. Unit 2 puts the
+          same thinking on a circuit board &mdash; MicroPython on a SparkFun
+          IoT RedBoard RP2350 &mdash; and finishes with an autonomous rover.
+        </p>
 
-            <h6 class="text-sn-theme mt-3">Debug Challenges</h6>
-            <ChallengeItem
-              href="./unit-1/dc-syntax-arithmetic"
-              icon="si-bug"
-              srLabel="Debug challenge">Syntax &amp; Arithmetic</ChallengeItem
-            >
-            <ChallengeItem
-              href="./unit-1/dc-runtime-and-casting"
-              icon="si-bug"
-              srLabel="Debug challenge">Runtime &amp; Casting</ChallengeItem
-            >
+        <h3 class="mt-5">Course Content</h3>
 
-            <h6 class="text-sn-theme mt-3">Control Flow</h6>
-            <ListItem><a href="./unit-1/1-10">Activity 1.10: Booleans and If Statements</a></ListItem>
-            <ListItem><a href="./unit-1/1-11">Activity 1.11: If, Elif, and Else</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-traffic-light">Traffic Light</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-birth-seasons">Birth Seasons</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-hat-size-checker">Hat Size Checker</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-magic-8-ball">Magic 8-Ball</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-bmi-calculator">BMI Calculator</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-quadratics">Quadratics</ChallengeItem>
-            <ListItem><a href="./unit-1/1-12">Activity 1.12: Nested Conditionals</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-build-your-own-dungeon-crawler"
-              >Build Your Own Dungeon Crawler</ChallengeItem
+        <h4 class="mt-2">Unit 1: Computational Thinking</h4>
+        <div class="accordion mb-5" id="unit1Accordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g1"
+                aria-expanded="false"
+                aria-controls="u1g1"
+              >
+                Programming Basics
+              </button>
+            </h2>
+            <div
+              id="u1g1"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
             >
-            <ListItem><a href="./unit-1/1-13">Activity 1.13: While Loops</a></ListItem>
-            <ListItem><a href="./unit-1/1-14">Activity 1.14: Number Guessing Game</a></ListItem>
-            <ListItem><a href="./unit-1/1-15">Activity 1.15: Rock, Paper, Scissors</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-heads-or-tails">Heads or Tails</ChallengeItem>
-            <ListItem><a href="./unit-1/1-16">Activity 1.16: For Loops</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-coin-flip-simulation"
-              >Coin Flip Simulation</ChallengeItem
+              <div class="accordion-body">
+                <ListItem><a href="./unit-1/1-1">Activity 1.1: Computer Architecture</a></ListItem>
+                <ListItem><a href="./unit-1/1-2">Activity 1.2: Console Output</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-chain-letter">Chain Letter</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-mail-call">Mail Call</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-ascii-art">ASCII Art</ChallengeItem>
+                <ListItem><a href="./unit-1/1-3">Activity 1.3: Variables and Data Types</a></ListItem>
+                <ListItem><a href="./unit-1/1-4">Activity 1.4: Arithmetic Operations</a></ListItem>
+                <ListItem><a href="./unit-1/1-5">Activity 1.5: Variable Reassignment</a></ListItem>
+                <ListItem><a href="./unit-1/1-6">Activity 1.6: String Interpolation</a></ListItem>
+                <ListItem><a href="./unit-1/1-7">Activity 1.7: Console Input</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-display-clock">Display Clock</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-mad-lib">Mad Lib</ChallengeItem>
+                <ListItem><a href="./unit-1/1-8">Activity 1.8: Console Input and Type Casting</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-simple-math">Simple Math</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-grocery-grab">Grocery Grab</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-backpack-weight">Backpack Weight</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-miles-to-kilometers">Miles to Kilometers</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-celsius-to-fahrenheit">Celsius to Fahrenheit</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-tip-calculator">Tip Calculator</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-line-slope">Line Slope Calculator</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-change-calculator">Change Calculator</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-height-converter">Height Converter</ChallengeItem>
+                <ListItem><a href="./unit-1/1-9">Activity 1.9: Math Functions</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-area-of-a-circle">Area of a Circle</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-fuel-calculator">Fuel Calculator</ChallengeItem>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g2"
+                aria-expanded="false"
+                aria-controls="u1g2"
+              >
+                Debug Challenges
+              </button>
+            </h2>
+            <div
+              id="u1g2"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
             >
-            <ChallengeItem
-              href="./unit-1/dc-conditionals"
-              icon="si-bug"
-              srLabel="Debug challenge">Conditionals</ChallengeItem
+              <div class="accordion-body">
+                <ChallengeItem
+                href="./unit-1/dc-syntax-arithmetic"
+                icon="si-bug"
+                srLabel="Debug challenge">Syntax &amp; Arithmetic</ChallengeItem
+                >
+                <ChallengeItem
+                href="./unit-1/dc-runtime-and-casting"
+                icon="si-bug"
+                srLabel="Debug challenge">Runtime &amp; Casting</ChallengeItem
+                >
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g3"
+                aria-expanded="false"
+                aria-controls="u1g3"
+              >
+                Control Flow
+              </button>
+            </h2>
+            <div
+              id="u1g3"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
             >
-            <ChallengeItem href="./unit-1/dc-loops" icon="si-bug" srLabel="Debug challenge"
-              >Loops</ChallengeItem
+              <div class="accordion-body">
+                <ListItem><a href="./unit-1/1-10">Activity 1.10: Booleans and If Statements</a></ListItem>
+                <ListItem><a href="./unit-1/1-11">Activity 1.11: If, Elif, and Else</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-traffic-light">Traffic Light</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-birth-seasons">Birth Seasons</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-hat-size-checker">Hat Size Checker</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-magic-8-ball">Magic 8-Ball</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-bmi-calculator">BMI Calculator</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-quadratics">Quadratics</ChallengeItem>
+                <ListItem><a href="./unit-1/1-12">Activity 1.12: Nested Conditionals</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-build-your-own-dungeon-crawler"
+                >Build Your Own Dungeon Crawler</ChallengeItem
+                >
+                <ListItem><a href="./unit-1/1-13">Activity 1.13: While Loops</a></ListItem>
+                <ListItem><a href="./unit-1/1-14">Activity 1.14: Number Guessing Game</a></ListItem>
+                <ListItem><a href="./unit-1/1-15">Activity 1.15: Rock, Paper, Scissors</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-heads-or-tails">Heads or Tails</ChallengeItem>
+                <ListItem><a href="./unit-1/1-16">Activity 1.16: For Loops</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-coin-flip-simulation"
+                >Coin Flip Simulation</ChallengeItem
+                >
+                <ChallengeItem
+                href="./unit-1/dc-conditionals"
+                icon="si-bug"
+                srLabel="Debug challenge">Conditionals</ChallengeItem
+                >
+                <ChallengeItem href="./unit-1/dc-loops" icon="si-bug" srLabel="Debug challenge"
+                >Loops</ChallengeItem
+                >
+                <ListItem tag="Optional"
+                ><a href="./unit-1/1-17">Activity 1.17: Nested Loops</a></ListItem
+                >
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g4"
+                aria-expanded="false"
+                aria-controls="u1g4"
+              >
+                Lists
+              </button>
+            </h2>
+            <div
+              id="u1g4"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
             >
-            <ListItem tag="Optional"
-              ><a href="./unit-1/1-17">Activity 1.17: Nested Loops</a></ListItem
+              <div class="accordion-body">
+                <ListItem><a href="./unit-1/1-18">Activity 1.18: Intro to Lists</a></ListItem>
+                <ListItem><a href="./unit-1/1-19">Activity 1.19: len() and Safe Access</a></ListItem>
+                <ListItem><a href="./unit-1/1-20">Activity 1.20: Traversal and append()</a></ListItem>
+                <ChallengeItem href="./unit-1/cc-raffle">Raffle</ChallengeItem>
+                <ChallengeItem href="./unit-1/cc-playlist-builder">Playlist Builder</ChallengeItem>
+                <ListItem><a href="./unit-1/1-21">Activity 1.21: Processing Lists</a></ListItem>
+                <ListItem><a href="./unit-1/1-22">Activity 1.22: Checking Membership</a></ListItem>
+                <ListItem><a href="./unit-1/1-23">Activity 1.23: Parallel Lists</a></ListItem>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g5"
+                aria-expanded="false"
+                aria-controls="u1g5"
+              >
+                Debug Challenges
+              </button>
+            </h2>
+            <div
+              id="u1g5"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
             >
-
-            <h6 class="text-sn-theme mt-3">Lists</h6>
-            <ListItem><a href="./unit-1/1-18">Activity 1.18: Intro to Lists</a></ListItem>
-            <ListItem><a href="./unit-1/1-19">Activity 1.19: len() and Safe Access</a></ListItem>
-            <ListItem><a href="./unit-1/1-20">Activity 1.20: Traversal and append()</a></ListItem>
-            <ChallengeItem href="./unit-1/cc-raffle">Raffle</ChallengeItem>
-            <ChallengeItem href="./unit-1/cc-playlist-builder">Playlist Builder</ChallengeItem>
-            <ListItem><a href="./unit-1/1-21">Activity 1.21: Processing Lists</a></ListItem>
-            <ListItem><a href="./unit-1/1-22">Activity 1.22: Checking Membership</a></ListItem>
-            <ListItem><a href="./unit-1/1-23">Activity 1.23: Parallel Lists</a></ListItem>
-
-            <h6 class="text-sn-theme mt-3">Debug Challenges</h6>
-            <ChallengeItem href="./unit-1/dc-lists" icon="si-bug" srLabel="Debug challenge"
-              >Lists</ChallengeItem
+              <div class="accordion-body">
+                <ChallengeItem href="./unit-1/dc-lists" icon="si-bug" srLabel="Debug challenge"
+                >Lists</ChallengeItem
+                >
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g6"
+                aria-expanded="false"
+                aria-controls="u1g6"
+              >
+                Library Explorations
+              </button>
+            </h2>
+            <div
+              id="u1g6"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
             >
-
-            <h6 class="text-sn-theme mt-3">Library Explorations</h6>
-            <ChallengeItem
-              href="./unit-1/le-turtle-graphics"
-              icon="si-flask"
-              srLabel="Library exploration"
-              tag="Extra Credit"
-              tone="gold">Turtle Graphics</ChallengeItem
+              <div class="accordion-body">
+                <ChallengeItem
+                href="./unit-1/le-turtle-graphics"
+                icon="si-flask"
+                srLabel="Library exploration"
+                tag="Extra Credit"
+                tone="gold">Turtle Graphics</ChallengeItem
+                >
+                <ChallengeItem
+                href="./unit-1/le-rich-terminal"
+                icon="si-flask"
+                srLabel="Library exploration"
+                tag="Extra Credit"
+                tone="gold">Rich</ChallengeItem
+                >
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g7"
+                aria-expanded="false"
+                aria-controls="u1g7"
+              >
+                Group Project 1: Terminal Applications
+              </button>
+            </h2>
+            <div
+              id="u1g7"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
             >
-            <ChallengeItem
-              href="./unit-1/le-rich-terminal"
-              icon="si-flask"
-              srLabel="Library exploration"
-              tag="Extra Credit"
-              tone="gold">Rich</ChallengeItem
-            >
+              <div class="accordion-body">
+                <ListItem><a href="./unit-1/gp-1">Terminal Applications (End-of-Quarter Summative)</a></ListItem>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- Group Project 1 -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseTwo"
-            aria-expanded="false"
-            aria-controls="flush-collapseTwo"
-          >
-            Group Project 1: Terminal Applications
-          </button>
-        </h2>
-        <div
-          id="flush-collapseTwo"
-          class="accordion-collapse collapse"
-          data-bs-parent="#courseAccordion"
-        >
-          <div class="accordion-body">
-            <ListItem><a href="./unit-1/gp-1">Terminal Applications (End-of-Quarter Summative)</a></ListItem>
+
+        <h4 class="mt-2">Unit 2: Physical Computing</h4>
+        <div class="accordion mb-5" id="unit2Accordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u2g1"
+                aria-expanded="false"
+                aria-controls="u2g1"
+              >
+                Electronics Primer
+              </button>
+            </h2>
+            <div
+              id="u2g1"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit2Accordion"
+            >
+              <div class="accordion-body">
+                <ListItem><a href="./unit-2/2-1">Activity 2.1: What Is Electricity?</a></ListItem>
+                <ListItem><a href="./unit-2/2-2">Activity 2.2: Reading Circuits</a></ListItem>
+                <ListItem><a href="./unit-2/2-3">Activity 2.3: Ohm's Law and Meet the Microcontroller</a></ListItem>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <h4 class="mt-2">Unit 2: Physical Computing</h4>
-    <div class="accordion mb-5" id="unit2Accordion">
-      <!-- Foundations -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseThree"
-            aria-expanded="true"
-            aria-controls="flush-collapseThree"
-          >
-            Foundations
-          </button>
-        </h2>
-        <div
-          id="flush-collapseThree"
-          class="accordion-collapse collapse"
-          data-bs-parent="#unit2Accordion"
-        >
-          <div class="accordion-body">
-            <h6 class="text-sn-theme mt-2">Electronics Primer</h6>
-            <ListItem><a href="./unit-2/2-1">Activity 2.1: What Is Electricity?</a></ListItem>
-            <ListItem><a href="./unit-2/2-2">Activity 2.2: Reading Circuits</a></ListItem>
-            <ListItem><a href="./unit-2/2-3">Activity 2.3: Ohm's Law and Meet the Microcontroller</a></ListItem>
-
-            <h6 class="text-sn-theme mt-3">LED Projects</h6>
-            <ListItem><a href="./unit-2/2-4">Activity 2.4: Rocket Launch Countdown</a></ListItem>
-            <ListItem><a href="./unit-2/2-5">Activity 2.5: Writing Your Own Functions</a></ListItem>
-            <ListItem><a href="./unit-2/2-6">Activity 2.6: LED Array Animation</a></ListItem>
-
-            <h6 class="text-sn-theme mt-3">Digital Input &amp; Timing</h6>
-            <ListItem><a href="./unit-2/2-7">Activity 2.7: Reaction Timer</a></ListItem>
-
-            <h6 class="text-sn-theme mt-3">The Messy Real World</h6>
-            <ListItem><a href="./unit-2/2-8">Activity 2.8: Analog Input</a></ListItem>
-            <ListItem><a href="./unit-2/2-9">Activity 2.9: Sensors Lie</a></ListItem>
-            <ListItem><a href="./unit-2/2-10">Activity 2.10: Thresholds and Alarms</a></ListItem>
-            <ListItem><a href="./unit-2/2-11">Activity 2.11: The OLED Display</a></ListItem>
-
-            <h6 class="text-sn-theme mt-3">Motion &amp; Autonomy</h6>
-            <ListItem><a href="./unit-2/2-12">Activity 2.12: Motors and the Driver</a></ListItem>
-            <ListItem><a href="./unit-2/2-13">Activity 2.13: Ultrasonic Distance</a></ListItem>
-            <ListItem><a href="./unit-2/2-14">Activity 2.14: Sense and Decide</a></ListItem>
-
-            <h6 class="text-sn-theme mt-3">Debug Challenges</h6>
-            <ChallengeItem href="./unit-2/dc-circuits" icon="si-bug" srLabel="Debug challenge"
-              tag="Extra Credit" tone="gold">Circuits</ChallengeItem
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u2g2"
+                aria-expanded="false"
+                aria-controls="u2g2"
+              >
+                LED Projects
+              </button>
+            </h2>
+            <div
+              id="u2g2"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit2Accordion"
             >
-
-            <h6 class="text-sn-theme mt-3">Bonus Projects</h6>
-            <ChallengeItem
-              href="./unit-2/bp-mini-cyclone"
-              icon="si-flask"
-              srLabel="Bonus project"
-              tag="Extra Credit"
-              tone="gold">Mini Cyclone</ChallengeItem
-            >
-            <ChallengeItem
-              href="./unit-2/bp-rgb-mixing"
-              icon="si-flask"
-              srLabel="Bonus project"
-              tag="Extra Credit"
-              tone="gold">RGB Color Mixing</ChallengeItem
-            >
-            <ChallengeItem
-              href="./unit-2/bp-servo-turret"
-              icon="si-flask"
-              srLabel="Bonus project"
-              tag="Extra Credit"
-              tone="gold">Servo Turret</ChallengeItem
-            >
-            <ChallengeItem
-              href="./unit-2/bp-morse-code"
-              icon="si-flask"
-              srLabel="Bonus project"
-              tag="Extra Credit"
-              tone="gold">Morse Code Transmitter</ChallengeItem
-            >
-            <ChallengeItem
-              href="./unit-2/bp-simon-says"
-              icon="si-flask"
-              srLabel="Bonus project"
-              tag="Extra Credit"
-              tone="gold">Simon Says</ChallengeItem
-            >
+              <div class="accordion-body">
+                <ListItem><a href="./unit-2/2-4">Activity 2.4: Rocket Launch Countdown</a></ListItem>
+                <ListItem><a href="./unit-2/2-5">Activity 2.5: Writing Your Own Functions</a></ListItem>
+                <ListItem><a href="./unit-2/2-6">Activity 2.6: LED Array Animation</a></ListItem>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <!-- Group Project 2 -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseFour"
-            aria-expanded="true"
-            aria-controls="flush-collapseFour"
-          >
-            Group Project 2: Autonomous Rover
-          </button>
-        </h2>
-        <div
-          id="flush-collapseFour"
-          class="accordion-collapse collapse"
-          data-bs-parent="#unit2Accordion"
-        >
-          <div class="accordion-body">
-            <ListItem><a href="./unit-2/gp-2">Autonomous Rover (End-of-Quarter Summative)</a></ListItem>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u2g3"
+                aria-expanded="false"
+                aria-controls="u2g3"
+              >
+                Digital Input &amp; Timing
+              </button>
+            </h2>
+            <div
+              id="u2g3"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit2Accordion"
+            >
+              <div class="accordion-body">
+                <ListItem><a href="./unit-2/2-7">Activity 2.7: Reaction Timer</a></ListItem>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u2g4"
+                aria-expanded="false"
+                aria-controls="u2g4"
+              >
+                The Messy Real World
+              </button>
+            </h2>
+            <div
+              id="u2g4"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit2Accordion"
+            >
+              <div class="accordion-body">
+                <ListItem><a href="./unit-2/2-8">Activity 2.8: Analog Input</a></ListItem>
+                <ListItem><a href="./unit-2/2-9">Activity 2.9: Sensors Lie</a></ListItem>
+                <ListItem><a href="./unit-2/2-10">Activity 2.10: Thresholds and Alarms</a></ListItem>
+                <ListItem><a href="./unit-2/2-11">Activity 2.11: The OLED Display</a></ListItem>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u2g5"
+                aria-expanded="false"
+                aria-controls="u2g5"
+              >
+                Motion &amp; Autonomy
+              </button>
+            </h2>
+            <div
+              id="u2g5"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit2Accordion"
+            >
+              <div class="accordion-body">
+                <ListItem><a href="./unit-2/2-12">Activity 2.12: Motors and the Driver</a></ListItem>
+                <ListItem><a href="./unit-2/2-13">Activity 2.13: Ultrasonic Distance</a></ListItem>
+                <ListItem><a href="./unit-2/2-14">Activity 2.14: Sense and Decide</a></ListItem>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u2g6"
+                aria-expanded="false"
+                aria-controls="u2g6"
+              >
+                Debug Challenges
+              </button>
+            </h2>
+            <div
+              id="u2g6"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit2Accordion"
+            >
+              <div class="accordion-body">
+                <ChallengeItem href="./unit-2/dc-circuits" icon="si-bug" srLabel="Debug challenge"
+                tag="Extra Credit" tone="gold">Circuits</ChallengeItem
+                >
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u2g7"
+                aria-expanded="false"
+                aria-controls="u2g7"
+              >
+                Bonus Projects
+              </button>
+            </h2>
+            <div
+              id="u2g7"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit2Accordion"
+            >
+              <div class="accordion-body">
+                <ChallengeItem
+                href="./unit-2/bp-mini-cyclone"
+                icon="si-flask"
+                srLabel="Bonus project"
+                tag="Extra Credit"
+                tone="gold">Mini Cyclone</ChallengeItem
+                >
+                <ChallengeItem
+                href="./unit-2/bp-rgb-mixing"
+                icon="si-flask"
+                srLabel="Bonus project"
+                tag="Extra Credit"
+                tone="gold">RGB Color Mixing</ChallengeItem
+                >
+                <ChallengeItem
+                href="./unit-2/bp-servo-turret"
+                icon="si-flask"
+                srLabel="Bonus project"
+                tag="Extra Credit"
+                tone="gold">Servo Turret</ChallengeItem
+                >
+                <ChallengeItem
+                href="./unit-2/bp-morse-code"
+                icon="si-flask"
+                srLabel="Bonus project"
+                tag="Extra Credit"
+                tone="gold">Morse Code Transmitter</ChallengeItem
+                >
+                <ChallengeItem
+                href="./unit-2/bp-simon-says"
+                icon="si-flask"
+                srLabel="Bonus project"
+                tag="Extra Credit"
+                tone="gold">Simon Says</ChallengeItem
+                >
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u2g8"
+                aria-expanded="false"
+                aria-controls="u2g8"
+              >
+                Group Project 2: Autonomous Rover
+              </button>
+            </h2>
+            <div
+              id="u2g8"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit2Accordion"
+            >
+              <div class="accordion-body">
+                <ListItem><a href="./unit-2/gp-2">Autonomous Rover (End-of-Quarter Summative)</a></ListItem>
+              </div>
+            </div>
           </div>
         </div>
       </div>
