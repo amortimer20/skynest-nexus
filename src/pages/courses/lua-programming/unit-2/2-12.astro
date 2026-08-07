@@ -1,0 +1,1032 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+const HEAD = `-- main.lua
+
+local Enemy = require("enemy")
+local collision = require("collision")
+`;
+
+const STATE = `
+local ship
+local font
+local titleFont
+local sounds
+local highScore
+local spawnEvery = 0.8
+local gameState = "menu"
+
+local player
+local bullets
+local fireCooldown
+local enemies
+local spawnTimer
+local score
+local lives
+local invuln
+local shake
+
+local function resetGame()
+  player = { x = 400, y = 500, size = 40, speed = 300 }
+  bullets = {}
+  fireCooldown = 0
+  enemies = {}
+  spawnTimer = 0
+  score = 0
+  lives = 3
+  invuln = 0
+  shake = 0
+end
+`;
+
+const FS = `
+local function loadHighScore()
+  local contents = love.filesystem.read("highscore.txt")
+  return tonumber(contents) or 0
+end
+`;
+
+const LOAD = `
+function love.load()
+  love.graphics.setBackgroundColor(0.05, 0.05, 0.1)
+  math.randomseed(os.time())
+  ship = love.graphics.newImage("ship.png")
+  font = love.graphics.newFont(20)
+  titleFont = love.graphics.newFont(48)
+  love.graphics.setFont(font)
+
+  sounds = {
+    shoot = love.audio.newSource("shoot.wav", "static"),
+    hit = love.audio.newSource("hit.wav", "static"),
+    explode = love.audio.newSource("explode.wav", "static"),
+  }
+  sounds.shoot:setVolume(0.35)
+  sounds.hit:setVolume(0.6)
+
+  highScore = loadHighScore()
+  resetGame()
+end
+`;
+
+const KEY = `
+function love.keypressed(key)
+  if key == "escape" then
+    love.event.quit()
+  elseif key == "space" and gameState ~= "playing" then
+    resetGame()
+    gameState = "playing"
+  end
+end
+`;
+
+const U_GATE = `
+function love.update(dt)
+  shake = shake - dt
+
+  if gameState ~= "playing" then
+    return
+  end
+
+  if love.keyboard.isDown("left", "a") then
+    player.x = player.x - player.speed * dt
+  end
+  if love.keyboard.isDown("right", "d") then
+    player.x = player.x + player.speed * dt
+  end
+
+  local half = player.size / 2
+  player.x = math.max(half, math.min(love.graphics.getWidth() - half, player.x))
+`;
+
+const U_TIMERS = `
+  fireCooldown = fireCooldown - dt
+  invuln = invuln - dt
+
+  if love.keyboard.isDown("space") and fireCooldown <= 0 then
+    table.insert(bullets, { x = player.x, y = player.y - 30, size = 6, speed = 500 })
+    fireCooldown = 0.15
+    sounds.shoot:clone():play()
+  end
+
+  for i = #bullets, 1, -1 do
+    local b = bullets[i]
+    b.y = b.y - b.speed * dt
+    if b.y < -20 then
+      table.remove(bullets, i)
+    end
+  end
+`;
+
+const U_SPAWN = `
+  spawnTimer = spawnTimer - dt
+  if spawnTimer <= 0 then
+    table.insert(enemies, Enemy.new(math.random(40, love.graphics.getWidth() - 40)))
+    spawnTimer = spawnEvery
+  end
+
+  for i = #enemies, 1, -1 do
+    local e = enemies[i]
+    e:update(dt)
+    if e.y > love.graphics.getHeight() + 20 then
+      table.remove(enemies, i)
+    end
+  end
+`;
+
+const U_HIT = `
+  if invuln <= 0 then
+    for i = #enemies, 1, -1 do
+      if collision.overlaps(enemies[i], player) then
+        table.remove(enemies, i)
+        lives = lives - 1
+        invuln = 2
+        shake = 0.4
+        sounds.explode:play()
+        if lives <= 0 then
+          gameState = "gameover"
+        end
+        break
+      end
+    end
+  end
+`;
+
+const U_HIT_SAVE = `
+  if invuln <= 0 then
+    for i = #enemies, 1, -1 do
+      if collision.overlaps(enemies[i], player) then
+        table.remove(enemies, i)
+        lives = lives - 1
+        invuln = 2
+        shake = 0.4
+        sounds.explode:play()
+        if lives <= 0 then
+          gameState = "gameover"
+          if score > highScore then
+            highScore = score
+            love.filesystem.write("highscore.txt", tostring(highScore))
+          end
+        end
+        break
+      end
+    end
+  end
+`;
+
+const U_TAIL = `
+  for i = #enemies, 1, -1 do
+    for j = #bullets, 1, -1 do
+      if collision.overlaps(enemies[i], bullets[j]) then
+        table.remove(bullets, j)
+
+        local thud = sounds.hit:clone()
+        thud:setPitch(0.9 + math.random() * 0.3)
+        thud:play()
+
+        enemies[i].hp = enemies[i].hp - 1
+        if enemies[i].hp <= 0 then
+          table.remove(enemies, i)
+          score = score + 1
+        end
+        break
+      end
+    end
+  end
+end
+`;
+
+const HUD = `
+local function drawHud()
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Score: " .. score, 10, 12)
+  love.graphics.print("Best: " .. highScore, 10, 36)
+
+  for i = 1, lives do
+    local x = love.graphics.getWidth() - 24 - (i - 1) * 30
+    love.graphics.draw(ship, x, 24, 0, 1, 1, ship:getWidth() / 2, ship:getHeight() / 2)
+  end
+end
+`;
+
+const OVERLAY_FN = `
+local function drawOverlay(title, subtitle)
+  love.graphics.setColor(0, 0, 0, 0.7)
+  love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.setFont(titleFont)
+  love.graphics.printf(title, 0, 220, love.graphics.getWidth(), "center")
+
+  love.graphics.setFont(font)
+  love.graphics.printf(subtitle, 0, 300, love.graphics.getWidth(), "center")
+end
+`;
+
+const D_WORLD = `
+function love.draw()
+  love.graphics.push()
+  if shake > 0 then
+    love.graphics.translate(math.random(-6, 6), math.random(-6, 6))
+  end
+
+  local blink = invuln > 0 and math.floor(invuln * 10) % 2 == 1
+
+  if not blink then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(ship, player.x, player.y, 0, 2, 2, ship:getWidth() / 2, ship:getHeight() / 2)
+  end
+
+  love.graphics.setColor(1, 0.9, 0.3)
+  for _, b in ipairs(bullets) do
+    love.graphics.rectangle("fill", b.x - 2, b.y - 8, 4, 16)
+  end
+
+  for _, e in ipairs(enemies) do
+    e:draw()
+  end
+
+  love.graphics.pop()
+
+  drawHud()
+`;
+
+const D_TEXT = `
+  if gameState == "menu" then
+    drawOverlay("SKYNEST", "Press space to play")
+  elseif gameState == "gameover" then
+    drawOverlay("GAME OVER", "Score " .. score .. " - press space to play again")
+  end
+end`;
+
+const D_TEXT_SAVE = `
+  if gameState == "menu" then
+    drawOverlay("SKYNEST", "Press space to play")
+  elseif gameState == "gameover" then
+    drawOverlay("GAME OVER", "Score " .. score .. " - best " .. highScore .. " - press space to play again")
+  end
+end`;
+
+//#region CodeSnippets
+const EnemyModule = `-- enemy.lua
+
+local Enemy = {}
+Enemy.__index = Enemy
+
+function Enemy.new(x)
+  return setmetatable({ x = x, y = -20, size = 30, speed = 120, hp = 2 }, Enemy)
+end
+
+function Enemy:update(dt)
+  self.y = self.y + self.speed * dt
+end
+
+function Enemy:draw()
+  love.graphics.setColor(1, 0.3, 0.4)
+  love.graphics.rectangle("fill", self.x - self.size / 2, self.y - self.size / 2, self.size, self.size)
+end
+
+return Enemy`;
+
+const CollisionModule = `-- collision.lua
+
+local collision = {}
+
+function collision.overlaps(a, b)
+  return a.x - a.size / 2 < b.x + b.size / 2
+     and a.x + a.size / 2 > b.x - b.size / 2
+     and a.y - a.size / 2 < b.y + b.size / 2
+     and a.y + a.size / 2 > b.y - b.size / 2
+end
+
+return collision`;
+
+const Figure1 = `macOS     ~/Library/Application Support/LOVE/skynest
+Windows   %APPDATA%\\LOVE\\skynest
+Linux     ~/.local/share/love/skynest`;
+
+const Figure2 = `-- Looks tidy. Reads a saved 11 as base 2 and hands you 3.
+local function loadHighScore()
+  return tonumber(love.filesystem.read("highscore.txt")) or 0
+end
+
+-- Reads a saved 11 as eleven.
+local function loadHighScore()
+  local contents = love.filesystem.read("highscore.txt")
+  return tonumber(contents) or 0
+end`;
+
+const Figure3 = `if love.filesystem.getInfo("highscore.txt") then
+  -- it is there, and getInfo told you its size too
+end`;
+
+const Figure4 = `skynest/
+  main.lua
+  conf.lua
+  enemy.lua
+  collision.lua
+  ship.png
+  shoot.wav
+  hit.wav
+  explode.wav`;
+
+const Figure5 = `$ unzip -Z1 skynest.love   $ unzip -Z1 broken.love
+enemy.lua                  skynest/
+collision.lua              skynest/enemy.lua
+ship.png                   skynest/.DS_Store
+main.lua                   skynest/collision.lua
+explode.wav                skynest/ship.png
+conf.lua                   skynest/main.lua
+shoot.wav                  skynest/explode.wav
+hit.wav                    skynest/conf.lua
+                           skynest/shoot.wav
+                           skynest/hit.wav`;
+
+const Figure6 = `cd skynest
+zip -9 -r ../skynest.love . -x ".*"`;
+
+const Task1Conf = `-- conf.lua
+
+function love.conf(t)
+  t.identity = "skynest"
+  t.version = "11.5"
+
+  t.window.width = 800
+  t.window.height = 600
+  t.window.title = "Skynest"
+end`;
+
+const Task2 =
+  HEAD + STATE + FS + LOAD + KEY + U_GATE + U_TIMERS + U_SPAWN + U_HIT +
+  U_TAIL + HUD + OVERLAY_FN + D_WORLD + D_TEXT;
+const Task3 =
+  HEAD + STATE + FS + LOAD + KEY + U_GATE + U_TIMERS + U_SPAWN + U_HIT_SAVE +
+  U_TAIL + HUD + OVERLAY_FN + D_WORLD + D_TEXT_SAVE;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a
+          href="/courses/lua-programming/"
+          class="btn btn-sm btn-outline-light mb-3"
+        >
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 2.12: Shipping Your Game</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Concept -->
+        <section id="concept">
+          <h2>The Idea</h2>
+
+          <p>
+            A folder on your machine is not something anyone can play. Two
+            things stand between what you have and what you can hand to a
+            friend: <b class="text-sn-theme">the game has to remember something
+            between runs</b>, and <b class="text-sn-theme">it has to travel as
+            one file</b>.
+          </p>
+
+          <p>
+            Both turn out to be one idea. The moment your game becomes a single
+            file, it is living inside a read-only archive, and the folder it
+            came from no longer exists as far as the code is concerned. Every
+            decision on this page follows from that.
+          </p>
+
+          <h3 class="mt-5">Where a game is allowed to write</h3>
+
+          <p>
+            <b>You cannot write next to main.lua.</b> Not because LÖVE is being
+            strict, but because once you ship, main.lua is a compressed entry
+            inside a zip file, and there is no "next to" to write to.
+          </p>
+
+          <p>
+            So LÖVE gives every game exactly one writable place, the{" "}
+            <b class="text-sn-theme">save directory</b>, somewhere in the
+            operating system's per-user application data. Every path you hand to{" "}
+            <CodeSnippet
+              code="love.filesystem.write"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is relative to it, and there is no way to write outside it by
+            accident.
+          </p>
+
+          <Code
+            code={Figure1}
+            frame="none"
+            lang="txt"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            The last part of that path is the <b>identity</b>, and it is yours
+            to choose in conf.lua. If you never set one, LÖVE makes one up from
+            the name of the folder or the .love file your game arrived in, which
+            works right up until the day you rename the folder and every saved
+            game silently disappears. <b class="text-sn-theme">Setting{" "}
+            <CodeSnippet
+              code="t.identity"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is how you promise your players their save file survives you
+            reorganizing your desktop.</b>
+          </p>
+
+          <h3 class="mt-5">Reading a file that might not be there</h3>
+
+          <p>
+            The first time anyone runs your game there is no save file, and
+            that is not an error condition &mdash; it is the normal case,
+            exactly once.{" "}
+            <CodeSnippet
+              code="love.filesystem.read"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            returns the contents, or returns{" "}
+            <CodeSnippet
+              code="nil"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and a message. It does not raise. That is the same{" "}
+            <b>nil-plus-a-message</b> convention Activity 1.12 met in{" "}
+            <CodeSnippet
+              code="io.open"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and it means a missing high score costs you one{" "}
+            <CodeSnippet
+              code="or 0"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <p>
+            If you would rather ask before you read, that is what{" "}
+            <CodeSnippet
+              code="getInfo"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            is for. It hands back a table with the type and size, or nil.
+          </p>
+
+          <Code
+            code={Figure3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <h3 class="mt-5">The one-liner that will ruin your day</h3>
+
+          <p>
+            Here is a bug worth more than the feature it hides in.{" "}
+            <CodeSnippet
+              code="love.filesystem.read"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            returns <b>two</b> values &mdash; the contents and the number of
+            bytes. And{" "}
+            <CodeSnippet
+              code="tonumber"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            takes <b>two</b> arguments &mdash; the string and{" "}
+            <i>the base to read it in</i>.
+          </p>
+
+          <Code
+            code={Figure2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            A call in the last argument position keeps all of its return values,
+            which is the rule from Activity 1.7 arriving with teeth. So the tidy
+            version does not read your high score in base ten. It reads it{" "}
+            <b>in a base equal to its own length</b>, and I measured what that
+            costs:
+          </p>
+
+          <ul>
+            <li>
+              A saved score of <b>11</b> comes back as <b>3</b>. Two bytes,
+              base 2, and 11 in binary is three.
+            </li>
+            <li>
+              A saved score of <b>100</b> comes back as <b>9</b>.
+            </li>
+            <li>
+              A saved score of <b>12</b> comes back as <b>0</b>, because 2 is
+              not a base-2 digit, so tonumber returns nil and the{" "}
+              <CodeSnippet
+                code="or 0"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              catches it.
+            </li>
+            <li>
+              A saved score of <b>7</b> does not come back at all.{" "}
+              <b class="text-sn-theme">The game crashes on launch</b> with{" "}
+              <i>bad argument #2 to 'tonumber' (base out of range)</i>, because
+              one byte means base 1, and bases start at 2.
+            </li>
+          </ul>
+
+          <p>
+            <b>Every single-digit high score is a crash on the next launch.</b>{" "}
+            Not on the machine you wrote it on &mdash; that one already has a
+            two-digit file. On somebody else's, the first time they play.{" "}
+            <b class="text-sn-theme">Assigning to a local first is not
+            verbosity. It is how you cut a function call down to one value.</b>
+          </p>
+
+          <h3 class="mt-5">A .love file is a zip</h3>
+
+          <p>
+            That is the entire format. Rename your zip to <b>.love</b> and LÖVE
+            will run it, on any operating system, as long as the person has LÖVE
+            installed. There is exactly one rule, and everybody breaks it once.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">main.lua must be at the top of the
+            archive, not inside a folder in it.</b> LÖVE mounts the archive as
+            the root of the game's file system, so if the zip contains{" "}
+            <CodeSnippet
+              code="skynest/main.lua"
+              lang={"txt"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            then main.lua is not at the root and LÖVE shows you the no-game
+            screen. You zip the <i>contents</i> of the folder, never the folder.
+          </p>
+
+          <Code
+            code={Figure5}
+            frame="none"
+            lang="txt"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Those are two real archives built from the same eight files. The
+            difference is one <CodeSnippet
+              code="cd"
+              lang={"sh"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and the one on the right does not run. It also swept up a{" "}
+            <b>.DS_Store</b> that macOS left lying in the folder, which is
+            harmless but tells you something about zipping things you have not
+            looked at.
+          </p>
+
+          <h3 class="mt-5">One file further: fusing</h3>
+
+          <p>
+            A .love needs LÖVE installed. If you want to hand someone a program
+            instead, you <b>fuse</b>: LÖVE's own executable and your .love are
+            concatenated into one file, and LÖVE finds the zip stuck to its own
+            back end when it starts. On Windows the whole operation is
+            literally{" "}
+            <CodeSnippet
+              code="copy /b love.exe+skynest.love skynest.exe"
+              lang={"txt"}
+              theme={"material-theme-ocean"}
+              inline
+            />. On macOS you copy love.app and drop the .love inside it, in{" "}
+            <b>Contents/Resources</b>.
+          </p>
+
+          <p>
+            The catch is that the rest of the files that shipped with LÖVE have
+            to travel with your executable, and a macOS bundle you have not paid
+            Apple to notarize will be refused by Gatekeeper on your friend's
+            machine.{" "}
+            <b class="text-sn-theme">For sharing a game you made for fun, the
+            .love file is the better answer</b> &mdash; it is one small file, it
+            works on every platform at once, and it asks nothing of you.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Two edits to main.lua, one to conf.lua, and then you package it.
+            enemy.lua and collision.lua are untouched, and this is the last time
+            you will open them.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Finish conf.lua</h3>
+          <ul>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="t.identity"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              so the save directory has a name you chose.
+            </li>
+            <li>
+              Add{" "}
+              <CodeSnippet
+                code="t.version"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. It is the version of LÖVE you built against. If someone runs
+              your game on a future major release, LÖVE shows them a
+              compatibility warning instead of a stack trace.
+            </li>
+          </ul>
+
+          <Code
+            code={Task1Conf}
+            frame="code"
+            lang="lua"
+            title="conf.lua"
+            ins={{ range: "4-5" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Remember the best run</h3>
+          <ul>
+            <li>
+              Add a{" "}
+              <CodeSnippet
+                code="highScore"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              local to the <b>program</b> group, not the per-run group. It is
+              the one number in this game that deliberately survives{" "}
+              <CodeSnippet
+                code="resetGame"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </li>
+            <li>
+              Write{" "}
+              <CodeSnippet
+                code="loadHighScore"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              above{" "}
+              <CodeSnippet
+                code="love.load"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              and call it there. <b>Two lines, not one</b>, for the reason
+              above.
+            </li>
+            <li>Show it on the HUD, under the score.</li>
+            <li>
+              Run it. <b class="text-sn-theme">Best: 0</b>, and nothing is
+              written to disk yet &mdash; this task only reads.
+            </li>
+          </ul>
+
+          <Code
+            code={Task2}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "10, 36-40, 57, 157" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Write it down</h3>
+          <ul>
+            <li>
+              When the last life goes, compare and save.{" "}
+              <CodeSnippet
+                code="write"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              wants a string, so{" "}
+              <CodeSnippet
+                code="tostring"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              the number rather than leaning on coercion.
+            </li>
+            <li>
+              <b class="text-sn-theme">Once per run, not once per frame.</b>{" "}
+              This is a real disk write. The end of a run is the only moment the
+              number can have changed in a way anybody cares about.
+            </li>
+            <li>Put the best on the game-over line too.</li>
+            <li>
+              Play, die, <b>quit the game completely</b>, and start it again.
+              The number is on the menu screen before you have pressed anything.
+            </li>
+          </ul>
+
+          <Code
+            code={Task3}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            ins={{ range: "128-131, 210" }}
+          />
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Make the .love</h3>
+
+          <p>Your folder should hold exactly these eight files.</p>
+
+          <Code
+            code={Figure4}
+            frame="none"
+            lang="txt"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>
+              <b>macOS or Linux, from the terminal.</b> Note the{" "}
+              <CodeSnippet
+                code="cd"
+                lang={"sh"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              &mdash; you are inside the folder zipping{" "}
+              <CodeSnippet
+                code="."
+                lang={"sh"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and the archive is written one level up so it does not try to
+              include itself. The{" "}
+              <CodeSnippet
+                code={`-x ".*"`}
+                lang={"sh"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              leaves out hidden files like .DS_Store.
+            </li>
+          </ul>
+
+          <Code
+            code={Figure6}
+            frame="none"
+            lang="sh"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <ul>
+            <li>
+              <b>Windows, or macOS without the terminal.</b> Open the folder,
+              select <i>all eight files</i> &mdash; not the folder, the files
+              inside it &mdash; and compress the selection. Rename the resulting
+              .zip to <b>skynest.love</b>.
+            </li>
+            <li>
+              <b>Check it before you send it.</b>{" "}
+              <CodeSnippet
+                code="unzip -l skynest.love"
+                lang={"sh"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              on macOS or Linux, or just open the .love in your archive viewer.
+              You want main.lua on the first screen with nothing in front of it.
+            </li>
+            <li>
+              <b>Run the .love itself</b>, not the folder. Double-click it, or
+              drag it onto LÖVE. If you get the no-game screen, your zip has a
+              folder in it.
+            </li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              <b>Say when it is a new best.</b> The honest version is harder
+              than it looks: by the time you draw the overlay you have already
+              overwritten{" "}
+              <CodeSnippet
+                code="highScore"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />, so{" "}
+              <CodeSnippet
+                code="score == highScore"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              is also true when you exactly tie an old record. Deriving state
+              instead of storing it is usually right, and this is a small clean
+              example of where it is not.
+            </li>
+            <li>
+              <b>Save more than a number.</b> Write several lines and parse them
+              back with the string patterns from the bonus page, or write a Lua
+              table as source text and load it with{" "}
+              <CodeSnippet
+                code="loadstring"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />. The second one is how a great many real games do it, and it is
+              worth knowing that a save file being executable code is a decision
+              with consequences.
+            </li>
+            <li>
+              <b>Handle a corrupted save.</b> Open highscore.txt in a text
+              editor, replace the number with the word{" "}
+              <CodeSnippet
+                code="banana"
+                lang={"txt"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and launch the game. It should start at zero without
+              complaining, and if it does, you already wrote the error handling
+              &mdash; go and find the{" "}
+              <CodeSnippet
+                code="or 0"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              that did it.
+            </li>
+            <li>
+              <b>Print the save directory on the menu.</b>{" "}
+              <CodeSnippet
+                code="love.filesystem.getSaveDirectory()"
+                lang={"lua"}
+                theme={"material-theme-ocean"}
+                inline
+              />{" "}
+              tells you exactly where your file went, which is the fastest way
+              to end an argument with yourself about whether it saved.
+            </li>
+            <li>
+              <b>Give it away.</b> Send the .love to somebody who has LÖVE and
+              watch them play it. This is the only item on the page you cannot
+              verify by yourself.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Check Your Work</h2>
+
+          <ul>
+            <li>
+              Play a run, quit, relaunch. The best score is on the menu screen
+              immediately, <b class="text-sn-theme">before you press
+              anything</b>.
+            </li>
+            <li>
+              Beat it, quit, relaunch. It went up. Fail to beat it, quit,
+              relaunch. It did not.
+            </li>
+            <li>
+              A high score of any length works &mdash; including a single digit,
+              which is the case that catches the one-liner.
+            </li>
+            <li>
+              skynest.love runs by itself, from anywhere on your disk, with the
+              original folder moved or renamed.
+            </li>
+            <li>
+              The archive listing shows main.lua at the top level.
+            </li>
+          </ul>
+
+          <p>
+            If the best score never changes, look at whether you saved on the
+            hit that ended the run or somewhere the early return can reach. If
+            it resets to zero every launch, print{" "}
+            <CodeSnippet
+              code="love.filesystem.getSaveDirectory()"
+              lang={"lua"}
+              theme={"material-theme-ocean"}
+              inline
+            />{" "}
+            and go look in that folder &mdash; either the file is not there, in
+            which case the write never ran, or it is there with the right number
+            in it, in which case the read is the one-liner and you are getting a
+            base conversion.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Wrap up -->
+        <section id="done">
+          <h2>That Is the Course</h2>
+
+          <p>
+            You have a game that starts, is hard, can be lost, remembers you,
+            and fits in one file you can send to somebody. It is built out of
+            four Lua files and about two hundred lines, and{" "}
+            <b class="text-sn-theme">there is nothing in it you did not
+            write</b>.
+          </p>
+
+          <p>
+            Look back at what is actually doing the work. The enemies are the
+            metatable class from Activity 1.11. Both removal loops run backwards
+            because of Activity 1.9. The cooldown, the spawn timer, the
+            invulnerability and the shake are the same accumulator four times
+            over. The HUD counts icons from a number rather than trusting a
+            second copy of the truth.{" "}
+            <b>LÖVE never taught you any of that.</b> It drew the pixels and
+            told you which keys were down, and that was the whole of its
+            contribution.
+          </p>
+
+          <p>
+            That was the point of doing Unit 1 first, and it is why you can now
+            pick up any Lua codebase &mdash; a Roblox game, a Neovim config, a
+            Redis script, a mod for something you like &mdash; and read it.
+            Frameworks are the easy half. You did the other one.
+          </p>
+        </section>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a
+            class="btn btn-outline-light"
+            href="/courses/lua-programming/unit-2/2-11"
+          >
+            <i class="si-arrow-left"></i> Previous
+          </a>
+          <a class="btn btn-outline-primary" href="/courses/lua-programming/">
+            Course Index <i class="si-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
