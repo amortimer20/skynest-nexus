@@ -1,0 +1,181 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: The Messy Real World</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 2.8 &ndash; 2.11. Use this to review, or to fill in a
+          definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Analog Input</h2>
+
+          <p>
+            Some inputs are not on or off. An analog pin reports a number across
+            a range, and that number usually has to be scaled before it means
+            anything to your program.
+          </p>
+
+          <dl>
+            <dt>Analog Input</dt>
+            <dd>
+              A pin that reports a range of values rather than just on or off.
+            </dd>
+            <dt>ADC</dt>
+            <dd>
+              Analog-to-digital converter &mdash; the circuit that turns a
+              voltage into a number.
+            </dd>
+            <dt>Potentiometer</dt>
+            <dd>
+              A knob that divides a voltage; its middle leg reports the slider's
+              position.
+            </dd>
+            <dt>Scaling</dt>
+            <dd>
+              Converting a value from one range into another, here 0&ndash;65535
+              down to 0&ndash;5.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Trusting a Sensor</h2>
+
+          <p>
+            Real readings wobble and drift. Averaging steadies them, the
+            datasheet turns them into real units, and checking against something
+            you already know tells you whether to believe the result.
+          </p>
+
+          <dl>
+            <dt>Calibration</dt>
+            <dd>
+              Comparing what a sensor reports against a known reference, and
+              correcting the difference.
+            </dd>
+            <dt>Averaging</dt>
+            <dd>
+              Taking several readings and using their mean, so random wobble
+              cancels out.
+            </dd>
+            <dt>Datasheet</dt>
+            <dd>
+              The manufacturer's document describing exactly how a component
+              behaves &mdash; where the volts-to-degrees rule comes from.
+            </dd>
+            <dt>Offset</dt>
+            <dd>
+              A fixed amount added to a reading to correct a consistent error.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Thresholds and Alarms</h2>
+
+          <p>
+            A threshold turns a continuous reading into a decision. PWM drives
+            the buzzer, and a latch makes an alarm keep sounding once it has
+            been set off.
+          </p>
+
+          <dl>
+            <dt>Threshold</dt>
+            <dd>
+              A chosen value that turns a range of readings into a yes-or-no
+              decision.
+            </dd>
+            <dt>Voltage Divider</dt>
+            <dd>
+              Two resistors in series; the voltage at the point between them
+              depends on their ratio.
+            </dd>
+            <dt>PWM</dt>
+            <dd>
+              Pulse-width modulation &mdash; switching a pin on and off rapidly.
+              Its rate sets pitch; its on-fraction sets power.
+            </dd>
+            <dt>Latch</dt>
+            <dd>
+              Remembering that something happened, so an alarm keeps sounding
+              after the cause has passed.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Talking to a Display</h2>
+
+          <p>
+            The OLED is a device on a shared two-wire bus rather than a
+            component on a pin. You draw into a buffer in memory, then push that
+            buffer to the screen.
+          </p>
+
+          <dl>
+            <dt>I&sup2;C</dt>
+            <dd>
+              A two-wire bus that lets several devices share the same pair of
+              pins, each with its own address.
+            </dd>
+            <dt>Qwiic</dt>
+            <dd>
+              SparkFun's solderless connector for I&sup2;C &mdash; one cable
+              carrying power, ground, and the two data lines.
+            </dd>
+            <dt>Buffer</dt>
+            <dd>
+              A copy of the screen held in memory. Changes land there first and
+              only appear when pushed to the display.
+            </dd>
+            <dt>Library</dt>
+            <dd>
+              Someone else's code, imported into yours, handling work you should
+              not have to repeat.
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

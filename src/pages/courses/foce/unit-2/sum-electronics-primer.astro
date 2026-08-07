@@ -1,0 +1,163 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Electronics Primer</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 2.1 &ndash; 2.3. Use this to review, or to fill in a
+          definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2>
+            <span class="text-sn-theme">1.</span> Voltage, Current, and Resistance
+          </h2>
+
+          <p>
+            Three quantities describe what is happening in any circuit: how hard
+            the charge is being pushed, how much of it is moving, and how much
+            the circuit fights that movement.
+          </p>
+
+          <dl>
+            <dt>Voltage</dt>
+            <dd>
+              The electrical "push" that makes charge move, measured in volts
+              (V).
+            </dd>
+            <dt>Current</dt>
+            <dd>The rate charge flows past a point, measured in amps (A).</dd>
+            <dt>Resistance</dt>
+            <dd>
+              Opposition to the flow of charge, measured in ohms (&Omega;).
+            </dd>
+            <dt>Conventional Current</dt>
+            <dd>
+              The historical convention that current flows from + to &minus; in
+              a circuit diagram, opposite the actual direction electrons move.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Reading a Circuit</h2>
+
+          <p>
+            A schematic tells you what to build without telling you where to put
+            it. Your job is to translate those symbols onto a breadboard, whose
+            rows are already wired together underneath.
+          </p>
+
+          <dl>
+            <dt>Schematic</dt>
+            <dd>A diagram describing a circuit using standardized symbols.</dd>
+            <dt>Breadboard</dt>
+            <dd>
+              A reusable prototyping board whose short rows (and long outer
+              rails) connect groups of holes electrically.
+            </dd>
+            <dt>Resistor</dt>
+            <dd>
+              A component that limits current flow, often to protect other
+              components.
+            </dd>
+            <dt>Anode / Cathode</dt>
+            <dd>
+              The positive (anode, longer leg) and negative (cathode, shorter
+              leg) sides of an LED.
+            </dd>
+            <dt>Ground (GND)</dt>
+            <dd>
+              The circuit's reference point, where current returns to complete
+              the loop.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2>
+            <span class="text-sn-theme">3.</span> Ohm's Law and the Microcontroller
+          </h2>
+
+          <p>
+            Ohm's Law tells you what resistor a circuit needs. A microcontroller
+            then lets code decide what those circuits do, one pin at a time.
+          </p>
+
+          <dl>
+            <dt>Ohm's Law</dt>
+            <dd>
+              The relationship V = I &times; R between voltage, current, and
+              resistance.
+            </dd>
+            <dt>Microcontroller</dt>
+            <dd>
+              A tiny computer that controls a circuit's voltage and current by
+              following code.
+            </dd>
+            <dt>GPIO</dt>
+            <dd>
+              General Purpose Input/Output &mdash; a microcontroller pin that
+              code can control.
+            </dd>
+            <dt>Digital Pin</dt>
+            <dd>A pin with exactly two states: HIGH (on) or LOW (off).</dd>
+            <dt>Object</dt>
+            <dd>
+              Something that bundles data and actions together &mdash; like a
+              Pin, which knows its number and direction, and has actions you can
+              call on it.
+            </dd>
+            <dt>Method</dt>
+            <dd>
+              An action you call on an object using dot notation, like{" "}
+              <CodeSnippet
+                code="led.value(1)"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

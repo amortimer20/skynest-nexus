@@ -1,0 +1,207 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Lists</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.18 &ndash; 1.23. Use this to review, or to fill in a
+          definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Lists and Indexing</h2>
+
+          <p>
+            A list holds many values in one variable, in order. You reach any
+            one of them by its position, counting from zero.
+          </p>
+
+          <dl>
+            <dt>List</dt>
+            <dd>A single variable that stores multiple values in order.</dd>
+            <dt>Element</dt>
+            <dd>One value stored inside a list.</dd>
+            <dt>Index</dt>
+            <dd>The position of an element in a list.</dd>
+            <dt>Zero-Based Indexing</dt>
+            <dd>
+              The first element of a list is at index{" "}
+              <CodeSnippet
+                code="0"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, not{" "}
+              <CodeSnippet
+                code="1"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Length and Safe Access</h2>
+
+          <p>
+            The last valid index is always one less than the length. Computing
+            it instead of hardcoding it is what keeps your code working when the
+            list changes size.
+          </p>
+
+          <dl>
+            <dt>len()</dt>
+            <dd>
+              Built-in function that returns how many elements a list has.
+            </dd>
+            <dt>Off-by-One Error</dt>
+            <dd>
+              A mistake where an index is one too high or one too low &mdash;
+              often from forgetting{" "}
+              <CodeSnippet
+                code="len(list) - 1"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Traversal and Growth</h2>
+
+          <p>
+            A loop can visit every element in turn, either by value or by index.
+            A list can also grow while the program is running.
+          </p>
+
+          <dl>
+            <dt>Traversal</dt>
+            <dd>Visiting every element of a list, one at a time.</dd>
+            <dt>append()</dt>
+            <dd>Adds a new element to the end of a list.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> The Accumulator Pattern</h2>
+
+          <p>
+            Totals, counts, and averages all come from the same shape: start a
+            variable at a base value, then update it on every pass of the loop.
+          </p>
+
+          <dl>
+            <dt>Accumulator</dt>
+            <dd>
+              A variable that starts at a base value and builds up a result
+              across a loop, like a running total or a count.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Membership and Position</h2>
+
+          <p>
+            Ask whether a value is in a list before you ask where it is &mdash;{" "}
+            <CodeSnippet
+              code=".index()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> crashes on a value that isn't there.
+          </p>
+
+          <dl>
+            <dt>in Operator</dt>
+            <dd>
+              Checks whether a value exists in a list, returning{" "}
+              <CodeSnippet
+                code="True"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or{" "}
+              <CodeSnippet
+                code="False"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>.index()</dt>
+            <dd>
+              Returns the position of a value in a list &mdash; crashes if the
+              value isn't found.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Parallel Lists</h2>
+
+          <p>
+            Two lists kept in the same order let one index pull related values
+            out of both &mdash; a question from one list, its answer from the
+            other.
+          </p>
+
+          <dl>
+            <dt>Parallel Lists</dt>
+            <dd>
+              Two or more lists where the same index refers to related values
+              across all of them.
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

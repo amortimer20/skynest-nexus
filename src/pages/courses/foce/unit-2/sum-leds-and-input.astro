@@ -1,0 +1,193 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: LED Projects and Digital Input</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 2.4 &ndash; 2.7. Use this to review, or to fill in a
+          definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Sequencing Output</h2>
+
+          <p>
+            Several LEDs, each on its own pin, become a sequence once the code
+            decides the order and the timing.
+          </p>
+
+          <dl>
+            <dt>Cumulative Sequence</dt>
+            <dd>
+              A sequence where each new step joins the ones before it, instead
+              of replacing them.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Writing Your Own Functions</h2>
+
+          <p>
+            When the same few lines keep reappearing, give them a name. A
+            parameter then lets that one definition handle every variation.
+          </p>
+
+          <dl>
+            <dt>Function</dt>
+            <dd>A named, reusable block of code.</dd>
+            <dt>def</dt>
+            <dd>The keyword that starts a function definition.</dd>
+            <dt>Parameter</dt>
+            <dd>
+              A placeholder variable in a function definition, filled in with a
+              real value each time the function is called.
+            </dd>
+            <dt>Call</dt>
+            <dd>
+              Actually running a function by writing its name followed by
+              parentheses.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Groups of LEDs</h2>
+
+          <p>
+            A list can hold objects, not just numbers. Putting your{" "}
+            <CodeSnippet
+              code="Pin"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> objects in one list lets a single loop animate all of them.
+          </p>
+
+          <dl>
+            <dt>LED Array</dt>
+            <dd>
+              A row of LEDs treated as one group instead of as separate lights.
+            </dd>
+            <dt>List of Objects</dt>
+            <dd>
+              A list whose elements are objects rather than plain numbers or
+              strings &mdash; here, one{" "}
+              <CodeSnippet
+                code="Pin"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> per LED.
+            </dd>
+            <dt>Animation</dt>
+            <dd>
+              A pattern of on/off states separated by pauses, producing the
+              illusion of movement.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Reading a Button</h2>
+
+          <p>
+            A pin can be read instead of driven. An unconnected input floats, so
+            a pull-down holds it at 0 until the button says otherwise. A
+            function that measures something should hand the number back with{" "}
+            <CodeSnippet
+              code="return"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <dl>
+            <dt>Digital Input</dt>
+            <dd>
+              A pin the board reads instead of drives, giving{" "}
+              <CodeSnippet
+                code="0"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or{" "}
+              <CodeSnippet
+                code="1"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Pull-Down Resistor</dt>
+            <dd>
+              A resistor holding an input pin at 0 when nothing else is driving
+              it. The board has one built in, switched on with{" "}
+              <CodeSnippet
+                code="Pin.PULL_DOWN"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Return Value</dt>
+            <dd>
+              The value a function hands back to whoever called it, using{" "}
+              <CodeSnippet
+                code="return"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>False Start</dt>
+            <dd>
+              Pressing before the signal &mdash; an attempt that must not be
+              counted as a reaction time.
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

@@ -1,0 +1,331 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Control Flow</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.10 &ndash; 1.17. Use this to review, or to fill in a
+          definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Booleans and Conditions</h2>
+
+          <p>
+            A comparison produces a boolean, and an{" "}
+            <CodeSnippet
+              code="if"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> statement uses that boolean to decide whether to run a block. In Python,
+            indentation is what marks the block.
+          </p>
+
+          <dl>
+            <dt>Boolean</dt>
+            <dd>
+              A value that is either{" "}
+              <CodeSnippet
+                code="True"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or{" "}
+              <CodeSnippet
+                code="False"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Comparison Operator</dt>
+            <dd>
+              An operator like{" "}
+              <CodeSnippet
+                code="=="
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or{" "}
+              <CodeSnippet
+                code=">="
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> that compares two values and produces a boolean.
+            </dd>
+            <dt>if Statement</dt>
+            <dd>
+              Runs a block of code only when its condition is{" "}
+              <CodeSnippet
+                code="True"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Condition</dt>
+            <dd>
+              The boolean expression an{" "}
+              <CodeSnippet
+                code="if"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> statement checks.
+            </dd>
+            <dt>Code Block</dt>
+            <dd>
+              A group of statements, marked in Python by indentation.
+            </dd>
+            <dt>Logical Operator</dt>
+            <dd>
+              <CodeSnippet
+                code="and"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />,{" "}
+              <CodeSnippet
+                code="or"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, and{" "}
+              <CodeSnippet
+                code="not"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> &mdash; combine or invert booleans.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Branching</h2>
+
+          <p>
+            An{" "}
+            <CodeSnippet
+              code="if"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> can be extended into a chain. Only the first branch whose condition
+            is true will run, and this is also where you first imported the{" "}
+            <CodeSnippet
+              code="random"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> module.
+          </p>
+
+          <dl>
+            <dt>else</dt>
+            <dd>
+              Runs when every condition before it was{" "}
+              <CodeSnippet
+                code="False"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>elif</dt>
+            <dd>
+              Chains another condition onto an{" "}
+              <CodeSnippet
+                code="if"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> &mdash; only the first true branch runs.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Nesting</h2>
+
+          <p>
+            A conditional can live inside another conditional, which lets you
+            ask a follow-up question only when the first answer was yes.
+          </p>
+
+          <dl>
+            <dt>Nesting</dt>
+            <dd>
+              Placing one code block (like an{" "}
+              <CodeSnippet
+                code="if"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />) inside another.
+            </dd>
+            <dt>pass</dt>
+            <dd>
+              A placeholder statement that does nothing &mdash; used where
+              Python requires a block but you have nothing to put there yet.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> while Loops</h2>
+
+          <p>
+            A{" "}
+            <CodeSnippet
+              code="while"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> loop repeats as long as its condition holds. Something inside the
+            loop has to change that condition, or it never ends.
+          </p>
+
+          <dl>
+            <dt>Iteration</dt>
+            <dd>Repeating a block of code multiple times.</dd>
+            <dt>while Loop</dt>
+            <dd>
+              Repeats its block as long as its condition is{" "}
+              <CodeSnippet
+                code="True"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Infinite Loop</dt>
+            <dd>
+              A loop whose condition never becomes{" "}
+              <CodeSnippet
+                code="False"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, so it never stops.
+            </dd>
+            <dt>Sentinel Value</dt>
+            <dd>A specific value a loop watches for to know when to stop.</dd>
+            <dt>Built-in Function</dt>
+            <dd>
+              A function Python already provides, like{" "}
+              <CodeSnippet
+                code="round()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> &mdash; avoid naming variables the same thing.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> for Loops</h2>
+
+          <p>
+            When you know how many times to repeat, a{" "}
+            <CodeSnippet
+              code="for"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> loop is the better fit.{" "}
+            <CodeSnippet
+              code="range()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> supplies the numbers to count through.
+          </p>
+
+          <dl>
+            <dt>for Loop</dt>
+            <dd>Repeats its block once for each value in a sequence.</dd>
+            <dt>range()</dt>
+            <dd>
+              Generates a sequence of numbers for a{" "}
+              <CodeSnippet
+                code="for"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> loop to count through.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Nested Loops</h2>
+
+          <p>
+            A loop inside a loop runs the inner block once for every combination
+            &mdash; the inner loop finishes completely on each pass of the outer
+            one.
+          </p>
+
+          <dl>
+            <dt>Nested Loop</dt>
+            <dd>A loop written inside the body of another loop.</dd>
+            <dt>Outer Loop</dt>
+            <dd>The loop that contains another loop inside it.</dd>
+            <dt>Inner Loop</dt>
+            <dd>
+              The loop nested inside another &mdash; it completes fully for
+              every pass of the outer loop.
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

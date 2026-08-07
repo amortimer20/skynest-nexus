@@ -1,0 +1,442 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Programming Basics</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.1 &ndash; 1.9. Use this to review, or to fill in a
+          definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> How a Computer Works</h2>
+
+          <p>
+            Every computer does four things: takes <b>input</b>, does <b
+              >processing</b
+            >, produces <b>output</b>, and uses <b>memory</b> to hold data along
+            the way. Underneath all of it, data is stored in <b>binary</b>.
+          </p>
+
+          <dl>
+            <dt>Input</dt>
+            <dd>Information a computer receives from the outside world.</dd>
+            <dt>Output</dt>
+            <dd>Information a computer sends back out to the world.</dd>
+            <dt>Processing (CPU)</dt>
+            <dd>The part of the computer that carries out instructions.</dd>
+            <dt>Memory</dt>
+            <dd>
+              Where a computer holds data, either temporarily (RAM) or long-term
+              (storage).
+            </dd>
+            <dt>Binary</dt>
+            <dd>
+              A system of representing information using only two states, on and
+              off.
+            </dd>
+            <dt>Bit</dt>
+            <dd>A single binary digit, either 0 or 1.</dd>
+            <dt>Byte</dt>
+            <dd>A group of eight bits.</dd>
+            <dt>Programming Language</dt>
+            <dd>
+              A structured set of rules for writing instructions a computer can
+              run.
+            </dd>
+            <dt>Code Editor</dt>
+            <dd>A program built for writing, testing, and running code.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Output and Comments</h2>
+
+          <p>
+            <CodeSnippet
+              code="print()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> displays text in the console. Anything after a{" "}
+            <CodeSnippet
+              code="#"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> is a comment and is ignored when the program runs.
+          </p>
+
+          <dl>
+            <dt>Function</dt>
+            <dd>Code that performs a specific action.</dd>
+            <dt>Console Output</dt>
+            <dd>
+              Text displayed by a program in a command-line interface, like a
+              terminal.
+            </dd>
+            <dt>Comment</dt>
+            <dd>
+              A note written within the code that is ignored by Python, used to
+              explain or clarify the code.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Variables and Data Types</h2>
+
+          <p>
+            A variable is a name for a stored value. Every value has a type, and
+            you can check it with{" "}
+            <CodeSnippet
+              code="type()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <dl>
+            <dt>Variable</dt>
+            <dd>A named location that stores a value for later use.</dd>
+            <dt>Assignment</dt>
+            <dd>
+              Storing a value in a variable using the{" "}
+              <CodeSnippet
+                code="="
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> operator.
+            </dd>
+            <dt>Data Type</dt>
+            <dd>
+              The kind of value a variable holds, such as text or a number.
+            </dd>
+            <dt>String (str)</dt>
+            <dd>A data type representing text.</dd>
+            <dt>Integer (int)</dt>
+            <dd>A data type representing a whole number.</dd>
+            <dt>Float (float)</dt>
+            <dd>A data type representing a decimal number.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Arithmetic</h2>
+
+          <p>
+            Python evaluates expressions using order of operations, and
+            parentheses override it. Beyond the four basic operators there are{" "}
+            <CodeSnippet
+              code="//"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            />,{" "}
+            <CodeSnippet
+              code="%"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            />, and{" "}
+            <CodeSnippet
+              code="**"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <dl>
+            <dt>Operator</dt>
+            <dd>
+              A symbol that performs an operation, such as{" "}
+              <CodeSnippet
+                code="+"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> or{" "}
+              <CodeSnippet
+                code="*"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Operand</dt>
+            <dd>A value an operator works on.</dd>
+            <dt>Expression</dt>
+            <dd>
+              A combination of values and operators that produces a result.
+            </dd>
+            <dt>Floor Division</dt>
+            <dd>
+              Division that drops any decimal remainder, using{" "}
+              <CodeSnippet
+                code="//"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Modulus</dt>
+            <dd>
+              The remainder left over after division, using{" "}
+              <CodeSnippet
+                code="%"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Order of Operations</dt>
+            <dd>
+              The rules that decide which part of an expression is evaluated
+              first.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Changing Values Over Time</h2>
+
+          <p>
+            A variable can be given a new value at any point, including one
+            calculated from its own current value. What your variables hold at a
+            given moment is the program's state.
+          </p>
+
+          <dl>
+            <dt>Reassignment</dt>
+            <dd>Giving an existing variable a new value.</dd>
+            <dt>Self-Referential Update</dt>
+            <dd>
+              An assignment where a variable's current value is used to compute
+              its new value, like{" "}
+              <CodeSnippet
+                code="health = health - 20"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>State</dt>
+            <dd>
+              The current value(s) a program is keeping track of at a given
+              moment.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> f-Strings</h2>
+
+          <p>
+            An f-string puts a variable or an expression directly inside a
+            string, instead of joining pieces together by hand.
+          </p>
+
+          <dl>
+            <dt>f-String</dt>
+            <dd>
+              A string prefixed with{" "}
+              <CodeSnippet
+                code="f"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> that can insert variables or expressions directly inside it.
+            </dd>
+            <dt>Placeholder</dt>
+            <dd>
+              The{" "}
+              <CodeSnippet
+                code="{ }"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              /> spot inside an f-string where a value gets inserted.
+            </dd>
+            <dt>String Interpolation</dt>
+            <dd>Inserting a variable's value directly into a string.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">7.</span> Input and Type Casting</h2>
+
+          <p>
+            <CodeSnippet
+              code="input()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> always returns a string, even when the user types digits. To do math
+            with it, cast it first with{" "}
+            <CodeSnippet
+              code="int()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> or{" "}
+            <CodeSnippet
+              code="float()"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            />.
+          </p>
+
+          <dl>
+            <dt>Console Input</dt>
+            <dd>
+              Text a user types into the terminal while a program is running.
+            </dd>
+            <dt>input()</dt>
+            <dd>
+              A function that displays a message and returns whatever the user
+              types, as a string.
+            </dd>
+            <dt>Prompt</dt>
+            <dd>The message shown to the user asking for input.</dd>
+            <dt>Type Casting</dt>
+            <dd>Converting a value from one data type to another.</dd>
+            <dt>int()</dt>
+            <dd>Converts a value into a whole number.</dd>
+            <dt>float()</dt>
+            <dd>Converts a value into a decimal number.</dd>
+            <dt>Nested Function Call</dt>
+            <dd>
+              A function call placed inside another function call, evaluated
+              from the inside out.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">8.</span> Modules and Math</h2>
+
+          <p>
+            Tools that aren't built into Python come from modules you bring in
+            with{" "}
+            <CodeSnippet
+              code="import"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            />. The{" "}
+            <CodeSnippet
+              code="math"
+              lang={"python"}
+              theme={"material-theme-ocean"}
+              inline
+            /> module was the first one you used.
+          </p>
+
+          <dl>
+            <dt>Module</dt>
+            <dd>
+              A collection of tools not built directly into Python &mdash; you
+              bring it in with{" "}
+              <CodeSnippet
+                code="import"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>Constant</dt>
+            <dd>
+              A named value, like{" "}
+              <CodeSnippet
+                code="math.pi"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, that doesn't change &mdash; read directly, not called with{" "}
+              <CodeSnippet
+                code="()"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>round()</dt>
+            <dd>
+              Built-in function that rounds a number, optionally to a specific
+              number of decimal places.
+            </dd>
+            <dt>math.pow()</dt>
+            <dd>
+              Raises a number to a power, same job as{" "}
+              <CodeSnippet
+                code="**"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />, but always returns a{" "}
+              <CodeSnippet
+                code="float"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />.
+            </dd>
+            <dt>math.sqrt()</dt>
+            <dd>Returns the square root of a non-negative number.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>
