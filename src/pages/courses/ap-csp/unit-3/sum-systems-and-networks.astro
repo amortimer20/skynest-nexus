@@ -1,0 +1,167 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Computer Systems and Networks</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 3.6 &ndash; 3.10. Use this to review, or to fill in a definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Devices, Systems, and Networks</h2>
+
+          <p>
+            Three words that nest inside
+            one another. Data travels a path between them, and bandwidth is a
+            measured number rather than a
+            description.
+          </p>
+
+          <dl>
+            <dt>Computing device</dt>
+            <dd>A physical artifact that can run a program.</dd>
+            <dt>Computing system</dt>
+            <dd>A group of computing devices and programs working together for a common purpose.</dd>
+            <dt>Computer network</dt>
+            <dd>A group of interconnected computing devices capable of sending or receiving data. A type of computing system.</dd>
+            <dt>Path</dt>
+            <dd>A sequence of directly connected computing devices beginning at the sender and ending at the receiver.</dd>
+            <dt>Routing</dt>
+            <dd>The process of finding a path from sender to receiver.</dd>
+            <dt>Bandwidth</dt>
+            <dd>The maximum amount of data that can be sent in a fixed amount of time, usually measured in bits per second.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> The Internet, and Why It Could Grow</h2>
+
+          <p>
+            The internet works
+            because everyone agreed on the same published rules and nobody owns
+            them. That is what let it scale.
+          </p>
+
+          <dl>
+            <dt>Protocol</dt>
+            <dd>An agreed-upon set of rules that specify the behavior of a system.</dd>
+            <dt>Open protocol</dt>
+            <dd>Non-proprietary. The rules are published, and anyone may implement them.</dd>
+            <dt>Scalability</dt>
+            <dd>The capacity for a system to change in size and scale to meet new demands.</dd>
+            <dt>Dynamic routing</dt>
+            <dd>Paths are worked out as data moves, not specified in advance.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Packets, and the Web That Is Not the Internet</h2>
+
+          <p>
+            Data is broken
+            into packets that travel independently and arrive out of order. The
+            web runs on the internet; it is not the same
+            thing.
+          </p>
+
+          <dl>
+            <dt>Data stream</dt>
+            <dd>Information passed through the internet as chunks of data.</dd>
+            <dt>Packet</dt>
+            <dd>A chunk of data plus metadata used for routing and for reassembly.</dd>
+            <dt>IP</dt>
+            <dd>A protocol responsible for addressing and routing.</dd>
+            <dt>TCP</dt>
+            <dd>A protocol that breaks data into packets and re-requests packets that do not arrive.</dd>
+            <dt>UDP</dt>
+            <dd>A protocol that sends without checking for missing packets.</dd>
+            <dt>World Wide Web</dt>
+            <dd>A system of linked pages, programs, and files, which uses the internet. HTTP is one of its protocols.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Fault Tolerance and Redundancy</h2>
+
+          <p>
+            Extra paths let a network
+            keep working when part of it fails. Look for the component whose
+            loss would cut the system in two.
+          </p>
+
+          <dl>
+            <dt>Redundancy</dt>
+            <dd>The inclusion of extra components that can be used to mitigate failure of a system if other components fail.</dd>
+            <dt>Fault tolerant</dt>
+            <dd>Able to support failures and still continue to function.</dd>
+            <dt>Single point of failure</dt>
+            <dd>A component whose failure disconnects part of the system. The thing redundancy removes.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Sequential, Parallel, and Distributed</h2>
+
+          <p>
+            Doing steps at the
+            same time is faster than doing them one after another &mdash; up to
+            the point where the sequential part is all that is
+            left.
+          </p>
+
+          <dl>
+            <dt>Sequential computing</dt>
+            <dd>Operations performed in order, one at a time. Takes as long as the sum of all its steps.</dd>
+            <dt>Parallel computing</dt>
+            <dd>The program broken into smaller sequential operations, some performed simultaneously.</dd>
+            <dt>Distributed computing</dt>
+            <dd>Multiple devices used to run a program.</dd>
+            <dt>Speedup</dt>
+            <dd>Sequential run time divided by parallel run time.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

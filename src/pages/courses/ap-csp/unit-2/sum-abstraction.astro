@@ -1,0 +1,199 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Abstraction</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 2.1 &ndash; 2.7. Use this to review, or to fill in a definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Defining and Calling</h2>
+
+          <p>
+            Give a block of code a name, then run
+            it by that name. Defining and calling are separate acts, and
+            repeated code is the signal that a procedure is
+            missing.
+          </p>
+
+          <dl>
+            <dt>Function</dt>
+            <dd>A named block of code that runs when you call it.</dd>
+            <dt>Define</dt>
+            <dd>Write the function and give it a name. Nothing runs yet.</dd>
+            <dt>Call</dt>
+            <dd>Run it, using its name followed by <code>()</code>.</dd>
+            <dt>Procedure</dt>
+            <dd>The exam's word for the same thing. It is what the reference sheet uses.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Parameters</h2>
+
+          <p>
+            A parameter is a blank left in the definition.
+            Arguments fill those blanks in order, by position &mdash; the names
+            you use at the call site are irrelevant.
+          </p>
+
+          <dl>
+            <dt>Parameter</dt>
+            <dd>The named blank in the definition.</dd>
+            <dt>Argument</dt>
+            <dd>The actual value passed in when you call.</dd>
+            <dt>Positional</dt>
+            <dd>Arguments fill parameters left to right, by position only.</dd>
+            <dt>undefined</dt>
+            <dd>What a parameter holds when no argument was supplied.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Return Values</h2>
+
+          <p>
+            Printing shows a value to a person; returning
+            hands it back to the code that asked. Only one of those can be used
+            in another calculation.
+          </p>
+
+          <dl>
+            <dt>Return value</dt>
+            <dd>The value a procedure hands back to its caller.</dd>
+            <dt>return</dt>
+            <dd>Sends a value back <i>and</i> exits the procedure immediately.</dd>
+            <dt>undefined</dt>
+            <dd>What a procedure hands back when it has no <code>return</code>.</dd>
+            <dt>Composition</dt>
+            <dd>Using one procedure's return value as another's argument.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> p5 Lab 7: Parameters You Can See</h2>
+
+          <p>
+            One procedure, many
+            pictures. This is also where the Create Task's central requirement
+            first appears: a procedure of your own whose parameter changes what
+            it produces.
+          </p>
+
+          <dl>
+            <dt>Affects functionality</dt>
+            <dd>Changing the argument changes what the procedure produces.</dd>
+            <dt>Student-developed procedure</dt>
+            <dd>One you wrote. <code>setup()</code> and <code>draw()</code> do not count.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Multiple Parameters, Scope, and Abstraction</h2>
+
+          <p>
+            Where a name
+            lives decides where it means anything. Abstraction is the payoff
+            &mdash; once the detail is behind a name, you get to stop thinking
+            about it.
+          </p>
+
+          <dl>
+            <dt>Scope</dt>
+            <dd>The region of a program where a name means something.</dd>
+            <dt>Local variable</dt>
+            <dd>Declared inside a procedure; gone when the call ends.</dd>
+            <dt>Shadowing</dt>
+            <dd>An inner name hiding an outer one that shares its spelling.</dd>
+            <dt>Abstraction</dt>
+            <dd>Hiding detail behind a name so you can stop thinking about it.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Refactoring</h2>
+
+          <p>
+            Refactoring changes how code is written without
+            changing what it does &mdash; which is only a claim you can make if
+            you tested it before and after.
+          </p>
+
+          <dl>
+            <dt>Refactoring</dt>
+            <dd>Changing how code is written without changing what it does.</dd>
+            <dt>Extract a procedure</dt>
+            <dd>Move repeated code into a named procedure and call it.</dd>
+            <dt>Regression</dt>
+            <dd>A change that was supposed to be safe and was not.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">7.</span> p5 Lab 8: Composing a Scene</h2>
+
+          <p>
+            Procedures become building
+            blocks, and the mouse replaces the prompt. Note carefully what does
+            not count as code you developed.
+          </p>
+
+          <dl>
+            <dt>Event handler</dt>
+            <dd>A procedure the system calls when something happens.</dd>
+            <dt>mouseX / mouseY</dt>
+            <dd>Where the pointer was when the event fired.</dd>
+            <dt>Student-developed procedure</dt>
+            <dd>One you wrote and call yourself. Not an event handler.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

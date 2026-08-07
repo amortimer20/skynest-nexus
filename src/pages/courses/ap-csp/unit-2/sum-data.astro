@@ -1,0 +1,196 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Data</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 2.14 &ndash; 2.20. Use this to review, or to fill in a definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Binary Numbers and What Bits Represent</h2>
+
+          <p>
+            Place value works the
+            same in base 2 as in base 10. The same bits mean different things
+            depending on what you agree they represent.
+          </p>
+
+          <dl>
+            <dt>Bit</dt>
+            <dd>Short for binary digit. Either 0 or 1.</dd>
+            <dt>Byte</dt>
+            <dd>Eight bits.</dd>
+            <dt>Place value</dt>
+            <dd>The base raised to the power of the position, counting from 0 on the right.</dd>
+            <dt>Abstraction</dt>
+            <dd>Reducing complexity by focusing on the main idea and hiding what does not matter here.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> p5 Lab 10: Color as Data</h2>
+
+          <p>
+            A color is three numbers. How many
+            bits each one gets decides how many colors are possible at
+            all.
+          </p>
+
+          <dl>
+            <dt>Channel</dt>
+            <dd>One of the three numbers &mdash; red, green, or blue &mdash; that make a color.</dd>
+            <dt>Bit depth</dt>
+            <dd>How many bits are used per channel, which sets how many levels are possible.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> The Limits of Bits</h2>
+
+          <p>
+            A fixed number of bits can hold only so
+            much and only so precisely. Sampling turns a smooth signal into
+            values a computer can store.
+          </p>
+
+          <dl>
+            <dt>Overflow error</dt>
+            <dd>An error that occurs when a computer tries to handle a number outside the defined range of values.</dd>
+            <dt>Round-off error</dt>
+            <dd>The error introduced when a real number is stored as an approximation.</dd>
+            <dt>Analog data</dt>
+            <dd>Data whose values change smoothly rather than in discrete intervals.</dd>
+            <dt>Sampling</dt>
+            <dd>Measuring the value of an analog signal at regular intervals.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Compression</h2>
+
+          <p>
+            Compression sells redundancy. Whether you can
+            get the original back exactly is the difference between the two
+            kinds.
+          </p>
+
+          <dl>
+            <dt>Data compression</dt>
+            <dd>Reducing the number of bits stored or transmitted.</dd>
+            <dt>Redundancy</dt>
+            <dd>Repetition in the original data. It is what compression exploits.</dd>
+            <dt>Lossless</dt>
+            <dd>Guarantees complete reconstruction of the original.</dd>
+            <dt>Lossy</dt>
+            <dd>Allows reconstruction of an approximation only, and usually saves more.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Information, Metadata, and Correlation</h2>
+
+          <p>
+            Data becomes
+            information once you extract facts from it. Two things moving
+            together is not, on its own, one causing the
+            other.
+          </p>
+
+          <dl>
+            <dt>Information</dt>
+            <dd>The collection of facts and patterns extracted from data.</dd>
+            <dt>Metadata</dt>
+            <dd>Data about data. Used for finding, organizing, and managing information.</dd>
+            <dt>Correlation</dt>
+            <dd>Two things moving together. Not by itself evidence that one causes the other.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Cleaning, Bias, and Scale</h2>
+
+          <p>
+            Cleaning makes data uniform
+            without changing what it means. Bias comes from how the data was
+            collected, so collecting more of it does not
+            help.
+          </p>
+
+          <dl>
+            <dt>Cleaning data</dt>
+            <dd>Making data uniform without changing its meaning.</dd>
+            <dt>Invalid data</dt>
+            <dd>Entries that cannot be true, whatever the source says.</dd>
+            <dt>Bias</dt>
+            <dd>A problem created by the type or source of the data collected. Not fixed by collecting more.</dd>
+            <dt>Scalability</dt>
+            <dd>Whether a system's capacity can keep up as the data grows.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">7.</span> p5 Lab 11: Visualizing a Dataset</h2>
+
+          <p>
+            A chart is a program, and
+            every choice in it is an argument. Where the axis starts can change
+            the story without changing a single number.
+          </p>
+
+          <dl>
+            <dt>Visualization</dt>
+            <dd>A chart, graph, or other visual form used to communicate what was found in data.</dd>
+            <dt>Baseline</dt>
+            <dd>The value an axis starts counting from. Choosing it is a decision, not a fact.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

@@ -1,0 +1,159 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Algorithms</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 2.9 &ndash; 2.13. Use this to review, or to fill in a definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Algorithms and Linear Search</h2>
+
+          <p>
+            One problem has many
+            algorithms. Linear search is the simplest: check every element in
+            order until you find the target or run out.
+          </p>
+
+          <dl>
+            <dt>Algorithm</dt>
+            <dd>A finite set of instructions that accomplishes a task.</dd>
+            <dt>Linear search</dt>
+            <dd>Check each element of a list, in order, until the target is found or every element has been checked. Also called sequential search.</dd>
+            <dt>Worst case</dt>
+            <dd>The input that makes an algorithm do the most work.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Binary Search</h2>
+
+          <p>
+            Halving beats checking one at a time, but only
+            on a sorted list. Run it on unsorted data and it answers
+            confidently and wrongly.
+          </p>
+
+          <dl>
+            <dt>Binary search</dt>
+            <dd>Repeatedly halve a sorted list until the target is found or nothing is left.</dd>
+            <dt>Midpoint</dt>
+            <dd>The index halfway between the current low and high.</dd>
+            <dt>Silent failure</dt>
+            <dd>A wrong answer produced with no error message.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> p5 Lab 9: Visualizing a Search</h2>
+
+          <p>
+            One step per click makes the
+            comparison visible &mdash; including how much work the worst case
+            actually costs.
+          </p>
+
+          <dl>
+            <dt>Visualization</dt>
+            <dd>A picture of data or a process that makes its shape visible.</dd>
+            <dt>State</dt>
+            <dd>What the program currently knows &mdash; here, which bar it is on and whether it has found the target.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Sorting and Algorithmic Efficiency</h2>
+
+          <p>
+            Efficiency is about what
+            happens as the input grows, not how long one run takes. That growth
+            is what separates reasonable time from
+            unreasonable.
+          </p>
+
+          <dl>
+            <dt>Selection sort</dt>
+            <dd>Repeatedly select the smallest remaining item and place it next.</dd>
+            <dt>Swap</dt>
+            <dd>Exchange two values, using a third variable so neither is lost.</dd>
+            <dt>Efficiency</dt>
+            <dd>An estimate of the computational resources an algorithm uses, as a function of the size of the input.</dd>
+            <dt>Reasonable time</dt>
+            <dd>Polynomial efficiency or lower &mdash; constant, halving, linear, square, cube.</dd>
+            <dt>Unreasonable time</dt>
+            <dd>Exponential or factorial efficiency.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Problems, Heuristics, and Undecidability</h2>
+
+          <p>
+            Some problems are
+            too large to solve exactly, so a heuristic settles for good enough.
+            Others cannot be solved by any algorithm at all.
+          </p>
+
+          <dl>
+            <dt>Problem / instance</dt>
+            <dd>A general task, versus that task with specific input.</dd>
+            <dt>Decision problem</dt>
+            <dd>One with a yes-or-no answer.</dd>
+            <dt>Optimization problem</dt>
+            <dd>One that looks for the best solution among many.</dd>
+            <dt>Heuristic</dt>
+            <dd>An approach producing a solution that is not guaranteed to be optimal, used when guaranteeing the optimal one is impractical.</dd>
+            <dt>Decidable problem</dt>
+            <dd>A decision problem an algorithm can answer correctly for all inputs.</dd>
+            <dt>Undecidable problem</dt>
+            <dd>One for which no algorithm can be constructed that always gives a correct yes-or-no answer.</dd>
+            <dt>Halting problem</dt>
+            <dd>Deciding whether an arbitrary program eventually stops. Undecidable.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>
