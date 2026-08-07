@@ -1,0 +1,194 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Iteration</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.17 &ndash; 1.22. Use this to review, or to fill in a definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Repeating With while</h2>
+
+          <p>
+            A loop needs three things: a variable
+            to start from, a condition to keep going, and a change that
+            eventually makes the condition false.
+          </p>
+
+          <dl>
+            <dt>Iteration</dt>
+            <dd>Repeating a block of code.</dd>
+            <dt>Loop body</dt>
+            <dd>The statements inside the loop's braces.</dd>
+            <dt>Infinite loop</dt>
+            <dd>A loop whose condition never becomes false.</dd>
+            <dt>Accumulator</dt>
+            <dd>
+            A variable that collects a running result across passes of a
+            loop.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> p5 Lab 4: The Loop You Didn't Write</h2>
+
+          <p>
+            The lab's{" "}
+            <CodeSnippet code="draw()" lang={"javascript"} theme={"material-theme-ocean"} inline
+            /> function is already a loop &mdash; p5 calls it about sixty times
+            a second, and animation is what that repetition looks
+            like.
+          </p>
+
+          <dl>
+            <dt>Frame</dt>
+            <dd>One pass of draw(), producing one picture.</dd>
+            <dt>Frame rate</dt>
+            <dd>How many frames are drawn per second, around 60 by default.</dd>
+            <dt>Global variable</dt>
+            <dd>
+            A variable declared outside every function, so it keeps its
+            value between passes.
+            </dd>
+            <dt>Animation loop</dt>
+            <dd>
+            A loop that redraws a scene repeatedly to create movement.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Counting With for</h2>
+
+          <p>
+            When the number of passes is known ahead
+            of time, a counted loop puts all three parts of the loop on one
+            line.
+          </p>
+
+          <dl>
+            <dt>Counted loop</dt>
+            <dd>A loop that runs a known number of times.</dd>
+            <dt>Loop counter</dt>
+            <dd>
+            The variable that tracks which pass the loop is on, usually
+            called <CodeSnippet code="i" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </dd>
+            <dt>Increment</dt>
+            <dd>Adding one to a variable.</dd>
+            <dt>Decrement</dt>
+            <dd>Subtracting one from a variable.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Loop Patterns</h2>
+
+          <p>
+            Totals, counts, maximums, and averages are
+            the same handful of shapes. What separates them is the starting
+            value.
+          </p>
+
+          <dl>
+            <dt>Counter</dt>
+            <dd>A variable that counts how many times something happened.</dd>
+            <dt>Running maximum</dt>
+            <dd>The largest value seen so far.</dd>
+            <dt>Initialization</dt>
+            <dd>
+            The starting value given to a variable before a loop, which
+            decides whether the pattern works.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Loops Inside Loops</h2>
+
+          <p>
+            The inner loop finishes completely on
+            every single pass of the outer one, which is why the total number
+            of passes multiplies.
+          </p>
+
+          <dl>
+            <dt>Nested loop</dt>
+            <dd>A loop written inside another loop's body.</dd>
+            <dt>Outer loop</dt>
+            <dd>The loop that contains the other one.</dd>
+            <dt>Inner loop</dt>
+            <dd>The loop that runs completely on each outer pass.</dd>
+            <dt>String accumulator</dt>
+            <dd>A text variable built up piece by piece across a loop.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> p5 Lab 5: Grids</h2>
+
+          <p>
+            A grid is a nested loop with the two
+            counters turned into coordinates.
+          </p>
+
+          <dl>
+            <dt>Spacing</dt>
+            <dd>The distance between neighboring items in a grid.</dd>
+            <dt>Margin</dt>
+            <dd>The offset that keeps a grid away from the canvas edge.</dd>
+            <dt>
+            <CodeSnippet code="noStroke()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+            </dt>
+            <dd>Turns off shape outlines.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

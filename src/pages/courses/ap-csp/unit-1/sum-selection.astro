@@ -1,0 +1,224 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Selection</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.11 &ndash; 1.16. Use this to review, or to fill in a definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Booleans and Comparison</h2>
+
+          <p>
+            A comparison produces a boolean, and
+            a boolean can be stored like any other value. One{" "}
+            <CodeSnippet code="=" lang={"javascript"} theme={"material-theme-ocean"} inline
+            /> assigns; three ask whether two values match.
+          </p>
+
+          <dl>
+            <dt>Comparison operator</dt>
+            <dd>
+            A symbol that compares two values and produces a boolean.
+            </dd>
+            <dt>Boolean expression</dt>
+            <dd>
+            A piece of code that evaluates to <CodeSnippet code="true" lang={"javascript"} theme={"material-theme-ocean"} inline /> or <CodeSnippet code="false" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </dd>
+            <dt>Assignment</dt>
+            <dd>
+            Putting a value into a variable, written with a single{" "}
+            <CodeSnippet code="=" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </dd>
+            <dt>Equality</dt>
+            <dd>
+            Asking whether two values match, written with{" "}
+            <CodeSnippet code="===" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </dd>
+            <dt>
+            <CodeSnippet code="confirm()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+            </dt>
+            <dd>
+            Asks the user a yes-or-no question and returns a boolean.
+            Only <CodeSnippet code="y" lang={"javascript"} theme={"material-theme-ocean"} inline /> or{" "}
+            <CodeSnippet code="Y" lang={"javascript"} theme={"material-theme-ocean"} inline /> means{" "}
+            <CodeSnippet code="true" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Making Decisions</h2>
+
+          <p>
+            An{" "}
+            <CodeSnippet code="if" lang={"javascript"} theme={"material-theme-ocean"} inline
+            /> statement runs a block only when its condition is true. Without
+            one, statements simply run in order.
+          </p>
+
+          <dl>
+            <dt>Selection</dt>
+            <dd>
+            Choosing which code to run based on a condition.
+            </dd>
+            <dt>Condition</dt>
+            <dd>
+            The boolean expression that decides which path is taken.
+            </dd>
+            <dt>Block</dt>
+            <dd>
+            The group of statements inside a pair of braces.
+            </dd>
+            <dt>Sequencing</dt>
+            <dd>
+            Running statements one after another, in order.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Chains of Decisions</h2>
+
+          <p>
+            In a chain, the first true condition
+            wins and the rest are skipped. Order the conditions carelessly and
+            some of them can never run at all.
+          </p>
+
+          <dl>
+            <dt>Chain</dt>
+            <dd>
+            A series of conditions where the first true one runs and the
+            rest are skipped.
+            </dd>
+            <dt>Branch</dt>
+            <dd>One possible path through a decision.</dd>
+            <dt>Unreachable code</dt>
+            <dd>
+            Code that can never run, no matter what the input is.
+            </dd>
+            <dt>Mutually exclusive</dt>
+            <dd>
+            Outcomes where only one can happen at a time.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> p5 Lab 3: Decisions You Can See</h2>
+
+          <p>
+            The same conditions, with
+            the result on screen instead of in the console &mdash; a color
+            chosen by a value, or a shape stopped at an edge.
+          </p>
+
+          <dl>
+            <dt>Clamp</dt>
+            <dd>
+            To limit a value so it cannot go past a maximum or minimum.
+            </dd>
+            <dt>Boundary</dt>
+            <dd>
+            A limit that a condition tests against, such as the edge of
+            the canvas.
+            </dd>
+            <dt>State</dt>
+            <dd>
+            The current values a program is holding, which decide what it
+            draws.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Combining Conditions</h2>
+
+          <p>
+            Two conditions can be joined into one
+            with AND and OR, or reversed with NOT. Read a compound condition
+            left to right and ask what has to be true.
+          </p>
+
+          <dl>
+            <dt>Logical operator</dt>
+            <dd>
+            An operator that combines or reverses boolean values:{" "}
+            <CodeSnippet code="&&" lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="||" lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code="!" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+            </dd>
+            <dt>Compound condition</dt>
+            <dd>A condition built from two or more simpler conditions.</dd>
+            <dt>Negation</dt>
+            <dd>Reversing a boolean value.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Nested Conditions and Randomness</h2>
+
+          <p>
+            A conditional inside
+            another asks a follow-up question, one that only makes sense when
+            the first answer was yes.
+          </p>
+
+          <dl>
+            <dt>Nested conditional</dt>
+            <dd>A conditional written inside another conditional's block.</dd>
+            <dt>Nesting depth</dt>
+            <dd>How many levels deep a piece of code sits.</dd>
+            <dt>
+            <CodeSnippet code="Math.floor()" lang={"javascript"} theme={"material-theme-ocean"} inline />
+            </dt>
+            <dd>Rounds a decimal down to the whole number below it.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>

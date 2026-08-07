@@ -1,0 +1,155 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Lists</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.23 &ndash; 1.26. Use this to review, or to fill in a definition you missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Arrays</h2>
+
+          <p>
+            One name, many values, kept in order. You reach any
+            single value by its index, and the first index is
+            0.
+          </p>
+
+          <dl>
+            <dt>Array</dt>
+            <dd>An ordered collection of values stored under one name.</dd>
+            <dt>Element</dt>
+            <dd>One value inside an array.</dd>
+            <dt>Index</dt>
+            <dd>
+            The position of an element, counted from 0 in JavaScript.
+            </dd>
+            <dt>Reference</dt>
+            <dd>
+            A name that points at an array rather than holding its own
+            copy.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Length and Safe Access</h2>
+
+          <p>
+            The last valid index is always one
+            less than the length. Reading past the end does not crash &mdash;
+            it hands back{" "}
+            <CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline
+            />, which is easier to miss.
+          </p>
+
+          <dl>
+            <dt><CodeSnippet code="length" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
+            <dd>How many elements an array currently holds.</dd>
+            <dt>Off-by-one error</dt>
+            <dd>
+            A mistake of exactly one position, usually at the start or end
+            of a range.
+            </dd>
+            <dt><CodeSnippet code="undefined" lang={"javascript"} theme={"material-theme-ocean"} inline /></dt>
+            <dd>What JavaScript returns when a value does not exist.</dd>
+            <dt>Bounds check</dt>
+            <dd>Testing that an index is valid before using it.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Walking Through an Array</h2>
+
+          <p>
+            Loops and arrays belong together.
+            Use an indexed loop when you need the position, and{" "}
+            <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline
+            /> when you only need the value.
+          </p>
+
+          <dl>
+            <dt>Traversal</dt>
+            <dd>Visiting every element of an array in order.</dd>
+            <dt>Indexed loop</dt>
+            <dd>A traversal that uses a counter to reach each position.</dd>
+            <dt>
+            <CodeSnippet code="for...of" lang={"javascript"} theme={"material-theme-ocean"} inline />
+            </dt>
+            <dd>A loop that gives you each value directly.</dd>
+            <dt>Filtering</dt>
+            <dd>
+            Building a new collection from the items that meet a
+            condition.
+            </dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> p5 Lab 6: Drawing From Data</h2>
+
+          <p>
+            A chart is a traversal. The
+            numbers decide the shape, so changing the data changes the
+            picture with no other edits.
+          </p>
+
+          <dl>
+            <dt>Data-driven drawing</dt>
+            <dd>
+            A picture whose shape comes from values, not from hard-coded
+            numbers.
+            </dd>
+            <dt>Parallel arrays</dt>
+            <dd>
+            Two or more arrays where the same index refers to the same
+            thing.
+            </dd>
+            <dt>Visualization</dt>
+            <dd>Representing data so a person can see it at a glance.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  dl {
+    margin-bottom: 0;
+  }
+  dt {
+    margin-top: 0.75rem;
+  }
+  dd {
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  code {
+    font-size: 1rem;
+  }
+</style>
