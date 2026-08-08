@@ -1,0 +1,532 @@
+---
+import { Image } from "astro:assets";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+// Asset Imports
+import WindowFigure from "../../../../assets/courses/foce/img/le-raylib-window.png";
+import ShapesFigure from "../../../../assets/courses/foce/img/le-raylib-shapes.png";
+import LoopFigure from "../../../../assets/courses/foce/img/le-raylib-loop.png";
+import BounceFigure from "../../../../assets/courses/foce/img/le-raylib-bounce.png";
+import ControlFigure from "../../../../assets/courses/foce/img/le-raylib-control.png";
+import SmearFigure from "../../../../assets/courses/foce/img/le-raylib-smear.png";
+
+//#region CodeSnippets
+const Install = `pip install raylib`;
+
+const Window = `from pyray import *
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "My First Window")
+set_target_fps(60)
+
+while not window_should_close():
+    begin_drawing()
+    clear_background(BLACK)
+    draw_text("Hello, Raylib", 175, 160, 32, LIME)
+    end_drawing()
+
+close_window()`;
+
+const Shapes = `from pyray import *
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "Shapes")
+set_target_fps(60)
+
+while not window_should_close():
+    begin_drawing()
+    clear_background(BLACK)
+
+    draw_circle(150, 200, 60, SKYBLUE)
+    draw_rectangle(260, 140, 120, 120, GOLD)
+    draw_line(430, 140, 560, 260, LIME)
+    draw_text("three shapes", 20, 20, 20, RAYWHITE)
+
+    end_drawing()
+
+close_window()`;
+
+const Loop = `from pyray import *
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "A Loop of Shapes")
+set_target_fps(60)
+
+while not window_should_close():
+    begin_drawing()
+    clear_background(BLACK)
+
+    for i in range(12):
+        draw_rectangle(40 + i * 48, 320 - i * 22, 34, i * 22 + 20, SKYBLUE)
+
+    draw_text("drawn by a for loop", 20, 20, 20, RAYWHITE)
+
+    end_drawing()
+
+close_window()`;
+
+const Bounce = `from pyray import *
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "Bounce")
+set_target_fps(60)
+
+x = 60
+y = 80
+speed_x = 4
+speed_y = 3
+
+while not window_should_close():
+    x = x + speed_x
+    y = y + speed_y
+
+    if x > 620 or x < 20:
+        speed_x = speed_x * -1
+    if y > 340 or y < 20:
+        speed_y = speed_y * -1
+
+    begin_drawing()
+    clear_background(BLACK)
+    draw_circle(x, y, 20, GOLD)
+    draw_text(f"x = {x}   y = {y}", 20, 20, 20, LIME)
+    end_drawing()
+
+close_window()`;
+
+const Control = `from pyray import *
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "Take Control")
+set_target_fps(60)
+
+x = 320
+y = 180
+
+while not window_should_close():
+    if is_key_down(KEY_RIGHT):
+        x = x + 5
+    if is_key_down(KEY_LEFT):
+        x = x - 5
+    if is_key_down(KEY_DOWN):
+        y = y + 5
+    if is_key_down(KEY_UP):
+        y = y - 5
+
+    begin_drawing()
+    clear_background(BLACK)
+    draw_circle(x, y, 25, SKYBLUE)
+    draw_text("Use the arrow keys", 20, 20, 20, RAYWHITE)
+    end_drawing()
+
+close_window()`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Library Exploration: Raylib &mdash; Motion</h1>
+
+        <h4 class="text-sn-theme">Optional &mdash; Extra Credit</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>Raylib</b> is a library for making games. Windows, shapes, animation,
+            keyboard and mouse input &mdash; the things a terminal cannot do.
+          </p>
+
+          <p>
+            Raylib itself is written in <b>C</b>. What you are installing is{" "}
+            <b class="text-sn-cyan">pyray</b>, its Python API &mdash; the same
+            library, with the names spelled the Python way. That is why you install
+            something called <code>raylib</code> but import something called{" "}
+            <code>pyray</code>.
+          </p>
+
+          <p>
+            <b>Here is what makes this different from Turtle.</b> Turtle draws a
+            picture and stops. Raylib erases and redraws the entire window{" "}
+            <b class="text-sn-cyan">sixty times a second</b>. Every game you have
+            ever played works this way, and once that idea lands, animation stops
+            being mysterious.
+          </p>
+
+          <p>
+            <b>This uses no Python you have not already been taught.</b> Variables,
+            arithmetic, <code>while</code> loops from Activity 1.13,{" "}
+            <code>if</code> statements, <code>for</code> loops from Activity 1.16,
+            and f-strings. That is the entire list.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="setup">
+          <h2>Installing It</h2>
+
+          <p>
+            Raylib does not come with Python &mdash; unlike <code>turtle</code> or{" "}
+            <code>math</code>, you have to install it:
+          </p>
+
+          <Code
+            code={Install}
+            frame="terminal"
+            lang="bash"
+            title="Terminal"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            <b>Note the mismatch, because it catches everyone:</b> the thing you
+            install is called <code>raylib</code>, and the thing you import is
+            called <code>pyray</code>.
+          </p>
+
+          <p>
+            <b>If that fails with a permissions error</b>, the school machines may
+            not let you install packages. Come and tell me rather than fighting it
+            &mdash; there is a way around it, and it is not your problem to solve.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="explore">
+          <h2>Work Through These</h2>
+
+          <h4>1. A window</h4>
+
+          <p>
+            Create a file named <b class="text-sn-theme">le-raylib-1</b> and run
+            this:
+          </p>
+
+          <Code
+            code={Window}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={WindowFigure}
+            alt="A 640 by 360 black window with the words Hello, Raylib in green near the center"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            <b>That is more ceremony than Turtle needed</b>, so here is what each
+            piece is for. You will write these same lines every single time, and
+            after the third program you will stop thinking about them.
+          </p>
+
+          <ul>
+            <li>
+              <code>set_trace_log_level(LOG_NONE)</code> &mdash; silences about
+              twenty lines of startup chatter. Leave it off once and you will see
+              why it is there.
+            </li>
+            <li>
+              <code>init_window(640, 360, "My First Window")</code> &mdash; width,
+              height, and the title bar text.
+            </li>
+            <li>
+              <code>set_target_fps(60)</code> &mdash; aim for sixty frames per
+              second.
+            </li>
+            <li>
+              <code>while not window_should_close():</code> &mdash; keep going until
+              the user closes the window or presses <b>Esc</b>. It is an ordinary{" "}
+              <code>while</code> loop with an ordinary condition.
+            </li>
+            <li>
+              <code>begin_drawing()</code> and <code>end_drawing()</code> &mdash;
+              everything you want on screen goes between these two.
+            </li>
+            <li>
+              <code>close_window()</code> &mdash; cleans up after the loop ends.
+            </li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h4>2. Shapes and text</h4>
+
+          <Code
+            code={Shapes}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={ShapesFigure}
+            alt="A black window with a light blue circle on the left, a gold square in the middle, a green diagonal line on the right, and the words three shapes in white in the top left corner"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            <b>The coordinate system is the thing to get straight.</b>{" "}
+            <code>(0, 0)</code> is the <b>top left corner</b>, and <b>y grows
+            downward</b>. Larger y means further down the screen, which is the
+            opposite of the graphs in your math class. Expect to get this backwards
+            once.
+          </p>
+
+          <p>
+            The arguments are positions and sizes in pixels:{" "}
+            <code>draw_circle(x, y, radius, color)</code>,{" "}
+            <code>draw_rectangle(x, y, width, height, color)</code>,{" "}
+            <code>draw_line(x1, y1, x2, y2, color)</code>, and{" "}
+            <code>draw_text(text, x, y, size, color)</code>. For rectangles, the{" "}
+            <code>x</code> and <code>y</code> are the <b>top left corner</b>, not
+            the center.
+          </p>
+
+          <p>
+            Colors are ready-made names in capitals. Try <b>RED</b>, <b>ORANGE</b>,{" "}
+            <b>YELLOW</b>, <b>GREEN</b>, <b>LIME</b>, <b>SKYBLUE</b>, <b>DARKBLUE</b>,{" "}
+            <b>PURPLE</b>, <b>VIOLET</b>, <b>PINK</b>, <b>BEIGE</b>, <b>BROWN</b>,{" "}
+            <b>GOLD</b>, <b>MAROON</b>, <b>WHITE</b>, <b>RAYWHITE</b>,{" "}
+            <b>DARKGRAY</b>, and <b>BLACK</b>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h4>3. A loop full of shapes</h4>
+
+          <p>
+            Same idea as drawing a square with Turtle, except now the loop variable
+            is doing real work &mdash; it decides where each bar goes and how tall
+            it is.
+          </p>
+
+          <Code
+            code={Loop}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={LoopFigure}
+            alt="A black window with twelve light blue vertical bars, each one taller than the last, forming a staircase from the bottom left to the top right"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            Twelve bars from four lines of code. Change the <b>12</b>, the <b>48</b>,
+            and the <b>22</b> one at a time and watch which part of the picture each
+            one controls.
+          </p>
+
+          <hr class="my-4" />
+
+          <h4>4. The important part: it redraws sixty times a second</h4>
+
+          <p>
+            <b>Read this bit slowly, because everything after it depends on it.</b>
+          </p>
+
+          <p>
+            The window is not a picture you draw on. It is <b>wiped clean and drawn
+            again from scratch on every pass through the loop</b>. Nothing you drew
+            last frame survives.
+          </p>
+
+          <p>
+            So to make something move, you do not move it. You{" "}
+            <b class="text-sn-cyan">change a variable and draw it in the new spot</b>.
+            Sixty times a second, that reads as motion.
+          </p>
+
+          <Code
+            code={Bounce}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={BounceFigure}
+            alt="A black window with a gold circle in the lower right area and the text x = 536 y = 245 in green in the top left corner"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            <code>speed_x</code> is how far the ball moves sideways each frame.
+            Multiplying it by <code>-1</code> reverses it &mdash; that is the whole
+            trick behind bouncing, and it is Activity 1.5's variable reassignment
+            doing a job.
+          </p>
+
+          <p>
+            <b>Things worth trying.</b> Set <code>speed_y</code> to <b>0</b> and the
+            ball only moves sideways.
+          </p>
+
+          <p>
+            Then work out <b>why the number is 620 and not 640</b>. The window is 640
+            wide and the ball's radius is 20, so 620 is where the ball's <i>edge</i>{" "}
+            meets the wall, not its center. Change the radius to <b>40</b> without
+            changing the 620 and watch part of the ball disappear into the side.
+          </p>
+
+          <p>
+            Now set <code>speed_x</code> to <b>40</b>. The ball moves so far each
+            frame that it overshoots before the <code>if</code> can catch it &mdash;
+            its center gets all the way to 660, which puts the whole ball outside the
+            window for a frame. It always comes back, but{" "}
+            <b class="text-sn-cyan">the check happens after the move</b>, and that is
+            a bug pattern you will meet again.
+          </p>
+
+          <hr class="my-4" />
+
+          <h4>5. Taking control</h4>
+
+          <p>
+            <code>is_key_down()</code> is <code>True</code> while a key is held. It
+            is a plain function call, so it drops straight into an{" "}
+            <code>if</code> statement.
+          </p>
+
+          <Code
+            code={Control}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={ControlFigure}
+            alt="A black window with a light blue circle in the center and the words Use the arrow keys in white in the top left corner"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            Four separate <code>if</code> statements, not an <code>elif</code> chain
+            &mdash; and that is deliberate. With four independent <code>if</code>s
+            you can hold Right and Up together and move diagonally. Turn them into
+            an <code>elif</code> chain and only one direction at a time works. Try
+            it both ways.
+          </p>
+
+          <p>
+            Other keys follow the same pattern: <code>KEY_W</code>, <code>KEY_A</code>,{" "}
+            <code>KEY_S</code>, <code>KEY_D</code>, <code>KEY_SPACE</code>,{" "}
+            <code>KEY_ENTER</code>. There is also <code>get_mouse_x()</code> and{" "}
+            <code>get_mouse_y()</code> if you would rather steer with the mouse.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="trouble">
+          <h2>When It Goes Wrong</h2>
+
+          <p>
+            <b>Everything smears into a solid streak.</b> You left out{" "}
+            <code>clear_background()</code>, so nothing is erasing the previous
+            frame. Here is exactly what that looks like:
+          </p>
+
+          <Image
+            src={SmearFigure}
+            alt="A black window with a long solid gold streak across the middle, left behind by a circle that was never erased between frames"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            <b>The window is black and nothing you drew appears.</b> Check that{" "}
+            <code>end_drawing()</code> is there. Without it the frame is never
+            handed to the screen, and you get an empty window with no error message
+            at all.
+          </p>
+
+          <p>
+            <b>The window opens and immediately shuts.</b> Something is wrong with
+            your <code>while</code> condition, or your drawing code ended up{" "}
+            <i>after</i> <code>close_window()</code> instead of inside the loop.
+          </p>
+
+          <p>
+            <b>Do not put <code>input()</code> inside the loop.</b> It stops the
+            program dead waiting for the Enter key, and the window freezes. If you
+            want to ask the user something, ask before <code>init_window()</code>.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="make">
+          <h2>Then Make Something</h2>
+
+          <p>Ideas, in rough order of difficulty:</p>
+
+          <ul>
+            <li>
+              A traffic light that cycles between red, yellow, and green on a timer
+            </li>
+            <li>
+              A bar chart of numbers you pick, drawn with a <code>for</code> loop
+            </li>
+            <li>
+              Two balls bouncing at different speeds, in different colors
+            </li>
+            <li>
+              A ball you steer with the arrow keys that cannot leave the window
+            </li>
+            <li>
+              A ball that follows the mouse, but slowly &mdash; move it a few pixels
+              toward <code>get_mouse_x()</code> each frame instead of snapping to it
+            </li>
+            <li>
+              Something that changes color when you hold a key down
+            </li>
+          </ul>
+
+          <p>
+            <b>To submit:</b> your <code>.py</code> file and a screenshot of it
+            running.
+          </p>
+
+          <p>
+            <b>Part 2 is where this gets good.</b> Once you have lists, you can have
+            a hundred things moving at once instead of one &mdash; and that is a
+            game.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Go Make It Move
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

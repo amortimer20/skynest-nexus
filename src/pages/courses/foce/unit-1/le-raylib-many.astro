@@ -1,0 +1,423 @@
+---
+import { Image } from "astro:assets";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+// Asset Imports
+import DropsFigure from "../../../../assets/courses/foce/img/le-raylib-drops.png";
+import StarfieldFigure from "../../../../assets/courses/foce/img/le-raylib-starfield.png";
+import SpawnFigure from "../../../../assets/courses/foce/img/le-raylib-spawn.png";
+import CatchFigure from "../../../../assets/courses/foce/img/le-raylib-catch.png";
+
+//#region CodeSnippets
+const Drops = `from pyray import *
+import random
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "Rain")
+set_target_fps(60)
+
+drop_y = []
+
+for i in range(20):
+    drop_y.append(random.randint(0, 360))
+
+while not window_should_close():
+    for i in range(len(drop_y)):
+        drop_y[i] = drop_y[i] + 6
+        if drop_y[i] > 360:
+            drop_y[i] = 0
+
+    begin_drawing()
+    clear_background(BLACK)
+
+    for i in range(len(drop_y)):
+        draw_line(20 + i * 32, drop_y[i], 20 + i * 32, drop_y[i] + 14, SKYBLUE)
+
+    draw_text("20 drops, one list", 20, 20, 20, LIME)
+    end_drawing()
+
+close_window()`;
+
+const Starfield = `from pyray import *
+import random
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "Starfield")
+set_target_fps(60)
+
+star_x = []
+star_y = []
+star_speed = []
+
+for i in range(120):
+    star_x.append(random.randint(0, 640))
+    star_y.append(random.randint(0, 360))
+    star_speed.append(random.randint(1, 3))
+
+while not window_should_close():
+    for i in range(len(star_x)):
+        star_x[i] = star_x[i] - star_speed[i]
+        if star_x[i] < 0:
+            star_x[i] = 640
+            star_y[i] = random.randint(0, 360)
+
+    begin_drawing()
+    clear_background(BLACK)
+
+    for i in range(len(star_x)):
+        draw_circle(star_x[i], star_y[i], star_speed[i], RAYWHITE)
+
+    draw_text("120 stars, three parallel lists", 20, 20, 20, LIME)
+    end_drawing()
+
+close_window()`;
+
+const Spawn = `from pyray import *
+import random
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "Spawning")
+set_target_fps(60)
+
+coin_x = []
+coin_y = []
+timer = 0
+
+while not window_should_close():
+    timer = timer + 1
+    if timer > 10:
+        timer = 0
+        coin_x.append(random.randint(20, 620))
+        coin_y.append(0)
+
+    for i in range(len(coin_x)):
+        coin_y[i] = coin_y[i] + 4
+
+    begin_drawing()
+    clear_background(BLACK)
+
+    for i in range(len(coin_x)):
+        draw_circle(coin_x[i], coin_y[i], 10, GOLD)
+
+    draw_text(f"{len(coin_x)} coins so far", 20, 20, 20, LIME)
+    end_drawing()
+
+close_window()`;
+
+const Catch = `from pyray import *
+import random
+import math
+
+set_trace_log_level(LOG_NONE)
+init_window(640, 360, "Catch")
+set_target_fps(60)
+
+player_x = 320
+score = 0
+
+coin_x = []
+coin_y = []
+timer = 0
+
+while not window_should_close():
+    if is_key_down(KEY_RIGHT):
+        player_x = player_x + 6
+    if is_key_down(KEY_LEFT):
+        player_x = player_x - 6
+
+    timer = timer + 1
+    if timer > 20:
+        timer = 0
+        coin_x.append(random.randint(20, 620))
+        coin_y.append(0)
+
+    for i in range(len(coin_x)):
+        coin_y[i] = coin_y[i] + 5
+
+        side_a = coin_x[i] - player_x
+        side_b = coin_y[i] - 320
+        distance = math.sqrt(side_a * side_a + side_b * side_b)
+
+        if distance < 35:
+            score = score + 1
+            coin_y[i] = 1000
+
+    begin_drawing()
+    clear_background(BLACK)
+
+    for i in range(len(coin_x)):
+        draw_circle(coin_x[i], coin_y[i], 10, GOLD)
+
+    draw_circle(player_x, 320, 25, SKYBLUE)
+    draw_text(f"Score: {score}", 20, 20, 20, LIME)
+    end_drawing()
+
+close_window()`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/foce/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Library Exploration: Raylib &mdash; Many Things at Once</h1>
+
+        <h4 class="text-sn-theme">Optional &mdash; Extra Credit</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>Part 2.</b> Do{" "}
+            <a href="/courses/foce/unit-1/le-raylib-motion">Raylib &mdash; Motion</a>{" "}
+            first, and do the list activities <b>1.18 through 1.21</b> first as
+            well. Everything here is built out of them.
+          </p>
+
+          <p>
+            One bouncing ball is a demo. <b>A hundred moving things is a game</b>,
+            and the only thing standing between the two is a list.
+          </p>
+
+          <p>
+            <b>The pattern is the same every time, and it is worth naming now:</b>
+          </p>
+
+          <ol>
+            <li>A list holds the positions</li>
+            <li>
+              A <code>for</code> loop updates every position &mdash; that is
+              Activity 1.20's <code>range(len(list))</code> traversal
+            </li>
+            <li>A second <code>for</code> loop draws every position</li>
+          </ol>
+
+          <p>
+            Update everything, then draw everything. Every program on this page is
+            that shape with different details.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="explore">
+          <h2>Work Through These</h2>
+
+          <h4>1. One list, twenty falling things</h4>
+
+          <Code
+            code={Drops}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={DropsFigure}
+            alt="A black window with twenty thin light blue vertical lines scattered at different heights like falling rain, and the words 20 drops, one list in green in the top left corner"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            <b>Only the y positions are in a list.</b> Each drop's x position is
+            worked out from its index &mdash; <code>20 + i * 32</code> &mdash; so
+            drop 0 sits at x 20, drop 1 at x 52, and so on. When a value can be
+            calculated, you do not need to store it.
+          </p>
+
+          <p>
+            <b>Why <code>range(len(drop_y))</code> and not{" "}
+            <code>for drop in drop_y</code>?</b> Because we are{" "}
+            <i>changing</i> the values, and to change an element you need its index.
+            This is exactly the distinction Activity 1.20 draws between the two
+            kinds of traversal, and this is what it is for.
+          </p>
+
+          <hr class="my-4" />
+
+          <h4>2. Parallel lists</h4>
+
+          <p>
+            When each thing needs to remember more than one fact, you use more than
+            one list, and you keep them lined up by index. Activity 1.23's idea,
+            with three lists instead of two.
+          </p>
+
+          <Code
+            code={Starfield}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={StarfieldFigure}
+            alt="A black window filled with about a hundred and twenty white dots of varying sizes, like a star field, with the words 120 stars, three parallel lists in green in the top left corner"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            <b>Star number 7's x is <code>star_x[7]</code>, its y is{" "}
+            <code>star_y[7]</code>, and its speed is <code>star_speed[7]</code>.</b>{" "}
+            Same index, three lists, one star. Get the indexes out of step and the
+            stars start teleporting.
+          </p>
+
+          <p>
+            Notice that <code>star_speed[i]</code> is used <b>twice</b> &mdash; once
+            to move the star and once as its radius. Fast stars are big, slow stars
+            are small, and your eye reads that as depth. One list, two jobs.
+          </p>
+
+          <hr class="my-4" />
+
+          <h4>3. Growing the list with append()</h4>
+
+          <p>
+            So far the lists were built once and never changed size. Now things
+            appear while the program is running.
+          </p>
+
+          <Code
+            code={Spawn}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={SpawnFigure}
+            alt="A black window with eight gold circles falling at different heights and the words 8 coins so far in green in the top left corner"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            <code>timer</code> counts frames. Every tenth frame it resets and a new
+            coin is appended to <b>both</b> lists at once &mdash; and it has to be
+            both, or the lists stop lining up.
+          </p>
+
+          <p>
+            <b>There is a real bug in this program and you should find it.</b> The
+            lists only ever grow. Coins that fall off the bottom are still in there,
+            still being updated and drawn, forever. Leave it running for five
+            minutes and watch the counter. Nothing visibly breaks at this size, but
+            it is the kind of thing that quietly ruins a program that runs for a long
+            time.
+          </p>
+
+          <hr class="my-4" />
+
+          <h4>4. Collision and a score</h4>
+
+          <p>
+            The last piece. To know whether two things are touching, measure the
+            distance between their centers &mdash; and that is the Pythagorean
+            theorem, with <code>math.sqrt()</code> from <b>Activity 1.9</b>.
+          </p>
+
+          <Code
+            code={Catch}
+            frame="code"
+            lang="python"
+            title="Raylib"
+            showLineNumbers={false}
+          />
+
+          <Image
+            src={CatchFigure}
+            alt="A black window with a large light blue circle near the bottom center, three gold circles falling above it, and the words Score: 1 in green in the top left corner"
+            width={640}
+            class="img-fluid rounded mt-3"
+          />
+
+          <p class="mt-3">
+            <b>Why 35?</b> The coin's radius is 10 and the player's is 25. Add them
+            and you get the distance between centers at the exact moment their edges
+            touch.
+          </p>
+
+          <p>
+            <code>score = score + 1</code> is the <b>accumulator pattern</b> from
+            Activity 1.21 &mdash; the same shape you used to total a list, now
+            keeping score.
+          </p>
+
+          <p>
+            <b>And <code>coin_y[i] = 1000</code> is a deliberate cheat.</b> Removing
+            an item from a list while you are looping over that same list goes wrong
+            in ways that are genuinely hard to see. So instead the caught coin is
+            parked far below the window, where it is still in the list but will never
+            be seen or counted again. Real games do this constantly.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="make">
+          <h2>Then Make a Game</h2>
+
+          <p>
+            You now have every piece: things that move, things you control, things
+            that appear, collision, and a score. Pick one and build it.
+          </p>
+
+          <ul>
+            <li>
+              <b>Dodger</b> &mdash; the falling things hurt instead of scoring.
+              Three hits and the game is over.
+            </li>
+            <li>
+              <b>Catcher</b> &mdash; the program above, finished: a timer, a target
+              score, and a message when you reach it.
+            </li>
+            <li>
+              <b>Pong, one player</b> &mdash; a bouncing ball from Part 1 plus a
+              paddle you move. Miss it and you lose a life.
+            </li>
+            <li>
+              <b>Shooter</b> &mdash; the space key appends a bullet to a list. Coins
+              become targets.
+            </li>
+            <li>
+              <b>Snake</b> &mdash; harder than it looks, and the parallel-list
+              practice is excellent. Ask me before you start this one.
+            </li>
+          </ul>
+
+          <p>
+            <b>Two pieces of advice.</b> Get one thing working before you add the
+            second &mdash; a paddle that moves, <i>then</i> a ball, <i>then</i> the
+            collision. And keep the numbers at the top of the file in named variables
+            so you can tune them without hunting through the loop.
+          </p>
+
+          <p>
+            <b>To submit:</b> your <code>.py</code> file, a screenshot, and one
+            sentence saying what you would add if you had another hour.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Go Make a Game
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
