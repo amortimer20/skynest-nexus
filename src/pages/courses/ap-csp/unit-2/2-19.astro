@@ -35,16 +35,20 @@ const Task1 = `let entries = ["New York", "new york", "NY", "New York", "n.y.", 
 let variants = ["new york", "ny", "n.y.", "new york city"];
 let standard = "New York";
 
-function clean(entry) {
+function clean(entry)
+{
   let lower = entry.toLowerCase();
 
-  for (let i = 0; i < variants.length; i++) {
-    if (lower === variants[i]) {
+  for (let i = 0; i < variants.length; i++)
+  {
+    if (lower === variants[i])
+    {
       return standard;
     }
   }
 
-  if (lower === "boston") {
+  if (lower === "boston")
+  {
     return "Boston";
   }
 
@@ -53,17 +57,21 @@ function clean(entry) {
 
 let cleaned = [];
 
-for (let i = 0; i < entries.length; i++) {
+for (let i = 0; i < entries.length; i++)
+{
   let out = clean(entries[i]);
   console.log(entries[i] + "  ->  " + out);
   cleaned.push(out);
 }
 
-function countOf(list, target) {
+function countOf(list, target)
+{
   let n = 0;
 
-  for (let i = 0; i < list.length; i++) {
-    if (list[i] === target) {
+  for (let i = 0; i < list.length; i++)
+  {
+    if (list[i] === target)
+    {
       n = n + 1;
     }
   }
@@ -81,10 +89,14 @@ const Task2 = `let ages = [17, -4, 16, 999, 18, 0, 17, 15];
 let kept = [];
 let dropped = 0;
 
-for (let i = 0; i < ages.length; i++) {
-  if (ages[i] >= 13 && ages[i] <= 19) {
+for (let i = 0; i < ages.length; i++)
+{
+  if (ages[i] >= 13 && ages[i] <= 19)
+  {
     kept.push(ages[i]);
-  } else {
+  }
+  else
+  {
     console.log("  dropped " + ages[i]);
     dropped = dropped + 1;
   }
@@ -92,13 +104,15 @@ for (let i = 0; i < ages.length; i++) {
 
 let total = 0;
 
-for (let i = 0; i < kept.length; i++) {
+for (let i = 0; i < kept.length; i++)
+{
   total = total + kept[i];
 }
 
 let allTotal = 0;
 
-for (let i = 0; i < ages.length; i++) {
+for (let i = 0; i < ages.length; i++)
+{
   allTotal = allTotal + ages[i];
 }
 

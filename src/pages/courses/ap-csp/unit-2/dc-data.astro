@@ -13,7 +13,8 @@ console.log("Original: " + original.length + " characters");
 console.log("Encoded:  " + encoded.length + " characters");
 console.log("Compression ratio: " + ratio.toFixed(2));`;
 
-const Bug2 = `function colorCount(bitsPerChannel) {
+const Bug2 = `function colorCount(bitsPerChannel)
+{
   let levels = bitsPerChannel * 2;
   return levels * levels * levels;
 }
@@ -25,7 +26,8 @@ const Bug3 = `let readings = ["12.7", "13.2", "12.9"];
 
 let total = 0;
 
-for (let i = 0; i < readings.length; i++) {
+for (let i = 0; i < readings.length; i++)
+{
   total = total + parseInt(readings[i]);
 }
 
@@ -36,15 +38,18 @@ const Bug4 = `let ages = [17, 16, 999, 18, 15];
 
 let kept = [];
 
-for (let i = 0; i < ages.length; i++) {
-  if (ages[i] >= 13 && ages[i] <= 19) {
+for (let i = 0; i < ages.length; i++)
+{
+  if (ages[i] >= 13 && ages[i] <= 19)
+  {
     kept.push(ages[i]);
   }
 }
 
 let total = 0;
 
-for (let i = 0; i < ages.length; i++) {
+for (let i = 0; i < ages.length; i++)
+{
   total = total + ages[i];
 }
 

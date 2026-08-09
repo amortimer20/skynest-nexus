@@ -52,7 +52,8 @@ result ← name(a, b)`;
 
 const T1 = `let size = 10;
 
-function grow(size) {
+function grow(size)
+{
   size = size * 2;
   return size;
 }
@@ -62,21 +63,27 @@ console.log(size);`;
 
 const T2 = `let ids = [3, 8, 15, 22, 30, 41, 56];
 
-function find(list, target) {
+function find(list, target)
+{
   let low = 0;
   let high = list.length - 1;
   let checks = 0;
 
-  while (low <= high) {
+  while (low <= high)
+  {
     let mid = Math.floor((low + high) / 2);
     checks = checks + 1;
 
-    if (list[mid] === target) {
+    if (list[mid] === target)
+    {
       return checks;
     }
-    if (list[mid] < target) {
+    if (list[mid] < target)
+    {
       low = mid + 1;
-    } else {
+    }
+    else
+    {
       high = mid - 1;
     }
   }
@@ -107,8 +114,10 @@ FOR EACH item IN aList
 const T4 = `let steps = 0;
 let n = 6;
 
-for (let i = 0; i < n; i++) {
-  for (let j = i + 1; j < n; j++) {
+for (let i = 0; i < n; i++)
+{
+  for (let j = i + 1; j < n; j++)
+  {
     steps = steps + 1;
   }
 }
@@ -129,12 +138,15 @@ FOR EACH item IN bList
   DISPLAY(item)
 }`;
 
-const T6 = `function toDecimal(bits) {
+const T6 = `function toDecimal(bits)
+{
   let total = 0;
   let place = 1;
 
-  for (let i = bits.length - 1; i >= 0; i--) {
-    if (bits[i] === "1") {
+  for (let i = bits.length - 1; i >= 0; i--)
+  {
+    if (bits[i] === "1")
+    {
       total = total + place;
     }
     place = place * 2;

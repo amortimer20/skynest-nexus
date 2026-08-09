@@ -19,7 +19,8 @@ const Figure2 = `share = (value - base) / (biggest - base)
 const Task1 = `let days   = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 let visits = [412, 388, 401, 455, 423];
 
-function setup() {
+function setup()
+{
   createCanvas(400, 400);
   textAlign(CENTER, CENTER);
   noStroke();
@@ -28,7 +29,8 @@ function setup() {
   drawChart(0, 30, "counting from 0");
 }
 
-function drawChart(base, top, label) {
+function drawChart(base, top, label)
+{
   fill(230);
   textSize(12);
   text(label, 200, top);
@@ -36,13 +38,16 @@ function drawChart(base, top, label) {
   let height = 120;
   let biggest = 0;
 
-  for (let i = 0; i < visits.length; i++) {
-    if (visits[i] > biggest) {
+  for (let i = 0; i < visits.length; i++)
+  {
+    if (visits[i] > biggest)
+    {
       biggest = visits[i];
     }
   }
 
-  for (let i = 0; i < days.length; i++) {
+  for (let i = 0; i < days.length; i++)
+  {
     let share = (visits[i] - base) / (biggest - base);
     let h = share * height;
 
@@ -59,7 +64,8 @@ function drawChart(base, top, label) {
 
 const Task2 = `// One line changes. Add a second call to drawChart.
 
-function setup() {
+function setup()
+{
   createCanvas(400, 400);
   textAlign(CENTER, CENTER);
   noStroke();

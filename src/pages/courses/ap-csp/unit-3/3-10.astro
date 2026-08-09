@@ -70,10 +70,12 @@ then 50 seconds is your floor. Forever.`;
 const Checker = `let tasks = [20, 30, 40, 50];
 let processors = 2;
 
-function sequentialTime(list) {
+function sequentialTime(list)
+{
   let total = 0;
 
-  for (let i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++)
+  {
     total = total + list[i];
   }
 
@@ -82,22 +84,27 @@ function sequentialTime(list) {
 
 // Hand the tasks out in the order you decide,
 // then see what the slowest processor totals.
-function makespan(list, assignment, howMany) {
+function makespan(list, assignment, howMany)
+{
   let loads = [];
 
-  for (let p = 0; p < howMany; p++) {
+  for (let p = 0; p < howMany; p++)
+  {
     loads.push(0);
   }
 
-  for (let i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++)
+  {
     let p = assignment[i];
     loads[p] = loads[p] + list[i];
   }
 
   let worst = 0;
 
-  for (let p = 0; p < loads.length; p++) {
-    if (loads[p] > worst) {
+  for (let p = 0; p < loads.length; p++)
+  {
+    if (loads[p] > worst)
+    {
       worst = loads[p];
     }
   }

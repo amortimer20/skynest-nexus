@@ -12,7 +12,8 @@ const ProjectCode = `int waitTime;
 int startTime;
 int reactTime;
 
-void setup() {
+void setup()
+{
   Serial.begin(9600);
   pinMode(13, OUTPUT);
   pinMode(12, OUTPUT);
@@ -20,7 +21,8 @@ void setup() {
   pinMode(3, INPUT);
 }
 
-void loop() {
+void loop()
+{
   Serial.println("When the LED turns on, push the button!");
   Serial.println("Now, watch the LED. Ready?");
   waitTime = random(2000, 4000); //random wait time 
@@ -36,11 +38,13 @@ void loop() {
   
   digitalWrite(13, LOW);  //turn off LED!
 
-  if (reactTime <= 215) {
+  if (reactTime <= 215)
+  {
     digitalWrite(12, HIGH);  //green LED ON
     digitalWrite(11, LOW);   //red LED OFF
   }
-  else {
+  else
+  {
     digitalWrite(12, LOW);   //green LED OFF
     digitalWrite(11, HIGH);  //red LED ON
   }

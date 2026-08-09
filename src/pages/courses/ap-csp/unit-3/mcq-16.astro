@@ -6,24 +6,30 @@ import { Code } from "astro-expressive-code/components";
 //#region CodeSnippets
 const Q2 = `let points = [3, 7, 2, 9];
 
-function setup() {
+function setup()
+{
   createCanvas(400, 400);
   drawGrid(5, 5);
 }
 
-function drawGrid(rows, cols) {
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
+function drawGrid(rows, cols)
+{
+  for (let r = 0; r < rows; r++)
+  {
+    for (let c = 0; c < cols; c++)
+    {
       ellipse(c * 60 + 40, r * 60 + 40, 40, 40);
     }
   }
 }
 
-function mousePressed() {
+function mousePressed()
+{
   drawGrid(3, 3);
 }
 
-function scoreFor(player) {
+function scoreFor(player)
+{
   return points[player] * 10;
 }`;
 //#endregion

@@ -18,11 +18,14 @@ LIST (ii)        where that same list's data gets USED`;
 
 const WithComments = `// works out the total for one tier
 // tiers[] and prices[] stay in the same order
-function priceFor(tier) {
+function priceFor(tier)
+{
   let total = 0;              // running sum
 
-  for (let i = 0; i < prices.length; i++) {
-    if (tiers[i] === tier) {
+  for (let i = 0; i < prices.length; i++)
+  {
+    if (tiers[i] === tier)
+    {
       total = total + prices[i];
     }
   }
@@ -30,11 +33,14 @@ function priceFor(tier) {
   return total;
 }`;
 
-const WithoutComments = `function priceFor(tier) {
+const WithoutComments = `function priceFor(tier)
+{
   let total = 0;
 
-  for (let i = 0; i < prices.length; i++) {
-    if (tiers[i] === tier) {
+  for (let i = 0; i < prices.length; i++)
+  {
+    if (tiers[i] === tier)
+    {
       total = total + prices[i];
     }
   }

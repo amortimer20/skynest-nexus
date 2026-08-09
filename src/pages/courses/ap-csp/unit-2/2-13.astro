@@ -25,15 +25,18 @@ const Figure3 = `Best possible route: 24 blocks
 The heuristic gave 36.
 Fifty percent worse, found instantly.`;
 
-const Figure4 = `function willItStop(program) {
+const Figure4 = `function willItStop(program)
+{
   // return true if program eventually halts
   // return false if it runs forever
 }`;
 
-const Task1 = `function routeCount(stops) {
+const Task1 = `function routeCount(stops)
+{
   let total = 1;
 
-  for (let i = 1; i < stops; i++) {
+  for (let i = 1; i < stops; i++)
+  {
     total = total * i;
   }
 
@@ -42,7 +45,8 @@ const Task1 = `function routeCount(stops) {
 
 let sizes = [5, 10, 15, 20];
 
-for (let i = 0; i < sizes.length; i++) {
+for (let i = 0; i < sizes.length; i++)
+{
   let n = sizes[i];
   console.log(n + " stops: " + routeCount(n) + " routes");
 }
@@ -52,35 +56,43 @@ const Task2 = `let names = ["Depot", "Alvarez", "Boyd", "Chen", "Diaz", "Emeka"]
 let xs = [0, 2, 4, 0, 0, 4];
 let ys = [0, 6, 4, 2, 8, 0];
 
-function distance(a, b) {
+function distance(a, b)
+{
   let dx = xs[a] - xs[b];
   let dy = ys[a] - ys[b];
 
-  if (dx < 0) {
+  if (dx < 0)
+  {
     dx = -dx;
   }
 
-  if (dy < 0) {
+  if (dy < 0)
+  {
     dy = -dy;
   }
 
   return dx + dy;
 }
 
-function nearestRoute() {
+function nearestRoute()
+{
   let visited = [0];
   let current = 0;
   let total = 0;
 
-  while (visited.length < names.length) {
+  while (visited.length < names.length)
+  {
     let best = -1;
     let bestDistance = 0;
 
-    for (let i = 0; i < names.length; i++) {
-      if (visited.indexOf(i) === -1) {
+    for (let i = 0; i < names.length; i++)
+    {
+      if (visited.indexOf(i) === -1)
+      {
         let d = distance(current, i);
 
-        if (best === -1 || d < bestDistance) {
+        if (best === -1 || d < bestDistance)
+        {
           best = i;
           bestDistance = d;
         }

@@ -17,8 +17,10 @@ Now do the same to what is left.`;
 
 const Figure2 = `let smallest = i;
 
-for (let j = i + 1; j < list.length; j++) {
-  if (list[j] < list[smallest]) {
+for (let j = i + 1; j < list.length; j++)
+{
+  if (list[j] < list[smallest])
+  {
     smallest = j;
   }
 }`;
@@ -50,16 +52,20 @@ const Figure7 = `n     doubling
 
 const Task1 = `let scores = [42, 17, 93, 8, 55, 31];
 
-function selectionSort(list) {
+function selectionSort(list)
+{
   let comparisons = 0;
 
-  for (let i = 0; i < list.length - 1; i++) {
+  for (let i = 0; i < list.length - 1; i++)
+  {
     let smallest = i;
 
-    for (let j = i + 1; j < list.length; j++) {
+    for (let j = i + 1; j < list.length; j++)
+    {
       comparisons = comparisons + 1;
 
-      if (list[j] < list[smallest]) {
+      if (list[j] < list[smallest])
+      {
         smallest = j;
       }
     }
@@ -82,11 +88,13 @@ console.log("--- a list that is already sorted ---");
 selectionSort([8, 17, 31, 42, 55, 93]);
 `;
 
-const Task2 = `function halvings(n) {
+const Task2 = `function halvings(n)
+{
   let steps = 0;
   let left = n;
 
-  while (left > 0) {
+  while (left > 0)
+  {
     steps = steps + 1;
     left = Math.floor(left / 2);
   }
@@ -94,14 +102,17 @@ const Task2 = `function halvings(n) {
   return steps;
 }
 
-function pairs(n) {
+function pairs(n)
+{
   return (n * (n - 1)) / 2;
 }
 
-function doubling(n) {
+function doubling(n)
+{
   let total = 1;
 
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++)
+  {
     total = total * 2;
   }
 
@@ -112,7 +123,8 @@ let sizes = [8, 16, 32, 64];
 
 console.log("n\\tbinary\\tlinear\\tsort\\tdoubling");
 
-for (let i = 0; i < sizes.length; i++) {
+for (let i = 0; i < sizes.length; i++)
+{
   let n = sizes[i];
   console.log(n + "\\t" + halvings(n) + "\\t" + n + "\\t" + pairs(n) + "\\t" + doubling(n));
 }

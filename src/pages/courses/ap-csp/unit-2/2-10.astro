@@ -19,16 +19,21 @@ Six guesses. Never more than seven.`;
 const Figure2 = `let low = 0;
 let high = list.length - 1;
 
-while (low <= high) {
+while (low <= high)
+{
   let mid = Math.floor((low + high) / 2);
 
-  if (list[mid] === target) {
+  if (list[mid] === target)
+  {
     return mid;
   }
 
-  if (list[mid] < target) {
+  if (list[mid] < target)
+  {
     low = mid + 1;
-  } else {
+  }
+  else
+  {
     high = mid - 1;
   }
 }
@@ -40,23 +45,29 @@ const Figure3 = `[104, 211, 358, 407, 512, 663, 729, 810]   sorted
 
 const Task1 = `let ids = [104, 211, 358, 407, 512, 663, 729, 810];
 
-function binarySearch(list, target) {
+function binarySearch(list, target)
+{
   let low = 0;
   let high = list.length - 1;
   let checks = 0;
 
-  while (low <= high) {
+  while (low <= high)
+  {
     let mid = Math.floor((low + high) / 2);
     checks = checks + 1;
 
-    if (list[mid] === target) {
+    if (list[mid] === target)
+    {
       console.log(target + " found at index " + mid + " after " + checks + " checks");
       return mid;
     }
 
-    if (list[mid] < target) {
+    if (list[mid] < target)
+    {
       low = mid + 1;
-    } else {
+    }
+    else
+    {
       high = mid - 1;
     }
   }
@@ -73,12 +84,15 @@ binarySearch(ids, 500);
 
 const Task2 = `// Add this to the same file, below binarySearch.
 
-function linearSearch(list, target) {
+function linearSearch(list, target)
+{
   let checks = 0;
 
-  for (let i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++)
+  {
     checks = checks + 1;
-    if (list[i] === target) {
+    if (list[i] === target)
+    {
       console.log(target + " found at index " + i + " after " + checks + " checks");
       return i;
     }
@@ -116,18 +130,24 @@ const ExampleOutput = `104 found at index 0 after 3 checks
 407 found at index 3 after 1 checks
 500 not found after 3 checks`;
 
-const NotationJs = `function binarySearch(list, target) {
+const NotationJs = `function binarySearch(list, target)
+{
   let low = 0;
   let high = list.length - 1;
 
-  while (low <= high) {
+  while (low <= high)
+  {
     let mid = Math.floor((low + high) / 2);
-    if (list[mid] === target) {
+    if (list[mid] === target)
+    {
       return mid;
     }
-    if (list[mid] < target) {
+    if (list[mid] < target)
+    {
       low = mid + 1;
-    } else {
+    }
+    else
+    {
       high = mid - 1;
     }
   }

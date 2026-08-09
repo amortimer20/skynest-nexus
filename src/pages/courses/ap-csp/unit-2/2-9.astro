@@ -5,11 +5,14 @@ import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
 //#region CodeSnippets
-const Figure1 = `function largestA(list) {
+const Figure1 = `function largestA(list)
+{
   let best = list[0];
 
-  for (let i = 1; i < list.length; i++) {
-    if (list[i] > best) {
+  for (let i = 1; i < list.length; i++)
+  {
+    if (list[i] > best)
+    {
       best = list[i];
     }
   }
@@ -17,24 +20,31 @@ const Figure1 = `function largestA(list) {
   return best;
 }`;
 
-const Figure2 = `function largestB(list) {
-  for (let i = 0; i < list.length; i++) {
+const Figure2 = `function largestB(list)
+{
+  for (let i = 0; i < list.length; i++)
+  {
     let beatsEveryone = true;
 
-    for (let j = 0; j < list.length; j++) {
-      if (list[j] > list[i]) {
+    for (let j = 0; j < list.length; j++)
+    {
+      if (list[j] > list[i])
+      {
         beatsEveryone = false;
       }
     }
 
-    if (beatsEveryone) {
+    if (beatsEveryone)
+    {
       return list[i];
     }
   }
 }`;
 
-const Figure3 = `for (let i = 0; i < list.length; i++) {
-  if (list[i] === target) {
+const Figure3 = `for (let i = 0; i < list.length; i++)
+{
+  if (list[i] === target)
+  {
     return i;
   }
 }
@@ -43,13 +53,16 @@ return -1;`;
 
 const Task1 = `let crew = ["Vega", "Orion", "Lyra", "Draco", "Cygnus"];
 
-function findCrew(name) {
+function findCrew(name)
+{
   let checks = 0;
 
-  for (let i = 0; i < crew.length; i++) {
+  for (let i = 0; i < crew.length; i++)
+  {
     checks = checks + 1;
 
-    if (crew[i] === name) {
+    if (crew[i] === name)
+    {
       console.log(name + " found at index " + i + " after " + checks + " checks");
       return i;
     }
@@ -64,13 +77,16 @@ findCrew("Vega");
 
 const Task2 = `let crew = ["Vega", "Orion", "Lyra", "Draco", "Cygnus"];
 
-function findCrew(name) {
+function findCrew(name)
+{
   let checks = 0;
 
-  for (let i = 0; i < crew.length; i++) {
+  for (let i = 0; i < crew.length; i++)
+  {
     checks = checks + 1;
 
-    if (crew[i] === name) {
+    if (crew[i] === name)
+    {
       console.log(name + " found at index " + i + " after " + checks + " checks");
       return i;
     }
@@ -102,9 +118,12 @@ const ExampleOutput = `Vega found at index 0 after 1 checks
 Cygnus found at index 4 after 5 checks
 Rigel not found after 5 checks`;
 
-const NotationJs = `function findIndex(list, target) {
-  for (let i = 0; i < list.length; i++) {
-    if (list[i] === target) {
+const NotationJs = `function findIndex(list, target)
+{
+  for (let i = 0; i < list.length; i++)
+  {
+    if (list[i] === target)
+    {
       return i;
     }
   }

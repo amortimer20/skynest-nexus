@@ -8,17 +8,20 @@ const Program = `let names          = ["Rivera", "Chen", "Okafor", "Sandoval"];
 let priorSalary    = [52000, 41000, 55000, 38000];
 let yearsExperience = [5, 5, 6, 6];
 
-function offerFor(i) {
+function offerFor(i)
+{
   let offer = priorSalary[i] + (priorSalary[i] / 10);
 
-  if (yearsExperience[i] >= 6) {
+  if (yearsExperience[i] >= 6)
+  {
     offer = offer + 2000;
   }
 
   return offer;
 }
 
-for (let i = 0; i < names.length; i++) {
+for (let i = 0; i < names.length; i++)
+{
   console.log(names[i] + ": " + offerFor(i));
 }`;
 

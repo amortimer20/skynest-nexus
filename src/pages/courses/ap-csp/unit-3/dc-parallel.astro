@@ -8,21 +8,26 @@ const Program = `let tasks = [15, 25, 35, 45];
 let processors = 2;
 let unsplittable = 20;        // seconds that cannot be shared out
 
-function sequentialTime(list) {
+function sequentialTime(list)
+{
   let total = unsplittable;
 
-  for (let i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++)
+  {
     total = total + list[i];
   }
 
   return total;
 }
 
-function parallelTime(list, howMany) {
+function parallelTime(list, howMany)
+{
   let longest = 0;
 
-  for (let i = 0; i < list.length; i++) {
-    if (list[i] > longest) {
+  for (let i = 0; i < list.length; i++)
+  {
+    if (list[i] > longest)
+    {
       longest = list[i];
     }
   }
@@ -30,7 +35,8 @@ function parallelTime(list, howMany) {
   return longest;
 }
 
-function speedup(seq, par) {
+function speedup(seq, par)
+{
   return par / seq;
 }
 

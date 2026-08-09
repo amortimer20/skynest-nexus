@@ -34,17 +34,21 @@ assignments and tells me what to work on.
 5. Sort the assignments by how urgent they are.
 6. Let the user check things off.`;
 
-const ReqFourShape = `function fitsIn(limit) {
+const ReqFourShape = `function fitsIn(limit)
+{
   console.log("Breaks under " + limit + " minutes:");
   let found = 0;
 
-  for (let i = 0; i < activities.length; i++) {
-    if (times[i] <= limit) {
+  for (let i = 0; i < activities.length; i++)
+  {
+    if (times[i] <= limit)
+    {
       // ... print it, and count it
     }
   }
 
-  if (found === 0) {
+  if (found === 0)
+  {
     // ... say nothing fits
   }
 }`;
@@ -55,15 +59,18 @@ let limit = Number(prompt("How many minutes? "));
 
 let picks = [];
 
-for (let i = 0; i < activities.length; i++) {
-  if (times[i] <= limit) {
+for (let i = 0; i < activities.length; i++)
+{
+  if (times[i] <= limit)
+  {
     picks.push(activities[i]);
   }
 }
 
 printAll(picks);
 
-function printAll(list) {
+function printAll(list)
+{
   console.log("You could: " + list);
 }`;
 

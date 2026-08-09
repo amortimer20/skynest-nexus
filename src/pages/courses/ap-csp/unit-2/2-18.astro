@@ -26,14 +26,17 @@ Sep            180           4`;
 const Task1 = `let days   = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 let visits = [412, 388, 401, 455, 623, 947, 890];
 
-function summarize(labels, values) {
+function summarize(labels, values)
+{
   let total = 0;
   let busiest = 0;
 
-  for (let i = 0; i < values.length; i++) {
+  for (let i = 0; i < values.length; i++)
+  {
     total = total + values[i];
 
-    if (values[i] > values[busiest]) {
+    if (values[i] > values[busiest])
+    {
       busiest = i;
     }
   }
@@ -46,8 +49,10 @@ function summarize(labels, values) {
 
   let aboveAverage = 0;
 
-  for (let i = 0; i < values.length; i++) {
-    if (values[i] > average) {
+  for (let i = 0; i < values.length; i++)
+  {
+    if (values[i] > average)
+    {
       aboveAverage = aboveAverage + 1;
     }
   }
@@ -62,18 +67,22 @@ const Task2 = `let months    = ["May", "Jun", "Jul", "Aug", "Sep"];
 let iceCream  = [120, 260, 410, 395, 180];
 let drownings = [3, 7, 11, 10, 4];
 
-for (let i = 0; i < months.length; i++) {
+for (let i = 0; i < months.length; i++)
+{
   console.log(months[i] + ": " + iceCream[i] + " cones, " + drownings[i] + " drownings");
 }
 
 let bothUp = 0;
 let bothDown = 0;
 
-for (let i = 1; i < months.length; i++) {
-  if (iceCream[i] > iceCream[i - 1] && drownings[i] > drownings[i - 1]) {
+for (let i = 1; i < months.length; i++)
+{
+  if (iceCream[i] > iceCream[i - 1] && drownings[i] > drownings[i - 1])
+  {
     bothUp = bothUp + 1;
   }
-  if (iceCream[i] < iceCream[i - 1] && drownings[i] < drownings[i - 1]) {
+  if (iceCream[i] < iceCream[i - 1] && drownings[i] < drownings[i - 1])
+  {
     bothDown = bothDown + 1;
   }
 }
@@ -87,11 +96,13 @@ console.log("They moved together in " + (bothUp + bothDown) + " of " + (months.l
 const Task3 = `let photoData = "a 12 megapixel image";
 let photoMeta = ["taken 2026-07-14", "device: phone camera", "48.8584 N, 2.2945 E", "4.2 MB"];
 
-function describe(data, meta) {
+function describe(data, meta)
+{
   console.log("The data itself: " + data);
   console.log("Data about the data:");
 
-  for (let i = 0; i < meta.length; i++) {
+  for (let i = 0; i < meta.length; i++)
+  {
     console.log("  - " + meta[i]);
   }
 }

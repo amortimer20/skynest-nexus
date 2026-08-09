@@ -23,14 +23,17 @@ const Figure3 = `LOSSLESS    guarantees you can rebuild the original exactly
 LOSSY       only lets you rebuild an approximation
             usually saves more`;
 
-const Task1 = `function encode(data) {
+const Task1 = `function encode(data)
+{
   let out = "";
   let i = 0;
 
-  while (i < data.length) {
+  while (i < data.length)
+  {
     let run = 1;
 
-    while (i + run < data.length && data[i + run] === data[i]) {
+    while (i + run < data.length && data[i + run] === data[i])
+    {
       run = run + 1;
     }
 
@@ -41,14 +44,17 @@ const Task1 = `function encode(data) {
   return out;
 }
 
-function decode(code) {
+function decode(code)
+{
   let out = "";
 
-  for (let i = 0; i < code.length; i = i + 2) {
+  for (let i = 0; i < code.length; i = i + 2)
+  {
     let symbol = code[i];
     let count = Number(code[i + 1]);
 
-    for (let j = 0; j < count; j++) {
+    for (let j = 0; j < count; j++)
+    {
       out = out + symbol;
     }
   }
@@ -56,7 +62,8 @@ function decode(code) {
   return out;
 }
 
-function report(label, data) {
+function report(label, data)
+{
   let code = encode(data);
 
   console.log(label);

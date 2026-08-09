@@ -22,19 +22,22 @@ let reds   = [120, 214,  90, 178,  70];
 let greens = [180, 190, 140,  60,  80];
 let blues  = [235, 130,  80,  50, 100];
 
-function setup() {
+function setup()
+{
   createCanvas(400, 400);
   textAlign(CENTER, CENTER);
   textSize(11);
   noStroke();
   background(24, 26, 34);
 
-  for (let i = 0; i < names.length; i++) {
+  for (let i = 0; i < names.length; i++)
+  {
     drawSwatch(i, 20 + i * 74);
   }
 }
 
-function drawSwatch(index, x) {
+function drawSwatch(index, x)
+{
   fill(reds[index], greens[index], blues[index]);
   rect(x, 30, 60, 40);
   fill(230);
@@ -47,14 +50,16 @@ let reds   = [120, 214,  90, 178,  70];
 let greens = [180, 190, 140,  60,  80];
 let blues  = [235, 130,  80,  50, 100];
 
-function setup() {
+function setup()
+{
   createCanvas(400, 400);
   textAlign(CENTER, CENTER);
   textSize(11);
   noStroke();
   background(24, 26, 34);
 
-  for (let i = 0; i < names.length; i++) {
+  for (let i = 0; i < names.length; i++)
+  {
     drawSwatch(i, 20 + i * 74);
     drawChannels(i, 20 + i * 74);
   }
@@ -64,7 +69,8 @@ function setup() {
   text("each color is three numbers", 200, 380);
 }
 
-function drawSwatch(index, x) {
+function drawSwatch(index, x)
+{
   fill(reds[index], greens[index], blues[index]);
   rect(x, 30, 60, 40);
   fill(230);
@@ -72,11 +78,13 @@ function drawSwatch(index, x) {
   text(names[index], x + 30, 84);
 }
 
-function drawChannels(index, x) {
+function drawChannels(index, x)
+{
   let values = [reds[index], greens[index], blues[index]];
   let colors = [[220, 70, 70], [70, 200, 90], [80, 130, 240]];
 
-  for (let c = 0; c < 3; c++) {
+  for (let c = 0; c < 3; c++)
+  {
     let h = values[c] * 0.7;
     fill(colors[c][0], colors[c][1], colors[c][2]);
     rect(x + c * 20, 330 - h, 16, h);

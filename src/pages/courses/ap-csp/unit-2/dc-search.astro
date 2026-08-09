@@ -6,11 +6,16 @@ import { Code } from "astro-expressive-code/components";
 //#region CodeSnippets
 const Bug1 = `let crew = ["Vega", "Orion", "Lyra", "Draco"];
 
-function find(name) {
-  for (let i = 0; i < crew.length; i++) {
-    if (crew[i] === name) {
+function find(name)
+{
+  for (let i = 0; i < crew.length; i++)
+  {
+    if (crew[i] === name)
+    {
       return i;
-    } else {
+    }
+    else
+    {
       return -1;
     }
   }
@@ -26,17 +31,22 @@ let target = 35;
 let low = 0;
 let high = ids.length - 1;
 
-while (low <= high) {
+while (low <= high)
+{
   let mid = Math.floor((low + high) / 2);
 
-  if (ids[mid] === target) {
+  if (ids[mid] === target)
+  {
     console.log("found at " + mid);
     break;
   }
 
-  if (ids[mid] < target) {
+  if (ids[mid] < target)
+  {
     low = mid;
-  } else {
+  }
+  else
+  {
     high = mid - 1;
   }
 }
@@ -45,20 +55,26 @@ console.log("done");`;
 
 const Bug3 = `let ids = [40, 10, 50, 20, 30];
 
-function binarySearch(list, target) {
+function binarySearch(list, target)
+{
   let low = 0;
   let high = list.length - 1;
 
-  while (low <= high) {
+  while (low <= high)
+  {
     let mid = Math.floor((low + high) / 2);
 
-    if (list[mid] === target) {
+    if (list[mid] === target)
+    {
       return mid;
     }
 
-    if (list[mid] < target) {
+    if (list[mid] < target)
+    {
       low = mid + 1;
-    } else {
+    }
+    else
+    {
       high = mid - 1;
     }
   }
@@ -72,9 +88,12 @@ console.log("looking for 20 -> " + binarySearch(ids, 20));`;
 
 const Bug4 = `let scores = [10, 20, 30];
 
-function find(list, target) {
-  for (let i = 0; i < list.length; i++) {
-    if (list[i] = target) {
+function find(list, target)
+{
+  for (let i = 0; i < list.length; i++)
+  {
+    if (list[i] = target)
+    {
       return i;
     }
   }

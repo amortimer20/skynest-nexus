@@ -8,7 +8,8 @@ import { Code as CodeSnippet } from "astro:components";
 //#region CodeSnippets
 const Figure1 = `let temperature = 31;
 
-if (temperature > 30) {
+if (temperature > 30)
+{
   console.log("Heat warning.");
 }
 
@@ -18,20 +19,27 @@ Report complete.`;
 const Figure3 = `Report complete.`;
 const Figure4 = `let age = 12;
 
-if (age >= 13) {
+if (age >= 13)
+{
   console.log("Access granted.");
-} else {
+}
+else
+{
   console.log("Access denied.");
 }`;
 const Figure5 = `Access denied.`;
 const Figure6 = `let isRaining = true;
 
-if (isRaining) {
+if (isRaining)
+{
   console.log("Take an umbrella.");
 }`;
-const NotationJs = `if (score >= 60) {
+const NotationJs = `if (score >= 60)
+{
   console.log("Pass");
-} else {
+}
+else
+{
   console.log("Fail");
 }`;
 const NotationPseudo = `IF(score ≥ 60)
@@ -46,7 +54,8 @@ const Task1 = `let fuelPercent = 12;
 
 console.log("Fuel:", fuelPercent);
 
-if (fuelPercent < 20) {
+if (fuelPercent < 20)
+{
   console.log("WARNING: fuel low.");
 }
 
@@ -57,17 +66,23 @@ let crewCount = 7;
 
 console.log("Fuel:", fuelPercent);
 
-if (fuelPercent < 20) {
+if (fuelPercent < 20)
+{
   console.log("WARNING: fuel low.");
-} else {
+}
+else
+{
   console.log("Fuel level nominal.");
 }
 
 console.log("Crew:", crewCount);
 
-if (crewCount >= 5) {
+if (crewCount >= 5)
+{
   console.log("Full crew aboard.");
-} else {
+}
+else
+{
   console.log("Running short-handed.");
 }
 
@@ -78,17 +93,23 @@ let crewCount = 7;
 
 console.log("Fuel:", fuelPercent);
 
-if (fuelPercent < 20) {
+if (fuelPercent < 20)
+{
   console.log("WARNING: fuel low.");
-} else {
+}
+else
+{
   console.log("Fuel level nominal.");
 }
 
 console.log("Crew:", crewCount);
 
-if (crewCount >= 5) {
+if (crewCount >= 5)
+{
   console.log("Full crew aboard.");
-} else {
+}
+else
+{
   console.log("Running short-handed.");
 }
 
@@ -108,6 +129,32 @@ Check complete.
 Cargo mass? 620
 LAUNCH REFUSED: cargo too heavy.
 `;
+const StyleKandR = `if (score >= 60) {
+  console.log("Pass");
+} else {
+  console.log("Fail");
+}`;
+
+const StyleAllman = `if (score >= 60)
+{
+  console.log("Pass");
+}
+else
+{
+  console.log("Fail");
+}`;
+
+const StylePython = `if score >= 60:
+    print("Pass")
+else:
+    print("Fail")`;
+
+const StyleEnd = `if score >= 60 then
+  print("Pass")
+else
+  print("Fail")
+end`;
+
 //#endregion
 ---
 
@@ -391,7 +438,7 @@ LAUNCH REFUSED: cargo too heavy.
             frame="code"
             lang="javascript"
             title="Making Decisions"
-            ins={{ range: "2, 8-10, 12-18" }}
+            ins={{ range: "2, 9-13, 15-24" }}
           />
 
           <hr class="my-4" />
@@ -418,7 +465,7 @@ LAUNCH REFUSED: cargo too heavy.
             frame="code"
             lang="javascript"
             title="Making Decisions"
-            ins={{ range: "21-25" }}
+            ins={{ range: "27-31" }}
           />
 
           <hr class="my-4" />
@@ -477,15 +524,19 @@ LAUNCH REFUSED: cargo too heavy.
             </div>
           </div>
 
-          <p>This one maps across almost exactly. Three small differences:</p>
+          <p>
+            <b>Look at the shape before you read the words.</b> The braces line up
+            in the same places in both, and <code>else</code> sits between them on
+            a line of its own in both. That is deliberate &mdash; this course
+            writes JavaScript the way the reference sheet writes pseudocode, so
+            you are not learning two layouts.
+          </p>
+
+          <p>Only two things actually differ:</p>
 
           <ul>
             <li>
               <code>IF</code> and <code>ELSE</code> are capitalized.
-            </li>
-            <li>
-              The braces go on their <b>own lines</b>, and{" "}
-              <code>ELSE</code> sits between them on a line by itself.
             </li>
             <li>
               There is no space before the parenthesis: <code>IF(condition)</code>,
@@ -503,6 +554,89 @@ LAUNCH REFUSED: cargo too heavy.
             <b>What is missing from the reference sheet matters too.</b> There is
             no <code>ELSE IF</code>. You will find out what that costs in
             Activity 1.13.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Aside: Block Styles -->
+        <section id="block-styles">
+          <h2>Aside: Where Does a Block End?</h2>
+
+          <p>
+            Every language has to answer one question: <b>where does this block
+            stop?</b> Nothing about the answer is obvious, and the people who
+            designed these languages did not agree.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={StyleKandR}
+                frame="code"
+                lang="javascript"
+                title="Brace on the same line"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={StyleAllman}
+                frame="code"
+                lang="javascript"
+                title="Brace on its own line"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={StylePython}
+                frame="code"
+                lang="python"
+                title="Python — indentation"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={StyleEnd}
+                frame="code"
+                lang="lua"
+                title="Lua — the word end"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <p>
+            <b>All four programs do exactly the same thing.</b> The first two are
+            the same language &mdash; only the position of one character changed.
+            Python throws the braces away entirely and uses the indentation you
+            were going to write anyway. Lua, and Ruby, and old versions of BASIC,
+            spell the end of the block as a word.
+          </p>
+
+          <p>
+            <b>This course writes the second one</b>, with the brace on its own
+            line, because that is what the exam reference sheet does. Lining the
+            two up means you are learning one layout instead of two.
+          </p>
+
+          <p>
+            <b>You will meet the first one constantly</b> &mdash; it is the more
+            common style in JavaScript, so most code you find online looks like
+            that. Read it, and do not let it confuse you. To the computer the two
+            are identical; a machine that reads your code does not care where the
+            newlines are.
+          </p>
+
+          <p>
+            <b>Worth knowing why anyone argues about it.</b> Braces on their own
+            lines make openings and closings sit in the same column, so a missing
+            one is easy to spot. Braces on the same line fit more code on a
+            screen. Python's answer removes the argument and replaces it with a
+            different one, because now an invisible character &mdash; a space
+            &mdash; changes what your program does.
           </p>
         </section>
 
