@@ -1,0 +1,397 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Program = `let classNames = [];
+let averages = [];
+
+let howMany = Number(prompt("How many classes?"));
+
+for (let i = 0; i < howMany; i++) {
+  let name = prompt("Class name:");
+  let score = Number(prompt("Current average:"));
+  classNames.push(name);
+  averages.push(score);
+}
+
+function classesBelow(cutoff) {
+  let count = 0;
+  for (let i = 0; i < classNames.length; i++) {
+    if (averages[i] < cutoff) {
+      console.log("  " + classNames[i] + " - " + averages[i]);
+      count++;
+    }
+  }
+  return count;
+}
+
+console.log("");
+console.log("Below 70:");
+let failing = classesBelow(70);
+console.log("  " + failing + " class(es)");
+
+console.log("");
+console.log("Below 80:");
+let shaky = classesBelow(80);
+console.log("  " + shaky + " class(es)");`;
+
+const Run = `How many classes? 4
+Class name: Algebra 2
+Current average: 84
+Class name: Chemistry
+Current average: 68
+Class name: US History
+Current average: 77
+Class name: Spanish 3
+Current average: 91
+
+Below 70:
+  Chemistry - 68
+  1 class(es)
+
+Below 80:
+  Chemistry - 68
+  US History - 77
+  2 class(es)`;
+
+const FilledSpec = `PROGRAM: Grade Check
+
+WHAT IT DOES, in two sentences:
+  You type in each class and your current average.
+  It tells you which of them are below a cutoff.
+
+WHO WOULD USE IT, and what they need from it:
+  Me, the night before progress reports, to work out
+  which class to worry about first.
+
+INPUT      how many classes, then a name and an average
+           for each one
+LIST       classNames and averages, one entry per class,
+           and with no list there is nothing to search
+PROCEDURE  classesBelow
+PARAMETER  cutoff. Pass 70 and you get one class back.
+           Pass 80 and you get two
+INSIDE IT  the loop ....... over every class in the list
+           the decision ... is this average below cutoff
+OUTPUT     the classes under the cutoff, and how many`;
+
+const OverScoped = `PROGRAM: StudySphere
+
+WHAT IT DOES, in two sentences:
+  A study planner with accounts, a calendar, automatic
+  grade import, reminders, a dashboard and a phone app.
+
+WHO WOULD USE IT, and what they need from it:
+  Every student in the school.
+
+INPUT      log in, courses, assignments, due dates ...
+LIST       users, courses, assignments, reminders ...
+PROCEDURE  about forty of them
+PARAMETER  ...
+INSIDE IT  ...
+OUTPUT     ...
+
+SESSIONS YOU HAVE ...... 8
+SESSIONS THIS NEEDS .... considerably more than 8
+
+SCORE IF IT IS FINISHED ......... same 6 as Grade Check
+SCORE IF IT IS NOT FINISHED ..... whatever the half-built
+                                  version can prove`;
+
+const NearMiss = `function isBelow(score, cutoff) {
+  if (score < cutoff) {
+    return true;
+  }
+  return false;
+}
+
+console.log("");
+console.log("Below 70:");
+let failing = 0;
+for (let i = 0; i < classNames.length; i++) {
+  if (isBelow(averages[i], 70)) {
+    console.log("  " + classNames[i] + " - " + averages[i]);
+    failing++;
+  }
+}
+console.log("  " + failing + " class(es)");`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Sample Project: How Small Is Big Enough</h1>
+
+        <h4 class="text-sn-theme">Reference &mdash; Read Before You Scope</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Why This Page Exists</h2>
+
+          <p>
+            Read the six requirements and it is easy to picture an app. Accounts,
+            a database, a dashboard, something with a logo.{" "}
+            <b>The requirements do not ask for that.</b>
+          </p>
+
+          <p>
+            Below is a complete program that meets <b>all six</b>. It is{" "}
+            <b class="text-sn-cyan">32 lines</b>, it took one sitting to write, and
+            somebody could use it in about ninety seconds.
+          </p>
+
+          <p>
+            <b>This is not a template and you cannot hand it in.</b> Work that comes
+            from a teacher's sample, a curriculum provider's sample, or a practice
+            task may not be submitted as your own. It is here so you have something
+            to <i>measure against</i> &mdash; a floor, not a ceiling, and definitely
+            not a starting file.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="program">
+          <h2>The Whole Program</h2>
+
+          <Code
+            code={Program}
+            frame="code"
+            lang="js"
+            title="Grade Check"
+            showLineNumbers={true}
+          />
+
+          <p class="mt-3">
+            <b>That is all of it.</b> Nothing was left out to make it fit on the
+            page.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="run">
+          <h2>What It Does</h2>
+
+          <Code
+            code={Run}
+            frame="terminal"
+            lang="text"
+            title="Grade Check"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            <b>Look at the two answers.</b> The same procedure was called twice with
+            a different number and gave back a different list. That is not a nice
+            touch &mdash; it is the requirement, made visible.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="map">
+          <h2>Where Each Requirement Lives</h2>
+
+          <div class="table-responsive">
+            <table class="table table-dark table-striped align-middle">
+              <thead>
+                <tr>
+                  <th>Requirement</th>
+                  <th>Line</th>
+                  <th>What satisfies it</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>1 Input</b></td>
+                  <td><code>4, 7, 8</code></td>
+                  <td>
+                    Three questions, and every answer ends up in the lists that
+                    everything else reads
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>2 List</b></td>
+                  <td><code>1&ndash;2, 9&ndash;10</code></td>
+                  <td>
+                    <code>classNames</code> and <code>averages</code>. Delete them
+                    and there is nothing left to search
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>3 Procedure</b></td>
+                  <td><code>13</code></td>
+                  <td>
+                    <code>classesBelow(cutoff)</code>, written by the student, with
+                    a parameter that changes the result
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>4 Algorithm</b></td>
+                  <td><code>14&ndash;21</code></td>
+                  <td>
+                    Sequencing, <b>selection</b> at line 16, and <b>iteration</b> at
+                    line 15 &mdash; all three <i>inside the procedure's body</i>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>5 Calls</b></td>
+                  <td><code>26, 31</code></td>
+                  <td>Called twice, with different arguments</td>
+                </tr>
+                <tr>
+                  <td><b>6 Output</b></td>
+                  <td><code>17, 27, 32</code></td>
+                  <td>
+                    Depends on what was typed in and on which cutoff was passed
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>Requirement 4 is the one that fails silently</b>, and it is worth
+            saying exactly what it asks: the loop and the decision have to be{" "}
+            <b class="text-sn-cyan">inside the procedure you wrote</b>. Not
+            somewhere in the program. Inside those braces.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="proposal">
+          <h2>The Proposal That Produced It</h2>
+
+          <p>
+            This is the same planning sheet you fill in at the scoping gate, filled
+            in for the program above. Notice how little there is to say.
+          </p>
+
+          <Code
+            code={FilledSpec}
+            frame="code"
+            lang="text"
+            title="Proposal"
+            showLineNumbers={false}
+          />
+        </section>
+
+        <hr />
+
+        <section id="overscoped">
+          <h2>And the Proposal Most People Write First</h2>
+
+          <Code
+            code={OverScoped}
+            frame="code"
+            lang="text"
+            title="Proposal"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            <b>Finished, this scores exactly what Grade Check scores.</b> There is no
+            bonus for ambition. The rubric asks whether a list is there, whether a
+            procedure is there, whether the loop and the decision are inside it
+            &mdash; and a 32-line program answers yes just as loudly as a 3,000-line
+            one.
+          </p>
+
+          <p>
+            <b>Unfinished, it scores whatever the half-built version can prove</b>,
+            which is usually much less. That is the entire risk, and it is
+            avoidable.
+          </p>
+
+          <p>
+            <b>The honest version of the advice:</b> pick something you could
+            describe to somebody in one sentence, build it until it works, and then
+            &mdash; only then &mdash; add a second feature if the time is there.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="nearmiss">
+          <h2>The Version That Loses a Point</h2>
+
+          <p>
+            Here is the same program with one change. It runs. It produces{" "}
+            <b>character-for-character the same output</b> as the version above.
+          </p>
+
+          <Code
+            code={NearMiss}
+            frame="code"
+            lang="js"
+            title="Grade Check, changed"
+            showLineNumbers={false}
+          />
+
+          <p class="mt-3">
+            <b>The loop moved out of the procedure.</b> <code>isBelow</code> is a
+            real procedure and it does have a parameter that changes what it does
+            &mdash; but its body has only a decision. No loop. So{" "}
+            <b class="text-sn-cyan">requirement 4 is not met</b>, and the program
+            you see on screen is identical.
+          </p>
+
+          <p>
+            <b>This is why the requirement is the one that fails silently.</b> You
+            cannot catch it by running the program. You catch it by opening the
+            procedure and looking for all three things between its braces.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="rules">
+          <h2>What You May and May Not Do With This</h2>
+
+          <ul>
+            <li>
+              <b>Read it, take it apart, and run your own version of the idea.</b>{" "}
+              That is what it is for.
+            </li>
+            <li>
+              <b>Use it as a size check.</b> If your plan is more than a few times
+              this big, say so at the gate and cut it down early.
+            </li>
+            <li>
+              <b>Do not submit it, or a lightly edited copy of it.</b> Work taken
+              from a sample and handed in as your own is not your own.
+            </li>
+            <li>
+              <b>Do not pick the same idea.</b> Grade Check is deliberately dull.
+              Yours should be something you actually want.
+            </li>
+          </ul>
+
+          <p>
+            <b>Your program has to be yours.</b> Not because copying is hard to
+            catch &mdash; because on exam day you write about your own code, from
+            memory, with only your Project Reference in front of you. A program you
+            did not write is a program you cannot describe.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Smaller Than You Think
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
