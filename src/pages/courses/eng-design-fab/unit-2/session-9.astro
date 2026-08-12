@@ -1,7 +1,14 @@
 ---
+import { Image } from "astro:assets";
 import Presentation from "../../../../components/Presentation.astro";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
+
+import TestCoupon from "../../../../assets/courses/eng-design-fab/img/cnc-test-coupon.png";
+import PocketToolpath from "../../../../assets/courses/eng-design-fab/img/coupon-toolpath-pocket.png";
+import DrillToolpath from "../../../../assets/courses/eng-design-fab/img/coupon-toolpath-drill.png";
+import ContourToolpath from "../../../../assets/courses/eng-design-fab/img/coupon-toolpath-contour.png";
+import AllToolpaths from "../../../../assets/courses/eng-design-fab/img/coupon-toolpath-all.png";
 ---
 
 <Layout>
@@ -42,6 +49,12 @@ import Layout from "../../../../layouts/Layout.astro";
                 A small practice shape that includes a bit of everything:
                 an outer boundary, an interior pocket, and a hole.
               </p>
+              <Image
+                src={TestCoupon}
+                alt="An isometric view of the test coupon: a flat rectangular plate with a shallow rectangular pocket on the left of its top face and a single round hole through it on the right"
+                width={720}
+                class="img-fluid rounded"
+              />
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
@@ -60,6 +73,12 @@ import Layout from "../../../../layouts/Layout.astro";
                 <li class="fragment">Pocket &mdash; clear the interior recess (step-over set)</li>
                 <li class="fragment">Drill &mdash; the hole</li>
               </ol>
+              <Image
+                src={AllToolpaths}
+                alt="The coupon with all three toolpaths displayed at once: concentric blue passes filling the pocket, a single plunge down into the hole, and blue passes tracking around the outside of the plate at several depths"
+                width={720}
+                class="img-fluid rounded fragment"
+              />
             </section>
 
             <section data-auto-animate>
@@ -165,6 +184,19 @@ import Layout from "../../../../layouts/Layout.astro";
             <b>Maximum Roughing Stepdown</b>. Be ready to justify both
             numbers &mdash; defaults left unexamined are not an answer.
           </p>
+          <Image
+            src={PocketToolpath}
+            alt="The coupon's pocket filled with concentric blue cutting passes that spiral inward, with a green lead-in and a helical entry ramp near the center"
+            width={720}
+            class="img-fluid rounded my-3"
+          />
+          <p>
+            <b class="text-sn-theme">Your pass count will not match this
+            picture, and it should not.</b> This one was programmed with a
+            6.35 mm (1/4 inch) bit at a 40% step-over. Change either number and
+            the spacing of those blue passes changes with it &mdash; which is
+            the whole reason you have to justify your own.
+          </p>
 
           <hr class="my-4" />
 
@@ -176,6 +208,18 @@ import Layout from "../../../../layouts/Layout.astro";
             bit?</b> The coupon's hole is sized so that it is &mdash; which
             is exactly why a Drill works here. If it weren't, this would have
             to be a pocket instead.
+          </p>
+          <Image
+            src={DrillToolpath}
+            alt="The coupon with the drill toolpath shown: a single vertical line plunging straight down into the hole, with no lateral movement at all"
+            width={720}
+            class="img-fluid rounded my-3"
+          />
+          <p>
+            <b class="text-sn-theme">Notice how little there is to look at.</b>{" "}
+            A drill toolpath is one plunge and one retract &mdash; no passes,
+            no step-over, no step-down. That sparseness is the tell: if your
+            hole needed a spiral in it, you picked the wrong operation.
           </p>
 
           <hr class="my-4" />
@@ -193,6 +237,20 @@ import Layout from "../../../../layouts/Layout.astro";
             Confirm this operation is sequenced{" "}
             <b class="text-sn-theme">after</b> the pocket and drill in the
             browser tree. Order is the whole point of today.
+          </p>
+          <Image
+            src={ContourToolpath}
+            alt="The coupon with the profile toolpath shown: blue passes tracking around the outside of the plate at four descending depths, with small raised notches interrupting the lowest passes where the tabs are"
+            width={720}
+            class="img-fluid rounded my-3"
+          />
+          <p>
+            <b class="text-sn-theme">The tabs are visible in the toolpath, not
+            just in the dialog.</b> Look at the lowest passes: they step up and
+            back down in several places instead of running level. Each of those
+            steps is a sliver of material left uncut, holding the part in the
+            sheet until you cut it out by hand. If you tick{" "}
+            <b>Tabs</b> and see no steps, the tabs did not take.
           </p>
 
           <hr class="my-4" />
