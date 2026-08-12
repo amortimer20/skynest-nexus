@@ -9,6 +9,9 @@ import PocketToolpath from "../../../../assets/courses/eng-design-fab/img/coupon
 import DrillToolpath from "../../../../assets/courses/eng-design-fab/img/coupon-toolpath-drill.png";
 import ContourToolpath from "../../../../assets/courses/eng-design-fab/img/coupon-toolpath-contour.png";
 import AllToolpaths from "../../../../assets/courses/eng-design-fab/img/coupon-toolpath-all.png";
+import ManufactureWorkspace from "../../../../assets/courses/eng-design-fab/img/fusion-manufacture-workspace.png";
+import SetupDialog from "../../../../assets/courses/eng-design-fab/img/fusion-setup-dialog.png";
+import SimulateView from "../../../../assets/courses/eng-design-fab/img/fusion-simulate.png";
 ---
 
 <Layout>
@@ -157,6 +160,18 @@ import AllToolpaths from "../../../../assets/courses/eng-design-fab/img/coupon-t
             then create a new <b>Setup</b>. Three things to get right before
             you program anything:
           </p>
+          <Image
+            src={ManufactureWorkspace}
+            alt="The Fusion Manufacture workspace, with the MILLING tab showing SETUP, 2D, 3D, DRILLING and ACTIONS groups in the ribbon, and a browser tree on the left containing CAM Root, Models and Setups"
+            width={720}
+            class="img-fluid rounded my-3"
+          />
+          <p>
+            <b class="text-sn-theme">If your ribbon doesn't look like this, you
+            are in the wrong workspace.</b> The tab row reads MILLING, TURNING,
+            ADDITIVE &mdash; not SOLID, SURFACE, MESH. That is the fastest way
+            to tell, and switching workspaces is the step people skip.
+          </p>
           <ul>
             <li>
               <b>Operation type</b> &mdash; Milling
@@ -172,6 +187,20 @@ import AllToolpaths from "../../../../assets/courses/eng-design-fab/img/coupon-t
               measured against this number.
             </li>
           </ul>
+          <Image
+            src={SetupDialog}
+            alt="The Fusion Setup dialog open beside the coupon, showing Operation Type set to Milling, a Work Coordinate System group with Orientation, Origin and Stock Point, and a Model set to Body — with the WCS arrows drawn on the part and the stock shown as a translucent box with corner grips"
+            width={720}
+            class="img-fluid rounded my-3"
+          />
+          <p>
+            <b class="text-sn-theme">Watch the model, not just the dialog.</b>{" "}
+            The colored arrows are your WCS origin and the translucent box with
+            grips at its corners is your stock. If the arrows are sitting
+            somewhere you could never touch with a wrench on the real machine,
+            fix it now &mdash; that is the origin you will be zeroing to in
+            Session 13.
+          </p>
 
           <hr class="my-4" />
 
@@ -262,6 +291,19 @@ import AllToolpaths from "../../../../assets/courses/eng-design-fab/img/coupon-t
             <b>Stock</b> so you can watch material actually disappear, then
             play it start to finish. Confirm all three operations ran, in the
             right order, with no collisions or unexpected gouges.
+          </p>
+          <Image
+            src={SimulateView}
+            alt="Fusion in simulation mode, with a SIMULATION ribbon, the tool and its holder rendered above the coupon mid-cut, playback controls with a scrub bar along the bottom, and a SIMULATE panel on the right whose Stock checkbox is unchecked"
+            width={720}
+            class="img-fluid rounded my-3"
+          />
+          <p>
+            <b class="text-sn-theme">Look at the Stock checkbox on the right of
+            that panel &mdash; it is off.</b> That is the default, and it is why
+            this instruction exists. Left off, you watch a tool fly through
+            empty space and learn nothing about material removal. Tick it, and
+            the block stays on screen and gets carved.
           </p>
           <p>
             Watch it, don't skip to the end. A wrong order still produces a
