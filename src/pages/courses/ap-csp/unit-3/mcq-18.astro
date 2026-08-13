@@ -1,0 +1,225 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `values ← [4, 7, 2]
+i ← 1
+
+REPEAT UNTIL(i = LENGTH(values))
+{
+  DISPLAY(values[i])
+  i ← i + 1
+}`;
+
+const Q2 = `n ← 23
+
+IF(n MOD 2 = 1)
+{
+  DISPLAY(n / 2)
+}
+ELSE
+{
+  DISPLAY(n)
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 18</h1>
+
+        <h4 class="text-sn-theme">
+          Eight questions &middot; 14 minutes &middot; cumulative retrieval
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>Due session 58, while you are building.</b> Paper and pencil.
+            Nothing here needs a computer, and nothing here is new.
+          </p>
+
+          <p>
+            <b>Everything on this page came from Quarter 1 or Quarter 2.</b>{" "}
+            Lists, loops, procedures, searching, efficiency, and data. That is
+            the point of it: between now and Quarter 4 there is no programming
+            instruction at all, and <b>a skill you do not use for three months
+            is a skill you will not have in May.</b>
+          </p>
+
+          <p>
+            <b>Set a timer for 14 minutes.</b> Mark each answer <b>sure</b> or{" "}
+            <b>unsure</b>. Guess rather than leave a blank &mdash; there is no
+            penalty for a wrong answer on the exam and there is none here.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <Code code={Q1} frame="code" lang="txt" title="Question 1" showLineNumbers={false} class="mb-3" />
+
+          <p>What does this display?</p>
+
+          <ul>
+            <li>(A) 4 7 2</li>
+            <li>(B) 4 7</li>
+            <li>(C) 4 7 2, and then an error</li>
+            <li>(D) Nothing, because the loop condition is true before the first pass</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <Code code={Q2} frame="code" lang="txt" title="Question 2" showLineNumbers={false} class="mb-3" />
+
+          <p>What does this display?</p>
+
+          <ul>
+            <li>(A) 11</li>
+            <li>(B) 23</li>
+            <li>(C) 11.5</li>
+            <li>(D) 12</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>
+            A program searches a list of sixty-four numbers for a particular
+            value. Which statement is accurate?
+          </p>
+
+          <ul>
+            <li>(A) Binary search can be used only if the list is in sorted order</li>
+            <li>(B) Binary search finds the value faster than linear search on any list</li>
+            <li>(C) Linear search requires the list to be in sorted order</li>
+            <li>(D) Linear search checks the middle element first</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            Which describes an algorithm that runs in a <b>reasonable</b> amount
+            of time?
+          </p>
+
+          <ul>
+            <li>(A) One whose number of steps doubles each time a single item is added to the input</li>
+            <li>(B) One that must check every possible ordering of the input</li>
+            <li>(C) One whose number of steps grows factorially with the size of the input</li>
+            <li>(D) One whose number of steps is the square of the size of the input</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5 &mdash; Select all that apply</h3>
+
+          <p>
+            Which of these are true of lists in the exam reference language?
+          </p>
+
+          <ul>
+            <li>(A) The first element is at index 1</li>
+            <li>(B) <code>LENGTH(aList)</code> gives the number of elements</li>
+            <li>(C) Using an index greater than the length produces an error and the program terminates</li>
+            <li>(D) <code>aList &larr; bList</code> makes the two names refer to one list, so changing one changes the other</li>
+            <li>(E) <code>REMOVE(aList, i)</code> shifts the later values left and reduces the length by one</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6</h3>
+
+          <p>
+            A photo file stores the date the photo was taken alongside the image
+            itself. The date is deleted. Which statement is accurate?
+          </p>
+
+          <ul>
+            <li>(A) The image data is unchanged, because changes to metadata do not change the primary data</li>
+            <li>(B) The image has been compressed, since the file is now smaller</li>
+            <li>(C) The image data is corrupted, because the date was part of the image</li>
+            <li>(D) The deletion is lossy compression applied to the photo</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 7</h3>
+
+          <p>
+            A recording studio needs to be able to reconstruct an audio file
+            exactly as it was recorded. Which is accurate?
+          </p>
+
+          <ul>
+            <li>(A) A lossy method should be used, because it saves more space</li>
+            <li>(B) Either method works, since both can be fully reversed</li>
+            <li>(C) A lossless method must be used, because only lossless guarantees complete reconstruction</li>
+            <li>(D) Neither method can be applied to audio data</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 8</h3>
+
+          <p>
+            A study finds that towns with more public libraries also have higher
+            average reading scores. Which statement is best supported?
+          </p>
+
+          <ul>
+            <li>(A) Building more libraries raises reading scores</li>
+            <li>(B) Higher reading scores cause towns to build more libraries</li>
+            <li>(C) The correlation shows the data was collected incorrectly</li>
+            <li>(D) The two are correlated, and further research would be needed to establish whether either one causes the other</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Eight answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>4 points</b>, graded on
+            completion.
+          </p>
+
+          <p>
+            <b>And one written answer:</b> the loop in Question 1 stops before it
+            reaches the last element. Write the <b>one change</b> to the loop
+            condition that would make it display all three values. Use the
+            notation from the exam reference sheet.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

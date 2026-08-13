@@ -1,0 +1,226 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Passage = `THE LOST PET FINDER
+
+A veterinary assistant wrote a small program for her own town.
+Anyone who found a stray animal could post a photo of it, and
+anyone who had lost one could post a photo too. The program
+compared the photos and suggested matches.
+
+She shared it with two neighboring towns. Within eighteen months
+it was in use in four hundred towns and by several million
+people. She still maintains it alone, in the evenings.
+
+Photos taken on a phone usually carry the place they were taken.
+The program reads that and ranks nearby matches first, which is
+why matches are found quickly. It also means a poster's
+neighborhood can be worked out from a photo they uploaded from
+home.
+
+Animal shelters began using the posts differently. A shelter that
+takes in an animal can search old posts to find the person who
+first reported it missing, and some shelters have used that to
+bill those owners for boarding costs. The assistant did not plan
+this and cannot prevent it.
+
+Rescue groups say the program has cut the time an animal spends
+in a shelter. Some owners say they stopped reporting animals
+missing once they heard about the billing.
+
+Every post stays visible until the poster deletes it. Posts from
+the first year are still online.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 17: Reading Passage</h1>
+
+        <h4 class="text-sn-theme">
+          Five questions &middot; one passage &middot; 12 minutes
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b>Due session 56, while you are building.</b> There is no code in
+            this one and nothing to run. Read it, answer it, hand it in.
+          </p>
+
+          <p>
+            Five of the seventy questions on the AP exam share one passage about
+            a computing innovation, and reasoning about computing innovations
+            is{" "}
+            <b class="text-sn-theme">28&ndash;33% of the multiple-choice section</b>{" "}
+            &mdash; more than any other skill, including writing code.
+          </p>
+
+          <p>
+            <b>You have not been taught this content yet, and you do not need
+            to have been.</b> Everything the questions ask about is in the
+            passage. We come back to it properly in Part 3.
+          </p>
+
+          <h4>How to Do This One</h4>
+
+          <ul>
+            <li>
+              <b>Read the whole passage first.</b> All of it, before you look at
+              a single question.
+            </li>
+            <li><b>Set a timer for 12 minutes.</b> The reading is part of it.</li>
+            <li>
+              <b>Every answer is in the passage or follows from it.</b> Nothing
+              here needs outside knowledge about animal shelters. If you find
+              yourself using something you already believed, check that the
+              passage actually says it.
+            </li>
+            <li>Mark each answer <b>sure</b> or <b>unsure</b>, as always.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="passage">
+          <h2>The Passage</h2>
+
+          <Code
+            code={Passage}
+            frame="code"
+            lang="txt"
+            title="Read this before looking at the questions"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>
+            The program reads the place a photo was taken and uses it to rank
+            nearby matches first. Which statement is best supported by the
+            passage?
+          </p>
+
+          <ul>
+            <li>(A) These are two separate features, one that helps and one that harms</li>
+            <li>(B) One feature produces both the quick matches and the exposure of a poster's neighborhood</li>
+            <li>(C) The exposure is a defect that careful testing would have caught before release</li>
+            <li>(D) The feature is harmful only in cases where the poster does not know about it</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            The program went from one town to four hundred in eighteen months,
+            and is still maintained by one person in the evenings. Which is best
+            supported?
+          </p>
+
+          <ul>
+            <li>(A) Growing that fast is evidence the program was not properly designed</li>
+            <li>(B) The assistant is obliged to stop maintaining it until she can do so full time</li>
+            <li>(C) Impacts at that scale are the responsibility of the shelters, not of the program</li>
+            <li>(D) A large number of users can produce impacts beyond what the person who wrote it intended or can control</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3 &mdash; Select all that apply</h3>
+
+          <p>
+            Which of these are supported by the passage as effects the assistant{" "}
+            <b>did not plan</b>?
+          </p>
+
+          <ul>
+            <li>(A) Shelters billing owners for boarding costs</li>
+            <li>(B) A poster's neighborhood being worked out from a photo they uploaded</li>
+            <li>(C) Some owners stopping reporting their animals missing</li>
+            <li>(D) Photos being compared so that matches can be suggested</li>
+            <li>(E) Animals spending less time in shelters than before</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            A shelter searches old posts to find the person who first reported an
+            animal missing, then bills them for boarding. This is best described
+            as:
+          </p>
+
+          <ul>
+            <li>(A) a fault in the program, since it allows searches it was not built for</li>
+            <li>(B) plagiarism, since the shelter is using material someone else created</li>
+            <li>(C) an innovation being used in a way its creator did not intend</li>
+            <li>(D) a privacy breach, since the shelter has access it was never granted</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            Someone argues that the assistant should have foreseen the billing
+            use before she released the program. Which response is best supported
+            by the passage?
+          </p>
+
+          <ul>
+            <li>(A) She should have, because a responsible developer considers every possible use</li>
+            <li>(B) She could not have listed every use in advance, and the passage still shows uses appearing that she now has to answer for</li>
+            <li>(C) Foreseeing it was impossible, so how the program gets used is no longer her concern</li>
+            <li>(D) The billing is not an effect of the program, because the program was not built to do it</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Five answers, each marked <b>sure</b> or <b>unsure</b>, plus how far
+            you got when the timer went off. Worth <b>5 points</b>, graded on
+            completion.
+          </p>
+
+          <p>
+            <b>And one written answer, in a sentence or two:</b> the passage says
+            posts from the first year are still online. Name one way that could
+            matter to someone who posted back then, using only what the passage
+            tells you.
+          </p>
+        </section>
+
+        <h1 class="text-center mt-5 text-sn-theme border border-primary slow-flash">
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
