@@ -1,23 +1,53 @@
 ---
 import Divider from "../../../components/ui/Divider.astro";
 import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const VersionCheck = `print(_VERSION)`;
+const VersionOut = `Lua 5.4`;
+
+const Winget = `winget install DEVCOM.Lua`;
+
+const CheckPath = `lua -v`;
+const CheckPathOut = `Lua 5.4.6  Copyright (C) 1994-2023 Lua.org, PUC-Rio`;
+
+const PortableRun = `C:\\Lua\\bin\\lua.exe main.lua`;
+
+const Brew = `brew install lua@5.4`;
+
+const BrewPath = `export PATH="/opt/homebrew/opt/lua@5.4/bin:$PATH"`;
+
+const Apt = `sudo apt update
+sudo apt install lua5.4`;
+
+const RunIt = `lua main.lua`;
+
+const Preload = `package.preload["bay"] = function()
+  -- everything that would have been in bay.lua
+  local bay = {}
+  bay.capacity = 6
+  local docked = 0
+  function bay.dock(count)
+    docked = math.min(bay.capacity, docked + count)
+    return docked
+  end
+  function bay.status()
+    return docked .. " of " .. bay.capacity
+  end
+  return bay
+end
+
+-- main.lua starts here, unchanged
+local bay = require("bay")
+print("Capacity:", bay.capacity)`;
+
+const FloatDiff = `print(math.sqrt(2))`;
+const FloatDiff54 = `1.4142135623731`;
+const FloatDiff55 = `1.4142135623730951`;
+//#endregion
 ---
-
-<!--
-  PLACEHOLDER — this page is yours to write.
-
-  It only exists so the course index has no broken link. Replace everything
-  between the <h1> and the closing </section> with the real setup guide.
-
-  What the activities downstream assume you will have covered:
-    - A Lua interpreter on PATH, invoked as `lua main.lua` from a terminal.
-      Activity 1.4 is authored to be true for both Lua 5.4 and LuaJIT, but it
-      calls out where their output differs, so it helps if this page names
-      which one students installed.
-    - VS Code, with a project folder students can create .lua files in.
-    - A terminal inside VS Code, and how to open it.
-    - Unit 2 additionally needs LÖVE installed; that is covered on 2-1, not here.
--->
 
 <Layout>
   <div class="container my-4">
@@ -33,27 +63,498 @@ import Layout from "../../../layouts/Layout.astro";
         <h1>Setup: Installing Lua and VS Code</h1>
         <Divider variant="8" classes="mb-5" />
 
-        <section id="setup">
-          <h2 class="text-center my-5 slow-flash">Coming when it's ready</h2>
+        <section id="objective">
+          <h2>What You Actually Need</h2>
 
-          <p class="text-center">
-            In the meantime, the activities assume you can create a file named{" "}
-            <b class="text-sn-theme">main.lua</b> in a folder and run it from a
-            terminal.
+          <p>
+            Two things, and the second one matters more than it looks:
+          </p>
+
+          <ul>
+            <li>
+              A way to run a file called <CodeSnippet code="main.lua" lang="txt" inline />{" "}
+              and see what it prints.
+            </li>
+            <li>
+              <b class="text-sn-theme">Lua 5.4 specifically.</b> Not 5.5, which
+              is newer and prints two things differently. More on that below.
+            </li>
+          </ul>
+
+          <p>
+            That is the whole requirement for Unit 1. There are four ways to get
+            there and <b>none of them is more correct than the others</b> &mdash;
+            pick by what your machine lets you do.
+          </p>
+
+          <p>
+            <b>Unit 2 is different and needs LÖVE instead.</b> That install is
+            covered on Activity 2.1, when you get there. Nothing on this page
+            expires when you reach it.
           </p>
         </section>
 
-        <div class="d-flex justify-content-between mt-5">
-          <a class="btn btn-outline-light" href="/courses/lua-programming/">
-            Course Index
-          </a>
-          <a
-            class="btn btn-outline-primary"
-            href="/courses/lua-programming/unit-1/1-1"
-          >
-            Next: Meet Lua <i class="si-arrow-right"></i>
-          </a>
-        </div>
+        <Divider variant="8" classes="my-5" />
+
+        <section id="check-first">
+          <h2>First, Check What You Already Have</h2>
+
+          <p>
+            Do this before installing anything. Lua may already be present, and
+            this one line works in every environment on this page &mdash;
+            installed or in a browser tab.
+          </p>
+
+          <Code
+            code={VersionCheck}
+            frame="code"
+            lang="lua"
+            title="main.lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <Code
+            code={VersionOut}
+            frame="terminal"
+            lang="txt"
+            title="What you want to see"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">If it says <CodeSnippet code="Lua 5.4" lang="txt" inline />, you are
+            done.</b> Skip to the bottom of this page and start Activity 1.1.
+          </p>
+
+          <p>
+            If it says <CodeSnippet code="Lua 5.5" lang="txt" inline />, read the
+            note on versions below &mdash; you can still work, you just need to
+            know about two figures that will not match. If it says{" "}
+            <CodeSnippet code="Lua 5.1" lang="txt" inline />, that is LuaJIT,
+            which is what LÖVE runs; it is fine for most of Unit 1 but is not
+            what the outputs here were written against.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="routes">
+          <h2>Pick a Route</h2>
+
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Route</th>
+                  <th>Use it when</th>
+                  <th>Installs anything?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>1 &mdash; winget</b></td>
+                  <td>Windows, and you can install software</td>
+                  <td>Yes, one command</td>
+                </tr>
+                <tr>
+                  <td><b>2 &mdash; portable Windows</b></td>
+                  <td>Windows with no admin rights</td>
+                  <td>A folder, no installer</td>
+                </tr>
+                <tr>
+                  <td><b>3 &mdash; macOS</b></td>
+                  <td>A Mac</td>
+                  <td>Yes, via Homebrew</td>
+                </tr>
+                <tr>
+                  <td><b>4 &mdash; browser</b></td>
+                  <td>Chromebook, locked-down machine, or you just want to start now</td>
+                  <td><b class="text-sn-theme">Nothing at all</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="route-1">
+          <h2>Route 1: Windows, One Command</h2>
+
+          <p>
+            Windows ships a package manager called <b>winget</b>. Open{" "}
+            <b>Terminal</b> or <b>PowerShell</b> from the Start menu and run:
+          </p>
+
+          <Code
+            code={Winget}
+            frame="terminal"
+            lang="powershell"
+            title="PowerShell"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            That installs <b>Lua 5.4.6</b>, which is exactly the version this
+            course was written against, and puts the{" "}
+            <CodeSnippet code="lua" lang="txt" inline /> command on your path so
+            it works from any folder. Close and reopen your terminal afterwards,
+            then check:
+          </p>
+
+          <Code
+            code={CheckPath}
+            frame="terminal"
+            lang="powershell"
+            title="Confirm it worked"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <Code
+            code={CheckPathOut}
+            frame="terminal"
+            lang="txt"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b>If winget refuses because you are not an administrator</b>, that
+            is a normal thing to happen on a school machine and not something
+            you did wrong. Use Route 2 or Route 4 instead.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="route-2">
+          <h2>Route 2: Windows, No Admin Rights</h2>
+
+          <p>
+            Same Lua, no installer. Download{" "}
+            <b>Lua-5.4.6-win64.zip</b> from the{" "}
+            <a
+              href="https://github.com/DevelopersCommunity/cmake-lua/releases"
+              target="_blank"
+              rel="noopener noreferrer">cmake-lua releases page</a>{" "}
+            &mdash; it is the same build winget hands you, just as a folder.
+          </p>
+
+          <ol>
+            <li>
+              Unzip it somewhere permanent. <CodeSnippet code="C:\Lua" lang="txt" inline />{" "}
+              is a good choice; your Documents folder works too.
+            </li>
+            <li>
+              <b class="text-sn-theme">Keep the <CodeSnippet code="bin" lang="txt" inline /> folder
+              intact.</b>{" "}
+              <CodeSnippet code="lua.exe" lang="txt" inline /> needs{" "}
+              <CodeSnippet code="lua54.dll" lang="txt" inline /> sitting next to
+              it. Copying just the <CodeSnippet code=".exe" lang="txt" inline /> out
+              on its own will not run.
+            </li>
+            <li>
+              Either type the full path every time, or add the folder to your
+              path once &mdash; see below.
+            </li>
+          </ol>
+
+          <Code
+            code={PortableRun}
+            frame="terminal"
+            lang="powershell"
+            title="Running it without touching your path"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <h4>Adding it to your path, without admin</h4>
+
+          <p>
+            Search the Start menu for <b>environment variables</b> and choose{" "}
+            <b>Edit environment variables for your account</b> &mdash; the{" "}
+            <i>for your account</i> one. That version edits only your own
+            settings and <b>does not need an administrator</b>. Select{" "}
+            <CodeSnippet code="Path" lang="txt" inline />, choose Edit, add{" "}
+            <CodeSnippet code="C:\Lua\bin" lang="txt" inline />, then reopen your
+            terminal.
+          </p>
+
+          <p>
+            After that, plain <CodeSnippet code="lua main.lua" lang="txt" inline />{" "}
+            works and you can ignore the long path for the rest of the course.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="route-3">
+          <h2>Route 3: macOS</h2>
+
+          <p>
+            With <a href="https://brew.sh" target="_blank" rel="noopener noreferrer">Homebrew</a>{" "}
+            installed:
+          </p>
+
+          <Code
+            code={Brew}
+            frame="terminal"
+            lang="bash"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">Ask for <CodeSnippet code="lua@5.4" lang="txt" inline />, not
+            plain <CodeSnippet code="lua" lang="txt" inline />.</b> Plain{" "}
+            <CodeSnippet code="brew install lua" lang="txt" inline /> now gives
+            you Lua 5.5, which is the version with the two differences described
+            below.
+          </p>
+
+          <p>
+            There is one annoyance and it is worth knowing about rather than
+            being surprised by: <b>Homebrew does not put this one on your
+            path</b>, because it keeps older versions separate on purpose. Add
+            it yourself:
+          </p>
+
+          <Code
+            code={BrewPath}
+            frame="terminal"
+            lang="bash"
+            title="Add to ~/.zshrc, then open a new terminal"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            Then check with <CodeSnippet code="lua -v" lang="txt" inline />. If it
+            still reports 5.5, the line above is not being read &mdash; make sure
+            you added it to <CodeSnippet code="~/.zshrc" lang="txt" inline /> and
+            opened a <i>new</i> terminal window.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="route-4">
+          <h2>Route 4: Nothing Installed At All</h2>
+
+          <p>
+            <b class="text-sn-theme">This is the right answer on a Chromebook</b>,
+            on a school machine that will not let you install anything, and any
+            time you would rather start writing Lua in the next thirty seconds
+            than read installation instructions.
+          </p>
+
+          <p>
+            Open <a href="https://onecompiler.com/lua" target="_blank" rel="noopener noreferrer">onecompiler.com/lua</a>,
+            delete the sample code, and type yours. It runs <b>Lua 5.4</b>, it has
+            an input box for the few activities that read from you, and there is
+            nothing to set up.
+          </p>
+
+          <p>
+            <b>Run the version check first anyway.</b> Any online tool can change
+            what it runs without telling you, and{" "}
+            <CodeSnippet code="print(_VERSION)" lang="txt" inline /> takes one
+            second.
+          </p>
+
+          <h4>The one place this route needs a workaround</h4>
+
+          <p>
+            <b>Activity 1.12 uses two files</b> &mdash; a module called{" "}
+            <CodeSnippet code="bay.lua" lang="txt" inline /> and a{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline /> that pulls it in
+            with <CodeSnippet code='require("bay")' lang="txt" inline />. A
+            single-box editor has nowhere to put the second file.
+          </p>
+
+          <p>
+            You can still do the activity, and the trick is real Lua rather than
+            a workaround that dodges the lesson. Paste the module into a{" "}
+            <CodeSnippet code="package.preload" lang="txt" inline /> entry above
+            your main code, and <CodeSnippet code="require" lang="txt" inline />{" "}
+            finds it there instead of on disk:
+          </p>
+
+          <Code
+            code={Preload}
+            frame="code"
+            lang="lua"
+            title="Activity 1.12 in a single file"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            The output is identical to the two-file version, and the activity's
+            point survives: the module is still a table you build privately and
+            return, and <CodeSnippet code="docked" lang="txt" inline /> is still
+            invisible from outside it.
+          </p>
+
+          <h4>Chromebook, if you have Linux turned on</h4>
+
+          <p>
+            Chromebooks can run a real Linux terminal. If yours has it enabled,
+            you get the full experience instead:
+          </p>
+
+          <Code
+            code={Apt}
+            frame="terminal"
+            lang="bash"
+            title="Linux terminal on ChromeOS"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="versions">
+          <h2>Why 5.4 and Not 5.5</h2>
+
+          <p>
+            Lua 5.5 runs everything in this course correctly. It just{" "}
+            <b>prints two things differently</b>, and both appear in figures you
+            are meant to compare your own output against. Knowing about them
+            costs less than chasing a bug that is not there.
+          </p>
+
+          <Code
+            code={FloatDiff}
+            frame="code"
+            lang="lua"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Version</th>
+                  <th>Prints</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>5.4</b> &mdash; what Activity 1.4 shows</td>
+                  <td><CodeSnippet code={FloatDiff54} lang="txt" inline /></td>
+                </tr>
+                <tr>
+                  <td>5.5</td>
+                  <td><CodeSnippet code={FloatDiff55} lang="txt" inline /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            The other one is in <b>Activity 1.6</b>, where a loop counts{" "}
+            <CodeSnippet code="0" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1" lang="txt" inline /> in steps of{" "}
+            <CodeSnippet code="0.25" lang="txt" inline />. Lua 5.4 prints the
+            ends as <CodeSnippet code="0" lang="txt" inline /> and{" "}
+            <CodeSnippet code="1" lang="txt" inline />; 5.5 prints{" "}
+            <CodeSnippet code="0.0" lang="txt" inline /> and{" "}
+            <CodeSnippet code="1.0" lang="txt" inline />.
+          </p>
+
+          <p>
+            <b>Every other number in the course is identical on both.</b> Those
+            two are the whole list, so if something else does not match, it is
+            worth reading your code rather than blaming your Lua.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="editor">
+          <h2>An Editor, If You Installed Lua</h2>
+
+          <p>
+            Routes 1 to 3 leave you needing somewhere to write files. Any editor
+            works &mdash; the rest of the course assumes{" "}
+            <a href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer">VS Code</a>{" "}
+            because it has a terminal built in, which saves flipping between
+            windows every time you run something.
+          </p>
+
+          <ol>
+            <li>Install VS Code and open it.</li>
+            <li>
+              <b>File &rarr; Open Folder</b>, and make a new folder for this
+              course. Everything you write lives in there.
+            </li>
+            <li>
+              Open the terminal with{" "}
+              <b>Terminal &rarr; New Terminal</b>, or{" "}
+              <CodeSnippet code="Ctrl+`" lang="txt" inline /> &mdash; that is the
+              backtick key, above Tab. It opens already pointed at your folder.
+            </li>
+            <li>
+              Make a file called{" "}
+              <CodeSnippet code="main.lua" lang="txt" inline /> and run it:
+            </li>
+          </ol>
+
+          <Code
+            code={RunIt}
+            frame="terminal"
+            lang="bash"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b>The Lua extension by sumneko is worth adding</b> for highlighting
+            and error squiggles. It does not include Lua itself, so it is not a
+            substitute for any route above.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="submit">
+          <h2>You Are Set Up When</h2>
+
+          <ul>
+            <li>
+              A file with{" "}
+              <CodeSnippet code='print(_VERSION)' lang="txt" inline /> in it runs
+              and prints a version.
+            </li>
+            <li>You know which version that is, so the figures make sense.</li>
+            <li>You know where you are going to keep your files.</li>
+          </ul>
+
+          <p>
+            That is enough. <b>Activity 1.1 starts with one line of code</b> and
+            builds from there.
+          </p>
+
+          <div class="d-flex justify-content-between mt-5">
+            <a class="btn btn-outline-light" href="/courses/lua-programming/">
+              Course Index
+            </a>
+            <a
+              class="btn btn-outline-primary"
+              href="/courses/lua-programming/unit-1/1-1"
+            >
+              Next: Meet Lua <i class="si-arrow-right"></i>
+            </a>
+          </div>
+        </section>
       </div>
     </div>
   </div>
