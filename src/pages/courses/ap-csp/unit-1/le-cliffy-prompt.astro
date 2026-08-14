@@ -13,98 +13,87 @@ console.log("Cleared for " + dest);`;
 const Figure2 = `Pilot name? Ada
 Destination? Titan
 Cleared for Titan`;
-const Figure3 = `import { intro, outro, text } from "@clack/prompts";
+const Figure3 = `import { Input } from "@cliffy/prompt";
 
-intro("Flight Registration");
-
-const name = await text({
+const name = await Input.prompt({
   message: "Pilot name?"
 });
 
-outro("Welcome aboard, " + name);`;
-const Figure4 = `┌  Flight Registration
-│
-◇  Pilot name?
-│  Ada
-│
-└  Welcome aboard, Ada`;
-const Figure5 = `const dest = await select({
+console.log("Welcome aboard, " + name);`;
+const Figure4 = `? Pilot name? › Ada
+Welcome aboard, Ada`;
+const Figure5 = `const dest = await Select.prompt({
   message: "Destination?",
   options: [
-    { value: "titan", label: "Titan" },
-    { value: "ganymede", label: "Ganymede" },
-    { value: "europa", label: "Europa" }
+    { name: "Titan", value: "titan" },
+    { name: "Ganymede", value: "ganymede" },
+    { name: "Europa", value: "europa" }
   ]
 });
 
 console.log(dest);`;
 const Figure6 = `titan`;
-const Task1 = `import { intro, outro, text } from "@clack/prompts";
+const Task1 = `import { Input } from "@cliffy/prompt";
+import { bold } from "@std/fmt/colors";
 
-intro("Flight Registration");
+console.log(bold("=== Flight Registration ==="));
 
-const pilot = await text({
+const pilot = await Input.prompt({
   message: "Pilot name?"
 });
 
-outro("Welcome aboard, " + pilot);
+console.log("Welcome aboard, " + pilot);
 `;
-const Task2 = `import { intro, outro, text, select } from "@clack/prompts";
+const Task2 = `import { Input, Select } from "@cliffy/prompt";
+import { bold } from "@std/fmt/colors";
 
-intro("Flight Registration");
+console.log(bold("=== Flight Registration ==="));
 
-const pilot = await text({
+const pilot = await Input.prompt({
   message: "Pilot name?"
 });
 
-const dest = await select({
+const dest = await Select.prompt({
   message: "Destination?",
   options: [
-    { value: "titan", label: "Titan" },
-    { value: "ganymede", label: "Ganymede" },
-    { value: "europa", label: "Europa" }
+    { name: "Titan", value: "titan" },
+    { name: "Ganymede", value: "ganymede" },
+    { name: "Europa", value: "europa" }
   ]
 });
 
-outro("Welcome aboard, " + pilot + ". Bound for " + dest + ".");
+console.log("Welcome aboard, " + pilot + ". Bound for " + dest + ".");
 `;
-const Task3 = `import { intro, outro, text, select } from "@clack/prompts";
+const Task3 = `import { Input, Select } from "@cliffy/prompt";
+import { bold, dim } from "@std/fmt/colors";
 
-intro("Flight Registration");
+console.log(bold("=== Flight Registration ==="));
 
-const pilot = await text({
+const pilot = await Input.prompt({
   message: "Pilot name?"
 });
 
-const dest = await select({
+const dest = await Select.prompt({
   message: "Destination?",
   options: [
-    { value: "titan", label: "Titan" },
-    { value: "ganymede", label: "Ganymede" },
-    { value: "europa", label: "Europa" }
+    { name: "Titan", value: "titan" },
+    { name: "Ganymede", value: "ganymede" },
+    { name: "Europa", value: "europa" }
   ]
 });
 
-// Ask for a cargo mass with text(), and cast it to a number
-// Ask for a class of service with select(), at least three options
+// Ask for a cargo mass with Input.prompt(), and cast it to a number
+// Ask for a class of service with Select.prompt(), at least three options
 // Work out a fee: 12 per unit of mass, doubled for premium class
-// Show the fee to two decimal places in the outro
+// Print a dim divider, then the fee to two decimal places
 `;
-const ExampleOutput = `┌  Flight Registration
-│
-◇  Pilot name?
-│  Ada
-│
-◇  Destination?
-│  Titan
-│
-◇  Cargo mass?
-│  40
-│
-◇  Class of service?
-│  Premium
-│
-└  Ada to titan, 40 units, fee $960.00
+const ExampleOutput = `=== Flight Registration ===
+? Pilot name? › Ada
+? Destination? › Titan
+? Cargo mass? › 40
+? Class of service? › Premium
+---
+Ada to titan, 40 units, fee $960.00
 `;
 //#endregion
 ---
@@ -117,7 +106,7 @@ const ExampleOutput = `┌  Flight Registration
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Library Exploration: @clack/prompts</h1>
+        <h1>Library Exploration: @cliffy/prompt</h1>
 
         <h4>
           Difficulty&nbsp;&nbsp;
@@ -133,7 +122,7 @@ const ExampleOutput = `┌  Flight Registration
           <Presentation>
             <section>
               <h2>Library Exploration</h2>
-              <h3 class="text-sn-theme">@clack/prompts</h3>
+              <h3 class="text-sn-theme">@cliffy/prompt</h3>
             </section>
 
             <section>
@@ -188,9 +177,15 @@ const ExampleOutput = `┌  Flight Registration
                 showLineNumbers={false}
               />
               <p class="fragment">
-                <CodeSnippet code="intro()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
-                <CodeSnippet code="outro()" lang={"javascript"} theme={"material-theme-ocean"} inline /> draw the frame. Everything between them
-                looks like one connected session rather than scattered questions.
+                The question is drawn for you, and once you answer it, the prompt
+                collapses to one tidy line holding your answer. Compare that to
+                the plain version above.
+              </p>
+              <p class="fragment">
+                There is no frame around the session &mdash; you build that
+                yourself, with a heading. The{" "}
+                <CodeSnippet code="@std/fmt/colors" lang={"javascript"} theme={"material-theme-ocean"} inline /> exploration is where you got the
+                tools for it.
               </p>
             </section>
 
@@ -202,8 +197,8 @@ const ExampleOutput = `┌  Flight Registration
               <p class="fragment">
                 That is an <b class="text-sn-theme">object</b> &mdash; named
                 settings inside braces, rather than values in a fixed order. You
-                met the same shape in the cli-table3 exploration with{" "}
-                <CodeSnippet code="{ head: [...] }" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                met the same shape in the @cliffy/table exploration with{" "}
+                <CodeSnippet code="{ minWidth: 10 }" lang={"javascript"} theme={"material-theme-ocean"} inline />.
               </p>
               <p class="fragment">
                 Copy the shape. It gets taught properly later.
@@ -266,13 +261,18 @@ const ExampleOutput = `┌  Flight Registration
               </p>
               <p class="fragment">
                 <b class="text-sn-theme">
-                  <CodeSnippet code="label" lang={"javascript"} theme={"material-theme-ocean"} inline /> is what a human reads.{" "}
+                  <CodeSnippet code="name" lang={"javascript"} theme={"material-theme-ocean"} inline /> is what a human reads.{" "}
                   <CodeSnippet code="value" lang={"javascript"} theme={"material-theme-ocean"} inline /> is what your code gets.
                 </b>{" "}
                 They can differ, and usually should.
               </p>
               <p class="fragment">
-                This is why <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline /> beats asking someone to type
+                Watch the line the prompt leaves behind: it reads{" "}
+                <CodeSnippet code="Titan" lang={"txt"} theme={"material-theme-ocean"} inline />, because that is what you
+                showed the user. The variable never held it.
+              </p>
+              <p class="fragment">
+                This is why <CodeSnippet code="Select.prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> beats asking someone to type
                 a destination: they cannot misspell it, and they cannot invent
                 one you did not plan for.
               </p>
@@ -281,7 +281,7 @@ const ExampleOutput = `┌  Flight Registration
             <section>
               <h2>Input Is Still Text</h2>
               <p>
-                <CodeSnippet code="text()" lang={"javascript"} theme={"material-theme-ocean"} inline /> hands back a string, exactly like{" "}
+                <CodeSnippet code="Input.prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> hands back a string, exactly like{" "}
                 <CodeSnippet code="prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> did.
               </p>
               <p class="fragment">
@@ -294,7 +294,7 @@ const ExampleOutput = `┌  Flight Registration
             <section>
               <h2>Today's Objectives</h2>
               <ul>
-                <li>Framing a session with intro and outro</li>
+                <li>Framing a session with a styled heading</li>
                 <li>Collecting text with a styled prompt</li>
                 <li>Offering a fixed set of choices</li>
                 <li>Telling a choice's label apart from its value</li>
@@ -314,7 +314,10 @@ const ExampleOutput = `┌  Flight Registration
                   </dt>
                   <dd>Pause until a slow answer arrives, then continue.</dd>
                   <dt>Label</dt>
-                  <dd>The text a user sees for a choice.</dd>
+                  <dd>
+                    The text a user sees for a choice. This library spells it
+                    <CodeSnippet code="name" lang={"javascript"} theme={"material-theme-ocean"} inline />.
+                  </dd>
                   <dt>Value</dt>
                   <dd>What your program receives when that choice is picked.</dd>
                 </dl>
@@ -337,13 +340,13 @@ const ExampleOutput = `┌  Flight Registration
           </p>
 
           <p>
-            <b>Do the cli-table3 exploration first</b> if you have not &mdash; it
+            <b>Do the @cliffy/table exploration first</b> if you have not &mdash; it
             introduces the object syntax more gently.
           </p>
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">le-clack</b>.
+            <b class="text-sn-theme">le-cliffy-prompt</b>.
           </p>
 
           <p>
@@ -358,9 +361,11 @@ const ExampleOutput = `┌  Flight Registration
           <ul>
             <li>Write the code below and run it.</li>
             <li>
-              Note the shape of the import: <CodeSnippet code="{ intro, outro, text }" lang={"javascript"} theme={"material-theme-ocean"} inline />{" "}
-              in braces, because you are taking several named things out of one
-              library rather than the whole thing.
+              Note the shape of the import: <CodeSnippet code="{ Input }" lang={"javascript"} theme={"material-theme-ocean"} inline />{" "}
+              in braces, because you are taking a named thing out of one library
+              rather than the whole thing. There are two import lines here,
+              because the heading uses the colors library from the first
+              exploration.
             </li>
             <li>
               <b>Then delete the <CodeSnippet code="await" lang={"javascript"} theme={"material-theme-ocean"} inline /></b> and run it again. Read
@@ -372,7 +377,7 @@ const ExampleOutput = `┌  Flight Registration
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @clack/prompts"
+            title="Library Exploration: @cliffy/prompt"
           />
 
           <hr class="my-4" />
@@ -380,12 +385,14 @@ const ExampleOutput = `┌  Flight Registration
           <h3>Task 2: A Menu</h3>
           <ul>
             <li>
-              Add a <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline /> with three destinations. Use the arrow
+              Add a <CodeSnippet code="Select.prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> with three destinations. Use the arrow
               keys to choose.
             </li>
             <li>
-              The outro shows the <i>value</i>, not the label &mdash; lowercase{" "}
-              <CodeSnippet code="titan" lang={"javascript"} theme={"material-theme-ocean"} inline />, not <b>Titan</b>. Confirm that for yourself.
+              The last line shows the <i>value</i>, not the label &mdash;
+              lowercase <CodeSnippet code="titan" lang={"javascript"} theme={"material-theme-ocean"} inline />, not <b>Titan</b>. The prompt's own
+              line still reads <b>Titan</b> directly above it, which makes the
+              difference easy to see. Confirm it for yourself.
             </li>
             <li>
               <b>Worth trying:</b> make one option's value and label identical and
@@ -401,8 +408,8 @@ const ExampleOutput = `┌  Flight Registration
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @clack/prompts"
-            ins={{ range: "1, 9-16, 18" }}
+            title="Library Exploration: @cliffy/prompt"
+            ins={{ range: "1, 10-17, 19" }}
           />
 
           <hr class="my-4" />
@@ -419,7 +426,7 @@ const ExampleOutput = `┌  Flight Registration
               you nonsense &mdash; exactly Activity 1.9.
             </li>
             <li>
-              The class of service is a <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline />. Compare against
+              The class of service is a <CodeSnippet code="Select.prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline />. Compare against
               its <i>value</i> in your conditional, not its label.
             </li>
             <li>
@@ -432,22 +439,24 @@ const ExampleOutput = `┌  Flight Registration
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @clack/prompts"
-            ins={{ range: "18-21" }}
+            title="Library Exploration: @cliffy/prompt"
+            ins={{ range: "2, 19-22" }}
           />
 
           <hr class="my-4" />
 
-          <h3>Challenge (Optional): Handle a Change of Mind</h3>
+          <h3>Challenge (Optional): Refuse a Bad Answer</h3>
           <ul>
             <li>
-              Run your program and press <b>Ctrl+C</b> partway through. Note what
-              happens to the rest of it.
+              Run your program and type <b>banana</b> for the cargo mass. It is
+              accepted, and your fee comes out as{" "}
+              <CodeSnippet code="NaN" lang={"javascript"} theme={"material-theme-ocean"} inline />.
             </li>
             <li>
-              This library exports <CodeSnippet code="isCancel" lang={"javascript"} theme={"material-theme-ocean"} inline /> and{" "}
-              <CodeSnippet code="cancel" lang={"javascript"} theme={"material-theme-ocean"} inline /> for exactly this. Import them and use them to
-              exit cleanly instead.
+              Every prompt in this library takes a{" "}
+              <CodeSnippet code="validate" lang={"javascript"} theme={"material-theme-ocean"} inline /> setting that can reject an answer and ask
+              again, with a message you write. Use it so a cargo mass has to be a
+              number above zero.
             </li>
             <li>
               You will have to read the library's own documentation to do this,
@@ -500,7 +509,7 @@ const ExampleOutput = `┌  Flight Registration
               in that variable.
             </li>
             <li>
-              <code>select()</code> stops a user from typing something you did not
+              <code>Select.prompt()</code> stops a user from typing something you did not
               plan for. Give an example from your own programs where that would
               have prevented a bug.
             </li>
