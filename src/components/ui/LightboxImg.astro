@@ -85,6 +85,7 @@ const caption = Astro.slots.has("caption")
         width={image.width}
         height={image.height}
         class="lightbox-full"
+        style={`--lb-w: ${image.width}px; --lb-h: ${image.height}px;`}
         alt={alt}
         loading="lazy"
         decoding="async"
@@ -118,6 +119,7 @@ const caption = Astro.slots.has("caption")
   */
   .lightbox-thumb {
     display: block;
+    background: var(--skynest-darker);
     border: solid 1px rgba(var(--color-theme-rgb), 0.4);
     border-radius: 0;
     transition:
@@ -205,6 +207,7 @@ const caption = Astro.slots.has("caption")
     position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
     max-width: 100%;
     max-height: 100%;
     min-width: 0;
@@ -226,26 +229,42 @@ const caption = Astro.slots.has("caption")
     font-size: 1.25rem;
   }
 
+  /*
+    Carries no border or background of its own. A scroll box cannot shrink-wrap
+    a fitted image -- fit-content resolves to the available width, not to the
+    width the image ends up at when it is height-constrained -- so the frame
+    goes on the image, where it is exact by construction. The padding exists to
+    keep overflow: auto from clipping the image's glow.
+  */
   .lightbox-scroll {
     overflow: auto;
     min-height: 0;
-    border: solid 1px var(--color-theme);
-    box-shadow: 0 0 10px var(--color-theme);
+    padding: 0.75rem;
   }
 
   /* Fitted by default; clicking swaps to true pixel size and the box scrolls. */
   .lightbox-full {
     display: block;
     max-width: 100%;
-    max-height: calc(100dvh - 9rem);
+    max-height: calc(100dvh - 10.5rem);
     height: auto;
+    /* Opaque, so a screenshot with transparency does not show the wash. */
+    background: var(--skynest-darker);
+    border: solid 1px var(--color-theme);
+    box-shadow: 0 0 10px var(--color-theme);
     cursor: zoom-in;
   }
 
+  /*
+    width: auto would collapse an SVG that carries only a viewBox, which is how
+    the image shrank to a few pixels. The real dimensions come in as custom
+    properties instead, so raster and vector behave the same.
+  */
   .lightbox-full.is-actual {
     max-width: none;
     max-height: none;
-    width: auto;
+    width: var(--lb-w);
+    height: var(--lb-h);
     cursor: zoom-out;
   }
 
