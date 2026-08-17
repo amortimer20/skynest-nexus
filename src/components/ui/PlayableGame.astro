@@ -14,7 +14,12 @@ export interface Props {
 }
 
 const { slug, title, poster, width = 1280, height = 720 } = Astro.props;
-const src = `/games/${slug}/`;
+
+// index.html is named explicitly rather than relying on a directory index.
+// Astro's dev server does not resolve one for files under public/, so
+// /games/<slug>/ is a 404 in dev even though it works in the built output.
+// The game's own relative paths resolve the same either way.
+const src = `/games/${slug}/index.html`;
 ---
 
 <div
