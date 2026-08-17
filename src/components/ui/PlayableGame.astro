@@ -1,0 +1,229 @@
+---
+import { Image } from "astro:assets";
+
+export interface Props {
+  /** Folder under /games/, matching the slug in scripts/export-games.mjs. */
+  slug: string;
+  /** Game name, used in the button and the accessible label. */
+  title: string;
+  /** Still frame shown before the game is loaded. */
+  poster: ImageMetadata;
+  /** Aspect ratio of the game's viewport. */
+  width?: number;
+  height?: number;
+}
+
+const { slug, title, poster, width = 1280, height = 720 } = Astro.props;
+const src = `/games/${slug}/`;
+---
+
+<div
+  class="playable"
+  data-playable
+  data-playable-src={src}
+  data-playable-title={title}
+  style={`--playable-aspect: ${width} / ${height};`}
+>
+  <div class="playable-stage">
+    <button
+      type="button"
+      class="playable-poster"
+      data-playable-start
+      aria-label={`Load and play ${title}`}
+    >
+      <Image
+        src={poster}
+        width={1280}
+        format="webp"
+        class="playable-still"
+        alt={`A frame from ${title}`}
+      />
+      <span class="playable-overlay">
+        <span class="playable-cta">
+          <i class="si-play" aria-hidden="true"></i> Play {title}
+        </span>
+        <span class="playable-note">
+          Downloads about 10&nbsp;MB the first time, then it is cached
+        </span>
+      </span>
+    </button>
+  </div>
+
+  <div class="playable-bar" data-playable-bar>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-playable-fullscreen>
+      <i class="si-arrows-maximize" aria-hidden="true"></i> Fullscreen
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-light" data-playable-restart>
+      Restart
+    </button>
+  </div>
+</div>
+
+<style>
+  .playable {
+    margin-bottom: 1rem;
+  }
+
+  .playable-stage {
+    position: relative;
+    aspect-ratio: var(--playable-aspect);
+    background: var(--skynest-darker);
+    border: solid 1px var(--color-theme);
+    box-shadow: 0 0 10px var(--color-theme);
+    overflow: hidden;
+  }
+
+  .playable-poster,
+  .playable-stage :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .playable-poster {
+    padding: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .playable-still {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Dimmed so the call to action stays readable over a busy frame. */
+    filter: brightness(0.45) saturate(0.8);
+    transition: filter 0.2s ease;
+  }
+
+  .playable-poster:hover .playable-still,
+  .playable-poster:focus-visible .playable-still {
+    filter: brightness(0.6) saturate(0.9);
+  }
+
+  .playable-poster:focus-visible {
+    outline: solid 2px var(--color-theme);
+    outline-offset: -4px;
+  }
+
+  .playable-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .playable-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    border: solid 1px var(--color-theme);
+    background: var(--skynest-darker);
+    color: var(--color-theme);
+    font-family: var(--font-orbitron);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: clamp(0.9rem, 2.2vw, 1.25rem);
+  }
+
+  .playable-poster:hover .playable-cta {
+    box-shadow: 2px 2px 10px var(--color-theme);
+  }
+
+  .playable-note {
+    color: var(--bs-light);
+    font-size: 0.8rem;
+  }
+
+  /*
+    Hidden by a class, not the hidden attribute. site.css carries a global
+    [hidden] { display: inherit !important } for Reveal.js slides, which would
+    override any rule keyed on the attribute.
+  */
+  .playable-bar {
+    display: none;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .playable.is-live .playable-bar {
+    display: flex;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .playable-still {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // One delegated listener for every embed on the page. Nothing is downloaded
+  // until a student asks for it -- the engine binary is about 38 MB
+  // uncompressed, and a page that boots three games on load would be unusable
+  // on a school Chromebook.
+  document.addEventListener("click", (event) => {
+    const el = event.target;
+    if (!(el instanceof Element)) return;
+
+    const start = el.closest("[data-playable-start]");
+    if (start) {
+      const root = start.closest("[data-playable]");
+      if (root instanceof HTMLElement) load(root);
+      return;
+    }
+
+    const full = el.closest("[data-playable-fullscreen]");
+    if (full) {
+      const frame = full.closest("[data-playable]")?.querySelector("iframe");
+      frame?.requestFullscreen?.();
+      return;
+    }
+
+    const restart = el.closest("[data-playable-restart]");
+    if (restart) {
+      const root = restart.closest("[data-playable]");
+      const frame = root?.querySelector("iframe");
+      if (frame instanceof HTMLIFrameElement) frame.src = frame.src;
+      return;
+    }
+  });
+
+  function load(root: HTMLElement) {
+    const stage = root.querySelector(".playable-stage");
+    const src = root.dataset.playableSrc;
+    const title = root.dataset.playableTitle ?? "Game";
+    if (!stage || !src) return;
+
+    const frame = document.createElement("iframe");
+    frame.src = src;
+    frame.title = title;
+    frame.allow = "autoplay; fullscreen; gamepad";
+    stage.replaceChildren(frame);
+    root.classList.add("is-live");
+    frame.focus();
+  }
+
+  // Arrow keys and space scroll the page while a game has focus, which makes a
+  // platformer unplayable. Only suppress it while the embed is actually focused.
+  const SCROLL_KEYS = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space", "PageUp", "PageDown"]);
+  window.addEventListener(
+    "keydown",
+    (event) => {
+      if (!SCROLL_KEYS.has(event.code)) return;
+      const active = document.activeElement;
+      if (active instanceof HTMLIFrameElement && active.closest("[data-playable]")) {
+        event.preventDefault();
+      }
+    },
+    { passive: false },
+  );
+</script>

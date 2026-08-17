@@ -1,0 +1,126 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import PlayableGame from "../../../../components/ui/PlayableGame.astro";
+
+import JunkyardPoster from "../../../../assets/courses/game-design/img/junkyard-poster.png";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/game-design/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Play Junkyard</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <p>
+          <b class="text-sn-theme">This is what you are building.</b> Stack of
+          crates, one heavy stone ball, and a mouse. It took sixteen crates and
+          eight lines of code, and you will have built all of it by the end of
+          Activity 1.5.
+        </p>
+
+        <PlayableGame
+          slug="junkyard"
+          title="Junkyard"
+          poster={JunkyardPoster}
+        />
+
+        <p class="text-secondary">
+          <b>Controls:</b> click anywhere to launch the ball. That is the whole
+          control scheme.
+        </p>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="whats-in-here">
+          <h2>What's In Here</h2>
+
+          <p>
+            Nothing in this game is decoration. Every part of it is one of the
+            five activities in this section.
+          </p>
+
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>What you can see</th>
+                <th>Where you build it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Anything at all on screen</td>
+                <td>Activity 1.1</td>
+              </tr>
+              <tr>
+                <td>Crates sitting where you put them, at the size you chose</td>
+                <td>Activity 1.2</td>
+              </tr>
+              <tr>
+                <td>Crates that fall, land, and lean on each other</td>
+                <td>Activity 1.3</td>
+              </tr>
+              <tr>
+                <td>Sixteen crates that are all the same crate</td>
+                <td>Activity 1.4</td>
+              </tr>
+              <tr>
+                <td>A ball that answers your mouse and wrecks the stack</td>
+                <td>Activity 1.5</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            Notice what the game is <i>not</i> doing. Nothing keeps score.
+            Nothing can be won or lost. No crate knows it was hit. The engine is
+            running gravity and collisions, and everything you find satisfying
+            about knocking the stack over comes out of that for free.
+          </p>
+
+          <p>
+            That will not be true of the next game you build. Worth remembering
+            when you get there.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before-you-build">
+          <h2>Before You Build</h2>
+
+          <p>
+            Play it for two minutes, then be ready to answer these out loud. No
+            writing, nothing to submit.
+          </p>
+
+          <ol>
+            <li>
+              Where did you aim the second time, and why was it different from
+              the first?
+            </li>
+            <li>
+              This game has no score and no way to win. Why is it still worth
+              two minutes?
+            </li>
+            <li>
+              Name <b>one thing</b> you would add. Keep it to one, and keep it
+              small enough to build in a day.
+            </li>
+          </ol>
+
+          <p class="text-secondary">
+            Hold onto your answer to the third one. Some of them are already
+            built as <b>DLC</b> for this game, and the rest are fair game once
+            you can write the code.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
