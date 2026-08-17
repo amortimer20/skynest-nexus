@@ -1,0 +1,277 @@
+---
+import { Image } from "astro:assets";
+
+export interface Props {
+  /** An imported image. */
+  image: ImageMetadata;
+  /** Real description of the image. Required — it is what screen readers announce. */
+  alt: string;
+  /** Optional explicit id for the lightbox. Derived from the filename when omitted. */
+  target?: string;
+  /** Width of the inline thumbnail. The lightbox always shows the original. */
+  thumbWidth?: number;
+}
+
+const { image, alt, target, thumbWidth = 1000 } = Astro.props;
+
+// A hand-written target is easy to duplicate, and two lightboxes sharing an id
+// silently break each other. Default to the filename instead.
+const slug =
+  image.src
+    .split("/")
+    .pop()
+    ?.replace(/\.[a-z0-9]+$/i, "")
+    .replace(/\W+/g, "-")
+    .toLowerCase() ?? "image";
+const dialogId = (target ?? `lightbox-${slug}`).replace(/^#/, "");
+
+// SVG has no raster size to optimize and Astro passes it through untouched.
+const isVector = image.format === "svg";
+const thumbW = Math.min(thumbWidth, image.width);
+
+// A slot can only be rendered once, so capture it and reuse the markup in both
+// the figure and the lightbox.
+const caption = Astro.slots.has("caption")
+  ? await Astro.slots.render("caption")
+  : null;
+---
+
+<figure class="lightbox-figure">
+  <button
+    type="button"
+    class="lightbox-trigger"
+    data-lightbox-open={dialogId}
+    aria-label={`View full size: ${alt}`}
+  >
+    {
+      isVector ? (
+        <img
+          src={image.src}
+          width={image.width}
+          height={image.height}
+          class="img-fluid rounded"
+          alt={alt}
+        />
+      ) : (
+        <Image
+          src={image}
+          width={thumbW}
+          densities={[1, 2]}
+          format="webp"
+          class="img-fluid rounded"
+          alt={alt}
+        />
+      )
+    }
+    <span class="lightbox-hint" aria-hidden="true">Click to enlarge</span>
+  </button>
+  {caption && <figcaption class="lightbox-figcaption" set:html={caption} />}
+</figure>
+
+<dialog id={dialogId} class="lightbox-dialog" aria-label={alt}>
+  <div class="lightbox-shell">
+    <button
+      type="button"
+      class="btn-close btn-close-white lightbox-close"
+      data-lightbox-close
+      aria-label="Close"></button>
+
+    <div class="lightbox-scroll">
+      <img
+        src={image.src}
+        width={image.width}
+        height={image.height}
+        class="lightbox-full"
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        data-lightbox-zoom
+      />
+    </div>
+
+    {caption && <p class="lightbox-caption" set:html={caption} />}
+  </div>
+</dialog>
+
+<style>
+  .lightbox-figure {
+    margin: 0 0 1rem;
+  }
+
+  .lightbox-trigger {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+
+  .lightbox-trigger:focus-visible {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 3px;
+  }
+
+  .lightbox-hint {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    background: rgb(0 0 0 / 0.65);
+    color: #fff;
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+  }
+
+  .lightbox-trigger:hover .lightbox-hint,
+  .lightbox-trigger:focus-visible .lightbox-hint {
+    opacity: 1;
+  }
+
+  .lightbox-figcaption {
+    margin-top: 0.5rem;
+    color: var(--bs-secondary-color);
+    font-size: 0.875rem;
+  }
+
+  /*
+    A native dialog renders in the browser's top layer, so no ancestor's
+    stacking context, overflow or transform can clip or hide it. That is the
+    whole reason for using one here.
+  */
+  .lightbox-dialog {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    padding: 2.5rem 1rem;
+    border: 0;
+    background: none;
+    overflow: hidden;
+  }
+
+  .lightbox-dialog:not([open]) {
+    display: none;
+  }
+
+  .lightbox-dialog[open] {
+    display: grid;
+    place-items: center;
+  }
+
+  .lightbox-dialog::backdrop {
+    background: rgb(0 0 0 / 0.85);
+  }
+
+  .lightbox-shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 0;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: -2rem;
+    right: 0;
+    z-index: 1;
+  }
+
+  .lightbox-scroll {
+    overflow: auto;
+    min-height: 0;
+    border-radius: 0.375rem;
+  }
+
+  /* Fitted by default; clicking swaps to true pixel size and the box scrolls. */
+  .lightbox-full {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100dvh - 8rem);
+    height: auto;
+    cursor: zoom-in;
+  }
+
+  .lightbox-full.is-actual {
+    max-width: none;
+    max-height: none;
+    width: auto;
+    cursor: zoom-out;
+  }
+
+  .lightbox-caption {
+    flex: none;
+    margin: 0.75rem 0 0;
+    color: #dee2e6;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lightbox-hint {
+      transition: none;
+    }
+  }
+</style>
+
+<style is:global>
+  /* A dialog's backdrop does not stop the page behind it from scrolling. */
+  html:has(dialog.lightbox-dialog[open]) {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // One delegated listener for every lightbox on the page. Astro bundles this
+  // script once no matter how many times the component is used.
+  document.addEventListener("click", (event) => {
+    const el = event.target;
+    if (!(el instanceof Element)) return;
+
+    const opener = el.closest("[data-lightbox-open]");
+    if (opener instanceof HTMLElement) {
+      const id = opener.dataset.lightboxOpen;
+      const dialog = id ? document.getElementById(id) : null;
+      if (dialog instanceof HTMLDialogElement) dialog.showModal();
+      return;
+    }
+
+    if (el.closest("[data-lightbox-close]")) {
+      el.closest("dialog")?.close();
+      return;
+    }
+
+    const zoomable = el.closest("[data-lightbox-zoom]");
+    if (zoomable) {
+      zoomable.classList.toggle("is-actual");
+      return;
+    }
+
+    // Clicking the dialog itself means the click landed outside the image,
+    // which is the gesture everyone expects to dismiss a lightbox.
+    if (el instanceof HTMLDialogElement) el.close();
+  });
+
+  // Reset the zoom state so a reopened lightbox starts fitted.
+  //
+  // A dialog's close event does not bubble, so a listener on document only sees
+  // it during the capture phase. Without the third argument this never fires.
+  document.addEventListener(
+    "close",
+    (event) => {
+      const dialog = event.target;
+      if (!(dialog instanceof HTMLDialogElement)) return;
+      dialog
+        .querySelectorAll("[data-lightbox-zoom].is-actual")
+        .forEach((img) => img.classList.remove("is-actual"));
+    },
+    true,
+  );
+</script>
