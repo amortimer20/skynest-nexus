@@ -70,12 +70,17 @@ const Task1 = `INSERT
           Build
           Unlike the coding-activity template, tasks here are a mix of two
           kinds — use whichever fits each step, in any order:
-            1. Editor/GUI steps (add a node, set a property, import an asset)
-               -> a plain instruction list + a GIF/screenshot placeholder.
+            1. Editor steps (add a node, set a property, import an asset)
+               -> a plain instruction list + a media placeholder.
             2. Scripting steps (writing/editing GDScript)
                -> the same Code component pattern as the coding template.
-          Reference the video content directly so students can find their
-          place ("Watch: Section 2, Lecture 14, 4:30-9:00").
+
+          Media: a CLIP only when motion is the content — a drag, an easing
+          comparison, a value being tuned while the game responds. Everything
+          else is a STILL, which does not rot on a Godot version bump and
+          survives printing. Every clip needs a text fallback beneath it.
+          Placeholders carry their own shot spec so nothing has to be
+          reconstructed later.
         -->
         <section id="build">
           <h2>Build</h2>
@@ -84,18 +89,16 @@ const Task1 = `INSERT
 
           <hr class="my-4" />
 
-          <h3>Task 1: GUI Step Title</h3>
+          <h3>Task 1: Editor Step Title</h3>
           <ul>
-            <li><b>Watch:</b> Section INSERT, Lecture INSERT (INSERT-INSERT)</li>
             <li></li>
           </ul>
 
-          <!-- GIF: INSERT description -->
           <div
             class="border border-secondary rounded p-4 my-3 text-center text-secondary"
             style="border-style: dashed !important;"
           >
-            [GIF PLACEHOLDER &mdash; INSERT]
+            [STILL &mdash; INSERT what is on screen · from tag INSERT]
           </div>
 
           <hr class="my-4" />
@@ -133,12 +136,11 @@ const Task1 = `INSERT
             <li></li>
           </ul>
 
-          <!-- GIF/Screenshot: INSERT description -->
           <div
             class="border border-secondary rounded p-4 my-3 text-center text-secondary"
             style="border-style: dashed !important;"
           >
-            [GIF PLACEHOLDER &mdash; INSERT expected result]
+            [STILL &mdash; INSERT expected result · from tag INSERT]
           </div>
         </section>
 

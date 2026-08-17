@@ -1,0 +1,314 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const CachedRefs = `extends CharacterBody2D
+
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var shape: CollisionShape2D = $CollisionShape2D
+
+
+func _physics_process(delta: float) -> void:
+	sprite.flip_h = velocity.x < 0.0`;
+
+const NoDeepPaths = `# Don't do this. It breaks the moment anyone moves a node.
+get_node("../../Player/Sprite2D").flip_h = true`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/game-design/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>How This Course Uses Godot</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <p>
+          Godot lets you build a game a hundred different ways. That flexibility
+          is great once you know what you are doing, and confusing before then
+          &mdash; every tutorial you find online will do things a little
+          differently, and none of them will explain why.
+        </p>
+
+        <p>
+          <b class="text-sn-theme">This page is the way we do it in this class.</b>{" "}
+          Five rules, and the reason for each one. Every activity assumes them,
+          so when a video online does something that contradicts a rule here,
+          the rule here wins.
+        </p>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="version">
+          <h2>The Version</h2>
+
+          <p>
+            This course uses <b class="text-sn-theme">Godot 4.7</b>. Every
+            screenshot, every menu, and every property name in these activities
+            comes from that version.
+          </p>
+
+          <p>
+            Godot changes between versions. If you install a different one at
+            home, buttons will have moved and some things will be named
+            something else. Use 4.7 and the pictures will match what is on your
+            screen.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="prefabs">
+          <h2>A Scene Is a Reusable Object</h2>
+
+          <p>
+            This is the single most important idea in Godot, and it is the one
+            people find strangest coming from other engines.
+          </p>
+
+          <p>
+            A <b class="text-sn-theme">scene</b> is a saved{" "}
+            <CodeSnippet code=".tscn" lang="txt" theme={"material-theme-ocean"} inline />{" "}
+            file describing an object and everything it is made of. Once saved,
+            you can drop as many copies of it into your game as you like, and
+            every copy behaves the same way.
+          </p>
+
+          <p>Read a scene like this:</p>
+
+          <ul>
+            <li>
+              The <b>root node</b> is <i>the thing itself</i> &mdash; the crate,
+              the player, the bullet.
+            </li>
+            <li>
+              Its <b>children</b> are <i>the parts it is made of</i> &mdash; a
+              sprite so you can see it, a collision shape so it can be hit, a
+              timer, a sound.
+            </li>
+            <li>
+              Dropping a copy into your level is called{" "}
+              <b class="text-sn-theme">instancing</b>. Each copy is an{" "}
+              <b>instance</b>.
+            </li>
+          </ul>
+
+          <p>
+            A "scene" does not have to mean a whole level. A single crate is a
+            scene. A bullet is a scene. Your level is also a scene, one that
+            happens to contain instances of the others.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="rules">
+          <h2>The Five Rules</h2>
+
+          <hr class="my-4" />
+
+          <h3>1. Scripts go on root nodes only</h3>
+
+          <p>
+            A script attaches to the <b>root</b> of a scene, never to one of its
+            children. The crate's script goes on the crate, not on the crate's
+            sprite.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Why.</b> If every part of an object can
+            have its own script, then finding the code that controls something
+            means hunting through the whole tree. One object, one script, one
+            place to look.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>2. Two levels deep, no more</h3>
+
+          <p>
+            A scene is a root and its parts. Parts do not get their own parts.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Why.</b> Deep trees are where beginners get
+            lost, and they are also fragile &mdash; the deeper a node sits, the
+            more ways there are for a path to it to break. If you find yourself
+            needing a third level, that is usually a sign the thing you are
+            nesting should be its own scene.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>3. Grab your nodes once, at the top</h3>
+
+          <p>
+            When a script needs to talk to one of its own parts, grab a
+            reference at the top of the file and use that name everywhere else.
+          </p>
+
+          <Code
+            code={CachedRefs}
+            frame="code"
+            lang="gdscript"
+            title="player.gd"
+            showLineNumbers={false}
+          />
+
+          <p>Never go looking for a node in the middle of your logic:</p>
+
+          <Code
+            code={NoDeepPaths}
+            frame="code"
+            lang="gdscript"
+            showLineNumbers={false}
+          />
+
+          <p>
+            <b class="text-sn-theme">Why.</b> That second version is a string
+            describing a route through the tree. Rename a node or drag it
+            somewhere else, and the string is still perfectly valid text that
+            now points at nothing. Your game breaks at run time, with an error
+            that does not mention the thing you actually changed.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>4. Signals announce, they don't command</h3>
+
+          <p>
+            Use a <b class="text-sn-theme">signal</b> when an object needs to
+            announce that something happened and does not care who is listening
+            &mdash; "I died", "I was collected", "the timer ran out".
+          </p>
+
+          <p>
+            When you know exactly which object you want to act on, just call its
+            function directly.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Why.</b> Signals are genuinely useful, and
+            Godot tutorials use them for everything, including cases where a
+            plain function call would be shorter and clearer. Once a project has
+            twenty signals in it, tracing what happens when you press a button
+            means opening twenty files.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>5. One folder per scene</h3>
+
+          <p>
+            Everything that belongs to an object lives in one folder with it
+            &mdash; its scene, its script, its art.
+          </p>
+
+          <Code
+            code={`crate/
+  crate.tscn
+  crate.png
+
+ball/
+  ball.tscn
+  ball.png
+
+main/
+  main.tscn
+  main.gd`}
+            frame="none"
+            lang="txt"
+            title="Project layout"
+            showLineNumbers={false}
+          />
+
+          <p>
+            <b class="text-sn-theme">Why.</b> The alternative &mdash; all scenes
+            in one folder, all scripts in another, all art in a third &mdash;
+            looks tidy for about a week. Then you have forty files in three
+            folders and deleting an object means hunting its pieces down one at
+            a time.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="naming">
+          <h2>Naming</h2>
+
+          <p>Godot is picky about this, and so is this class.</p>
+
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>Thing</th>
+                <th>Style</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nodes</td>
+                <td>PascalCase</td>
+                <td><CodeSnippet code="CollisionShape2D" lang="txt" theme={"material-theme-ocean"} inline /></td>
+              </tr>
+              <tr>
+                <td>Scene files</td>
+                <td>lowercase</td>
+                <td><CodeSnippet code="crate.tscn" lang="txt" theme={"material-theme-ocean"} inline /></td>
+              </tr>
+              <tr>
+                <td>Variables</td>
+                <td>snake_case</td>
+                <td><CodeSnippet code="launch_power" lang="gdscript" theme={"material-theme-ocean"} inline /></td>
+              </tr>
+              <tr>
+                <td>Functions</td>
+                <td>snake_case</td>
+                <td><CodeSnippet code="reset_scene()" lang="gdscript" theme={"material-theme-ocean"} inline /></td>
+              </tr>
+              <tr>
+                <td>Constants</td>
+                <td>ALL_CAPS</td>
+                <td><CodeSnippet code="LAUNCH_POWER" lang="gdscript" theme={"material-theme-ocean"} inline /></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            GDScript uses <b>indentation</b> to decide what belongs inside what
+            &mdash; there are no curly braces. A tab in the wrong place changes
+            what your program does, so let the editor indent for you and do not
+            fight it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="summary">
+          <h2>The Short Version</h2>
+
+          <ol>
+            <li>Scripts go on root nodes only.</li>
+            <li>Two levels deep, no more.</li>
+            <li>Grab your nodes once, at the top.</li>
+            <li>Signals announce, they don't command.</li>
+            <li>One folder per scene.</li>
+          </ol>
+
+          <p>
+            Come back to this page whenever a tutorial has you doing something
+            that feels tangled. Usually it is breaking one of these five.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

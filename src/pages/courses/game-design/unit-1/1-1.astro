@@ -1,0 +1,463 @@
+---
+import { Image } from "astro:assets";
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+
+import GameLoopDiagram from "../../../../assets/courses/game-design/img/game-loop-diagram.svg";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/game-design/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.1: Getting Started with Godot</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.1</h2>
+              <h3 class="text-sn-theme">Getting Started with Godot</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>What a Game Actually Is</p>
+              <p>The Game Loop</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What Is a Game?</h2>
+              <p>
+                A movie plays the same way every time. A game does not, because
+                a game is <b class="text-sn-theme">waiting for you</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What Is a Game?</h2>
+              <p>
+                Underneath every game ever made is the same short list of
+                instructions, repeating.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Game Loop</h2>
+              <Image
+                src={GameLoopDiagram}
+                alt="Diagram of the game loop: Input flows to Update, Update flows to Render, and Render flows back to Input, repeating every frame"
+                width={620}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Game Loop</h2>
+              <ul>
+                <li class="fragment">
+                  <b class="text-sn-theme">Input</b> &mdash; what did the player
+                  just do?
+                </li>
+                <li class="fragment">
+                  <b class="text-sn-theme">Update</b> &mdash; move everything,
+                  check what hit what
+                </li>
+                <li class="fragment">
+                  <b class="text-sn-theme">Render</b> &mdash; draw the result on
+                  screen
+                </li>
+              </ul>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Sixty Times a Second</h2>
+              <p>
+                That loop runs about <b class="text-sn-theme">60 times every
+                second</b>. One trip around it is called a{" "}
+                <b>frame</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Sixty Times a Second</h2>
+              <p>
+                Nothing in a game moves smoothly. Everything jumps a tiny
+                distance, sixty times a second, too fast for you to see the
+                steps.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>What an Engine Does</h2>
+              <p>
+                A <b class="text-sn-theme">game engine</b> runs that loop for
+                you, and brings along the parts every game needs anyway.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What an Engine Does</h2>
+              <ul>
+                <li class="fragment">Drawing pictures on screen</li>
+                <li class="fragment">Reading the keyboard and mouse</li>
+                <li class="fragment">Physics &mdash; gravity, collisions</li>
+                <li class="fragment">Playing sound</li>
+              </ul>
+              <p class="fragment">
+                You write the part that makes <i>your</i> game different.
+              </p>
+            </section>
+
+            <section>
+              <h2>Godot</h2>
+              <p>
+                This course uses <b class="text-sn-theme">Godot 4.7</b>. It is
+                free, it is small, and it exports games that run in a web
+                browser.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Describing the game loop: input, update, and render</li>
+                <li>Creating a Godot project and saving a scene</li>
+                <li>Putting an image on screen and running the game</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Game Loop</dt>
+                  <dd>
+                    The cycle a game repeats every frame: read input, update the
+                    world, draw the result.
+                  </dd>
+                  <dt>Frame</dt>
+                  <dd>One trip around the game loop.</dd>
+                  <dt>Game Engine</dt>
+                  <dd>
+                    Software that runs the game loop and provides the parts
+                    every game needs, so you only build what is unique to yours.
+                  </dd>
+                  <dt>Node</dt>
+                  <dd>
+                    A single building block in Godot. Everything in a Godot game
+                    is made of nodes.
+                  </dd>
+                  <dt>Scene</dt>
+                  <dd>
+                    A saved arrangement of nodes that you can reuse as many
+                    times as you want.
+                  </dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            You are going to start the game you will be building for the next
+            two weeks. It is called <b class="text-sn-theme">Junkyard</b>, and
+            by the end of it you will be flinging a wrecking ball at a stack of
+            crates.
+          </p>
+
+          <p>Today it is going to be one crate, sitting still. Everyone starts somewhere.</p>
+
+          <div class="border-start border-3 border-primary ps-3 my-3">
+            <p class="mb-0">
+              <b class="text-sn-theme">Before you start.</b> Read{" "}
+              <a href="/courses/game-design/conventions">How This Course Uses Godot</a>{" "}
+              if you have not already. It is short, and every activity in this
+              course assumes it.
+            </p>
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 1: Get the Starter Pack</h3>
+          <ul>
+            <li>
+              Download <b class="text-sn-theme">Junkyard Starter Pack</b> from
+              the class dropbox and unzip it. It holds the artwork you will use
+              for this game.
+            </li>
+            <li>
+              Put the unzipped folder somewhere you can find it again. You will
+              be copying files out of it in a moment.
+            </li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 2: Create the Project</h3>
+          <ul>
+            <li>Open Godot. The Project Manager window opens first.</li>
+            <li>
+              Click <b>Create</b>, and name the project{" "}
+              <b class="text-sn-theme">junkyard</b>.
+            </li>
+            <li>
+              Set the project folder to your <b>Z:</b> drive so your work
+              follows you between machines.
+            </li>
+            <li>
+              Leave the renderer set to <b>Compatibility</b>. That is the one
+              that works in a web browser, which is how you will share this game
+              later.
+            </li>
+            <li>Click <b>Create &amp; Edit</b>.</li>
+          </ul>
+
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [STILL &mdash; Project Manager create dialog, name and renderer filled in]
+          </div>
+
+          <div class="border-start border-3 border-primary ps-3 my-3">
+            <p class="mb-0">
+              <b class="text-sn-theme">Never put a Godot project inside a
+              synced folder</b> like Google Drive or OneDrive. Godot writes
+              hundreds of small files while you work, and sync software will
+              corrupt them. The Z: drive is fine. A synced folder is not.
+            </p>
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 3: Find Your Way Around</h3>
+
+          <p>
+            The editor looks busy. You only need four parts of it today, so find
+            each one before moving on.
+          </p>
+
+          <ul>
+            <li>
+              <b class="text-sn-theme">Scene</b> (top left) &mdash; the list of
+              nodes in whatever you are currently building.
+            </li>
+            <li>
+              <b class="text-sn-theme">FileSystem</b> (bottom left) &mdash;
+              every file in your project.
+            </li>
+            <li>
+              <b class="text-sn-theme">Viewport</b> (middle) &mdash; what your
+              game looks like. Make sure the <b>2D</b> button at the top is
+              selected, not <b>3D</b>.
+            </li>
+            <li>
+              <b class="text-sn-theme">Inspector</b> (right) &mdash; the
+              settings of whichever node you have selected.
+            </li>
+          </ul>
+
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [STILL &mdash; empty editor in 2D view, the four docks labeled]
+          </div>
+
+          <hr class="my-4" />
+
+          <h3>Task 4: Add the Artwork</h3>
+          <ul>
+            <li>
+              In the FileSystem dock, right-click the{" "}
+              <CodeSnippet code="res://" lang="txt" theme={"material-theme-ocean"} inline />{" "}
+              folder and choose <b>Create Folder</b>. Name it{" "}
+              <b class="text-sn-theme">crate</b>.
+            </li>
+            <li>
+              From the starter pack, drag <b>crate.png</b> into that new folder.
+            </li>
+          </ul>
+
+          <p>
+            One folder per object, holding everything that belongs to it. That
+            is rule five, and it is why this game will still be findable in six
+            weeks.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Task 5: Build the Scene</h3>
+          <ul>
+            <li>
+              In the Scene dock, click <b>Other Node</b>, choose{" "}
+              <b class="text-sn-theme">Node2D</b>, and click <b>Create</b>.
+            </li>
+            <li>
+              Rename it to <b class="text-sn-theme">Main</b> by double-clicking
+              its name.
+            </li>
+            <li>
+              With Main selected, click the <b>+</b> button and add a{" "}
+              <b class="text-sn-theme">Sprite2D</b> as its child.
+            </li>
+            <li>
+              Select the Sprite2D. In the Inspector, find the empty{" "}
+              <b>Texture</b> slot and drag <b>crate.png</b> onto it from the
+              FileSystem dock.
+            </li>
+          </ul>
+
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [CLIP &mdash; dragging crate.png from FileSystem onto the Texture
+            slot · the crate appears in the viewport · from tag{" "}
+            <CodeSnippet code="junkyard/1-1" lang="txt" theme={"material-theme-ocean"} inline />]
+            <div class="mt-2 small">
+              Text fallback: drag the file from the FileSystem dock and drop it
+              directly on the word "empty" in the Texture row of the Inspector.
+              The crate appears in the viewport as soon as you let go.
+            </div>
+          </div>
+
+          <ul>
+            <li>
+              Set the Sprite2D's <b>Position</b> to{" "}
+              <CodeSnippet code="640, 360" lang="txt" theme={"material-theme-ocean"} inline />{" "}
+              in the Inspector. That is the middle of the screen &mdash; you
+              will find out why in the next activity.
+            </li>
+            <li>
+              Save the scene with <b>Ctrl+S</b>. Create a folder called{" "}
+              <b class="text-sn-theme">main</b> and save it as{" "}
+              <b class="text-sn-theme">main.tscn</b> inside it.
+            </li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Task 6: Set Up the Window and Run It</h3>
+          <ul>
+            <li>
+              Open <b>Project &rarr; Project Settings</b>. Under{" "}
+              <b>Display &rarr; Window</b>, set <b>Viewport Width</b> to{" "}
+              <CodeSnippet code="1280" lang="txt" theme={"material-theme-ocean"} inline />{" "}
+              and <b>Viewport Height</b> to{" "}
+              <CodeSnippet code="720" lang="txt" theme={"material-theme-ocean"} inline />.
+            </li>
+            <li>Close Project Settings.</li>
+            <li>
+              Press <b class="text-sn-theme">F5</b> to run the game. Godot will
+              ask which scene should be the main one &mdash; choose{" "}
+              <b>Select Current</b>.
+            </li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Challenge (Optional)</h3>
+          <ul>
+            <li>
+              Add a second Sprite2D to Main, give it the same crate texture, and
+              put it somewhere else on screen.
+            </li>
+            <li>
+              Then work out which of your two crates is drawn on top, and see if
+              you can figure out what decides that.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <p>Run the game and check all four of these:</p>
+
+          <ul>
+            <li>A window opens, and it is wider than it is tall.</li>
+            <li>One crate is sitting in the middle of it.</li>
+            <li>Nothing moves, and nothing happens when you press keys.</li>
+            <li>
+              The Scene dock shows <b>Main</b> with <b>Sprite2D</b> indented
+              underneath it &mdash; two levels, exactly like rule two says.
+            </li>
+          </ul>
+
+          <div
+            class="border border-secondary rounded p-4 my-3 text-center text-secondary"
+            style="border-style: dashed !important;"
+          >
+            [STILL &mdash; the running game, one crate centered on a 1280&times;720
+            window · from tag{" "}
+            <CodeSnippet code="junkyard/1-1" lang="txt" theme={"material-theme-ocean"} inline />]
+          </div>
+
+          <p>
+            "Nothing happens" is the correct result today. You have built the
+            stage. The game goes on it starting next session.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              A game runs its loop about sixty times a second even when the
+              player is doing absolutely nothing. Why can it not just wait until
+              a key is pressed?
+            </li>
+            <li>
+              You put an image on screen without writing any code. What did the
+              engine do for you that you would otherwise have had to build
+              yourself?
+            </li>
+            <li>
+              Your scene has a Sprite2D <i>inside</i> a Node2D rather than the
+              two sitting side by side. What do you think that arrangement is
+              meant to tell you about how the two nodes are related?
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
