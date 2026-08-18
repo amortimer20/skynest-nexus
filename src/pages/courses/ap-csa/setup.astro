@@ -1,0 +1,227 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const FirstProgram = `public class Main
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Ready.");
+    }
+}`;
+
+const FirstProgramOut = `Ready.`;
+
+const MissingSemicolon = `public class Main
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Ready.")
+    }
+}`;
+
+const MissingSemicolonOut = `Main.java:5: error: ';' expected
+        System.out.println("Ready.")
+                                    ^
+1 error`;
+
+const TypeError = `int score = "seven";`;
+
+const TypeErrorOut = `Main.java:5: error: incompatible types: String cannot be converted to int
+        int score = "seven";
+                    ^`;
+
+const RuntimeError = `int[] scores = new int[3];
+System.out.println(scores[3]);`;
+
+const RuntimeErrorOut = `Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException:
+Index 3 out of bounds for length 3
+	at Main.main(Main.java:6)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csa/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Setting Up and Running Java</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="what-you-need">
+          <h2>What You Need</h2>
+
+          <p>
+            One thing: <b class="text-sn-theme">a code editor that can compile
+            and run Java</b> and show you what it prints. That is the entire
+            requirement for all four units. Nothing in this course needs a
+            graphics library, a database, or a package manager.
+          </p>
+
+          <p>
+            Use the code editor set up for this course. It runs in a browser
+            tab, so it works the same on a Chromebook as on anything else, and
+            there is nothing to install.
+          </p>
+
+          <p class="text-secondary">
+            If you already have Java running some other way &mdash; a desktop
+            editor, a JDK on your own machine &mdash; keep it. Every program in
+            this course is a plain <CodeSnippet code=".java" lang="txt" inline />{" "}
+            file with no dependencies, so it runs anywhere Java runs.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="first-program">
+          <h2>Your First Program</h2>
+
+          <p>
+            Make a file called <CodeSnippet code="Main.java" lang="txt" inline />{" "}
+            and put this in it. Type it rather than pasting it &mdash; there is
+            a reason, and it is the next section.
+          </p>
+
+          <Code code={FirstProgram} lang="java" frame="code" title="Main.java" />
+
+          <p>Run it. You should see:</p>
+
+          <Code code={FirstProgramOut} lang="txt" frame="terminal" />
+
+          <p>
+            <b>The file name has to match the class name.</b> A class called{" "}
+            <CodeSnippet code="Main" lang="java" inline /> lives in a file
+            called <CodeSnippet code="Main.java" lang="txt" inline />, capital
+            M and all. This is a rule Java actually enforces, and it is the
+            first thing that catches people arriving from Python or JavaScript.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="three-errors">
+          <h2>The Three Kinds of Wrong</h2>
+
+          <p>
+            <b class="text-sn-theme">This is the section worth reading twice.</b>{" "}
+            If your last language was Python or JavaScript, Java fails at
+            different times than you are used to, and the whole experience of
+            writing it depends on recognizing which kind of failure you are
+            looking at.
+          </p>
+
+          <h3 class="mt-4">1. It will not compile: a syntax error</h3>
+
+          <p>
+            The program is not valid Java, so it never runs at all. Drop one
+            semicolon:
+          </p>
+
+          <Code
+            code={MissingSemicolon}
+            lang="java"
+            frame="code"
+            title="Main.java"
+            mark={[5]}
+          />
+
+          <Code code={MissingSemicolonOut} lang="txt" frame="terminal" />
+
+          <p>
+            Note what you get: <b>a file, a line number, and a caret pointing at
+            the character.</b> Compiler errors look hostile and are in fact the
+            most helpful message in the language. Read the first one, fix it,
+            recompile. Do not read all forty &mdash; one mistake often produces
+            a cascade, and the first line is usually the only real one.
+          </p>
+
+          <h3 class="mt-4">2. It will not compile: a type error</h3>
+
+          <p>
+            This is the category that does not exist in a dynamically typed
+            language, and it is the reason Java feels strict at first:
+          </p>
+
+          <Code code={TypeError} lang="java" frame="code" />
+
+          <Code code={TypeErrorOut} lang="txt" frame="terminal" />
+
+          <p>
+            In Python this line runs fine and blows up somewhere else, later,
+            with a stack trace that points at the wrong place. In Java it is
+            caught <i>before the program ever starts</i>. You will trade a
+            slower start for far fewer mysteries at 11pm. That trade is most of
+            what static typing buys you.
+          </p>
+
+          <h3 class="mt-4">3. It compiled, then died: a run-time exception</h3>
+
+          <p>
+            The code was valid. It just asked for something impossible once it
+            was running:
+          </p>
+
+          <Code code={RuntimeError} lang="java" frame="code" />
+
+          <Code code={RuntimeErrorOut} lang="txt" frame="terminal" />
+
+          <p>
+            An array of length 3 has indexes 0, 1, and 2. There is no index 3.
+            Read the exception name first &mdash;{" "}
+            <CodeSnippet code="ArrayIndexOutOfBoundsException" lang="java" inline />{" "}
+            says exactly what happened &mdash; then read the line number.
+          </p>
+
+          <p class="text-secondary">
+            There is a fourth kind, and it is the worst: the program compiles,
+            runs, finishes, and prints the wrong answer. Nothing tells you.
+            That one is on you to catch, and it is what the debug challenges in
+            this course are for.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="brace-style">
+          <h2>One Note on Style</h2>
+
+          <p>
+            Every code sample in this course puts an opening brace on its own
+            line:
+          </p>
+
+          <Code code={FirstProgram} lang="java" frame="code" />
+
+          <p>
+            You will see Java written the other way, with the brace at the end
+            of the previous line, and <b>both are correct</b>. Java does not
+            care and neither does the exam. Pick one and be consistent; this
+            course is consistent about this one so that the block structure is
+            easy to see at a glance while you are still learning to read it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="next">
+          <h2>Next</h2>
+
+          <p>
+            If <CodeSnippet code="Ready." lang="txt" inline /> printed, you have
+            everything you need for the whole course. Read{" "}
+            <a href="./exam">The Exam, and How to Pace Yourself</a> before
+            starting Unit 1 &mdash; it is short, and it will change how you use
+            the rest of these pages.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
