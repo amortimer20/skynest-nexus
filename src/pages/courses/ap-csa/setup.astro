@@ -58,23 +58,40 @@ Index 3 out of bounds for length 3
           <h2>What You Need</h2>
 
           <p>
-            One thing: <b class="text-sn-theme">a code editor that can compile
-            and run Java</b> and show you what it prints. That is the entire
+            One thing: <b class="text-sn-theme">something that can compile and
+            run Java</b> and show you what it prints. That is the entire
             requirement for all four units. Nothing in this course needs a
             graphics library, a database, or a package manager.
           </p>
 
           <p>
-            Use the code editor set up for this course. It runs in a browser
-            tab, so it works the same on a Chromebook as on anything else, and
-            there is nothing to install.
+            Two pieces, if you are starting from nothing:
           </p>
 
+          <ol>
+            <li class="mb-2">
+              <b class="text-sn-theme">A JDK</b> &mdash; the Java compiler and
+              runtime. Any current long-term-support release is fine;{" "}
+              <a href="https://adoptium.net/" target="_blank">adoptium.net</a>{" "}
+              gives you one with an installer for your operating system.
+            </li>
+            <li class="mb-2">
+              <b class="text-sn-theme">VS Code</b>, from{" "}
+              <a href="https://code.visualstudio.com/" target="_blank"
+                >code.visualstudio.com</a
+              >, plus its <i>Extension Pack for Java</i>. Install the extension
+              pack from the Extensions panel and it will find the JDK you just
+              installed.
+            </li>
+          </ol>
+
           <p class="text-secondary">
-            If you already have Java running some other way &mdash; a desktop
-            editor, a JDK on your own machine &mdash; keep it. Every program in
-            this course is a plain <CodeSnippet code=".java" lang="txt" inline />{" "}
-            file with no dependencies, so it runs anywhere Java runs.
+            If you already have Java running some other way &mdash; a different
+            editor, a JDK that came with something else, a command line you like
+            &mdash; keep it. Every program in this course is a single plain{" "}
+            <CodeSnippet code=".java" lang="txt" inline /> file with no
+            dependencies, so it runs anywhere Java runs, and nothing on these
+            pages depends on which editor you used.
           </p>
         </section>
 
@@ -84,14 +101,21 @@ Index 3 out of bounds for length 3
           <h2>Your First Program</h2>
 
           <p>
-            Make a file called <CodeSnippet code="Main.java" lang="txt" inline />{" "}
-            and put this in it. Type it rather than pasting it &mdash; there is
-            a reason, and it is the next section.
+            Make a folder to keep this course's work in and open it in VS Code
+            &mdash; <i>File &gt; Open Folder</i>. Inside it, make a file called{" "}
+            <CodeSnippet code="Main.java" lang="txt" inline /> and put this in
+            it. Type it rather than pasting it &mdash; there is a reason, and it
+            is the next section.
           </p>
 
           <Code code={FirstProgram} lang="java" frame="code" title="Main.java" />
 
-          <p>Run it. You should see:</p>
+          <p>
+            Press the <b class="text-sn-theme">Run</b> button &mdash; the ▷ at
+            the top right, or the <i>Run</i> link the extension puts just above{" "}
+            <CodeSnippet code="main" lang="java" inline />. A terminal panel
+            opens at the bottom and shows:
+          </p>
 
           <Code code={FirstProgramOut} lang="txt" frame="terminal" />
 
@@ -101,6 +125,15 @@ Index 3 out of bounds for length 3
             called <CodeSnippet code="Main.java" lang="txt" inline />, capital
             M and all. This is a rule Java actually enforces, and it is the
             first thing that catches people arriving from Python or JavaScript.
+          </p>
+
+          <p class="text-secondary">
+            <b>No Run button?</b> The Java extension pack is not installed, or
+            it has not found a JDK &mdash; those are the only two reasons.
+            Nothing here needs a project, a build file, or a{" "}
+            <CodeSnippet code="src" lang="txt" inline /> folder: one loose{" "}
+            <CodeSnippet code=".java" lang="txt" inline /> file in an open
+            folder is a complete, runnable program.
           </p>
         </section>
 
@@ -205,6 +238,13 @@ Index 3 out of bounds for length 3
             care and neither does the exam. Pick one and be consistent; this
             course is consistent about this one so that the block structure is
             easy to see at a glance while you are still learning to read it.
+          </p>
+
+          <p class="text-secondary">
+            If your editor reformats a file and moves the braces up a line, that
+            is its formatter applying its own default &mdash; not a mistake, and
+            not something you need to fight. It changes nothing about how the
+            program runs.
           </p>
         </section>
 
