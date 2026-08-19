@@ -33,11 +33,48 @@ import Layout from "../../../../layouts/Layout.astro";
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
-              <h2>Two Tracks &mdash; Pick One</h2>
+              <h2>You Already Wrote the Hard Parts</h2>
               <ul>
-                <li class="fragment"><b class="text-sn-theme">Terminal Game</b> &mdash; turn-based, puzzle, choose-your-own-adventure, or your own idea</li>
-                <li class="fragment"><b class="text-sn-theme">Utility Application</b> &mdash; something that actually helps someone do a real task</li>
+                <li class="fragment">Number Guessing Game</li>
+                <li class="fragment">Rock, Paper, Scissors</li>
+                <li class="fragment">Heads or Tails</li>
+                <li class="fragment">Dungeon Crawler</li>
+                <li class="fragment">A quiz built on parallel lists</li>
               </ul>
+              <p class="fragment">
+                Nobody is asking you to throw those away and start over.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Routes &mdash; Pick One</h2>
+              <ul>
+                <li class="fragment">
+                  <b class="text-sn-theme">Build on what you made</b> &mdash;
+                  grow one program, or wire several together into one bigger
+                  one
+                </li>
+                <li class="fragment">
+                  <b class="text-sn-theme">Start something new</b> &mdash; a
+                  game or a utility, from an empty file
+                </li>
+              </ul>
+              <p class="fragment">
+                Both routes are graded identically. Route 1 is the one most
+                teams should take.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Arcade</h2>
+              <p>
+                Four of your games behind one menu, and a single wallet that
+                every game pays into and takes from.
+              </p>
+              <p class="fragment">
+                That wallet is the whole trick. It is what makes it{" "}
+                <i>one program</i> instead of four programs in a folder.
+              </p>
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
@@ -59,8 +96,9 @@ import Layout from "../../../../layouts/Layout.astro";
                 taught &mdash; conditionals, a loop, and real list usage.
               </p>
               <p class="fragment">
-                A reskinned Dungeon Crawler with no loops and no lists
-                doesn't meet that bar, no matter how good the story is.
+                Building on your own work is not a shortcut &mdash; but
+                renaming variables and changing the text is. What counts is
+                what the program can <i>do</i> that it could not do before.
               </p>
             </section>
 
@@ -101,38 +139,81 @@ import Layout from "../../../../layouts/Layout.astro";
 
         <Divider variant="8" classes="my-5" />
 
-        <!-- Choose Your Track -->
+        <!-- Choose Your Route -->
         <section id="tracks">
-          <h2>Choose Your Track</h2>
+          <h2>Choose Your Route</h2>
 
-          <hr class="my-4" />
-
-          <h3>Option A: Terminal Game</h3>
           <p>
-            Any terminal-friendly game: turn-based, puzzle, choose-your-own-adventure,
-            or something entirely your own. It needs a clear win/lose
-            condition, real player choices that matter, and enough state
-            tracking (score, health, inventory, branching paths &mdash;
-            your call) that playing it twice doesn't feel identical.
+            You have five working programs behind you &mdash; Number Guessing,
+            Rock Paper Scissors, Heads or Tails, the Dungeon Crawler, and a
+            quiz built on parallel lists. <b class="text-sn-theme">Most teams
+            should build on those rather than starting over.</b> Three build
+            sessions is not long, and a program that already runs is a real
+            head start.
           </p>
 
           <hr class="my-4" />
 
-          <h3>Option B: Utility Application</h3>
+          <h3>Route 1: Build On What You Already Made</h3>
+
+          <p>Two ways to do this, and you can mix them.</p>
+
           <p>
-            A program that solves a real, specific task for a real kind of
-            user. It needs to do more than one simple calculation &mdash;
-            think a menu system with a few related features, and data
-            that builds up over the course of a run (a list of entries
-            the program collects, not just one-off math).
+            <b>Grow one program.</b> Take something you built and make it
+            genuinely bigger. The Dungeon Crawler is the obvious candidate
+            &mdash; more rooms, an inventory that holds several items, enemies
+            with health, a map you can look at. It started as nested
+            conditionals; there is a lot of room above that.
           </p>
+
+          <p>
+            <b>Combine several into one.</b> Put your games behind a single
+            menu &mdash; an arcade, a casino, a game night. The player picks
+            what to play, plays it, and comes back to the menu.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">If you combine, give it a wallet.</b> One
+            variable holding the player's money, that every game pays into and
+            takes from. That single shared value is what makes your project{" "}
+            <i>one program</i> instead of four programs sitting in a folder,
+            and it is the difference a grader will notice first. Track the
+            player's history in a list while you are at it &mdash; what they
+            played, what they won.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Route 2: Start Something New</h3>
+
+          <p>
+            Fair game, and some teams should. You get no head start, so be
+            honest about the three build sessions before you commit.
+          </p>
+
+          <p>
+            <b>A terminal game.</b> Any terminal-friendly game: turn-based,
+            puzzle, choose-your-own-adventure, or something entirely your own.
+            It needs a clear win/lose condition, real player choices that
+            matter, and enough state tracking (score, health, inventory,
+            branching paths &mdash; your call) that playing it twice doesn't
+            feel identical.
+          </p>
+
+          <p>
+            <b>A utility application.</b> A program that solves a real,
+            specific task for a real kind of user. It needs to do more than one
+            simple calculation &mdash; think a menu system with a few related
+            features, and data that builds up over the course of a run.
+          </p>
+
           <p>
             <b>A good idea starts specific, not a topic.</b> "A sports app"
-            isn't a project &mdash; "a program that tracks a team's
-            win/loss record across a season and calculates their winning
-            percentage" is. Pick one real thing to track, calculate, or
-            organize, whatever the subject.
+            isn't a project &mdash; "a program that tracks a team's win/loss
+            record across a season and calculates their winning percentage"
+            is. Pick one real thing to track, calculate, or organize.
           </p>
+
           <p>Some starting points (you don't have to use these):</p>
           <ul>
             <li>A school-subject helper (grade calculator, flashcard quiz app)</li>
@@ -140,9 +221,16 @@ import Layout from "../../../../layouts/Layout.astro";
             <li>A budget or allowance tracker</li>
             <li>A workout or habit log</li>
           </ul>
-        </section>
 
-        <Divider variant="8" classes="my-5" />
+          <hr class="my-4" />
+
+          <p>
+            <b>Both routes are graded against the same four criteria.</b>{" "}
+            Route 1 is not the easy option and Route 2 is not the ambitious
+            one &mdash; a lazily grown Dungeon Crawler and a half-finished
+            original idea score about the same, which is to say badly.
+          </p>
+        </section>
 
         <!-- Success Criteria -->
         <section id="success-criteria">
@@ -172,33 +260,65 @@ import Layout from "../../../../layouts/Layout.astro";
           <h2>Meeting the Complexity Bar</h2>
 
           <p>
-            Your program needs to genuinely combine what this unit taught
-            &mdash; not just show off one skill in isolation. At minimum:
+            Your finished program needs to genuinely combine what this unit
+            taught &mdash; not just show off one skill in isolation. At
+            minimum:
           </p>
           <ul>
             <li>Conditionals (<code>if</code>/<code>elif</code>/<code>else</code>), including nested ones if your concept calls for it</li>
             <li>At least one loop, chosen for the right reason &mdash; <code>while</code> for something that repeats until a condition changes, <code>for</code> for counting or traversing a list</li>
             <li>Real list usage &mdash; traversal, the accumulator pattern, membership checking, or parallel lists. One hardcoded list that never gets processed doesn't count.</li>
           </ul>
+
           <p>
-            <b>The trap to avoid:</b> a project that's really just the
-            Dungeon Crawler with a new story pasted on top &mdash; nested
-            conditionals only, no loops, no lists. It's not that the
-            Dungeon Crawler was bad; it's that this project needs to show
-            you can do more than that one activity did.
+            If you took Route 1, some of that is already true on day one. So
+            there is a second bar that applies to you:
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Name what your program can do that it
+            could not do before.</b> Your success criteria should describe new
+            capability &mdash; a wallet that carries between games, an
+            inventory that holds more than one item, a history the player can
+            look back at, a difficulty setting that actually changes play.
+          </p>
+
+          <p>
+            <b>The trap to avoid:</b> renaming variables, changing the printed
+            text, and swapping the theme. That is not growth, and it is
+            obvious from the outside. The question is never how different it{" "}
+            <i>looks</i> &mdash; it is what it can now <i>do</i>.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>One Honest Warning About Size</h3>
+
+          <p>
+            You do not know how to write functions yet &mdash; that is Activity
+            2.5, next quarter. Until then, everything lives in one file, driven
+            by one menu loop and a chain of <code>elif</code> branches.
+          </p>
+
+          <p>
+            That is completely fine for three or four games. It gets genuinely
+            unpleasant at six, when you are scrolling for two minutes to find
+            the branch you meant to edit. <b>Plan for three or four, done
+            well.</b> If your program starts feeling impossible to navigate,
+            that is not you being bad at this &mdash; it is the exact problem
+            functions were invented to solve, and you will meet them soon
+            enough.
           </p>
         </section>
-
-        <Divider variant="8" classes="my-5" />
 
         <!-- MYP Criteria -->
         <section id="criteria">
           <h2>The MYP Criteria, In This Project</h2>
 
           <ul>
-            <li><b>A &mdash; Inquiring and Analysing:</b> your idea, who it's for, 1&ndash;2 similar games/apps you looked at, and your success criteria.</li>
+            <li><b>A &mdash; Inquiring and Analysing:</b> your idea, who it's for, 1&ndash;2 similar games/apps you looked at, and your success criteria. On Route 1 this includes saying <i>which of your programs you started from and why that one.</i></li>
             <li><b>B &mdash; Developing Ideas:</b> a feature plan (what/why/how for each feature &mdash; not strict pseudocode) and a menu flowchart.</li>
-            <li><b>C &mdash; Creating the Solution:</b> the actual working program, meeting the complexity bar above.</li>
+            <li><b>C &mdash; Creating the Solution:</b> the actual working program, meeting the complexity bar above. On Route 1, what gets judged is what you added &mdash; so hand in your starting code too.</li>
             <li><b>D &mdash; Evaluating:</b> a test plan, feedback from someone outside your group who tried it, and an individual reflection from each student.</li>
           </ul>
 
@@ -252,13 +372,14 @@ import Layout from "../../../../layouts/Layout.astro";
             <li>Your problem statement, similar-products notes, and success criteria</li>
             <li>Your feature plan and menu flowchart</li>
             <li>Your finished, working program</li>
+            <li>On Route 1: the program you started from, unchanged, so the difference is visible</li>
             <li>Your test plan and outside playtester feedback</li>
             <li>Your task journal</li>
             <li>An individual reflection from each group member</li>
           </ul>
 
           <p class="mt-5 text-center">
-            Meet with your group, pick a track, and start with your
+            Meet with your group, pick a route, and start with your
             problem statement.
           </p>
         </section>
