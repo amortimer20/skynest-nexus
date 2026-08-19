@@ -12,6 +12,13 @@ import BinaryByteDiagram from "../../../../assets/courses/foce/img/binary-byte-d
 //#region CodeSnippets
 const HelloWorld = `print("Hello, world!")`;
 const ExampleOutput = `Hello, world!`;
+const DroneFight = `INPUT the player's choice: attack or dodge
+SET damage to the player's weapon power
+SET the drone's health to its health minus damage
+DISPLAY the drone's remaining health
+INPUT the player's next choice
+SET the player's score to its score plus 100
+#`;
 const PseudocodeExample = `INPUT the person's name
 SET greeting to "Hello, " joined with the name
 DISPLAY greeting`;
@@ -316,26 +323,31 @@ DISPLAY greeting`;
           <h4 class="mt-4">Your Turn</h4>
 
           <p>
-            Write the pseudocode for a program that takes{" "}
-            <b>three quiz scores</b> and displays their <b>average</b>. You
-            will actually build this program in Activity 1.8 &mdash; today you
-            are only planning it.
+            Below is the plan for one exchange in a game &mdash; a drone drops
+            out of the ceiling and you fight it. Somebody already wrote the
+            steps. Your job is to read them.
           </p>
 
-          <ul>
-            <li>Use only <b>INPUT</b>, <b>SET</b>, and <b>DISPLAY</b>.</li>
-            <li>One step per line, in the order they must happen.</li>
-            <li>
-              Next to each line, label it <b>Input</b>, <b>Processing</b>, or{" "}
-              <b>Output</b>.
-            </li>
-            <li>
-              Then answer this in one sentence: <b
-                >could the computer work out the average before all three
-                scores have been entered?</b
-              > Why or why not?
-            </li>
-          </ul>
+          <Code
+            code={DroneFight}
+            frame="none"
+            lang="txt"
+            title="Pseudocode &mdash; fighting a drone"
+            showLineNumbers={true}
+          />
+
+          <p>
+            <b class="text-sn-theme">Part A.</b> Write the numbers 1 through 6
+            down your page. Next to each one, put <b>Input</b>,{" "}
+            <b>Processing</b>, or <b>Output</b>.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Part B.</b> This game has a problem
+            &mdash; you can beat the drone and it never tells you.{" "}
+            <b>Write the one line that is missing</b>, using one of the three
+            words, and say where in the list it belongs.
+          </p>
 
           <p>
             There is no Python to write and nothing to run for this task. If
@@ -371,17 +383,21 @@ DISPLAY greeting`;
 
           <ol>
             <li>
-              Which of the four basic functions (input, processing, output,
-              memory) do you think is most similar to a human's brain?
-              Explain your reasoning.
+              Pick <b>one</b> of the four basic functions &mdash; input,
+              processing, output, or memory &mdash; and name a part of the
+              human body that does the same job. Explain the match in one
+              sentence.
             </li>
             <li>
-              Why do you think computers only use binary (0s and 1s) instead
-              of the decimal numbers people use every day?
+              A computer only understands 1s and 0s, but nobody writes programs
+              that way. Why would a person rather write{" "}
+              <CodeSnippet code={`print("Hello")`} lang="python" inline /> than
+              a long row of 1s and 0s?
             </li>
             <li>
-              What is the difference between a programming language and a
-              code editor?
+              In your own words, what is the difference between <b>input</b> and{" "}
+              <b>output</b>? Give one example of each from a device you used
+              today.
             </li>
           </ol>
         </section>

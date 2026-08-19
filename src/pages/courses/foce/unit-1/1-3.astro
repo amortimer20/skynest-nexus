@@ -1,9 +1,13 @@
 ---
 import Presentation from "../../../../components/Presentation.astro";
+import { Image } from "astro:assets";
 import Divider from "../../../../components/ui/Divider.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
+
+import StreetFighterScreenshot from "../../../../assets/courses/shared/img/boolean-game-screenshot.jpg";
+import TerminatorScreenshot from "../../../../assets/courses/shared/img/terminator-no-fate-screenshot.jpg";
 
 //#region CodeSnippets
 const Figure1 = `
@@ -32,7 +36,8 @@ name = "Anthony"
 age = 35
 
 print(name)
-print(age)`;
+print(age)
+#`;
 const Task2 = `
 name = "Anthony"
 age = 35
@@ -44,7 +49,8 @@ favorite_color = "green"
 favorite_number = 7.5
 
 print("Favorite Color:", favorite_color)
-print("Favorite Number:", favorite_number)`;
+print("Favorite Number:", favorite_number)
+#`;
 const Task3 = `
 name = "Anthony"
 age = 35
@@ -61,7 +67,8 @@ print("Favorite Number:", favorite_number)
 print(type(name))
 print(type(age))
 print(type(favorite_color))
-print(type(favorite_number))`;
+print(type(favorite_number))
+#`;
 const ExampleOutput = `
 Anthony
 35
@@ -116,6 +123,37 @@ Favorite Number: 7.5
               <p>
                 A <b>variable</b> stores a value so your program can use it again
                 later.
+              </p>
+            </section>
+
+            <section data-auto-animate-restart>
+              <h2>You Have Been Looking at Variables for Years</h2>
+              <Image
+                src={StreetFighterScreenshot}
+                alt="Street Fighter II gameplay. The HUD shows a score of 379601, a high score of 379601, two health bars, a countdown timer at 65, and both fighters labeled RYU"
+                width={640}
+              />
+              <p class="fragment">
+                Score. High score. Health. Time. Every number on that bar is a
+                value the game is <b>storing</b> and showing you.
+              </p>
+            </section>
+
+            <section data-auto-animate-restart>
+              <h2>Every Game Does This</h2>
+              <Image
+                src={TerminatorScreenshot}
+                alt="A Terminator side-scrolling game. The HUD shows a score of 88884000, a score multiplier of x1, a health bar, a timer at 06:37, and a remaining-lives count of 3"
+                width={640}
+              />
+              <ul>
+                <li class="fragment">Score <b>changes</b> when you hit something</li>
+                <li class="fragment">Health <b>changes</b> when you get hit</li>
+                <li class="fragment">Lives <b>changes</b> when you die</li>
+              </ul>
+              <p class="fragment">
+                The game has to keep those three numbers somewhere. That
+                somewhere is a variable.
               </p>
             </section>
 
@@ -296,7 +334,7 @@ Favorite Number: 7.5
             frame="code"
             lang="python"
             title="Variables and Data Types"
-            mark={{ label: "Stop and run your code", range: "5" }}
+            mark={{ label: "Stop and run your code", range: "6" }}
           />
 
           <hr class="my-4" />
@@ -340,7 +378,7 @@ Favorite Number: 7.5
             frame="code"
             lang="python"
             title="Variables and Data Types"
-            mark={{ label: "Stop and run your code", range: "11" }}
+            mark={{ label: "Stop and run your code", range: "12" }}
             ins={{ range: "6-11" }}
           />
 
@@ -363,7 +401,7 @@ Favorite Number: 7.5
             frame="code"
             lang="python"
             title="Variables and Data Types"
-            mark={{ label: "Stop and run your code", range: "16" }}
+            mark={{ label: "Stop and run your code", range: "17" }}
             ins={{ range: "12-16" }}
           />
 
