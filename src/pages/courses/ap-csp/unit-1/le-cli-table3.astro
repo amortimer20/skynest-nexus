@@ -16,9 +16,9 @@ for (let i = 0; i < names.length; i++)
 const Figure2 = `Ada 92
 Bo 78
 Cy 85`;
-const Figure3 = `import { Table } from "@cliffy/table";
+const Figure3 = `import Table from "cli-table3";
 
-const table = new Table().header(["Name", "Score"]).border();
+const table = new Table({ head: ["Name", "Score"] });
 
 table.push(["Ada", 92]);
 table.push(["Bo", 78]);
@@ -40,16 +40,14 @@ const Figure6 = `for (let i = 0; i < names.length; i++)
 {
   table.push([names[i], scores[i]]);
 }`;
-const Figure7 = `const table = new Table()
-  .header(["Name", "Score"])
-  .columns([
-    { minWidth: 12 },
-    { minWidth: 7, align: "right" }
-  ])
-  .border();`;
-const Task1 = `import { Table } from "@cliffy/table";
+const Figure7 = `const table = new Table({
+  head: ["Name", "Score"],
+  colWidths: [12, 9],
+  colAligns: ["left", "right"]
+});`;
+const Task1 = `import Table from "cli-table3";
 
-const table = new Table().header(["Name", "Score"]).border();
+const table = new Table({ head: ["Name", "Score"] });
 
 table.push(["Ada", 92]);
 table.push(["Bo", 78]);
@@ -57,12 +55,12 @@ table.push(["Cy", 85]);
 
 console.log(table.toString());
 `;
-const Task2 = `import { Table } from "@cliffy/table";
+const Task2 = `import Table from "cli-table3";
 
 let names = ["Ada", "Bo", "Cy", "Dee", "Eze"];
 let scores = [92, 78, 85, 61, 99];
 
-const table = new Table().header(["Name", "Score"]).border();
+const table = new Table({ head: ["Name", "Score"] });
 
 for (let i = 0; i < names.length; i++)
 {
@@ -71,19 +69,16 @@ for (let i = 0; i < names.length; i++)
 
 console.log(table.toString());
 `;
-const Task3 = `import { Table } from "@cliffy/table";
+const Task3 = `import Table from "cli-table3";
 
 let names = ["Ada", "Bo", "Cy", "Dee", "Eze"];
 let scores = [92, 78, 85, 61, 99];
 
-const table = new Table()
-  .header(["Name", "Score", "Result"])
-  .columns([
-    { minWidth: 10 },
-    { minWidth: 7, align: "right" },
-    { minWidth: 8 }
-  ])
-  .border();
+const table = new Table({
+  head: ["Name", "Score", "Result"],
+  colWidths: [12, 9, 10],
+  colAligns: ["left", "right", "left"]
+});
 
 for (let i = 0; i < names.length; i++)
 {
@@ -96,7 +91,7 @@ console.log(table.toString());
 // After the table, show the average score to one decimal place
 `;
 const ExampleOutput = `┌────────────┬─────────┬──────────┐
-│ Name       │ Score   │ Result   │
+│ Name       │   Score │ Result   │
 ├────────────┼─────────┼──────────┤
 │ Ada        │      92 │ Pass     │
 ├────────────┼─────────┼──────────┤
@@ -121,7 +116,7 @@ Average score: 83.0
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Library Exploration: @cliffy/table</h1>
+        <h1>Library Exploration: cli-table3</h1>
 
         <h4>
           Difficulty&nbsp;&nbsp;
@@ -136,7 +131,7 @@ Average score: 83.0
           <Presentation>
             <section>
               <h2>Library Exploration</h2>
-              <h3 class="text-sn-theme">@cliffy/table</h3>
+              <h3 class="text-sn-theme">cli-table3</h3>
             </section>
 
             <section>
@@ -205,8 +200,8 @@ Average score: 83.0
               <div class="text-start">
                 <ul>
                   <li class="fragment">
-                    <CodeSnippet code="new Table().header([...]).border()" lang={"javascript"} theme={"material-theme-ocean"} inline /> makes the
-                    table, names its columns, and asks for the lines
+                    <CodeSnippet code="new Table({ head: [...] })" lang={"javascript"} theme={"material-theme-ocean"} inline /> makes the
+                    table and names its columns. The lines come for free
                   </li>
                   <li class="fragment">
                     <CodeSnippet code="table.push([...])" lang={"javascript"} theme={"material-theme-ocean"} inline /> adds one row, as an array
@@ -265,15 +260,16 @@ Average score: 83.0
               <div class="text-start mt-3">
                 <ul>
                   <li class="fragment">
-                    <CodeSnippet code=".columns([...])" lang={"javascript"} theme={"material-theme-ocean"} inline /> takes one setting per column,
-                    in order
+                    <CodeSnippet code="colWidths" lang={"javascript"} theme={"material-theme-ocean"} inline /> and <CodeSnippet code="colAligns" lang={"javascript"} theme={"material-theme-ocean"} inline /> take one
+                    entry per column, in order
                   </li>
                   <li class="fragment">
-                    <CodeSnippet code="minWidth" lang={"javascript"} theme={"material-theme-ocean"} inline /> keeps a column at least that wide
+                    A width counts the padding too, so <CodeSnippet code="12" lang={"javascript"} theme={"material-theme-ocean"} inline /> leaves 10 for
+                    your text
                   </li>
                   <li class="fragment">
-                    <CodeSnippet code="align" lang={"javascript"} theme={"material-theme-ocean"} inline /> pushes content left, right, or
-                    center
+                    <CodeSnippet code='"left"' lang={"javascript"} theme={"material-theme-ocean"} inline />, <CodeSnippet code='"right"' lang={"javascript"} theme={"material-theme-ocean"} inline /> or <CodeSnippet code='"center"' lang={"javascript"} theme={"material-theme-ocean"} inline /> per
+                    column &mdash; and it moves the heading as well as the values
                   </li>
                 </ul>
               </div>
@@ -281,22 +277,26 @@ Average score: 83.0
                 Numbers read better right-aligned. Text reads better left.
               </p>
               <p class="fragment">
-                Each <CodeSnippet code="{ ... }" lang={"javascript"} theme={"material-theme-ocean"} inline /> is one column's settings, written as
-                a pair of a name and a value. You will see that shape again.
+                Everything is one object of settings, written as pairs of a name and a
+                value. You will see that shape again.
               </p>
             </section>
 
             <section>
               <h2>A Warning About Widths</h2>
               <p>
-                <CodeSnippet code="minWidth" lang={"javascript"} theme={"material-theme-ocean"} inline /> is a floor, not a ceiling. One long
-                value widens that column &mdash; and the whole table with it.
+                <CodeSnippet code="colWidths" lang={"javascript"} theme={"material-theme-ocean"} inline /> is a ceiling, not a floor. A value
+                too long for its column is <b class="text-sn-theme">cut off and
+                replaced with a single &hellip;</b> &mdash; no error, no warning.
               </p>
               <p class="fragment">
-                You can cap it with <CodeSnippet code="maxWidth" lang={"javascript"} theme={"material-theme-ocean"} inline />, but then long
-                values wrap inside the cell and <b class="text-sn-theme">break in
-                the middle of a word</b>. Neither is wrong. Decide which one your
-                data deserves.
+                <CodeSnippet code="Bartholomew Fitzgerald" lang={"txt"} theme={"material-theme-ocean"} inline /> in a column of 12 arrives as <CodeSnippet code="Bartholom&hellip;" lang={"txt"} theme={"material-theme-ocean"} inline />.
+                The data is intact; only the display lost it.
+              </p>
+              <p class="fragment">
+                Leave <CodeSnippet code="colWidths" lang={"javascript"} theme={"material-theme-ocean"} inline /> out and every column sizes itself
+                to its longest value instead. Neither is wrong &mdash; but one of
+                them quietly hides things, so decide on purpose.
               </p>
             </section>
 
@@ -346,7 +346,7 @@ Average score: 83.0
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">le-cliffy-table</b>.
+            <b class="text-sn-theme">le-cli-table3</b>.
           </p>
 
           <hr class="my-4" />
@@ -367,7 +367,7 @@ Average score: 83.0
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @cliffy/table"
+            title="Library Exploration: cli-table3"
           />
 
           <hr class="my-4" />
@@ -396,7 +396,7 @@ Average score: 83.0
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @cliffy/table"
+            title="Library Exploration: cli-table3"
             ins={{ range: "3-4, 8-11" }}
           />
 
@@ -425,8 +425,8 @@ Average score: 83.0
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @cliffy/table"
-            ins={{ range: "6-13, 17-18, 23" }}
+            title="Library Exploration: cli-table3"
+            ins={{ range: "6-10, 14-15, 20" }}
           />
 
           <hr class="my-4" />
@@ -465,7 +465,7 @@ Average score: 83.0
             showLineNumbers={false}
             title="Example Output"
             mark={[
-              { label: "Right-aligned, from .columns()", range: "4-12" },
+              { label: "Right-aligned by colAligns \u2014 the heading too", range: "2-12" },
               { label: "Outside the table", range: "14" },
             ]}
           />

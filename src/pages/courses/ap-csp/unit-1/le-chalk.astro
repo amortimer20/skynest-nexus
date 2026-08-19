@@ -12,48 +12,48 @@ Coolant: LOW
 Power: ok
 Hull: BREACH
 Comms: ok`;
-const Figure2 = `import { green, red } from "@std/fmt/colors";
+const Figure2 = `import chalk from "chalk";
 
-console.log(green("Oxygen: ok"));
-console.log(red("Hull: BREACH"));`;
-const Figure3 = `import { bold, yellow, bgRed, white } from "@std/fmt/colors";
+console.log(chalk.green("Oxygen: ok"));
+console.log(chalk.red("Hull: BREACH"));`;
+const Figure3 = `import chalk from "chalk";
 
-console.log(bold("This is bold."));
-console.log(yellow("This is yellow."));
-console.log(bold(yellow("This is both.")));
-console.log(bgRed(white("White on red.")));`;
-const Figure4 = `import { red, dim } from "@std/fmt/colors";
+console.log(chalk.bold("This is bold."));
+console.log(chalk.yellow("This is yellow."));
+console.log(chalk.bold.yellow("This is both."));
+console.log(chalk.bgRed.white("White on red."));`;
+const Figure4 = `import chalk from "chalk";
 
 let fuel = 12;
-console.log("Fuel:", red(String(fuel)));
-console.log(dim("(reading taken at 04:12)"));`;
-const Task1 = `import { bold, green } from "@std/fmt/colors";
+console.log("Fuel:", chalk.red(fuel));
+console.log(chalk.dim("(reading taken at 04:12)"));`;
+const Task1 = `import chalk from "chalk";
 
-console.log(bold("=== SYSTEM CHECK ==="));
-console.log(green("Oxygen: ok"));
-console.log(green("Power: ok"));
+console.log(chalk.bold("=== SYSTEM CHECK ==="));
+console.log(chalk.green("Oxygen: ok"));
+console.log(chalk.green("Power: ok"));
 `;
-const Task2 = `import { bold, green, yellow, red, dim } from "@std/fmt/colors";
+const Task2 = `import chalk from "chalk";
 
-console.log(bold("=== SYSTEM CHECK ==="));
-console.log(green("Oxygen: ok"));
-console.log(green("Power: ok"));
-console.log(yellow("Coolant: LOW"));
-console.log(bold(red("Hull: BREACH")));
-console.log(dim("Comms: idle"));
+console.log(chalk.bold("=== SYSTEM CHECK ==="));
+console.log(chalk.green("Oxygen: ok"));
+console.log(chalk.green("Power: ok"));
+console.log(chalk.yellow("Coolant: LOW"));
+console.log(chalk.bold.red("Hull: BREACH"));
+console.log(chalk.dim("Comms: idle"));
 `;
-const Task3 = `import { bold, green, yellow, red, dim } from "@std/fmt/colors";
+const Task3 = `import chalk from "chalk";
 
 let shipName = "Vega";
 let crewCount = 7;
 let fuelPercent = 12;
 
-console.log(bold("=== SYSTEM CHECK ==="));
-console.log(green("Oxygen: ok"));
-console.log(green("Power: ok"));
-console.log(yellow("Coolant: LOW"));
-console.log(bold(red("Hull: BREACH")));
-console.log(dim("Comms: idle"));
+console.log(chalk.bold("=== SYSTEM CHECK ==="));
+console.log(chalk.green("Oxygen: ok"));
+console.log(chalk.green("Power: ok"));
+console.log(chalk.yellow("Coolant: LOW"));
+console.log(chalk.bold.red("Hull: BREACH"));
+console.log(chalk.dim("Comms: idle"));
 console.log("");
 
 // Print the ship name in bold
@@ -82,7 +82,7 @@ Fuel: 12
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Library Exploration: @std/fmt/colors</h1>
+        <h1>Library Exploration: chalk</h1>
 
         <h4>
           Difficulty&nbsp;&nbsp;
@@ -96,7 +96,7 @@ Fuel: 12
           <Presentation>
             <section>
               <h2>Library Exploration</h2>
-              <h3 class="text-sn-theme">@std/fmt/colors</h3>
+              <h3 class="text-sn-theme">chalk</h3>
             </section>
 
             <section>
@@ -132,7 +132,7 @@ Fuel: 12
             <section data-auto-animate data-auto-animate-restart>
               <h2>Using Someone Else's Code</h2>
               <p>
-                <b class="text-sn-theme">@std/fmt/colors</b> is a library &mdash;
+                <b class="text-sn-theme">chalk</b> is a library &mdash;
                 code somebody else wrote and shared, that you can use in your own
                 program.
               </p>
@@ -157,9 +157,14 @@ Fuel: 12
                 &mdash; you do not have to fetch or install anything.
               </p>
               <p class="fragment">
-                Notice the names in the curly braces. You borrow exactly the ones
-                you list, and <b class="text-sn-theme">a style you did not list
-                does not exist</b> in your program.
+                One name, <CodeSnippet
+                  code="chalk"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />, brings the whole library. Every style is reached through it
+                &mdash; <b class="text-sn-theme">the import line never changes</b>,
+                no matter how many colors you end up using.
               </p>
             </section>
 
@@ -219,7 +224,12 @@ Fuel: 12
                 </ul>
               </div>
               <p class="fragment">
-                Wrap one inside another to combine them.
+                Chain them with dots to combine them &mdash; <CodeSnippet
+                  code="chalk.bold.yellow(...)"
+                  lang={"javascript"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> reads left to right and applies both.
               </p>
             </section>
 
@@ -237,20 +247,28 @@ Fuel: 12
                 quotes around it.
               </p>
               <p class="fragment">
-                <b class="text-sn-theme">Styles work on text only.</b> A number
-                has to be turned into text first, with{" "}
-                <CodeSnippet
-                  code="String()"
+                A number needs no conversion &mdash; <CodeSnippet
+                  code="chalk.red(fuel)"
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                /> &mdash; the mirror of the <CodeSnippet
-                  code="Number()"
+                /> works on the number itself.
+              </p>
+              <p class="fragment">
+                <b class="text-sn-theme">But the styled text is not the length it
+                looks.</b> <CodeSnippet
+                  code='chalk.green("ok")'
                   lang={"javascript"}
                   theme={"material-theme-ocean"}
                   inline
-                /> you met in Activity 1.9. Hand a style a bare number and the
-                program stops.
+                /> is <b>12</b> characters, not 2. The color is stored as extra
+                invisible characters inside the string.
+              </p>
+              <p class="fragment">
+                And the same line gives you <b>2</b> again if the output is not
+                going to a terminal. Chalk checks, and quietly stops styling
+                &mdash; which is why colored text wrecks the column widths in a
+                table, and why counting characters you cannot see is a bad idea.
               </p>
             </section>
 
@@ -270,7 +288,8 @@ Fuel: 12
                 <li>Applying color and emphasis to output</li>
                 <li>Combining styles</li>
                 <li>Styling the value in a variable</li>
-                <li>Converting a number to text so it can be styled</li>
+                <li>Chaining two styles together</li>
+                <li>Knowing that styled text carries hidden characters</li>
               </ul>
             </section>
 
@@ -310,7 +329,7 @@ Fuel: 12
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">le-std-fmt</b>.
+            <b class="text-sn-theme">le-chalk</b>.
           </p>
 
           <hr class="my-4" />
@@ -337,7 +356,7 @@ Fuel: 12
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @std/fmt/colors"
+            title="Library Exploration: chalk"
           />
 
           <hr class="my-4" />
@@ -347,22 +366,27 @@ Fuel: 12
             <li>Add three more status lines, styled to match their severity.</li>
             <li>
               Note that <CodeSnippet
-                code="bold(red())"
+                code="chalk.bold.red()"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              /> combines two styles by wrapping one inside the other.
+              /> combines two styles by chaining them.
             </li>
             <li>
-              Two new style names appear, so <b class="text-sn-theme">the import
-              line changes too</b>. Use a style you did not import and the
-              program stops with{" "}
+              Two new style names appear, and <b class="text-sn-theme">the import
+              line does not change</b> &mdash; they were always there. Misspell one
+              and the program stops with{" "}
               <CodeSnippet
-                code="ReferenceError"
+                code="TypeError"
                 lang={"javascript"}
                 theme={"material-theme-ocean"}
                 inline
-              />.
+              />, because <CodeSnippet
+                code="chalk.bolder"
+                lang={"javascript"}
+                theme={"material-theme-ocean"}
+                inline
+              /> is nothing at all.
             </li>
             <li>
               <b class="text-sn-theme">Note</b>: the green lines with a + sign
@@ -374,8 +398,8 @@ Fuel: 12
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @std/fmt/colors"
-            ins={{ range: "1, 6-8" }}
+            title="Library Exploration: chalk"
+            ins={{ range: "6-8" }}
           />
 
           <hr class="my-4" />
@@ -391,15 +415,8 @@ Fuel: 12
               if you are unsure what that means.
             </li>
             <li>
-              The fuel percent is a number. <b class="text-sn-theme">A style only
-              takes text</b>, so wrap it in{" "}
-              <CodeSnippet
-                code="String()"
-                lang={"javascript"}
-                theme={"material-theme-ocean"}
-                inline
-              /> before styling it &mdash; and read the error if you forget, because
-              it tells you exactly this.
+              The fuel percent is a number, and chalk styles it as it stands
+              &mdash; no conversion needed.
             </li>
             <li>Run after each line.</li>
           </ul>
@@ -408,7 +425,7 @@ Fuel: 12
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @std/fmt/colors"
+            title="Library Exploration: chalk"
             ins={{ range: "3-5, 13-17" }}
           />
 

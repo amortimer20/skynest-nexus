@@ -13,87 +13,110 @@ console.log("Cleared for " + dest);`;
 const Figure2 = `Pilot name? Ada [Enter]
 Destination? Titan
 Cleared for Titan`;
-const Figure3 = `import { Input } from "@cliffy/prompt";
+const Figure3 = `import { intro, outro, text } from "@clack/prompts";
 
-const name = await Input.prompt({
+intro("Flight Registration");
+
+const name = await text({
   message: "Pilot name?"
 });
 
-console.log("Welcome aboard, " + name);`;
-const Figure4 = `? Pilot name? › Ada [Enter]
-Welcome aboard, Ada`;
-const Figure5 = `const dest = await Select.prompt({
+outro("Welcome aboard, " + name);`;
+const Figure4 = `┌  Flight Registration
+│
+◇  Pilot name?
+│  Ada [Enter]
+│
+└  Welcome aboard, Ada`;
+const Figure5 = `const dest = await select({
   message: "Destination?",
   options: [
-    { name: "Titan", value: "titan" },
-    { name: "Ganymede", value: "ganymede" },
-    { name: "Europa", value: "europa" }
+    { value: "titan", label: "Titan" },
+    { value: "ganymede", label: "Ganymede" },
+    { value: "europa", label: "Europa" }
   ]
 });
 
 console.log(dest);`;
-const Figure6 = `titan`;
-const Task1 = `import { Input } from "@cliffy/prompt";
-import { bold } from "@std/fmt/colors";
+const Figure6 = `◆  Destination?
+│  ● Titan
+│  ○ Ganymede
+│  ○ Europa
+│  ↑/↓ to navigate • Enter: confirm`;
+const Figure7 = `◇  Destination?
+│  Titan
 
-console.log(bold("=== Flight Registration ==="));
+titan`;
+const Task1 = `import { intro, outro, text } from "@clack/prompts";
 
-const pilot = await Input.prompt({
+intro("Flight Registration");
+
+const pilot = await text({
   message: "Pilot name?"
 });
 
-console.log("Welcome aboard, " + pilot);
+outro("Welcome aboard, " + pilot);
 `;
-const Task2 = `import { Input, Select } from "@cliffy/prompt";
-import { bold } from "@std/fmt/colors";
+const Task2 = `import { intro, outro, text, select } from "@clack/prompts";
 
-console.log(bold("=== Flight Registration ==="));
+intro("Flight Registration");
 
-const pilot = await Input.prompt({
+const pilot = await text({
   message: "Pilot name?"
 });
 
-const dest = await Select.prompt({
+const dest = await select({
   message: "Destination?",
   options: [
-    { name: "Titan", value: "titan" },
-    { name: "Ganymede", value: "ganymede" },
-    { name: "Europa", value: "europa" }
+    { value: "titan", label: "Titan" },
+    { value: "ganymede", label: "Ganymede" },
+    { value: "europa", label: "Europa" }
   ]
 });
 
-console.log("Welcome aboard, " + pilot + ". Bound for " + dest + ".");
+outro("Welcome aboard, " + pilot + ". Bound for " + dest + ".");
 `;
-const Task3 = `import { Input, Select } from "@cliffy/prompt";
-import { bold, dim } from "@std/fmt/colors";
+const Task3 = `import { intro, outro, text, select } from "@clack/prompts";
+import chalk from "chalk";
 
-console.log(bold("=== Flight Registration ==="));
+intro("Flight Registration");
 
-const pilot = await Input.prompt({
+const pilot = await text({
   message: "Pilot name?"
 });
 
-const dest = await Select.prompt({
+const dest = await select({
   message: "Destination?",
   options: [
-    { name: "Titan", value: "titan" },
-    { name: "Ganymede", value: "ganymede" },
-    { name: "Europa", value: "europa" }
+    { value: "titan", label: "Titan" },
+    { value: "ganymede", label: "Ganymede" },
+    { value: "europa", label: "Europa" }
   ]
 });
 
-// Ask for a cargo mass with Input.prompt(), and cast it to a number
-// Ask for a class of service with Select.prompt(), at least three options
+// Ask for a cargo mass with text(), and cast it to a number
+// Ask for a class of service with select(), at least three options
 // Work out a fee: 12 per unit of mass, doubled for premium class
 // Print a dim divider, then the fee to two decimal places
+// Finish with outro()
 `;
-const ExampleOutput = `=== Flight Registration ===
-? Pilot name? › Ada [Enter]
-? Destination? › Titan
-? Cargo mass? › 40 [Enter]
-? Class of service? › Premium
+const ExampleOutput = `┌  Flight Registration
+│
+◇  Pilot name?
+│  Ada [Enter]
+│
+◇  Destination?
+│  Titan
+│
+◇  Cargo mass?
+│  40 [Enter]
+│
+◇  Class of service?
+│  Premium
 ---
 Ada to titan, 40 units, fee $960.00
+│
+└  Registration complete.
 `;
 //#endregion
 ---
@@ -106,7 +129,7 @@ Ada to titan, 40 units, fee $960.00
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Library Exploration: @cliffy/prompt</h1>
+        <h1>Library Exploration: @clack/prompts</h1>
 
         <h4>
           Difficulty&nbsp;&nbsp;
@@ -122,7 +145,7 @@ Ada to titan, 40 units, fee $960.00
           <Presentation>
             <section>
               <h2>Library Exploration</h2>
-              <h3 class="text-sn-theme">@cliffy/prompt</h3>
+              <h3 class="text-sn-theme">@clack/prompts</h3>
             </section>
 
             <section>
@@ -182,10 +205,15 @@ Ada to titan, 40 units, fee $960.00
                 the plain version above.
               </p>
               <p class="fragment">
-                There is no frame around the session &mdash; you build that
-                yourself, with a heading. The{" "}
-                <CodeSnippet code="@std/fmt/colors" lang={"javascript"} theme={"material-theme-ocean"} inline /> exploration is where you got the
-                tools for it.
+                <CodeSnippet code="intro()" lang={"javascript"} theme={"material-theme-ocean"} inline /> and <CodeSnippet code="outro()" lang={"javascript"} theme={"material-theme-ocean"} inline /> draw the frame down
+                the left. In the chalk exploration you built a heading like that
+                by hand &mdash; here the library owns it, and every answer hangs
+                off the same line.
+              </p>
+              <p class="fragment">
+                Your own <CodeSnippet code="console.log()" lang={"javascript"} theme={"material-theme-ocean"} inline /> lines do <b>not</b> get the
+                frame. They print flat, which is worth knowing before it
+                surprises you in Task 3.
               </p>
             </section>
 
@@ -197,7 +225,7 @@ Ada to titan, 40 units, fee $960.00
               <p class="fragment">
                 That is an <b class="text-sn-theme">object</b> &mdash; named
                 settings inside braces, rather than values in a fixed order. You
-                met the same shape in the @cliffy/table exploration with{" "}
+                met the same shape in the cli-table3 exploration with{" "}
                 <CodeSnippet code="{ minWidth: 10 }" lang={"javascript"} theme={"material-theme-ocean"} inline />.
               </p>
               <p class="fragment">
@@ -261,18 +289,27 @@ Ada to titan, 40 units, fee $960.00
               </p>
               <p class="fragment">
                 <b class="text-sn-theme">
-                  <CodeSnippet code="name" lang={"javascript"} theme={"material-theme-ocean"} inline /> is what a human reads.{" "}
+                  <CodeSnippet code="label" lang={"javascript"} theme={"material-theme-ocean"} inline /> is what a human reads.{" "}
                   <CodeSnippet code="value" lang={"javascript"} theme={"material-theme-ocean"} inline /> is what your code gets.
                 </b>{" "}
                 They can differ, and usually should.
               </p>
+              <Code
+                code={Figure7}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment mt-3"
+              />
               <p class="fragment">
-                Watch the line the prompt leaves behind: it reads{" "}
-                <CodeSnippet code="Titan" lang={"txt"} theme={"material-theme-ocean"} inline />, because that is what you
-                showed the user. The variable never held it.
+                Both are on screen at once. The line the prompt leaves behind
+                reads <CodeSnippet code="Titan" lang={"txt"} theme={"material-theme-ocean"} inline />, because that is what you
+                showed the user. The line below it is what the variable actually
+                held.
               </p>
               <p class="fragment">
-                This is why <CodeSnippet code="Select.prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> beats asking someone to type
+                This is why <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline /> beats asking someone to type
                 a destination: they cannot misspell it, and they cannot invent
                 one you did not plan for.
               </p>
@@ -281,7 +318,7 @@ Ada to titan, 40 units, fee $960.00
             <section>
               <h2>Input Is Still Text</h2>
               <p>
-                <CodeSnippet code="Input.prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> hands back a string, exactly like{" "}
+                <CodeSnippet code="text()" lang={"javascript"} theme={"material-theme-ocean"} inline /> hands back a string, exactly like{" "}
                 <CodeSnippet code="prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> did.
               </p>
               <p class="fragment">
@@ -340,13 +377,13 @@ Ada to titan, 40 units, fee $960.00
           </p>
 
           <p>
-            <b>Do the @cliffy/table exploration first</b> if you have not &mdash; it
+            <b>Do the cli-table3 exploration first</b> if you have not &mdash; it
             introduces the object syntax more gently.
           </p>
 
           <p>
             Create a new <b>JavaScript</b> program named{" "}
-            <b class="text-sn-theme">le-cliffy-prompt</b>.
+            <b class="text-sn-theme">le-clack</b>.
           </p>
 
           <p>
@@ -377,7 +414,7 @@ Ada to titan, 40 units, fee $960.00
             code={Task1}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @cliffy/prompt"
+            title="Library Exploration: @clack/prompts"
           />
 
           <hr class="my-4" />
@@ -385,7 +422,7 @@ Ada to titan, 40 units, fee $960.00
           <h3>Task 2: A Menu</h3>
           <ul>
             <li>
-              Add a <CodeSnippet code="Select.prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline /> with three destinations. Use the arrow
+              Add a <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline /> with three destinations. Use the arrow
               keys to choose.
             </li>
             <li>
@@ -408,8 +445,8 @@ Ada to titan, 40 units, fee $960.00
             code={Task2}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @cliffy/prompt"
-            ins={{ range: "1, 10-17, 19" }}
+            title="Library Exploration: @clack/prompts"
+            ins={{ range: "1, 9-18" }}
           />
 
           <hr class="my-4" />
@@ -426,7 +463,7 @@ Ada to titan, 40 units, fee $960.00
               you nonsense &mdash; exactly Activity 1.9.
             </li>
             <li>
-              The class of service is a <CodeSnippet code="Select.prompt()" lang={"javascript"} theme={"material-theme-ocean"} inline />. Compare against
+              The class of service is a <CodeSnippet code="select()" lang={"javascript"} theme={"material-theme-ocean"} inline />. Compare against
               its <i>value</i> in your conditional, not its label.
             </li>
             <li>
@@ -439,8 +476,8 @@ Ada to titan, 40 units, fee $960.00
             code={Task3}
             frame="code"
             lang="javascript"
-            title="Library Exploration: @cliffy/prompt"
-            ins={{ range: "2, 19-22" }}
+            title="Library Exploration: @clack/prompts"
+            ins={{ range: "2, 19-23" }}
           />
 
           <hr class="my-4" />
@@ -509,7 +546,7 @@ Ada to titan, 40 units, fee $960.00
               in that variable.
             </li>
             <li>
-              <code>Select.prompt()</code> stops a user from typing something you did not
+              <code>select()</code> stops a user from typing something you did not
               plan for. Give an example from your own programs where that would
               have prevented a bug.
             </li>
