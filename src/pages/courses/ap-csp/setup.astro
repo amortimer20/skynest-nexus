@@ -1,0 +1,355 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const FirstProgram = `console.log("Ready.");`;
+
+const FirstProgramOut = `Ready.`;
+
+const SyntaxErrorCode = `console.log("Ready.);`;
+
+const SyntaxErrorOut = `1 | console.log("Ready.);
+                ^
+error: Unterminated string literal
+    at C:\\Users\\you\\js-workspace\\activities\\app.js:1:13`;
+
+const NameErrorCode = `console2.log("Ready.");`;
+
+const NameErrorOut = `1 | console2.log("Ready.");
+    ^
+ReferenceError: console2 is not defined
+      at C:\\Users\\you\\js-workspace\\activities\\app.js:1:1`;
+
+const RuntimeErrorCode = `let crew = ["Ada", "Bo"];
+let name = crew[5];
+
+console.log(name.length);`;
+
+const RuntimeErrorOut = `TypeError: undefined is not an object (evaluating 'name.length')`;
+
+const LabStarter = `function setup()
+{
+    createCanvas(400, 400);
+    background(50);
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Setting Up Your Workspace</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="what-you-need">
+          <h2>What You Need</h2>
+
+          <p>
+            Two things: <b class="text-sn-theme">VS Code</b> and{" "}
+            <b class="text-sn-theme">Bun</b>. On a lab computer both are already
+            installed and you can skip straight to the next section.
+          </p>
+
+          <p>
+            Everything else arrives in one folder that you download once. The
+            libraries this course uses are already inside it, so there is nothing
+            to install, and <b>nothing in this course needs an internet
+            connection</b> once you have the folder.
+          </p>
+
+          <p class="text-secondary">
+            Working on your own computer? Install VS Code from{" "}
+            <a href="https://code.visualstudio.com/" target="_blank"
+              >code.visualstudio.com</a
+            > and Bun from <a href="https://bun.sh/" target="_blank">bun.sh</a>,
+            following the instructions there for your operating system. Get{" "}
+            <b>Bun 1.3.14</b> if you are offered a choice &mdash; error messages
+            change wording between versions, and that is the one this course is
+            written against.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="get-the-workspace">
+          <h2>Get the Workspace</h2>
+
+          <ol>
+            <li class="mb-2">
+              <b>Download it.</b>{" "}
+              <a href="/workspaces/js-workspace.zip" class="text-sn-theme"
+                >js-workspace.zip</a
+              >
+            </li>
+            <li class="mb-2">
+              <b>Unzip it.</b> Right-click the file and choose <i
+                >Extract All</i
+              >. You want the folder somewhere you can find again &mdash; your
+              Documents folder is fine, your Downloads folder is not.
+            </li>
+            <li class="mb-2">
+              <b>Open the folder in VS Code.</b> <i>File &gt; Open Folder</i>,
+              then pick the <CodeSnippet code="js-workspace" lang="txt" inline />{" "}
+              folder itself. Not the folder above it, and not a file inside it.
+            </li>
+            <li class="mb-2">
+              <b>Say yes to the extensions.</b> VS Code will offer to install
+              four recommended extensions. Click <i>Install</i>.{" "}
+              <b class="text-sn-theme">Nothing in this course works properly
+              until you do</b>, and the offer only appears once.
+            </li>
+          </ol>
+
+          <p class="text-secondary">
+            If you missed the extension prompt, open the Extensions panel and
+            type <CodeSnippet code="@recommended" lang="txt" inline /> in its
+            search box. The same four will be listed.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="first-program">
+          <h2>Your First Program</h2>
+
+          <p>
+            Open <CodeSnippet code="activities/app.js" lang="txt" inline />,
+            delete what is in it, and type this:
+          </p>
+
+          <Code code={FirstProgram} lang="javascript" frame="code" title="app.js" />
+
+          <p>
+            Press the <b class="text-sn-theme">Run</b> button &mdash; the ▶ at
+            the top right. A terminal panel opens at the bottom and shows:
+          </p>
+
+          <Code
+            code={FirstProgramOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+          />
+
+          <p>
+            That is the whole loop for this course: write, press Run, read what
+            came out.
+          </p>
+
+          <p class="text-secondary">
+            <CodeSnippet code="app.js" lang="txt" inline /> is a scratchpad.
+            Use it to try things out. Your actual activity work goes in files
+            named the way each activity page tells you.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="two-ways-to-run">
+          <h2>Two Ways to Run, and They Are Not Interchangeable</h2>
+
+          <p>
+            <b class="text-sn-theme">Terminal programs</b> &mdash; anything in{" "}
+            <CodeSnippet code="activities" lang="txt" inline /> or{" "}
+            <CodeSnippet code="challenges" lang="txt" inline />. Open the file
+            and press <b>Run</b>. Output appears in the terminal panel, and{" "}
+            <CodeSnippet code="prompt()" lang="javascript" inline /> will wait
+            for you to type there.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Labs</b> &mdash; the p5.js drawing work in{" "}
+            <CodeSnippet code="labs" lang="txt" inline />. Right-click{" "}
+            <CodeSnippet code="labs/index.html" lang="txt" inline /> and choose{" "}
+            <i>Open with Live Server</i>. A browser tab opens and refreshes
+            itself every time you save.
+          </p>
+
+          <div class="alert alert-warning mt-3">
+            <b>The Run button does nothing useful on a lab file.</b> Bun has no
+            canvas to draw on, so you get an empty terminal and no error message
+            &mdash; which looks exactly like a broken program when it is only the
+            wrong button. If you press Run on a file like this and nothing
+            happens, that is why:
+            <Code
+              code={LabStarter}
+              lang="javascript"
+              frame="code"
+              title="labs/app.js"
+              showLineNumbers={false}
+              class="mt-3"
+            />
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="where-work-goes">
+          <h2>Where Your Work Goes</h2>
+
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr><th>Folder</th><th>What goes in it</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><CodeSnippet code="activities" lang="txt" inline /></td>
+                <td>Your activity programs, one file each, named the way the activity page says</td>
+              </tr>
+              <tr>
+                <td><CodeSnippet code="labs" lang="txt" inline /></td>
+                <td>The p5.js labs. You edit <CodeSnippet code="app.js" lang="txt" inline /> and sometimes <CodeSnippet code="index.html" lang="txt" inline /></td>
+              </tr>
+              <tr>
+                <td><CodeSnippet code="challenges" lang="txt" inline /></td>
+                <td>Your code challenge programs</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="alert alert-info">
+            <b>Keep everything you write.</b> In May, the Create Performance Task
+            asks you to write about a program you built &mdash; from memory,
+            without the code in front of you. The work you keep now is what you
+            will have to draw on then. <b class="text-sn-theme">Do not overwrite
+            old activities.</b>
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="reading-errors">
+          <h2>Reading an Error</h2>
+
+          <p>
+            You will see three kinds this year, and telling them apart is most of
+            debugging. <b class="text-sn-theme">Read the message before you
+            change anything.</b>
+          </p>
+
+          <h3 class="mt-4">Nothing runs at all</h3>
+
+          <p>A missing quote, bracket, or parenthesis:</p>
+
+          <Code code={SyntaxErrorCode} lang="javascript" frame="code" title="app.js" showLineNumbers={false} />
+          <Code code={SyntaxErrorOut} lang="txt" frame="terminal" title="Terminal" showLineNumbers={false} class="mt-2" />
+
+          <p>
+            Bun shows you the line, puts a <CodeSnippet code="^" lang="txt" inline />{" "}
+            under roughly where it gave up, and names the file, line and column
+            at the end. <b>Nothing printed</b>, because the program never
+            started.
+          </p>
+
+          <h3 class="mt-4">A name the program does not know</h3>
+
+          <Code code={NameErrorCode} lang="javascript" frame="code" title="app.js" showLineNumbers={false} />
+          <Code code={NameErrorOut} lang="txt" frame="terminal" title="Terminal" showLineNumbers={false} class="mt-2" />
+
+          <p>
+            <CodeSnippet code="ReferenceError" lang="txt" inline /> means you
+            used a name that does not exist &mdash; usually a typo, sometimes a
+            variable you never made.
+          </p>
+
+          <h3 class="mt-4">It started, then stopped</h3>
+
+          <Code code={RuntimeErrorCode} lang="javascript" frame="code" title="app.js" showLineNumbers={false} />
+          <Code code={RuntimeErrorOut} lang="txt" frame="terminal" title="Terminal" showLineNumbers={false} class="mt-2" />
+
+          <p>
+            <CodeSnippet code="TypeError" lang="txt" inline /> means the program
+            asked something to do a thing it cannot do. Here{" "}
+            <CodeSnippet code="crew[5]" lang="javascript" inline /> does not
+            exist, so <CodeSnippet code="name" lang="javascript" inline /> is{" "}
+            <CodeSnippet code="undefined" lang="javascript" inline />, and{" "}
+            <CodeSnippet code="undefined" lang="javascript" inline /> has no
+            length.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The tell is whether anything printed first.</b>{" "}
+            Output and then a crash means the program ran and hit something part
+            way through. No output at all means it never got started.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="troubleshooting">
+          <h2>If Something Goes Wrong</h2>
+
+          <dl>
+            <dt class="text-sn-theme mt-3">The Run button is not there</dt>
+            <dd>
+              The Code Runner extension did not install. Open the Extensions
+              panel, search <CodeSnippet code="@recommended" lang="txt" inline />,
+              and install all four.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">
+              An import on line 1 fails
+            </dt>
+            <dd>
+              You opened the wrong folder. VS Code has to be opened at{" "}
+              <CodeSnippet code="js-workspace" lang="txt" inline /> itself, not
+              at the folder containing it. Close it and reopen with{" "}
+              <i>File &gt; Open Folder</i>.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">
+              I pressed Run and got an empty terminal
+            </dt>
+            <dd>
+              Either you are on a lab file (see above), or your program defines
+              things without ever calling them. Both produce no output and no
+              error.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">
+              Colored text comes out plain
+            </dt>
+            <dd>
+              That is expected anywhere except the terminal panel. Color only
+              appears when the output is going to a real terminal &mdash; send it
+              anywhere else and the styling silently disappears. It is not a bug
+              in your program.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">
+              The lab page is blank
+            </dt>
+            <dd>
+              Check that you opened <CodeSnippet code="index.html" lang="txt" inline />{" "}
+              with Live Server and not the <CodeSnippet code="app.js" lang="txt" inline />{" "}
+              next to it. The HTML file is what loads the drawing library.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">Something else</dt>
+            <dd>
+              Tell me, and say what you pressed and what appeared. A setup
+              problem is not something you should spend the period on.
+            </dd>
+          </dl>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Ready to Start
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
