@@ -10,7 +10,7 @@ const Figure1 = `let name = prompt("Pilot name?");
 let dest = prompt("Destination?");
 
 console.log("Cleared for " + dest);`;
-const Figure2 = `Pilot name? Ada
+const Figure2 = `Pilot name? Ada [Enter]
 Destination? Titan
 Cleared for Titan`;
 const Figure3 = `import { Input } from "@cliffy/prompt";
@@ -20,7 +20,7 @@ const name = await Input.prompt({
 });
 
 console.log("Welcome aboard, " + name);`;
-const Figure4 = `? Pilot name? › Ada
+const Figure4 = `? Pilot name? › Ada [Enter]
 Welcome aboard, Ada`;
 const Figure5 = `const dest = await Select.prompt({
   message: "Destination?",
@@ -88,9 +88,9 @@ const dest = await Select.prompt({
 // Print a dim divider, then the fee to two decimal places
 `;
 const ExampleOutput = `=== Flight Registration ===
-? Pilot name? › Ada
+? Pilot name? › Ada [Enter]
 ? Destination? › Titan
-? Cargo mass? › 40
+? Cargo mass? › 40 [Enter]
 ? Class of service? › Premium
 ---
 Ada to titan, 40 units, fee $960.00

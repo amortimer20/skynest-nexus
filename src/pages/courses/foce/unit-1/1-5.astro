@@ -24,6 +24,15 @@ print(health)`;
 const Figure4 = `
 100
 80`;
+const Figure5 = `
+health = 100
+print(health)
+
+❌health - 20
+print(health)`;
+const Figure6 = `
+100
+100`;
 const Task1 = `
 health = 100
 score = 0
@@ -156,6 +165,43 @@ Score: 75`;
                 showLineNumbers={false}
                 class="fragment"
               />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>A Common Mistake</h2>
+              <p>
+                Beginners often write the calculation and forget to store it.
+                Python works out the answer, then throws it away &mdash; and
+                there is <b>no error message</b> to tell you.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Common Mistake</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                title="Demo"
+                lang="python"
+                showLineNumbers={false}
+                class="mb-3"
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                title="Demo"
+                showLineNumbers={false}
+                class="fragment"
+              />
+              <p class="fragment">
+                Nothing changed. Without the <CodeSnippet
+                  code="health ="
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> in front of it, the new value has nowhere to go.
+              </p>
             </section>
 
             <section>
@@ -355,8 +401,13 @@ Score: 75`;
 
           <ol>
             <li>
-              What is the difference between declaring a variable and
-              reassigning it?
+              In Python, making a brand new variable and giving an existing one
+              a new value look identical &mdash; both are just <CodeSnippet
+                code="health = something"
+                lang={"python"}
+                theme={"material-theme-ocean"}
+                inline
+              />. What is different about what Python does the second time?
             </li>
             <li>
               In <CodeSnippet
