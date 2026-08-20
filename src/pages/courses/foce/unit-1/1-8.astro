@@ -267,6 +267,182 @@ Your average quiz score is 91.0.`;
             </section>
 
             <section data-auto-animate data-auto-animate-restart>
+              <h2>
+                For Fun: <CodeSnippet
+                  code="int()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </h2>
+              <p>
+                What you hand it decides what you get back &mdash; or whether
+                you get anything at all.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>
+                For Fun: <CodeSnippet
+                  code="int()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </h2>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`int("55") -> 55`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`int("0042") -> 42`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`int("1_000") -> 1000`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> <span class="text-secondary">underscores are allowed as
+                  separators</span
+                >
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`int("29.25") -> ValueError`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> <span class="text-secondary">a decimal <i>string</i> is not a
+                  whole number</span
+                >
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`int(29.25) -> 29`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> <span class="text-secondary">a decimal <i>number</i> is</span>
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`int(2.9) -> 2`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> <span class="text-sn-theme">it chops the decimal off &mdash; it
+                  does not round</span
+                >
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>
+                For Fun: <CodeSnippet
+                  code="float()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </h2>
+              <p>
+                Looser about what it accepts, and it always hands back a
+                decimal.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>
+                For Fun: <CodeSnippet
+                  code="float()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </h2>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`float("29.25") -> 29.25`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`float("55") -> 55.0`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> <span class="text-secondary">a whole number, with a{" "}
+                  <CodeSnippet
+                    code=".0"
+                    lang={"python"}
+                    theme={"material-theme-ocean"}
+                    inline
+                  /> added</span
+                >
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`float(".5") -> 0.5`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`float(7) -> 7.0`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />
+              </p>
+              <p class="fragment">
+                <CodeSnippet
+                  code={`float("35.95 cents") -> ValueError`}
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                /> <span class="text-secondary">it will not fish the number out
+                  of a sentence</span
+                >
+              </p>
+            </section>
+
+            <section>
+              <h2>The Rule Underneath</h2>
+              <p>
+                A string has to be <b class="text-sn-theme">nothing but the
+                number</b> &mdash; no words, no units, and for <CodeSnippet
+                  code="int()"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />, no decimal point.
+              </p>
+              <p class="fragment">
+                Anything else is a <CodeSnippet
+                  code="ValueError"
+                  lang={"python"}
+                  theme={"material-theme-ocean"}
+                  inline
+                />. Python would rather stop than guess what you meant.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
               <h2>Three Kinds of Mistakes</h2>
               <p>
                 Now that programs can crash, it helps to know that not every
