@@ -12,16 +12,6 @@ import BinaryByteDiagram from "../../../../assets/courses/foce/img/binary-byte-d
 //#region CodeSnippets
 const HelloWorld = `print("Hello, world!")`;
 const ExampleOutput = `Hello, world!`;
-const DroneFight = `INPUT the player's choice: attack or dodge
-SET damage to the player's weapon power
-SET the drone's health to its health minus damage
-DISPLAY the drone's remaining health
-INPUT the player's next choice
-SET the player's score to its score plus 100
-#`;
-const PseudocodeExample = `INPUT the person's name
-SET greeting to "Hello, " joined with the name
-DISPLAY greeting`;
 //#endregion
 ---
 
@@ -283,77 +273,44 @@ DISPLAY greeting`;
 
           <hr class="my-4" />
 
-          <h3>Task 4: Plan a Program &mdash; No Code Yet</h3>
+          <h3>Task 4: Spot the Four Functions</h3>
 
           <p>
-            You just ran a one-line program. Real programs are longer, and the
-            hardest part is usually not the typing &mdash; it is working out{" "}
-            <i>what the steps are and what order they go in</i>.
+            You just ran a one-line program. Before any program gets written,
+            somebody has to work out what the steps are &mdash; and every step
+            a computer takes is one of the four things you learned about today.
           </p>
 
           <p>
-            <b class="text-sn-theme">Pseudocode</b> is how programmers plan
-            that out. You write the steps in plain language, in order, with no
-            programming syntax at all. No quotes, no parentheses, nothing to
-            get wrong. For this class, use these three words:
+            Below is one exchange in a game. A drone drops out of the ceiling
+            and you fight it. Each line is one step the game takes.
           </p>
 
-          <ul>
-            <li><b class="text-sn-cyan">INPUT</b> &mdash; something comes in from the user</li>
-            <li><b class="text-sn-cyan">SET</b> &mdash; the computer works something out and remembers it</li>
-            <li><b class="text-sn-cyan">DISPLAY</b> &mdash; something goes out to the screen</li>
-          </ul>
-
-          <p>Here is a plan for a program that greets someone by name:</p>
-
-          <Code
-            code={PseudocodeExample}
-            frame="none"
-            lang="txt"
-            title="Pseudocode &mdash; greeting a person"
-            showLineNumbers={true}
-          />
+          <ol>
+            <li>You press the attack button</li>
+            <li>The game works out how much damage you did</li>
+            <li>The game holds the drone's new health while the fight continues</li>
+            <li>The drone's health bar changes on screen</li>
+            <li>You press the dodge button</li>
+            <li>The game saves your high score to the drive</li>
+          </ol>
 
           <p>
-            Notice that those three words line up with three of the four basic
-            functions from today: <b>Input</b>, <b>Processing</b>, and{" "}
-            <b>Output</b>.
+            Write the numbers 1 through 6 down your page. Next to each one, put{" "}
+            <b class="text-sn-cyan">Input</b>,{" "}
+            <b class="text-sn-cyan">Processing</b>,{" "}
+            <b class="text-sn-cyan">Output</b>, or{" "}
+            <b class="text-sn-cyan">Memory</b>. One word each. There is no
+            Python to write and nothing to run for this task.
           </p>
 
-          <h4 class="mt-4">Your Turn</h4>
-
-          <p>
-            Below is the plan for one exchange in a game &mdash; a drone drops
-            out of the ceiling and you fight it. Somebody already wrote the
-            steps. Your job is to read them.
+          <p class="text-secondary">
+            <b>Optional.</b> Two of the six are memory, and they are not the
+            same kind of memory. One is the kind that forgets when the power
+            goes off; the other is the kind that survives it. Say which is
+            which.
           </p>
 
-          <Code
-            code={DroneFight}
-            frame="none"
-            lang="txt"
-            title="Pseudocode &mdash; fighting a drone"
-            showLineNumbers={true}
-          />
-
-          <p>
-            <b class="text-sn-theme">Part A.</b> Write the numbers 1 through 6
-            down your page. Next to each one, put <b>Input</b>,{" "}
-            <b>Processing</b>, or <b>Output</b>.
-          </p>
-
-          <p>
-            <b class="text-sn-theme">Part B.</b> This game has a problem
-            &mdash; you can beat the drone and it never tells you.{" "}
-            <b>Write the one line that is missing</b>, using one of the three
-            words, and say where in the list it belongs.
-          </p>
-
-          <p>
-            There is no Python to write and nothing to run for this task. If
-            you catch yourself typing a parenthesis, you have drifted into
-            code &mdash; go back to plain words.
-          </p>
         </section>
 
         <Divider variant="8" classes="my-5" />
