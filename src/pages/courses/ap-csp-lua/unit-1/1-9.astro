@@ -1,0 +1,562 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import RightImage from "../../../../assets/courses/ap-csp-lua/img/1-9-right.png";
+import LeftImage from "../../../../assets/courses/ap-csp-lua/img/1-9-left.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Shape = `if condition then
+
+end`;
+
+const Simple = `if x > 400 then
+    print("Past halfway.")
+end`;
+
+const WithElse = `if x > 400 then
+    print("Past halfway.")
+else
+    print("Not yet.")
+end`;
+
+const Edge = `local x = 100
+local y = 300
+local radius = 40
+local speedX = 200
+
+function love.update(dt)
+    x = x + speedX * dt
+
+    if x > 800 - radius then
+        speedX = -speedX
+    end
+end
+
+function love.draw()
+    love.graphics.circle("fill", x, y, radius)
+end`;
+
+const BothEdges = `function love.update(dt)
+    x = x + speedX * dt
+
+    if x > 800 - radius then
+        speedX = -speedX
+    end
+
+    if x < radius then
+        speedX = -speedX
+    end
+end`;
+
+const Colored = `function love.draw()
+    if speedX > 0 then
+        love.graphics.setColor(0.2, 0.8, 0.3)
+    else
+        love.graphics.setColor(0.9, 0.2, 0.2)
+    end
+
+    love.graphics.circle("fill", x, y, radius)
+end`;
+
+const WhyRadius = `if x > 800 then`;
+
+const BrokenEquals = `if x == 800 - radius then
+    speedX = -speedX
+end`;
+
+const NotationLua = `if score > 100 then
+    print("Win")
+else
+    print("Keep going")
+end`;
+
+const NotationPseudo = `IF(score > 100)
+{
+  DISPLAY("Win")
+}
+ELSE
+{
+  DISPLAY("Keep going")
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.9: Deciding at the Edges</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.9</h2>
+              <h3 class="text-sn-theme">Deciding at the Edges</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Running Some Lines and Not Others</p>
+              <p>Turning Around</p>
+              <p>Choosing Between Two Things</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Where We Left Off</h2>
+              <p>
+                Two sessions ago your circle walked off the screen and kept
+                going.
+              </p>
+              <p>
+                Last session you could <b>ask</b> whether it had reached the
+                edge.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Where We Left Off</h2>
+              <p>
+                Two sessions ago your circle walked off the screen and kept
+                going.
+              </p>
+              <p>
+                Last session you could <b>ask</b> whether it had reached the
+                edge.
+              </p>
+              <p>
+                <b class="text-sn-theme">Today you get to do something about the
+                answer.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <Image
+                    src={RightImage}
+                    alt="A green circle near the right edge of a black window"
+                    class="img-fluid rounded"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <Image
+                    src={LeftImage}
+                    alt="A red circle a little left of the right edge of the same window"
+                    class="img-fluid rounded"
+                  />
+                </div>
+              </div>
+              <p class="mt-3">
+                A ball that bounces, and{" "}
+                <b class="text-sn-theme">tells you which way it is going.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>The Shape of a Decision</h2>
+              <Code code={Shape} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Everything between <code>then</code> and <code>end</code> runs{" "}
+                <b class="text-sn-theme">only when the condition is true.</b>
+              </p>
+              <p class="text-body-secondary">
+                Another box. You have seen two of these already.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Condition Is Last Session's Question</h2>
+              <Code code={Simple} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Condition Is Last Session's Question</h2>
+              <Code code={Simple} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>x &gt; 400</code> produced <code>true</code> or{" "}
+                <code>false</code> last session and you printed it.{" "}
+                <b class="text-sn-theme">Now it decides something.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Or Choose Between Two</h2>
+              <Code code={WithElse} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">Exactly one of those two runs.</b>{" "}
+                Never both, never neither.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Turning Around Is One Line</h2>
+              <Code
+                code={`speedX = -speedX`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Turning Around Is One Line</h2>
+              <Code
+                code={`speedX = -speedX`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p>
+                200 becomes -200. The next frame adds a negative number, so the
+                circle goes the other way.
+              </p>
+              <p class="text-body-secondary">
+                Same line as <code>score = score + 10</code>: work out the right
+                side, put it back in the name.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which Edge, Exactly?</h2>
+              <Code code={WhyRadius} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                This waits until the <b>center</b> passes 800 &mdash; by then
+                the whole circle is outside.
+              </p>
+              <p>
+                <code>x &gt; 800 - radius</code> turns it around when its{" "}
+                <b class="text-sn-theme">edge</b> touches the wall.
+              </p>
+            </section>
+
+            <section>
+              <h2>Do Not Use == on the Edge</h2>
+              <Code code={BrokenEquals} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>x</code> moves by about 3.33 each frame, so it{" "}
+                <b class="text-sn-theme">jumps over 760 without ever
+                being it.</b>
+              </p>
+              <p class="text-body-secondary">
+                This is last session's decimal warning with a picture attached.
+                Use <code>&gt;</code>, not <code>==</code>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Write an <code>if</code> that runs only sometimes</li>
+                <li>Write an <code>if</code> / <code>else</code></li>
+                <li>Reverse a direction by negating a speed</li>
+                <li>Say why the edge test uses <code>&gt;</code> and not <code>==</code></li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Condition</dt>
+                  <dd>The true-or-false question an <code>if</code> asks.</dd>
+                  <dt>Branch</dt>
+                  <dd>A block of code that runs only in some cases.</dd>
+                  <dt>if / else</dt>
+                  <dd>Two branches. Exactly one of them runs.</dd>
+                  <dt>Selection</dt>
+                  <dd>The exam's word for choosing which lines to run.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: One Wall</h3>
+
+          <p>
+            Copy <CodeSnippet code="1-07-move" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-09-bounce" lang="txt" inline /> and add the
+            first decision:
+          </p>
+
+          <Code code={Edge} lang="lua" frame="code" title="main.lua" mark={{ range: "9-11" }} />
+
+          <p>
+            Run it. The circle crosses, touches the right wall, comes back{" "}
+            &mdash; and <b class="text-sn-theme">leaves through the left side,</b>{" "}
+            because nothing is watching that wall.
+          </p>
+
+          <h3 class="mt-4">Task 2: The Other Wall</h3>
+
+          <Code code={BothEdges} lang="lua" frame="code" title="main.lua" mark={{ range: "8-10" }} />
+
+          <p>
+            Now it bounces forever. <b>Leave it running while you write the next
+            part</b> &mdash; if it ever escapes or gets stuck, you want to see
+            it happen.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Why <CodeSnippet code="x < radius" lang="lua" inline /> and not <CodeSnippet code="x < 0" lang="lua" inline />?</b>{" "}
+            For the same reason the right wall is{" "}
+            <CodeSnippet code="800 - radius" lang="txt" inline />. The circle is
+            drawn from its center, so its left edge is <code>radius</code>{" "}
+            pixels earlier than its center.
+          </div>
+
+          <h3 class="mt-4">Task 3: Say Which Way It Is Going</h3>
+
+          <p>
+            The bounce is hard to see at the moment it happens. Add an{" "}
+            <CodeSnippet code="if" lang="lua" inline /> /{" "}
+            <CodeSnippet code="else" lang="lua" inline /> in the drawing box:
+          </p>
+
+          <Code code={Colored} lang="lua" frame="code" title="main.lua" mark={{ range: "2-6" }} />
+
+          <div class="row g-3 my-3">
+            <div class="col-md-6">
+              <Image
+                src={RightImage}
+                alt="The ball green, moving right, close to the right wall"
+                class="img-fluid rounded"
+              />
+            </div>
+            <div class="col-md-6">
+              <Image
+                src={LeftImage}
+                alt="The ball red, moving left, having just bounced"
+                class="img-fluid rounded"
+              />
+            </div>
+          </div>
+
+          <p>
+            Green going right, red going left, and the swap happens exactly at
+            the wall. <b class="text-sn-theme">You now have a decision in each
+            box &mdash; one that changes the world, one that changes the
+            picture.</b>
+          </p>
+
+          <h3 class="mt-4">Task 4: Bounce Vertically Too</h3>
+
+          <p>
+            Add <code>speedY</code>, move <code>y</code> the same way{" "}
+            <code>x</code> moves, and give the top and bottom walls their own
+            two decisions. The window is <b>600</b> tall.
+          </p>
+
+          <p class="text-body-secondary">
+            Four walls, four <CodeSnippet code="if" lang="lua" inline />{" "}
+            statements. Test it by starting the ball in a corner.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>Change the right wall test to ask for an exact match:</p>
+
+          <Code code={BrokenEquals} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <p>
+            <b>The ball leaves and never comes back.</b> No error, no crash,
+            and the line looks perfectly reasonable. Explain on your sheet why
+            the condition is never true, using what your readout showed you last
+            session.
+          </p>
+
+          <p class="text-body-secondary">
+            Then try to find a <code>speedX</code> that <i>does</i> make it
+            work, and say why relying on that would be a bad idea.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Stuck</h3>
+
+          <p>
+            Start the ball outside the window &mdash; change{" "}
+            <CodeSnippet code="local x = 100" lang="lua" inline /> to{" "}
+            <CodeSnippet code="local x = 900" lang="lua" inline /> and run it.
+          </p>
+
+          <p>
+            <b>The ball never appears.</b> Add{" "}
+            <CodeSnippet code="print(x, speedX)" lang="lua" inline /> to the
+            update box and watch the terminal for a few seconds.
+          </p>
+
+          <p class="text-body-secondary">
+            Write down what the two numbers do. This is a real bug that shows up
+            in real games, and the fix is not another{" "}
+            <CodeSnippet code="if" lang="lua" inline /> &mdash; it is
+            understanding why two decisions can undo each other.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            The exam calls this <b class="text-sn-theme">selection</b>, and it
+            is one of the three things every program in the course is built
+            from.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Start the condition</td>
+                  <td><code>if x &gt; 400 then</code></td>
+                  <td><code>IF(x &gt; 400)</code></td>
+                </tr>
+                <tr>
+                  <td>Hold the block</td>
+                  <td><code>then</code> &hellip; <code>end</code></td>
+                  <td><code>&#123;</code> &hellip; <code>&#125;</code></td>
+                </tr>
+                <tr>
+                  <td>The other branch</td>
+                  <td><code>else</code></td>
+                  <td><code>ELSE</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Braces instead of then and end</h4>
+
+          <p>
+            The exam wraps a block in <code>&#123;</code> and{" "}
+            <code>&#125;</code>, each on its own line, and there is{" "}
+            <b>no space before the parenthesis</b> in{" "}
+            <code>IF(condition)</code>. Both of those are worth copying exactly
+            when you write notation by hand.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>There are only two selection forms on the exam sheet: <code>IF</code> and <code>IF</code> / <code>ELSE</code>.</b>{" "}
+            There is no <code>ELSE IF</code> at all. Lua has one, and what the
+            exam does instead is the next session.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-09-bounce" lang="txt" inline /> bounces off
+              all four walls and never escapes
+            </li>
+            <li>The ball is green going right and red going left</li>
+            <li>
+              Every wall test uses <code>&gt;</code> or <code>&lt;</code>, and
+              accounts for the radius
+            </li>
+            <li>
+              You can say what happened when the test was changed to{" "}
+              <code>==</code>
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Your program has two decisions in it that look similar and do very
+              different jobs &mdash; one in{" "}
+              <CodeSnippet code="love.update" lang="lua" inline /> and one in{" "}
+              <CodeSnippet code="love.draw" lang="lua" inline />. Explain what
+              each one decides and why it belongs in the box it is in.
+            </li>
+            <li>
+              Changing the wall test to <code>==</code> let the ball escape,
+              with no error. Explain why the condition is never true, and say
+              what that tells you about testing a moving value for an exact
+              match.
+            </li>
+            <li>
+              The right wall is <code>800 - radius</code> rather than{" "}
+              <code>800</code>. Describe what the program looks like with{" "}
+              <code>800</code>, and say what you would use for a rectangle
+              instead of a circle.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

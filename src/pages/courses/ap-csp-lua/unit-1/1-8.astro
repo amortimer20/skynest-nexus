@@ -1,0 +1,520 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import ReadoutImage from "../../../../assets/courses/ap-csp-lua/img/1-8-readout.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const First = `print(5 > 3)
+print(5 < 3)
+print(type(5 > 3))`;
+
+const FirstOut = `true
+false
+boolean`;
+
+const Operators = `print(5 == 5)
+print(5 ~= 5)
+print(5 >= 5)
+print(5 <= 4)`;
+
+const OperatorsOut = `true
+false
+true
+false`;
+
+const Readout = `local x = 100
+local speed = 200
+local font = love.graphics.newFont(20)
+
+function love.update(dt)
+    x = x + speed * dt
+end
+
+function love.draw()
+    love.graphics.setFont(font)
+    love.graphics.circle("fill", x, 150, 30)
+
+    love.graphics.print("x is " .. x, 40, 300)
+    love.graphics.print("x > 400   " .. tostring(x > 400), 40, 340)
+    love.graphics.print("x < 400   " .. tostring(x < 400), 40, 380)
+    love.graphics.print("x == 400  " .. tostring(x == 400), 40, 420)
+    love.graphics.print("x ~= 400  " .. tostring(x ~= 400), 40, 460)
+end`;
+
+const Tostring = `love.graphics.print(x > 400, 40, 340)`;
+
+const TostringOut = `Error: main.lua:14: bad argument #1 to 'print' (string expected, got boolean)`;
+
+const Equality = `print(0.1 + 0.2)
+print(0.1 + 0.2 == 0.3)`;
+
+const EqualityOut = `0.3
+false`;
+
+const NotationLua = `local past = x > 400
+local exact = x == 400
+local different = x ~= 400`;
+
+const NotationPseudo = `past ← x > 400
+exact ← x = 400
+different ← x ≠ 400`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.8: True or False</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.8</h2>
+              <h3 class="text-sn-theme">True or False</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Third Kind of Value</p>
+              <p>Six Ways to Compare</p>
+              <p>Watching a Comparison Change</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={ReadoutImage}
+                alt="A black window with a white circle near the top and five lines of text below reading x is 256.66666666667, x greater than 400 false, x less than 400 true, x equals 400 false, x not equal 400 true"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Four questions about the same circle,{" "}
+                <b class="text-sn-theme">answered sixty times a second.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Ask a Question, Get an Answer</h2>
+              <Code code={First} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Ask a Question, Get an Answer</h2>
+              <Code code={First} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={FirstOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <code>true</code> and <code>false</code> are{" "}
+                <b class="text-sn-theme">values</b>, like numbers and text. A
+                comparison produces one.
+              </p>
+            </section>
+
+            <section>
+              <h2>You Have Met Three Kinds of Value</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>number</dt>
+                  <dd><code>16</code>, <code>3.4</code>, <code>-200</code></dd>
+                  <dt>string</dt>
+                  <dd><code>"Ada"</code>, and anything typed at a prompt</dd>
+                  <dt>boolean</dt>
+                  <dd><code>true</code> and <code>false</code>. There are no others.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                A boolean is not the word "true". It is not in quotes.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Six Comparisons</h2>
+              <Code code={Operators} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Six Comparisons</h2>
+              <Code code={Operators} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={OperatorsOut} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Two Of Them Are Not Obvious</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>==</dt>
+                  <dd>Is equal to. <b class="text-sn-theme">Two equals signs.</b> One would mean assignment, which is a different thing entirely.</dd>
+                  <dt>~=</dt>
+                  <dd>Is not equal to. Lua spells it with a tilde, not an exclamation mark.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                <code>=</code> puts a value in. <code>==</code> asks a question.
+                Mixing them up is the classic beginner bug in every language.
+              </p>
+            </section>
+
+            <section>
+              <h2>Comparisons Are Not Just for Fixed Numbers</h2>
+              <p>
+                Your circle's <code>x</code> changes sixty times a second, so{" "}
+                <code>x &gt; 400</code>{" "}
+                <b class="text-sn-theme">has a different answer at different
+                moments.</b>
+              </p>
+              <p class="text-body-secondary">
+                That is the whole reason the next session can do anything
+                interesting.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Rule Before You Start</h2>
+              <Code code={Tostring} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Rule Before You Start</h2>
+              <Code code={Tostring} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={TostringOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <code>love.graphics.print</code> draws text, and a boolean is
+                not text. Wrap it in{" "}
+                <b class="text-sn-theme"><code>tostring()</code></b>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>And One Warning</h2>
+              <Code code={Equality} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>And One Warning</h2>
+              <Code code={Equality} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={EqualityOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                It printed 0.3 and then said 0.3 is not 0.3.{" "}
+                <b class="text-sn-theme">Decimals are stored approximately.</b>
+              </p>
+              <p class="text-body-secondary">
+                Practical rule: never ask <code>==</code> about a decimal that
+                has been calculated. Ask <code>&gt;</code> or <code>&lt;</code>{" "}
+                instead. The full story is session 33.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Say what a boolean is and name the two values</li>
+                <li>Use all six comparison operators</li>
+                <li>Tell <code>=</code> and <code>==</code> apart</li>
+                <li>Show a comparison changing as a shape moves</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Boolean</dt>
+                  <dd>A value that is either <code>true</code> or <code>false</code>.</dd>
+                  <dt>Comparison operator</dt>
+                  <dd>A symbol that asks a question about two values and produces a boolean.</dd>
+                  <dt>==</dt>
+                  <dd>Is equal to. Not the same as <code>=</code>.</dd>
+                  <dt>~=</dt>
+                  <dd>Is not equal to.</dd>
+                  <dt>tostring</dt>
+                  <dd>Turns any value into text so it can be printed.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Ask Six Questions</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-08-compare" lang="txt" inline />. Write these
+            six lines, and <b class="text-sn-theme">predict every answer before
+            you run it</b>:
+          </p>
+
+          <Code
+            code={`print(7 > 7)
+print(7 >= 7)
+print(7 < 10)
+print(7 <= 3)
+print(7 == 7)
+print(7 ~= 7)`}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+          />
+
+          <p>
+            Record all six on your sheet, with your predictions beside them.{" "}
+            <b>The first two are the pair worth thinking about.</b>
+          </p>
+
+          <h3 class="mt-4">Task 2: The Decimal Warning</h3>
+
+          <p>Add two more lines to the same file:</p>
+
+          <Code code={Equality} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={EqualityOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Write both results down. <b class="text-sn-theme">One line prints
+            0.3 and the next says it is not 0.3.</b> You do not need to know why
+            yet. You need to know not to trust <code>==</code> on a calculated
+            decimal.
+          </p>
+
+          <h3 class="mt-4">Task 3: Watch a Comparison Change</h3>
+
+          <p>
+            Copy your moving circle from{" "}
+            <CodeSnippet code="1-07-move" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-08-readout" lang="txt" inline /> and add the
+            readout:
+          </p>
+
+          <Code code={Readout} lang="lua" frame="code" title="main.lua" mark={{ range: "13-17" }} />
+
+          <Image
+            src={ReadoutImage}
+            alt="The running program: a circle partway across the window with four comparison results printed beneath it"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            Run it and <b>watch the words change as the circle crosses.</b>{" "}
+            Write down what happens to each of the four lines, and at what point.
+          </p>
+
+          <div class="alert alert-info">
+            <b><CodeSnippet code="love.graphics.newFont(20)" lang="lua" inline /> just makes the text big enough to read.</b>{" "}
+            It goes at the top with the other variables, because building a font
+            sixty times a second is wasteful even though it would work.
+          </div>
+
+          <h3 class="mt-4">Task 4: Ask Your Own Questions</h3>
+
+          <p>
+            Replace the four comparisons with four of your own. At least one has
+            to use <code>&gt;=</code> or <code>&lt;=</code>, and at least one
+            has to compare <code>x</code> against{" "}
+            <b class="text-sn-theme">another variable</b> rather than a fixed
+            number.
+          </p>
+
+          <p class="text-body-secondary">
+            Try <CodeSnippet code="x > 800 - radius" lang="lua" inline />{" "}
+            &mdash; the question "has it reached the right edge?" Next session
+            does something about the answer.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>
+            Take the <CodeSnippet code="tostring" lang="lua" inline /> off one
+            of the readout lines:
+          </p>
+
+          <Code code={Tostring} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <Code
+            code={TostringOut}
+            lang="txt"
+            frame="terminal"
+            title="Error"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>Read the message carefully.</b> It says exactly what it wanted
+            and exactly what it got. Write down both, then put{" "}
+            <code>tostring</code> back.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Two Circles</h3>
+
+          <p>
+            Add a second circle with its own <code>x</code> and its own speed,
+            and print{" "}
+            <CodeSnippet code="tostring(x1 > x2)" lang="lua" inline />. Start
+            them so the answer changes partway through, and{" "}
+            <b>work out in advance how many seconds it will take.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            Comparisons on the exam produce the same two values, and four of the
+            six operators are written exactly as Lua writes them.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Greater than</td><td><code>a &gt; b</code></td><td><code>a &gt; b</code></td></tr>
+                <tr><td>Less than</td><td><code>a &lt; b</code></td><td><code>a &lt; b</code></td></tr>
+                <tr><td>Greater or equal</td><td><code>a &gt;= b</code></td><td><code>a &ge; b</code></td></tr>
+                <tr><td>Less or equal</td><td><code>a &lt;= b</code></td><td><code>a &le; b</code></td></tr>
+                <tr><td>Is equal to</td><td><code>a == b</code></td><td><code>a = b</code></td></tr>
+                <tr><td>Is not equal to</td><td><code>a ~= b</code></td><td><code>a &ne; b</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-warning">
+            <b>The bottom two rows are the ones that cost marks.</b> The exam
+            writes equality as a single <code>=</code>, which in Lua means
+            assignment. And it uses a real <code>&ne;</code> sign where Lua uses{" "}
+            <code>~=</code>.
+          </div>
+
+          <p>
+            The exam gets away with a single <code>=</code> because{" "}
+            <b class="text-sn-theme">assignment is always the arrow</b>. Nothing
+            is ambiguous: a line with <code>&larr;</code> stores, a line with{" "}
+            <code>=</code> asks.
+          </p>
+
+          <p class="text-body-secondary">
+            Reading is the skill being tested here. You will never type{" "}
+            <code>&ne;</code> in this course &mdash; you will read it on a
+            screen in May and have to know it is not something new.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Six comparison results recorded, with predictions</li>
+            <li>Both decimal results from task 2 written down</li>
+            <li>
+              <CodeSnippet code="1-08-readout" lang="txt" inline /> shows four
+              comparisons changing as the circle moves
+            </li>
+            <li>
+              One of your own comparisons uses another variable, not a fixed
+              number
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              <CodeSnippet code="x = 400" lang="lua" inline /> and{" "}
+              <CodeSnippet code="x == 400" lang="lua" inline /> differ by one
+              character and do completely different things. Explain both, and
+              say what would happen to your moving circle if you used the wrong
+              one in the readout.
+            </li>
+            <li>
+              Your program printed <code>0.3</code> and then reported that{" "}
+              <code>0.1 + 0.2</code> is not <code>0.3</code>. You do not know
+              why yet. Describe the rule you are going to follow because of it.
+            </li>
+            <li>
+              A comparison had a different answer at different moments without
+              any line of your code changing. Explain how that is possible.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

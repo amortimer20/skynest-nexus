@@ -1,0 +1,469 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import MovingImage from "../../../../assets/courses/ap-csp-lua/img/1-7-moving.png";
+import GoneImage from "../../../../assets/courses/ap-csp-lua/img/1-7-gone.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Still = `local x = 100
+
+function love.draw()
+    love.graphics.circle("fill", x, 300, 40)
+end`;
+
+const TwoBoxes = `function love.update(dt)
+
+end
+
+function love.draw()
+
+end`;
+
+const Naive = `local x = 100
+
+function love.update(dt)
+    x = x + 2
+end
+
+function love.draw()
+    love.graphics.circle("fill", x, 300, 40)
+end`;
+
+const Inside = `function love.update(dt)
+    local x = 100
+    x = x + 2
+end`;
+
+const WithDt = `local x = 100
+local speed = 200
+
+function love.update(dt)
+    x = x + speed * dt
+end`;
+
+const Watch = `function love.update(dt)
+    x = x + speed * dt
+    print(x)
+end`;
+
+const WatchOut = `103.33333333333
+106.66666666667
+110
+...
+796.66666666667
+800
+803.33333333334`;
+
+const Diagonal = `local x = 100
+local y = 100
+local speedX = 200
+local speedY = 120
+
+function love.update(dt)
+    x = x + speedX * dt
+    y = y + speedY * dt
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.7: Making It Move</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.7</h2>
+              <h3 class="text-sn-theme">Making It Move</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Second Box</p>
+              <p>Change Between Frames</p>
+              <p>Speed That Does Not Depend on the Computer</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Your Programs Already Repeat</h2>
+              <Code code={Still} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Your Programs Already Repeat</h2>
+              <Code code={Still} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                That circle is drawn{" "}
+                <b class="text-sn-theme">sixty times a second</b>, and has been
+                since session 2.
+              </p>
+              <p class="text-body-secondary">
+                It looks still because every one of those sixty pictures is
+                identical.
+              </p>
+            </section>
+
+            <section>
+              <h2>So Motion Is Not Drawing</h2>
+              <p>Motion is <b class="text-sn-theme">changing something between the pictures.</b></p>
+              <p>
+                You do not have to write the repeating. It is already
+                happening.
+              </p>
+            </section>
+
+            <section>
+              <h2>There Is a Second Box</h2>
+              <Code code={TwoBoxes} frame="code" lang="lua" showLineNumbers={false} />
+              <div class="text-start">
+                <dl>
+                  <dt>love.update</dt>
+                  <dd>Change things. Runs first, every frame.</dd>
+                  <dt>love.draw</dt>
+                  <dd>Draw things. Runs second, every frame.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                Think, then paint. Sixty times a second, forever.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Lines Make It Move</h2>
+              <Code code={Naive} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Lines Make It Move</h2>
+              <Code code={Naive} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>x = x + 2</code> is the line from session 3, running
+                sixty times a second.
+              </p>
+            </section>
+
+            <section>
+              <h2>Now the Rule From Session 3 Matters</h2>
+              <Code code={Inside} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">This never moves.</b> A variable made
+                inside the box is made again every frame, set back to 100, and
+                thrown away.
+              </p>
+              <p class="text-body-secondary">
+                Anything that has to remember between frames lives{" "}
+                <b>above</b> both boxes.
+              </p>
+            </section>
+
+            <section>
+              <h2>What Is dt?</h2>
+              <p>
+                The number in the parentheses.{" "}
+                <b class="text-sn-theme">Seconds since the last frame</b>{" "}
+                &mdash; usually about 0.0167, which is one sixtieth.
+              </p>
+              <p class="text-body-secondary">
+                The engine measures it and hands it to you. You never set it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Why It Matters</h2>
+              <p>
+                <code>x = x + 2</code> means <b>2 pixels per frame</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Why It Matters</h2>
+              <p>
+                <code>x = x + 2</code> means <b>2 pixels per frame</b>.
+              </p>
+              <p>
+                A faster computer draws more frames, so{" "}
+                <b class="text-sn-theme">the same program runs faster on a
+                better machine.</b>
+              </p>
+              <p class="text-body-secondary">
+                That is how old games become unplayable on new hardware.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Multiply by dt Instead</h2>
+              <Code code={WithDt} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Multiply by dt Instead</h2>
+              <Code code={WithDt} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>speed</code> is now{" "}
+                <b class="text-sn-theme">200 pixels per second</b>, on every
+                computer, forever.
+              </p>
+              <p class="text-body-secondary">
+                Half a frame or a double frame, the distance works out the
+                same.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Then It Leaves</h2>
+              <Image
+                src={MovingImage}
+                alt="A white circle a little left of center in an otherwise black window"
+                width={420}
+                class="img-fluid rounded"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Then It Leaves</h2>
+              <Image
+                src={GoneImage}
+                alt="The same window, completely black, with no circle visible anywhere"
+                width={420}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Nothing in your program says stop, so{" "}
+                <b class="text-sn-theme">nothing stops it.</b>
+              </p>
+              <p class="text-body-secondary">
+                It is still out there, still moving. Session 9 is where you get
+                to say something about it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Write code in <code>love.update</code></li>
+                <li>Change a variable between frames to make a shape move</li>
+                <li>Say why the variable cannot live inside the box</li>
+                <li>Use <code>dt</code> so speed is per second, not per frame</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Frame</dt>
+                  <dd>One pass of update and draw. About 60 per second.</dd>
+                  <dt>love.update</dt>
+                  <dd>Where things change. Runs before <code>love.draw</code>.</dd>
+                  <dt>dt</dt>
+                  <dd>Seconds since the last frame, measured for you.</dd>
+                  <dt>Frame rate</dt>
+                  <dd>How many frames a computer manages per second.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: One Circle, Standing Still</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-07-move" lang="txt" inline /> and start from
+            what you already know:
+          </p>
+
+          <Code code={Still} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Run it. Nothing surprising &mdash; but that circle is being drawn
+            about 3,600 times a minute.
+          </p>
+
+          <h3 class="mt-4">Task 2: Add the Second Box</h3>
+
+          <p>
+            Put <CodeSnippet code="love.update" lang="lua" inline /> above{" "}
+            <CodeSnippet code="love.draw" lang="lua" inline />:
+          </p>
+
+          <Code code={Naive} lang="lua" frame="code" title="main.lua" mark={{ range: "3-5" }} />
+
+          <p>
+            Run it. Then change the <code>2</code> and run again &mdash; try{" "}
+            <code>10</code>, then <code>0.5</code>, then{" "}
+            <code>-2</code>. Write down what each one does.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>Move <CodeSnippet code="local x = 100" lang="lua" inline /> inside the update box and run it.</b>{" "}
+            The circle stops dead. Work out why before you move it back &mdash;
+            this is the session-3 rule finally earning its keep.
+          </div>
+
+          <h3 class="mt-4">Task 3: Watch the Number</h3>
+
+          <p>
+            <CodeSnippet code="print" lang="lua" inline /> still works in a
+            graphics program. The output goes to the terminal panel while the
+            window is open:
+          </p>
+
+          <Code code={Watch} lang="lua" frame="code" title="main.lua" mark={{ range: "3" }} />
+
+          <Code
+            code={WatchOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b class="text-sn-theme">The circle left the window and the number
+            kept going.</b> Let it run past 800 and write down what it says.
+            Nothing is wrong; nothing told it to stop.
+          </p>
+
+          <p class="text-body-secondary">
+            Take the <CodeSnippet code="print" lang="lua" inline /> line back
+            out before the next task. Sixty lines a second fills a terminal
+            fast.
+          </p>
+
+          <h3 class="mt-4">Task 4: Speed in Seconds, Not Frames</h3>
+
+          <p>Replace the moving line with the honest version:</p>
+
+          <Code code={WithDt} lang="lua" frame="code" title="main.lua" mark={{ range: "2,5" }} />
+
+          <p>
+            <code>speed</code> is now measured in{" "}
+            <b class="text-sn-theme">pixels per second</b>. Set it to{" "}
+            <code>800</code> and the circle crosses the window in one second.
+            Time it.
+          </p>
+
+          <p>
+            Then set it to <code>50</code>, then <code>-200</code>. Write down
+            how long each crossing takes.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Diagonal</h3>
+
+          <p>Give it a second speed and move both coordinates:</p>
+
+          <Code code={Diagonal} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Then make it move up and to the left instead, without changing
+            anything except two numbers.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Growing</h3>
+
+          <p>
+            Nothing says the changing variable has to be a position. Make the
+            radius grow instead:{" "}
+            <CodeSnippet code="radius = radius + 30 * dt" lang="lua" inline />,
+            with the circle standing still.
+          </p>
+
+          <p class="text-body-secondary">
+            Then try growing and moving at the same time, and try a{" "}
+            <b>negative</b> growth rate. Watch what the circle does as the
+            radius passes zero, and write down whether Lua complains about it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-07-move" lang="txt" inline /> has a circle
+              that crosses the window and leaves
+            </li>
+            <li>
+              The moving line is{" "}
+              <CodeSnippet code="x = x + speed * dt" lang="lua" inline />, not{" "}
+              <CodeSnippet code="x = x + 2" lang="lua" inline />
+            </li>
+            <li>
+              <code>x</code> and <code>speed</code> are declared above both
+              boxes
+            </li>
+            <li>You can say what happened when <code>x</code> was moved inside the box</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Your circle from session 2 was already being drawn sixty times a
+              second and looked completely still. Explain what "moving" actually
+              means to a computer, given that.
+            </li>
+            <li>
+              Moving <CodeSnippet code="local x = 100" lang="lua" inline />{" "}
+              inside <CodeSnippet code="love.update" lang="lua" inline /> stopped
+              the circle. Describe what happens to <code>x</code> on each of the
+              sixty frames in that version.
+            </li>
+            <li>
+              <CodeSnippet code="x = x + 2" lang="lua" inline /> and{" "}
+              <CodeSnippet code="x = x + 200 * dt" lang="lua" inline /> look
+              about the same on your computer. Describe a situation where they
+              behave completely differently, and say which one you would rather
+              have written.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
