@@ -1,0 +1,498 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/1-2-target.png";
+import HelloImage from "../../../../assets/courses/ap-csp-lua/img/1-2-hello.png";
+import WrongImage from "../../../../assets/courses/ap-csp-lua/img/1-2-wrong.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Template = `function love.draw()
+    love.graphics.print("Hello World!", 400, 300)
+end
+
+function love.keypressed(key)
+    if key == "escape" then
+        love.event.quit()
+    end
+end`;
+
+const DrawOnly = `function love.draw()
+
+end`;
+
+const Rect = `function love.draw()
+    love.graphics.rectangle("fill", 350, 130, 100, 340)
+end`;
+
+const RectGray = `function love.draw()
+    love.graphics.setColor(0.6, 0.6, 0.6)
+    love.graphics.rectangle("fill", 350, 130, 100, 340)
+end`;
+
+const CircleOne = `function love.draw()
+    love.graphics.setColor(0.6, 0.6, 0.6)
+    love.graphics.rectangle("fill", 350, 130, 100, 340)
+
+    love.graphics.setColor(0.9, 0.2, 0.2)
+    love.graphics.circle("fill", 400, 190, 35)
+end`;
+
+const Full = `function love.draw()
+    love.graphics.setColor(0.6, 0.6, 0.6)
+    love.graphics.rectangle("fill", 350, 130, 100, 340)
+
+    love.graphics.setColor(0.9, 0.2, 0.2)
+    love.graphics.circle("fill", 400, 190, 35)
+
+    love.graphics.setColor(0.9, 0.8, 0.2)
+    love.graphics.circle("fill", 400, 300, 35)
+
+    love.graphics.setColor(0.2, 0.8, 0.3)
+    love.graphics.circle("fill", 400, 410, 35)
+end`;
+
+const WrongColor = `love.graphics.setColor(128, 128, 128)`;
+
+const RightColor = `love.graphics.setColor(0.5, 0.5, 0.5)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.2: Your First Window</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.2</h2>
+              <h3 class="text-sn-theme">Your First Window</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Second Kind of Program</p>
+              <p>Where Things Go on Screen</p>
+              <p>Shapes and Color</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={TargetImage}
+                alt="An 800 by 600 black window with a tall gray rectangle in the middle holding three filled circles stacked vertically: red, yellow, and green"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Four shapes.{" "}
+                <b class="text-sn-theme">No pictures, no image files.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Two Templates, Not One</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>template-console</dt>
+                  <dd>What you used last time. Text in a panel.</dd>
+                  <dt>template-game</dt>
+                  <dd>Opens a window and draws in it.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                Same Run button. Same language. You pick by which folder you
+                copied.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What Is Already in template-game</h2>
+              <Code code={Template} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>What Is Already in template-game</h2>
+              <Code code={Template} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">You never call either of these.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Something Else Calls Them</h2>
+              <p>
+                A window is not a list of instructions that finishes. It has to
+                stay up.
+              </p>
+              <p>
+                So the engine runs its own loop, and{" "}
+                <b class="text-sn-theme">
+                  60 times a second it says: your turn, draw.
+                </b>
+              </p>
+              <p class="text-body-secondary">
+                <code>love.draw</code> is a box you put drawing in. We open
+                that box near the end of the quarter.
+              </p>
+            </section>
+
+            <section>
+              <h2>You Write Inside the Box</h2>
+              <Code code={DrawOnly} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Everything today goes between those two lines. The word{" "}
+                <code>end</code> closes the box.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Where Is (0, 0)?</h2>
+              <p>Not the middle. Not the bottom left.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Where Is (0, 0)?</h2>
+              <p>Not the middle. Not the bottom left.</p>
+              <p>
+                <b class="text-sn-theme">The top left corner.</b>
+              </p>
+              <ul>
+                <li><code>x</code> grows to the right, as you would expect</li>
+                <li>
+                  <code>y</code> grows <b class="text-sn-theme">downward</b>,
+                  which you would not
+                </li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>So Bigger y Means Lower</h2>
+              <p>
+                The window is 800 wide and 600 tall, so the middle is{" "}
+                <code>(400, 300)</code> and the bottom right is{" "}
+                <code>(800, 600)</code>.
+              </p>
+              <p class="text-body-secondary">
+                Every graph you have drawn in math class has y going up. This
+                one does not. It catches everybody once.
+              </p>
+            </section>
+
+            <section>
+              <h2>Drawing a Rectangle</h2>
+              <Code code={Rect} frame="code" lang="lua" showLineNumbers={false} />
+              <div class="text-start">
+                <dl>
+                  <dt>"fill"</dt>
+                  <dd>Solid. The other option is <code>"line"</code>, an outline.</dd>
+                  <dt>350, 130</dt>
+                  <dd>The top left corner of the rectangle.</dd>
+                  <dt>100, 340</dt>
+                  <dd>How wide and how tall &mdash; not a second corner.</dd>
+                </dl>
+              </div>
+            </section>
+
+            <section>
+              <h2>A Circle Is Measured Differently</h2>
+              <Code
+                code={`love.graphics.circle("fill", 400, 190, 35)`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p>
+                <code>400, 190</code> is the{" "}
+                <b class="text-sn-theme">center</b>, and <code>35</code> is the
+                radius.
+              </p>
+              <p class="text-body-secondary">
+                A rectangle is placed by its corner and a circle by its middle.
+                That inconsistency is real and you will trip on it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Color Runs 0 to 1</h2>
+              <Code code={RightColor} frame="code" lang="lua" showLineNumbers={false} />
+              <p>Red, green, blue. <code>0</code> is none, <code>1</code> is all of it.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Color Runs 0 to 1</h2>
+              <Code code={RightColor} frame="code" lang="lua" showLineNumbers={false} />
+              <p>Red, green, blue. <code>0</code> is none, <code>1</code> is all of it.</p>
+              <p>
+                <b class="text-sn-theme">
+                  Every color you look up online is written 0 to 255.
+                </b>{" "}
+                Divide by 255.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>What 0 to 255 Looks Like Here</h2>
+              <Code code={WrongColor} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>What 0 to 255 Looks Like Here</h2>
+              <Code code={WrongColor} frame="code" lang="lua" showLineNumbers={false} />
+              <Image
+                src={WrongImage}
+                alt="The same window, but the rectangle is solid white and the three circles cannot be seen at all"
+                width={380}
+                class="img-fluid rounded"
+              />
+              <p class="mt-2">
+                Anything above <code>1</code> is treated as <code>1</code>. So
+                everything is white, and{" "}
+                <b class="text-sn-theme">white on white is invisible.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Color Stays Set</h2>
+              <p>
+                <code>setColor</code> does not belong to one shape. It changes
+                the color the engine uses{" "}
+                <b class="text-sn-theme">from that point on</b>.
+              </p>
+              <p class="text-body-secondary">
+                Set it before each shape you want a different color.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Copy the game template and open a window</li>
+                <li>Place a shape using x and y</li>
+                <li>Draw filled rectangles and circles</li>
+                <li>Set color on the 0 to 1 scale</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Window</dt>
+                  <dd>The separate box the program draws in.</dd>
+                  <dt>love.draw</dt>
+                  <dd>The place your drawing instructions go.</dd>
+                  <dt>Coordinate</dt>
+                  <dd>An x and y pair naming one spot in the window.</dd>
+                  <dt>Origin</dt>
+                  <dd>The point (0, 0), which here is the top left corner.</dd>
+                  <dt>Argument</dt>
+                  <dd>A value you put in the parentheses to say how to do it.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Open a Window</h3>
+
+          <p>
+            Copy the <CodeSnippet code="template-game" lang="txt" inline />{" "}
+            folder and rename the copy to{" "}
+            <CodeSnippet code="1-02-signal" lang="txt" inline />. Open{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline /> inside it and
+            press <b class="text-sn-theme">Run</b>.
+          </p>
+
+          <Image
+            src={HelloImage}
+            alt="A black 800 by 600 window with the words Hello World! in small white text slightly right of center"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            A window opens. <b>Press Escape to close it</b> &mdash; that is what{" "}
+            <CodeSnippet code="love.keypressed" lang="lua" inline /> in the
+            template is for. You will do this dozens of times today.
+          </p>
+
+          <p class="text-body-secondary">
+            The text is drawn at <code>(400, 300)</code>, which is the middle of
+            the window &mdash; but the text is not centered. That coordinate is
+            where its <b>top left corner</b> goes.
+          </p>
+
+          <h3 class="mt-4">Task 2: One Rectangle</h3>
+
+          <p>
+            Delete the <CodeSnippet code="love.graphics.print" lang="lua" inline />{" "}
+            line, leaving the box empty, and put a rectangle in it instead:
+          </p>
+
+          <Code code={Rect} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Run it. A white rectangle. Now{" "}
+            <b class="text-sn-theme">change the four numbers one at a time</b>,
+            running after each change, until you can say out loud what each one
+            does.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Leave <CodeSnippet code="love.keypressed" lang="txt" inline /> alone.</b>{" "}
+            It is below <CodeSnippet code="love.draw" lang="txt" inline /> and
+            it is how you close the window. Delete it and you will be reaching
+            for the mouse all period.
+          </div>
+
+          <h3 class="mt-4">Task 3: Give It a Color</h3>
+
+          <p>Add one line above the rectangle:</p>
+
+          <Code code={RectGray} lang="lua" frame="code" title="main.lua" mark={{ range: "2" }} />
+
+          <p>
+            Gray, because <code>0.6</code> of all three is a bit more than half
+            of white. Try <code>(1, 0, 0)</code> and{" "}
+            <code>(0, 0, 1)</code> before you move on.
+          </p>
+
+          <h3 class="mt-4">Task 4: Three Lights</h3>
+
+          <p>Add a circle, in its own color:</p>
+
+          <Code code={CircleOne} lang="lua" frame="code" title="main.lua" mark={{ range: "5-6" }} />
+
+          <p>
+            Then add the other two. The three centers are{" "}
+            <code>190</code>, <code>300</code> and <code>410</code> down, all at{" "}
+            <code>x = 400</code>:
+          </p>
+
+          <Code code={Full} lang="lua" frame="code" title="main.lua" />
+
+          <Image
+            src={TargetImage}
+            alt="The finished traffic signal: a gray rectangle holding red, yellow, and green filled circles"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>
+            Change the gray line to the numbers you would find on any color
+            website:
+          </p>
+
+          <Code code={WrongColor} lang="lua" frame="code" title="main.lua" />
+
+          <Image
+            src={WrongImage}
+            alt="The rectangle is now solid white and none of the three circles can be seen"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            <b>The circles did not disappear.</b> They are still being drawn.
+            Work out why you cannot see them, write it on your sheet, and put
+            the line back.
+          </p>
+
+          <p class="text-body-secondary">
+            No error message, no crash, nothing in the terminal. This is the
+            kind of bug you have to reason about instead of read about.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Make It Yours</h3>
+
+          <p>
+            Copy <CodeSnippet code="1-02-signal" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-02-scene" lang="txt" inline /> and draw
+            something of your own out of rectangles and circles &mdash; a
+            snowman, a robot, a flag, a face. Anything with at least six shapes
+            and three colors.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-02-signal" lang="txt" inline /> opens a
+              window and closes on Escape
+            </li>
+            <li>A gray rectangle sits behind three circles</li>
+            <li>The circles are red, yellow, and green, top to bottom</li>
+            <li>Every color number is between 0 and 1</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              A shape you wanted near the bottom of the window kept appearing
+              near the top, or the reverse. Explain what the y coordinate
+              actually does, and how you would move a shape down by 50 pixels.
+            </li>
+            <li>
+              A rectangle is placed by its top left corner and a circle by its
+              center. Describe how you would work out the numbers to put a
+              circle exactly in the middle of a rectangle.
+            </li>
+            <li>
+              You never wrote a line that runs{" "}
+              <CodeSnippet code="love.draw" lang="lua" inline />, but it ran
+              anyway. Say what you think is calling it, and how often.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
