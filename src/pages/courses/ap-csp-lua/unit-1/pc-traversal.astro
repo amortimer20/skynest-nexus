@@ -1,0 +1,281 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const P1 = `scores ← [7, 3, 9]
+
+FOR EACH s IN scores
+{
+  DISPLAY(s)
+}`;
+
+const P2 = `values ← [4, 8, 15]
+total ← 0
+i ← 1
+
+REPEAT LENGTH(values) TIMES
+{
+  total ← total + values[i]
+  i ← i + 1
+}
+DISPLAY(total)`;
+
+const P3 = `items ← [5, 10, 15, 20]
+count ← 0
+
+FOR EACH v IN items
+{
+  IF(v > 8)
+  {
+    count ← count + 1
+  }
+}
+DISPLAY(count)`;
+
+const P4 = `local temps = {60, 75, 90}
+
+for i, t in ipairs(temps) do
+    print(t)
+end`;
+
+const P5 = `local letters = {"a", nil, "c"}
+
+for i, v in ipairs(letters) do
+    print(v)
+end
+print(#letters)`;
+
+const RefCard = `a ← expression           assign a copy of the result to a
+DISPLAY(expression)      show the value, FOLLOWED BY A SPACE
+
+IF(condition)            no ELSE IF exists - nest an IF inside an ELSE
+{ ... }
+ELSE
+{ ... }
+
+REPEAT n TIMES           no counter variable is provided
+{ ... }
+REPEAT UNTIL(condition)  checked BEFORE each pass; can run zero times
+{ ... }
+
+aList ← [v1, v2, v3]     FIRST ELEMENT IS aList[1]
+aList ← bList            assigns a COPY of bList
+LENGTH(aList)            number of elements
+APPEND(aList, value)     add to the end, length + 1
+INSERT(aList, i, value)  shift right from i, place value at i
+REMOVE(aList, i)         delete index i, shift left, length - 1
+FOR EACH item IN aList   item takes each VALUE, first to last
+{ ... }                  THERE IS NO INDEX. If you need one, you make it.
+
+An index below 1 or above LENGTH ends the program with an error.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Pseudocode Challenge: Walking a List</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Five problems on traversal &mdash; going through a list one element
+            at a time. This is the single most common shape in the
+            multiple-choice section, and{" "}
+            <b class="text-sn-theme">the exam gives you two ways to do it</b>{" "}
+            that look interchangeable and are not.
+          </p>
+
+          <p>
+            <b>Do this on paper.</b> There is nothing to run and nothing to
+            type. On exam day you get this notation on a printed sheet and no
+            computer, so practicing it any other way practices the wrong thing.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="reference">
+          <h2>Reference Card</h2>
+
+          <p>
+            Everything you need for this page. This is the same notation the
+            College Board uses on the exam.
+          </p>
+
+          <Code
+            code={RefCard}
+            frame="code"
+            lang="txt"
+            title="Exam Notation — what you have so far"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">
+            <b><code>FOR EACH</code> gives you the value and nothing else.</b>{" "}
+            No position, no index, no way to look at the element before this
+            one. When a question needs any of that, it uses{" "}
+            <code>REPEAT</code> with a counter instead &mdash; and now you know
+            why.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="problems">
+          <h2>The Problems</h2>
+
+          <hr class="my-4" />
+
+          <h3>Problem 1 &mdash; trace</h3>
+
+          <p>What does this display, and on how many lines?</p>
+
+          <Code
+            code={P1}
+            frame="code"
+            lang="txt"
+            title="Problem 1"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <hr class="my-4" />
+
+          <h3>Problem 2 &mdash; trace</h3>
+
+          <p>
+            Same list walked the other way. Track <code>total</code> and{" "}
+            <code>i</code> in two columns. What does it display?
+          </p>
+
+          <Code
+            code={P2}
+            frame="code"
+            lang="txt"
+            title="Problem 2"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b>Then answer this:</b> <code>i</code> is set to 1 on its own line
+            above the loop, and increased on the last line inside it. Say what
+            would happen if the increase were missing, and say why the exam
+            makes you write those two lines when Lua's numeric{" "}
+            <code>for</code> writes them for you.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 3 &mdash; trace</h3>
+
+          <p>What does this display?</p>
+
+          <Code
+            code={P3}
+            frame="code"
+            lang="txt"
+            title="Problem 3"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p class="text-body-secondary">
+            A decision inside a traversal, counting how many elements pass a
+            test, is the most-reused shape on the exam. It is worth being able
+            to read it in one pass.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 4 &mdash; translate</h3>
+
+          <p>Rewrite this Lua loop in exam notation.</p>
+
+          <Code
+            code={P4}
+            frame="code"
+            lang="lua"
+            title="Problem 4"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b>The Lua version declares two names and uses one.</b> Say which
+            one vanishes in the translation, and what you would have to do
+            differently if the body had used it.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Problem 5 &mdash; Lua only</h3>
+
+          <p>
+            There is no exam-notation version of this one, and that is the
+            point. <b>Write down exactly what it prints.</b>
+          </p>
+
+          <Code
+            code={P5}
+            frame="code"
+            lang="lua"
+            title="Problem 5"
+            showLineNumbers={false}
+            class="mb-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">Both answers surprise people.</b> Say what{" "}
+            <code>ipairs</code> does when it meets the gap, and what{" "}
+            <code>#letters</code> reports.
+          </p>
+
+          <div class="alert alert-info">
+            <b>An exam list cannot have a hole in it</b>, so the reference sheet
+            never has to answer this question. A Lua table can, which is why{" "}
+            <b class="text-sn-theme">a traversal that quietly stops early is a
+            Lua bug with no exam equivalent</b> &mdash; and one you can only
+            find by counting what came out.
+          </div>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your five answers, plus the short explanations from problems 2, 4
+            and 5. For the traces, write the output exactly as it appears,
+            including spacing.
+          </p>
+
+          <p>
+            Worth <b>3 points</b>, graded on completion. Show your working for
+            the traces &mdash; a wrong answer with visible reasoning is worth
+            more to both of us than a right one with none.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
