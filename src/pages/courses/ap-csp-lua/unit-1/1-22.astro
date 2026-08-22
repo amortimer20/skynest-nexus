@@ -1,0 +1,578 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Does = `local function shout(text)
+    print(text .. "!")
+end
+
+shout("hi")`;
+
+const Answers = `local function double(n)
+    return n * 2
+end
+
+print(double(21))`;
+
+const AnswersOut = `42`;
+
+const NoReturn = `local function shout(text)
+    print(text .. "!")
+end
+
+local result = shout("hi")
+print("result is " .. tostring(result))`;
+
+const NoReturnOut = `hi!
+result is nil`;
+
+const Area = `local function area(w, h)
+    return w * h
+end
+
+local kitchen = area(3, 4)
+local hall = area(2, 6)
+
+print(kitchen + hall)`;
+
+const AreaOut = `24`;
+
+const Scope = `local function makeIt()
+    local hidden = 99
+    return hidden
+end
+
+print(makeIt())
+print("outside: " .. tostring(hidden))`;
+
+const ScopeOut = `99
+outside: nil`;
+
+const Shadow = `local score = 10
+
+local function bump(score)
+    score = score + 5
+    return score
+end
+
+print(bump(score), score)`;
+
+const ShadowOut = `15	10`;
+
+const Two = `local function minMax(a, b)
+    if a < b then
+        return a, b
+    else
+        return b, a
+    end
+end
+
+local lo, hi = minMax(9, 4)
+print(lo, hi)`;
+
+const TwoOut = `4	9`;
+
+const Statement = `local function noReturn(n)
+    n * 2
+end`;
+
+const StatementOut = `Error: Syntax error: main.lua:2: '=' expected near '*'`;
+
+const NotationLua = `local function area(w, h)
+    return w * h
+end
+
+local kitchen = area(3, 4)`;
+
+const NotationPseudo = `PROCEDURE area(w, h)
+{
+  RETURN(w * h)
+}
+
+kitchen ← area(3, 4)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.22: Handing an Answer Back</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.22</h2>
+              <h3 class="text-sn-theme">Handing an Answer Back</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Functions That Answer</p>
+              <p>Where a Name Lives</p>
+              <p>Two Answers at Once</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Yesterday's Functions Did Something</h2>
+              <Code code={Does} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Yesterday's Functions Did Something</h2>
+              <Code code={Does} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Draw a tree, print a line.{" "}
+                <b class="text-sn-theme">You call it for the effect.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Today's Answer Something</h2>
+              <Code code={Answers} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Today's Answer Something</h2>
+              <Code code={Answers} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={AnswersOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme"><code>double(21)</code> becomes 42.</b>{" "}
+                The call turns into a value, right where it was written.
+              </p>
+            </section>
+
+            <section>
+              <h2>You Have Used These All Year</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>tonumber("16")</dt>
+                  <dd>Hands back 16.</dd>
+                  <dt>math.random(1, 20)</dt>
+                  <dd>Hands back a number.</dd>
+                  <dt>love.mouse.getPosition()</dt>
+                  <dd>Hands back two.</dd>
+                  <dt>love.keyboard.isDown("left")</dt>
+                  <dd>Hands back a boolean.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                Today you write your own.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>No return Means nil</h2>
+              <Code code={NoReturn} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>No return Means nil</h2>
+              <Code code={NoReturn} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={NoReturnOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                It printed, and it handed back{" "}
+                <b class="text-sn-theme">nothing</b>. Printing and returning are
+                different jobs.
+              </p>
+              <p class="text-body-secondary">
+                The most common mix-up in this session, by a distance.
+              </p>
+            </section>
+
+            <section>
+              <h2>return Also Stops the Function</h2>
+              <p>
+                The moment <code>return</code> runs,{" "}
+                <b class="text-sn-theme">the function is over.</b> Anything
+                below it in that branch never happens.
+              </p>
+              <p class="text-body-secondary">
+                Which is useful, and which is also how people accidentally
+                delete half a function.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Names Made Inside Stay Inside</h2>
+              <Code code={Scope} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Names Made Inside Stay Inside</h2>
+              <Code code={Scope} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={ScopeOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">That is scope</b>, and you met it at
+                session 16 when <code>i</code> vanished after its loop.
+              </p>
+            </section>
+
+            <section>
+              <h2>Scope Is a Feature</h2>
+              <p>
+                Two functions can both use a variable called{" "}
+                <code>total</code> and{" "}
+                <b class="text-sn-theme">never collide.</b>
+              </p>
+              <p class="text-body-secondary">
+                Without it, every name in a large program would have to be
+                different from every other name in it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Leads Somewhere Strange</h2>
+              <Code code={Shadow} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Leads Somewhere Strange</h2>
+              <Code code={Shadow} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={ShadowOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                The function returned 15 and{" "}
+                <b class="text-sn-theme">the outside <code>score</code> is still
+                10.</b>
+              </p>
+              <p class="text-body-secondary">
+                The parameter is its own name. Same spelling, different
+                variable.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>And You Can Hand Back Two</h2>
+              <Code code={Two} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>And You Can Hand Back Two</h2>
+              <Code code={Two} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={TwoOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                Which is exactly what{" "}
+                <code>love.mouse.getPosition()</code> has been doing since
+                session 13.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Write a function that returns a value</li>
+                <li>Use a returned value in an expression</li>
+                <li>Say why a name made inside a function is not visible outside</li>
+                <li>Return two values at once</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>return</dt>
+                  <dd>Hands a value back and ends the function immediately.</dd>
+                  <dt>Return value</dt>
+                  <dd>What the call turns into.</dd>
+                  <dt>Scope</dt>
+                  <dd>Where a name exists. A <code>local</code> made inside a function exists only inside it.</dd>
+                  <dt>Shadowing</dt>
+                  <dd>An inner name hiding an outer one that is spelled the same.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Terminal today.{" "}
+            <b>Copy <CodeSnippet code="template-console" lang="txt" inline /></b>.
+          </p>
+
+          <h3 class="mt-4">Task 1: Two Functions, Two Jobs</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-22-return" lang="txt" inline /> and write both:
+          </p>
+
+          <Code code={NoReturn} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={NoReturnOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Then write <CodeSnippet code="double" lang="lua" inline /> from the
+            slides and store its answer in a variable.{" "}
+            <b class="text-sn-theme">Write down what each of the two functions
+            gave back.</b>
+          </p>
+
+          <h3 class="mt-4">Task 2: Use the Answer</h3>
+
+          <Code code={Area} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={AreaOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            The two calls became numbers and then got added together.{" "}
+            <b>Now call <CodeSnippet code="area" lang="lua" inline /> inside another call</b>{" "}
+            &mdash; try{" "}
+            <CodeSnippet code="print(area(area(2, 3), 4))" lang="lua" inline />{" "}
+            and work out the answer before you run it.
+          </p>
+
+          <h3 class="mt-4">Task 3: Write Three of Your Own</h3>
+
+          <p>Each one takes something and hands something back:</p>
+
+          <ul>
+            <li>
+              <CodeSnippet code="celsius(f)" lang="lua" inline /> &mdash; turns
+              Fahrenheit into Celsius
+            </li>
+            <li>
+              <CodeSnippet code="isEven(n)" lang="lua" inline /> &mdash; hands
+              back <code>true</code> or <code>false</code>
+            </li>
+            <li>
+              <CodeSnippet code="biggest(a, b, c)" lang="lua" inline /> &mdash;
+              hands back the largest of three
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <CodeSnippet code="isEven" lang="lua" inline /> can be written with
+            an <CodeSnippet code="if" lang="lua" inline />, and it can also be
+            written in one line with no <code>if</code> at all. Find the second
+            way if you can.
+          </p>
+
+          <h3 class="mt-4">Task 4: Scope</h3>
+
+          <p>Run both of these and record the output:</p>
+
+          <Code code={Scope} lang="lua" frame="code" title="main.lua" />
+
+          <Code code={Shadow} lang="lua" frame="code" title="main.lua" class="mt-3" />
+
+          <p>
+            <b class="text-sn-theme">The second one is the surprising one.</b>{" "}
+            The function changed <code>score</code> and the outer{" "}
+            <code>score</code> did not move. Write down both numbers and explain
+            them to the person next to you before you read on.
+          </p>
+
+          <h3 class="mt-4">Task 5: Break It on Purpose (Required)</h3>
+
+          <p>Write a function that computes something and forgets to return it:</p>
+
+          <Code code={Statement} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <Code
+            code={StatementOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>This one will not even start.</b> Lua reads{" "}
+            <code>n * 2</code> on its own and expects it to be the left side of
+            an assignment. Copy the message down.
+          </p>
+
+          <p class="text-body-secondary">
+            Then make the forgetful version that <i>does</i> run: put{" "}
+            <CodeSnippet code="local answer = n * 2" lang="lua" inline /> in the
+            function with no <code>return</code>, and use it.{" "}
+            <b class="text-sn-theme">That one has no error at all</b>, and it is
+            the version you will actually write by accident.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Two Answers</h3>
+
+          <p>
+            Write <CodeSnippet code="minMax(a, b)" lang="lua" inline /> from the
+            slides, then write{" "}
+            <CodeSnippet code="stats(t)" lang="lua" inline /> that takes a table
+            of numbers and hands back <b>three</b> things: the total, the
+            count, and the average.
+          </p>
+
+          <p class="text-body-secondary">
+            It is a traversal from session 20 with a <code>return</code> at the
+            end.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            The exam's procedures return values too, and the capture is written
+            with the arrow you already know.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Hand a value back</td>
+                  <td><code>return w * h</code></td>
+                  <td><code>RETURN(w * h)</code></td>
+                </tr>
+                <tr>
+                  <td>Catch it</td>
+                  <td><code>local kitchen = area(3, 4)</code></td>
+                  <td><code>kitchen &larr; area(3, 4)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b class="text-sn-theme"><code>RETURN</code> takes parentheses</b>{" "}
+            and Lua's <code>return</code> does not. It also behaves the same way
+            in both: it can appear anywhere, and it ends the procedure
+            immediately.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>The exam has one word for both kinds.</b> A procedure that
+            returns a value and one that does not are both{" "}
+            <code>PROCEDURE</code>. Lua is the same &mdash;{" "}
+            <code>function</code> either way &mdash; so the difference is
+            entirely in whether the body says <code>return</code>.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              You recorded what a function with no <code>return</code> hands
+              back
+            </li>
+            <li>Two calls to <code>area</code> were added together</li>
+            <li>All three of your own functions return values</li>
+            <li>
+              Both scope results are written down, including the two numbers
+              from the shadowing one
+            </li>
+            <li>Both versions of the forgotten <code>return</code> were run</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              A function that prints and a function that returns look similar
+              and are not. Explain the difference, and describe what goes wrong
+              if you try to use the answer from the printing one.
+            </li>
+            <li>
+              <CodeSnippet code="bump(score)" lang="lua" inline /> returned 15
+              and the outer <code>score</code> stayed 10. Explain why, and say
+              what you would have to write to actually change the outer one.
+            </li>
+            <li>
+              One forgotten <code>return</code> gave a syntax error and the
+              other gave no error at all. Explain the difference between the two
+              versions, and say which one you would rather write by mistake.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

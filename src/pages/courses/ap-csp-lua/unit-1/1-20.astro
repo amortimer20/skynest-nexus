@@ -1,0 +1,526 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import SpritesImage from "../../../../assets/courses/ap-csp-lua/img/1-20-sprites.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const ByHand = `print(crew[1])
+print(crew[2])
+print(crew[3])`;
+
+const ByIndex = `for i = 1, #crew do
+    print(crew[i])
+end`;
+
+const ByIpairs = `for i, name in ipairs(crew) do
+    print(i, name)
+end`;
+
+const IpairsOut = `1	Ada
+2	Bo
+3	Cy`;
+
+const TwoNames = `for i, name in ipairs(crew) do`;
+
+const Parallel = `local xs = {120, 260, 400, 540, 680}
+local ys = {180, 320, 240, 430, 200}`;
+
+const Sprites = `local xs = {120, 260, 400, 540, 680}
+local ys = {180, 320, 240, 430, 200}
+
+function love.draw()
+    for i, x in ipairs(xs) do
+        love.graphics.setColor(0.3, 0.6 + i / 20, 1)
+        love.graphics.circle("fill", x, ys[i], 34)
+    end
+end`;
+
+const Gappy = `local gappy = {"a", nil, "c"}
+
+for i, v in ipairs(gappy) do
+    print(i, v)
+end
+
+print("#gappy is " .. #gappy)`;
+
+const GappyOut = `1	a
+#gappy is 1`;
+
+const NotationLua = `local crew = {"Ada", "Bo", "Cy"}
+
+for i = 1, #crew do
+    print(crew[i])
+end`;
+
+const NotationPseudo = `crew ← ["Ada", "Bo", "Cy"]
+i ← 1
+
+REPEAT LENGTH(crew) TIMES
+{
+  DISPLAY(crew[i])
+  i ← i + 1
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.20: Going Through a Table</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.20</h2>
+              <h3 class="text-sn-theme">Going Through a Table</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Loop and a Table Fit Together</p>
+              <p>Two Ways to Walk a List</p>
+              <p>N Things From N Values</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={SpritesImage}
+                alt="Five blue circles scattered at different heights across a black window"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Five circles in five places, from{" "}
+                <b class="text-sn-theme">two tables and one loop.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>You Have Both Halves Already</h2>
+              <Code code={ByHand} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>You Have Both Halves Already</h2>
+              <Code code={ByHand} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                A table holds many values.{" "}
+                <b class="text-sn-theme">A loop counts.</b> The index is the
+                count.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Is One Line</h2>
+              <Code code={ByIndex} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Is One Line</h2>
+              <Code code={ByIndex} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>#crew</code> from last session is the end of the count, so
+                the loop{" "}
+                <b class="text-sn-theme">fits the table however long it is.</b>
+              </p>
+              <p class="text-body-secondary">
+                Add a fourth name and nothing else changes.
+              </p>
+            </section>
+
+            <section>
+              <h2>Traversal</h2>
+              <p>
+                Visiting every element of a list, in order.{" "}
+                <b class="text-sn-theme">The exam's word, and it appears
+                constantly.</b>
+              </p>
+              <p class="text-body-secondary">
+                Almost everything anyone does with a list is a traversal with
+                one line changed in the middle.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Lua Has a Shorter Way</h2>
+              <Code code={ByIpairs} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Lua Has a Shorter Way</h2>
+              <Code code={ByIpairs} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={IpairsOut} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Two Names, Not One</h2>
+              <Code code={TwoNames} frame="code" lang="lua" showLineNumbers={false} />
+              <div class="text-start">
+                <dl>
+                  <dt>i</dt>
+                  <dd>Which one you are on. 1, then 2, then 3.</dd>
+                  <dt>name</dt>
+                  <dd>The value itself. You do not have to look it up.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                Same idea as the mouse giving you two answers at session 13.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which One Should You Use?</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>for i = 1, #t</dt>
+                  <dd>When you need the index for something else &mdash; a second table, a position, a count.</dd>
+                  <dt>ipairs</dt>
+                  <dd>When you only want the values.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                <code>ipairs</code> gives you both, so it is rarely wrong. The
+                indexed one is what the exam looks like.
+              </p>
+            </section>
+
+            <section>
+              <h2>Two Tables, One Index</h2>
+              <Code code={Parallel} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>xs[3]</code> and <code>ys[3]</code> are{" "}
+                <b class="text-sn-theme">the same circle.</b> The index is what
+                connects them.
+              </p>
+              <p class="text-body-secondary">
+                Parallel lists. Nothing in the code says they belong together
+                &mdash; you have to keep them the same length yourself.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Traverse a table with an indexed loop</li>
+                <li>Traverse a table with <code>ipairs</code></li>
+                <li>Use one index across two tables</li>
+                <li>Draw N shapes from N stored values</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Traversal</dt>
+                  <dd>Visiting every element of a list, in order.</dd>
+                  <dt>ipairs</dt>
+                  <dd>A loop that hands you the index and the value together.</dd>
+                  <dt>Parallel lists</dt>
+                  <dd>Two lists where the same index means the same thing in both.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Both Ways</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-20-walk" lang="txt" inline />. Make a table of
+            five things &mdash; anything &mdash; and print it twice, once each
+            way:
+          </p>
+
+          <Code
+            code={`local crew = {"Ada", "Bo", "Cy", "Dee", "Eli"}
+
+for i = 1, #crew do
+    print(i .. ": " .. crew[i])
+end
+
+print("---")
+
+for i, name in ipairs(crew) do
+    print(i .. ": " .. name)
+end`}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+          />
+
+          <p>
+            <b class="text-sn-theme">The output is identical.</b> Then add a
+            sixth name and run it again without touching either loop.
+          </p>
+
+          <h3 class="mt-4">Task 2: Do Something to Each One</h3>
+
+          <p>
+            Make a table of five numbers. In one traversal, print each number
+            doubled. In another, add them all up and print the total:
+          </p>
+
+          <Code
+            code={`local scores = {12, 8, 21, 3, 17}
+local total = 0
+
+for i, score in ipairs(scores) do
+    total = total + score
+end
+
+print("Total: " .. total)
+print("Count: " .. #scores)
+print("Average: " .. total / #scores)`}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+          />
+
+          <div class="alert alert-info">
+            <b><CodeSnippet code="local total = 0" lang="lua" inline /> goes above the loop, not inside it.</b>{" "}
+            This is the same rule as session 15's <code>tries</code> and session
+            14's <code>hits</code>. <b class="text-sn-theme">Third time; it
+            should be a habit by now.</b>
+          </div>
+
+          <h3 class="mt-4">Task 3: Five Circles From Two Tables</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-20-sprites" lang="txt" inline />:
+          </p>
+
+          <Code code={Sprites} lang="lua" frame="code" title="main.lua" mark={{ range: "5-8" }} />
+
+          <Image
+            src={SpritesImage}
+            alt="Five circles at the positions stored in the two tables"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            Then <b class="text-sn-theme">add a sixth position to both tables</b>{" "}
+            and run it. A sixth circle appears and you changed no code.
+          </p>
+
+          <h3 class="mt-4">Task 4: Break the Pair on Purpose</h3>
+
+          <p>
+            Add a value to <code>xs</code> and <b>not</b> to <code>ys</code>.
+            Run it.
+          </p>
+
+          <p>
+            <b>The window turns blue.</b> Copy the message and work out which
+            table the loop was walking, and which one ran out.
+          </p>
+
+          <p class="text-body-secondary">
+            Then do the opposite &mdash; add to <code>ys</code> and not{" "}
+            <code>xs</code>. <b class="text-sn-theme">This one does not
+            crash</b>, and that is worse. Write down what you see and why.
+          </p>
+
+          <h3 class="mt-4">Task 5: Make Them Yours</h3>
+
+          <p>
+            Add a third parallel table and use it for something &mdash; radius,
+            color, or both. Then pick one:
+          </p>
+
+          <ul>
+            <li>Make one circle in the list move, using its index to pick which</li>
+            <li>Draw a line from each circle to the next one</li>
+            <li>Use the index to number the circles on screen</li>
+          </ul>
+
+          <h3 class="mt-4">Challenge (Optional): The Hole</h3>
+
+          <p>Back in the terminal:</p>
+
+          <Code code={Gappy} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={GappyOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b class="text-sn-theme">The <code>"c"</code> is in the table and
+            the traversal never reached it.</b> So did <code>#gappy</code>.
+          </p>
+
+          <p>
+            This is last session's warning with a loop attached: a table with a
+            gap in it is not a list, and every tool that walks a list stops at
+            the hole. <b>Write down what this means for a table you build by
+            deleting things out of the middle.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            The exam traverses lists constantly, and it does it with the loop
+            that has no counter &mdash; so a counter gets built by hand.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>How many elements</td>
+                  <td><code>#crew</code></td>
+                  <td><code>LENGTH(crew)</code></td>
+                </tr>
+                <tr>
+                  <td>The first one</td>
+                  <td><code>crew[1]</code></td>
+                  <td><code>crew[1]</code></td>
+                </tr>
+                <tr>
+                  <td>Walk the whole list</td>
+                  <td><code>for i = 1, #crew do</code></td>
+                  <td><code>REPEAT LENGTH(crew) TIMES</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-info">
+            <b>There is no <code>ipairs</code> on the exam.</b> It is a Lua
+            convenience, and a good one. Use it in your own programs and expect
+            the indexed form on the exam.
+          </div>
+
+          <p>
+            <b class="text-sn-theme">The index still starts at 1 in both</b>,
+            which is the agreement from session 18 doing real work. A traversal
+            written in Lua and the same traversal in exam notation visit the
+            same elements in the same order.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-20-walk" lang="txt" inline /> prints the same
+              list two different ways
+            </li>
+            <li>Adding a sixth item changed no loop</li>
+            <li>
+              <CodeSnippet code="1-20-sprites" lang="txt" inline /> draws its
+              circles from two parallel tables
+            </li>
+            <li>Both mismatch experiments from task 4 are written down</li>
+            <li>A third parallel table is doing something</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              You added a sixth circle by adding two numbers and changing no
+              code. Explain what makes that possible, and describe what you
+              would have had to do in session 2 to add a sixth shape.
+            </li>
+            <li>
+              A longer <code>xs</code> crashed and a longer <code>ys</code> did
+              not. Explain the difference, and say which of the two you would
+              rather have happen in a program you were about to hand in.
+            </li>
+            <li>
+              Nothing in the code says <code>xs</code> and <code>ys</code>{" "}
+              belong together. Explain what actually connects them, and describe
+              one way that could go wrong that Lua would never warn you about.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

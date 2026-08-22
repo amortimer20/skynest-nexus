@@ -1,0 +1,537 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TreesImage from "../../../../assets/courses/ap-csp-lua/img/1-21-trees.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Familiar = `function love.draw()
+
+end`;
+
+const Repeated = `love.graphics.setColor(0.45, 0.3, 0.15)
+love.graphics.rectangle("fill", 166, 320, 28, 110)
+love.graphics.setColor(0.2, 0.7, 0.35)
+love.graphics.circle("fill", 180, 300, 60)
+
+love.graphics.setColor(0.45, 0.3, 0.15)
+love.graphics.rectangle("fill", 386, 320, 28, 110)
+love.graphics.setColor(0.2, 0.7, 0.35)
+love.graphics.circle("fill", 400, 300, 60)`;
+
+const Shape = `local function name(parameters)
+
+end`;
+
+const Tree = `local function drawTree(x, y)
+    love.graphics.setColor(0.45, 0.3, 0.15)
+    love.graphics.rectangle("fill", x - 14, y, 28, 110)
+
+    love.graphics.setColor(0.2, 0.7, 0.35)
+    love.graphics.circle("fill", x, y - 20, 60)
+end`;
+
+const Calls = `function love.draw()
+    drawTree(180, 320)
+    drawTree(400, 320)
+    drawTree(620, 320)
+end`;
+
+const Whole = `local function drawTree(x, y)
+    love.graphics.setColor(0.45, 0.3, 0.15)
+    love.graphics.rectangle("fill", x - 14, y, 28, 110)
+
+    love.graphics.setColor(0.2, 0.7, 0.35)
+    love.graphics.circle("fill", x, y - 20, 60)
+end
+
+function love.draw()
+    drawTree(180, 320)
+    drawTree(400, 320)
+    drawTree(620, 320)
+end`;
+
+const InLoop = `function love.draw()
+    for i = 1, 5 do
+        drawTree(i * 130, 320)
+    end
+end`;
+
+const TooFew = `drawTree(180)`;
+
+const TooFewOut = `Error: main.lua:3: bad argument #3 to 'rectangle' (number expected, got nil)`;
+
+const Order = `function love.draw()
+    drawTree(180, 320)
+end
+
+local function drawTree(x, y)
+end`;
+
+const OrderOut = `Error: main.lua:2: attempt to call global 'drawTree' (a nil value)`;
+
+const NotationLua = `local function drawTree(x, y)
+
+end
+
+drawTree(180, 320)`;
+
+const NotationPseudo = `PROCEDURE drawTree(x, y)
+{
+
+}
+
+drawTree(180, 320)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.21: Making Your Own Box</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.21</h2>
+              <h3 class="text-sn-theme">Making Your Own Box</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>You Have Been Writing These Since Day Two</p>
+              <p>Naming a Piece of Work</p>
+              <p>Parameters</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={TreesImage}
+                alt="Three identical green trees with brown trunks, evenly spaced across a black window"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Three trees.{" "}
+                <b class="text-sn-theme">One description of a tree.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Look at This Again</h2>
+              <Code code={Familiar} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Look at This Again</h2>
+              <Code code={Familiar} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                You have typed that in every graphics program since session 2
+                and nobody has ever told you what the first word means.
+              </p>
+              <p class="text-sn-theme">Today is that day.</p>
+            </section>
+
+            <section>
+              <h2>function Means: Here Is Some Work, With a Name</h2>
+              <p>
+                <code>love.draw</code> is a name the engine knows to look for.
+                You put work under it, and the engine runs it.
+              </p>
+              <p>
+                <b class="text-sn-theme">Nothing stops you from making your own
+                names.</b>
+              </p>
+              <p class="text-body-secondary">
+                Those ones the engine has never heard of, so{" "}
+                <b>you</b> have to run them.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Problem</h2>
+              <Code code={Repeated} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Problem</h2>
+              <Code code={Repeated} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Two trees, eight lines,{" "}
+                <b class="text-sn-theme">and four numbers that have to agree
+                with each other.</b>
+              </p>
+              <p class="text-body-secondary">
+                Now change the trunk color on both.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Shape</h2>
+              <Code code={Shape} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Same three parts as every box you have met:{" "}
+                <b class="text-sn-theme">a word, a name, and a block.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Tree, Described Once</h2>
+              <Code code={Tree} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Tree, Described Once</h2>
+              <Code code={Tree} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>x</code> and <code>y</code> are{" "}
+                <b class="text-sn-theme">parameters</b> &mdash; blanks in the
+                description, filled in later.
+              </p>
+              <p class="text-body-secondary">
+                Every number inside is measured from them.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Then Say It Three Times</h2>
+              <Code code={Calls} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Then Say It Three Times</h2>
+              <Code code={Calls} frame="code" lang="lua" showLineNumbers={false} />
+              <Image
+                src={TreesImage}
+                alt="The three trees the three calls produce"
+                width={380}
+                class="img-fluid rounded"
+              />
+            </section>
+
+            <section>
+              <h2>Two Different Moments</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Defining</dt>
+                  <dd>Writing down what a tree is. Nothing happens.</dd>
+                  <dt>Calling</dt>
+                  <dd>Saying <code>drawTree(180, 320)</code>. Now something happens.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                A definition on its own draws nothing at all. This surprises
+                everybody once.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which Is Why the Order Matters</h2>
+              <Code code={Order} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={OrderOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                Lua reads the file top to bottom.{" "}
+                <b class="text-sn-theme">Define it above the place you use
+                it.</b>
+              </p>
+              <p class="text-body-secondary">
+                Same message as session 3's misspelled variable, for the same
+                reason: a name nobody has made yet is <code>nil</code>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Write a function of your own</li>
+                <li>Give it parameters and use them</li>
+                <li>Call it more than once</li>
+                <li>Say the difference between defining and calling</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Function</dt>
+                  <dd>A named piece of work.</dd>
+                  <dt>Parameter</dt>
+                  <dd>A blank in the description, named in the definition.</dd>
+                  <dt>Argument</dt>
+                  <dd>The value you put in the blank when you call it.</dd>
+                  <dt>Call</dt>
+                  <dd>Saying the name, with parentheses, to make it run.</dd>
+                  <dt>Procedure</dt>
+                  <dd>The exam's word for a function.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: One Tree</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-21-trees" lang="txt" inline />. Write the
+            definition first, then one call:
+          </p>
+
+          <Code code={Whole} lang="lua" frame="code" title="main.lua" mark={{ range: "1-7" }} />
+
+          <p>
+            Run it with only the first call, and check the tree is where you
+            expect. <b class="text-sn-theme">Then comment out the call and run
+            it again.</b>
+          </p>
+
+          <div class="alert alert-info">
+            <b>Nothing is drawn.</b> The definition is still there and the
+            program still runs. <b class="text-sn-theme">A description of a
+            tree is not a tree.</b>
+          </div>
+
+          <h3 class="mt-4">Task 2: Three Trees</h3>
+
+          <p>
+            Put all three calls back and run it. Then{" "}
+            <b>change the trunk color in one place</b> and confirm all three
+            change.
+          </p>
+
+          <p>
+            Count what is on your sheet: how many lines describe a tree, and how
+            many trees are on the screen.
+          </p>
+
+          <h3 class="mt-4">Task 3: Trees in a Loop</h3>
+
+          <p>
+            A call is a statement, so it can go anywhere a statement goes{" "}
+            &mdash; including inside a loop:
+          </p>
+
+          <Code code={InLoop} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Five trees, one call.{" "}
+            <b class="text-sn-theme">Then draw the trees at the positions in a
+            table</b>, using the traversal from last session.
+          </p>
+
+          <h3 class="mt-4">Task 4: Break It on Purpose (Required)</h3>
+
+          <p>Leave one argument out:</p>
+
+          <Code code={TooFew} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <Code
+            code={TooFewOut}
+            lang="txt"
+            frame="terminal"
+            title="Error"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>Lua did not say "you forgot an argument."</b> It filled the blank
+            with <code>nil</code> and complained later, inside the function.
+            Write down which line the error names, and which line the mistake
+            was on.
+          </p>
+
+          <p class="text-body-secondary">
+            Now put <b>four</b> arguments in instead of two. Write down what
+            happens &mdash; it is not what the last experiment would lead you to
+            expect, and the two together say something about how careful Lua is
+            being on your behalf.
+          </p>
+
+          <h3 class="mt-4">Task 5: Your Own Function</h3>
+
+          <p>
+            Write a second function that draws something else &mdash; a house, a
+            star, a robot, a flower. Requirements:
+          </p>
+
+          <ul>
+            <li>It takes at least <b>two</b> parameters</li>
+            <li>Every position inside is measured from them</li>
+            <li>You call it at least three times</li>
+            <li>Moving one call moves the whole thing, with nothing left behind</li>
+          </ul>
+
+          <p class="text-body-secondary">
+            That last one is the test. If part of your house stays put when you
+            move it, a number in there is not measured from the parameters.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): A Whole Scene</h3>
+
+          <p>
+            Build a scene from your two functions plus a third, and draw it all
+            from tables of positions. <b>The whole of <CodeSnippet code="love.draw" lang="lua" inline /> should be a few loops
+            and nothing else.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            The exam calls this a <b class="text-sn-theme">procedure</b>, and it
+            is one of the two things the Create Task is graded on.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Define it</td>
+                  <td><code>local function drawTree(x, y)</code></td>
+                  <td><code>PROCEDURE drawTree(x, y)</code></td>
+                </tr>
+                <tr>
+                  <td>Hold the block</td>
+                  <td><code>end</code></td>
+                  <td><code>&#123;</code> &hellip; <code>&#125;</code></td>
+                </tr>
+                <tr>
+                  <td>Call it</td>
+                  <td><code>drawTree(180, 320)</code></td>
+                  <td><code>drawTree(180, 320)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b class="text-sn-theme">The call is written identically.</b> Only
+            the definition differs, and only in its first line and its braces.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>Remember this in May.</b> One of the four written prompts is
+            about <i>procedural abstraction</i> &mdash; and a procedure you
+            wrote, with parameters, that gets called from more than one place,
+            is exactly what that prompt is asking you to point at.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-21-trees" lang="txt" inline /> draws three
+              trees from one definition
+            </li>
+            <li>Changing the trunk color in one place changed all three</li>
+            <li>You saw what a definition with no call draws</li>
+            <li>Both experiments from task 4 are written down</li>
+            <li>
+              Your own function moves as one piece when you change its
+              arguments
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              You have been writing <CodeSnippet code="function love.draw()" lang="lua" inline />{" "}
+              since session 2 without knowing what the first word meant. Explain
+              what it actually means, and say what is different about the
+              functions you wrote today.
+            </li>
+            <li>
+              Defining a function drew nothing; calling it drew a tree. Explain
+              the difference in your own words, and describe what a program with
+              twenty definitions and no calls would do.
+            </li>
+            <li>
+              Leaving out an argument produced an error inside the function
+              rather than at the call. Explain why, and connect it to something
+              else this quarter that behaved the same way.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
