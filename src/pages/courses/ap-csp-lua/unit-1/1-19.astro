@@ -1,0 +1,543 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local scores = {90, 85, 78}
+
+print(#scores)`;
+
+const Figure2 = `3`;
+
+const Figure3 = `local scores = {90, 85, 78}
+
+print(scores[#scores])`;
+
+const Figure4 = `78`;
+
+const Figure5 = `local scores = {90, 85, 78}
+
+print(scores[4])`;
+
+const Figure6 = `nil`;
+
+const Figure7 = `local scores = {90, 85, 78}
+local fourth = scores[4]
+
+print("Fourth score: " .. fourth)`;
+
+const Figure8 = `Error: main.lua:4: attempt to concatenate local 'fourth' (a nil value)
+
+  main.lua:4: in main chunk`;
+
+const Figure9 = `local scores = {90, 85, 78}
+local backup = scores
+
+backup[1] = 0
+
+print("backup[1] is " .. backup[1])
+print("scores[1] is " .. scores[1])`;
+
+const Figure10 = `backup[1] is 0
+scores[1] is 0`;
+
+const NotationLua = `local scores = {90, 85, 78}
+local backup = scores
+print(#scores)
+print(scores[4])`;
+
+const NotationPseudo = `scores ← [90, 85, 78]
+backup ← scores
+DISPLAY(LENGTH(scores))
+DISPLAY(scores[4])`;
+
+const Task1 = `local scores = {90, 85, 78}
+
+print("There are " .. #scores .. " scores")
+print("The last one is " .. scores[#scores])`;
+
+const Task1Out = `There are 3 scores
+The last one is 78`;
+
+const Task2 = `local scores = {90, 85, 78}
+local wanted = 4
+
+if scores[wanted] == nil then
+    print("There is no score number " .. wanted)
+else
+    print("Score number " .. wanted .. " is " .. scores[wanted])
+end`;
+
+const Task2Out = `There is no score number 4`;
+
+const Task4 = `local scores = {90, 85, 78}
+local copy = {}
+
+for i = 1, #scores do
+    copy[i] = scores[i]
+end
+
+copy[1] = 0
+
+print("copy[1] is   " .. copy[1])
+print("scores[1] is " .. scores[1])`;
+
+const Task4Out = `copy[1] is   0
+scores[1] is 90`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.19: How Long, and What Is Not There</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="opening">
+          <h2>Where We Left Off</h2>
+
+          <p>
+            Last session you asked a table for <CodeSnippet code="xs[0]" lang="lua" inline />{" "}
+            and got <CodeSnippet code="nil" lang="lua" inline />. The program did
+            not crash. It printed <i>nothing is here</i> and carried on.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">That is the most dangerous thing Lua does
+            to you all year</b>, and today is about why. On the exam, that same
+            line ends the program.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Copy <CodeSnippet code="template-console" lang="txt" inline /></b>{" "}
+            for this one. No window today &mdash; everything here is easier to
+            see as text.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.19</h2>
+              <h3 class="text-sn-theme">How Long, and What Is Not There</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>How Many Are In There</p>
+              <p>Nothing Is Not an Error</p>
+              <p>Two Names, One Table</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>How Many?</h2>
+              <Code code={Figure1} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>How Many?</h2>
+              <Code code={Figure1} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={Figure2} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="mt-3">
+                <CodeSnippet code="#" lang="lua" inline /> means{" "}
+                <b class="text-sn-theme">how many</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>The Last One, Without Counting</h2>
+              <Code code={Figure3} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Last One, Without Counting</h2>
+              <Code code={Figure3} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={Figure4} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="mt-3">
+                Three elements, so the last index <i>is</i> 3. Works for a table
+                of a hundred without changing a character.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Asking for What Is Not There</h2>
+              <Code code={Figure5} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Asking for What Is Not There</h2>
+              <Code code={Figure5} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={Figure6} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="mt-3">
+                No error. No warning. <b class="text-sn-theme">The program does
+                not care.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>So Where Does It Go Wrong?</h2>
+              <Code code={Figure7} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>So Where Does It Go Wrong?</h2>
+              <Code code={Figure7} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={Figure8} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="mt-3">
+                <b class="text-sn-theme">The error says line 4. The mistake is
+                on line 2.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>This Is the Whole Problem</h2>
+              <p>
+                <CodeSnippet code="nil" lang="lua" inline /> arrives quietly and
+                breaks something <b class="text-sn-theme">later</b>, somewhere
+                else.
+              </p>
+              <p>
+                The line in the error message is where it was <i>used</i>, not
+                where it came from.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Two Names, One Table</h2>
+              <Code code={Figure9} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Names, One Table</h2>
+              <Code code={Figure9} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={Figure10} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="mt-3">
+                It is called <CodeSnippet code="backup" lang="lua" inline /> and
+                it is <b class="text-sn-theme">not a backup</b>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Get the number of elements with <code>#</code></li>
+                <li>Read the last element without counting</li>
+                <li>Check for <code>nil</code> before using a value</li>
+                <li>Explain why one table with two names is not two tables</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <ul>
+                <li><b class="text-sn-theme">nil</b> &mdash; nothing is here</li>
+                <li><b class="text-sn-theme">length</b> &mdash; how many elements, written <code>#t</code></li>
+                <li><b class="text-sn-theme">out of range</b> &mdash; an index the table has no element for</li>
+                <li><b class="text-sn-theme">alias</b> &mdash; a second name for the same table</li>
+              </ul>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline />, rename
+            it <CodeSnippet code="1-19-lists" lang="txt" inline />, and work in{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline />.
+          </p>
+
+          <h3>Task 1: How Many, and the Last One</h3>
+
+          <Code code={Task1} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={Task1Out}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <CodeSnippet code="scores[#scores]" lang="lua" inline /> looks strange
+            and reads simply: <b>the element at the position "how many there
+            are."</b> Add a fourth score to the table and run it again without
+            changing anything else. Both lines follow along.
+          </p>
+
+          <h3 class="mt-4">Task 2: Break It on Purpose, Then Fix It</h3>
+
+          <p>
+            <b class="text-sn-theme">First, make it fail.</b> Type this and run
+            it:
+          </p>
+
+          <Code code={Figure7} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={Figure8}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>Write down which line the error names, and which line the mistake
+            is on.</b> They are not the same line, and that is the point of the
+            whole session.
+          </p>
+
+          <p>Now fix it, by checking before you use it:</p>
+
+          <Code code={Task2} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={Task2Out}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Change <CodeSnippet code="wanted" lang="lua" inline /> to 2 and run it
+            again. The same program now takes the other branch.
+          </p>
+
+          <h3 class="mt-4">Task 3: The Backup That Is Not a Backup</h3>
+
+          <p>
+            <b>Predict first, on your sheet.</b> Then run it.
+          </p>
+
+          <Code code={Figure9} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Write down what you expected and what happened.{" "}
+            <b class="text-sn-theme">If you were surprised, say so</b> &mdash;
+            that is worth marks and it is worth more than being right.
+          </p>
+
+          <h3 class="mt-4">Task 4: Make a Real Copy</h3>
+
+          <p>
+            One table cannot become two by giving it another name. To get a real
+            copy you have to move the elements across one at a time:
+          </p>
+
+          <Code code={Task4} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={Task4Out}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <CodeSnippet code="scores[1]" lang="lua" inline /> is still 90. This
+            time there really are two tables, and the loop is what made the
+            second one.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Guard the Whole Thing</h3>
+
+          <p>
+            Write a program that asks for a score number with{" "}
+            <CodeSnippet code="io.read()" lang="lua" inline />, and answers
+            sensibly for <b>any</b> number typed &mdash; including 0, including
+            99, including a word.
+          </p>
+
+          <p class="text-body-secondary">
+            Remember what session 4 taught you about what{" "}
+            <CodeSnippet code="io.read()" lang="lua" inline /> hands back, and
+            what <CodeSnippet code="tonumber" lang="lua" inline /> does with
+            something that is not a number.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">Last session the exam agreed with Lua.
+            This session it disagrees twice</b>, and these two are the ones most
+            likely to cost you points.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <h4>1. Assignment makes a copy on the exam</h4>
+
+          <p>
+            The reference sheet says <code>aList &larr; bList</code> assigns{" "}
+            <b>a copy</b> of the list. So on the exam,{" "}
+            <code>backup &larr; scores</code> gives you two separate lists, and
+            changing one leaves the other alone.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">In Lua it does not.</b> You proved that in
+            task 3.
+          </p>
+
+          <h4 class="mt-4">2. An out-of-range index ends the program on the exam</h4>
+
+          <p>
+            The sheet is explicit: for any list operation, an index below 1 or
+            above the length produces an error message and{" "}
+            <b>the program terminates.</b> There is no <code>nil</code>, and
+            nothing after that line runs.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">In Lua you get <code>nil</code> and the
+            program keeps going</b> &mdash; which is why task 2's error pointed at
+            the wrong line.
+          </p>
+
+          <div class="table-responsive mt-4">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Number of elements</td>
+                  <td><code>#scores</code></td>
+                  <td><code>LENGTH(scores)</code></td>
+                </tr>
+                <tr>
+                  <td><code>backup</code> after assignment</td>
+                  <td><b>the same list</b></td>
+                  <td><b>a copy</b></td>
+                </tr>
+                <tr>
+                  <td><code>scores[4]</code> on a 3-element list</td>
+                  <td><code>nil</code>, keeps running</td>
+                  <td><b>error, program ends</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-warning">
+            <b>How this shows up on the exam.</b> A trace assigns one list to
+            another, changes the second, then displays the first.{" "}
+            <b class="text-sn-theme">Answering from Lua habit gives the changed
+            value. The exam's answer is the original.</b> Read the notation
+            before you trace, every time.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Task 1 printing the count and the last element</li>
+            <li>
+              The two line numbers from task 2 written down &mdash; the one the
+              error named, and the one the mistake was on
+            </li>
+            <li>A working safe check that answers for a missing score</li>
+            <li>Your task 3 prediction, written <i>before</i> you ran it</li>
+            <li>A real copy in task 4, proved by <code>scores[1]</code> still being 90</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              In task 2 the error message named a different line than the
+              mistake. Explain why, and say what you would look for next time
+              you see an error about <code>nil</code>.
+            </li>
+            <li>
+              You changed <code>backup</code> and <code>scores</code> changed
+              too. Explain what <code>local backup = scores</code> actually did.
+            </li>
+            <li>
+              On the exam, the same line makes a real copy. Describe a question
+              you could get wrong by answering from Lua habit, and say which
+              answer the exam wants.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
