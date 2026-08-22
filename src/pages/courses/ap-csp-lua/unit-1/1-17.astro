@@ -1,0 +1,449 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import GridImage from "../../../../assets/courses/ap-csp-lua/img/1-17-grid.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Nested = `for row = 1, 3 do
+    for col = 1, 4 do
+        print(row .. ", " .. col)
+    end
+end`;
+
+const NestedOut = `1, 1
+1, 2
+1, 3
+1, 4
+2, 1
+2, 2
+2, 3
+2, 4
+3, 1
+3, 2
+3, 3
+3, 4`;
+
+const Grid = `local cols = 10
+local rows = 8
+local size = 60
+
+function love.draw()
+    for row = 1, rows do
+        for col = 1, cols do
+            love.graphics.rectangle("fill", 100 + (col - 1) * size, 60 + (row - 1) * size, size - 6, size - 6)
+        end
+    end
+end`;
+
+const Checker = `for row = 1, rows do
+    for col = 1, cols do
+        if (row + col) % 2 == 0 then
+            love.graphics.setColor(0.3, 0.7, 1)
+        else
+            love.graphics.setColor(0.15, 0.15, 0.2)
+        end
+
+        love.graphics.rectangle("fill", 100 + (col - 1) * size, 60 + (row - 1) * size, size - 6, size - 6)
+    end
+end`;
+
+const Swapped = `for col = 1, cols do
+    for row = 1, rows do`;
+
+const Minus = `100 + (col - 1) * size`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.17: Loops Inside Loops</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.17</h2>
+              <h3 class="text-sn-theme">Loops Inside Loops</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Loop Is Just a Block</p>
+              <p>The Inner One Finishes First</p>
+              <p>Two Counters Make a Grid</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={GridImage}
+                alt="A ten by eight checkerboard of blue and dark gray squares filling most of a black window"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Eighty squares.{" "}
+                <b class="text-sn-theme">Two loops and one rectangle.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Nothing New Today</h2>
+              <p>
+                A loop repeats a block. <b class="text-sn-theme">A loop is a
+                block.</b>
+              </p>
+              <p class="text-body-secondary">
+                So a loop can go inside a loop, the same way an{" "}
+                <code>if</code> went inside <code>love.draw</code>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Counters</h2>
+              <Code code={Nested} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Counters</h2>
+              <Code code={Nested} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={NestedOut} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Read the Output, Not the Code</h2>
+              <p>
+                <code>row</code> stays at 1 while <code>col</code> runs all the
+                way from 1 to 4. <b class="text-sn-theme">Then row becomes 2 and
+                col starts over.</b>
+              </p>
+              <p class="text-body-secondary">
+                The inner loop finishes completely on every single pass of the
+                outer one.
+              </p>
+            </section>
+
+            <section>
+              <h2>Twelve Lines From Two Loops</h2>
+              <p>
+                3 rows &times; 4 columns = <b class="text-sn-theme">12</b>.
+              </p>
+              <p>
+                Change the outer to 100 and the inner to 100 and you have{" "}
+                <b>ten thousand</b> passes from four lines of code.
+              </p>
+              <p class="text-body-secondary">
+                Which is worth knowing before you type it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Why This Belongs on a Canvas</h2>
+              <p>
+                Twelve lines of <code>1, 3</code> in a terminal is a wall of
+                text you have to decode.
+              </p>
+              <p class="text-sn-theme">
+                The same two loops on a screen make a grid you can see at a
+                glance.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Position From Two Counters</h2>
+              <Code code={Minus} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Position From Two Counters</h2>
+              <Code code={Minus} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>col</code> starts at 1, and the first square should be at{" "}
+                the left edge, not one square in.
+              </p>
+              <p>
+                <b class="text-sn-theme"><code>col - 1</code> turns 1, 2, 3 into
+                0, 1, 2.</b>
+              </p>
+              <p class="text-body-secondary">
+                Nearly every grid you ever write has this subtraction in it.
+              </p>
+            </section>
+
+            <section>
+              <h2>And a Checkerboard Is One Condition</h2>
+              <Code
+                code={`if (row + col) % 2 == 0 then`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p>
+                <code>%</code> from session 5, in the middle of two loops.{" "}
+                <b class="text-sn-theme">Neighboring squares always differ by
+                one</b>, so they always land on different colors.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Put one loop inside another</li>
+                <li>Say which counter changes fastest</li>
+                <li>Work out how many passes a nested loop makes</li>
+                <li>Draw a grid from two counters</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Nested loop</dt>
+                  <dd>A loop written inside another loop.</dd>
+                  <dt>Outer loop</dt>
+                  <dd>The one that changes slowest. Usually the rows.</dd>
+                  <dt>Inner loop</dt>
+                  <dd>The one that finishes completely on every pass of the outer.</dd>
+                  <dt>Grid</dt>
+                  <dd>Rows and columns, addressed by two numbers.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: See the Order</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-17-order" lang="txt" inline />:
+          </p>
+
+          <Code code={Nested} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={NestedOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b class="text-sn-theme">Before you run it, write down how many
+            lines you expect.</b> Then run it and count.
+          </p>
+
+          <p>
+            Now swap the two loop headers so <code>col</code> is on the outside:
+          </p>
+
+          <Code code={Swapped} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <p>
+            Same twelve lines, different order. Write down what changed and what
+            did not.
+          </p>
+
+          <h3 class="mt-4">Task 2: A Grid</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-17-grid" lang="txt" inline />:
+          </p>
+
+          <Code code={Grid} lang="lua" frame="code" title="main.lua" mark={{ range: "6-10" }} />
+
+          <p>
+            Run it. Eighty squares from one{" "}
+            <CodeSnippet code="rectangle" lang="lua" inline /> line.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Try it once with <CodeSnippet code="col * size" lang="lua" inline /> instead of <CodeSnippet code="(col - 1) * size" lang="lua" inline />.</b>{" "}
+            The whole grid shifts one square right and the last column falls off
+            the edge. <b class="text-sn-theme">Put it back, and remember the
+            subtraction</b> &mdash; you will need it for the rest of the year.
+          </div>
+
+          <p>
+            Then change <code>rows</code> and <code>cols</code> and watch the
+            grid resize. Work out the largest grid that still fits before you
+            try it.
+          </p>
+
+          <h3 class="mt-4">Task 3: Checkerboard</h3>
+
+          <p>Add one decision inside the inner loop:</p>
+
+          <Code code={Checker} lang="lua" frame="code" title="main.lua" mark={{ range: "3-7" }} />
+
+          <Image
+            src={GridImage}
+            alt="The finished checkerboard: alternating blue and dark gray squares in a ten by eight grid"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">Work out why <code>row + col</code> and not
+            just <code>col</code>.</b> Try it with only <code>col</code> and
+            write down what you get instead.
+          </p>
+
+          <h3 class="mt-4">Task 4: Count the Work</h3>
+
+          <p>Fill this in from your own program, without running anything:</p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>rows</th>
+                  <th>cols</th>
+                  <th>Rectangles drawn</th>
+                  <th>Per second, at 60 frames</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>8</td><td>10</td><td></td><td></td></tr>
+                <tr><td>20</td><td>20</td><td></td><td></td></tr>
+                <tr><td>100</td><td>100</td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-body-secondary">
+            The last row is why nested loops are the first thing anyone checks
+            when a program is slow.
+          </p>
+
+          <h3 class="mt-4">Task 5: Your Own Grid</h3>
+
+          <p>Pick at least two:</p>
+
+          <ul>
+            <li>Color each square by its row, so the grid fades top to bottom</li>
+            <li>Make squares grow larger toward the bottom right, using both counters</li>
+            <li>Draw circles instead, and leave every third one out</li>
+            <li>Make the checkerboard's colors swap when you press space</li>
+          </ul>
+
+          <h3 class="mt-4">Challenge (Optional): Multiplication Table</h3>
+
+          <p>
+            Back in the terminal, print a full times table with{" "}
+            <CodeSnippet code="io.write" lang="lua" inline /> so each row stays
+            on one line, and <CodeSnippet code="print()" lang="lua" inline />{" "}
+            with nothing in it to end the row.
+          </p>
+
+          <p class="text-body-secondary">
+            <CodeSnippet code="io.write" lang="lua" inline /> is the one from
+            session 4 that does not add a new line. That is exactly why it is
+            the right tool here.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Triangle</h3>
+
+          <p>
+            Make the inner loop's end depend on the outer counter:{" "}
+            <CodeSnippet code="for col = 1, row do" lang="lua" inline />.
+          </p>
+
+          <p>
+            <b>The grid becomes a triangle.</b> Work out how many squares it
+            draws for 8 rows, and say why it is not 64.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-17-order" lang="txt" inline /> printed twelve
+              lines, and you recorded what swapping the loops changed
+            </li>
+            <li>
+              <CodeSnippet code="1-17-grid" lang="txt" inline /> draws a
+              checkerboard from one rectangle line
+            </li>
+            <li>
+              Changing <code>rows</code> or <code>cols</code> resizes the grid
+              correctly, with no square off the edge
+            </li>
+            <li>The task 4 table is filled in</li>
+            <li>Two of the task 5 variations are done</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Swapping the two loop headers produced the same twelve lines in a
+              different order. Explain which counter changes fastest and why,
+              and say what the grid would look like if you swapped them there
+              too.
+            </li>
+            <li>
+              A 100 by 100 grid draws ten thousand rectangles every frame, from
+              four lines of code. Explain how a program can be very short and
+              very slow at the same time.
+            </li>
+            <li>
+              The position uses <code>col - 1</code> rather than{" "}
+              <code>col</code>. Explain what goes wrong without the
+              subtraction, and say what you would change instead if you wanted
+              the grid to start 100 pixels from the left.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

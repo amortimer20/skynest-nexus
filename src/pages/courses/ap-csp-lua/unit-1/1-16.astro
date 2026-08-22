@@ -1,0 +1,587 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import RowImage from "../../../../assets/courses/ap-csp-lua/img/1-16-row.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const TheHardWay = `local count = 1
+
+while count <= 8 do
+    print(count)
+    count = count + 1
+end`;
+
+const TheShortWay = `for i = 1, 8 do
+    print(i)
+end`;
+
+const CountOut = `1
+2
+3
+4
+5
+6
+7
+8`;
+
+const Step = `for i = 1, 10, 3 do
+    print(i)
+end`;
+
+const StepOut = `1
+4
+7
+10`;
+
+const Backwards = `for i = 5, 1, -1 do
+    print(i)
+end`;
+
+const BackwardsOut = `5
+4
+3
+2
+1`;
+
+const Scope = `for i = 1, 3 do
+    print("inside " .. i)
+end
+
+print("after: " .. tostring(i))`;
+
+const ScopeOut = `inside 1
+inside 2
+inside 3
+after: nil`;
+
+const Row = `local count = 8
+local gap = 800 / (count + 1)
+
+function love.draw()
+    for i = 1, count do
+        love.graphics.circle("fill", i * gap, 300, 34)
+    end
+end`;
+
+const Colored = `for i = 1, count do
+    love.graphics.setColor(i / count, 0.4, 1 - i / count)
+    love.graphics.circle("fill", i * gap, 300, 34)
+end`;
+
+const NotationLua = `for i = 1, 8 do
+    print(i)
+end`;
+
+const NotationPseudo = `i ← 1
+
+REPEAT 8 TIMES
+{
+  DISPLAY(i)
+  i ← i + 1
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.16: Counting Loops</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.16</h2>
+              <h3 class="text-sn-theme">Counting Loops</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Loop That Counts For You</p>
+              <p>Using the Counter</p>
+              <p>Drawing N Things</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={RowImage}
+                alt="Eight circles in a row across a black window, shading from blue on the left to orange on the right"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Eight circles from{" "}
+                <b class="text-sn-theme">one circle command.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Last Session, the Long Way</h2>
+              <Code code={TheHardWay} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Last Session, the Long Way</h2>
+              <Code code={TheHardWay} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Start it, check it, change it.{" "}
+                <b class="text-sn-theme">Three lines of bookkeeping for one
+                line of work.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Today, the Short Way</h2>
+              <Code code={TheShortWay} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Today, the Short Way</h2>
+              <Code code={TheShortWay} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={CountOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                All three parts are on the first line.{" "}
+                <b class="text-sn-theme">You cannot forget the one that
+                changes.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Reading the First Line</h2>
+              <Code
+                code={`for i = 1, 8 do`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <div class="text-start">
+                <dl>
+                  <dt>i</dt>
+                  <dd>A variable the loop makes for you. You pick the name.</dd>
+                  <dt>1</dt>
+                  <dd>What it starts at.</dd>
+                  <dt>8</dt>
+                  <dd>What it counts up to, <b>and including</b>.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                Eight passes, and <code>i</code> is 8 on the last one. Not 7.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Third Number Changes the Step</h2>
+              <Code code={Step} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Third Number Changes the Step</h2>
+              <Code code={Step} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={StepOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="text-body-secondary">
+                It stopped at 10 because 13 would be past the end.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>And a Negative Step Goes Backwards</h2>
+              <Code code={Backwards} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>And a Negative Step Goes Backwards</h2>
+              <Code code={Backwards} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={BackwardsOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                Which is last session's countdown,{" "}
+                <b class="text-sn-theme">in one line.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>The Counter Is the Useful Part</h2>
+              <p>
+                <code>i</code> is not just bookkeeping. It is{" "}
+                <b class="text-sn-theme">a different number on every pass</b>,
+                and you can put it anywhere a number goes.
+              </p>
+              <p class="text-body-secondary">
+                Which is how one <code>circle</code> line draws eight circles in
+                eight places.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>i Only Exists Inside</h2>
+              <Code code={Scope} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>i Only Exists Inside</h2>
+              <Code code={Scope} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={ScopeOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                The loop made it, used it, and{" "}
+                <b class="text-sn-theme">threw it away.</b> Outside, it is{" "}
+                <code>nil</code>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Write a counting loop</li>
+                <li>Use the counter inside the loop</li>
+                <li>Change the start, the end, and the step</li>
+                <li>Draw N shapes from one drawing command</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>for</dt>
+                  <dd>A loop that counts, with all three parts on one line.</dd>
+                  <dt>Loop counter</dt>
+                  <dd>The variable the loop makes and changes for you.</dd>
+                  <dt>Step</dt>
+                  <dd>How much the counter changes each pass. One unless you say otherwise.</dd>
+                  <dt>Scope</dt>
+                  <dd>Where a name exists. The counter exists only inside its loop.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Count in the Terminal</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-16-count" lang="txt" inline />. Predict the
+            output of each of these <b>before</b> running it, and write both
+            your prediction and the result:
+          </p>
+
+          <Code
+            code={`for i = 1, 5 do
+    print(i)
+end
+
+for i = 3, 7 do
+    print(i)
+end
+
+for i = 1, 10, 2 do
+    print(i)
+end
+
+for i = 10, 1, -2 do
+    print(i)
+end`}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+          />
+
+          <p>
+            <b class="text-sn-theme">The third and fourth are the ones people
+            get wrong.</b> Count how many lines each produces before you run it.
+          </p>
+
+          <h3 class="mt-4">Task 2: Use the Counter</h3>
+
+          <p>Add these two, and work out what they do first:</p>
+
+          <Code
+            code={`for i = 1, 10 do
+    print(i .. " times 7 is " .. i * 7)
+end
+
+for i = 1, 5 do
+    print(i .. " squared is " .. i * i)
+end`}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+          />
+
+          <p class="text-body-secondary">
+            A times table in three lines. Change the 7 and you have a different
+            one.
+          </p>
+
+          <h3 class="mt-4">Task 3: Eight Circles, One Command</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-16-row" lang="txt" inline />:
+          </p>
+
+          <Code code={Row} lang="lua" frame="code" title="main.lua" mark={{ range: "5-7" }} />
+
+          <p>
+            Run it, then <b class="text-sn-theme">change <code>count</code> to
+            3, then to 20.</b> The circles space themselves out, because{" "}
+            <code>gap</code> is worked out from <code>count</code> rather than
+            typed in.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Why <CodeSnippet code="count + 1" lang="lua" inline />?</b> With
+            8 circles there are 9 gaps &mdash; one before the first and one
+            after the last. Try <CodeSnippet code="800 / count" lang="lua" inline />{" "}
+            instead and see where the last circle ends up.
+          </div>
+
+          <h3 class="mt-4">Task 4: Make the Counter Visible</h3>
+
+          <p>Use <code>i</code> for the color as well as the position:</p>
+
+          <Code code={Colored} lang="lua" frame="code" title="main.lua" mark={{ range: "2" }} />
+
+          <Image
+            src={RowImage}
+            alt="Eight circles shading smoothly from blue on the left to orange on the right"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            <b>Every circle is drawn by the same line of code</b>, and no two
+            look the same. Write down what <code>i / count</code> is on the
+            first pass and on the last.
+          </p>
+
+          <h3 class="mt-4">Task 5: Your Own Pattern</h3>
+
+          <p>
+            Change the row into something of your own. Pick at least{" "}
+            <b>two</b>:
+          </p>
+
+          <ul>
+            <li>Make the circles grow as they go across, using <code>i</code> for the radius</li>
+            <li>Make them into a diagonal line instead of a row</li>
+            <li>Draw squares, and rotate the colors the other way</li>
+            <li>Use a negative step so the loop draws right to left, and explain why the picture is identical</li>
+          </ul>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>Move the drawing line outside the loop:</p>
+
+          <Code
+            code={`for i = 1, count do
+end
+
+love.graphics.circle("fill", i * gap, 300, 34)`}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p>
+            <b>The window turns blue.</b> Copy the message, then explain it
+            using what the slides said about where <code>i</code> exists.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): A Circle of Circles</h3>
+
+          <p>
+            Arrange the circles in a ring instead of a row. You need{" "}
+            <CodeSnippet code="math.cos" lang="lua" inline /> and{" "}
+            <CodeSnippet code="math.sin" lang="lua" inline />, and the angle for
+            circle <code>i</code> out of <code>count</code> is{" "}
+            <CodeSnippet code="i / count * 2 * math.pi" lang="lua" inline />.
+          </p>
+
+          <p class="text-body-secondary">
+            This is a real use of trigonometry and you are not expected to
+            derive it. Multiply the cosine by a radius, add 400, and see what
+            happens.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">The exam has a counting loop, and it does
+            not give you a counter.</b> This is the widest gap between Lua and
+            the exam sheet in the whole quarter.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <h4>REPEAT n TIMES has no variable in it</h4>
+
+          <p>
+            <code>REPEAT 8 TIMES</code> runs a block eight times and{" "}
+            <b>tells you nothing about which pass you are on</b>. If you need to
+            know, you make your own counter, start it yourself, and add to it
+            yourself &mdash; exactly the bookkeeping Lua's <code>for</code>{" "}
+            removed.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua <code>for</code></th>
+                  <th><code>REPEAT n TIMES</code></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Runs a fixed number of times</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Gives you a counter</td>
+                  <td>Yes</td>
+                  <td><b>No</b></td>
+                </tr>
+                <tr>
+                  <td>Can start somewhere other than 1</td>
+                  <td>Yes</td>
+                  <td>Only by hand</td>
+                </tr>
+                <tr>
+                  <td>Can step by something other than 1</td>
+                  <td>Yes</td>
+                  <td>Only by hand</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-warning">
+            <b>There is no C-style <code>for</code> loop on the exam sheet at
+            all.</b> Two loops, and that is the whole list:{" "}
+            <code>REPEAT <i>n</i> TIMES</code> and{" "}
+            <code>REPEAT UNTIL(condition)</code>.
+          </div>
+
+          <p class="text-body-secondary">
+            On a trace question, the counter is usually the thing being asked
+            about &mdash; so when you see <code>REPEAT <i>n</i> TIMES</code>,
+            look for the variable somebody had to maintain by hand, and watch
+            where it changes.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              All four counting loops in task 1 have a prediction and a result
+              written down
+            </li>
+            <li>
+              <CodeSnippet code="1-16-row" lang="txt" inline /> draws its
+              circles from one <CodeSnippet code="circle" lang="lua" inline />{" "}
+              line inside a loop
+            </li>
+            <li>
+              Changing <code>count</code> alone changes how many there are and
+              respaces them
+            </li>
+            <li>Two of the task 5 variations are done</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Last session's <CodeSnippet code="while" lang="lua" inline />{" "}
+              loop needed three separate parts and this session's{" "}
+              <CodeSnippet code="for" lang="lua" inline /> puts all three on one
+              line. Explain which kind of bug that makes impossible, and give an
+              example of something <code>while</code> can still do that{" "}
+              <code>for</code> cannot.
+            </li>
+            <li>
+              Your eight circles were drawn by one line of code. Explain how one
+              line put eight different shapes in eight different places.
+            </li>
+            <li>
+              The exam's <code>REPEAT <i>n</i> TIMES</code> gives you no
+              counter. Describe what you would have to add to it to draw your
+              row of circles, and say how many extra lines that is.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

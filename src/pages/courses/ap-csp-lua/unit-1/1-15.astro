@@ -1,0 +1,568 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const ByHand = `print("T-minus 5")
+print("T-minus 4")
+print("T-minus 3")
+print("T-minus 2")
+print("T-minus 1")
+print("Liftoff")`;
+
+const WhileShape = `while condition do
+
+end`;
+
+const Countdown = `local count = 5
+
+while count > 0 do
+    print("T-minus " .. count)
+    count = count - 1
+end
+
+print("Liftoff")`;
+
+const CountdownOut = `T-minus 5
+T-minus 4
+T-minus 3
+T-minus 2
+T-minus 1
+Liftoff`;
+
+const Forgot = `local count = 5
+
+while count > 0 do
+    print("T-minus " .. count)
+end`;
+
+const ForgotOut = `T-minus 5
+T-minus 5
+T-minus 5
+T-minus 5
+T-minus 5
+...`;
+
+const RepeatShape = `repeat
+
+until condition`;
+
+const AtLeastOnce = `local m = 100
+
+repeat
+    print("runs once anyway, m is " .. m)
+until m > 0`;
+
+const AtLeastOnceOut = `runs once anyway, m is 100`;
+
+const Guess = `local secret = 7
+local guess = 0
+
+repeat
+    io.write("Guess my number: ")
+    guess = tonumber(io.read())
+until guess == secret
+
+print("You got it.")`;
+
+const GuessOut = `Guess my number: 3 [Enter]
+Guess my number: 9 [Enter]
+Guess my number: 7 [Enter]
+You got it.`;
+
+const NotationLua = `local count = 5
+
+while count > 0 do
+    print(count)
+    count = count - 1
+end`;
+
+const NotationPseudo = `count ← 5
+
+REPEAT UNTIL(count = 0)
+{
+  DISPLAY(count)
+  count ← count - 1
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.15: Doing It Again</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.15</h2>
+              <h3 class="text-sn-theme">Doing It Again</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Repeating While Something Is True</p>
+              <p>Repeating Until Something Is True</p>
+              <p>Loops That Never Stop</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>You Already Know How to Do This Badly</h2>
+              <Code code={ByHand} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>You Already Know How to Do This Badly</h2>
+              <Code code={ByHand} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Six lines for five numbers.{" "}
+                <b class="text-sn-theme">Now count down from a hundred.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>A Fourth Box</h2>
+              <Code code={WhileShape} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">Run this block, then check again.</b>{" "}
+                Keep going as long as the condition is true.
+              </p>
+              <p class="text-body-secondary">
+                It looks like an <code>if</code>. The difference is that an{" "}
+                <code>if</code> asks once.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Counting Down</h2>
+              <Code code={Countdown} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Counting Down</h2>
+              <Code code={Countdown} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={CountdownOut} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Three Things Every Loop Needs</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>A starting value</dt>
+                  <dd><code>count</code> begins at 5.</dd>
+                  <dt>A condition</dt>
+                  <dd><code>count &gt; 0</code>, checked before every pass.</dd>
+                  <dt>Something that changes</dt>
+                  <dd><code>count = count - 1</code>, or it never ends.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                Miss the third and the loop is not wrong. It is forever.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Forever Is a Real Thing</h2>
+              <Code code={Forgot} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Forever Is a Real Thing</h2>
+              <Code code={Forgot} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={ForgotOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">No error. It is still going.</b> Stop
+                it with the <b>trash-can button</b> at the top of the terminal
+                panel.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Other One Checks Afterwards</h2>
+              <Code code={RepeatShape} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>repeat</code> runs the block{" "}
+                <b class="text-sn-theme">first</b>, then checks, and stops when
+                the condition becomes <b>true</b>.
+              </p>
+              <p class="text-body-secondary">
+                Both words are backwards from <code>while</code>. That is not an
+                accident and it matters in May.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Means It Always Runs Once</h2>
+              <Code code={AtLeastOnce} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Means It Always Runs Once</h2>
+              <Code code={AtLeastOnce} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={AtLeastOnceOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <code>m &gt; 0</code> was true before the loop started, and it{" "}
+                <b class="text-sn-theme">still printed.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Which One, Then?</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>while</dt>
+                  <dd>When the block might need to run <b>zero</b> times.</dd>
+                  <dt>repeat</dt>
+                  <dd>When it must run <b>at least once</b> &mdash; asking a question you have not asked yet.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                You cannot check a guess before the person has guessed.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Write a <code>while</code> loop that counts</li>
+                <li>Name the three parts every loop needs</li>
+                <li>Stop a program that will not stop</li>
+                <li>Use <code>repeat</code> for something that must happen once</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Loop</dt>
+                  <dd>A block that runs more than once.</dd>
+                  <dt>Iteration</dt>
+                  <dd>One pass through a loop. The exam's word for looping.</dd>
+                  <dt>while</dt>
+                  <dd>Checks before each pass. Repeats while the condition is true.</dd>
+                  <dt>repeat / until</dt>
+                  <dd>Checks after each pass. Repeats until the condition is true.</dd>
+                  <dt>Infinite loop</dt>
+                  <dd>A loop whose condition never changes. It does not stop on its own.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Back to the terminal today.{" "}
+            <b>Copy <CodeSnippet code="template-console" lang="txt" inline />, not <CodeSnippet code="template-game" lang="txt" inline /></b>.
+          </p>
+
+          <h3 class="mt-4">Task 1: Count Down</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-15-countdown" lang="txt" inline /> and write
+            it:
+          </p>
+
+          <Code code={Countdown} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={CountdownOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Then change it to count down from <b>20</b>, and then to count{" "}
+            <b>up</b> to 20. The second one needs all three parts changed{" "}
+            &mdash; work out which three before you type.
+          </p>
+
+          <h3 class="mt-4">Task 2: Break It on Purpose (Required)</h3>
+
+          <p>Delete the line that changes <code>count</code>:</p>
+
+          <Code code={Forgot} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={ForgotOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <div class="alert alert-warning">
+            <b>To stop it, press the trash-can button at the top of the terminal
+            panel</b> &mdash; its tooltip says <i>Kill Terminal</i>. The Run
+            button will not help, Escape will not help, and closing the file
+            will not help. Ctrl+C sometimes works and sometimes does nothing at
+            all, so do not rely on it.{" "}
+            <b class="text-sn-theme">Learn this now, while you are doing it on
+            purpose.</b>
+          </div>
+
+          <p>
+            Write down what the terminal did, and how long you let it run before
+            you stopped it. Then put the line back.
+          </p>
+
+          <h3 class="mt-4">Task 3: Repeat Until</h3>
+
+          <p>
+            Copy the template again to{" "}
+            <CodeSnippet code="1-15-guess" lang="txt" inline />:
+          </p>
+
+          <Code code={Guess} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={GuessOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b class="text-sn-theme">Try to rewrite this with <code>while</code> and see what goes wrong.</b>{" "}
+            You have to invent a first guess before the loop starts, and the
+            person has not guessed anything yet.
+          </p>
+
+          <p class="text-body-secondary">
+            The <CodeSnippet code="local guess = 0" lang="lua" inline /> line is
+            there for a reason. Work out what breaks without it.
+          </p>
+
+          <h3 class="mt-4">Task 4: Count the Guesses</h3>
+
+          <p>
+            Add a <code>tries</code> variable that starts at 0, goes up by one
+            inside the loop, and gets reported at the end:{" "}
+            <CodeSnippet code={`"You got it in " .. tries .. " tries."`} lang="lua" inline />
+          </p>
+
+          <p class="text-body-secondary">
+            This is the same shape as last session's <code>hits</code>. It is
+            also the shape of every score in every program you will write this
+            year.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Hotter and Colder</h3>
+
+          <p>
+            Inside the loop, tell the guesser whether they were too high or too
+            low. Two decisions inside a loop, which is the first time you have
+            nested one of these boxes inside another.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Let the Computer Pick</h3>
+
+          <p>
+            Replace <CodeSnippet code="local secret = 7" lang="lua" inline />{" "}
+            with a random number between 1 and 20:
+          </p>
+
+          <Code
+            code={`math.randomseed(os.time())
+local secret = math.random(1, 20)`}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+
+          <p class="text-body-secondary">
+            <CodeSnippet code="math.randomseed(os.time())" lang="lua" inline />{" "}
+            has to be there, and it has to be first. Take it out and run the
+            program three times &mdash; <b>write down what you notice.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">This is the panel to pay attention to
+            this quarter.</b> The exam has two loops, and one of them is not{" "}
+            <code>while</code>.
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <h4>There is no WHILE on the exam sheet</h4>
+
+          <p>
+            The two loops are{" "}
+            <code>REPEAT <i>n</i> TIMES</code> and{" "}
+            <code>REPEAT UNTIL(condition)</code>. That is all of them.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Repeats</th>
+                  <th>Stops when</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>while c do</code></td>
+                  <td>While <code>c</code> is true</td>
+                  <td><code>c</code> becomes false</td>
+                </tr>
+                <tr>
+                  <td><code>repeat &hellip; until c</code></td>
+                  <td>Until <code>c</code> is true</td>
+                  <td><code>c</code> becomes true</td>
+                </tr>
+                <tr>
+                  <td><code>REPEAT UNTIL(c)</code></td>
+                  <td>Until <code>c</code> is true</td>
+                  <td><code>c</code> becomes true</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-info">
+            <b>Lua's <CodeSnippet code="repeat ... until" lang="lua" inline /> is the exam's loop</b>, with
+            the same word and the same meaning. That is unusual, and it is worth
+            knowing that the language most students learn first does not have
+            it.
+          </div>
+
+          <p>
+            <b class="text-sn-theme">To translate a <code>while</code> loop, flip the condition.</b>{" "}
+            <code>while count &gt; 0</code> becomes{" "}
+            <code>REPEAT UNTIL(count = 0)</code>. Keeping the condition the same
+            is the single most common mistake on these questions.
+          </p>
+
+          <p class="text-body-secondary">
+            <code>REPEAT <i>n</i> TIMES</code> is the other one, and it is next
+            session &mdash; along with the fact that it does not give you a
+            counter.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-15-countdown" lang="txt" inline /> counts
+              down from 20 and up to 20
+            </li>
+            <li>
+              You made a loop run forever and stopped it yourself, and you know
+              which button does it
+            </li>
+            <li>
+              <CodeSnippet code="1-15-guess" lang="txt" inline /> keeps asking
+              until the guess is right
+            </li>
+            <li>It reports how many tries it took</li>
+            <li>
+              You can say why this one is <code>repeat</code> and not{" "}
+              <code>while</code>
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Name the three parts every loop needs, and say which one you
+              deleted in task 2. Explain why deleting it produced no error
+              message.
+            </li>
+            <li>
+              The guessing loop must ask at least once, so it uses{" "}
+              <CodeSnippet code="repeat" lang="lua" inline />. Describe a
+              situation where a loop should be able to run{" "}
+              <b>zero</b> times, and say which loop you would use for it.
+            </li>
+            <li>
+              <CodeSnippet code="while count > 0" lang="lua" inline /> becomes{" "}
+              <code>REPEAT UNTIL(count = 0)</code> in exam notation. Explain why
+              the condition had to change, and what would happen to a program
+              that kept it the same.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
