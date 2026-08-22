@@ -1,0 +1,239 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/bp-pong-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const HeldKeys = `if love.keyboard.isDown("w") then
+    leftY = leftY - 300 * dt
+end`;
+
+const DrawScore = `love.graphics.print(leftScore .. "   " .. rightScore, 380, 30)`;
+
+const BounceTop = `if ballY < 10 then
+    ballDY = -ballDY
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Pong</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b class="text-sn-theme">A real two-player game, on one keyboard.</b>{" "}
+            Two paddles, a ball that speeds around the screen, and a score that
+            goes up. It is the oldest video game worth building and it is still
+            fun to play against someone sitting next to you.
+          </p>
+
+          <p>
+            <b>This is extra credit and it is optional.</b> Nothing later in the
+            course depends on it. It exists because you finished early, or
+            because you want to build something you can show somebody.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before">
+          <h2>Before You Start</h2>
+
+          <p>
+            <b class="text-sn-theme">You need everything through session 14.</b>{" "}
+            Specifically: variables, <CodeSnippet code="love.update(dt)" lang="lua" inline />,{" "}
+            <CodeSnippet code="if" lang="lua" inline /> statements, keyboard
+            input, and collision as a condition. If you have not done session 14
+            yet, come back &mdash; you would be guessing, and that is not what
+            this is for.
+          </p>
+
+          <p>
+            <b>One thing here is new.</b> Drawing text on the screen:
+          </p>
+
+          <Code code={DrawScore} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <CodeSnippet code="love.graphics.print" lang="lua" inline /> takes
+            the text, then an x and a y. That is the whole thing. It is the same{" "}
+            <CodeSnippet code=".." lang="lua" inline /> you already use to join
+            text together.
+          </p>
+
+          <p class="text-body-secondary">
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename it <CodeSnippet code="bp-pong" lang="txt" inline />. No new
+            files, no libraries, nothing to install.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <p>
+            Five stages. <b class="text-sn-theme">Run it after every one.</b> A
+            stage that works is worth more than three stages you cannot test.
+          </p>
+
+          <h3 class="mt-4">1. Two paddles that move</h3>
+
+          <p>
+            Draw two tall thin rectangles, one near each side. Give each one a
+            variable for its y position. Then move them: <b>W</b> and <b>S</b>{" "}
+            for the left paddle, <b>Up</b> and <b>Down</b> for the right.
+          </p>
+
+          <p>
+            You need a kind of key check you have not used yet.{" "}
+            <CodeSnippet code="love.keypressed" lang="lua" inline /> fires once
+            when a key goes down, which is wrong here &mdash; a paddle should
+            keep moving while the key is held:
+          </p>
+
+          <Code code={HeldKeys} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            That goes in <CodeSnippet code="love.update" lang="lua" inline />,
+            and the <CodeSnippet code="dt" lang="lua" inline /> is what makes the
+            paddle move at the same speed on every computer.
+          </p>
+
+          <h3 class="mt-4">2. A ball that moves on its own</h3>
+
+          <p>
+            One variable for the ball's x, one for its y, and{" "}
+            <b class="text-sn-theme">one for each direction it is traveling in</b>{" "}
+            &mdash; call them something like{" "}
+            <CodeSnippet code="ballDX" lang="lua" inline /> and{" "}
+            <CodeSnippet code="ballDY" lang="lua" inline />. Every frame, add
+            each direction to its position.
+          </p>
+
+          <h3 class="mt-4">3. Bounce off the top and bottom</h3>
+
+          <p>
+            When the ball reaches an edge, flip the direction it is moving
+            vertically:
+          </p>
+
+          <Code code={BounceTop} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b>That minus sign is the whole trick.</b> Going down becomes going
+            up. Do the same at the bottom of the screen.
+          </p>
+
+          <h3 class="mt-4">4. Bounce off the paddles</h3>
+
+          <p>
+            This is the hard one, and it is the reason this project comes after
+            session 14. The ball bounces off the left paddle when{" "}
+            <b>two things are true at once</b>: it has reached the paddle's x,{" "}
+            <i>and</i> its y is between the top and bottom of that paddle. Flip{" "}
+            <CodeSnippet code="ballDX" lang="lua" inline /> when both hold.
+          </p>
+
+          <p class="text-body-secondary">
+            Get this wrong in the easy way and the ball bounces off the whole
+            left wall. That is worth seeing once before you fix it &mdash; it
+            tells you exactly which half of the condition you are missing.
+          </p>
+
+          <h3 class="mt-4">5. Score</h3>
+
+          <p>
+            If the ball goes off the left side, the right player scores. Add one
+            to their score, put the ball back in the middle, and keep playing.
+            Draw both scores at the top with{" "}
+            <CodeSnippet code="love.graphics.print" lang="lua" inline />.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="A dark 800 by 600 window with a white paddle at the left edge, a white paddle at the right edge, a white ball below center, and the score zero zero at the top"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            Both paddles move while their keys are held. The ball bounces off
+            the top, the bottom, and both paddles, and{" "}
+            <b class="text-sn-theme">the rally can go on as long as both
+            players keep up.</b> When someone misses, the score changes and the
+            ball restarts in the middle.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li class="mb-2">
+              <b>Stop the paddles leaving the screen.</b> Right now they slide
+              straight off the top if you hold the key. One condition each.
+            </li>
+            <li class="mb-2">
+              <b>Speed the ball up on every hit.</b> A rally that gets harder is
+              a much better game than one that does not.
+            </li>
+            <li class="mb-2">
+              <b>Fix the sticky paddle.</b> Hit the very edge of a paddle and the
+              ball can flip direction several frames in a row, so it shudders
+              instead of bouncing. Work out why, then fix it. This is a real bug
+              in real games, and finding it yourself is worth more than the rest
+              of this list.
+            </li>
+            <li class="mb-2">
+              <b>Play to eleven.</b> Stop the game and say who won.
+            </li>
+            <li class="mb-2">
+              <b>Make it a one-player game.</b> Move the right paddle toward the
+              ball automatically. Then make it beatable, which is harder than
+              making it good.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Submit whatever you have.</b> A working rally with no score still
+            earns credit, and so does a finished game with a bug you can
+            describe.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Project Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
