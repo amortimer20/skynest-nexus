@@ -1,0 +1,172 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `local score = 95
+
+if score >= 60 then
+    print("D")
+elseif score >= 70 then
+    print("C")
+elseif score >= 80 then
+    print("B")
+elseif score >= 90 then
+    print("A")
+else
+    print("F")
+end`;
+
+const Bug2 = `local temp = 85
+
+if temp > 80 then
+    print("Hot")
+end
+
+if temp > 60 then
+    print("Warm")
+end
+
+if temp > 40 then
+    print("Cool")
+end`;
+
+const Bug3 = `local key = "x"
+
+if key == "a" or "d" then
+    print("moving")
+end`;
+
+const Bug4 = `local total = 50
+
+if total < 50 then
+    print("Shipping: 6.00")
+else
+    print("Free shipping")
+end
+
+if total <= 50 then
+    print("You just missed free shipping!")
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Decisions</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four short programs about decisions, each with exactly one thing
+            wrong. <b class="text-sn-theme">All four run perfectly and all four
+            are wrong.</b>
+          </p>
+
+          <p>
+            Not one of them produces an error message. Two of them even produce
+            output that looks reasonable until you check it against what the
+            program was supposed to say.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            This should report a letter grade. A score of 95 prints{" "}
+            <code>D</code>.
+          </p>
+
+          <Code code={Bug1} frame="code" lang="lua" title="Bug 1" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            This should describe the temperature in one word. At 85 it prints
+            three lines.
+          </p>
+
+          <Code code={Bug2} frame="code" lang="lua" title="Bug 2" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            This should move only when the key is <code>a</code> or{" "}
+            <code>d</code>. It prints <code>moving</code> for{" "}
+            <b class="text-sn-theme">every key, including <code>x</code></b>.
+          </p>
+
+          <Code code={Bug3} frame="code" lang="lua" title="Bug 3" class="mb-3" />
+
+          <p class="text-body-secondary">
+            This one is worth more thought than the others. Nothing here is a
+            typo.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            An order of exactly $50 should get free shipping and nothing else.
+            It prints the free shipping line <b>and</b> the missed-it line.
+          </p>
+
+          <Code code={Bug4} frame="code" lang="lua" title="Bug 4" class="mb-3" />
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each program, give:</p>
+
+          <ul>
+            <li>One sentence on what was wrong</li>
+            <li>The corrected line, or lines, of code</li>
+            <li>
+              For bug 3 only: <b>what the condition is actually asking</b>
+            </li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">Trace them on paper.</b> Pick a value,
+            follow it line by line, and write down what each condition
+            evaluates to. That is the same skill the exam's trace questions
+            want.
+          </p>
+
+          <p>Worth <b>5 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

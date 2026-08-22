@@ -1,0 +1,160 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `local scores = {12, 8, 21, 3, 17}
+
+for i = 1, #scores do
+    local total = 0
+    total = total + scores[i]
+end
+
+print("Total: " .. total)`;
+
+const Bug2 = `local names = {"Ada", "Bo", "Cy"}
+
+for i = 1, #names - 1 do
+    print(names[i])
+end`;
+
+const Bug3 = `local lives = 3
+
+while lives > 0 do
+    print("Life " .. lives)
+end
+
+print("Game over")`;
+
+const Bug4 = `local x = 20
+local passes = 0
+
+repeat
+    passes = passes + 1
+    x = x - 1
+until x > 10
+
+print("Passes: " .. passes)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Loops</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four short programs with loops in them, each with exactly one thing
+            wrong. <b class="text-sn-theme">One of them will not stop.</b>
+          </p>
+
+          <div class="alert alert-warning">
+            <b>Read before you run.</b> A program with a loop that never ends
+            gives you a window that ignores you. If you do run it and it hangs,
+            close the terminal panel and reopen it.
+          </div>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            This should add five numbers and print <code>Total: 61</code>. It
+            stops with an error about a <code>nil</code> value instead.
+          </p>
+
+          <Code code={Bug1} frame="code" lang="lua" title="Bug 1" class="mb-3" />
+
+          <p class="text-body-secondary">
+            <b>There are two things wrong here and they have the same cause.</b>{" "}
+            Find the cause and both go away.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            Three names in the table, and it prints two of them.
+          </p>
+
+          <Code code={Bug2} frame="code" lang="lua" title="Bug 2" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            This should count down from 3 and then say <code>Game over</code>.
+            It prints <code>Life 3</code> forever.
+          </p>
+
+          <Code code={Bug3} frame="code" lang="lua" title="Bug 3" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            This should keep going until <code>x</code> drops to 10, taking
+            about ten passes. It takes <b>one</b>.
+          </p>
+
+          <Code code={Bug4} frame="code" lang="lua" title="Bug 4" class="mb-3" />
+
+          <p class="text-body-secondary">
+            The loop itself is fine. Read the word before the condition.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each program, give:</p>
+
+          <ul>
+            <li>One sentence on what was wrong</li>
+            <li>The corrected line of code</li>
+            <li>
+              For bug 3 only: <b>the general rule</b> that would have caught it
+              before you ran anything
+            </li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">Count the passes on paper.</b> For each
+            loop, write down what the condition is at the start of every pass.
+            Four rows is usually enough to see the problem.
+          </p>
+
+          <p>Worth <b>5 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

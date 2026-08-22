@@ -1,0 +1,157 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `local crew = {"Ada", "Bo", "Cy"}
+
+for i = 0, #crew - 1 do
+    print(crew[i])
+end`;
+
+const Bug2 = `local original = {10, 20, 30}
+local backup = original
+
+backup[1] = 999
+
+print("The original still starts with " .. original[1])`;
+
+const Bug3 = `local scores = {5, 10, 15}
+
+for i = 1, #scores + 1 do
+    print(scores[i])
+end`;
+
+const Bug4 = `local xs = {120, 260, 400, 540}
+local ys = {180, 320, 240}
+
+function love.draw()
+    for i, x in ipairs(xs) do
+        love.graphics.circle("fill", x, ys[i], 30)
+    end
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Tables</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four programs that use tables, each with exactly one thing wrong.
+            Two of them crash and two of them do not, and{" "}
+            <b class="text-sn-theme">the two that do not are the interesting
+            ones.</b>
+          </p>
+
+          <p>
+            Every one of these is a mistake the exam reference sheet would treat
+            differently from Lua. That is not a coincidence.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            Three names in the table. This prints <code>nil</code>, then two of
+            them.
+          </p>
+
+          <Code code={Bug1} frame="code" lang="lua" title="Bug 1" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            This should make a copy before changing anything. It prints{" "}
+            <code>The original still starts with 999</code>.
+          </p>
+
+          <Code code={Bug2} frame="code" lang="lua" title="Bug 2" class="mb-3" />
+
+          <p class="text-body-secondary">
+            <b>There is no one-line fix for this one</b>, and saying so is part
+            of the answer.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            Three scores in the table. This prints all three and then{" "}
+            <code>nil</code>.
+          </p>
+
+          <Code code={Bug3} frame="code" lang="lua" title="Bug 3" class="mb-3" />
+
+          <p class="text-body-secondary">
+            <b>Say what the exam reference sheet would do here instead</b>, and
+            which of the two behaviors you would rather have.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            Four circles expected. It stops with{" "}
+            <code>bad argument #3 to 'circle' (number expected, got nil)</code>.
+          </p>
+
+          <Code code={Bug4} frame="code" lang="lua" title="Bug 4" class="mb-3" />
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each program, give:</p>
+
+          <ul>
+            <li>One sentence on what was wrong</li>
+            <li>The corrected line of code, or a description if one line will not do it</li>
+            <li>
+              For bugs 2 and 3: <b>what the exam reference sheet would do
+              instead</b>
+            </li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">Bug 4 has two correct answers.</b> Give
+            both, and say what each one draws.
+          </p>
+
+          <p>Worth <b>5 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

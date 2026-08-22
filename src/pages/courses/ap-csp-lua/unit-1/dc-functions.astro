@@ -1,0 +1,161 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Bug1 = `local function double(n)
+    print(n * 2)
+end
+
+local answer = double(5)
+
+print("Answer plus one: " .. answer + 1)`;
+
+const Bug2 = `local lives = 3
+
+local function loseALife(lives)
+    lives = lives - 1
+    return lives
+end
+
+loseALife(lives)
+
+print("Lives left: " .. lives)`;
+
+const Bug3 = `local function total(t)
+    local sum = 0
+
+    for i, v in ipairs(t) do
+        sum = sum + v
+        return sum
+    end
+end
+
+print("Total: " .. total({4, 6, 10}))`;
+
+const Bug4 = `print(greet("Ada"))
+
+local function greet(name)
+    return "Hello " .. name
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Debug Challenge: Functions</h1>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>Objective</h2>
+
+          <p>
+            Four programs with functions in them, each with exactly one thing
+            wrong. Two crash, two do not, and{" "}
+            <b class="text-sn-theme">in three of the four the error message
+            names a line that is not where the mistake is.</b>
+          </p>
+
+          <p>
+            That gap &mdash; between where a program notices and where it went
+            wrong &mdash; is most of what makes debugging a skill rather than a
+            lookup.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="bugs">
+          <h2>The Four Programs</h2>
+
+          <hr class="my-4" />
+
+          <h3>Bug 1</h3>
+
+          <p>
+            This prints <code>10</code> and then stops with an error about
+            arithmetic on a <code>nil</code> value.
+          </p>
+
+          <Code code={Bug1} frame="code" lang="lua" title="Bug 1" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 2</h3>
+
+          <p>
+            The player loses a life. It prints{" "}
+            <code>Lives left: 3</code>.
+          </p>
+
+          <Code code={Bug2} frame="code" lang="lua" title="Bug 2" class="mb-3" />
+
+          <p class="text-body-secondary">
+            <b>The function is correct.</b> Something around it is not.
+          </p>
+
+          <hr class="my-4" />
+
+          <h3>Bug 3</h3>
+
+          <p>
+            This should add up the table and print <code>Total: 20</code>. It
+            prints <code>Total: 4</code>.
+          </p>
+
+          <Code code={Bug3} frame="code" lang="lua" title="Bug 3" class="mb-3" />
+
+          <hr class="my-4" />
+
+          <h3>Bug 4</h3>
+
+          <p>
+            This stops immediately with{" "}
+            <code>attempt to call global 'greet' (a nil value)</code>.
+          </p>
+
+          <Code code={Bug4} frame="code" lang="lua" title="Bug 4" class="mb-3" />
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>For each program, give:</p>
+
+          <ul>
+            <li>One sentence on what was wrong</li>
+            <li>The corrected line of code</li>
+            <li>
+              <b>Which line the error names, and which line the mistake is
+              on</b> &mdash; for the two that produce errors
+            </li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">Bug 2 is the one to spend time on.</b>{" "}
+            There is nothing wrong inside the function, and writing down exactly
+            what happened to the value is worth more than the fix.
+          </p>
+
+          <p>Worth <b>5 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Debugging
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
