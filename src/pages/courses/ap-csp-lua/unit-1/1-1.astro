@@ -1,0 +1,414 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Template = `io.write("What is your name? ")
+local name = io.read()
+print("Nice to meet you " .. name)`;
+
+const TemplateOut = `What is your name? Sam[Enter]
+Nice to meet you Sam`;
+
+const OneLine = `print("Nice to meet you " .. name)`;
+
+const Task2 = `io.write("What is your name? ")
+local name = io.read()
+print("Nice to meet you " .. name)
+print("Welcome to AP Computer Science Principles.")`;
+
+const Task2Out = `What is your name? Sam[Enter]
+Nice to meet you Sam
+Welcome to AP Computer Science Principles.`;
+
+const Task3 = `print("I am in tenth grade.")
+print("I have never written a program before.")
+print("I would rather build a game than a website.")`;
+
+const Task3Out = `I am in tenth grade.
+I have never written a program before.
+I would rather build a game than a website.`;
+
+const BrokenQuote = `print("I am in tenth grade.)`;
+
+const BrokenQuoteOut = `Error: Syntax error: main.lua:1: unfinished string near '"I am in tenth grade.)'`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.1: Welcome to AP CSP</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.1</h2>
+              <h3 class="text-sn-theme">Welcome to AP CSP</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>What This Course Is</p>
+              <p>How You Are Assessed</p>
+              <p>Your First Program</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>You Do Not Need Any Experience</h2>
+              <p>This course starts from nothing.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>You Do Not Need Any Experience</h2>
+              <p>This course starts from nothing.</p>
+              <p>
+                Some people in this room have written code before.{" "}
+                <b class="text-sn-theme">It will not matter by October.</b>
+              </p>
+              <p>
+                Nothing this year assumes you took another computing class.
+              </p>
+            </section>
+
+            <section>
+              <h2>What Is Computer Science Principles?</h2>
+              <p>Not just programming.</p>
+              <p>
+                How computers store things, how the internet works, what
+                algorithms cost, and what computing does to people.
+              </p>
+              <p class="text-sn-theme">Programming is how we investigate it.</p>
+            </section>
+
+            <section>
+              <h2>The Five Big Ideas</h2>
+              <ul>
+                <li>Creative Development</li>
+                <li>Data</li>
+                <li>Algorithms and Programming</li>
+                <li>Computer Systems and Networks</li>
+                <li>Impact of Computing</li>
+              </ul>
+              <p class="text-body-secondary">
+                Every activity this year belongs to one of these.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>How You Are Assessed</h2>
+              <p>Two parts, and they are nothing alike.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>How You Are Assessed</h2>
+              <p>Two parts, and they are nothing alike.</p>
+              <ul>
+                <li>
+                  <b class="text-sn-theme">70 multiple-choice questions</b> in
+                  120 minutes &mdash; 70% of your score
+                </li>
+                <li>
+                  <b class="text-sn-theme">The Create Performance Task</b>{" "}
+                  &mdash; 30%
+                </li>
+              </ul>
+              <p class="text-body-secondary">
+                That is about a minute and forty seconds per question.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Create Task</h2>
+              <p>A program you design and build yourself.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Create Task</h2>
+              <p>A program you design and build yourself.</p>
+              <p>
+                You build it <b class="text-sn-theme">in this room</b>, in
+                Quarter 3, over eight sessions.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Create Task</h2>
+              <p>A program you design and build yourself.</p>
+              <p>
+                You build it <b class="text-sn-theme">in this room</b>, in
+                Quarter 3, over eight sessions.
+              </p>
+              <p>
+                Then on exam day you answer <b>four written prompts about it</b>{" "}
+                in 60 minutes, with no computer in front of you.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which Is Why the Code Is Yours</h2>
+              <p>
+                <b class="text-sn-theme">All code you submit must be entirely
+                your own.</b>
+              </p>
+              <p>
+                In May you sit in a room with your own program and explain how
+                it works, from memory.
+              </p>
+              <p class="text-body-secondary">
+                Code you did not write cannot be explained under those
+                conditions.
+              </p>
+            </section>
+
+            <section>
+              <h2>What Is a Program?</h2>
+              <p>A list of instructions, carried out in order.</p>
+              <p>
+                The computer does exactly what the list says.{" "}
+                <b class="text-sn-theme">Exactly</b> is the part that will annoy
+                you.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Your First Program</h2>
+              <Code code={Template} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Your First Program</h2>
+              <Code code={Template} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={TemplateOut} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Reading One Line</h2>
+              <Code code={OneLine} frame="code" lang="lua" showLineNumbers={false} />
+              <ul>
+                <li><code>print</code> &mdash; put this on the screen</li>
+                <li>Quotes &mdash; everything inside is text, exactly as typed</li>
+                <li><code>..</code> &mdash; join two pieces of text together</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Open the workspace and run a program</li>
+                <li>Copy a template and rename it</li>
+                <li>Change what a program prints</li>
+                <li>Say what the Create Task is and when you build it</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <ul>
+                <li><b class="text-sn-theme">program</b> &mdash; instructions carried out in order</li>
+                <li><b class="text-sn-theme">print</b> &mdash; the instruction that shows text</li>
+                <li><b class="text-sn-theme">template</b> &mdash; a starting folder you copy</li>
+                <li><b class="text-sn-theme">terminal</b> &mdash; the panel where output appears</li>
+              </ul>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            <b>If the workspace is not open yet</b>, follow{" "}
+            <a href="../setup">Setting Up Your Workspace</a> first &mdash; it
+            takes about five minutes and everything below assumes it is done.
+          </p>
+
+          <h3 class="mt-4">Task 1: Run Something You Did Not Write</h3>
+
+          <p>
+            In VS Code, right-click the{" "}
+            <CodeSnippet code="template-console" lang="txt" inline /> folder,
+            choose <i>Copy</i>, then <i>Paste</i>. Rename the copy to{" "}
+            <CodeSnippet code="1-01-hello" lang="txt" inline />.
+          </p>
+
+          <p>
+            Open <CodeSnippet code="main.lua" lang="txt" inline /> inside it.
+            This is already there:
+          </p>
+
+          <Code code={Template} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Press <b class="text-sn-theme">Run</b>. The terminal panel asks for
+            your name and waits. Type it and press Enter:
+          </p>
+
+          <Code
+            code={TemplateOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p class="text-body-secondary">
+            <b>Do not edit <CodeSnippet code="conf.lua" lang="txt" inline /></b>{" "}
+            &mdash; the other file in the folder. It is what makes the Run
+            button work. Everything you write goes in{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline />.
+          </p>
+
+          <h3 class="mt-4">Task 2: Make It Say Something Else</h3>
+
+          <p>Add one line at the bottom and run it again:</p>
+
+          <Code code={Task2} lang="lua" frame="code" title="main.lua" mark={[4]} />
+
+          <Code
+            code={Task2Out}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Now change the wording of both messages to something of your own.
+            Run it after every change &mdash;{" "}
+            <b class="text-sn-theme">that habit is worth more than anything
+            else you learn today.</b>
+          </p>
+
+          <h3 class="mt-4">Task 3: Three True Things</h3>
+
+          <p>
+            Make another copy of{" "}
+            <CodeSnippet code="template-console" lang="txt" inline />, rename it{" "}
+            <CodeSnippet code="1-01-about-me" lang="txt" inline />, and{" "}
+            <b>delete everything in its <CodeSnippet code="main.lua" lang="txt" inline /></b>.
+          </p>
+
+          <p>
+            Write three <CodeSnippet code="print" lang="lua" inline /> lines
+            that say three true things about you. Keep them appropriate for
+            class:
+          </p>
+
+          <Code code={Task3} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={Task3Out}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>Delete one quotation mark and run it:</p>
+
+          <Code code={BrokenQuote} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={BrokenQuoteOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>Nothing printed at all.</b> The program never started, because it
+            was not valid Lua. Copy the message onto your sheet, then put the
+            quote back.
+          </p>
+
+          <p class="text-body-secondary">
+            You will see a lot of these. An error message that names a line
+            number is doing you a favor.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-01-hello" lang="txt" inline /> runs, asks
+              your name, and greets you
+            </li>
+            <li>Both of its messages are in your own words</li>
+            <li>
+              <CodeSnippet code="1-01-about-me" lang="txt" inline /> prints three
+              true things
+            </li>
+            <li>Both folders are copies of the template, not edits of it</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              The Create Task is a program you build in Quarter 3 and then write
+              about, from memory, on exam day. Explain why that makes submitting
+              someone else's code a bad deal for you specifically.
+            </li>
+            <li>
+              You copied a template instead of editing it. Give one reason that
+              is better than editing the original.
+            </li>
+            <li>
+              Something on your screen today did not do what you expected
+              &mdash; a typo, an error, a message that did not appear. Describe
+              what happened and what you did about it.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
