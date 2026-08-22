@@ -345,8 +345,8 @@ const SyntaxErrorOut = `Error: Syntax error: main.lua:4: 'end' expected (to clos
           <p>
             When a program that draws hits an error, LÖVE takes over the window
             and fills it with a blue screen showing what went wrong and the line
-            it happened on. Read it, close the window, fix the line, run it
-            again.
+            it happened on. Read it, <b class="text-sn-theme">press Escape</b> to
+            close it, fix the line, run it again.
           </p>
 
           <p class="text-secondary">
@@ -373,6 +373,16 @@ const SyntaxErrorOut = `Error: Syntax error: main.lua:4: 'end' expected (to clos
               sitting there. This is the single most common thing that looks like
               a crash and is not, and it happens when a program both draws and
               reads input, which is why the activities never ask you to do both.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">
+              A blue screen appeared and I cannot get rid of it
+            </dt>
+            <dd>
+              Press <b>Escape</b>. That closes it and ends the program. The blue
+              screen is LÖVE reporting an error rather than anything being stuck,
+              so read what it says before you dismiss it &mdash; it names the
+              line.
             </dd>
 
             <dt class="text-sn-theme mt-3">The Run button is not there</dt>
