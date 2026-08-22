@@ -1,0 +1,590 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Prompt = `io.write("What is your name? ")
+local name = io.read()`;
+
+const Greet = `io.write("What is your name? ")
+local name = io.read()
+
+io.write("What is your favorite color? ")
+local color = io.read()
+
+print("Nice to meet you " .. name .. ".")
+print("I like " .. color .. " too.")`;
+
+const GreetOut = `What is your name? Ada [Enter]
+What is your favorite color? blue [Enter]
+Nice to meet you Ada.
+I like blue too.`;
+
+const AgeRaw = `io.write("How old are you? ")
+local age = io.read()
+
+print("Doubled: " .. age * 2)
+print("Is it 16? " .. tostring(age == 16))
+print("Type: " .. type(age))`;
+
+const AgeRawOut = `How old are you? 16 [Enter]
+Doubled: 32
+Is it 16? false
+Type: string`;
+
+const Compare = `io.write("How old are you? ")
+local age = io.read()
+
+if age > 10 then
+    print("Older than ten.")
+end`;
+
+const CompareOut = `How old are you? 16 [Enter]
+
+Error: main.lua:4: attempt to compare number with string
+
+  main.lua:4: in main chunk`;
+
+const Fixed = `io.write("How old are you? ")
+local age = tonumber(io.read())
+
+print("Doubled: " .. age * 2)
+print("Is it 16? " .. tostring(age == 16))
+print("Type: " .. type(age))`;
+
+const FixedOut = `How old are you? 16 [Enter]
+Doubled: 32
+Is it 16? true
+Type: number`;
+
+const NextYear = `io.write("How old are you? ")
+local age = tonumber(io.read())
+
+print("Next year you will be " .. age + 1 .. ".")`;
+
+const NextYearOut = `How old are you? 16 [Enter]
+Next year you will be 17.`;
+
+const WordOut = `How old are you? twelve [Enter]
+
+Error: main.lua:4: attempt to perform arithmetic on local 'age' (a nil value)
+
+  main.lua:4: in main chunk`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.4: Asking a Question</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.4</h2>
+              <h3 class="text-sn-theme">Asking a Question</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Waiting for the User</p>
+              <p>Everything Typed Is Text</p>
+              <p>Three Kinds of Wrong</p>
+            </section>
+
+            <section>
+              <h2>Back to the Terminal</h2>
+              <p>
+                Today you copy{" "}
+                <b class="text-sn-theme">template-console</b>, not
+                template-game.
+              </p>
+              <p>
+                No window, no <code>love.draw</code>. The file runs top to
+                bottom and stops, like session 1.
+              </p>
+              <p class="text-body-secondary">
+                Roughly one session in four is like this &mdash; the ones where
+                text is genuinely the point.
+              </p>
+            </section>
+
+            <section>
+              <h2>Two Lines That Ask</h2>
+              <Code code={Prompt} frame="code" lang="lua" showLineNumbers={false} />
+              <div class="text-start">
+                <dl>
+                  <dt>io.write</dt>
+                  <dd>Prints without moving to the next line, so the answer is typed right after the question.</dd>
+                  <dt>io.read</dt>
+                  <dd>Stops the program until Enter is pressed, then hands back whatever was typed.</dd>
+                </dl>
+              </div>
+            </section>
+
+            <section>
+              <h2>The Program Stops and Waits</h2>
+              <p>
+                <code>io.read()</code> does not look ahead and it does not give
+                up. It waits.
+              </p>
+              <p>
+                <b class="text-sn-theme">A program sitting there doing nothing
+                is usually a program waiting for you to type.</b>
+              </p>
+              <p class="text-body-secondary">
+                It is not frozen. It is not broken. It wants an answer.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now the Important Part</h2>
+              <p>You type <code>16</code>.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now the Important Part</h2>
+              <p>You type <code>16</code>.</p>
+              <p>
+                <b class="text-sn-theme">Lua did not get the number 16. It got
+                the text "16".</b>
+              </p>
+              <p class="text-body-secondary">
+                Everything typed at a prompt arrives as text, always, with no
+                exceptions.
+              </p>
+            </section>
+
+            <section>
+              <h2>Three Kinds of Wrong, One Value</h2>
+              <Code code={AgeRaw} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Wrong #1: It Works Anyway</h2>
+              <Code
+                code={`print("Doubled: " .. age * 2)`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <Code
+                code={`Doubled: 32`}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Wrong #1: It Works Anyway</h2>
+              <Code
+                code={`print("Doubled: " .. age * 2)`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <Code
+                code={`Doubled: 32`}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+              />
+              <p>
+                Lua quietly converted the text for you.{" "}
+                <b class="text-sn-theme">This is the one that fools people</b>{" "}
+                &mdash; it proves nothing is wrong, and something is.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Wrong #2: It Lies</h2>
+              <Code
+                code={`print("Is it 16? " .. tostring(age == 16))`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <Code
+                code={`Is it 16? false`}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Wrong #2: It Lies</h2>
+              <Code
+                code={`print("Is it 16? " .. tostring(age == 16))`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <Code
+                code={`Is it 16? false`}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+              />
+              <p>
+                You typed 16 and it says no.{" "}
+                <b class="text-sn-theme">The text "16" is not the number
+                16.</b>
+              </p>
+              <p class="text-body-secondary">
+                No error. No warning. Just the wrong answer, forever.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Wrong #3: It Crashes</h2>
+              <Code code={Compare} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Wrong #3: It Crashes</h2>
+              <Code code={Compare} frame="code" lang="lua" showLineNumbers={false} />
+              <Code
+                code={`Error: main.lua:4: attempt to compare number with string`}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+              />
+              <p>
+                <b class="text-sn-theme">This is the friendly one.</b> It tells
+                you.
+              </p>
+            </section>
+
+            <section>
+              <h2>Same Typed Value, Three Outcomes</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>age * 2</dt>
+                  <dd>Works. 32.</dd>
+                  <dt>age == 16</dt>
+                  <dd>Silently false.</dd>
+                  <dt>age &gt; 10</dt>
+                  <dd>Crashes.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                Nothing about your typing changed. Only what the next line did
+                with it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Word Fixes All Three</h2>
+              <Code
+                code={`local age = tonumber(io.read())`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>One Word Fixes All Three</h2>
+              <Code
+                code={`local age = tonumber(io.read())`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p>
+                <code>tonumber</code> takes text and gives back the number it
+                spells.
+              </p>
+              <p>
+                <b class="text-sn-theme">Do it at the moment you collect the
+                value</b>, not later, not sometimes.
+              </p>
+            </section>
+
+            <section>
+              <h2>What If They Type a Word?</h2>
+              <Code
+                code={`tonumber("twelve")`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p>
+                You get <code>nil</code> &mdash; the same nothing you got from a
+                misspelled variable last session.
+              </p>
+              <p class="text-body-secondary">
+                It does not crash on the spot. It hands back nothing and lets
+                the next line fail.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Ask a question and store the answer</li>
+                <li>Say why typed input is always text</li>
+                <li>Show all three ways that goes wrong</li>
+                <li>Convert input with <code>tonumber</code> at the point of collection</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>io.write</dt>
+                  <dd>Prints without starting a new line.</dd>
+                  <dt>io.read</dt>
+                  <dd>Waits for the user to type a line and press Enter.</dd>
+                  <dt>String</dt>
+                  <dd>Text. What input always arrives as.</dd>
+                  <dt>tonumber</dt>
+                  <dd>Turns text into the number it spells, or into <code>nil</code>.</dd>
+                  <dt>nil</dt>
+                  <dd>Nothing. Not zero, not empty text &mdash; no value at all.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Ask Two Questions</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> and
+            rename the copy{" "}
+            <CodeSnippet code="1-04-greet" lang="txt" inline />. Replace{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline /> with this:
+          </p>
+
+          <Code code={Greet} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={GreetOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Run it and answer both questions. Then{" "}
+            <b class="text-sn-theme">change the questions and the sentences to
+            your own</b>, and add a third question.
+          </p>
+
+          <p class="text-body-secondary">
+            Notice the space at the end of{" "}
+            <CodeSnippet code={`"What is your name? "`} lang="lua" inline />.
+            Take it out and your answer is typed with its nose against the
+            question mark.
+          </p>
+
+          <h3 class="mt-4">Task 2: Three Kinds of Wrong</h3>
+
+          <p>
+            Copy the template again to{" "}
+            <CodeSnippet code="1-04-age" lang="txt" inline />, and write this:
+          </p>
+
+          <Code code={AgeRaw} lang="lua" frame="code" title="main.lua" />
+
+          <p>Run it and type <code>16</code>:</p>
+
+          <Code
+            code={AgeRawOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b class="text-sn-theme">Copy all three results onto your
+            sheet.</b> One worked, one was false, and one told you the type was{" "}
+            <code>string</code> &mdash; even though you typed a number.
+          </p>
+
+          <p>Now replace those three lines with a comparison:</p>
+
+          <Code code={Compare} lang="lua" frame="code" title="main.lua" mark={{ range: "4" }} />
+
+          <Code
+            code={CompareOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Copy that message onto your sheet too. <b>Three different outcomes,
+            one typed value.</b>
+          </p>
+
+          <h3 class="mt-4">Task 3: Fix It With One Word</h3>
+
+          <p>
+            Put the three print lines back, and change{" "}
+            <b class="text-sn-theme">one line</b>:
+          </p>
+
+          <Code code={Fixed} lang="lua" frame="code" title="main.lua" mark={{ range: "2" }} />
+
+          <Code
+            code={FixedOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Put the comparison back as well and check that it no longer crashes.
+          </p>
+
+          <h3 class="mt-4">Task 4: Use It for Something</h3>
+
+          <p>
+            Copy the template to{" "}
+            <CodeSnippet code="1-04-nextyear" lang="txt" inline /> and write a
+            program that asks for an age and answers with next year's:
+          </p>
+
+          <Code code={NextYear} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={NextYearOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Then add a second question of your own that does arithmetic on the
+            answer &mdash; a number of pets, a jersey number, a locker
+            number. Anything you can add to or multiply.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>
+            Run <CodeSnippet code="1-04-nextyear" lang="txt" inline /> again and
+            type <code>twelve</code> instead of a number:
+          </p>
+
+          <Code
+            code={WordOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b><code>tonumber</code> did not crash.</b> It handed back{" "}
+            <code>nil</code>, and line 4 is where somebody finally tried to use
+            it. Write down which line has the mistake and which line reported
+            it.
+          </p>
+
+          <p class="text-body-secondary">
+            This is the second time <code>nil</code> has turned up somewhere
+            other than where it was made. It will keep doing that.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-04-greet" lang="txt" inline /> asks three
+              questions in your own wording and answers in sentences
+            </li>
+            <li>All three wrong results from task 2 are written on your sheet</li>
+            <li>
+              <CodeSnippet code="1-04-age" lang="txt" inline /> now reports{" "}
+              <code>number</code> and <code>true</code>
+            </li>
+            <li>
+              <CodeSnippet code="1-04-nextyear" lang="txt" inline /> does
+              arithmetic on two typed answers
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Of the three wrong results in task 2, say which one you think is
+              the most dangerous in a real program, and why. The answer is not
+              the one that crashed.
+            </li>
+            <li>
+              <CodeSnippet code="age * 2" lang="lua" inline /> gave 32 without{" "}
+              <CodeSnippet code="tonumber" lang="lua" inline />. Explain why
+              that is a problem rather than a convenience.
+            </li>
+            <li>
+              You typed a word at a number question and the program crashed on a
+              line that looked fine. Describe how you would find the real cause
+              if nobody had told you what you typed.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

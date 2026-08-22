@@ -1,0 +1,536 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Operators = `print(10 + 3)
+print(10 - 3)
+print(10 * 3)
+print(10 / 3)
+print(10 % 3)
+print(2 ^ 3)`;
+
+const OperatorsOut = `13
+7
+30
+3.3333333333333
+1
+8`;
+
+const Division = `print(10 / 2)
+print(10 / 4)
+print(17 / 5)`;
+
+const DivisionOut = `5
+2.5
+3.4`;
+
+const Floor = `print(10 / 4)
+print(math.floor(10 / 4))`;
+
+const FloorOut = `2.5
+2`;
+
+const Precedence = `print(2 + 3 * 4)
+print((2 + 3) * 4)`;
+
+const PrecedenceOut = `14
+20`;
+
+const AverageWrong = `local a = 80
+local b = 90
+local c = 100
+
+print("Average: " .. a + b + c / 3)`;
+
+const AverageWrongOut = `Average: 203.33333333333`;
+
+const AverageRight = `print("Average: " .. (a + b + c) / 3)`;
+
+const AverageRightOut = `Average: 90`;
+
+const Time = `io.write("How many seconds? ")
+local total = tonumber(io.read())
+
+local minutes = math.floor(total / 60)
+local seconds = total % 60
+
+print(total .. " seconds is " .. minutes .. " minutes and " .. seconds .. " seconds.")`;
+
+const TimeOut = `How many seconds? 500 [Enter]
+500 seconds is 8 minutes and 20 seconds.`;
+
+const ByZero = `print(10 / 0)`;
+
+const ByZeroOut = `inf`;
+
+const NotationLua = `local total = tonumber(io.read())
+
+local minutes = math.floor(total / 60)
+local seconds = total % 60
+
+print(minutes)
+print(seconds)`;
+
+const NotationPseudo = `total ← INPUT()
+
+seconds ← total MOD 60
+minutes ← (total - seconds) / 60
+
+DISPLAY(minutes)
+DISPLAY(seconds)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.5: Doing the Math</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.5</h2>
+              <h3 class="text-sn-theme">Doing the Math</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Six Operators</p>
+              <p>Division Keeps the Decimal</p>
+              <p>Order of Operations</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Operators</h2>
+              <Code code={Operators} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Operators</h2>
+              <Code code={Operators} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={OperatorsOut} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section>
+              <h2>Two You Have Not Seen</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>%</dt>
+                  <dd>The remainder. <code>10 % 3</code> is 1, because 3 goes into 10 three times with 1 left over.</dd>
+                  <dt>^</dt>
+                  <dd>To the power of. <code>2 ^ 3</code> is 8.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                <code>%</code> looks useless right now. It is how you will get
+                the leftover slices, the seconds past the minute, and every
+                second row of a grid.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Division Does Not Round</h2>
+              <Code code={Division} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Division Does Not Round</h2>
+              <Code code={Division} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={DivisionOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">You keep the decimal, always.</b> When
+                the answer happens to be whole, there is just nothing after the
+                point to show.
+              </p>
+            </section>
+
+            <section>
+              <h2>When You Want a Whole Number, Ask</h2>
+              <Code code={Floor} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={FloorOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <code>math.floor</code> throws away everything after the point.{" "}
+                <b class="text-sn-theme">It does not round.</b> 2.9 becomes 2.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Order of Operations</h2>
+              <Code code={Precedence} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Order of Operations</h2>
+              <Code code={Precedence} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={PrecedenceOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                Same rules as math class.{" "}
+                <code>*</code>, <code>/</code> and <code>%</code> happen before{" "}
+                <code>+</code> and <code>-</code>, and parentheses beat
+                everything.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Is Why This Is Wrong</h2>
+              <Code code={AverageWrong} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Is Why This Is Wrong</h2>
+              <Code code={AverageWrong} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={AverageWrongOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                It divided <b class="text-sn-theme">only the 100</b>, then added
+                the other two on.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Parentheses Say What You Meant</h2>
+              <Code code={AverageRight} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={AverageRightOut} frame="terminal" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Parentheses Say What You Meant</h2>
+              <Code code={AverageRight} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={AverageRightOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">No error, no warning, no crash.</b> An
+                average of 203 out of 100 is the only thing that tells you.
+              </p>
+              <p class="text-body-secondary">
+                Use parentheses when you are not certain. Nobody has ever been
+                marked down for extra ones.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Use all six arithmetic operators</li>
+                <li>Say what <code>%</code> gives you</li>
+                <li>Explain why division keeps the decimal</li>
+                <li>Fix a wrong answer with parentheses</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Operator</dt>
+                  <dd>A symbol that combines two values, like <code>+</code>.</dd>
+                  <dt>Remainder</dt>
+                  <dd>What is left over after dividing, given by <code>%</code>.</dd>
+                  <dt>Precedence</dt>
+                  <dd>Which operator happens first when there are several.</dd>
+                  <dt>math.floor</dt>
+                  <dd>Drops everything after the decimal point.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Run the Six</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-05-math" lang="txt" inline /> and write this:
+          </p>
+
+          <Code code={Operators} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={OperatorsOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b class="text-sn-theme">Copy all six answers onto your sheet.</b>{" "}
+            Then change the numbers and predict each answer before you run it.
+            Keep going until you stop being surprised.
+          </p>
+
+          <h3 class="mt-4">Task 2: The Average That Is Not</h3>
+
+          <p>Add this to the bottom of the same file:</p>
+
+          <Code code={AverageWrong} lang="lua" frame="code" title="main.lua" mark={{ range: "5" }} />
+
+          <Code
+            code={AverageWrongOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Three test scores of 80, 90 and 100, and it reports an average of
+            203. <b>Work out on paper what it actually calculated</b>, write
+            that on your sheet, then fix the line with parentheses and check you
+            get 90.
+          </p>
+
+          <h3 class="mt-4">Task 3: Seconds Into Minutes</h3>
+
+          <p>
+            Copy the template to{" "}
+            <CodeSnippet code="1-05-time" lang="txt" inline />. This one asks a
+            question, so it needs <CodeSnippet code="tonumber" lang="lua" inline />{" "}
+            from last session:
+          </p>
+
+          <Code code={Time} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={TimeOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Test it with <code>500</code>, then <code>60</code>, then{" "}
+            <code>59</code>, then <code>3600</code>. Write down what it says for
+            each.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Those two lines are the whole idea of this session.</b>{" "}
+            <CodeSnippet code="math.floor(total / 60)" lang="lua" inline /> is
+            how many whole minutes fit, and{" "}
+            <CodeSnippet code="total % 60" lang="lua" inline /> is what did not
+            fit. Together they account for every second.
+          </div>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>Divide by zero:</p>
+
+          <Code code={ByZero} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <Code
+            code={ByZeroOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>No error.</b> <code>inf</code> is short for infinity, and it is a
+            value like any other &mdash; you can store it, print it, and add to
+            it. Try <CodeSnippet code="print(10 / 0 + 5)" lang="lua" inline />{" "}
+            and write down what you get.
+          </p>
+
+          <p class="text-body-secondary">
+            Every other language you meet will do something different here.
+            Several of them crash.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Change for a Dollar</h3>
+
+          <p>
+            Write a program that asks for a number of cents and answers with how
+            many quarters, dimes, nickels and pennies to hand back &mdash;
+            largest coins first. <b>117 cents is 4 quarters, 1 dime, 1 nickel
+            and 2 pennies.</b>
+          </p>
+
+          <p class="text-body-secondary">
+            You have everything you need:{" "}
+            <CodeSnippet code="math.floor" lang="lua" inline /> for how many fit
+            and <CodeSnippet code="%" lang="lua" inline /> for what is left.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            The arithmetic on the exam is the arithmetic you just did.{" "}
+            <b class="text-sn-theme">The operators are the same and so is the
+            order of operations.</b>
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Add, subtract, multiply, divide</td>
+                  <td><code>+ - * /</code></td>
+                  <td><code>+ - * /</code></td>
+                </tr>
+                <tr>
+                  <td>Remainder</td>
+                  <td><code>17 % 5</code></td>
+                  <td><code>17 MOD 5</code></td>
+                </tr>
+                <tr>
+                  <td>Ask the user</td>
+                  <td><code>io.read()</code></td>
+                  <td><code>INPUT()</code></td>
+                </tr>
+                <tr>
+                  <td>Show a value</td>
+                  <td><code>print(x)</code></td>
+                  <td><code>DISPLAY(x)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Three differences worth knowing</h4>
+
+          <ul>
+            <li>
+              <b>There is no <code>math.floor</code> on the exam</b>, and there
+              is no rounding operator at all. To drop the decimal you subtract
+              the remainder first, then divide &mdash; which is what the right
+              hand column above does.
+            </li>
+            <li>
+              <b>There is no <code>^</code> on the exam.</b> A power has to be
+              written as repeated multiplication.
+            </li>
+            <li>
+              <b><code>DISPLAY</code> puts a space after what it shows.</b> Two
+              of them in a row give you space-separated output, not two things
+              jammed together. This matters on trace questions.
+            </li>
+          </ul>
+
+          <div class="alert alert-warning">
+            <b><code>17 / 5</code> is <code>3.4</code> on the exam, exactly as
+            it is in Lua.</b> Division never truncates in either place. If you
+            have used a language where it does, forget that here.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>All six operator results are written on your sheet</li>
+            <li>You can say what the broken average line actually calculated</li>
+            <li>
+              <CodeSnippet code="1-05-time" lang="txt" inline /> is correct for
+              500, 60, 59 and 3600
+            </li>
+            <li>
+              You can point at the line that gives whole minutes and the line
+              that gives leftover seconds
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              The broken average printed 203.33333333333 instead of 90. Explain,
+              step by step, what the computer did with{" "}
+              <CodeSnippet code="a + b + c / 3" lang="lua" inline /> and why it
+              is not a bug in Lua.
+            </li>
+            <li>
+              <CodeSnippet code="math.floor(total / 60)" lang="lua" inline /> and{" "}
+              <CodeSnippet code="total % 60" lang="lua" inline /> answer two
+              different questions about the same number. Say what each one
+              answers, in words, without using the word <i>divide</i>.
+            </li>
+            <li>
+              Dividing by zero printed <code>inf</code> and did not stop the
+              program. Describe a situation where that is worse than crashing.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

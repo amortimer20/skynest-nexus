@@ -1,0 +1,396 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Shape = `-- 1. ask
+-- 2. work it out
+-- 3. say the answer`;
+
+const Asking = `io.write("How many people? ")
+local people = tonumber(io.read())
+
+io.write("Slices each? ")
+local slicesEach = tonumber(io.read())
+
+io.write("Slices per pizza? ")
+local perPizza = tonumber(io.read())
+
+print(people)
+print(slicesEach)
+print(perPizza)`;
+
+const AskingOut = `How many people? 9 [Enter]
+Slices each? 3 [Enter]
+Slices per pizza? 8 [Enter]
+9
+3
+8`;
+
+const Full = `io.write("How many people? ")
+local people = tonumber(io.read())
+
+io.write("Slices each? ")
+local slicesEach = tonumber(io.read())
+
+io.write("Slices per pizza? ")
+local perPizza = tonumber(io.read())
+
+local total = people * slicesEach
+local pizzas = math.floor(total / perPizza)
+local extra = total % perPizza
+
+print("You need " .. total .. " slices.")
+print("That is " .. pizzas .. " whole pizzas plus " .. extra .. " slices.")`;
+
+const FullOut = `How many people? 9 [Enter]
+Slices each? 3 [Enter]
+Slices per pizza? 8 [Enter]
+You need 27 slices.
+That is 3 whole pizzas plus 3 slices.`;
+
+const EdgeOut = `How many people? 16 [Enter]
+Slices each? 2 [Enter]
+Slices per pizza? 8 [Enter]
+You need 32 slices.
+That is 4 whole pizzas plus 0 slices.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.6: Ask, Compute, Answer</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.6</h2>
+              <h3 class="text-sn-theme">Ask, Compute, Answer</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Nothing New Today</p>
+              <p>The Shape of a Program</p>
+              <p>Testing With Awkward Numbers</p>
+            </section>
+
+            <section>
+              <h2>No New Ideas</h2>
+              <p>
+                Everything today is something you already did in the last two
+                sessions.
+              </p>
+              <p class="text-sn-theme">
+                Putting them together is the work.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Almost Every Program Has This Shape</h2>
+              <Code code={Shape} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Almost Every Program Has This Shape</h2>
+              <Code code={Shape} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Ask for what you do not know. Work out what follows from it.
+                Say the answer in a sentence a person would say.
+              </p>
+              <p class="text-body-secondary">
+                Your Create Task program in Quarter 3 will be this shape, with
+                more in the middle.
+              </p>
+            </section>
+
+            <section>
+              <h2>Write the Asking First</h2>
+              <p>
+                Ask the questions, print the answers straight back, and{" "}
+                <b class="text-sn-theme">run it before you write any
+                arithmetic.</b>
+              </p>
+              <p class="text-body-secondary">
+                If the input is wrong, every calculation after it is wrong for a
+                reason that has nothing to do with the calculation.
+              </p>
+            </section>
+
+            <section>
+              <h2>Then Test It Where It Hurts</h2>
+              <ul>
+                <li>A number that divides exactly</li>
+                <li>A number that does not</li>
+                <li>Zero</li>
+                <li>One</li>
+              </ul>
+              <p class="text-body-secondary">
+                Anyone can test a program with the number they had in mind while
+                writing it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Plan a program before typing it</li>
+                <li>Collect three numbers from the user</li>
+                <li>Work out a result with <code>math.floor</code> and <code>%</code></li>
+                <li>Test it with values you did not design it for</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Input</dt>
+                  <dd>What the program asks for and does not decide itself.</dd>
+                  <dt>Output</dt>
+                  <dd>What it says back.</dd>
+                  <dt>Test case</dt>
+                  <dd>One set of inputs, with the answer you expect before you run it.</dd>
+                  <dt>Edge case</dt>
+                  <dd>A test at the awkward end &mdash; zero, one, or exactly divisible.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            You are writing a program that works out how much pizza to order.
+            It asks three questions and answers in two sentences.
+          </p>
+
+          <h3 class="mt-4">Task 1: Plan It on Paper</h3>
+
+          <p>
+            <b class="text-sn-theme">Before you open VS Code.</b> On your sheet,
+            write down:
+          </p>
+
+          <ul>
+            <li>The three questions the program asks</li>
+            <li>The arithmetic that turns those three numbers into an answer</li>
+            <li>The two sentences it prints, with the blanks marked</li>
+          </ul>
+
+          <p>
+            Then work out one example by hand: 9 people, 3 slices each, 8 slices
+            per pizza. <b>Write the answer on your sheet before the computer
+            tells you.</b>
+          </p>
+
+          <h3 class="mt-4">Task 2: Ask the Three Questions</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-06-pizza" lang="txt" inline />. Write only the
+            asking, and print the three answers straight back:
+          </p>
+
+          <Code code={Asking} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={AskingOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Run it. <b>Three numbers in, the same three numbers out.</b> That is
+            all this step has to prove, and it is worth proving before anything
+            depends on it.
+          </p>
+
+          <h3 class="mt-4">Task 3: Work It Out and Say It</h3>
+
+          <p>
+            Delete the three plain <CodeSnippet code="print" lang="lua" inline />{" "}
+            lines and put the real work in their place:
+          </p>
+
+          <Code code={Full} lang="lua" frame="code" title="main.lua" mark={{ range: "11-16" }} />
+
+          <Code
+            code={FullOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            Compare that against the answer you worked out by hand in task 1.{" "}
+            <b class="text-sn-theme">If they disagree, one of you is wrong and
+            it is worth finding out which.</b>
+          </p>
+
+          <h3 class="mt-4">Task 4: Test It Where It Hurts</h3>
+
+          <p>
+            Run it four more times and write every result on your sheet{" "}
+            <b>before</b> you run it:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>People</th>
+                  <th>Slices each</th>
+                  <th>Per pizza</th>
+                  <th>Why this one</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>16</td><td>2</td><td>8</td>
+                  <td>Divides exactly</td>
+                </tr>
+                <tr>
+                  <td>1</td><td>3</td><td>8</td>
+                  <td>Not even one pizza</td>
+                </tr>
+                <tr>
+                  <td>0</td><td>3</td><td>8</td>
+                  <td>Nobody came</td>
+                </tr>
+                <tr>
+                  <td>4</td><td>2</td><td>1</td>
+                  <td>Very small pizzas</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <Code
+            code={EdgeOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>Three of those four are arithmetically correct and read
+            badly.</b> Find them, and for each one write down what a person
+            would rather have been told.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): How Many to Actually Buy</h3>
+
+          <p>
+            The program says <i>3 whole pizzas plus 3 slices</i>, but nobody
+            sells three slices. Add a line that says how many pizzas to{" "}
+            <b>order</b> so that everybody gets fed.
+          </p>
+
+          <p class="text-body-secondary">
+            You have the tools already. The hard part is that the answer is not
+            always <CodeSnippet code="pizzas + 1" lang="lua" inline /> &mdash;
+            test it with 16 people at 2 slices each and see.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Your Own Calculator</h3>
+
+          <p>
+            Copy the template to{" "}
+            <CodeSnippet code="1-06-mine" lang="txt" inline /> and write a
+            program of the same shape about something you care about &mdash;
+            splitting a bill, minutes of practice per week, how many packs of
+            cards to buy, how much of a video game you have finished.
+          </p>
+
+          <p>
+            <b>Three questions, real arithmetic, and an answer in a full
+            sentence.</b> Test it with zero and with one.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Your paper plan is on the sheet, written before the code</li>
+            <li>
+              <CodeSnippet code="1-06-pizza" lang="txt" inline /> asks three
+              questions and answers in two sentences
+            </li>
+            <li>All four test results are recorded, with your predictions</li>
+            <li>You can name the three tests whose wording reads badly</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              You printed the three inputs straight back before writing any
+              arithmetic. Describe a specific bug that step would have caught,
+              and how long it would have taken to find without it.
+            </li>
+            <li>
+              Three of your four test cases produced correct numbers in a
+              sentence that reads badly. Pick the worst one, say what it
+              printed, and say what you would want it to print instead.
+            </li>
+            <li>
+              You wrote the expected answer down before running each test.
+              Explain what that habit protects you from, given that you could
+              just read the answer off the screen.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
