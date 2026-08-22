@@ -1,0 +1,279 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Motion and Decisions</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.7 &ndash; 1.14. Use this to review, or to fill in something you
+          missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Motion Is Change Between Frames</h2>
+
+          <p>
+            <CodeSnippet code="love.draw" lang="lua" inline /> was always
+            running sixty times a second; the picture looked still because every
+            frame was identical. <CodeSnippet code="love.update" lang="lua" inline />{" "}
+            is a second box that runs first, and changing a variable there is
+            what makes something move.
+          </p>
+
+          <dl>
+            <dt>Frame</dt>
+            <dd>One pass of update and draw. About sixty per second.</dd>
+            <dt><CodeSnippet code="love.update" lang="lua" inline /></dt>
+            <dd>Where things change. Runs before <CodeSnippet code="love.draw" lang="lua" inline /> every frame.</dd>
+            <dt><CodeSnippet code="dt" lang="lua" inline /></dt>
+            <dd>Seconds since the last frame, measured by the engine. About 0.0167.</dd>
+            <dt>Frame rate</dt>
+            <dd>How many frames a computer manages per second. Not the same on every machine.</dd>
+          </dl>
+
+          <p>
+            <b class="text-sn-theme">A variable that has to survive between
+            frames lives above both boxes.</b> Declared inside{" "}
+            <CodeSnippet code="love.update" lang="lua" inline />, it is remade
+            every frame and nothing ever moves.
+          </p>
+
+          <p>
+            <CodeSnippet code="x = x + 2" lang="lua" inline /> is two pixels{" "}
+            <b>per frame</b>, so the program runs faster on a faster computer.{" "}
+            <CodeSnippet code="x = x + speed * dt" lang="lua" inline /> is
+            pixels <b>per second</b> on every machine.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Booleans</h2>
+
+          <p>
+            A comparison produces a boolean, and a boolean is a value like any
+            other. There are exactly two of them.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th>Question</th><th>Lua</th><th>Exam notation</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Greater than</td><td><CodeSnippet code="a > b" lang="lua" inline /></td><td><CodeSnippet code="a > b" lang="txt" inline /></td></tr>
+                <tr><td>Greater or equal</td><td><CodeSnippet code="a >= b" lang="lua" inline /></td><td><CodeSnippet code="a ≥ b" lang="txt" inline /></td></tr>
+                <tr><td>Is equal to</td><td><CodeSnippet code="a == b" lang="lua" inline /></td><td><CodeSnippet code="a = b" lang="txt" inline /></td></tr>
+                <tr><td>Is not equal to</td><td><CodeSnippet code="a ~= b" lang="lua" inline /></td><td><CodeSnippet code="a ≠ b" lang="txt" inline /></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-body-secondary">
+            <b>The bottom two rows are the ones that cost marks.</b> The exam
+            writes equality as one <CodeSnippet code="=" lang="txt" inline />,
+            which in Lua means assignment. It gets away with that because
+            assignment on the exam is always the arrow.
+          </p>
+
+          <dl>
+            <dt>Boolean</dt>
+            <dd>A value that is <CodeSnippet code="true" lang="lua" inline /> or <CodeSnippet code="false" lang="lua" inline />. Not the word in quotes.</dd>
+            <dt><CodeSnippet code="tostring" lang="lua" inline /></dt>
+            <dd>Turns any value into text. Needed before a boolean can be drawn or joined with <CodeSnippet code=".." lang="lua" inline />.</dd>
+          </dl>
+
+          <p>
+            <b class="text-sn-theme">Never ask <CodeSnippet code="==" lang="lua" inline />{" "}
+            about a decimal you calculated.</b>{" "}
+            <CodeSnippet code="0.1 + 0.2" lang="lua" inline /> prints as{" "}
+            <CodeSnippet code="0.3" lang="txt" inline /> and compares as not
+            equal to <CodeSnippet code="0.3" lang="txt" inline />. Use{" "}
+            <CodeSnippet code=">" lang="lua" inline /> or{" "}
+            <CodeSnippet code="<" lang="lua" inline />.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Decisions</h2>
+
+          <p>
+            An <CodeSnippet code="if" lang="lua" inline /> runs its block only
+            when the condition is true. With an{" "}
+            <CodeSnippet code="else" lang="lua" inline />, exactly one of the
+            two blocks runs &mdash; never both, never neither.
+          </p>
+
+          <dl>
+            <dt>Condition</dt>
+            <dd>The true-or-false question an <CodeSnippet code="if" lang="lua" inline /> asks.</dd>
+            <dt>Branch</dt>
+            <dd>A block that runs only in some cases.</dd>
+            <dt>Selection</dt>
+            <dd>The exam's word for choosing which lines run.</dd>
+            <dt><CodeSnippet code="elseif" lang="lua" inline /></dt>
+            <dd>A chain. The first true condition wins and the rest are skipped.</dd>
+          </dl>
+
+          <p>
+            <b class="text-sn-theme">The exam sheet has no{" "}
+            <CodeSnippet code="ELSE IF" lang="txt" inline />.</b> There are two
+            selection forms and no more:{" "}
+            <CodeSnippet code="IF" lang="txt" inline /> and{" "}
+            <CodeSnippet code="IF" lang="txt" inline /> /{" "}
+            <CodeSnippet code="ELSE" lang="txt" inline />. A chain is written by
+            nesting the next <CodeSnippet code="IF" lang="txt" inline /> inside
+            the <CodeSnippet code="ELSE" lang="txt" inline />.
+          </p>
+
+          <p class="text-body-secondary">
+            Order matters in a chain. A condition that is wider than the one
+            above it can never be reached, and Lua will not warn you.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Edges, and Two Ways to Handle Them</h2>
+
+          <p>
+            A ball bounces by <b>reversing its speed</b>:{" "}
+            <CodeSnippet code="speedX = -speedX" lang="lua" inline />. A player
+            stops at a wall by <b>overwriting its position</b>:{" "}
+            <CodeSnippet code="x = 0" lang="lua" inline />. Same shape of{" "}
+            <CodeSnippet code="if" lang="lua" inline />, completely different
+            behavior.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Test an edge with{" "}
+            <CodeSnippet code=">" lang="lua" inline />, never{" "}
+            <CodeSnippet code="==" lang="lua" inline />.</b> A moving value
+            jumps several pixels per frame and steps straight over any exact
+            number you name.
+          </p>
+
+          <p>
+            Account for the shape's size. A circle drawn from its center reaches
+            the right wall at{" "}
+            <CodeSnippet code="800 - radius" lang="lua" inline />, not at 800.
+          </p>
+
+          <dl>
+            <dt>Clamping</dt>
+            <dd>Forcing a value back inside a range when it goes past.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Combining Conditions</h2>
+
+          <dl>
+            <dt><CodeSnippet code="and" lang="lua" inline /></dt>
+            <dd>True only when both sides are true. <CodeSnippet code="AND" lang="txt" inline /> on the exam.</dd>
+            <dt><CodeSnippet code="or" lang="lua" inline /></dt>
+            <dd>True when either side is, or both. <CodeSnippet code="OR" lang="txt" inline /> on the exam.</dd>
+            <dt><CodeSnippet code="not" lang="lua" inline /></dt>
+            <dd>Flips a boolean. <CodeSnippet code="NOT" lang="txt" inline /> on the exam.</dd>
+          </dl>
+
+          <p>
+            <CodeSnippet code="not" lang="lua" inline /> is also how you flip a
+            variable:{" "}
+            <CodeSnippet code="paused = not paused" lang="lua" inline />.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Input From a Person</h2>
+
+          <p>Two ways, and they are not interchangeable.</p>
+
+          <dl>
+            <dt><CodeSnippet code="love.keyboard.isDown" lang="lua" inline /></dt>
+            <dd>Asks whether a key is held <b>right now</b>. Produces a boolean, so it goes into an <CodeSnippet code="if" lang="lua" inline />. Used in <CodeSnippet code="love.update" lang="lua" inline /> for movement.</dd>
+            <dt><CodeSnippet code="love.keypressed" lang="lua" inline /></dt>
+            <dd>Called by the engine <b>once</b>, at the moment a key goes down. For jumping, pausing, firing.</dd>
+            <dt><CodeSnippet code="love.mouse.getPosition" lang="lua" inline /></dt>
+            <dd>Hands back two values at once: x and y.</dd>
+            <dt><CodeSnippet code="love.mousepressed" lang="lua" inline /></dt>
+            <dd>Called by the engine when a button goes down, and told where.</dd>
+          </dl>
+
+          <p class="text-body-secondary">
+            Using the wrong one is not an error. Movement written in{" "}
+            <CodeSnippet code="love.keypressed" lang="lua" inline /> moves once
+            per press however long the key is held, which runs perfectly and
+            feels broken.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">7.</span> Collision, and Counting Once</h2>
+
+          <p>
+            A program never looks at the picture. Two shapes overlap when{" "}
+            <b class="text-sn-theme">four comparisons are all true</b> &mdash;
+            two across, two down &mdash; joined with{" "}
+            <CodeSnippet code="and" lang="lua" inline />.
+          </p>
+
+          <p>
+            Asked every frame, <i>is it touching</i> is true for a few dozen
+            frames in a row, so a counter inside it climbs by twenty per touch.
+            The question you meant was{" "}
+            <b class="text-sn-theme"><i>did it just start touching</i></b>:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr><td><CodeSnippet code="if overlapping and not touching then" lang="lua" inline /></td><td>count it</td></tr>
+                <tr><td><CodeSnippet code="touching = overlapping" lang="lua" inline /></td><td>afterwards, always</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-body-secondary">
+            <b>The order of those two is load-bearing and silent.</b> Put the
+            bookkeeping line first and the condition reads <i>overlapping and
+            not overlapping</i>, which is never true, and the counter never
+            moves.
+          </p>
+
+          <dl>
+            <dt>Collision detection</dt>
+            <dd>Working out whether two things overlap by comparing coordinates.</dd>
+            <dt>State</dt>
+            <dd>A variable whose only job is to let the program compare now against then.</dd>
+            <dt>Edge</dt>
+            <dd>The moment a condition changes from false to true.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

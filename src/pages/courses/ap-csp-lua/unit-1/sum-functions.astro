@@ -1,0 +1,214 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Functions</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.21 &ndash; 1.23. Use this to review, or to fill in something you
+          missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> What <CodeSnippet code="function" lang="lua" inline /> Means</h2>
+
+          <p>
+            A named piece of work. You had been typing{" "}
+            <CodeSnippet code="function love.draw()" lang="lua" inline /> since
+            session 2 without being told.
+          </p>
+
+          <p>
+            <b class="text-sn-theme"><CodeSnippet code="love.draw" lang="lua" inline />{" "}
+            is a name the engine looks for and runs on its own.</b> A function
+            you invent is a name the engine has never heard of, so your program
+            has to call it.
+          </p>
+
+          <dl>
+            <dt>Function</dt>
+            <dd>A named piece of work. The exam calls it a <b>procedure</b>.</dd>
+            <dt>Parameter</dt>
+            <dd>A blank in the description, named in the definition.</dd>
+            <dt>Argument</dt>
+            <dd>The value you put in the blank when you call it.</dd>
+            <dt>Call</dt>
+            <dd>Saying the name with parentheses, to make it run.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Defining Is Not Calling</h2>
+
+          <p>
+            Writing a function down does nothing at all. A program with twenty
+            definitions and no calls{" "}
+            <b class="text-sn-theme">runs perfectly and draws nothing.</b>
+          </p>
+
+          <p>
+            Lua reads a file top to bottom, so a function has to be defined{" "}
+            <b>above</b> the place it is used. Calling one that does not exist
+            yet gives{" "}
+            <CodeSnippet code="attempt to call global 'x' (a nil value)" lang="txt" inline />{" "}
+            &mdash; the same message as a misspelled variable, for the same
+            reason.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Lua does not count your arguments.</b> Too few and the missing
+            parameter is <CodeSnippet code="nil" lang="lua" inline />, which
+            fails later and inside the function. Too many and the extras are
+            silently discarded.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Functions That Answer</h2>
+
+          <p>
+            <CodeSnippet code="return" lang="lua" inline /> hands a value back
+            and ends the function immediately. The call{" "}
+            <b class="text-sn-theme">turns into that value</b>, right where it
+            was written, so it can go anywhere a value goes &mdash; including
+            inside another call.
+          </p>
+
+          <dl>
+            <dt><CodeSnippet code="return" lang="lua" inline /></dt>
+            <dd>Hands a value back. <CodeSnippet code="RETURN(expression)" lang="txt" inline /> on the exam, with parentheses.</dd>
+            <dt>Return value</dt>
+            <dd>What the call becomes.</dd>
+          </dl>
+
+          <p>
+            <b>A function with no <CodeSnippet code="return" lang="lua" inline />{" "}
+            hands back <CodeSnippet code="nil" lang="lua" inline />.</b>{" "}
+            Printing and returning are different jobs, and confusing them is the
+            most common mistake in this part.
+          </p>
+
+          <p class="text-body-secondary">
+            You had used return values all year without a name for them &mdash;{" "}
+            <CodeSnippet code="tonumber" lang="lua" inline />,{" "}
+            <CodeSnippet code="math.random" lang="lua" inline />,{" "}
+            <CodeSnippet code="love.keyboard.isDown" lang="lua" inline />.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Scope</h2>
+
+          <p>
+            A <CodeSnippet code="local" lang="lua" inline /> made inside a
+            function exists only inside it. That is a feature: two functions can
+            both use <CodeSnippet code="total" lang="lua" inline /> and never
+            collide.
+          </p>
+
+          <dl>
+            <dt>Scope</dt>
+            <dd>Where a name exists.</dd>
+            <dt>Shadowing</dt>
+            <dd>An inner name hiding an outer one spelled the same. The parameter is its own variable.</dd>
+          </dl>
+
+          <p>
+            <b class="text-sn-theme">Changing a parameter does not change the
+            variable that was passed in.</b> To actually update it, catch the
+            returned value:{" "}
+            <CodeSnippet code="score = bump(score)" lang="lua" inline />.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Scaling, and Moving as One Piece</h2>
+
+          <p>
+            Inside a drawing function, every measurement should be worked out
+            from the parameters &mdash;{" "}
+            <CodeSnippet code="size * 0.7" lang="lua" inline /> rather than{" "}
+            <CodeSnippet code="28" lang="lua" inline />.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>One hardcoded number left behind is invisible at exactly one
+            size</b> &mdash; the size it was written for. That is the size the
+            author tests at, which is why the bug survives.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Which Procedures Count in May</h2>
+
+          <p>
+            The Create Performance Task requires{" "}
+            <b class="text-sn-theme">at least one student-developed procedure
+            with one or more parameters</b>, with sequencing, selection and
+            iteration in its body, and calls to it.
+          </p>
+
+          <p>
+            The College Board's wording: <i>"Event handlers are built-in
+            abstractions in some languages and will therefore not be considered
+            student-developed."</i>
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th>Function</th><th>Who calls it</th><th>Counts?</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><CodeSnippet code="love.draw" lang="lua" inline /></td><td>The engine</td><td><b>No</b></td></tr>
+                <tr><td><CodeSnippet code="love.update" lang="lua" inline /></td><td>The engine</td><td><b>No</b></td></tr>
+                <tr><td><CodeSnippet code="love.keypressed" lang="lua" inline /></td><td>The engine</td><td><b>No</b></td></tr>
+                <tr><td><CodeSnippet code="drawShip" lang="lua" inline /></td><td>You</td><td><b>Yes</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>This is not a reason to avoid callbacks.</b> You need{" "}
+            <CodeSnippet code="love.draw" lang="lua" inline />; it is how
+            anything appears at all. The rule is about{" "}
+            <b class="text-sn-theme">what you point at in May</b>, not how to
+            write a program.
+          </p>
+
+          <dl>
+            <dt>Callback</dt>
+            <dd>A function the engine calls for you, at a moment it decides.</dd>
+            <dt>Event handler</dt>
+            <dd>A callback that runs in response to something happening. The College Board's word.</dd>
+            <dt>Student-developed procedure</dt>
+            <dd>A function you wrote <i>and</i> call yourself.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -6,15 +6,57 @@ import { Code } from "astro-expressive-code/components";
 import { Code as CodeSnippet } from "astro:components";
 
 //#region CodeSnippets
-const Weak = `My function draws a target. It takes x and y.
-It works well and I am happy with it.`;
+const Assign = `count ← count + 1
+IF(count = 10)
+{
+  DISPLAY(count)
+}`;
 
-const Strong = `drawTarget(x, y, size) draws one target wherever
-it is told to. The rings are drawn by a loop that
-counts down from 3, and an if inside it colors a
-hit target gray instead of red. It is called from
-the traversal that draws all the targets, and
-again to draw the one under the mouse.`;
+const Loops = `REPEAT 5 TIMES
+{
+  <block>
+}
+
+REPEAT UNTIL(x ≥ 10)
+{
+  <block>
+}`;
+
+const ListNotation = `scores ← [12, 8, 21]
+DISPLAY(scores[1])
+DISPLAY(LENGTH(scores))
+copy ← scores`;
+
+const Procedure = `PROCEDURE area(w, h)
+{
+  RETURN(w * h)
+}
+
+kitchen ← area(3, 4)`;
+
+const Trace1 = `total ← 0
+i ← 1
+REPEAT UNTIL(i > 4)
+{
+  total ← total + i
+  i ← i + 1
+}
+DISPLAY(total)`;
+
+const Trace2 = `local w = 12
+local steps = 0
+
+while w > 0 do
+    w = w - 5
+    steps = steps + 1
+end
+
+print(steps)`;
+
+const Trace3 = `local a = {1, 2, 3}
+local b = a
+b[1] = 99
+print(a[1])`;
 //#endregion
 ---
 
@@ -26,7 +68,7 @@ again to draw the one under the mouse.`;
           <i class="si-arrow-left"></i> Back
         </a>
 
-        <h1>Activity 1.26: Creative Artifact &mdash; Writing It Down</h1>
+        <h1>Activity 1.26: Quarter 1 Exam</h1>
         <Divider variant="8" classes="mb-5" />
 
         <!-- Launch / Concept -->
@@ -34,278 +76,220 @@ again to draw the one under the mouse.`;
           <Presentation>
             <section>
               <h2>Activity 1.26</h2>
-              <h3 class="text-sn-theme">Creative Artifact &mdash; Writing It Down</h3>
+              <h3 class="text-sn-theme">Quarter 1 Exam</h3>
             </section>
 
             <section>
-              <h2>Key Concepts</h2>
-              <p>Explaining Your Own Code</p>
-              <p>What a Good Answer Looks Like</p>
-              <p>Looking at Everybody Else's</p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>The Part Nobody Practices</h2>
-              <p>You built it. Now write about it.</p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>The Part Nobody Practices</h2>
-              <p>You built it. Now write about it.</p>
+              <h2>Today</h2>
               <p>
-                In May you will sit in a room with{" "}
-                <b class="text-sn-theme">no computer</b> and answer four written
-                questions about a program you wrote months earlier.
+                <b class="text-sn-theme">The documentation sheet is due at the
+                door.</b> On paper. You will not have a computer this period.
               </p>
-              <p class="text-body-secondary">
-                Today is that, at one tenth the size, one week after building
-                it.
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>This Answer Earns Nothing</h2>
-              <Code code={Weak} frame="code" lang="txt" showLineNumbers={false} />
-            </section>
-
-            <section data-auto-animate>
-              <h2>This Answer Earns Nothing</h2>
-              <Code code={Weak} frame="code" lang="txt" showLineNumbers={false} />
-              <p>
-                It is true, it is about the right function, and it says{" "}
-                <b class="text-sn-theme">nothing a reader could not have
-                guessed from the name.</b>
-              </p>
-            </section>
-
-            <section data-auto-animate>
-              <h2>This One Does</h2>
-              <Code code={Strong} frame="code" lang="txt" showLineNumbers={false} />
-            </section>
-
-            <section data-auto-animate>
-              <h2>This One Does</h2>
-              <Code code={Strong} frame="code" lang="txt" showLineNumbers={false} />
-              <p>
-                Names the parameters. Says what the loop does and what the
-                decision decides.{" "}
-                <b class="text-sn-theme">Says where it is called from, twice.</b>
-              </p>
-              <p class="text-body-secondary">
-                Same function. Same program. One of these is worth marks.
-              </p>
+              <p>Then the exam. It takes the whole session.</p>
             </section>
 
             <section>
-              <h2>Write About What Is There</h2>
-              <p>
-                Not what you meant to build, not what it would do with another
-                week.
-              </p>
-              <p class="text-sn-theme">
-                A small program described precisely beats a big one described
-                vaguely.
-              </p>
-            </section>
-
-            <section>
-              <h2>Then the Gallery Walk</h2>
-              <p>
-                Everyone's program runs. Everyone else walks around and plays
-                them.
-              </p>
-              <p class="text-body-secondary">
-                You are looking for one thing you want to steal and one thing
-                you would ask about. Both go on your sheet.
-              </p>
-            </section>
-
-            <section>
-              <h2>Today's Objectives</h2>
-              <ul>
-                <li>Describe your program's purpose and how it is used</li>
-                <li>Explain your own procedure precisely</li>
-                <li>Say what you cut, and why</li>
-                <li>Look at everyone else's and take something from it</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>Key Terms</h2>
+              <h2>The Shape of It</h2>
               <div class="text-start">
                 <dl>
-                  <dt>Documentation</dt>
-                  <dd>Writing that explains what a program does and how.</dd>
-                  <dt>Functionality</dt>
-                  <dd>How a program behaves while it runs, described by what a user does. The exam's word.</dd>
-                  <dt>Abstraction</dt>
-                  <dd>Using something by its name without needing its details. A function you call is one.</dd>
+                  <dt>Section I &mdash; 22 multiple choice</dt>
+                  <dd>44 points, 36 minutes. That is about 1:38 each, which is exam pace.</dd>
+                  <dt>Section II &mdash; three written</dt>
+                  <dd>26 points, 19 minutes. Trace a loop, find an error, describe an algorithm.</dd>
                 </dl>
               </div>
+              <p class="text-sn-theme">
+                70 points. The largest single thing in the quarter.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Reference Sheet Is on Your Desk</h2>
+              <p>
+                Same as May. <b class="text-sn-theme">Nothing on it needs
+                memorizing</b> &mdash; but you have to be able to find things on
+                it quickly.
+              </p>
+              <p class="text-body-secondary">
+                Everything else is closed. No notes, no code, no computer.
+              </p>
+            </section>
+
+            <section>
+              <h2>It Switches Notation Without Warning</h2>
+              <p>
+                Some questions are Lua. Some are exam notation.{" "}
+                <b class="text-sn-theme">Nothing tells you which is coming.</b>
+              </p>
+              <p class="text-body-secondary">
+                That is deliberate, and it is the only honest rehearsal for
+                meeting exam notation cold in May.
+              </p>
+            </section>
+
+            <section>
+              <h2>Assignment and Comparison</h2>
+              <Code code={Assign} frame="code" lang="txt" showLineNumbers={false} />
+              <p>
+                <code>&larr;</code> stores. <code>=</code> asks.{" "}
+                <b class="text-sn-theme">Lua writes those as <code>=</code> and{" "}
+                <code>==</code></b>, which is the reverse trap.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Two Loops</h2>
+              <Code code={Loops} frame="code" lang="txt" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme"><code>REPEAT UNTIL</code> is the
+                inverse of <code>while</code></b> &mdash; it repeats until the
+                condition becomes true.
+              </p>
+              <p class="text-body-secondary">
+                And <code>REPEAT n TIMES</code> gives you no counter. If you
+                need one, you make it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Lists</h2>
+              <Code code={ListNotation} frame="code" lang="txt" showLineNumbers={false} />
+              <p>
+                First element is <code>[1]</code> in both.{" "}
+                <b class="text-sn-theme">But <code>copy &larr; scores</code>{" "}
+                copies, and Lua's version does not.</b>
+              </p>
+              <p class="text-body-secondary">
+                An out-of-range index terminates the program on the exam. In Lua
+                it hands back <code>nil</code> and waits.
+              </p>
+            </section>
+
+            <section>
+              <h2>Procedures</h2>
+              <Code code={Procedure} frame="code" lang="txt" showLineNumbers={false} />
+              <p>
+                <code>PROCEDURE</code> for both kinds.{" "}
+                <code>RETURN</code> takes parentheses.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Three That Catch People</h2>
+              <ul>
+                <li>A typed value is a <b>string</b> until <code>tonumber</code></li>
+                <li>Assigning a table makes an <b>alias</b> in Lua and a <b>copy</b> on the exam</li>
+                <li><code>love.draw</code> is <b>not</b> a student-developed procedure</li>
+              </ul>
+              <p class="text-body-secondary">
+                Sessions 4, 19 and 23. All three are on the paper.
+              </p>
+            </section>
+
+            <section>
+              <h2>Good Luck</h2>
+              <p>
+                Twenty-five sessions ago you ran a program that printed one
+                line.
+              </p>
+              <p class="text-sn-theme">
+                Read every question twice. Answer the easy ones first.
+              </p>
             </section>
           </Presentation>
         </section>
 
         <Divider variant="8" classes="my-5" />
 
-        <!-- Build -->
-        <section id="build">
-          <h2>Build</h2>
+        <!-- Prepare -->
+        <section id="prepare">
+          <h2>How to Prepare</h2>
 
           <p>
-            <b class="text-sn-theme">Open your program once, run it, then close
-            the editor</b> and write from what you remember. If you get stuck,
-            open it again &mdash; but notice that you had to.
+            <b class="text-sn-theme">This page is your revision, and it is
+            homework the night before</b> &mdash; along with the documentation
+            sheet.
           </p>
 
-          <h3 class="mt-4">Task 1: Purpose and Use</h3>
+          <h3 class="mt-4">Work Through the Section Summaries</h3>
 
-          <p>Two short paragraphs on the documentation sheet:</p>
+          <p>
+            One per part of the quarter. Each one has the ideas, the traps, and
+            the exam notation for its sessions:
+          </p>
 
           <ul>
-            <li>
-              <b>Purpose.</b> What the program is for. Not the mechanics
-              &mdash; why anyone would run it.
-            </li>
-            <li>
-              <b>Use.</b> What a person does, in order, from launching it to
-              finishing. What they press, what they see, how it ends.
-            </li>
+            <li><a href="./sum-getting-started">Getting Started</a> &mdash; sessions 1&ndash;6</li>
+            <li><a href="./sum-motion-and-decisions">Motion and Decisions</a> &mdash; sessions 7&ndash;14</li>
+            <li><a href="./sum-loops-and-tables">Loops and Tables</a> &mdash; sessions 15&ndash;20</li>
+            <li><a href="./sum-functions">Functions</a> &mdash; sessions 21&ndash;23</li>
           </ul>
 
-          <h3 class="mt-4">Task 2: Your Procedure</h3>
+          <h3 class="mt-4">Three Traces, Right Now</h3>
 
           <p>
-            The graded one. Write about the function you wrote, and cover all
-            five:
+            Do these on paper before you read any further. Write the answer
+            down, then check it.
           </p>
 
-          <ol>
-            <li>Its name and its parameters, and what each parameter is for</li>
-            <li>What it does with them</li>
-            <li>What the <b>loop</b> inside it repeats, and how many times</li>
-            <li>What the <b>decision</b> inside it decides</li>
-            <li>The <b>two places</b> it is called from, and why each one calls it</li>
-          </ol>
+          <p><b>1.</b> What does this display?</p>
 
-          <p class="text-body-secondary">
-            Then paste the function itself underneath. It should be short enough
-            to read in one go &mdash; if it is not, say so and explain which
-            part matters.
-          </p>
+          <Code code={Trace1} lang="txt" frame="code" title="Exam notation" showLineNumbers={false} />
 
-          <h3 class="mt-4">Task 3: The Table</h3>
+          <p><b>2.</b> What does this print?</p>
 
-          <p>
-            What is in it, what the program does with it, and{" "}
-            <b>what would happen if you deleted it.</b>
-          </p>
+          <Code code={Trace2} lang="lua" frame="code" title="Lua" showLineNumbers={false} />
 
-          <p class="text-body-secondary">
-            If the honest answer is "not much", say that. An accurate
-            description of a weak table is worth more than an invented
-            description of a strong one, and it tells you exactly what to fix in
-            Quarter 3.
-          </p>
+          <p><b>3.</b> What does this print?</p>
 
-          <h3 class="mt-4">Task 4: What You Cut</h3>
-
-          <p>Three sentences:</p>
-
-          <ul>
-            <li>What you planned that is not in the program</li>
-            <li>When you decided to drop it, and why</li>
-            <li>What you would build first with another session</li>
-          </ul>
-
-          <h3 class="mt-4">Task 5: One Bug</h3>
-
-          <p>
-            Describe the worst thing that went wrong while building.{" "}
-            <b class="text-sn-theme">What you saw, what you thought it was, and
-            what it actually was.</b>
-          </p>
-
-          <p class="text-body-secondary">
-            "What you thought it was" is the interesting part and it is the part
-            people leave out.
-          </p>
-
-          <h3 class="mt-4">Task 6: The Gallery Walk</h3>
-
-          <p>
-            Leave your program running and go and look at everyone else's.{" "}
-            <b>Play at least five.</b> For each one you write about, take:
-          </p>
-
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Whose</th>
-                  <th>One thing it does well</th>
-                  <th>One thing you want to know how they did</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td></td><td></td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
-              </tbody>
-            </table>
-          </div>
+          <Code code={Trace3} lang="lua" frame="code" title="Lua" showLineNumbers={false} />
 
           <div class="alert alert-info">
-            <b>Ask the second column out loud before the session ends.</b>{" "}
-            Everybody in this room solved a problem you did not, and{" "}
-            <b class="text-sn-theme">this is the cheapest hour of the quarter
-            for finding that out.</b>
+            <b>Answers: 10, 3, and 99.</b> If you got the third one wrong, read{" "}
+            <a href="./1-19">Activity 1.19</a> again &mdash; it is the sharpest
+            difference between Lua and the exam and it is on the paper.
           </div>
-        </section>
 
-        <Divider variant="8" classes="my-5" />
+          <h3 class="mt-4">The Checklist</h3>
 
-        <!-- Checkpoint -->
-        <section id="checkpoint">
-          <h2>Checkpoint</h2>
+          <p>Everything below is fair game. Tick what you can do without looking:</p>
+
+          <div class="row">
+            <div class="col-md-6">
+              <ul>
+                <li>Read <code>&larr;</code> and <code>=</code> correctly</li>
+                <li>Translate a Lua comparison into exam notation</li>
+                <li>Say what <code>MOD</code> gives you</li>
+                <li>Say what <code>/</code> does <b>not</b> do</li>
+                <li>Explain why a typed value is a string</li>
+                <li>Trace an <code>if</code> / <code>elseif</code> chain</li>
+                <li>Combine conditions with <code>and</code>, <code>or</code>, <code>not</code></li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul>
+                <li>Count the passes of a <code>while</code> loop</li>
+                <li>Count the passes of a <code>REPEAT UNTIL</code></li>
+                <li>Say what a nested loop does</li>
+                <li>Index a table from 1</li>
+                <li>Say what <code>#t</code> gives you</li>
+                <li>Say what a function with no <code>return</code> gives back</li>
+                <li>Say which procedures the Create Task counts</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 class="mt-4">On the Day</h3>
 
           <ul>
-            <li>Purpose and use, both written</li>
             <li>
-              Your procedure described with all five points, and the code
-              pasted
+              <b class="text-sn-theme">Documentation sheet in your hand at the
+              door.</b> Not on a computer
             </li>
-            <li>The table described honestly, including the delete test</li>
-            <li>What you cut, and when you decided</li>
-            <li>One bug, including what you thought it was</li>
-            <li>At least three programs recorded from the gallery walk</li>
+            <li>Bring something to write with, and something to write with when that runs out</li>
+            <li>The reference sheet is provided. Nothing else</li>
+            <li>36 minutes on Section I, then move &mdash; the written section is 26 points</li>
           </ul>
-        </section>
-
-        <Divider variant="8" classes="my-5" />
-
-        <!-- Reflection -->
-        <section id="reflection">
-          <h2>Reflection</h2>
-
-          <p>Answer the following questions before submitting your work.</p>
-
-          <ol>
-            <li>
-              You wrote about your program with the editor closed. Say which
-              part you could not remember, and what that tells you about writing
-              code you will have to explain in May.
-            </li>
-            <li>
-              Somebody else's program did something yours did not. Describe it,
-              and say what you think they had to know to build it.
-            </li>
-            <li>
-              This quarter started with a program that printed one line. Name
-              the single idea from the last twenty-five sessions that made the
-              biggest difference to what you can build, and say why that one.
-            </li>
-          </ol>
         </section>
 
         <Divider variant="8" classes="my-5" />
@@ -315,8 +299,8 @@ again to draw the one under the mouse.`;
           <h2>Submit</h2>
 
           <p>
-            Submit the documentation sheet and, if you changed anything today,
-            the program folder again.
+            Hand in the documentation sheet at the start of the period. The exam
+            is collected at the end.
           </p>
 
           <h1

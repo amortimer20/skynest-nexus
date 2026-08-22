@@ -1,0 +1,214 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Getting Started</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.1 &ndash; 1.6. Use this to review, or to fill in something you
+          missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Programs and the Workspace</h2>
+
+          <p>
+            A program is a list of instructions carried out in order, and the
+            computer does exactly what the list says. You copy a template folder
+            for every new program rather than editing the original, and you
+            never edit{" "}
+            <CodeSnippet code="conf.lua" lang="txt" inline />.
+          </p>
+
+          <dl>
+            <dt>Program</dt>
+            <dd>A list of instructions a computer carries out in order.</dd>
+            <dt>Template</dt>
+            <dd>A starting folder you copy once for each new program. There are two: console and game.</dd>
+            <dt>Terminal</dt>
+            <dd>The panel where output appears and where you type input.</dd>
+            <dt><CodeSnippet code="print" lang="lua" inline /></dt>
+            <dd>Shows a line of text in the terminal.</dd>
+            <dt>Syntax error</dt>
+            <dd>The program is not valid Lua, so nothing runs at all. Nothing is printed.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Drawing</h2>
+
+          <p>
+            <CodeSnippet code="love.draw" lang="lua" inline /> is called by the
+            engine about sixty times a second. Coordinates start at the top left
+            and <b class="text-sn-theme">y grows downward</b>. Rectangles are
+            placed by their top left corner; circles by their center.
+          </p>
+
+          <dl>
+            <dt>Coordinate</dt>
+            <dd>A pair of numbers giving a position. <CodeSnippet code="(0, 0)" lang="txt" inline /> is the top left of the window; the window is 800 by 600.</dd>
+            <dt><CodeSnippet code="love.graphics.rectangle" lang="lua" inline /></dt>
+            <dd>Takes a mode, then x, y, width and height. The x and y are the corner.</dd>
+            <dt><CodeSnippet code="love.graphics.circle" lang="lua" inline /></dt>
+            <dd>Takes a mode, then x, y and radius. The x and y are the center.</dd>
+            <dt><CodeSnippet code="love.graphics.setColor" lang="lua" inline /></dt>
+            <dd>Takes red, green and blue as numbers from <b>0 to 1</b>, not 0 to 255. It stays set until you change it.</dd>
+          </dl>
+
+          <p class="text-body-secondary">
+            <b>The 0-to-255 mistake is silent.</b> Values above 1 are clamped to
+            1, so a color meant to be gray comes out white and everything drawn
+            after it does too.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Variables</h2>
+
+          <p>
+            A variable is a name holding a value.{" "}
+            <CodeSnippet code="=" lang="lua" inline /> is an instruction, not a
+            claim: work out the right side, then put the answer in the name on
+            the left. That is why{" "}
+            <CodeSnippet code="score = score + 10" lang="lua" inline /> makes
+            sense.
+          </p>
+
+          <dl>
+            <dt>Variable</dt>
+            <dd>A name that holds a value.</dd>
+            <dt><CodeSnippet code="local" lang="lua" inline /></dt>
+            <dd>Makes a new variable. Used once per variable, when it is created.</dd>
+            <dt>Assignment</dt>
+            <dd>Putting a value into a variable. Written <CodeSnippet code="=" lang="lua" inline /> in Lua and <CodeSnippet code="←" lang="txt" inline /> on the exam.</dd>
+            <dt>Reassignment</dt>
+            <dd>Putting a different value into a variable that already exists. No <CodeSnippet code="local" lang="lua" inline />.</dd>
+            <dt>Hardcoded</dt>
+            <dd>A raw number typed straight into the program instead of named.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Input, and the Three Kinds of Wrong</h2>
+
+          <p>
+            <CodeSnippet code="io.read()" lang="lua" inline /> always hands back
+            a <b class="text-sn-theme">string</b>, whatever the person typed.
+            With <CodeSnippet code="16" lang="txt" inline /> typed at a prompt
+            and stored in <CodeSnippet code="age" lang="lua" inline />:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th>Expression</th><th>What happens</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><CodeSnippet code="age * 2" lang="lua" inline /></td><td><b>32</b> &mdash; it silently works</td></tr>
+                <tr><td><CodeSnippet code="age == 16" lang="lua" inline /></td><td><b>false</b> &mdash; it silently lies</td></tr>
+                <tr><td><CodeSnippet code="age > 10" lang="lua" inline /></td><td><b>an error</b> &mdash; it crashes</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            The fix is{" "}
+            <CodeSnippet code="tonumber" lang="lua" inline /> at the moment you
+            collect the value. <b>The silent lie is the dangerous one</b>,
+            because nothing tells you.
+          </p>
+
+          <dl>
+            <dt><CodeSnippet code="io.write" lang="lua" inline /></dt>
+            <dd>Prints without moving to a new line, so a prompt and the typed answer sit together.</dd>
+            <dt><CodeSnippet code="io.read" lang="lua" inline /></dt>
+            <dd>Waits for a line to be typed and hands it back as a string.</dd>
+            <dt><CodeSnippet code="tonumber" lang="lua" inline /></dt>
+            <dd>Turns a string into a number, or hands back <CodeSnippet code="nil" lang="lua" inline /> if it cannot.</dd>
+            <dt>Type</dt>
+            <dd>What kind of value something is. So far: number, string, boolean.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Arithmetic</h2>
+
+          <p>
+            Normal order of operations, in Lua and on the exam.{" "}
+            <b class="text-sn-theme"><CodeSnippet code="/" lang="lua" inline />{" "}
+            never truncates</b> &mdash;{" "}
+            <CodeSnippet code="17 / 5" lang="lua" inline /> is{" "}
+            <CodeSnippet code="3.4" lang="txt" inline />, not 3.
+          </p>
+
+          <dl>
+            <dt><CodeSnippet code="%" lang="lua" inline /></dt>
+            <dd>Remainder. <CodeSnippet code="17 % 5" lang="lua" inline /> is 2. Written <CodeSnippet code="MOD" lang="txt" inline /> on the exam, with the same precedence as <CodeSnippet code="*" lang="txt" inline /> and <CodeSnippet code="/" lang="txt" inline />.</dd>
+            <dt><CodeSnippet code="math.floor" lang="lua" inline /></dt>
+            <dd>Rounds down to a whole number. What you use when you want division to truncate.</dd>
+            <dt>Precedence</dt>
+            <dd><CodeSnippet code="*" lang="txt" inline /> and <CodeSnippet code="/" lang="txt" inline /> before <CodeSnippet code="+" lang="txt" inline /> and <CodeSnippet code="-" lang="txt" inline />. Parentheses beat everything.</dd>
+            <dt>Concatenation</dt>
+            <dd><CodeSnippet code=".." lang="lua" inline /> joins two pieces of text. Not the same as adding.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Exam Notation From This Part</h2>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th></th><th>Lua</th><th>Exam notation</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Make a variable</td><td><CodeSnippet code="local x = 400" lang="lua" inline /></td><td><CodeSnippet code="x ← 400" lang="txt" inline /></td></tr>
+                <tr><td>Change it</td><td><CodeSnippet code="x = x + 50" lang="lua" inline /></td><td><CodeSnippet code="x ← x + 50" lang="txt" inline /></td></tr>
+                <tr><td>Show a value</td><td><CodeSnippet code="print(x)" lang="lua" inline /></td><td><CodeSnippet code="DISPLAY(x)" lang="txt" inline /></td></tr>
+                <tr><td>Read a value</td><td><CodeSnippet code="io.read()" lang="lua" inline /></td><td><CodeSnippet code="INPUT()" lang="txt" inline /></td></tr>
+                <tr><td>Remainder</td><td><CodeSnippet code="a % b" lang="lua" inline /></td><td><CodeSnippet code="a MOD b" lang="txt" inline /></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b class="text-sn-theme">Two things to remember about{" "}
+            <CodeSnippet code="DISPLAY" lang="txt" inline /></b>: it is how the
+            exam prints, and it puts a <b>space</b> after what it shows. Two
+            <CodeSnippet code="DISPLAY" lang="txt" inline /> calls in a row give
+            you space-separated output on one line, not two lines.
+          </p>
+
+          <p>
+            There is no <CodeSnippet code="local" lang="lua" inline /> on the
+            exam. The arrow makes the variable the first time and changes it
+            every time after.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

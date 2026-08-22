@@ -1,0 +1,244 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code as CodeSnippet } from "astro:components";
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Section Summary: Loops and Tables</h1>
+        <Divider variant="8" classes="mb-4" />
+
+        <p class="text-secondary">
+          Activities 1.15 &ndash; 1.20. Use this to review, or to fill in something you
+          missed.
+        </p>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">1.</span> Loops That Run Until Something Is True</h2>
+
+          <p>
+            A <CodeSnippet code="while" lang="lua" inline /> loop tests its
+            condition <b>before</b> each pass, so it can run zero times. A{" "}
+            <CodeSnippet code="repeat … until" lang="lua" inline /> tests{" "}
+            <b>after</b>, so it always runs at least once.
+          </p>
+
+          <dl>
+            <dt><CodeSnippet code="while c do … end" lang="lua" inline /></dt>
+            <dd>Repeats <b>while</b> the condition is true.</dd>
+            <dt><CodeSnippet code="repeat … until c" lang="lua" inline /></dt>
+            <dd>Repeats <b>until</b> the condition becomes true. The body runs first.</dd>
+            <dt>Infinite loop</dt>
+            <dd>A loop whose condition never changes. The window stops responding.</dd>
+          </dl>
+
+          <p>
+            <b class="text-sn-theme">Something inside the loop has to move the
+            condition toward being false</b> &mdash; or toward being true, for{" "}
+            <CodeSnippet code="repeat" lang="lua" inline />. Forgetting that one
+            line is the whole of how infinite loops happen.
+          </p>
+
+          <p>
+            <b>Lua's <CodeSnippet code="repeat … until" lang="lua" inline /> is
+            exactly the exam's <CodeSnippet code="REPEAT UNTIL" lang="txt" inline />.</b>{" "}
+            This is one of the three places where Lua agrees with the reference
+            sheet and JavaScript does not.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">2.</span> Loops That Count</h2>
+
+          <p>
+            <CodeSnippet code="for i = 1, 10 do" lang="lua" inline /> gives you
+            a counter for free. It counts from the first number to the second,{" "}
+            <b class="text-sn-theme">including both ends</b>, and{" "}
+            <CodeSnippet code="i" lang="lua" inline /> exists only inside the
+            loop.
+          </p>
+
+          <dl>
+            <dt>Numeric <CodeSnippet code="for" lang="lua" inline /></dt>
+            <dd>A loop with a built-in counter. <CodeSnippet code="for i = 1, n do" lang="lua" inline />.</dd>
+            <dt>Loop variable</dt>
+            <dd>The counter. Usually <CodeSnippet code="i" lang="lua" inline />. It disappears when the loop ends.</dd>
+            <dt>Accumulator</dt>
+            <dd>A variable that builds up a result across passes. <b>It goes above the loop</b>, never inside.</dd>
+          </dl>
+
+          <p class="text-body-secondary">
+            The accumulator rule turns up three times in this quarter &mdash;{" "}
+            <CodeSnippet code="hits" lang="lua" inline />,{" "}
+            <CodeSnippet code="tries" lang="lua" inline />,{" "}
+            <CodeSnippet code="total" lang="lua" inline />. Declared inside the
+            loop, it resets every pass and the answer is always the last one.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The exam has no counting loop.</b>{" "}
+            <CodeSnippet code="REPEAT n TIMES" lang="txt" inline /> repeats but
+            hands you no counter, so exam code that needs an index makes one by
+            hand and increments it at the bottom of the body.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">3.</span> Nested Loops</h2>
+
+          <p>
+            A loop inside a loop. The inner one finishes completely on every
+            pass of the outer one, so a 3-by-4 pair of loops runs its body{" "}
+            <b>12</b> times.
+          </p>
+
+          <p>
+            Two counters means two dimensions:{" "}
+            <CodeSnippet code="row" lang="lua" inline /> and{" "}
+            <CodeSnippet code="col" lang="lua" inline /> multiplied out into x
+            and y is a grid.
+          </p>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">4.</span> Tables</h2>
+
+          <p>
+            One name holding many values.{" "}
+            <b class="text-sn-theme">The first element is number 1</b>, in Lua
+            and on the exam alike.
+          </p>
+
+          <dl>
+            <dt>Table</dt>
+            <dd>One name holding many values. The exam calls it a <b>list</b>.</dd>
+            <dt>Element</dt>
+            <dd>One of the values in it.</dd>
+            <dt>Index</dt>
+            <dd>The number that picks an element. Starts at 1.</dd>
+            <dt><CodeSnippet code="#t" lang="lua" inline /></dt>
+            <dd>How many elements. Written <CodeSnippet code="LENGTH(t)" lang="txt" inline /> on the exam.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">5.</span> Two Real Differences From the Exam</h2>
+
+          <p>
+            Everything above is spelling. These two change answers.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th></th><th>Lua</th><th>Exam notation</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>An index past the end</td>
+                  <td>Hands back <CodeSnippet code="nil" lang="lua" inline /> and carries on</td>
+                  <td><b>An error message, and the program terminates</b></td>
+                </tr>
+                <tr>
+                  <td>Assigning one list to another</td>
+                  <td>A second name for the <b>same</b> table</td>
+                  <td>A <b>copy</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b class="text-sn-theme">Both of Lua's behaviors are the quieter
+            one</b>, which is exactly what makes them dangerous. A{" "}
+            <CodeSnippet code="nil" lang="lua" inline /> travels and fails
+            somewhere else; an alias means changing one table changes the other
+            and nothing says so.
+          </p>
+
+          <dl>
+            <dt><CodeSnippet code="nil" lang="lua" inline /></dt>
+            <dd>Nothing is here. Not zero, not an empty string, not an error.</dd>
+            <dt>Alias</dt>
+            <dd>A second name for the same table.</dd>
+            <dt>Out of range</dt>
+            <dd>An index the table has no element for.</dd>
+          </dl>
+        </section>
+
+        <hr />
+
+        <section>
+          <h2><span class="text-sn-theme">6.</span> Traversal</h2>
+
+          <p>
+            Visiting every element in order.{" "}
+            <b class="text-sn-theme">The exam's word, and it appears
+            constantly</b> &mdash; almost everything anyone does with a list is
+            a traversal with one line changed in the middle.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><CodeSnippet code="for i = 1, #t do" lang="lua" inline /></td>
+                  <td>When you need the index for something else. What the exam looks like.</td>
+                </tr>
+                <tr>
+                  <td><CodeSnippet code="for i, v in ipairs(t) do" lang="lua" inline /></td>
+                  <td>Hands you the index and the value together. No <CodeSnippet code="ipairs" lang="lua" inline /> on the exam.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Because the loop takes its length from the table, adding a value
+            changes no code.
+          </p>
+
+          <p>
+            <b>Parallel lists</b> are two tables read with the same index &mdash;{" "}
+            <CodeSnippet code="xs[3]" lang="lua" inline /> and{" "}
+            <CodeSnippet code="ys[3]" lang="lua" inline /> being one circle.{" "}
+            <b class="text-sn-theme">Nothing but the index connects them</b>, and
+            Lua will never check that they are the same length.
+          </p>
+
+          <p class="text-body-secondary">
+            A mismatch fails in opposite directions. If the list being walked is
+            the longer one, you get{" "}
+            <CodeSnippet code="nil" lang="lua" inline /> and a crash. If it is
+            the shorter one, nothing happens at all &mdash; and that is the
+            worse outcome, because it ships.
+          </p>
+
+          <p>
+            <b>A gap in a table is not a list.</b> Both{" "}
+            <CodeSnippet code="#t" lang="lua" inline /> and{" "}
+            <CodeSnippet code="ipairs" lang="lua" inline /> stop at the hole, so
+            an element after it is in the table and unreachable.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
