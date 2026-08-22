@@ -1,0 +1,579 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import SignalImage from "../../../../assets/courses/ap-csp-lua/img/1-2-target.png";
+import MovedImage from "../../../../assets/courses/ap-csp-lua/img/1-3-moved.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Hardcoded = `love.graphics.circle("fill", 400, 190, 35)
+love.graphics.circle("fill", 400, 300, 35)
+love.graphics.circle("fill", 400, 410, 35)`;
+
+const Named = `local lightX = 400
+
+love.graphics.circle("fill", lightX, 190, 35)
+love.graphics.circle("fill", lightX, 300, 35)
+love.graphics.circle("fill", lightX, 410, 35)`;
+
+const OneCircle = `local circleX = 400
+local circleY = 300
+local radius  = 40
+
+function love.draw()
+    love.graphics.circle("fill", circleX, circleY, radius)
+end`;
+
+const OneCircleMoved = `local circleX = 150`;
+
+const Vars = `local lightX = 400
+local lightY = 190
+local radius = 35
+local gap    = 110`;
+
+const Full = `local lightX = 400
+local lightY = 190
+local radius = 35
+local gap    = 110
+
+function love.draw()
+    love.graphics.setColor(0.6, 0.6, 0.6)
+    love.graphics.rectangle("fill", lightX - 50, lightY - 60, 100, 340)
+
+    love.graphics.setColor(0.9, 0.2, 0.2)
+    love.graphics.circle("fill", lightX, lightY, radius)
+
+    love.graphics.setColor(0.9, 0.8, 0.2)
+    love.graphics.circle("fill", lightX, lightY + gap, radius)
+
+    love.graphics.setColor(0.2, 0.8, 0.3)
+    love.graphics.circle("fill", lightX, lightY + gap + gap, radius)
+end`;
+
+const Moved = `local lightX = 200
+local lightY = 120`;
+
+const Reassign = `local score = 0
+score = score + 10`;
+
+const Typo = `    love.graphics.setColor(0.9, 0.2, 0.2)
+    love.graphics.circle("fill", lightx, lightY, radius)`;
+
+const TypoOut = `Error: main.lua:11: bad argument #2 to 'circle' (number expected, got nil)`;
+
+const NotationLua = `local lightX = 400
+local gap = 110
+
+lightX = lightX + 50
+print(lightX)`;
+
+const NotationPseudo = `lightX ← 400
+gap ← 110
+
+lightX ← lightX + 50
+DISPLAY(lightX)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.3: Naming Your Numbers</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.3</h2>
+              <h3 class="text-sn-theme">Naming Your Numbers</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Name for a Value</p>
+              <p>Change It Once, Change It Everywhere</p>
+              <p>Doing Arithmetic With a Name</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Where We Left Off</h2>
+              <Image
+                src={SignalImage}
+                alt="The traffic signal from the previous activity, centered in the window"
+                width={420}
+                class="img-fluid rounded"
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Where We Left Off</h2>
+              <Image
+                src={MovedImage}
+                alt="The same traffic signal, now in the upper left of the window"
+                width={420}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Same shapes, moved.{" "}
+                <b class="text-sn-theme">Today that is a two-number change,
+                not an eight-number change.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Problem With Yesterday's Program</h2>
+              <Code code={Hardcoded} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Problem With Yesterday's Program</h2>
+              <Code code={Hardcoded} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                To move the signal sideways you edit{" "}
+                <b class="text-sn-theme">every one of those 400s</b>, plus the
+                rectangle.
+              </p>
+              <p class="text-body-secondary">
+                Miss one and the picture comes apart.
+              </p>
+            </section>
+
+            <section>
+              <h2>Give the Number a Name</h2>
+              <Code code={Named} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                One place to change.{" "}
+                <b class="text-sn-theme">That is the whole idea.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>What That Line Does</h2>
+              <Code
+                code={`local lightX = 400`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <div class="text-start">
+                <dl>
+                  <dt>local</dt>
+                  <dd>Make a new name.</dd>
+                  <dt>lightX</dt>
+                  <dd>The name. You choose it.</dd>
+                  <dt>=</dt>
+                  <dd>Put the value on the right into the name on the left.</dd>
+                  <dt>400</dt>
+                  <dd>The value.</dd>
+                </dl>
+              </div>
+            </section>
+
+            <section>
+              <h2>Reading It Right to Left</h2>
+              <p>
+                <code>=</code> is <b class="text-sn-theme">not</b> the equals
+                sign from math class.
+              </p>
+              <p>
+                It does not say two things are the same. It says{" "}
+                <b>put this value in this name</b>, and the arrow only points
+                one way.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Is Why This Is Legal</h2>
+              <Code code={Reassign} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Is Why This Is Legal</h2>
+              <Code code={Reassign} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                In math, <code>score = score + 10</code> is nonsense. Here it
+                means: <b class="text-sn-theme">work out the right side, then
+                put the answer back in the name.</b>
+              </p>
+              <p class="text-body-secondary">
+                <code>score</code> is now 10. The second line does not need{" "}
+                <code>local</code> &mdash; the name already exists.
+              </p>
+            </section>
+
+            <section>
+              <h2>Names Can Do Arithmetic</h2>
+              <Code
+                code={`love.graphics.circle("fill", lightX, lightY + gap, radius)`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p>
+                The engine never sees <code>lightY + gap</code>. It gets the{" "}
+                <b class="text-sn-theme">answer</b> &mdash; one number, worked
+                out first.
+              </p>
+            </section>
+
+            <section>
+              <h2>Above the Box, Not Inside It</h2>
+              <Code code={Vars} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                These four lines go at the{" "}
+                <b class="text-sn-theme">top of the file</b>, above{" "}
+                <code>love.draw</code>.
+              </p>
+              <p class="text-body-secondary">
+                They run once, when the program starts. Everything in the box
+                runs 60 times a second.
+              </p>
+            </section>
+
+            <section>
+              <h2>Naming Things Is Not Decoration</h2>
+              <p>
+                <code>lightX</code> tells the next reader what 400 meant.{" "}
+                <code>x1</code> does not, and{" "}
+                <b class="text-sn-theme">the next reader is you in November.</b>
+              </p>
+              <p class="text-body-secondary">
+                On the Create Task you explain your own code from memory. Names
+                are most of how that goes.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Create a variable and give it a value</li>
+                <li>Use a variable where a number used to be</li>
+                <li>Change a picture by changing one line</li>
+                <li>Do arithmetic with a variable</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Variable</dt>
+                  <dd>A name that holds a value.</dd>
+                  <dt>local</dt>
+                  <dd>The word that makes a new variable in Lua.</dd>
+                  <dt>Assignment</dt>
+                  <dd>Putting a value into a variable, written with <code>=</code>.</dd>
+                  <dt>Reassignment</dt>
+                  <dd>Putting a different value into a variable that already exists.</dd>
+                  <dt>Hardcoded</dt>
+                  <dd>A raw number typed straight into the program.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: One Circle, Three Names</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename the copy{" "}
+            <CodeSnippet code="1-03-circle" lang="txt" inline />. Replace what
+            is inside <CodeSnippet code="love.draw" lang="lua" inline /> so the
+            file looks like this:
+          </p>
+
+          <Code code={OneCircle} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Run it. A white circle in the middle. Now change{" "}
+            <b class="text-sn-theme">one line</b> and run again:
+          </p>
+
+          <Code code={OneCircleMoved} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <p>
+            Then try changing <code>radius</code>, and then{" "}
+            <code>circleY</code>. Run after each one.
+          </p>
+
+          <div class="alert alert-info">
+            <b>The variables go above <CodeSnippet code="love.draw" lang="txt" inline />, not inside it.</b>{" "}
+            Keep <CodeSnippet code="love.keypressed" lang="txt" inline /> at the
+            bottom of the file, unchanged, so Escape still closes the window.
+          </div>
+
+          <h3 class="mt-4">Task 2: Name the Signal's Numbers</h3>
+
+          <p>
+            Copy your <CodeSnippet code="1-02-signal" lang="txt" inline /> folder
+            and rename the copy{" "}
+            <CodeSnippet code="1-03-signal" lang="txt" inline />. Add four
+            variables above <CodeSnippet code="love.draw" lang="lua" inline />:
+          </p>
+
+          <Code code={Vars} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Now replace the numbers inside the box with those names. The
+            rectangle needs arithmetic, because it is placed by its corner and
+            the lights are placed by their centers:
+          </p>
+
+          <Code code={Full} lang="lua" frame="code" title="main.lua" mark={{ range: "7-17" }} />
+
+          <p>
+            Run it.{" "}
+            <b class="text-sn-theme">The picture should look exactly like it did
+            last session.</b> Nothing changed on screen, and that is how you
+            know you did it right.
+          </p>
+
+          <h3 class="mt-4">Task 3: Move the Whole Thing</h3>
+
+          <p>Change two lines, and only those two:</p>
+
+          <Code code={Moved} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <Image
+            src={MovedImage}
+            alt="The traffic signal drawn in the upper left of the window instead of the middle"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            Four shapes moved, and you touched two numbers. Now set{" "}
+            <code>gap</code> to <code>80</code> and{" "}
+            <code>radius</code> to <code>25</code> and see what happens.
+          </p>
+
+          <p class="text-body-secondary">
+            Put <code>lightX</code> and <code>lightY</code> back to{" "}
+            <code>400</code> and <code>190</code> before you submit, or leave
+            the signal wherever you like it &mdash; but write down which you
+            chose.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>
+            Change one variable name in the red light's line so it no longer
+            matches the one at the top of the file &mdash; a lower case{" "}
+            <code>x</code> instead of a capital one:
+          </p>
+
+          <Code
+            code={Typo}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+            startLineNumber={10}
+            mark={{ range: "2" }}
+          />
+
+          <p>
+            The window turns blue and shows this. Press{" "}
+            <b class="text-sn-theme">Escape</b> to dismiss it:
+          </p>
+
+          <Code
+            code={TypoOut}
+            lang="txt"
+            frame="terminal"
+            title="Error"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>Lua did not say "there is no such variable."</b> It said the
+            circle got <code>nil</code> where it wanted a number. Write down what
+            you think <code>nil</code> means, then fix the spelling.
+          </p>
+
+          <p class="text-body-secondary">
+            A name you never made is not an error in Lua. It is a name holding
+            nothing, and you find out later, somewhere else.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): One Number, Whole Scene</h3>
+
+          <p>
+            Copy your <CodeSnippet code="1-02-scene" lang="txt" inline /> from
+            last session to{" "}
+            <CodeSnippet code="1-03-scene" lang="txt" inline /> and rebuild it
+            so that <b>one variable moves the entire drawing</b> and{" "}
+            <b>one more variable changes its size</b>. Every shape has to be
+            positioned from those two.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            The exam does not use Lua. It uses its own written notation, and you
+            get a booklet of it on exam day.{" "}
+            <b class="text-sn-theme">Assignment is the first thing on that
+            sheet.</b>
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <h4>An arrow instead of an equals sign</h4>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Make a variable</td>
+                  <td><code>local lightX = 400</code></td>
+                  <td><code>lightX &larr; 400</code></td>
+                </tr>
+                <tr>
+                  <td>Change it</td>
+                  <td><code>lightX = lightX + 50</code></td>
+                  <td><code>lightX &larr; lightX + 50</code></td>
+                </tr>
+                <tr>
+                  <td>Show it</td>
+                  <td><code>print(lightX)</code></td>
+                  <td><code>DISPLAY(lightX)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            There is no <code>local</code>. The arrow makes the variable the
+            first time you use it, and changes it every time after.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>On the exam, <code>=</code> means "is equal to".</b> It is a
+            question, not an instruction &mdash; the thing Lua writes as{" "}
+            <code>==</code>. Assignment is always the arrow, and comparison is
+            always <code>=</code>. They never overlap, so a line with an arrow
+            in it is always storing something.
+          </div>
+
+          <p class="text-body-secondary">
+            You will meet <code>=</code> as a comparison properly at session 8.
+            For now, notice that the exam kept them apart and Lua did not.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-03-circle" lang="txt" inline /> draws one
+              circle from three variables
+            </li>
+            <li>
+              <CodeSnippet code="1-03-signal" lang="txt" inline /> positions
+              every shape from a variable &mdash; the only raw numbers left in{" "}
+              <CodeSnippet code="love.draw" lang="lua" inline /> are colors, the
+              rectangle's width and height, and the two offsets
+            </li>
+            <li>Changing <code>lightX</code> alone moves all four shapes</li>
+            <li>Every variable is declared above the box, not inside it</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              In task 2 the picture looked identical before and after your
+              changes. Explain what you actually gained, given that a person
+              looking at the screen could not tell you had done anything.
+            </li>
+            <li>
+              <CodeSnippet code="score = score + 10" lang="lua" inline /> would
+              be false in math class. Explain what it means in a program, in
+              your own words, and say what <code>score</code> holds afterward if
+              it held 40 before.
+            </li>
+            <li>
+              You misspelled a variable name on purpose and the error message
+              talked about <code>nil</code> instead of about spelling. Say why
+              you think Lua reported it that way, and where the mistake actually
+              was.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
