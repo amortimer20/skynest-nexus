@@ -1,0 +1,491 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import HitImage from "../../../../assets/courses/ap-csp-lua/img/1-14-hit.png";
+import RunawayImage from "../../../../assets/courses/ap-csp-lua/img/1-14-runaway.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Vars = `local ballX = 100
+local ballY = 150
+local radius = 25
+local speedX = 260
+local speedY = 180
+
+local blockX = 480
+local blockY = 300
+local blockW = 120
+local blockH = 120
+local speed = 300
+
+local hits = 0
+local touching = false`;
+
+const Walls = `ballX = ballX + speedX * dt
+ballY = ballY + speedY * dt
+
+if ballX > 800 - radius and speedX > 0 then
+    speedX = -speedX
+end
+
+if ballX < radius and speedX < 0 then
+    speedX = -speedX
+end
+
+if ballY > 600 - radius and speedY > 0 then
+    speedY = -speedY
+end
+
+if ballY < radius and speedY < 0 then
+    speedY = -speedY
+end`;
+
+const Overlap = `local overlapping = ballX + radius > blockX
+    and ballX - radius < blockX + blockW
+    and ballY + radius > blockY
+    and ballY - radius < blockY + blockH`;
+
+const Naive = `if overlapping then
+    hits = hits + 1
+end`;
+
+const Guarded = `if overlapping and not touching then
+    hits = hits + 1
+end
+
+touching = overlapping`;
+
+const DrawIt = `function love.draw()
+    love.graphics.setColor(0.3, 0.7, 1)
+    love.graphics.rectangle("fill", blockX, blockY, blockW, blockH)
+
+    if touching then
+        love.graphics.setColor(0.9, 0.2, 0.2)
+    else
+        love.graphics.setColor(1, 1, 1)
+    end
+    love.graphics.circle("fill", ballX, ballY, radius)
+
+    love.graphics.setColor(0.8, 0.8, 0.8)
+    love.graphics.setFont(font)
+    love.graphics.print("Hits: " .. hits, 40, 40)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.14: Touching, and Remembering</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.14</h2>
+              <h3 class="text-sn-theme">Touching, and Remembering</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Overlap Is Four Comparisons</p>
+              <p>Counting Something Once</p>
+              <p>Remembering Last Frame</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={HitImage}
+                alt="A blue square with a red ball touching its left edge and the words Hits: 1 in the corner"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                A ball, a block you drive, and{" "}
+                <b class="text-sn-theme">a number that only goes up when it
+                should.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>How Does a Program Know Two Things Touch?</h2>
+              <p>It does not look at the picture.</p>
+              <p>
+                <b class="text-sn-theme">It compares numbers</b> &mdash; the
+                same coordinates it used to draw them.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Overlap, One Direction at a Time</h2>
+              <p>
+                Across: the ball's right edge is past the block's left edge{" "}
+                <b>and</b> its left edge is before the block's right edge.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Overlap, One Direction at a Time</h2>
+              <p>
+                Across: the ball's right edge is past the block's left edge{" "}
+                <b>and</b> its left edge is before the block's right edge.
+              </p>
+              <p>
+                Down: the same two questions with <code>y</code>.
+              </p>
+              <p class="text-sn-theme">
+                All four must be true. Any one false and they miss.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which Is One Condition</h2>
+              <Code code={Overlap} frame="code" lang="lua" showLineNumbers={false} />
+              <p class="text-body-secondary">
+                Four comparisons, three <code>and</code>s, broken across lines
+                so a person can read it. Lua does not care where the line ends.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now Count the Hits</h2>
+              <Code code={Naive} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now Count the Hits</h2>
+              <Code code={Naive} frame="code" lang="lua" showLineNumbers={false} />
+              <Image
+                src={RunawayImage}
+                alt="The same program showing Hits: 17 during a single touch"
+                width={380}
+                class="img-fluid rounded"
+              />
+              <p class="mt-2">
+                <b class="text-sn-theme">One touch. Seventeen hits.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Because It Is Asked Every Frame</h2>
+              <p>
+                The ball is overlapping for a few dozen frames &mdash;{" "}
+                <b class="text-sn-theme">anywhere from a fifth of a second to
+                two thirds</b>, depending on the angle &mdash; and the condition
+                is true in every one of them.
+              </p>
+              <p class="text-body-secondary">
+                The program is right. The question is wrong. You did not want{" "}
+                <i>is it touching</i> &mdash; you wanted <i>did it just start
+                touching</i>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>So Remember Last Frame</h2>
+              <Code code={Guarded} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>So Remember Last Frame</h2>
+              <Code code={Guarded} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Count only when it is touching now and{" "}
+                <b class="text-sn-theme">was not touching before.</b>
+              </p>
+              <p class="text-body-secondary">
+                The last line is the whole trick: after deciding, store today's
+                answer so the next frame can compare against it.
+              </p>
+            </section>
+
+            <section>
+              <h2>That Variable Is State</h2>
+              <p>
+                <code>touching</code> holds nothing you can see. It exists only
+                so the program can{" "}
+                <b class="text-sn-theme">compare now against then.</b>
+              </p>
+              <p class="text-body-secondary">
+                Every score, every life counter, every pause button in every
+                game is a variable like this one.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Test whether two rectangles overlap</li>
+                <li>Explain why the test needs all four comparisons</li>
+                <li>Count an event once instead of once per frame</li>
+                <li>Keep a variable whose only job is to remember</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Collision detection</dt>
+                  <dd>Working out whether two things overlap by comparing their coordinates.</dd>
+                  <dt>State</dt>
+                  <dd>A variable that records something the program needs to remember.</dd>
+                  <dt>Counter</dt>
+                  <dd>A variable that goes up when something happens.</dd>
+                  <dt>Edge</dt>
+                  <dd>The moment a condition changes from false to true.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: A Ball and a Block</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-14-hits" lang="txt" inline />. Start with the
+            variables:
+          </p>
+
+          <Code code={Vars} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            In <CodeSnippet code="love.update" lang="lua" inline />, bounce the
+            ball off all four walls &mdash; this is session 11's version, with
+            the direction check:
+          </p>
+
+          <Code code={Walls} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Then add the four arrow-key questions from last session so you can
+            drive the block, and clamp it to the window. Draw both shapes and
+            run it. <b class="text-sn-theme">Get this working before anything
+            notices anything.</b>
+          </p>
+
+          <h3 class="mt-4">Task 2: Do They Overlap?</h3>
+
+          <p>
+            At the bottom of <CodeSnippet code="love.update" lang="lua" inline />:
+          </p>
+
+          <Code code={Overlap} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Then draw the ball red when <code>overlapping</code> is true and
+            white when it is not. <b>Drive the block into the ball and check
+            that the color changes at exactly the right moment</b> on all four
+            sides.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Work out one of the four comparisons on paper before you trust
+            any of them.</b>{" "}
+            <CodeSnippet code="ballX + radius" lang="lua" inline /> is the
+            ball's right edge, and{" "}
+            <CodeSnippet code="blockX" lang="lua" inline /> is the block's left
+            edge. If the first is not past the second, they cannot be touching,
+            whatever the other three say.
+          </div>
+
+          <h3 class="mt-4">Task 3: Count the Hits, Badly</h3>
+
+          <p>Add a counter the obvious way:</p>
+
+          <Code code={Naive} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <p>
+            Draw <CodeSnippet code={`"Hits: " .. hits`} lang="lua" inline /> in
+            the corner and touch the ball <b>once</b>.
+          </p>
+
+          <Image
+            src={RunawayImage}
+            alt="The counter reading Hits: 17 during a single touch"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            <b class="text-sn-theme">Write down the number you get from a
+            single touch.</b> Then touch it again, more briefly, and write down
+            that number too. The two will not match, and neither of them is
+            one.
+          </p>
+
+          <h3 class="mt-4">Task 4: Count the Hits, Properly</h3>
+
+          <p>Change three lines:</p>
+
+          <Code code={Guarded} lang="lua" frame="code" title="main.lua" mark={{ range: "1,5" }} />
+
+          <p>
+            Now draw the ball red when <code>touching</code> is true instead of{" "}
+            <code>overlapping</code>:
+          </p>
+
+          <Code code={DrawIt} lang="lua" frame="code" title="main.lua" />
+
+          <Image
+            src={HitImage}
+            alt="The finished program: a red ball against the left edge of the blue block, counter reading Hits: 1"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            One touch, one hit. <b>Hold the ball against the block by chasing
+            it</b> and confirm the number does not climb while they stay in
+            contact.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>The order of those last two lines matters and nothing will tell
+            you if you get it wrong.</b>{" "}
+            <CodeSnippet code="touching = overlapping" lang="lua" inline /> has
+            to come <b>after</b> the <CodeSnippet code="if" lang="lua" inline />.
+            Put it first and <code>touching</code> is already up to date when
+            the <CodeSnippet code="if" lang="lua" inline /> asks, so the count
+            never moves at all.
+          </div>
+
+          <h3 class="mt-4">Task 5: Test It Honestly</h3>
+
+          <p>Four situations, and predict each before you try it:</p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>What you do</th>
+                  <th>Hits should go up by</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Touch once and move away</td><td></td></tr>
+                <tr><td>Hold contact for five seconds</td><td></td></tr>
+                <tr><td>Touch, move away, touch again</td><td></td></tr>
+                <tr><td>Sit still while the ball passes through you twice</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>
+            Swap the last two lines so{" "}
+            <CodeSnippet code="touching = overlapping" lang="lua" inline /> runs{" "}
+            <b>before</b> the <CodeSnippet code="if" lang="lua" inline />.
+          </p>
+
+          <p>
+            <b>The counter never moves.</b> No error, and the collision still
+            works &mdash; the ball still turns red. Explain on your sheet what{" "}
+            <code>touching</code> holds at the moment the{" "}
+            <CodeSnippet code="if" lang="lua" inline /> asks about it.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Something Happens on the Hit</h3>
+
+          <p>
+            Make the hit do more than count. Pick one:
+          </p>
+
+          <ul>
+            <li>The ball speeds up by 10% every time it is hit</li>
+            <li>The block shrinks by 5 pixels every hit, and the game ends when it is gone</li>
+            <li>Three hits and the ball changes color permanently</li>
+          </ul>
+
+          <p class="text-body-secondary">
+            All three need the guarded version. With the counting bug, the ball
+            would reach the speed of light in about a second.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-14-hits" lang="txt" inline /> has a bouncing
+              ball and a block you can drive
+            </li>
+            <li>The ball turns red exactly while the two overlap</li>
+            <li>One touch adds exactly one hit, however long it lasts</li>
+            <li>
+              You wrote down the number a single touch produced{" "}
+              <b>before</b> the fix
+            </li>
+            <li>All four test predictions are recorded</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              The overlap test needs all four comparisons joined by{" "}
+              <CodeSnippet code="and" lang="lua" inline />. Describe a position
+              where three of them are true, the fourth is false, and the shapes
+              are clearly not touching.
+            </li>
+            <li>
+              One touch counted as twenty-something hits, and nothing was
+              broken. Explain the difference between the question the code asked
+              and the question you meant to ask.
+            </li>
+            <li>
+              <CodeSnippet code="touching" lang="lua" inline /> is never drawn
+              and holds nothing a player could see. Explain what job it does,
+              and describe one thing in a game you have played that must work
+              the same way.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

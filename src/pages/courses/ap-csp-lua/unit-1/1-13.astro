@@ -1,0 +1,455 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import PlayerImage from "../../../../assets/courses/ap-csp-lua/img/1-13-player.png";
+import MouseImage from "../../../../assets/courses/ap-csp-lua/img/1-13-mouse.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Ask = `if love.keyboard.isDown("right") then
+    x = x + speed * dt
+end`;
+
+const FourKeys = `function love.update(dt)
+    if love.keyboard.isDown("right") then
+        x = x + speed * dt
+    end
+
+    if love.keyboard.isDown("left") then
+        x = x - speed * dt
+    end
+
+    if love.keyboard.isDown("up") then
+        y = y - speed * dt
+    end
+
+    if love.keyboard.isDown("down") then
+        y = y + speed * dt
+    end
+end`;
+
+const Clamp = `if x < 0 then
+    x = 0
+end
+
+if x > 800 - size then
+    x = 800 - size
+end`;
+
+const Pressed = `function love.keypressed(key)
+    if key == "space" then
+        big = not big
+    end
+
+    if key == "escape" then
+        love.event.quit()
+    end
+end`;
+
+const MouseDraw = `function love.draw()
+    local mx, my = love.mouse.getPosition()
+
+    love.graphics.setColor(0.3, 0.7, 1)
+    love.graphics.circle("line", mx, my, 26)
+
+    love.graphics.print("Mouse at " .. mx .. ", " .. my, 40, 40)
+end`;
+
+const MousePressed = `function love.mousepressed(mx, my, button)
+    markerX = mx
+    markerY = my
+end`;
+
+const BadMove = `function love.keypressed(key)
+    if key == "right" then
+        x = x + 10
+    end
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.13: Taking Control</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.13</h2>
+              <h3 class="text-sn-theme">Taking Control</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Asking Whether a Key Is Held</p>
+              <p>Being Told a Key Was Pressed</p>
+              <p>Where the Mouse Is</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={PlayerImage}
+                alt="A blue square in the upper right of a black window with the words Arrow keys to move in the corner"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Something that moves{" "}
+                <b class="text-sn-theme">because you moved it.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Everything So Far Ran on Its Own</h2>
+              <p>
+                Twelve sessions of programs that do the same thing every time
+                you press Run.
+              </p>
+              <p class="text-sn-theme">Today the program has a person in it.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Way One: Ask</h2>
+              <Code code={Ask} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Way One: Ask</h2>
+              <Code code={Ask} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>love.keyboard.isDown</code> is a{" "}
+                <b class="text-sn-theme">question</b>, and it produces{" "}
+                <code>true</code> or <code>false</code> &mdash; so it goes
+                straight into an <code>if</code>.
+              </p>
+              <p class="text-body-secondary">
+                Asked in <code>love.update</code>, that is sixty times a second.
+                Hold the key and it moves smoothly.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Way Two: Be Told</h2>
+              <Code code={Pressed} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Way Two: Be Told</h2>
+              <Code code={Pressed} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">You do not call this. The engine calls
+                it</b>, once, at the moment a key goes down.
+              </p>
+              <p class="text-body-secondary">
+                Same arrangement as <code>love.draw</code> and{" "}
+                <code>love.update</code>. It has been in your template since
+                session 2.
+              </p>
+            </section>
+
+            <section>
+              <h2>They Are Not Interchangeable</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>isDown, in love.update</dt>
+                  <dd>For things that happen <b>while</b> a key is held. Moving.</dd>
+                  <dt>love.keypressed</dt>
+                  <dd>For things that happen <b>once</b>, at the moment of pressing. Jumping, pausing, firing.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                Use the wrong one and the program still runs. It just feels
+                broken.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Mouse Answers Two Questions</h2>
+              <Code
+                code={`local mx, my = love.mouse.getPosition()`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p>
+                One call, <b class="text-sn-theme">two answers</b>, two names on
+                the left separated by a comma.
+              </p>
+              <p class="text-body-secondary">
+                First time you have seen that. It is the same idea as one
+                question having an x and a y.
+              </p>
+            </section>
+
+            <section>
+              <h2>And Clicks Are Told, Not Asked</h2>
+              <Code code={MousePressed} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                The engine hands you{" "}
+                <b class="text-sn-theme">where the click happened</b>, in the
+                same coordinates you have been drawing in since session 2.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Move a shape with the arrow keys</li>
+                <li>Keep it inside the window</li>
+                <li>Respond to a single key press</li>
+                <li>Use the mouse position and mouse clicks</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>love.keyboard.isDown</dt>
+                  <dd>Asks whether a key is held right now. Produces a boolean.</dd>
+                  <dt>love.keypressed</dt>
+                  <dd>Called by the engine once, when a key goes down.</dd>
+                  <dt>Clamping</dt>
+                  <dd>Forcing a value back inside a range when it goes past.</dd>
+                  <dt>love.mousepressed</dt>
+                  <dd>Called by the engine when a mouse button goes down, with the position.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Move With the Arrow Keys</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-13-control" lang="txt" inline />. Give it{" "}
+            <code>x</code>, <code>y</code>, <code>size</code> and{" "}
+            <code>speed</code> at the top, draw a square, and add four
+            questions:
+          </p>
+
+          <Code code={FourKeys} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Run it and move around.{" "}
+            <b class="text-sn-theme">Hold two keys at once</b> and write down
+            what happens &mdash; nothing in the code says diagonal.
+          </p>
+
+          <p class="text-body-secondary">
+            Remember that <code>up</code> subtracts from <code>y</code>. That is
+            session 2's coordinate system, and it will feel wrong for about
+            thirty seconds.
+          </p>
+
+          <h3 class="mt-4">Task 2: Keep It on the Screen</h3>
+
+          <p>
+            Right now the square leaves and does not come back. This is not a
+            bounce &mdash; you do not want it to turn around, you want it to{" "}
+            <b>stop</b>:
+          </p>
+
+          <Code code={Clamp} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Add the same two for <code>y</code>, using <code>600</code>. Run it
+            and push into every wall.
+          </p>
+
+          <div class="alert alert-info">
+            <b>This is a different answer to a similar question.</b> In session
+            9 the wall reversed the speed. Here the wall{" "}
+            <b class="text-sn-theme">overwrites the position</b>. Same kind of{" "}
+            <CodeSnippet code="if" lang="lua" inline />, completely different
+            behavior.
+          </div>
+
+          <h3 class="mt-4">Task 3: Press, Do Not Hold</h3>
+
+          <p>
+            Add a variable <CodeSnippet code="local big = false" lang="lua" inline />{" "}
+            at the top, and make the square draw at{" "}
+            <code>size</code> or <code>size * 2</code> depending on it.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>Your file already has a{" "}
+            <CodeSnippet code="love.keypressed" lang="txt" inline />.</b> It came
+            with the template and it is what Escape uses. <b class="text-sn-theme">Add
+            the space branch to the one that is there</b> &mdash; do not write a
+            second copy. Two functions with the same name is not an error in Lua;
+            the second one silently replaces the first, and Escape stops working.
+          </div>
+
+          <Code code={Pressed} lang="lua" frame="code" title="main.lua" mark={{ range: "2-4" }} />
+
+          <p>
+            Press space. <b class="text-sn-theme">Hold space.</b> It toggles
+            once, no matter how long you hold it, because the engine only calls
+            this at the moment the key goes down.
+          </p>
+
+          <p class="text-body-secondary">
+            <CodeSnippet code="big = not big" lang="lua" inline /> is last
+            session's <code>not</code> doing something useful: whatever it was,
+            make it the other one.
+          </p>
+
+          <h3 class="mt-4">Task 4: The Mouse</h3>
+
+          <p>
+            Copy the template again to{" "}
+            <CodeSnippet code="1-13-mouse" lang="txt" inline />. Draw a ring
+            wherever the mouse is:
+          </p>
+
+          <Code code={MouseDraw} lang="lua" frame="code" title="main.lua" />
+
+          <p>Then drop a marker where you click:</p>
+
+          <Code code={MousePressed} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Add <code>markerX</code> and <code>markerY</code> at the top, start
+            them off screen at <code>-100</code>, and draw a filled circle
+            there.
+          </p>
+
+          <Image
+            src={MouseImage}
+            alt="A black window with a blue ring following the mouse, a red marker where a click happened, and the mouse coordinates printed in the corner"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p class="text-body-secondary">
+            Starting the marker at <code>-100</code> is a small trick worth
+            knowing: it exists, it is drawn every frame, and nobody can see it
+            until you move it.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>
+            Go back to <CodeSnippet code="1-13-control" lang="txt" inline /> and
+            move one of the four movement questions into{" "}
+            <CodeSnippet code="love.keypressed" lang="lua" inline /> instead:
+          </p>
+
+          <Code code={BadMove} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <p>
+            <b>Hold the right arrow down.</b> Compare it with holding the left
+            arrow, which still uses <code>isDown</code>. Write down exactly what
+            the difference feels like, and which one you would want for a game.
+          </p>
+
+          <p class="text-body-secondary">
+            No error. Both versions are correct Lua and both do what they say.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Follow the Mouse</h3>
+
+          <p>
+            Make the square from{" "}
+            <CodeSnippet code="1-13-control" lang="txt" inline /> chase the
+            mouse instead of using the keyboard &mdash; each frame, move it a
+            little toward wherever the pointer is.
+          </p>
+
+          <p class="text-body-secondary">
+            Two decisions across, two down. If the square is left of the mouse,
+            move right; if it is right of it, move left. Watch what happens when
+            it arrives.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-13-control" lang="txt" inline /> moves in
+              four directions and cannot leave the window
+            </li>
+            <li>Space toggles the size once per press, not repeatedly</li>
+            <li>
+              <CodeSnippet code="1-13-mouse" lang="txt" inline /> tracks the
+              pointer and drops a marker where you click
+            </li>
+            <li>
+              You can say which of the two keyboard methods is for holding and
+              which is for pressing
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Nothing in your program says the word "diagonal", but holding two
+              arrow keys moves the square diagonally. Explain how that happens.
+            </li>
+            <li>
+              Session 9's wall reversed a speed and today's wall overwrote a
+              position. Describe a situation where you would want each one, and
+              say what today's program would look like if you had used a bounce
+              instead.
+            </li>
+            <li>
+              You never wrote a line that calls{" "}
+              <CodeSnippet code="love.keypressed" lang="lua" inline />, and it
+              ran anyway. Name two other things in your program that work the
+              same way, and say what they all have in common.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
