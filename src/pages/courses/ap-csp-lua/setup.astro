@@ -1,0 +1,436 @@
+---
+import Divider from "../../../components/ui/Divider.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const FirstProgram = `io.write("What is your name? ")
+local name = io.read()
+print("Nice to meet you " .. name)`;
+
+const FirstProgramOut = `What is your name? Ada[Enter]
+Nice to meet you Ada`;
+
+const GameProgram = `function love.draw()
+    love.graphics.print('Hello World!', 400, 300)
+end
+
+function love.keypressed(key)
+    if key == "escape" then
+        love.event.quit()
+    end
+end`;
+
+const RuntimeErrorCode = `local scores = {90, 85, 78}
+print("Third score: " .. scores[3])
+print("Fourth score: " .. scores[4])`;
+
+const RuntimeErrorOut = `Third score: 78
+
+Error: main.lua:3: attempt to concatenate a nil value
+
+  main.lua:3: in main chunk`;
+
+const SyntaxErrorCode = `local x = 5
+if x > 3 then
+    print("big")`;
+
+const SyntaxErrorOut = `Error: Syntax error: main.lua:4: 'end' expected (to close 'if' at line 2) near '<eof>'`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Setting Up Your Workspace</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="what-you-need">
+          <h2>What You Need</h2>
+
+          <p>
+            Two things: <b class="text-sn-theme">VS Code</b> and{" "}
+            <b class="text-sn-theme">LÖVE</b>. On a lab computer both are
+            already installed and you can skip straight to the next section.
+          </p>
+
+          <p>
+            LÖVE is doing two jobs at once. It runs your Lua code, and it is
+            also the drawing library this course uses. <b>That is why there is
+            nothing else to install</b> &mdash; no separate Lua, no package
+            manager, and nothing in this course needs an internet connection
+            once you have the workspace folder.
+          </p>
+
+          <p class="text-secondary">
+            Working on your own computer? Install VS Code from{" "}
+            <a href="https://code.visualstudio.com/" target="_blank"
+              >code.visualstudio.com</a
+            > and LÖVE from <a href="https://love2d.org/" target="_blank"
+              >love2d.org</a
+            >. Get <b>LÖVE 11.5</b> if you are offered a choice &mdash; error
+            messages change wording between versions, and that is the one this
+            course is written against. On a Mac, install it by running{" "}
+            <CodeSnippet code="brew install --cask love" lang="txt" inline />{" "}
+            if you can, because that puts LÖVE somewhere the Run button can
+            find it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="get-the-workspace">
+          <h2>Get the Workspace</h2>
+
+          <ol>
+            <li class="mb-2">
+              <b>Download it.</b>{" "}
+              <a href="/workspaces/lua-workspace.zip" class="text-sn-theme"
+                >lua-workspace.zip</a
+              >
+            </li>
+            <li class="mb-2">
+              <b>Unzip it.</b> Right-click the file and choose <i
+                >Extract All</i
+              >. You want the folder somewhere you can find again &mdash; your
+              Documents folder is fine, your Downloads folder is not.
+            </li>
+            <li class="mb-2">
+              <b>Open the folder in VS Code.</b> <i>File &gt; Open Folder</i>,
+              then pick the{" "}
+              <CodeSnippet code="lua-workspace" lang="txt" inline /> folder
+              itself. Not the folder above it, and not a file inside it.
+            </li>
+            <li class="mb-2">
+              <b>Say yes to the extensions.</b> VS Code will offer to install
+              three recommended extensions. Click <i>Install</i>.{" "}
+              <b class="text-sn-theme">The Run button does not exist until you
+              do</b>, and the offer only appears once.
+            </li>
+          </ol>
+
+          <p class="text-secondary">
+            If you missed the extension prompt, open the Extensions panel and
+            type <CodeSnippet code="@recommended" lang="txt" inline /> in its
+            search box. The same three will be listed.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="first-program">
+          <h2>Your First Program</h2>
+
+          <p>
+            Inside the workspace there are two folders whose names start with{" "}
+            <CodeSnippet code="template-" lang="txt" inline />. You never work
+            in them. <b class="text-sn-theme">You copy one</b>, rename the copy,
+            and work in that. Every activity in this course starts the same way.
+          </p>
+
+          <ol>
+            <li class="mb-2">
+              Right-click <CodeSnippet code="template-console" lang="txt" inline />{" "}
+              and choose <i>Copy</i>, then <i>Paste</i>. You get a second folder.
+            </li>
+            <li class="mb-2">
+              Rename it to <CodeSnippet code="1-01-first-run" lang="txt" inline />.
+            </li>
+            <li class="mb-2">
+              Open <CodeSnippet code="main.lua" lang="txt" inline /> inside it.
+              It already contains this:
+            </li>
+          </ol>
+
+          <Code code={FirstProgram} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Press the <b class="text-sn-theme">Run</b> button &mdash; the ▷ at
+            the top right. A terminal panel opens at the bottom, asks for your
+            name, and waits. Type it and press Enter:
+          </p>
+
+          <Code
+            code={FirstProgramOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+          />
+
+          <p>
+            That is the whole loop for this course: copy a template, write, press
+            Run, read what came out.
+          </p>
+
+          <div class="alert alert-warning mt-3">
+            <b>Do not edit <CodeSnippet code="conf.lua" lang="txt" inline />.</b>{" "}
+            It is the other file in the folder, and it is what makes the Run
+            button behave properly &mdash; it decides whether a window opens and
+            makes sure your output appears the moment it is printed. Everything
+            you write goes in{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline />.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="two-templates">
+          <h2>Two Templates, and They Are Not Interchangeable</h2>
+
+          <p>
+            <b class="text-sn-theme">template-console</b> &mdash; a program that
+            prints text and reads what you type. No window opens.{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline /> is ordinary Lua: it
+            runs from the top of the file to the bottom and then the program ends.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">template-game</b> &mdash; a program that
+            opens a window and draws in it. Here{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline /> is a set of
+            functions that LÖVE calls for you, over and over, many times a
+            second:
+          </p>
+
+          <Code code={GameProgram} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            <b>You did not write the code that calls those.</b> LÖVE calls{" "}
+            <CodeSnippet code="love.draw" lang="lua" inline /> every frame, and{" "}
+            <CodeSnippet code="love.keypressed" lang="lua" inline /> whenever a
+            key goes down. Think of them as boxes the engine opens: you decide
+            what goes inside, and something else decides when to look. We come
+            back to what <CodeSnippet code="function" lang="lua" inline /> really
+            means later in the quarter, and by then you will have been writing
+            them for weeks.
+          </p>
+
+          <div class="alert alert-info">
+            <b>An activity either draws or reads typed input. Never both.</b>{" "}
+            The activity page always tells you which template to copy. Reading
+            input while a window is open makes the window sit there doing nothing
+            &mdash; which looks broken and is not.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="how-run-works">
+          <h2>What the Run Button Actually Runs</h2>
+
+          <p>
+            <b class="text-sn-theme">Run runs the folder, not the file.</b> It
+            looks at whichever file you have open, finds the folder that file is
+            sitting in, and runs the{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline /> there.
+          </p>
+
+          <p>
+            Most of the time this is exactly what you want: you can have any file
+            in the activity folder open, press Run, and the activity runs. Two
+            rules keep it that way.
+          </p>
+
+          <ul>
+            <li class="mb-2">
+              <b>One activity per folder</b>, each with its own{" "}
+              <CodeSnippet code="main.lua" lang="txt" inline /> and{" "}
+              <CodeSnippet code="conf.lua" lang="txt" inline />. That is what
+              copying a template gives you.
+            </li>
+            <li class="mb-2">
+              <b>No folders inside an activity folder.</b> Open a file one level
+              down and Run points at the wrong place.
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="where-work-goes">
+          <h2>Where Your Work Goes</h2>
+
+          <p>
+            One folder per activity, sitting next to the two templates, named the
+            way the activity page tells you. Nothing else to organize.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Keep everything you write.</b> In May, the Create Performance Task
+            asks you to write about a program you built &mdash; from memory,
+            without the code in front of you. The work you keep now is what you
+            will have to draw on then.{" "}
+            <b class="text-sn-theme">Never edit an old activity to make a new
+            one.</b> Copy a template instead. That is the entire reason the
+            templates exist.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="reading-errors">
+          <h2>Reading an Error</h2>
+
+          <p>
+            <b class="text-sn-theme">Read the message before you change
+            anything.</b> Where the message appears depends on which template
+            you copied, so that is the first thing to notice.
+          </p>
+
+          <h3 class="mt-4">It started, then stopped</h3>
+
+          <p>A console program that asks for something that is not there:</p>
+
+          <Code
+            code={RuntimeErrorCode}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+          <Code
+            code={RuntimeErrorOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>Notice that the first line printed.</b> The program ran, got to
+            line 3, and stopped there. A list with three things in it has no
+            third-and-then-some &mdash; there is no{" "}
+            <CodeSnippet code="scores[4]" lang="lua" inline />, so there was
+            nothing to join onto the text.
+          </p>
+
+          <h3 class="mt-4">Nothing runs at all</h3>
+
+          <p>A missing <CodeSnippet code="end" lang="lua" inline />:</p>
+
+          <Code
+            code={SyntaxErrorCode}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+            showLineNumbers={false}
+          />
+          <Code
+            code={SyntaxErrorOut}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <b>Nothing printed</b>, because the program never started. Read this
+            one carefully &mdash; it names <i>two</i> lines. Line 4 is where Lua
+            gave up looking, and line 2 is where the thing it was looking for
+            should have been closed. <b class="text-sn-theme">The mistake is
+            almost always at the second number, not the first.</b>
+          </p>
+
+          <h3 class="mt-4">A blue screen instead of your game</h3>
+
+          <p>
+            When a program that draws hits an error, LÖVE takes over the window
+            and fills it with a blue screen showing what went wrong and the line
+            it happened on. Read it, close the window, fix the line, run it
+            again.
+          </p>
+
+          <p class="text-secondary">
+            <b>The tell is whether anything happened first.</b> Output and then a
+            stop means the program ran and hit something part way through.
+            Nothing at all means it never got started, and that is nearly always
+            a missing <CodeSnippet code="end" lang="lua" inline /> or an unclosed
+            quote.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="troubleshooting">
+          <h2>If Something Goes Wrong</h2>
+
+          <dl>
+            <dt class="text-sn-theme mt-3">
+              The window is black and nothing is happening
+            </dt>
+            <dd>
+              <b>Your program is waiting for you to type something.</b> Click the
+              terminal panel at the bottom and look &mdash; there is a prompt
+              sitting there. This is the single most common thing that looks like
+              a crash and is not, and it happens when a program both draws and
+              reads input, which is why the activities never ask you to do both.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">The Run button is not there</dt>
+            <dd>
+              The Code Runner extension did not install. Open the Extensions
+              panel, search{" "}
+              <CodeSnippet code="@recommended" lang="txt" inline />, and install
+              all three.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">
+              Something about <CodeSnippet code="lovec" lang="txt" inline /> not
+              being recognized
+            </dt>
+            <dd>
+              LÖVE is not installed, or the Run button cannot find it. On your
+              own computer this is the most likely thing to go wrong, and it is a
+              setup problem rather than a problem with your code. Tell me and
+              bring the exact message.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">
+              Run does nothing, or runs the wrong activity
+            </dt>
+            <dd>
+              Check which file you have open. Run uses the folder that file is
+              in, so an open file from a different activity runs{" "}
+              <i>that</i> activity. If you put a folder inside your activity
+              folder, take it back out.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">
+              I opened VS Code and everything looks plain
+            </dt>
+            <dd>
+              You opened the wrong folder. VS Code has to be opened at{" "}
+              <CodeSnippet code="lua-workspace" lang="txt" inline /> itself, not
+              at the folder containing it, or the settings that make any of this
+              work are not loaded. Close it and reopen with{" "}
+              <i>File &gt; Open Folder</i>.
+            </dd>
+
+            <dt class="text-sn-theme mt-3">Something else</dt>
+            <dd>
+              Tell me, and say what you pressed and what appeared. A setup
+              problem is not something you should spend the period on.
+            </dd>
+          </dl>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Ready to Start
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
