@@ -1,0 +1,527 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/1-18-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Figure1 = `local x1 = 150
+local x2 = 400
+local x3 = 650`;
+
+const Figure2 = `local xs = {150, 400, 650}`;
+
+const Figure3 = `local crew = {"Ada", "Bo", "Cy"}
+
+print(crew[1])
+print(crew[2])
+print(crew[3])`;
+
+const Figure4 = `Ada
+Bo
+Cy`;
+
+const Figure5 = `local crew = {"Ada", "Bo", "Cy"}
+
+print(crew[0])`;
+
+const Figure6 = `nil`;
+
+const Figure7 = `local xs = {150, 400, 650}
+
+xs[2] = 500
+
+print(xs[2])`;
+
+const Figure8 = `500`;
+
+const NotationLua = `local xs = {150, 400, 650}
+local first = xs[1]
+xs[2] = 500
+print(xs[1])`;
+
+const NotationPseudo = `xs ← [150, 400, 650]
+first ← xs[1]
+xs[2] ← 500
+DISPLAY(xs[1])`;
+
+const Task1 = `local xs = {150, 400, 650}
+
+function love.draw()
+    love.graphics.setBackgroundColor(0.11, 0.11, 0.15)
+    love.graphics.setColor(0.28, 0.72, 0.95)
+    love.graphics.circle("fill", xs[1], 300, 40)
+    love.graphics.circle("fill", xs[2], 300, 40)
+    love.graphics.circle("fill", xs[3], 300, 40)
+end`;
+
+const Task2 = `local xs = {150, 400, 650}
+
+xs[2] = 500
+
+function love.draw()
+    love.graphics.setBackgroundColor(0.11, 0.11, 0.15)
+    love.graphics.setColor(0.28, 0.72, 0.95)
+    love.graphics.circle("fill", xs[1], 300, 40)
+    love.graphics.circle("fill", xs[2], 300, 40)
+    love.graphics.circle("fill", xs[3], 300, 40)
+end`;
+
+const Task3 = `local xs = {150, 400, 650}
+
+print("xs[1] is " .. tostring(xs[1]))
+print("xs[0] is " .. tostring(xs[0]))`;
+
+const Task3Out = `xs[1] is 150
+xs[0] is nil`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.18: Tables as Lists</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Target -->
+        <section id="target">
+          <h2>What You Are Building</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="An 800 by 600 dark window with three light blue filled circles in a horizontal row, evenly spaced across the middle"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            Three circles, and <b class="text-sn-theme">not three variables.</b>{" "}
+            One name holds all three positions, and each circle asks that name
+            for the position it wants.
+          </p>
+
+          <p class="text-body-secondary">
+            <b>Copy <CodeSnippet code="template-game" lang="txt" inline />.</b>{" "}
+            This activity draws, so it needs a window.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.18</h2>
+              <h3 class="text-sn-theme">Tables as Lists</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Many Values, One Name</p>
+              <p>Counting From One</p>
+              <p>The Exam Agrees</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>This Does Not Scale</h2>
+              <Code
+                code={Figure1}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p class="mt-3">
+                Three circles, three variables. Thirty circles?
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Table</h2>
+              <Code
+                code={Figure2}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p class="mt-3">
+                One name. Three values. The braces are what make it a{" "}
+                <b class="text-sn-theme">table</b>.
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Counting From One</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Counting From One</h2>
+              <Code
+                code={Figure3}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <Code
+                code={Figure4}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>So What Is at Zero?</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>So What Is at Zero?</h2>
+              <Code
+                code={Figure5}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <Code
+                code={Figure6}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+              />
+              <p class="mt-3">
+                Nothing is there. <b class="text-sn-theme">The list starts at
+                one.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate data-auto-animate-restart>
+              <h2>Changing an Element</h2>
+              <Code
+                code={Figure7}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Changing an Element</h2>
+              <Code
+                code={Figure7}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <Code
+                code={Figure8}
+                frame="terminal"
+                lang="txt"
+                showLineNumbers={false}
+              />
+              <p class="mt-3">
+                One slot changed. The other two are untouched.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Exam Agrees</h2>
+              <p>
+                The exam's notation counts from <b class="text-sn-theme">one</b>{" "}
+                as well.
+              </p>
+              <p>
+                <code>xs[1]</code> is the first element in both.
+              </p>
+              <p class="text-body-secondary">
+                Most languages count from zero. This is the one place where what
+                you type and what the exam prints are the same thing.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Make a table that holds several values</li>
+                <li>Read one element out of it by index</li>
+                <li>Change one element without touching the others</li>
+                <li>Say why the first element is at index 1</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <ul>
+                <li><b class="text-sn-theme">table</b> &mdash; one name holding many values</li>
+                <li><b class="text-sn-theme">element</b> &mdash; one of the values in it</li>
+                <li><b class="text-sn-theme">index</b> &mdash; the number that picks an element</li>
+                <li><b class="text-sn-theme">one-indexed</b> &mdash; counting starts at 1</li>
+              </ul>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline />, rename
+            the copy to <CodeSnippet code="1-18-tables" lang="txt" inline />, and
+            work in its <CodeSnippet code="main.lua" lang="txt" inline />.
+          </p>
+
+          <h3>Task 1: Three Circles, One Table</h3>
+
+          <p>
+            Type this and run it. You should get the picture at the top of the
+            page.
+          </p>
+
+          <Code code={Task1} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            <b>Read the three circle lines out loud before you run it.</b> Each
+            one asks <CodeSnippet code="xs" lang="lua" inline /> for a different
+            position, and the only thing that changes between them is the number
+            in the brackets.
+          </p>
+
+          <h3 class="mt-4">Task 2: Move the Middle One</h3>
+
+          <p>
+            Add one line, above <CodeSnippet code="love.draw" lang="lua" inline />:
+          </p>
+
+          <Code code={Task2} lang="lua" frame="code" title="main.lua" mark={[3]} />
+
+          <p>
+            Run it. <b class="text-sn-theme">The middle circle moves and the
+            other two do not.</b> You did not touch the lines that draw them, and
+            you did not touch the other two values &mdash; you changed one slot
+            in the table, and the circle that reads that slot moved with it.
+          </p>
+
+          <h3 class="mt-4">Task 3: Look at Index Zero</h3>
+
+          <p>
+            <b>Predict first, on your sheet.</b> Then add these two lines to the
+            top of your file and run it.
+          </p>
+
+          <Code code={Task3} lang="lua" frame="code" title="main.lua" />
+
+          <Code
+            code={Task3Out}
+            lang="txt"
+            frame="terminal"
+            title="Terminal"
+            showLineNumbers={false}
+            class="mt-2"
+          />
+
+          <p>
+            <CodeSnippet code="nil" lang="lua" inline /> is Lua's word for{" "}
+            <i>nothing is here</i>. There is no element at index 0, because the
+            first one is at index 1.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Notice what did not happen: the program did not crash.</b> It
+            printed <CodeSnippet code="nil" lang="lua" inline /> and carried
+            straight on. Hold that thought &mdash; it is the whole subject of the
+            next activity, and it is more dangerous than it looks.
+          </div>
+
+          <h3 class="mt-4">Challenge (Optional): A Fourth Circle</h3>
+
+          <p>
+            Add a fourth position to the table and a fourth circle to the screen.
+            Count how many separate places in the file you had to edit to do it.
+          </p>
+
+          <p class="text-body-secondary">
+            Write that number on your sheet. Two activities from now you will do
+            the same thing by editing exactly one place.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            <b class="text-sn-theme">Read this panel twice, because it is good
+            news and you will not get much of it.</b>
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <h4>The indexes are identical</h4>
+
+          <p>
+            <code>xs[1]</code> is the first element on the left and the first
+            element on the right. Not the second. Not off by one.{" "}
+            <b class="text-sn-theme">The same.</b>
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>First element of <code>xs</code></td>
+                  <td><code>xs[1]</code></td>
+                  <td><code>xs[1]</code></td>
+                </tr>
+                <tr>
+                  <td>Change the second element</td>
+                  <td><code>xs[2] = 500</code></td>
+                  <td><code>xs[2] ← 500</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>What is different is only how it is written</h4>
+
+          <ul>
+            <li>
+              The exam writes assignment as <code>←</code>, not{" "}
+              <code>=</code>.
+            </li>
+            <li>
+              The exam builds a list with square brackets, and Lua builds a table
+              with braces.
+            </li>
+            <li>
+              The exam displays a value with <code>DISPLAY(xs[1])</code>, and Lua
+              prints it with <code>print(xs[1])</code>.
+            </li>
+          </ul>
+
+          <p>
+            <b>None of those change an answer.</b> They are spelling. The index
+            is the part that changes answers, and the index agrees.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>One real difference is coming, and it is not this one.</b> On the
+            exam, assigning one list to another makes a <b>copy</b>. In Lua it
+            does not. That is the next activity, and it is the sharpest question
+            in the quarter.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Three circles on screen, matching the picture at the top</li>
+            <li>The middle circle moved by changing one element, not by editing a circle line</li>
+            <li>
+              <CodeSnippet code="xs[0]" lang="lua" inline /> printed and its
+              result written on your sheet
+            </li>
+            <li>Your prediction written down <i>before</i> you ran Task 3</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              A table with three values has a last index of 3. Say what the last
+              index of a table with a hundred values is, and explain the rule in
+              a sentence.
+            </li>
+            <li>
+              You asked for <code>xs[0]</code> and got{" "}
+              <code>nil</code> instead of an error message. What does that tell
+              you about where the list actually begins?
+            </li>
+            <li>
+              Someone who learned JavaScript or Python first would expect{" "}
+              <code>xs[0]</code> to be the first element. Describe a question on
+              the exam they could get wrong because of that habit.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
