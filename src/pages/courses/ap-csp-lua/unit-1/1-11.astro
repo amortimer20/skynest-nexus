@@ -1,0 +1,542 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import AndTrueImage from "../../../../assets/courses/ap-csp-lua/img/1-11-and-true.png";
+import AndFalseImage from "../../../../assets/courses/ap-csp-lua/img/1-11-and-false.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Basics = `print(true and false)
+print(true or false)
+print(not true)`;
+
+const BasicsOut = `false
+true
+false`;
+
+const Real = `print(5 > 3 and 2 > 1)
+print(5 > 3 or 2 > 9)
+print(not (5 > 3))`;
+
+const RealOut = `true
+true
+false`;
+
+const Stuck = `if x > 800 - radius then
+    speedX = -speedX
+end`;
+
+const Fixed = `if x > 800 - radius and speedX > 0 then
+    speedX = -speedX
+end`;
+
+const FixedBoth = `function love.update(dt)
+    x = x + speedX * dt
+
+    if x > 800 - radius and speedX > 0 then
+        speedX = -speedX
+    end
+
+    if x < radius and speedX < 0 then
+        speedX = -speedX
+    end
+end`;
+
+const Readout = `function love.draw()
+    if x > 400 and speedX > 0 then
+        love.graphics.setColor(0.2, 0.8, 0.3)
+    else
+        love.graphics.setColor(0.6, 0.6, 0.6)
+    end
+    love.graphics.circle("fill", x, y, radius)
+
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.setFont(font)
+    love.graphics.print("x > 400              " .. tostring(x > 400), 40, 340)
+    love.graphics.print("speedX > 0           " .. tostring(speedX > 0), 40, 380)
+    love.graphics.print("both (and)           " .. tostring(x > 400 and speedX > 0), 40, 430)
+    love.graphics.print("either (or)          " .. tostring(x > 400 or speedX > 0), 40, 470)
+    love.graphics.print("not past middle      " .. tostring(not (x > 400)), 40, 510)
+end`;
+
+const AndOrSwap = `if x > 400 or speedX > 0 then`;
+
+const NotationLua = `if lives > 0 and score >= 100 then
+    print("Next level")
+end
+
+if lives == 0 or timeLeft == 0 then
+    print("Game over")
+end
+
+if not paused then
+    print("Running")
+end`;
+
+const NotationPseudo = `IF(lives > 0 AND score ≥ 100)
+{
+  DISPLAY("Next level")
+}
+
+IF(lives = 0 OR timeLeft = 0)
+{
+  DISPLAY("Game over")
+}
+
+IF(NOT paused)
+{
+  DISPLAY("Running")
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.11: Asking Two Things at Once</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.11</h2>
+              <h3 class="text-sn-theme">Asking Two Things at Once</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>and, or, not</p>
+              <p>Fixing the Stuck Ball</p>
+              <p>Which One You Actually Meant</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Promise From Session 9</h2>
+              <p>
+                A ball that starts outside the window gets{" "}
+                <b class="text-sn-theme">stuck vibrating at the wall,
+                forever.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>A Promise From Session 9</h2>
+              <p>
+                A ball that starts outside the window gets{" "}
+                <b class="text-sn-theme">stuck vibrating at the wall,
+                forever.</b>
+              </p>
+              <p>
+                Two decisions undoing each other, sixty times a second, and no
+                error at all.
+              </p>
+              <p class="text-body-secondary">
+                Today you fix it, and the fix is four words.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Three New Words</h2>
+              <Code code={Basics} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Three New Words</h2>
+              <Code code={Basics} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={BasicsOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p>
+                They take booleans and produce a boolean.{" "}
+                <b class="text-sn-theme">Same kind of value in, same kind
+                out.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>What Each One Means</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>and</dt>
+                  <dd>True only when <b>both</b> sides are true.</dd>
+                  <dt>or</dt>
+                  <dd>True when <b>either</b> side is true, including both.</dd>
+                  <dt>not</dt>
+                  <dd>Flips one value. <code>true</code> becomes <code>false</code>.</dd>
+                </dl>
+              </div>
+              <p class="text-body-secondary">
+                <code>or</code> in a program is not the <i>or</i> in "soup or
+                salad". Both is allowed.
+              </p>
+            </section>
+
+            <section>
+              <h2>Every Case, on One Slide</h2>
+              <div class="text-start">
+                <table class="table">
+                  <thead>
+                    <tr><th>a</th><th>b</th><th>a and b</th><th>a or b</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>true</td><td>true</td><td>true</td><td>true</td></tr>
+                    <tr><td>true</td><td>false</td><td>false</td><td>true</td></tr>
+                    <tr><td>false</td><td>true</td><td>false</td><td>true</td></tr>
+                    <tr><td>false</td><td>false</td><td>false</td><td>false</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-body-secondary">
+                Four rows. That is the entire definition, and there is nothing
+                else to learn about them.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Sides Are Usually Comparisons</h2>
+              <Code code={Real} frame="code" lang="lua" showLineNumbers={false} />
+              <Code code={RealOut} frame="terminal" lang="txt" showLineNumbers={false} />
+              <p class="text-body-secondary">
+                Each comparison produces a boolean first. Then{" "}
+                <code>and</code> looks at the two answers.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now the Stuck Ball</h2>
+              <Code code={Stuck} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                This asks <b>is it past the wall?</b> A ball that starts past
+                the wall answers yes on every single frame.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Now the Stuck Ball</h2>
+              <Code code={Fixed} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                This asks{" "}
+                <b class="text-sn-theme">is it past the wall <i>and</i> still
+                heading that way?</b>
+              </p>
+              <p class="text-body-secondary">
+                Once it has turned around, the second half is false, so it stops
+                flipping. The ball flies back in.
+              </p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <Image src={AndTrueImage} alt="A green ball right of center with a readout showing both conditions true" class="img-fluid rounded" />
+                </div>
+                <div class="col-md-6">
+                  <Image src={AndFalseImage} alt="A gray ball in the same place with the readout showing and is false but or is true" class="img-fluid rounded" />
+                </div>
+              </div>
+              <p class="mt-3">
+                Same position, different direction.{" "}
+                <b class="text-sn-theme">The and disagrees with the or.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Use <code>and</code>, <code>or</code> and <code>not</code></li>
+                <li>Read a truth table</li>
+                <li>Fix a bug that a single condition cannot fix</li>
+                <li>Tell which of <code>and</code> or <code>or</code> a problem needs</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Logical operator</dt>
+                  <dd><code>and</code>, <code>or</code> and <code>not</code>. They combine booleans.</dd>
+                  <dt>Compound condition</dt>
+                  <dd>A condition built from more than one comparison.</dd>
+                  <dt>Truth table</dt>
+                  <dd>Every combination of inputs, with the answer for each.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Fill In the Table</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-console" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-11-logic" lang="txt" inline />.{" "}
+            <b class="text-sn-theme">Fill in the truth table on your sheet
+            first</b>, then write the twelve lines that check it:
+          </p>
+
+          <Code
+            code={`print(true and true)
+print(true and false)
+print(false and true)
+print(false and false)`}
+            lang="lua"
+            frame="code"
+            title="main.lua"
+          />
+
+          <p>
+            Then the same four for <code>or</code>, and{" "}
+            <CodeSnippet code="print(not true)" lang="lua" inline /> and{" "}
+            <CodeSnippet code="print(not false)" lang="lua" inline />.
+          </p>
+
+          <p class="text-body-secondary">
+            Ten lines, ten answers, and you should already know all of them.
+            Mark any you got wrong.
+          </p>
+
+          <h3 class="mt-4">Task 2: Fix the Stuck Ball</h3>
+
+          <p>
+            Copy <CodeSnippet code="1-09-bounce" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-11-bounce" lang="txt" inline />. First{" "}
+            <b>reproduce the bug</b>: set the starting <code>x</code> to{" "}
+            <code>900</code> and run it. Nothing appears.
+          </p>
+
+          <p>Now add four words:</p>
+
+          <Code code={FixedBoth} lang="lua" frame="code" title="main.lua" mark={{ range: "4,8" }} />
+
+          <p>
+            Run it again. <b class="text-sn-theme">The ball flies in from
+            off-screen and bounces normally forever.</b>
+          </p>
+
+          <div class="alert alert-info">
+            <b>Read the fixed condition out loud.</b> <i>Past the right wall,
+            and still heading right.</i> The old one only asked the first half,
+            which is true whether the ball is arriving or leaving.
+          </div>
+
+          <h3 class="mt-4">Task 3: Watch All Three</h3>
+
+          <p>
+            Put the starting <code>x</code> back to <code>100</code> and replace{" "}
+            <CodeSnippet code="love.draw" lang="lua" inline /> with a readout:
+          </p>
+
+          <Code code={Readout} lang="lua" frame="code" title="main.lua" mark={{ range: "13-15" }} />
+
+          <div class="row g-3 my-3">
+            <div class="col-md-6">
+              <Image src={AndTrueImage} alt="The ball green and both conditions true" class="img-fluid rounded" />
+            </div>
+            <div class="col-md-6">
+              <Image src={AndFalseImage} alt="The ball gray in the same place, and false, or true" class="img-fluid rounded" />
+            </div>
+          </div>
+
+          <p>
+            Watch it for a full round trip. <b>Find the moment when the top two
+            lines disagree</b>, and write down what each of the bottom three
+            says at that moment.
+          </p>
+
+          <h3 class="mt-4">Task 4: Swap the and for an or</h3>
+
+          <p>Change the color condition, and only that one:</p>
+
+          <Code code={AndOrSwap} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <p>
+            <b class="text-sn-theme">The ball is now green for three quarters
+            of its round trip.</b> Work out which quarter it is still gray for,
+            and write down why.
+          </p>
+
+          <p class="text-body-secondary">
+            <code>or</code> is a much weaker demand than <code>and</code>. Most
+            of the time, one of two things is true.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): In the Box</h3>
+
+          <p>
+            Give the ball a <code>speedY</code> so it bounces around the whole
+            window, then turn it a different color only when it is in the{" "}
+            <b>middle square</b> &mdash; between 300 and 500 across{" "}
+            <b>and</b> between 200 and 400 down.
+          </p>
+
+          <p class="text-body-secondary">
+            That is four comparisons joined by three <code>and</code>s. Write it
+            on your sheet before you type it.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Say It With not</h3>
+
+          <p>
+            Rewrite your middle-square condition so it says the same thing using{" "}
+            <CodeSnippet code="not" lang="lua" inline /> and{" "}
+            <CodeSnippet code="or" lang="lua" inline /> instead of{" "}
+            <CodeSnippet code="and" lang="lua" inline />.
+          </p>
+
+          <p>
+            <b>Test that both versions behave identically</b>, then say which
+            one you would rather read in six months.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <p>
+            Three words, in capitals, and{" "}
+            <b class="text-sn-theme">they work exactly as they do in Lua.</b>
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Meaning</th>
+                  <th>Lua</th>
+                  <th>Exam notation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Both</td><td><code>and</code></td><td><code>AND</code></td></tr>
+                <tr><td>Either</td><td><code>or</code></td><td><code>OR</code></td></tr>
+                <tr><td>The opposite</td><td><code>not</code></td><td><code>NOT</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            The truth tables are identical, so anything you worked out today is
+            true on the exam as well.{" "}
+            <b>The differences are all in the pieces you already know</b> &mdash;{" "}
+            <code>=</code> for equality and <code>&ge;</code> for greater-or-equal
+            inside the conditions.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>Watch the comparisons inside a compound condition.</b>{" "}
+            <CodeSnippet code="lives == 0 or timeLeft == 0" lang="lua" inline />{" "}
+            becomes <code>lives = 0 OR timeLeft = 0</code>. Two operators change
+            in one line, and the one people miss is the second.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>The truth table on your sheet was filled in before running anything</li>
+            <li>
+              <CodeSnippet code="1-11-bounce" lang="txt" inline /> recovers from
+              a start position of 900
+            </li>
+            <li>
+              The readout shows all three operators changing as the ball moves
+            </li>
+            <li>
+              You can say when <code>and</code> is true but <code>or</code> is
+              not &mdash; and when it is the other way round
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              The stuck ball could not be fixed by adding another{" "}
+              <CodeSnippet code="if" lang="lua" inline />. Explain what the old
+              condition was actually asking, what the new one asks, and why only
+              the second one works.
+            </li>
+            <li>
+              Swapping <CodeSnippet code="and" lang="lua" inline /> for{" "}
+              <CodeSnippet code="or" lang="lua" inline /> in one line changed
+              almost nothing on screen for most of the trip. Explain why a wrong
+              logical operator is harder to notice than a wrong comparison.
+            </li>
+            <li>
+              Describe a rule from outside programming &mdash; a school rule, a
+              game rule, an entry requirement &mdash; that needs{" "}
+              <CodeSnippet code="and" lang="lua" inline />, and one that needs{" "}
+              <CodeSnippet code="or" lang="lua" inline />. Say how you can tell
+              them apart from the wording.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,463 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import GreenImage from "../../../../assets/courses/ap-csp-lua/img/1-12-green.png";
+import YellowImage from "../../../../assets/courses/ap-csp-lua/img/1-12-yellow.png";
+import RedImage from "../../../../assets/courses/ap-csp-lua/img/1-12-red.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Vars = `local ballX = 100
+local ballY = 470
+local radius = 25
+local speedX = 220
+
+local signalX = 600
+local signalY = 120
+local gap = 90`;
+
+const Update = `function love.update(dt)
+    ballX = ballX + speedX * dt
+
+    if ballX > 800 - radius and speedX > 0 then
+        speedX = -speedX
+    end
+
+    if ballX < radius and speedX < 0 then
+        speedX = -speedX
+    end
+end`;
+
+const Decide = `local lamp = "green"
+
+if ballX > signalX - 100 and ballX < signalX + 100 then
+    lamp = "red"
+elseif ballX > signalX - 250 and speedX > 0 then
+    lamp = "yellow"
+end`;
+
+const OneLamp = `if lamp == "red" then
+    love.graphics.setColor(0.9, 0.2, 0.2)
+else
+    love.graphics.setColor(0.25, 0.1, 0.1)
+end
+love.graphics.circle("fill", signalX, signalY, 30)`;
+
+const DrawAll = `function love.draw()
+    local lamp = "green"
+
+    if ballX > signalX - 100 and ballX < signalX + 100 then
+        lamp = "red"
+    elseif ballX > signalX - 250 and speedX > 0 then
+        lamp = "yellow"
+    end
+
+    love.graphics.setColor(0.35, 0.35, 0.35)
+    love.graphics.rectangle("fill", signalX - 50, signalY - 60, 100, 300)
+
+    if lamp == "red" then
+        love.graphics.setColor(0.9, 0.2, 0.2)
+    else
+        love.graphics.setColor(0.25, 0.1, 0.1)
+    end
+    love.graphics.circle("fill", signalX, signalY, 30)
+
+    if lamp == "yellow" then
+        love.graphics.setColor(0.9, 0.8, 0.2)
+    else
+        love.graphics.setColor(0.25, 0.22, 0.1)
+    end
+    love.graphics.circle("fill", signalX, signalY + gap, 30)
+
+    if lamp == "green" then
+        love.graphics.setColor(0.2, 0.8, 0.3)
+    else
+        love.graphics.setColor(0.1, 0.25, 0.12)
+    end
+    love.graphics.circle("fill", signalX, signalY + gap + gap, 30)
+
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.circle("fill", ballX, ballY, radius)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.12: The Crossing</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.12</h2>
+              <h3 class="text-sn-theme">The Crossing</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Nothing New Today</p>
+              <p>One Decision, Many Pictures</p>
+              <p>Testing Every Branch</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <Image src={GreenImage} alt="A traffic signal with the green lamp lit and a white ball far to the left" class="img-fluid rounded" />
+                </div>
+                <div class="col-md-4">
+                  <Image src={YellowImage} alt="The same signal with the yellow lamp lit and the ball closer" class="img-fluid rounded" />
+                </div>
+                <div class="col-md-4">
+                  <Image src={RedImage} alt="The signal with the red lamp lit and the ball directly beneath it" class="img-fluid rounded" />
+                </div>
+              </div>
+              <p class="mt-3">
+                Your signal from session 3,{" "}
+                <b class="text-sn-theme">now reacting to something.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>No New Ideas</h2>
+              <p>
+                Motion, comparisons, <code>elseif</code>, <code>and</code>{" "}
+                &mdash; all of it from the last five sessions.
+              </p>
+              <p class="text-sn-theme">
+                Putting five sessions together is the work.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Decide Once, Draw Three Times</h2>
+              <Code code={Decide} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Decide Once, Draw Three Times</h2>
+              <Code code={Decide} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                One chain works out{" "}
+                <b class="text-sn-theme">which lamp is lit</b>. Then three
+                separate decisions each ask <i>am I the lit one?</i>
+              </p>
+              <p class="text-body-secondary">
+                Deciding and drawing are different jobs. Doing them separately
+                is what keeps this readable.
+              </p>
+            </section>
+
+            <section>
+              <h2>Each Lamp Asks the Same Question</h2>
+              <Code code={OneLamp} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Bright if it is the lit one, nearly black if it is not.{" "}
+                <b class="text-sn-theme">All three lamps are always drawn</b>{" "}
+                &mdash; only their colors change.
+              </p>
+            </section>
+
+            <section>
+              <h2>Comparing Text</h2>
+              <Code
+                code={`if lamp == "red" then`}
+                frame="code"
+                lang="lua"
+                showLineNumbers={false}
+              />
+              <p>
+                <code>==</code> works on text too, and the quotes matter.{" "}
+                <code>lamp</code> holds the word <i>red</i>, not a color.
+              </p>
+              <p class="text-body-secondary">
+                A misspelling here is silent: no error, and one lamp that never
+                lights.
+              </p>
+            </section>
+
+            <section>
+              <h2>Test Every Branch</h2>
+              <ul>
+                <li>Ball far away, moving toward the signal</li>
+                <li>Ball approaching, inside 250</li>
+                <li>Ball directly under it</li>
+                <li>Ball past it, moving away</li>
+                <li>Ball far away, moving <b>away</b></li>
+              </ul>
+              <p class="text-body-secondary">
+                Five situations, three lamps. One of them is easy to miss.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Combine motion, chains and compound conditions in one program</li>
+                <li>Separate deciding from drawing</li>
+                <li>Compare text with <code>==</code></li>
+                <li>Test that every branch can happen</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>State</dt>
+                  <dd>What is currently true about the program &mdash; here, which lamp is lit.</dd>
+                  <dt>Branch coverage</dt>
+                  <dd>Checking that every branch of your decisions can actually run.</dd>
+                  <dt>String comparison</dt>
+                  <dd>Using <code>==</code> on text instead of numbers.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            You are combining two programs you have already written: the
+            bouncing ball, and the traffic signal from session 3. The signal now
+            responds to where the ball is.
+          </p>
+
+          <h3 class="mt-4">Task 1: Plan the Rules on Paper</h3>
+
+          <p>
+            <b class="text-sn-theme">Before you open VS Code.</b> On your sheet,
+            write the three rules in plain English &mdash; when is it red, when
+            is it yellow, when is it green?
+          </p>
+
+          <p>
+            Then mark on a line from 0 to 800 where the signal sits and where
+            each rule takes over. <b>Two of the rules need to know which
+            direction the ball is going.</b> Say which two, and why.
+          </p>
+
+          <h3 class="mt-4">Task 2: The Ball and the Signal, Not Talking</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-12-crossing" lang="txt" inline />. Start with
+            the variables:
+          </p>
+
+          <Code code={Vars} lang="lua" frame="code" title="main.lua" />
+
+          <p>Then the movement, which is last session's fixed version:</p>
+
+          <Code code={Update} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Draw the signal body and three lamps in fixed colors, plus the ball.{" "}
+            <b>Run it and get that working before any lamp changes.</b> A
+            bouncing ball and a signal that ignores it.
+          </p>
+
+          <h3 class="mt-4">Task 3: Work Out Which Lamp</h3>
+
+          <p>
+            At the top of <CodeSnippet code="love.draw" lang="lua" inline />,
+            decide before you draw anything:
+          </p>
+
+          <Code code={Decide} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Then give each lamp its own{" "}
+            <CodeSnippet code="if" lang="lua" inline /> /{" "}
+            <CodeSnippet code="else" lang="lua" inline />, bright or dim:
+          </p>
+
+          <Code code={DrawAll} lang="lua" frame="code" title="main.lua" mark={{ range: "2-8" }} />
+
+          <div class="row g-2 my-3">
+            <div class="col-md-4">
+              <Image src={GreenImage} alt="Green lamp lit, ball far away" class="img-fluid rounded" />
+            </div>
+            <div class="col-md-4">
+              <Image src={YellowImage} alt="Yellow lamp lit, ball approaching" class="img-fluid rounded" />
+            </div>
+            <div class="col-md-4">
+              <Image src={RedImage} alt="Red lamp lit, ball under the signal" class="img-fluid rounded" />
+            </div>
+          </div>
+
+          <h3 class="mt-4">Task 4: Test Every Branch</h3>
+
+          <p>
+            Watch a full round trip and record which lamp is lit in each of the
+            five situations from the slides. <b class="text-sn-theme">One of
+            them behaves in a way you might not expect.</b>
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Where the ball is</th>
+                  <th>Which way it is going</th>
+                  <th>Lamp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Far left (x under 350)</td><td>Right</td><td></td></tr>
+                <tr><td>Approaching (x about 400)</td><td>Right</td><td></td></tr>
+                <tr><td>Under the signal</td><td>Right</td><td></td></tr>
+                <tr><td>Past it (x about 750)</td><td>Right</td><td></td></tr>
+                <tr><td>Approaching (x about 400)</td><td>Left</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>Compare rows 2 and 5.</b> The ball is in the same place both
+            times and the signal does something different. Write down what the
+            program is using to tell them apart.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Then look hard at row 4.</b> The ball has
+            already gone past the signal and is heading away from it, and the
+            lamp is still yellow. The rules do exactly what they say; they just
+            do not say what a person would mean. Write down a rule that would
+            fix it.
+          </p>
+
+          <h3 class="mt-4">Task 5: Make One Rule Your Own</h3>
+
+          <p>
+            Change one of the three rules and test it again. Some options:
+          </p>
+
+          <ul>
+            <li>Make the red zone narrower, so red is a shorter moment</li>
+            <li>Make yellow work in both directions</li>
+            <li>Add a fourth state for when the ball is stopped &mdash; set{" "}
+              <code>speedX</code> to <code>0</code> to test it</li>
+          </ul>
+
+          <p class="text-body-secondary">
+            Whatever you change, <b>write the new rule on your sheet in English
+            first</b> and test all five situations again afterward.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Break It on Purpose</h3>
+
+          <p>
+            Misspell one of the lamp names &mdash; change{" "}
+            <CodeSnippet code={`lamp = "yellow"`} lang="lua" inline /> to{" "}
+            <CodeSnippet code={`lamp = "yelow"`} lang="lua" inline /> and leave
+            the comparison alone.
+          </p>
+
+          <p>
+            <b>No error. Nothing crashes.</b> Describe exactly what you see, and
+            explain why this kind of mistake is harder to find than a misspelled
+            variable name.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Two Balls</h3>
+
+          <p>
+            Add a second ball with its own position and speed. The signal should
+            go red if <b>either</b> ball is under it, and yellow if{" "}
+            <b>either</b> is approaching.
+          </p>
+
+          <p class="text-body-secondary">
+            The conditions get long. Work out on paper what
+            "either ball is under it" means as a single condition before you
+            type it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>The three rules were written in English on the sheet first</li>
+            <li>
+              <CodeSnippet code="1-12-crossing" lang="txt" inline /> has a
+              bouncing ball and a signal that responds to it
+            </li>
+            <li>All five test situations are recorded</li>
+            <li>One rule has been changed and retested</li>
+            <li>
+              The lamp is decided once, above the drawing, rather than three
+              times inside it
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              The lamp is worked out once at the top of{" "}
+              <CodeSnippet code="love.draw" lang="lua" inline /> and then used
+              three times. Describe what the program would look like if each
+              lamp worked out the rules for itself, and say which version you
+              would rather change later.
+            </li>
+            <li>
+              Two of your test rows put the ball in the same place and got
+              different lamps. Explain what the program is using to tell those
+              two situations apart, and why a position alone is not enough.
+            </li>
+            <li>
+              Misspelling a lamp name produced no error at all, while
+              misspelling a variable name in session 3 produced one immediately.
+              Explain the difference, and say what that means for how carefully
+              you have to test text comparisons.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

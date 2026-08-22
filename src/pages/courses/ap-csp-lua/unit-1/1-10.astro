@@ -1,0 +1,501 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import LeftImage from "../../../../assets/courses/ap-csp-lua/img/1-10-left.png";
+import MiddleImage from "../../../../assets/courses/ap-csp-lua/img/1-10-middle.png";
+import RightImage from "../../../../assets/courses/ap-csp-lua/img/1-10-right.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const TwoOnly = `if x < 267 then
+    love.graphics.setColor(0.3, 0.5, 1)
+else
+    love.graphics.setColor(0.2, 0.8, 0.3)
+end`;
+
+const Chain = `if x < 267 then
+    love.graphics.setColor(0.3, 0.5, 1)
+elseif x < 533 then
+    love.graphics.setColor(0.9, 0.8, 0.2)
+else
+    love.graphics.setColor(0.2, 0.8, 0.3)
+end`;
+
+const Lines = `love.graphics.setColor(0.25, 0.25, 0.25)
+love.graphics.line(267, 0, 267, 600)
+love.graphics.line(533, 0, 533, 600)`;
+
+const Full = `function love.draw()
+    love.graphics.setColor(0.25, 0.25, 0.25)
+    love.graphics.line(267, 0, 267, 600)
+    love.graphics.line(533, 0, 533, 600)
+
+    local label = ""
+
+    if x < 267 then
+        love.graphics.setColor(0.3, 0.5, 1)
+        label = "Left third"
+    elseif x < 533 then
+        love.graphics.setColor(0.9, 0.8, 0.2)
+        label = "Middle third"
+    else
+        love.graphics.setColor(0.2, 0.8, 0.3)
+        label = "Right third"
+    end
+
+    love.graphics.circle("fill", x, y, radius)
+
+    love.graphics.setFont(font)
+    love.graphics.print(label, 40, 500)
+end`;
+
+const WrongOrder = `if x < 533 then
+    label = "Middle third"
+elseif x < 267 then
+    label = "Left third"
+else
+    label = "Right third"
+end`;
+
+const Separate = `if x < 267 then
+    label = "Left third"
+end
+
+if x < 533 then
+    label = "Middle third"
+end`;
+
+const NotationLua = `if score > 100 then
+    print("Gold")
+elseif score > 50 then
+    print("Silver")
+else
+    print("Bronze")
+end`;
+
+const NotationPseudo = `IF(score > 100)
+{
+  DISPLAY("Gold")
+}
+ELSE
+{
+  IF(score > 50)
+  {
+    DISPLAY("Silver")
+  }
+  ELSE
+  {
+    DISPLAY("Bronze")
+  }
+}`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.10: More Than Two Choices</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.10</h2>
+              <h3 class="text-sn-theme">More Than Two Choices</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Chain of Questions</p>
+              <p>First Match Wins</p>
+              <p>The Exam Does It Differently</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <Image src={LeftImage} alt="A blue ball in the left third of the window, labeled Left third" class="img-fluid rounded" />
+                </div>
+                <div class="col-md-4">
+                  <Image src={MiddleImage} alt="A yellow ball in the middle third, labeled Middle third" class="img-fluid rounded" />
+                </div>
+                <div class="col-md-4">
+                  <Image src={RightImage} alt="A green ball in the right third, labeled Right third" class="img-fluid rounded" />
+                </div>
+              </div>
+              <p class="mt-3">
+                Three zones, three answers, and{" "}
+                <b class="text-sn-theme">only one of them ever true at a
+                time.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Choices Was Not Enough</h2>
+              <Code code={TwoOnly} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Choices Was Not Enough</h2>
+              <Code code={TwoOnly} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>if</code> / <code>else</code> splits the world in two. To
+                split it in three you need somewhere to put the{" "}
+                <b class="text-sn-theme">middle</b>.
+              </p>
+            </section>
+
+            <section>
+              <h2>elseif Adds a Question</h2>
+              <Code code={Chain} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                One <code>if</code>, as many <code>elseif</code>s as you want,
+                and at most one <code>else</code> at the bottom.
+              </p>
+            </section>
+
+            <section>
+              <h2>How the Chain Runs</h2>
+              <ul>
+                <li>Check the first condition. If true, run that block and{" "}
+                  <b class="text-sn-theme">stop.</b></li>
+                <li>Otherwise check the next one. Same deal.</li>
+                <li>If none matched, run the <code>else</code>.</li>
+              </ul>
+              <p class="text-body-secondary">
+                Exactly one block runs. Never two, never zero if there is an{" "}
+                <code>else</code>.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Is Why Order Matters</h2>
+              <Code code={WrongOrder} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Which Is Why Order Matters</h2>
+              <Code code={WrongOrder} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <b class="text-sn-theme">"Left third" can never happen.</b>{" "}
+                Anything under 267 is also under 533, and the first question
+                already caught it.
+              </p>
+              <p class="text-body-secondary">
+                No error. A branch that simply never runs.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Separate ifs Are Not the Same Thing</h2>
+              <Code code={Separate} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Separate ifs Are Not the Same Thing</h2>
+              <Code code={Separate} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Both of these run.{" "}
+                <b class="text-sn-theme">A ball at x = 100 gets labeled
+                "Left third" and then immediately relabeled "Middle
+                third".</b>
+              </p>
+              <p class="text-body-secondary">
+                <code>elseif</code> is not a tidier way to write two{" "}
+                <code>if</code>s. It means <i>only if the one above did not
+                match</i>.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Write an <code>if</code> / <code>elseif</code> / <code>else</code> chain</li>
+                <li>Say why only one branch runs</li>
+                <li>Order conditions so every branch is reachable</li>
+                <li>Read the same idea written in exam notation</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>elseif</dt>
+                  <dd>Another condition, checked only if the ones above it were false.</dd>
+                  <dt>Chain</dt>
+                  <dd>An <code>if</code> with one or more <code>elseif</code>s after it.</dd>
+                  <dt>Unreachable</dt>
+                  <dd>A branch whose condition can never be the first one true.</dd>
+                  <dt>Nesting</dt>
+                  <dd>Putting one decision inside another decision's block.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: Draw the Zones</h3>
+
+          <p>
+            Copy <CodeSnippet code="1-09-bounce" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-10-zones" lang="txt" inline />. Add two faint
+            lines at the top of <CodeSnippet code="love.draw" lang="lua" inline />{" "}
+            so you can see where the thirds are:
+          </p>
+
+          <Code code={Lines} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <p>
+            <CodeSnippet code="love.graphics.line" lang="lua" inline /> takes
+            two points: the x and y it starts at, then the x and y it ends at.
+            These two run from the top of the window to the bottom.
+          </p>
+
+          <p class="text-body-secondary">
+            The ball will now be gray, because the color you set for the lines
+            is still set when the circle is drawn. That is session 2's sticky
+            color, and the next task fixes it.
+          </p>
+
+          <h3 class="mt-4">Task 2: Three Colors</h3>
+
+          <p>
+            Replace the <CodeSnippet code="if" lang="lua" inline /> /{" "}
+            <CodeSnippet code="else" lang="lua" inline /> in{" "}
+            <CodeSnippet code="love.draw" lang="lua" inline /> with a chain, and
+            add a label:
+          </p>
+
+          <Code code={Full} lang="lua" frame="code" title="main.lua" mark={{ range: "6-19" }} />
+
+          <p>
+            Add <CodeSnippet code="local font = love.graphics.newFont(24)" lang="lua" inline />{" "}
+            at the top with the other variables. Run it and watch the ball
+            change color and label as it crosses each line.
+          </p>
+
+          <div class="alert alert-info">
+            <b><CodeSnippet code="local label" lang="lua" inline /> is inside the box on purpose.</b>{" "}
+            In session 7 that was a bug, because the value had to survive to the
+            next frame. This one does not &mdash; it is built, used, and thrown
+            away within a single picture, so inside is exactly right.
+          </div>
+
+          <h3 class="mt-4">Task 3: Break the Order</h3>
+
+          <p>Swap the first two conditions so the chain reads:</p>
+
+          <Code code={WrongOrder} lang="lua" frame="code" title="main.lua" showLineNumbers={false} />
+
+          <p>
+            Run it and <b class="text-sn-theme">watch the ball cross the left
+            third without ever saying "Left third".</b> Write down what it says
+            there instead, and explain why.
+          </p>
+
+          <p class="text-body-secondary">
+            No error, no warning. A branch that can never run looks exactly like
+            a branch that has not run yet.
+          </p>
+
+          <h3 class="mt-4">Task 4: Four Zones</h3>
+
+          <p>
+            Put the order back, then <b>add a fourth zone</b>. Split the window
+            into quarters instead of thirds: 200, 400 and 600. Four colors, four
+            labels, three lines drawn.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Write the conditions on your sheet before
+            you type them</b>, and check that every one of the four can actually
+            happen.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Decide on Speed Instead</h3>
+
+          <p>
+            Add a second chain that labels how fast the ball is going &mdash;
+            slow, medium or fast &mdash; based on <code>speedX</code>. Then
+            change <code>speedX</code> in the code and check all three labels
+            can appear.
+          </p>
+
+          <p class="text-body-secondary">
+            Careful: a ball moving left has a <b>negative</b> speed. Decide
+            whether &minus;300 counts as fast, and make your conditions say what
+            you decided.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Vertical Zones Too</h3>
+
+          <p>
+            Give the ball a <code>speedY</code> if it does not have one, and add
+            a second label for which third of the window it is in{" "}
+            <b>vertically</b>. Two chains, two labels, nine possible
+            combinations.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Exam notation -->
+        <section id="exam-notation">
+          <h2>Same Idea, Exam Notation</h2>
+
+          <div class="alert alert-warning">
+            <b>There is no <code>ELSE IF</code> on the exam reference sheet.</b>{" "}
+            The only two selection forms are <code>IF</code> and{" "}
+            <code>IF</code> / <code>ELSE</code>. This is the first place Lua has
+            something the exam does not.
+          </div>
+
+          <p>
+            So a three-way choice is written by putting a whole second decision{" "}
+            <b class="text-sn-theme">inside the first one's <code>ELSE</code></b>:
+          </p>
+
+          <div class="row g-3 my-4">
+            <div class="col-md-6">
+              <Code
+                code={NotationLua}
+                frame="code"
+                lang="lua"
+                title="Lua"
+                showLineNumbers={false}
+              />
+            </div>
+            <div class="col-md-6">
+              <Code
+                code={NotationPseudo}
+                frame="code"
+                lang="txt"
+                title="Exam Notation"
+                showLineNumbers={false}
+              />
+            </div>
+          </div>
+
+          <h4>They do exactly the same thing</h4>
+
+          <p>
+            Read the right hand column carefully.{" "}
+            <b>Silver is only considered if Gold was false</b>, because the
+            second <code>IF</code> lives inside the first <code>ELSE</code>.
+            That is precisely what <code>elseif</code> means.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>score</th>
+                  <th>Lua chain</th>
+                  <th>Exam nesting</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>120</td><td>Gold</td><td>Gold</td></tr>
+                <tr><td>75</td><td>Silver</td><td>Silver</td></tr>
+                <tr><td>20</td><td>Bronze</td><td>Bronze</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b class="text-sn-theme">The indentation is the whole story.</b>{" "}
+            Each nested decision sits one level further in, so a four-way choice
+            on the exam is indented three times. Follow the braces when you read
+            one &mdash; they always tell you which <code>ELSE</code> you are in.
+          </p>
+
+          <p class="text-body-secondary">
+            You will not be asked to write this by hand often. You will be asked
+            to read it in May and say which branch runs.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-10-zones" lang="txt" inline /> shows four
+              zones with four colors and four labels
+            </li>
+            <li>Every zone can actually be reached as the ball crosses</li>
+            <li>The zone conditions were written on the sheet before being typed</li>
+            <li>
+              You can say what happened when the first two conditions were
+              swapped
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Swapping two conditions made one branch impossible, with no error
+              of any kind. Explain how a chain decides which block to run, and
+              why that makes order matter.
+            </li>
+            <li>
+              Two separate <CodeSnippet code="if" lang="lua" inline /> statements
+              and an <CodeSnippet code="if" lang="lua" inline /> /{" "}
+              <CodeSnippet code="elseif" lang="lua" inline /> pair look almost
+              identical. Describe a case where they give different results, using
+              your own zone conditions.
+            </li>
+            <li>
+              The exam has no <code>ELSE IF</code> and writes a three-way choice
+              by nesting instead. Say whether the two are really the same, and
+              give one reason someone might prefer each.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
