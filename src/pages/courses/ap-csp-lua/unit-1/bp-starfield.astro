@@ -1,0 +1,247 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/bp-starfield-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Fill = `for i = 1, 150 do
+    starX[i] = math.random(0, 800)
+    starY[i] = math.random(0, 600)
+    starSpeed[i] = math.random(20, 220)
+end`;
+
+const Move = `for i = 1, #starX do
+    starX[i] = starX[i] - starSpeed[i] * dt
+
+    if starX[i] < 0 then
+        starX[i] = 800
+        starY[i] = math.random(0, 600)
+    end
+end`;
+
+const Shade = `local shade = starSpeed[i] / 220
+love.graphics.setColor(shade, shade, shade)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Starfield</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b class="text-sn-theme">The window becomes a ship going
+            somewhere.</b> A hundred and fifty stars stream past, and the ones
+            that pass fastest are the brightest, because they are the closest.
+            Two lines of arithmetic buy you the illusion of depth on a flat
+            screen.
+          </p>
+
+          <p>
+            <b>This is extra credit and it is optional.</b> Nothing later in the
+            course depends on it. It exists because you finished early, or
+            because you want to build something you can show somebody.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before">
+          <h2>Before You Start</h2>
+
+          <p>
+            <b class="text-sn-theme">You need everything through session 20.</b>{" "}
+            Tables, <CodeSnippet code="#" lang="lua" inline />, and going
+            through a table with a loop.{" "}
+            <b>Nothing here is new</b> &mdash; this is the smallest project on
+            the list that would be impossible without tables, which is exactly
+            why it sits here.
+          </p>
+
+          <p>
+            <b>Three tables, not one.</b> You need an x, a y and a speed for
+            every star, and a table holds one list of values. So you keep three
+            lists side by side and{" "}
+            <b class="text-sn-theme">use the same index in all three</b>:{" "}
+            <CodeSnippet code="starX[7]" lang="lua" inline />,{" "}
+            <CodeSnippet code="starY[7]" lang="lua" inline /> and{" "}
+            <CodeSnippet code="starSpeed[7]" lang="lua" inline /> are the three
+            facts about star number seven.
+          </p>
+
+          <p class="text-body-secondary">
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename it <CodeSnippet code="bp-starfield" lang="txt" inline />. No
+            new files, no libraries, nothing to install.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <p>
+            Four stages. <b class="text-sn-theme">Run it after every one.</b> A
+            stage that works is worth more than three stages you cannot test.
+          </p>
+
+          <h3 class="mt-4">1. Fill the sky</h3>
+
+          <p>
+            Three empty tables at the top of the file, then one loop that fills
+            all three:
+          </p>
+
+          <Code code={Fill} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b>That loop runs once, at the top of the file</b>, not in{" "}
+            <CodeSnippet code="love.update" lang="lua" inline />. Put it in the
+            update by mistake and you get a hundred and fifty brand-new stars
+            sixty times a second, which looks like static.
+          </p>
+
+          <p class="text-body-secondary">
+            Draw them with a second loop in{" "}
+            <CodeSnippet code="love.draw" lang="lua" inline /> &mdash; a small
+            white rectangle at each{" "}
+            <CodeSnippet code="starX[i], starY[i]" lang="lua" inline />. Nothing
+            moves yet, and it should already look like a sky.
+          </p>
+
+          <h3 class="mt-4">2. Make them move</h3>
+
+          <p>
+            One loop in <CodeSnippet code="love.update" lang="lua" inline />,
+            taking each star's own speed off its own x:
+          </p>
+
+          <Code code={Move} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b class="text-sn-theme">The wrap-around is what makes it
+            endless.</b> A star that leaves the left edge is not deleted &mdash;
+            it is moved back to the right at a new height, and it becomes a
+            different star. A hundred and fifty stars, reused forever.
+          </p>
+
+          <h3 class="mt-4">3. Depth</h3>
+
+          <p>
+            <b>This is the whole project.</b> A star's speed already says how
+            close it is, so use the same number for its brightness:
+          </p>
+
+          <Code code={Shade} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            Dividing by the top speed turns a number between 20 and 220 into a
+            number between roughly 0.1 and 1, which is the scale{" "}
+            <CodeSnippet code="setColor" lang="lua" inline /> wants. Slow stars
+            come out dim, fast stars come out white.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Try it without this step and then with it.</b> The motion is
+            identical either way. Everything that makes it look like distance
+            comes from the brightness, and that is worth seeing back to back.
+          </div>
+
+          <h3 class="mt-4">4. Size, for free</h3>
+
+          <p>
+            Use the same <CodeSnippet code="shade" lang="lua" inline /> to make
+            the near stars slightly wider than the far ones. One number, three
+            jobs.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="A black 800 by 600 window filled with small white and gray dots of several brightnesses, scattered like a star field"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            A still picture cannot show the motion, so look at the{" "}
+            <b class="text-sn-theme">brightness instead</b>. The bright wide
+            dots are the fast ones and they are the ones that will cross the
+            screen while you watch. The faint ones barely crawl.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li class="mb-2">
+              <b>Turn.</b> Steer the whole field with Left and Right by adding a
+              little to every star's y as well as taking off its x. The near
+              stars should swing further than the far ones, and if you use{" "}
+              <CodeSnippet code="shade" lang="lua" inline /> again you get that
+              for nothing.
+            </li>
+            <li class="mb-2">
+              <b>Go to warp.</b> Hold a key and multiply every speed. Then draw
+              each star as a short line from where it is to where it was,
+              instead of a dot.{" "}
+              <b class="text-sn-theme">That is a fourth table</b> and it is
+              worth the trouble.
+            </li>
+            <li class="mb-2">
+              <b>Color the stars.</b> Real ones are not white. Three more
+              tables, or one number per star that you turn into a color.
+            </li>
+            <li class="mb-2">
+              <b>Fly through it.</b> Put a ship in the middle that the field
+              moves around. Now it is a game with no enemies, which is one
+              enemy short of a game.
+            </li>
+            <li class="mb-2">
+              <b>Count them.</b> Change 150 to 5000 and find where your computer
+              starts to struggle. Then work out what is actually expensive:
+              the arithmetic, or the drawing.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Submit whatever you have.</b> A field of stars that moves still
+            earns credit, and so does a finished one with a bug you can
+            describe.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Project Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

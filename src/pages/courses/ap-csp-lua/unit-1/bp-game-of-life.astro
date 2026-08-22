@@ -1,0 +1,308 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/bp-game-of-life-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Index = `grid[(row - 1) * COLS + col]`;
+
+const Timer = `timer = timer + dt
+
+if timer < STEP then
+    return
+end
+
+timer = 0`;
+
+const Neighbors = `local neighbors = 0
+
+for dr = -1, 1 do
+    for dc = -1, 1 do
+        local r = row + dr
+        local c = col + dc
+        local skip = (dr == 0 and dc == 0)
+
+        if not skip and r >= 1 and r <= ROWS and c >= 1 and c <= COLS then
+            neighbors = neighbors + grid[(r - 1) * COLS + c]
+        end
+    end
+end`;
+
+const Rules = `local here = grid[(row - 1) * COLS + col]
+local alive = 0
+
+if here == 1 and (neighbors == 2 or neighbors == 3) then
+    alive = 1
+end
+
+if here == 0 and neighbors == 3 then
+    alive = 1
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Conway's Game of Life</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b class="text-sn-theme">Four rules, and then things start
+            happening that nobody wrote.</b> A grid of squares. Each one lives
+            or dies based only on how many of its eight neighbors are alive.
+            Out of that come shapes that hold still, shapes that blink, and
+            shapes that walk across the screen &mdash; none of which appear
+            anywhere in the code.
+          </p>
+
+          <p>
+            <b>This is the hardest project on the list</b>, and it is the only
+            one that is not a game. It is also the one that most looks like
+            computer science, which is why it is worth ten points.
+          </p>
+
+          <p>
+            <b>This is extra credit and it is optional.</b> Nothing later in the
+            course depends on it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before">
+          <h2>Before You Start</h2>
+
+          <p>
+            <b class="text-sn-theme">You need everything through session 20.</b>{" "}
+            Tables, nested loops, and conditions joined with{" "}
+            <CodeSnippet code="and" lang="lua" inline /> and{" "}
+            <CodeSnippet code="or" lang="lua" inline />. All of it, all at once
+            &mdash; this project uses more of Quarter 1 than anything else on
+            the list.
+          </p>
+
+          <p>
+            <b>One idea here is new, and it is not a new function.</b> The grid
+            is two-dimensional and a table is a single list, so you flatten it:
+          </p>
+
+          <Code code={Index} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            Row 1 takes slots 1 to <CodeSnippet code="COLS" lang="lua" inline />,
+            row 2 takes the next <CodeSnippet code="COLS" lang="lua" inline />,
+            and so on. <b class="text-sn-theme">Write that line on paper with
+            real numbers before you use it</b> &mdash; row 3, column 5, with 40
+            columns, is slot 85. If you cannot get 85 by hand, the rest of this
+            project will not go well.
+          </p>
+
+          <p class="text-body-secondary">
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename it <CodeSnippet code="bp-game-of-life" lang="txt" inline />.
+            No new files, no libraries, nothing to install.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <p>
+            Five stages. <b class="text-sn-theme">Run it after every one.</b>{" "}
+            This project is much easier to debug in pieces than in one go, and
+            much harder than average to debug at the end.
+          </p>
+
+          <h3 class="mt-4">1. A grid you can see</h3>
+
+          <p>
+            Constants for <CodeSnippet code="COLS" lang="lua" inline />,{" "}
+            <CodeSnippet code="ROWS" lang="lua" inline /> and{" "}
+            <CodeSnippet code="CELL" lang="lua" inline /> &mdash; 40, 30 and 20
+            fill an 800 by 600 window exactly. Fill{" "}
+            <CodeSnippet code="grid" lang="lua" inline /> with{" "}
+            <CodeSnippet code="COLS * ROWS" lang="lua" inline /> zeros, then set
+            a handful of them to 1 by hand and draw the live ones.
+          </p>
+
+          <p>
+            <b>Nothing changes yet.</b> If the squares you set by hand are in
+            the places you expected, your index arithmetic is right and the hard
+            part is behind you.
+          </p>
+
+          <h3 class="mt-4">2. A clock</h3>
+
+          <p>
+            Life runs in generations, not frames. Sixty a second is far too fast
+            to watch:
+          </p>
+
+          <Code code={Timer} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <CodeSnippet code="STEP = 0.12" lang="lua" inline /> is about eight
+            generations a second, which is fast enough to feel alive and slow
+            enough to follow.
+          </p>
+
+          <h3 class="mt-4">3. Count the neighbors</h3>
+
+          <p>
+            Two more loops <i>inside</i> the two you already have, going from
+            &minus;1 to 1 in each direction. That is nine squares, one of which
+            is the cell itself:
+          </p>
+
+          <Code code={Neighbors} lang="lua" frame="code" showLineNumbers={false} />
+
+          <div class="alert alert-warning">
+            <b>The edge check is not optional.</b> A cell in row 1 has
+            neighbors in row 0, which does not exist. In Lua that is not an
+            error &mdash;{" "}
+            <b class="text-sn-theme"><CodeSnippet code="grid[0]" lang="lua" inline />{" "}
+            is <CodeSnippet code="nil" lang="lua" inline /></b>, and adding{" "}
+            <CodeSnippet code="nil" lang="lua" inline /> to a number crashes
+            three lines later with a message about the wrong thing. This is
+            session 19, and it is the bug that will find you.
+          </div>
+
+          <h3 class="mt-4">4. The four rules, as two conditions</h3>
+
+          <p>
+            The rules everybody quotes are four sentences. Written down they
+            collapse into two:
+          </p>
+
+          <Code code={Rules} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            A live cell with 2 or 3 neighbors stays alive. A dead cell with
+            exactly 3 comes alive.{" "}
+            <b class="text-sn-theme">Everything else dies or stays dead</b>, and
+            that is what <CodeSnippet code="alive = 0" lang="lua" inline /> at
+            the top already says.
+          </p>
+
+          <h3 class="mt-4">5. The trap: build a second grid</h3>
+
+          <div class="alert alert-warning">
+            <b class="text-sn-theme">Do not write the answers back into{" "}
+            <CodeSnippet code="grid" lang="lua" inline /> while you are reading
+            it.</b> Every generation has to be computed from the previous one
+            all at once. Write results into a new table, and replace{" "}
+            <CodeSnippet code="grid" lang="lua" inline /> with it only when
+            every cell is done.
+          </div>
+
+          <p>
+            <b>Get this wrong deliberately, once.</b> Update in place and watch:
+            everything smears down and to the right, because the cells you have
+            already changed are being counted as neighbors by the cells you have
+            not reached yet.{" "}
+            <b class="text-sn-theme">It is a beautiful bug and it looks
+            nothing like Life.</b>
+          </p>
+
+          <p class="text-body-secondary">
+            Then seed the grid randomly &mdash; about a quarter of the cells
+            alive is a good soup &mdash; and watch it settle.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="A black 800 by 600 window with clusters of green squares on a 40 by 30 grid, including several rings, blocks and diagonal chains"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            A random soup, a few seconds in.{" "}
+            <b class="text-sn-theme">The 2 by 2 blocks and the rings are
+            stable</b> and will sit there forever. The loose diagonal chains are
+            still resolving. None of those shapes are in the code &mdash; they
+            are what two conditions do when you leave them running.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li class="mb-2">
+              <b>Draw with the mouse.</b> Click a cell to toggle it. Turning
+              screen coordinates into a row and a column is the index
+              arithmetic from stage 1, backwards.
+            </li>
+            <li class="mb-2">
+              <b>Pause and step.</b> Space to freeze, and a key that advances
+              exactly one generation. <b class="text-sn-theme">This is worth
+              more than any other item on this list</b>, because it is the
+              difference between watching Life and being able to check whether
+              your rules are right.
+            </li>
+            <li class="mb-2">
+              <b>Build a glider.</b> Five cells in the right arrangement walk
+              diagonally across the grid forever. Look up the shape, place it by
+              hand, and watch it leave.
+            </li>
+            <li class="mb-2">
+              <b>Wrap the edges.</b> Make row 30's neighbors include row 1. The
+              grid becomes a doughnut and gliders never fall off. This replaces
+              your edge check with arithmetic, and{" "}
+              <CodeSnippet code="MOD" lang="lua" inline /> is how.
+            </li>
+            <li class="mb-2">
+              <b>Age the cells.</b> Color each live cell by how long it has been
+              alive. Another table the same size as the grid.
+            </li>
+            <li class="mb-2">
+              <b>After session 21, refactor it.</b> The neighbor count wants to
+              be a function that takes a row and a column and hands back a
+              number. Doing that to code you already have is the clearest
+              possible demonstration of what functions are for.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Submit whatever you have.</b> A grid that draws and steps still
+            earns credit even if the rules are not right yet, and so does a
+            finished one with a bug you can describe.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Project Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

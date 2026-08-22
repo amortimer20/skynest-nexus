@@ -1,0 +1,237 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/bp-bouncing-logo-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const PrintText = `love.graphics.print("AM", x + 60, y + 32)`;
+
+const Move = `x = x + dx * dt
+y = y + dy * dt`;
+
+const BounceLeft = `if x < 0 then
+    x = 0
+    dx = -dx
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Bouncing Logo</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b class="text-sn-theme">The screensaver everybody has watched
+            waiting for something to happen.</b> A logo drifts across a black
+            screen, hits an edge, and goes the other way. You will build it,
+            and then you will find out how long you have to watch before it
+            hits a corner.
+          </p>
+
+          <p>
+            <b>This is extra credit and it is optional.</b> Nothing later in the
+            course depends on it. It exists because you finished early, or
+            because you want to build something you can show somebody.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before">
+          <h2>Before You Start</h2>
+
+          <p>
+            <b class="text-sn-theme">You need everything through session 9.</b>{" "}
+            Variables, <CodeSnippet code="love.update(dt)" lang="lua" inline />,
+            and an <CodeSnippet code="if" lang="lua" inline /> that checks an
+            edge. That is all &mdash; this is the smallest project on the list
+            and it is the one you can finish in twenty minutes.
+          </p>
+
+          <p>
+            <b>One thing here is new.</b> Drawing text on the screen:
+          </p>
+
+          <Code code={PrintText} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <CodeSnippet code="love.graphics.print" lang="lua" inline /> takes
+            the text, then an x and a y. That is the whole thing. Put your own
+            initials in it &mdash; it is your logo.
+          </p>
+
+          <p class="text-body-secondary">
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename it <CodeSnippet code="bp-bouncing-logo" lang="txt" inline />.
+            No new files, no libraries, nothing to install.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <p>
+            Four stages. <b class="text-sn-theme">Run it after every one.</b> A
+            stage that works is worth more than three stages you cannot test.
+          </p>
+
+          <h3 class="mt-4">1. A rectangle that sits there</h3>
+
+          <p>
+            Variables for <CodeSnippet code="x" lang="lua" inline />,{" "}
+            <CodeSnippet code="y" lang="lua" inline />,{" "}
+            <CodeSnippet code="w" lang="lua" inline /> and{" "}
+            <CodeSnippet code="h" lang="lua" inline />, and one{" "}
+            <CodeSnippet code="love.graphics.rectangle" lang="lua" inline /> that
+            uses all four. Nothing moves yet.
+          </p>
+
+          <p class="text-body-secondary">
+            Give it a color you like. This is on your screen for the rest of the
+            project.
+          </p>
+
+          <h3 class="mt-4">2. Make it drift</h3>
+
+          <p>
+            Two more variables &mdash; call them{" "}
+            <CodeSnippet code="dx" lang="lua" inline /> and{" "}
+            <CodeSnippet code="dy" lang="lua" inline /> &mdash; for{" "}
+            <b>how far it moves each second in each direction</b>. Then, in{" "}
+            <CodeSnippet code="love.update" lang="lua" inline />:
+          </p>
+
+          <Code code={Move} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            It will slide off the screen and never come back. That is correct
+            for stage 2.
+          </p>
+
+          <h3 class="mt-4">3. Bounce off all four edges</h3>
+
+          <p>
+            <b class="text-sn-theme">Four separate conditions, one per edge.</b>{" "}
+            The left one looks like this:
+          </p>
+
+          <Code code={BounceLeft} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b>The minus sign is the whole trick.</b> Going left becomes going
+            right. And the <CodeSnippet code="x = 0" lang="lua" inline /> is not
+            decoration &mdash; without it the logo can end up slightly past the
+            edge, test true again next frame, and flip back. Leave it out once
+            on purpose and watch what happens.
+          </p>
+
+          <div class="alert alert-info">
+            <b>The right edge is not <code>x &gt; 800</code>.</b> The rectangle
+            is drawn from its left corner, so the right edge is at{" "}
+            <CodeSnippet code="x + w" lang="lua" inline />. Get this wrong and
+            the logo disappears most of the way off screen before it turns
+            around, which is a very easy bug to see and a very easy one to miss.
+          </div>
+
+          <h3 class="mt-4">4. Put your initials on it</h3>
+
+          <p>
+            Draw the text <b>after</b> the rectangle so it lands on top, and
+            offset it by the same{" "}
+            <CodeSnippet code="x" lang="lua" inline /> and{" "}
+            <CodeSnippet code="y" lang="lua" inline /> so it travels with the
+            box rather than staying where you put it.
+          </p>
+
+          <p class="text-body-secondary">
+            That last part is session 3's idea again: one variable moving
+            several things at once.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="A black 800 by 600 window with a cyan rectangle labeled A M touching the right edge, low on the screen"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            The logo is caught at the right edge, the frame before it turns
+            around. It travels forever, it never leaves the window, and{" "}
+            <b class="text-sn-theme">the initials go with it.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li class="mb-2">
+              <b>Change color on every bounce.</b> Three variables for red,
+              green and blue, and a new set of values each time an edge is hit.{" "}
+              <CodeSnippet code="math.random()" lang="lua" inline /> with no
+              arguments gives you a number between 0 and 1, which is exactly the
+              scale <CodeSnippet code="setColor" lang="lua" inline /> wants.
+            </li>
+            <li class="mb-2">
+              <b>Count the corners.</b> A corner hit is both an x edge and a y
+              edge in the same frame. Count them and draw the count.{" "}
+              <b class="text-sn-theme">Then go and do something else for ten
+              minutes and see what the number says</b> &mdash; if it is climbing
+              fast, your two speeds divide into each other too neatly.
+            </li>
+            <li class="mb-2">
+              <b>Speed up over time.</b> A tiny amount every second. Then find
+              the speed at which it starts passing through walls, and work out
+              why that happens. This is a real bug in real games and it has a
+              name worth knowing.
+            </li>
+            <li class="mb-2">
+              <b>Two logos.</b> Then five. Notice how much copying and pasting
+              that takes &mdash; sessions 18 and 21 are both about the fix.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Submit whatever you have.</b> A logo bouncing off two edges still
+            earns credit, and so does a finished one with a bug you can
+            describe.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Project Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

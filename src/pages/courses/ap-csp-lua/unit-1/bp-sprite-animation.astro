@@ -1,0 +1,297 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/bp-sprite-animation-target.png";
+import SheetImage from "../../../../assets/courses/ap-csp-lua/img/bp-sprite-sheet.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Load = `sheet = love.graphics.newImage("sprite-sheet.png")
+sheet:setFilter("nearest", "nearest")
+
+for i = 1, 4 do
+    frames[i] = love.graphics.newQuad(
+        (i - 1) * 64, 0, 64, 64, sheet:getDimensions()
+    )
+end`;
+
+const Advance = `timer = timer + dt
+
+if timer > FRAME_TIME then
+    timer = 0
+    frame = frame + 1
+
+    if frame > 4 then
+        frame = 1
+    end
+end`;
+
+const DrawIt = `love.graphics.draw(sheet, frames[frame], x, y, 0, 4 * facing, 4, 32, 32)`;
+
+const Preview = `love.graphics.draw(sheet, 20, 20, 0, 2, 2)
+love.graphics.setColor(1, 0.9, 0.2)
+love.graphics.rectangle("line", 20 + (frame - 1) * 128, 20, 128, 128)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Sprite Animation</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b class="text-sn-theme">Everything you have drawn this quarter has
+            been a rectangle or a circle.</b> This is where that stops. You load
+            a picture, cut four frames out of it, and show them one after
+            another fast enough that a character appears to walk.
+          </p>
+
+          <p>
+            <b>There is no game here.</b> There is a character, a floor, and two
+            keys. What you get is the technique every 2D game in existence is
+            built on, which is worth more than another dodging game.
+          </p>
+
+          <p>
+            <b>This is extra credit and it is optional.</b> Nothing later in the
+            course depends on it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before">
+          <h2>Before You Start</h2>
+
+          <p>
+            <b class="text-sn-theme">You need everything through session 23.</b>{" "}
+            Tables, loops, held-key input, and functions.
+          </p>
+
+          <h3 class="mt-4">Get the sprite sheet</h3>
+
+          <p>
+            <b>Right-click this image and save it</b> into your project folder
+            as <CodeSnippet code="sprite-sheet.png" lang="txt" inline />. It is
+            256 by 64 &mdash; four frames of 64 by 64, side by side, on a
+            transparent background.
+          </p>
+
+          <div class="text-center my-4">
+            <Image
+              src={SheetImage}
+              alt="A sprite sheet: four 64 by 64 frames of the same small character, arms and legs in four different walking positions"
+              width={256}
+              format="png"
+              class="rounded bg-black p-2"
+              style="image-rendering: pixelated; width: 512px; max-width: 100%;"
+            />
+          </div>
+
+          <p class="text-body-secondary">
+            Draw your own instead if you would rather &mdash; anything four
+            frames wide with square frames will work, and the code does not care
+            what is in them. If you take one from the internet,{" "}
+            <b>write down where it came from and whether you were allowed to use
+            it.</b> That question does not go away when you leave this class.
+          </p>
+
+          <h3 class="mt-4">Two new calls, and one new idea</h3>
+
+          <div class="text-start">
+            <dl>
+              <dt><CodeSnippet code="love.graphics.newImage(path)" lang="lua" inline /></dt>
+              <dd>Loads a picture from a file in your project folder. Do it <b>once</b>, in <CodeSnippet code="love.load" lang="lua" inline /> &mdash; never in <CodeSnippet code="love.draw" lang="lua" inline />.</dd>
+              <dt><CodeSnippet code="love.graphics.newQuad(x, y, w, h, sw, sh)" lang="lua" inline /></dt>
+              <dd>A <b>quad</b> is a rectangle cut out of an image. It is not a picture &mdash; it is instructions for which part of one to draw.</dd>
+            </dl>
+          </div>
+
+          <p>
+            <b class="text-sn-theme">The idea worth stopping on:</b> there is
+            one image in memory, loaded once, and four little descriptions of
+            where to look inside it. Animation is not four pictures. It is one
+            picture and a number that changes.
+          </p>
+
+          <p class="text-body-secondary">
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename it{" "}
+            <CodeSnippet code="bp-sprite-animation" lang="txt" inline />. The
+            sprite sheet goes in that folder, next to{" "}
+            <CodeSnippet code="main.lua" lang="txt" inline />.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <p>
+            Five stages. <b class="text-sn-theme">Run it after every one.</b> A
+            stage that works is worth more than three stages you cannot test.
+          </p>
+
+          <h3 class="mt-4">1. Get one frame on screen</h3>
+
+          <Code code={Load} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            Then draw quad number 1 somewhere and look at it.{" "}
+            <b>If you see the whole sheet, you drew the image instead of the
+            quad.</b> If you see nothing, the file is not in the folder or the
+            name does not match &mdash; and LÖVE will have told you so on a blue
+            screen.
+          </p>
+
+          <p>
+            <CodeSnippet code={`setFilter("nearest", "nearest")`} lang="lua" inline />{" "}
+            is what keeps the pixels sharp when you scale it up. Leave it out
+            once and see the difference; the blurry version is what every
+            engine does by default and it is almost never what you want for
+            pixel art.
+          </p>
+
+          <h3 class="mt-4">2. Cycle the frames</h3>
+
+          <Code code={Advance} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b class="text-sn-theme">This is a counter with a wrap</b>, which
+            you have written before &mdash; it is the same shape as a loop
+            index, except it lives across frames instead of inside one.{" "}
+            <CodeSnippet code="FRAME_TIME = 0.11" lang="lua" inline /> is about
+            nine frames a second, which reads as a walk.
+          </p>
+
+          <h3 class="mt-4">3. Move, and face the right way</h3>
+
+          <Code code={DrawIt} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            That call has a lot of arguments and every one earns its place:{" "}
+            <b>the sheet, which quad, where, no rotation, the x scale, the y
+            scale, and the point inside the frame that lands on x and y.</b>
+          </p>
+
+          <p>
+            <CodeSnippet code="facing" lang="lua" inline /> is 1 or &minus;1.{" "}
+            <b class="text-sn-theme">A negative x scale flips the picture</b>,
+            which is why you do not need a second set of frames for walking
+            left &mdash; and why the last two arguments are 32, 32: it flips
+            around its own middle rather than swinging off to one side.
+          </p>
+
+          <h3 class="mt-4">4. Stand still when you are standing still</h3>
+
+          <p>
+            Only advance the timer while a key is held. When nothing is pressed,
+            snap back to frame 1.
+          </p>
+
+          <p class="text-body-secondary">
+            Skip this and the character marches on the spot forever, which looks
+            wrong in a way that is hard to name until you fix it.
+          </p>
+
+          <h3 class="mt-4">5. Show your working</h3>
+
+          <Code code={Preview} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            Draw the whole sheet in the corner at double size with a box round
+            the frame currently in use.{" "}
+            <b class="text-sn-theme">This is a debugging tool that happens to
+            look good</b>, and it makes the thing you cannot otherwise see
+            &mdash; which frame is up &mdash; visible.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="A black 800 by 600 window with the four-frame sprite sheet across the top, a yellow box around the fourth frame, and the same character drawn large in the middle standing on a gray floor line"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            The four source frames across the top with the current one boxed,
+            and the character drawn from that same frame at four times the size,
+            mid-stride, walking right.{" "}
+            <b class="text-sn-theme">One image file, one number, and the number
+            is 4.</b>
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li class="mb-2">
+              <b>Draw your own frames.</b> Any editor. Keep the frames square
+              and the same size, and your code will not need a single change
+              &mdash; which is the strongest possible argument for having
+              written it with <CodeSnippet code="64" lang="lua" inline /> in one
+              place rather than four.
+            </li>
+            <li class="mb-2">
+              <b>Two animations.</b> A second row in the sheet for jumping or
+              standing. The quad's y is what picks the row, and that is one more
+              number.
+            </li>
+            <li class="mb-2">
+              <b>Tie the speed to the movement.</b> Walk faster, cycle faster.
+              One division. It is a tiny change and it looks enormously better.
+            </li>
+            <li class="mb-2">
+              <b>Jump.</b> A vertical speed, gravity added every frame, and a
+              floor to stop at. That is three lines and it is where a character
+              turns into a platformer.
+            </li>
+            <li class="mb-2">
+              <b>A second character.</b> Same sheet, same quads, different
+              position and frame number.{" "}
+              <b class="text-sn-theme">Nothing is loaded twice</b>, and
+              understanding why that is true is the whole point of quads.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Submit whatever you have.</b> A character that cycles four frames
+            still earns credit, and so does a finished one with a bug you can
+            describe.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Project Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

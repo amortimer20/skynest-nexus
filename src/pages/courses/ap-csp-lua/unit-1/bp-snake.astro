@@ -1,0 +1,296 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/bp-snake-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Grow = `table.insert(segX, 1, newX)
+table.insert(segY, 1, newY)
+
+if newX == foodX and newY == foodY then
+    foodX = math.random(1, COLS)
+    foodY = math.random(1, ROWS)
+else
+    table.remove(segX)
+    table.remove(segY)
+end`;
+
+const Turn = `if key == "up" and dirY == 0 then
+    dirX = 0
+    dirY = -1
+end`;
+
+const SelfHit = `for i = 1, #segX do
+    if segX[i] == newX and segY[i] == newY then
+        -- you ate yourself
+    end
+end`;
+
+const Draw = `love.graphics.rectangle(
+    "fill",
+    (segX[i] - 1) * CELL + 1,
+    (segY[i] - 1) * CELL + 1,
+    CELL - 2,
+    CELL - 2
+)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Snake</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b class="text-sn-theme">The game that came on every phone before
+            phones were interesting.</b> You steer a line around a grid, eating
+            things. Every time you eat, you get longer, and the thing most
+            likely to kill you becomes yourself.
+          </p>
+
+          <p>
+            <b>This is extra credit and it is optional.</b> Nothing later in the
+            course depends on it. It exists because you finished early, or
+            because you want to build something you can show somebody.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before">
+          <h2>Before You Start</h2>
+
+          <p>
+            <b class="text-sn-theme">You need everything through session 20.</b>{" "}
+            Tables, going through a table, and{" "}
+            <CodeSnippet code="math.random" lang="lua" inline />.
+          </p>
+
+          <p>
+            <b>Two things here are new</b>, and they are the two that make the
+            whole game work:
+          </p>
+
+          <div class="text-start">
+            <dl>
+              <dt><CodeSnippet code="table.insert(t, 1, value)" lang="lua" inline /></dt>
+              <dd>Puts a value at the <b>front</b> of the table and shifts everything else along. This is the exam's <CodeSnippet code="INSERT" lang="txt" inline />, and it is how the snake grows a new head.</dd>
+              <dt><CodeSnippet code="table.remove(t)" lang="lua" inline /></dt>
+              <dd>Takes the <b>last</b> value off. This is the exam's <CodeSnippet code="REMOVE" lang="txt" inline />, and it is how the tail catches up.</dd>
+            </dl>
+          </div>
+
+          <p>
+            <b class="text-sn-theme">A snake is those two calls and nothing
+            else.</b> Add a head, drop the tail, and the whole body appears to
+            move without a single segment being told to.
+          </p>
+
+          <p class="text-body-secondary">
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename it <CodeSnippet code="bp-snake" lang="txt" inline />. No new
+            files, no libraries, nothing to install.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <p>
+            Five stages. <b class="text-sn-theme">Run it after every one.</b> A
+            stage that works is worth more than three stages you cannot test.
+          </p>
+
+          <h3 class="mt-4">1. Think in cells, not pixels</h3>
+
+          <p>
+            Everything in this game lives on a grid. 40 columns, 30 rows, 20
+            pixels each. <b>The snake's position is a column and a row</b>, and
+            you only turn that into pixels when you draw:
+          </p>
+
+          <Code code={Draw} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            The <CodeSnippet code="- 1" lang="lua" inline /> is there because
+            column 1 draws at pixel 0, and the{" "}
+            <CodeSnippet code="+ 1" lang="lua" inline /> and{" "}
+            <CodeSnippet code="- 2" lang="lua" inline /> leave a one-pixel gap
+            so you can see the segments.
+          </p>
+
+          <p class="text-body-secondary">
+            Start with{" "}
+            <CodeSnippet code={`segX = {5, 4, 3}`} lang="lua" inline /> and{" "}
+            <CodeSnippet code={`segY = {15, 15, 15}`} lang="lua" inline />, and
+            a loop that draws them. Three squares in a row. Nothing moves.
+          </p>
+
+          <h3 class="mt-4">2. A clock, and a direction</h3>
+
+          <p>
+            A snake does not slide, it steps. Use the same timer idea as any
+            turn-based thing: add <CodeSnippet code="dt" lang="lua" inline /> to
+            a total, and when it passes{" "}
+            <CodeSnippet code="0.12" lang="lua" inline />, take one step and
+            reset it.
+          </p>
+
+          <p>
+            Two variables, <CodeSnippet code="dirX" lang="lua" inline /> and{" "}
+            <CodeSnippet code="dirY" lang="lua" inline />, hold which way it is
+            going &mdash; one of them is 1 or &minus;1 and the other is 0. The
+            new head is the old head plus the direction.
+          </p>
+
+          <h3 class="mt-4">3. Move by growing and shrinking</h3>
+
+          <p>
+            <b class="text-sn-theme">This is the whole game and it is nine
+            lines:</b>
+          </p>
+
+          <Code code={Grow} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            Always add a head. <b>Only drop the tail if you did not eat.</b>{" "}
+            That single <CodeSnippet code="else" lang="lua" inline /> is the
+            difference between moving and growing, and there is no other
+            growth code anywhere in the program.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Draw the food before this works.</b> One square, a different
+            color, at a random cell. Then eat it and watch the snake get one
+            longer. If it gets longer every step, your{" "}
+            <CodeSnippet code="else" lang="lua" inline /> is in the wrong place.
+          </div>
+
+          <h3 class="mt-4">4. Steering, and the reverse bug</h3>
+
+          <Code code={Turn} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b class="text-sn-theme">The{" "}
+            <CodeSnippet code="and dirY == 0" lang="lua" inline /> is not
+            tidiness.</b> Without it, a snake travelling down can be told to go
+            up, which walks its head straight into its own neck and kills it
+            instantly. Leave the check out once and try it &mdash; it is the
+            fastest death in the project.
+          </p>
+
+          <h3 class="mt-4">5. Dying</h3>
+
+          <p>Two ways, and they are different kinds of check:</p>
+
+          <ul>
+            <li>
+              <b>The wall.</b> Four comparisons on the new head's column and
+              row.
+            </li>
+            <li>
+              <b>Yourself.</b> A loop over every segment, asking whether the new
+              head lands on it:
+            </li>
+          </ul>
+
+          <Code code={SelfHit} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            Both send everything back to the starting three squares.{" "}
+            <b>Do that check before you insert the new head</b>, or the head you
+            are testing against is already in the table and every step is a
+            collision.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="A black 800 by 600 window with a green snake eight segments long bending from horizontal to vertical, and a red food square to its right"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            Eight segments after five meals, mid-turn.{" "}
+            <b class="text-sn-theme">Notice the corner.</b> Nothing in the code
+            knows about corners &mdash; the bend is what happens when you add a
+            head in a new direction and keep dropping the tail.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li class="mb-2">
+              <b>Score, and speed.</b> Count the meals and shorten the step time
+              as it goes up. A snake that gets faster is a much better game than
+              one that only gets longer.
+            </li>
+            <li class="mb-2">
+              <b>Do not put food inside the snake.</b> Right now it can appear
+              under your own body, which is unwinnable and looks like a bug
+              because it is one. Keep picking until the cell is empty.{" "}
+              <b class="text-sn-theme">This is the most valuable fix on the
+              list.</b>
+            </li>
+            <li class="mb-2">
+              <b>A head that looks like a head.</b> Draw segment 1 in a
+              different color. One <CodeSnippet code="if" lang="lua" inline />{" "}
+              inside the drawing loop.
+            </li>
+            <li class="mb-2">
+              <b>Wrap instead of dying at the wall.</b> Leave the right edge,
+              come back on the left. Then decide which version you would rather
+              play, and say why.
+            </li>
+            <li class="mb-2">
+              <b>Buffer the turn.</b> Press two directions faster than one step
+              and the first one is lost. Remember the next direction instead of
+              applying it immediately. This is what makes commercial versions
+              feel responsive, and it is one extra variable.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Submit whatever you have.</b> A snake that moves and eats still
+            earns credit, and so does a finished game with a bug you can
+            describe.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Project Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

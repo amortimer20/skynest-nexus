@@ -1,0 +1,249 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/bp-dodger-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const HeldKeys = `if love.keyboard.isDown("left") then
+    playerX = playerX - playerSpeed * dt
+end`;
+
+const Respawn = `if blockY > 600 then
+    score = score + 1
+    blockSpeed = blockSpeed + 15
+    blockY = -50
+    blockX = math.random(0, 750)
+end`;
+
+const Lives = `for i = 1, lives do
+    love.graphics.rectangle("fill", 740 - (i - 1) * 30, 20, 20, 20)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Dodger</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b class="text-sn-theme">A game that gets harder until you
+            lose.</b> You slide left and right along the bottom of the screen.
+            Something falls at you. You dodge it, and the next one comes
+            faster. Three lives, and then it is over.
+          </p>
+
+          <p>
+            <b>This is extra credit and it is optional.</b> Nothing later in the
+            course depends on it. It exists because you finished early, or
+            because you want to build something you can show somebody.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before">
+          <h2>Before You Start</h2>
+
+          <p>
+            <b class="text-sn-theme">You need everything through session 16.</b>{" "}
+            Motion, collision as a condition,{" "}
+            <CodeSnippet code="math.random" lang="lua" inline />, and a counting
+            loop. Every one of those is used, and{" "}
+            <b>the counting loop is what draws your lives.</b>
+          </p>
+
+          <p>
+            <b>Nothing here is new.</b> This project is built entirely out of
+            things you already have, which is the point of putting it at
+            session 16 &mdash; it is the first place a real game is reachable
+            with no new tools at all.
+          </p>
+
+          <p class="text-body-secondary">
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename it <CodeSnippet code="bp-dodger" lang="txt" inline />. No new
+            files, no libraries, nothing to install.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <p>
+            Five stages. <b class="text-sn-theme">Run it after every one.</b> A
+            stage that works is worth more than three stages you cannot test.
+          </p>
+
+          <h3 class="mt-4">1. A player you can steer</h3>
+
+          <p>
+            A wide, short rectangle near the bottom. Move it with{" "}
+            <b>Left</b> and <b>Right</b>. You want the kind of key check that
+            keeps working while the key is held:
+          </p>
+
+          <Code code={HeldKeys} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            Then stop it leaving the screen. Two conditions, one per side, and
+            the right-hand one uses{" "}
+            <CodeSnippet code="playerX + playerW" lang="lua" inline /> rather
+            than <CodeSnippet code="playerX" lang="lua" inline />.
+          </p>
+
+          <h3 class="mt-4">2. One block, falling</h3>
+
+          <p>
+            Variables for the block's x, y, size and speed. Add the speed to y
+            every frame. Start it above the top of the window &mdash;{" "}
+            <CodeSnippet code="blockY = -50" lang="lua" inline /> &mdash; so it
+            slides into view rather than appearing.
+          </p>
+
+          <h3 class="mt-4">3. Send it round again</h3>
+
+          <p>
+            When the block goes past the bottom, you dodged it. Score a point,
+            put it back at the top at a new random x,{" "}
+            <b class="text-sn-theme">and make the next one faster:</b>
+          </p>
+
+          <Code code={Respawn} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b>That one line is the entire game design.</b> Without it you have
+            a thing that falls; with it you have something that eventually beats
+            you, which is what makes people play again.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Put <code>math.randomseed(os.time())</code> at the very top of
+            the file</b>, once. Without it your blocks fall in the identical
+            pattern every single run, which is a strange thing to discover
+            twenty minutes in.
+          </div>
+
+          <h3 class="mt-4">4. Getting hit</h3>
+
+          <p>
+            <b class="text-sn-theme">Four things have to be true at once</b> for
+            two rectangles to be touching, and this is session 14's condition
+            with different variable names. Write all four, joined with{" "}
+            <CodeSnippet code="and" lang="lua" inline />. When it is true, take
+            a life and send the block back to the top.
+          </p>
+
+          <p class="text-body-secondary">
+            Test it by standing still and letting one hit you. If your lives
+            drop by three at once, the block is still overlapping you on the
+            next frame &mdash; which means you took the life but forgot to move
+            the block.
+          </p>
+
+          <h3 class="mt-4">5. Show the score and the lives</h3>
+
+          <p>
+            <b>No text needed.</b> Draw the score as a bar whose width is the
+            score times twenty, and the lives as a row of squares:
+          </p>
+
+          <Code code={Lives} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b class="text-sn-theme">That is a counting loop doing real
+            work.</b> Three lives draws three squares, one life draws one, and
+            you never wrote an <CodeSnippet code="if" lang="lua" inline /> to
+            decide which.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="A black 800 by 600 window with a green bar at the top left showing five dodges, three yellow squares at the top right for lives, a red block falling at the upper left, and a green player at the bottom right"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            Five dodges so far, three lives left, and the sixth block on its way
+            down &mdash; noticeably faster than the first one was.{" "}
+            <b class="text-sn-theme">The green bar at the top left is the
+            score</b>, and it grows a notch every time a block gets past you.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li class="mb-2">
+              <b>End the game.</b> At zero lives, stop everything and show
+              something that says so. A variable called{" "}
+              <CodeSnippet code="alive" lang="lua" inline /> that the update
+              checks first is the cheapest way.
+            </li>
+            <li class="mb-2">
+              <b>Restart on a key press.</b> Set everything back to its starting
+              value in one place. If that turns out to be annoying, that is
+              session 21 telling you what functions are for.
+            </li>
+            <li class="mb-2">
+              <b>Add a second block.</b> A whole second set of variables. Then a
+              third. <b class="text-sn-theme">Stop at three and notice how bad
+              this is getting</b> &mdash; session 18 is the fix, and doing it
+              the painful way first is why the fix will make sense.
+            </li>
+            <li class="mb-2">
+              <b>Make it fair.</b> Right now the speed goes up forever and the
+              game becomes impossible in a way that feels cheap rather than
+              hard. Cap it, or make the block narrower as it speeds up, and
+              decide which feels better by playing it.
+            </li>
+            <li class="mb-2">
+              <b>Something worth catching.</b> A second falling shape, a
+              different color, that gives a life back instead of taking one.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Submit whatever you have.</b> A block that falls and a player
+            that dodges still earns credit, and so does a finished game with a
+            bug you can describe.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Project Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,291 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TargetImage from "../../../../assets/courses/ap-csp-lua/img/bp-breakout-target.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Overlap = `local function overlapsBall(x, y, w, h)
+    return ballX + ballR > x
+        and ballX - ballR < x + w
+        and ballY + ballR > y
+        and ballY - ballR < y + h
+end`;
+
+const MakeBricks = `local function makeBricks()
+    for row = 1, ROWS do
+        for col = 1, COLS do
+            table.insert(brickX, 44 + (col - 1) * (BW + 8))
+            table.insert(brickY, 60 + (row - 1) * (BH + 8))
+            table.insert(brickRow, row)
+            table.insert(brickAlive, true)
+        end
+    end
+end`;
+
+const HitBricks = `for i = 1, #brickX do
+    if brickAlive[i] and overlapsBall(brickX[i], brickY[i], BW, BH) then
+        brickAlive[i] = false
+        ballDY = -ballDY
+        score = score + 1
+    end
+end`;
+
+const RowColor = `local function rowColor(row)
+    if row == 1 then
+        return 0.95, 0.35, 0.35
+    elseif row == 2 then
+        return 0.95, 0.65, 0.3
+    -- rows 3, 4 and 5 are yours
+    else
+        return 1, 1, 1
+    end
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Bonus Project: Breakout</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            <b class="text-sn-theme">Fifty bricks, one ball, and a paddle you
+            are not fast enough for.</b> It is Pong with something to knock
+            down, and it is the last project of the quarter because it needs
+            every tool you have: tables to hold the bricks, a loop to test them,
+            and functions so the whole thing fits on a screen you can read.
+          </p>
+
+          <p>
+            <b>This is extra credit and it is optional.</b> Nothing later in the
+            course depends on it. It exists because you finished early, or
+            because you want to build something you can show somebody.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="before">
+          <h2>Before You Start</h2>
+
+          <p>
+            <b class="text-sn-theme">You need everything through session 23.</b>{" "}
+            Tables, loops, collision, functions with parameters, and functions
+            that hand a value back.
+          </p>
+
+          <p>
+            <b>Nothing here is new.</b> Every call in this project is one you
+            have already used &mdash; what is new is how much of it there is at
+            once.{" "}
+            <b class="text-sn-theme">This is the project where writing
+            functions stops being a lesson and starts being self-defense.</b>
+          </p>
+
+          <p>
+            <b>Do Pong first if you have not.</b> A paddle, a ball, and bouncing
+            are all easier to get right without fifty bricks in the way, and
+            you can copy most of it across.
+          </p>
+
+          <p class="text-body-secondary">
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> and
+            rename it <CodeSnippet code="bp-breakout" lang="txt" inline />. No
+            new files, no libraries, nothing to install.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="tasks">
+          <h2>Build It</h2>
+
+          <p>
+            Five stages. <b class="text-sn-theme">Run it after every one.</b> A
+            stage that works is worth more than three stages you cannot test.
+          </p>
+
+          <h3 class="mt-4">1. Paddle and ball</h3>
+
+          <p>
+            A paddle near the bottom moved with Left and Right, clamped to the
+            window. A ball with an x, a y, and a direction on each axis. Bounce
+            it off the left, right and top walls, and off the paddle.
+          </p>
+
+          <p class="text-body-secondary">
+            If the ball goes past the bottom, take a life and put it back in the
+            middle. You now have a one-player Pong, and it already runs.
+          </p>
+
+          <h3 class="mt-4">2. One function you will use six times</h3>
+
+          <p>
+            Everything in this game is a rectangle the ball might be touching.
+            Write that once:
+          </p>
+
+          <Code code={Overlap} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b class="text-sn-theme">Note what it does not take: the ball.</b>{" "}
+            It reads the ball's position from the variables at the top of the
+            file, and takes only the thing being tested. That is a deliberate
+            choice, it makes every call short, and{" "}
+            <b>it is also the reason this function could not be moved into
+            another program unchanged.</b> Worth knowing which trade you made.
+          </p>
+
+          <p>
+            Use it for the paddle straight away. If the paddle still works, the
+            function is right and fifty bricks will not surprise you.
+          </p>
+
+          <h3 class="mt-4">3. Build the wall</h3>
+
+          <p>
+            Four tables, filled by nested loops &mdash; x, y, row and whether it
+            is still there:
+          </p>
+
+          <Code code={MakeBricks} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            10 columns of 64 pixels with 8-pixel gaps is 712 wide, so 44 either
+            side centers it in an 800-pixel window.{" "}
+            <b>Work that out rather than nudging the number until it looks
+            right</b> &mdash; when you change the brick count later, arithmetic
+            survives and nudging does not.
+          </p>
+
+          <p class="text-body-secondary">
+            Draw them, all one color, and stop. Fifty rectangles on screen and
+            the ball passing straight through them is a correct stage 3.
+          </p>
+
+          <h3 class="mt-4">4. Break them</h3>
+
+          <Code code={HitBricks} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            <b class="text-sn-theme">Bricks are never deleted from the
+            table.</b> They are marked dead, and both the drawing loop and this
+            one skip them. Removing them would renumber everything after them
+            mid-loop, which is a genuinely nasty bug and one you do not need
+            today.
+          </p>
+
+          <div class="alert alert-warning">
+            <b>There is a bug in that code and you should keep it for now.</b>{" "}
+            If the ball clips two bricks in the same frame,{" "}
+            <CodeSnippet code="ballDY" lang="lua" inline /> flips twice and the
+            ball carries on as though nothing happened &mdash; two bricks gone,
+            no bounce. <b class="text-sn-theme">Play until you see it</b>, then
+            decide how to fix it. Stopping after the first hit is the easy way;
+            working out whether the ball hit the side or the face of the brick
+            is the real way.
+          </div>
+
+          <h3 class="mt-4">5. Color by row</h3>
+
+          <Code code={RowColor} lang="lua" frame="code" showLineNumbers={false} />
+
+          <p>
+            A function that takes a row and{" "}
+            <b class="text-sn-theme">hands back three numbers</b>, which{" "}
+            <CodeSnippet code="setColor" lang="lua" inline /> takes directly.
+            Session 22 said a function returns a value; it can return several,
+            and this is the tidiest use of that you will meet all quarter.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="sample-output">
+          <h2>What Success Looks Like</h2>
+
+          <div class="text-center my-4">
+            <Image
+              src={TargetImage}
+              alt="A black 800 by 600 window with five rows of colored bricks at the top, one brick missing from the blue row, a white ball just below the bricks, and a white paddle at the bottom"
+              width={800}
+              class="img-fluid rounded"
+            />
+          </div>
+
+          <p>
+            Five rows, ten columns, one brick already gone and the ball on its
+            way back down.{" "}
+            <b class="text-sn-theme">The colors come from one function and one
+            number</b> &mdash; the row the brick was built in, stored at the
+            same index as its position.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <section id="extend">
+          <h2>Then Make It Yours</h2>
+
+          <ul>
+            <li class="mb-2">
+              <b>Fix the double-hit.</b> The warning above. Start by stopping
+              after the first brick, then decide whether that is good enough.
+            </li>
+            <li class="mb-2">
+              <b>Steer with the paddle.</b> Bounce the ball off at an angle that
+              depends on where it hit &mdash; edges send it wide, the middle
+              sends it straight.{" "}
+              <b class="text-sn-theme">This is the single change that turns it
+              from a demo into a game</b>, because it makes the player
+              responsible for where the ball goes.
+            </li>
+            <li class="mb-2">
+              <b>Win.</b> Count the live bricks. At zero, say so. A loop and a
+              counter.
+            </li>
+            <li class="mb-2">
+              <b>Bricks worth different amounts.</b> The row is already stored.
+              Top rows score more, and the score is worth drawing.
+            </li>
+            <li class="mb-2">
+              <b>Bricks that take two hits.</b> Store a number instead of a
+              true or false, and draw the damaged ones darker.
+            </li>
+            <li class="mb-2">
+              <b>Speed up as the wall clears.</b> Then find out whether that
+              makes it better or just annoying. There is a right answer and it
+              is not obvious.
+            </li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Submit whatever you have.</b> A paddle, a ball and a wall that
+            breaks still earns credit, and so does a finished game with a bug
+            you can describe.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Project Complete
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
