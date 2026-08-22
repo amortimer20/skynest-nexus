@@ -1,0 +1,364 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Skeleton = `-- 1-25-artifact / main.lua
+
+-- variables
+
+
+function love.update(dt)
+
+end
+
+function love.draw()
+
+end
+
+function love.keypressed(key)
+    if key == "escape" then
+        love.event.quit()
+    end
+end`;
+
+const Stage1 = `local x = 400
+local y = 300
+
+function love.draw()
+    love.graphics.circle("fill", x, y, 30)
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.25: Creative Artifact &mdash; Build</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.25</h2>
+              <h3 class="text-sn-theme">Creative Artifact &mdash; Build</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Stage by Stage, Always Running</p>
+              <p>The Twenty-Minute Rule</p>
+              <p>Cutting Is Not Losing</p>
+            </section>
+
+            <section>
+              <h2>One Session</h2>
+              <p>
+                You have your approved plan and{" "}
+                <b class="text-sn-theme">one period.</b>
+              </p>
+              <p class="text-body-secondary">
+                Everything below exists to make sure you have something running
+                at the end of it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Rule One</h2>
+              <p class="text-sn-theme">
+                It runs at every step.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Rule One</h2>
+              <p class="text-sn-theme">
+                It runs at every step.
+              </p>
+              <p>
+                Not "it will run when I finish this bit". Running now, with less
+                in it.
+              </p>
+              <p class="text-body-secondary">
+                A program that has run in the last two minutes has a bug you can
+                find. One that has not run in twenty has several, and they are
+                tangled together.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which Is Why You Have Three Stages</h2>
+              <div class="text-start">
+                <ol>
+                  <li>Something on screen that responds</li>
+                  <li>The table and your function</li>
+                  <li>Scoring, ending, polish</li>
+                </ol>
+              </div>
+              <p class="text-body-secondary">
+                Each one runs. Each one is a program you would not be ashamed
+                to hand in.
+              </p>
+            </section>
+
+            <section>
+              <h2>Rule Two: The Twenty-Minute Rule</h2>
+              <p>
+                <b class="text-sn-theme">Twenty minutes on one bug and you stop
+                and ask.</b>
+              </p>
+              <p class="text-body-secondary">
+                Not because you cannot solve it. Because today the clock is the
+                thing that beats people, not the difficulty.
+              </p>
+            </section>
+
+            <section>
+              <h2>Rule Three: Cut Early, Not Late</h2>
+              <p>
+                You named the cut last session.{" "}
+                <b class="text-sn-theme">Take it at the halfway mark if you are
+                behind</b>, not at the end.
+              </p>
+              <p class="text-body-secondary">
+                A cut made with thirty minutes left is a decision. The same cut
+                with five minutes left is damage.
+              </p>
+            </section>
+
+            <section>
+              <h2>Save a Version That Works</h2>
+              <p>
+                When a stage runs,{" "}
+                <b class="text-sn-theme">copy the whole folder</b> and call it{" "}
+                <code>stage1</code>, <code>stage2</code>.
+              </p>
+              <p class="text-body-secondary">
+                Ten seconds. It means the worst thing that can happen today is
+                going back to something that worked.
+              </p>
+            </section>
+
+            <section>
+              <h2>Where to Look When It Breaks</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Blue screen, names a line</dt>
+                  <dd>Read the message. It says what it wanted and what it got.</dd>
+                  <dt>Nothing on screen</dt>
+                  <dd>Are you calling your function, or only defining it?</dd>
+                  <dt>Nothing moves</dt>
+                  <dd>Is the variable above both boxes, or inside one?</dd>
+                  <dt>A number climbing wildly</dt>
+                  <dd>Something is counting every frame that should count once.</dd>
+                  <dt>nil where a number should be</dt>
+                  <dd>A misspelling, a missing argument, or an index past the end.</dd>
+                </dl>
+              </div>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Build the approved plan, stage by stage</li>
+                <li>Keep a running version at all times</li>
+                <li>Meet all five requirements</li>
+                <li>Finish with something that works</li>
+              </ul>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            Copy the template your plan needs to{" "}
+            <CodeSnippet code="1-25-artifact" lang="txt" inline />. Almost
+            everybody wants{" "}
+            <CodeSnippet code="template-game" lang="txt" inline />.
+          </p>
+
+          <Code code={Skeleton} lang="lua" frame="code" title="main.lua" />
+
+          <h3 class="mt-4">Stage 1 &mdash; Something on Screen (target: 15 minutes)</h3>
+
+          <p>
+            The smallest thing from your plan that draws and responds. One
+            shape, moved by the keyboard or the mouse:
+          </p>
+
+          <Code code={Stage1} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            <b class="text-sn-theme">Run it. Then copy the folder to{" "}
+            <CodeSnippet code="1-25-stage1" lang="txt" inline />.</b>
+          </p>
+
+          <div class="alert alert-info">
+            <b>Fifteen minutes in and stage 1 does not run?</b> Put your hand
+            up. That is what the twenty-minute rule is for, and it is much
+            cheaper now than at the end.
+          </div>
+
+          <h3 class="mt-4">Stage 2 &mdash; The Table and Your Function (target: 30 minutes)</h3>
+
+          <p>Two things, and they are the graded ones:</p>
+
+          <ul>
+            <li>
+              <b>The table.</b> Positions, sizes, states &mdash; whatever your
+              plan said. The program has to break without it.
+            </li>
+            <li>
+              <b>Your function</b>, with parameters, called from more than one
+              place, with a decision and a loop in its body.
+            </li>
+          </ul>
+
+          <p>
+            <b class="text-sn-theme">Run it. Copy the folder to{" "}
+            <CodeSnippet code="1-25-stage2" lang="txt" inline />.</b>
+          </p>
+
+          <p class="text-body-secondary">
+            If your function has no natural loop in it, draw something in a loop
+            &mdash; rings, a row of pixels, a health bar of N segments. That
+            counts and it looks better than the version without.
+          </p>
+
+          <h3 class="mt-4">Halfway Check</h3>
+
+          <div class="alert alert-warning">
+            <b>Stop and look at the clock.</b> If stage 2 is not running with
+            half the period gone,{" "}
+            <b class="text-sn-theme">take the cut you named last session, now.</b>{" "}
+            Do not negotiate with yourself about it.
+          </div>
+
+          <h3 class="mt-4">Stage 3 &mdash; Make It a Thing (target: the rest)</h3>
+
+          <p>Whatever your plan called for. In rough order of value:</p>
+
+          <ol>
+            <li>An ending &mdash; a win, a loss, a timer running out</li>
+            <li>A score or a counter that is correct</li>
+            <li>Something that tells the player what to do</li>
+            <li>Color, size, and spacing that look deliberate</li>
+          </ol>
+
+          <p class="text-body-secondary">
+            A counter that counts once per event and not once per frame is
+            session 14. If yours is climbing on its own, that is the bug.
+          </p>
+
+          <h3 class="mt-4">Last Ten Minutes &mdash; Stop Building</h3>
+
+          <p>
+            <b class="text-sn-theme">No new features in the last ten
+            minutes.</b> Instead:
+          </p>
+
+          <ul>
+            <li>Run it three times and try to break it</li>
+            <li>Check every requirement on your plan is actually there</li>
+            <li>Check Escape still closes the window</li>
+            <li>Delete code you did not end up using</li>
+            <li>Make sure the folder you are submitting is the one that runs</li>
+          </ul>
+
+          <div class="alert alert-info">
+            <b>Finished early?</b> Do not start a second project. Take one
+            thing that works and make it better &mdash; more of what your
+            function draws, a second table, an extra decision.{" "}
+            <b class="text-sn-theme">Depth is worth more than another feature
+            here</b>, and it gives you more to write about next session.
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-25-artifact" lang="txt" inline /> runs, and
+              runs from a fresh start
+            </li>
+            <li>Something moves or responds to the player</li>
+            <li>Keyboard or mouse input works</li>
+            <li>A table is used, and the program breaks without it</li>
+            <li>
+              Your own function takes parameters and is called from more than
+              one place
+            </li>
+            <li>A decision and a loop are inside that function's body</li>
+            <li>Escape closes the window</li>
+            <li>At least one saved stage folder exists</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Describe the point today where the program was furthest from
+              working. Say what you did, and whether the plan or the code turned
+              out to be the problem.
+            </li>
+            <li>
+              Did you take the cut you named last session? Explain the decision
+              either way, and say what you would build first if you had another
+              hour.
+            </li>
+            <li>
+              Name one thing you can do now, without looking anything up, that
+              you could not do at session 13. Point at the line in your own
+              program where you did it.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Submit the whole{" "}
+            <CodeSnippet code="1-25-artifact" lang="txt" inline /> folder.{" "}
+            <b>Keep your stage copies</b> &mdash; you may want them next
+            session.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

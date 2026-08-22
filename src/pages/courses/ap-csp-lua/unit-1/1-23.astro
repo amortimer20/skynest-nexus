@@ -1,0 +1,441 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import FleetImage from "../../../../assets/courses/ap-csp-lua/img/1-23-fleet.png";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Fixed = `local function drawShip(x, y)
+    love.graphics.polygon("fill",
+        x, y - 40,
+        x - 28, y + 40,
+        x + 28, y + 40)
+end`;
+
+const Scaled = `local function drawShip(x, y, size)
+    love.graphics.setColor(0.75, 0.82, 0.92)
+    love.graphics.polygon("fill",
+        x, y - size,
+        x - size * 0.7, y + size,
+        x + size * 0.7, y + size)
+
+    love.graphics.setColor(0.95, 0.55, 0.2)
+    love.graphics.circle("fill", x, y + size * 0.35, size * 0.28)
+end`;
+
+const Fleet = `local xs    = {140, 330, 520, 680}
+local ys    = {180, 330, 200, 420}
+local sizes = {30, 70, 45, 25}
+
+function love.draw()
+    for i, x in ipairs(xs) do
+        drawShip(x, ys[i], sizes[i])
+    end
+end`;
+
+const Half = `local function drawShip(x, y, size)
+    love.graphics.polygon("fill",
+        x, y - size,
+        x - size * 0.7, y + size,
+        x + size * 0.7, y + 40)
+end`;
+
+const WhoCalls = `function love.draw()
+    drawShip(400, 300, 50)
+end`;
+
+const Callbacks = `love.draw
+love.update
+love.keypressed
+love.mousepressed`;
+
+const Mine = `drawShip
+drawTree
+area
+isEven`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.23: The Fleet, and Who Calls What</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.23</h2>
+              <h3 class="text-sn-theme">The Fleet, and Who Calls What</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>A Parameter That Changes Size</p>
+              <p>Two Kinds of Function</p>
+              <p>Only One Kind Counts in May</p>
+            </section>
+
+            <section>
+              <h2>What You Are Building</h2>
+              <Image
+                src={FleetImage}
+                alt="Four pale blue triangular ships of different sizes with orange portholes, scattered across a black window"
+                width={520}
+                class="img-fluid rounded"
+              />
+              <p class="mt-3">
+                Four ships, four sizes,{" "}
+                <b class="text-sn-theme">one description.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Yesterday's Ship Was One Size</h2>
+              <Code code={Fixed} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Yesterday's Ship Was One Size</h2>
+              <Code code={Fixed} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                <code>40</code> and <code>28</code> are stuck in there.{" "}
+                <b class="text-sn-theme">Every ship in the game is that
+                big, forever.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>So Make the Size a Blank Too</h2>
+              <Code code={Scaled} frame="code" lang="lua" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>So Make the Size a Blank Too</h2>
+              <Code code={Scaled} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Every measurement is now{" "}
+                <b class="text-sn-theme">a fraction of <code>size</code></b>,
+                not a number of pixels.
+              </p>
+              <p class="text-body-secondary">
+                <code>size * 0.7</code> means "seven tenths as wide as it is
+                tall", whatever tall turns out to be.
+              </p>
+            </section>
+
+            <section>
+              <h2>Miss One and You Will See It</h2>
+              <Code code={Half} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                One <code>40</code> left behind, and the ship{" "}
+                <b class="text-sn-theme">bends</b> as the size changes.
+              </p>
+              <p class="text-body-secondary">
+                Same test as session 21's house with the door left behind, and
+                easier to see.
+              </p>
+            </section>
+
+            <section>
+              <h2>Now the Question This Quarter Has Been Building To</h2>
+              <Code code={WhoCalls} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Two functions on that slide.{" "}
+                <b class="text-sn-theme">Who calls each one?</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Kinds, and They Are Not Equal</h2>
+              <Code code={Callbacks} frame="code" lang="txt" showLineNumbers={false} title="The engine calls these" />
+            </section>
+
+            <section data-auto-animate>
+              <h2>Two Kinds, and They Are Not Equal</h2>
+              <Code code={Callbacks} frame="code" lang="txt" showLineNumbers={false} title="The engine calls these" />
+              <Code code={Mine} frame="code" lang="txt" showLineNumbers={false} title="You call these" />
+              <p class="text-sn-theme">
+                You wrote the bodies of all eight. Only four are yours in the
+                sense that matters in May.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Rule, in the College Board's Own Words</h2>
+              <p class="text-body-secondary">
+                <i>"Event handlers are built-in abstractions in some languages
+                and will therefore not be considered student-developed."</i>
+              </p>
+              <p>
+                <b class="text-sn-theme"><code>love.draw</code> does not count
+                as a procedure you wrote.</b>
+              </p>
+            </section>
+
+            <section>
+              <h2>Why That Matters in Quarter 3</h2>
+              <p>
+                The Create Task requires{" "}
+                <b class="text-sn-theme">at least one student-developed
+                procedure with one or more parameters</b>, and an algorithm
+                inside its body.
+              </p>
+              <p class="text-body-secondary">
+                A program that is nothing but <code>love.draw</code> and{" "}
+                <code>love.update</code> does not have one, however much code is
+                in it.
+              </p>
+            </section>
+
+            <section>
+              <h2>Which Is Not a Reason to Avoid Them</h2>
+              <p>
+                You need <code>love.draw</code>. It is how anything appears at
+                all.
+              </p>
+              <p>
+                <b class="text-sn-theme">The rule is about what you point at in
+                May</b>, not about how to write a program.
+              </p>
+              <p class="text-body-secondary">
+                <code>drawShip</code> is what you point at.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Add a size parameter and scale everything from it</li>
+                <li>Draw a fleet from three parallel tables</li>
+                <li>Sort the functions in your file into two kinds</li>
+                <li>Say which kind the Create Task counts, and why</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Callback</dt>
+                  <dd>A function the engine calls for you, at a moment it decides.</dd>
+                  <dt>Event handler</dt>
+                  <dd>A callback that runs in response to something happening. The College Board's word.</dd>
+                  <dt>Student-developed procedure</dt>
+                  <dd>A function you wrote <i>and</i> call yourself. The Create Task requires one.</dd>
+                  <dt>Scaling</dt>
+                  <dd>Measuring every part as a fraction of one size, so the whole thing grows together.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <h3 class="mt-4">Task 1: One Ship, Any Size</h3>
+
+          <p>
+            Copy <CodeSnippet code="template-game" lang="txt" inline /> to{" "}
+            <CodeSnippet code="1-23-fleet" lang="txt" inline />:
+          </p>
+
+          <Code code={Scaled} lang="lua" frame="code" title="main.lua" />
+
+          <p>
+            Call it once at <code>size</code> 40, then 15, then 90.{" "}
+            <b class="text-sn-theme">The shape must stay the same shape</b>{" "}
+            &mdash; only bigger.
+          </p>
+
+          <div class="alert alert-info">
+            <b><CodeSnippet code="love.graphics.polygon" lang="lua" inline /> is new and it is the last drawing call this quarter.</b>{" "}
+            After <CodeSnippet code={`"fill"`} lang="lua" inline /> it takes any
+            number of x and y pairs and joins them up. Three pairs is a
+            triangle.
+          </div>
+
+          <h3 class="mt-4">Task 2: Break the Scaling on Purpose (Required)</h3>
+
+          <p>Put one hardcoded number back:</p>
+
+          <Code code={Half} lang="lua" frame="code" title="main.lua" mark={{ range: "5" }} />
+
+          <p>
+            Draw it at 15, 40 and 90.{" "}
+            <b>Describe what happens to the shape at each size</b>, then put the
+            scaling back.
+          </p>
+
+          <p class="text-body-secondary">
+            This is session 21's move-it test with one more dimension: it is not
+            enough for the parts to move together, they have to{" "}
+            <b class="text-sn-theme">grow together.</b>
+          </p>
+
+          <h3 class="mt-4">Task 3: A Fleet</h3>
+
+          <p>Three parallel tables, one loop, one call:</p>
+
+          <Code code={Fleet} lang="lua" frame="code" title="main.lua" />
+
+          <Image
+            src={FleetImage}
+            alt="Four ships of different sizes at the positions in the tables"
+            width={520}
+            class="img-fluid rounded my-3"
+          />
+
+          <p>
+            Add a fifth ship by adding three numbers.{" "}
+            <b>Count what is in your file:</b> how many ships, how many{" "}
+            <CodeSnippet code="drawShip" lang="lua" inline /> calls are written
+            out.
+          </p>
+
+          <h3 class="mt-4">Task 4: Sort Your Own Functions</h3>
+
+          <p>
+            Open the file and list <b>every</b> function in it. For each one,
+            write down who calls it:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Function</th>
+                  <th>Who calls it</th>
+                  <th>Counts as student-developed?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>love.draw</code></td><td></td><td></td></tr>
+                <tr><td><code>love.keypressed</code></td><td></td><td></td></tr>
+                <tr><td><code>drawShip</code></td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b class="text-sn-theme">You wrote the body of all three.</b> Only
+            one of them is a procedure you developed, as far as the Create Task
+            is concerned.
+          </p>
+
+          <h3 class="mt-4">Task 5: Make the Fleet Do Something</h3>
+
+          <p>
+            Pick one, and it has to work through{" "}
+            <CodeSnippet code="drawShip" lang="lua" inline /> rather than around
+            it:
+          </p>
+
+          <ul>
+            <li>Every ship drifts down the screen and wraps to the top</li>
+            <li>The ships pulse &mdash; each size grows and shrinks on its own</li>
+            <li>Clicking a ship makes it bigger</li>
+            <li>A fourth table gives each ship its own color, passed as parameters</li>
+          </ul>
+
+          <p class="text-body-secondary">
+            If you find yourself writing drawing code outside{" "}
+            <CodeSnippet code="drawShip" lang="lua" inline />, stop and add a
+            parameter instead.
+          </p>
+
+          <h3 class="mt-4">Challenge (Optional): Zero and Negative</h3>
+
+          <p>
+            Call <CodeSnippet code="drawShip(400, 300, 0)" lang="lua" inline />{" "}
+            and then with a negative size.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Neither one is an error.</b> Write down
+            what you see in each case and what you think happened. Then decide
+            whether a real program should let that happen, and say what you
+            would do about it.
+          </p>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>
+              <CodeSnippet code="1-23-fleet" lang="txt" inline /> draws four
+              ships at four sizes from one function
+            </li>
+            <li>The shape is identical at size 15 and size 90</li>
+            <li>The bent-ship experiment is described on your sheet</li>
+            <li>Your function table is filled in, all three rows</li>
+            <li>
+              You can say which functions in your file the Create Task would
+              count
+            </li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              You wrote the body of <CodeSnippet code="love.draw" lang="lua" inline />{" "}
+              and the body of <CodeSnippet code="drawShip" lang="lua" inline />.
+              Explain why the College Board counts one and not the other, and
+              say whether you think that is fair.
+            </li>
+            <li>
+              One hardcoded number made the ship bend instead of grow. Explain
+              what "scaling" means in your own words, and describe how you would
+              test any drawing function for it.
+            </li>
+            <li>
+              Adding a fifth ship took three numbers and no new code. Trace that
+              back through the quarter: name the three separate ideas that had
+              to be in place for that to be true.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>Submit the required files to the appropriate dropbox.</p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

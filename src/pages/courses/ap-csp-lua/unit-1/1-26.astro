@@ -1,0 +1,331 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const Weak = `My function draws a target. It takes x and y.
+It works well and I am happy with it.`;
+
+const Strong = `drawTarget(x, y, size) draws one target wherever
+it is told to. The rings are drawn by a loop that
+counts down from 3, and an if inside it colors a
+hit target gray instead of red. It is called from
+the traversal that draws all the targets, and
+again to draw the one under the mouse.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.26: Creative Artifact &mdash; Writing It Down</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.26</h2>
+              <h3 class="text-sn-theme">Creative Artifact &mdash; Writing It Down</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>Explaining Your Own Code</p>
+              <p>What a Good Answer Looks Like</p>
+              <p>Looking at Everybody Else's</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Part Nobody Practices</h2>
+              <p>You built it. Now write about it.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>The Part Nobody Practices</h2>
+              <p>You built it. Now write about it.</p>
+              <p>
+                In May you will sit in a room with{" "}
+                <b class="text-sn-theme">no computer</b> and answer four written
+                questions about a program you wrote months earlier.
+              </p>
+              <p class="text-body-secondary">
+                Today is that, at one tenth the size, one week after building
+                it.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>This Answer Earns Nothing</h2>
+              <Code code={Weak} frame="code" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>This Answer Earns Nothing</h2>
+              <Code code={Weak} frame="code" lang="txt" showLineNumbers={false} />
+              <p>
+                It is true, it is about the right function, and it says{" "}
+                <b class="text-sn-theme">nothing a reader could not have
+                guessed from the name.</b>
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>This One Does</h2>
+              <Code code={Strong} frame="code" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>This One Does</h2>
+              <Code code={Strong} frame="code" lang="txt" showLineNumbers={false} />
+              <p>
+                Names the parameters. Says what the loop does and what the
+                decision decides.{" "}
+                <b class="text-sn-theme">Says where it is called from, twice.</b>
+              </p>
+              <p class="text-body-secondary">
+                Same function. Same program. One of these is worth marks.
+              </p>
+            </section>
+
+            <section>
+              <h2>Write About What Is There</h2>
+              <p>
+                Not what you meant to build, not what it would do with another
+                week.
+              </p>
+              <p class="text-sn-theme">
+                A small program described precisely beats a big one described
+                vaguely.
+              </p>
+            </section>
+
+            <section>
+              <h2>Then the Gallery Walk</h2>
+              <p>
+                Everyone's program runs. Everyone else walks around and plays
+                them.
+              </p>
+              <p class="text-body-secondary">
+                You are looking for one thing you want to steal and one thing
+                you would ask about. Both go on your sheet.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Describe your program's purpose and how it is used</li>
+                <li>Explain your own procedure precisely</li>
+                <li>Say what you cut, and why</li>
+                <li>Look at everyone else's and take something from it</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Documentation</dt>
+                  <dd>Writing that explains what a program does and how.</dd>
+                  <dt>Functionality</dt>
+                  <dd>How a program behaves while it runs, described by what a user does. The exam's word.</dd>
+                  <dt>Abstraction</dt>
+                  <dd>Using something by its name without needing its details. A function you call is one.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <p>
+            <b class="text-sn-theme">Open your program once, run it, then close
+            the editor</b> and write from what you remember. If you get stuck,
+            open it again &mdash; but notice that you had to.
+          </p>
+
+          <h3 class="mt-4">Task 1: Purpose and Use</h3>
+
+          <p>Two short paragraphs on the documentation sheet:</p>
+
+          <ul>
+            <li>
+              <b>Purpose.</b> What the program is for. Not the mechanics
+              &mdash; why anyone would run it.
+            </li>
+            <li>
+              <b>Use.</b> What a person does, in order, from launching it to
+              finishing. What they press, what they see, how it ends.
+            </li>
+          </ul>
+
+          <h3 class="mt-4">Task 2: Your Procedure</h3>
+
+          <p>
+            The graded one. Write about the function you wrote, and cover all
+            five:
+          </p>
+
+          <ol>
+            <li>Its name and its parameters, and what each parameter is for</li>
+            <li>What it does with them</li>
+            <li>What the <b>loop</b> inside it repeats, and how many times</li>
+            <li>What the <b>decision</b> inside it decides</li>
+            <li>The <b>two places</b> it is called from, and why each one calls it</li>
+          </ol>
+
+          <p class="text-body-secondary">
+            Then paste the function itself underneath. It should be short enough
+            to read in one go &mdash; if it is not, say so and explain which
+            part matters.
+          </p>
+
+          <h3 class="mt-4">Task 3: The Table</h3>
+
+          <p>
+            What is in it, what the program does with it, and{" "}
+            <b>what would happen if you deleted it.</b>
+          </p>
+
+          <p class="text-body-secondary">
+            If the honest answer is "not much", say that. An accurate
+            description of a weak table is worth more than an invented
+            description of a strong one, and it tells you exactly what to fix in
+            Quarter 3.
+          </p>
+
+          <h3 class="mt-4">Task 4: What You Cut</h3>
+
+          <p>Three sentences:</p>
+
+          <ul>
+            <li>What you planned that is not in the program</li>
+            <li>When you decided to drop it, and why</li>
+            <li>What you would build first with another session</li>
+          </ul>
+
+          <h3 class="mt-4">Task 5: One Bug</h3>
+
+          <p>
+            Describe the worst thing that went wrong while building.{" "}
+            <b class="text-sn-theme">What you saw, what you thought it was, and
+            what it actually was.</b>
+          </p>
+
+          <p class="text-body-secondary">
+            "What you thought it was" is the interesting part and it is the part
+            people leave out.
+          </p>
+
+          <h3 class="mt-4">Task 6: The Gallery Walk</h3>
+
+          <p>
+            Leave your program running and go and look at everyone else's.{" "}
+            <b>Play at least five.</b> For each one you write about, take:
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Whose</th>
+                  <th>One thing it does well</th>
+                  <th>One thing you want to know how they did</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-info">
+            <b>Ask the second column out loud before the session ends.</b>{" "}
+            Everybody in this room solved a problem you did not, and{" "}
+            <b class="text-sn-theme">this is the cheapest hour of the quarter
+            for finding that out.</b>
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>Purpose and use, both written</li>
+            <li>
+              Your procedure described with all five points, and the code
+              pasted
+            </li>
+            <li>The table described honestly, including the delete test</li>
+            <li>What you cut, and when you decided</li>
+            <li>One bug, including what you thought it was</li>
+            <li>At least three programs recorded from the gallery walk</li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              You wrote about your program with the editor closed. Say which
+              part you could not remember, and what that tells you about writing
+              code you will have to explain in May.
+            </li>
+            <li>
+              Somebody else's program did something yours did not. Describe it,
+              and say what you think they had to know to build it.
+            </li>
+            <li>
+              This quarter started with a program that printed one line. Name
+              the single idea from the last twenty-five sessions that made the
+              biggest difference to what you can build, and say why that one.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Submit the documentation sheet and, if you changed anything today,
+            the program folder again.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Quarter Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,386 @@
+---
+import Presentation from "../../../../components/Presentation.astro";
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { Code as CodeSnippet } from "astro:components";
+
+//#region CodeSnippets
+const TooBig = `A multiplayer role-playing game with a world map,
+an inventory system, save files, and boss fights.`;
+
+const RightSize = `A target-practice game. Targets appear at random
+places, you click them, and you get one point each
+until the timer runs out.`;
+
+const Shape = `local function drawTarget(x, y, size)
+    -- decision: a hit target looks different
+    -- loop: draw the rings
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Activity 1.24: Creative Artifact &mdash; The Plan</h1>
+        <Divider variant="8" classes="mb-5" />
+
+        <!-- Launch / Concept -->
+        <section id="launch">
+          <Presentation>
+            <section>
+              <h2>Activity 1.24</h2>
+              <h3 class="text-sn-theme">Creative Artifact &mdash; The Plan</h3>
+            </section>
+
+            <section>
+              <h2>Key Concepts</h2>
+              <p>What You Are Making</p>
+              <p>Scope Is the Whole Skill</p>
+              <p>A Plan Somebody Else Could Read</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Three Sessions, One Program</h2>
+              <p>Today you plan it. Next session you build it.</p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>Three Sessions, One Program</h2>
+              <p>Today you plan it. Next session you build it.</p>
+              <p>Then you write about it and show it to the room.</p>
+              <p class="text-sn-theme">
+                No code today. Not one line.
+              </p>
+            </section>
+
+            <section>
+              <h2>Why the Gate</h2>
+              <p>
+                You have <b class="text-sn-theme">one session to build.</b>
+              </p>
+              <p>
+                A plan that cannot be built in one session is not a plan, and
+                the time to find that out is now.
+              </p>
+              <p class="text-body-secondary">
+                In Quarter 3 you get eight sessions and the same problem, at
+                eight times the size.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>This Is Not a Plan</h2>
+              <Code code={TooBig} frame="code" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>This Is Not a Plan</h2>
+              <Code code={TooBig} frame="code" lang="txt" showLineNumbers={false} />
+              <p>
+                Every word of it is something you have never built, and{" "}
+                <b class="text-sn-theme">none of it fits in an hour.</b>
+              </p>
+              <p class="text-body-secondary">
+                This gets written every year, by somebody good.
+              </p>
+            </section>
+
+            <section data-auto-animate>
+              <h2>This Is</h2>
+              <Code code={RightSize} frame="code" lang="txt" showLineNumbers={false} />
+            </section>
+
+            <section data-auto-animate>
+              <h2>This Is</h2>
+              <Code code={RightSize} frame="code" lang="txt" showLineNumbers={false} />
+              <p>
+                Every piece of it is something you built between sessions 13 and
+                23.
+              </p>
+              <p class="text-sn-theme">
+                Small and finished beats ambitious and broken. Every time.
+              </p>
+            </section>
+
+            <section>
+              <h2>The Five Requirements</h2>
+              <div class="text-start">
+                <ol>
+                  <li>Something on screen that <b>moves or responds</b></li>
+                  <li><b>Input</b> from the keyboard or the mouse</li>
+                  <li>A <b>table</b> that the program actually uses</li>
+                  <li>A <b>function you wrote</b>, with parameters, called from more than one place</li>
+                  <li>A <b>decision and a loop inside that function's body</b></li>
+                </ol>
+              </div>
+            </section>
+
+            <section>
+              <h2>Number Five Is the Awkward One</h2>
+              <Code code={Shape} frame="code" lang="lua" showLineNumbers={false} />
+              <p>
+                Not somewhere in the program.{" "}
+                <b class="text-sn-theme">Inside that function.</b>
+              </p>
+              <p class="text-body-secondary">
+                It is the Create Task's requirement, shrunk. Meeting it now
+                makes Quarter 3 an easier conversation.
+              </p>
+            </section>
+
+            <section>
+              <h2>"Actually Uses" a Table</h2>
+              <p>
+                Storing three names and printing one of them is{" "}
+                <b class="text-sn-theme">not using a list.</b>
+              </p>
+              <p>
+                The test:{" "}
+                <b>delete the table. Does the program break?</b>
+              </p>
+              <p class="text-body-secondary">
+                If it still works with the table gone, the table was decoration.
+              </p>
+            </section>
+
+            <section>
+              <h2>Name the Thing You Will Cut</h2>
+              <p>
+                Every plan needs{" "}
+                <b class="text-sn-theme">one feature marked "cut this first."</b>
+              </p>
+              <p class="text-body-secondary">
+                Deciding it today, calmly, is worth ten times deciding it next
+                session with fifteen minutes left.
+              </p>
+            </section>
+
+            <section>
+              <h2>Today's Objectives</h2>
+              <ul>
+                <li>Describe a program in one sentence</li>
+                <li>Check it against the five requirements</li>
+                <li>Name what you will cut if you run short</li>
+                <li>Get it approved before you write any code</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>Key Terms</h2>
+              <div class="text-start">
+                <dl>
+                  <dt>Scope</dt>
+                  <dd>How much a project is trying to do.</dd>
+                  <dt>Artifact</dt>
+                  <dd>The thing you made. The program itself, not the plan for it.</dd>
+                  <dt>Requirement</dt>
+                  <dd>Something the finished program has to have, whatever else it has.</dd>
+                  <dt>Purpose</dt>
+                  <dd>The problem being solved or the interest being pursued. The exam's word.</dd>
+                </dl>
+              </div>
+            </section>
+          </Presentation>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Build -->
+        <section id="build">
+          <h2>Build</h2>
+
+          <div class="alert alert-warning">
+            <b class="text-sn-theme">No code this session.</b> VS Code stays
+            closed. Everything below goes on the planning sheet, in prose, in
+            sentences.
+          </div>
+
+          <h3 class="mt-4">Task 1: One Sentence</h3>
+
+          <p>
+            Write what your program is in{" "}
+            <b class="text-sn-theme">one sentence</b> that says what a person
+            does with it and what happens.
+          </p>
+
+          <p>
+            <b>"A game where you dodge things"</b> is not enough. Who moves?
+            What appears? How does it end?
+          </p>
+
+          <p class="text-body-secondary">
+            Read it to the person next to you. If they ask a question you cannot
+            answer, the sentence is not finished.
+          </p>
+
+          <h3 class="mt-4">Task 2: The Five Requirements</h3>
+
+          <p>
+            Go through the list one at a time and write down{" "}
+            <b>which part of your program</b> satisfies each. Not "it will have
+            a table" &mdash; <b class="text-sn-theme">what is in the table, and
+            what the program does with it.</b>
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Requirement</th>
+                  <th>Which part of your program</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Moves or responds</td><td></td></tr>
+                <tr><td>Keyboard or mouse input</td><td></td></tr>
+                <tr><td>A table the program uses</td><td></td></tr>
+                <tr><td>Your function, with parameters, called twice</td><td></td></tr>
+                <tr><td>A decision and a loop inside it</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b>Run the delete test on paper.</b> If your table were gone, would
+            the program still work? If yes, the table is decoration and the plan
+            needs changing now, not next session.
+          </p>
+
+          <h3 class="mt-4">Task 3: Sketch the Screen</h3>
+
+          <p>
+            Draw the window on your sheet. Put everything on it that will be
+            there. Label what moves, what the player controls, and where any
+            text goes.
+          </p>
+
+          <p class="text-body-secondary">
+            You are drawing at 800 by 600, and{" "}
+            <b class="text-sn-theme">y still points down</b>. Put a couple of
+            approximate coordinates on the sketch &mdash; you will thank
+            yourself next session.
+          </p>
+
+          <h3 class="mt-4">Task 4: Three Steps, In Order</h3>
+
+          <p>
+            Break the build into <b>three stages that each run</b>. Not three
+            features &mdash; three programs, each one bigger than the last:
+          </p>
+
+          <ol>
+            <li>The smallest version that puts something on screen and responds</li>
+            <li>That, plus the table and your function</li>
+            <li>That, plus scoring, ending, polish</li>
+          </ol>
+
+          <p>
+            <b class="text-sn-theme">Stage 1 has to be something you could
+            finish in fifteen minutes.</b> If it is not, it is stage 2.
+          </p>
+
+          <h3 class="mt-4">Task 5: Name the Cut</h3>
+
+          <p>
+            Write down the <b>one feature you will drop first</b> if you run out
+            of time, and sign next to it.
+          </p>
+
+          <p class="text-body-secondary">
+            This is not pessimism. Every real project has this list; most people
+            just write it in a panic instead of in advance.
+          </p>
+
+          <h3 class="mt-4">Task 6: The Gate</h3>
+
+          <p>
+            <b class="text-sn-theme">Bring the sheet to me before you open VS
+            Code.</b> I will read it and either approve it or hand it back with
+            one thing to change.
+          </p>
+
+          <p>
+            Getting handed back is normal and it is not a mark against you.{" "}
+            <b>Getting approved with a plan that was too big is what actually
+            costs you</b>, because you find out next session with no time to
+            recover.
+          </p>
+
+          <div class="alert alert-info">
+            <b>Approved early?</b> Sketch a second screen for the state after
+            the game ends, or write out the exact lines of your function's
+            header and what each parameter is for.{" "}
+            <b class="text-sn-theme">Still no code.</b>
+          </div>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Checkpoint -->
+        <section id="checkpoint">
+          <h2>Checkpoint</h2>
+
+          <ul>
+            <li>One sentence that says what a person does and what happens</li>
+            <li>All five requirements matched to a named part of your program</li>
+            <li>A screen sketch with labels and some coordinates</li>
+            <li>Three stages, each of which runs</li>
+            <li>A named cut, signed</li>
+            <li><b class="text-sn-theme">The plan is approved</b></li>
+          </ul>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Reflection -->
+        <section id="reflection">
+          <h2>Reflection</h2>
+
+          <p>Answer the following questions before submitting your work.</p>
+
+          <ol>
+            <li>
+              Describe the first version of your idea, before you cut anything
+              down. Say what you removed and what convinced you to remove it.
+            </li>
+            <li>
+              Requirement five puts a decision and a loop inside your own
+              function. Explain what that forced you to change about the design,
+              and say whether the program is better or worse for it.
+            </li>
+            <li>
+              You named a feature to cut before writing any code. Explain what
+              makes that easier to decide now than it will be next session.
+            </li>
+          </ol>
+        </section>
+
+        <Divider variant="8" classes="my-5" />
+
+        <!-- Submit -->
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Submit the approved planning sheet to the appropriate dropbox.{" "}
+            <b>Keep a copy</b> &mdash; you build from it next session and you
+            write about it the session after.
+          </p>
+
+          <h1
+            class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+          >
+            Activity Complete
+          </h1>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
