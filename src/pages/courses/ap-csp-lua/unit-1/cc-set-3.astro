@@ -1,0 +1,152 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Ambiguous = `Segments, not a solid block. It has to work at any
+position and any size, and it should look different
+when things are going badly.`;
+
+const Questions = `- How many segments? Fixed, or one per unit of health?
+- What is "badly"? A quarter left? A tenth? One segment?
+- Does it look different by color, by size, by flashing?
+- What does an empty bar look like? What about a full one?
+- What happens if health is above the maximum, or below zero?`;
+//#endregion
+
+const pool = [
+  { slug: "cc-grade-book", title: "Grade Book", stars: 2, note: "four traversals, one table" },
+  { slug: "cc-health-bar", title: "Health Bar", stars: 2, note: "graded on the function" },
+  { slug: "cc-star-field", title: "Star Field", stars: 2, note: "one number changes everything" },
+  { slug: "cc-constellation", title: "Constellation", stars: 3, note: "hardest; closest to the artifact" },
+];
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge Set 3</h1>
+
+        <h4 class="text-sn-theme">Complete any 2 of the 4 below.</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Set Is For</h2>
+
+          <p>Everything here needs a <b>table</b> and a <b>function of your own</b>. That is deliberate: they are the two things the Create Task will ask for, and this is the last practice before you scope your own.</p>
+
+          <p><b>Iteration</b> completes the set of three. Every challenge below has a loop doing real work, and in two of them the loop is inside your function.</p>
+
+          <p><b>Name the table and the function before you write any code</b>, in your requirements list. What is in the table, what the function takes, and what it does with it.</p>
+
+        </section>
+
+        <hr />
+
+        <section id="requirements">
+          <h2>This Set Is About Building Something Reusable</h2>
+
+          <p>
+            The gaps here are different again. The briefs are clear about what
+            they want to see and vague about <b>how much of it</b> &mdash; how
+            many, how big, how often. That is the sort of vagueness a table and
+            a function are for.
+          </p>
+
+          <p>
+            A fragment, and what it leaves open:
+          </p>
+
+          <Code
+            code={Ambiguous}
+            frame="code"
+            lang="txt"
+            title="From the Health Bar brief"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            That is a normal way for a person to describe what they want, and it
+            is not enough to write a program from. Here is what should end up in
+            your requirements list:
+          </p>
+
+          <Code
+            code={Questions}
+            frame="code"
+            lang="txt"
+            title="Requirements — the questions half"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>There is no right answer to any of those.</b> There is only a
+            decision you made or a decision you did not notice. Two programs
+            that answer them differently are both correct;{" "}
+            <b class="text-sn-theme">a program whose author never thought about
+            it is the one that goes wrong in front of somebody.</b>
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="challenges">
+          <h2>The Challenges</h2>
+
+          <p>Pick <b>any two</b>.</p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              pool.map((c) => (
+                <li class="mb-2">
+                  <i class="si-terminal text-sn-theme me-2"></i>
+                  <a href={`/courses/ap-csp-lua/unit-1/${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">&mdash; {c.note}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            For each of the two: <b>the requirements list</b> and{" "}
+            <b>the program folder</b>.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The requirements list is the deliverable
+            that is actually being read.</b> The code is evidence you tried to
+            satisfy your own list.
+          </p>
+
+          <p>Worth <b>10 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,106 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `This recipe serves four and I am cooking for eleven. Take
+the four-person amounts and tell me what I actually need.`;
+
+const Sample = `How many people? 11 [Enter]
+
+For 11 people:
+  Flour: 550 g
+  Butter: 275 g
+  Sugar: 165 g
+  Eggs: 5.5`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/unit-1/cc-set-1" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 1
+        </a>
+
+        <h1>Code Challenge: Recipe Scaler</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code
+            code={Brief}
+            frame="code"
+            lang="txt"
+            title="What they asked for"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> What
+            goes in, what gets worked out, what comes out, and{" "}
+            <b class="text-sn-theme">every question the brief did not
+            answer.</b>
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Pick a real recipe with at least three ingredients and put its four-person amounts in your program as variables.</li>
+            <li>One number goes in and several come out. <b>Every amount is worked out from the same scale factor</b>, which should be a variable of its own.</li>
+            <li>5.5 eggs is a correct answer and a silly one. The brief does not say what to do about it, so you decide, and say so.</li>
+            <li>Change the recipe to serve six instead of four. If that is a one-line change you named your variables well.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="success">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={Sample}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3">Your recipe will be different. <b>Test 4</b> &mdash; the output should be the original amounts exactly.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program folder, named{" "}
+            <b class="text-sn-theme">cc-recipe-scaler</b>.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,99 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `Here are the marks for a class. I want the total, the average,
+the highest, and how many are above the pass mark. And I do
+not want to retype anything when a student joins.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/unit-1/cc-set-3" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 3
+        </a>
+
+        <h1>Code Challenge: Grade Book</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code
+            code={Brief}
+            frame="code"
+            lang="txt"
+            title="What they asked for"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b>{" "}
+            <b class="text-sn-theme">This set also asks you to name the table
+            and the function before you start</b> &mdash; what is in the table,
+            and what your function takes and does.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Terminal or window, your choice. Say which in your requirements list.</li>
+            <li><b>Four answers, one table, and every one of them is a traversal.</b> Write the first one carefully and the rest are the same shape.</li>
+            <li>The highest is the interesting one. You cannot compare against nothing, so <b>what does the running best start at</b>, and why?</li>
+            <li><code>total / #scores</code> is the average, and Lua's <code>/</code> does not truncate. Decide what you want displayed.</li>
+            <li><i>Not retyping anything</i> is the actual requirement. Adding a mark should mean adding a number and nothing else.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="success">
+          <h2>What Success Looks Like</h2>
+
+          <ul>
+            <li>Adding a score to the table changes every answer, with no other edit</li>
+            <li>All four answers are correct for a table you worked out by hand</li>
+            <li>The accumulators are above the loops, not inside them</li>
+            <li>An empty table does not produce nonsense &mdash; or you have said what it does</li>
+          </ul>
+
+          <p class="mt-3"><b>Check it against a table of three numbers you can do in your head.</b> Then add a fourth and check again.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program folder, named{" "}
+            <b class="text-sn-theme">cc-grade-book</b>.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

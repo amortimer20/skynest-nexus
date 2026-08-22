@@ -1,0 +1,108 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `Before a long drive I want to know if I can make it. Ask me
+how much fuel is in the tank, how far the car goes on a
+tank, and how far I am driving, and tell me how much is
+left over.`;
+
+const Sample = `Fuel in the tank (litres): 32 [Enter]
+Kilometres per litre: 13 [Enter]
+Distance to drive: 380 [Enter]
+
+Range: 416 km
+Left over after the trip: 36 km`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/unit-1/cc-set-1" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 1
+        </a>
+
+        <h1>Code Challenge: Fuel Range</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code
+            code={Brief}
+            frame="code"
+            lang="txt"
+            title="What they asked for"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> What
+            goes in, what gets worked out, what comes out, and{" "}
+            <b class="text-sn-theme">every question the brief did not
+            answer.</b>
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>You cannot tell them <i>whether</i> they make it yet &mdash; that is a decision, and decisions arrive at session 9. <b>Report the number and let them read it.</b></li>
+            <li>A negative left-over is a real answer and it is the interesting one. Do not hide it.</li>
+            <li><b>Pick your units and say so in the output.</b> A number with no unit is not an answer.</li>
+            <li>The brief does not mention a reserve. Real drivers keep one. Decide whether yours does and write it in the requirements list.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="success">
+          <h2>Sample Output</h2>
+
+          <Code
+            code={Sample}
+            frame="terminal"
+            title="Sample Output"
+            lang="txt"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-3"><b>Test a trip that does not fit.</b> The output should still make sense.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program folder, named{" "}
+            <b class="text-sn-theme">cc-fuel-range</b>.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

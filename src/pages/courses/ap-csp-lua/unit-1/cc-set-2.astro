@@ -1,0 +1,151 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Ambiguous = `When I catch it, it should be obvious that I caught it,
+and it should count.`;
+
+const Questions = `- What does the ball do after a catch? Carry on, bounce, restart?
+- What counts as a catch - touching at all, or catching it on top?
+- Can one throw be caught twice if it stays against the paddle?
+- What does "obvious" mean? Pick one thing and do it properly
+- Does the game ever end, or does it just keep going?`;
+//#endregion
+
+const pool = [
+  { slug: "cc-traffic-light", title: "Traffic Light", stars: 1, note: "a timer and a state" },
+  { slug: "cc-click-target", title: "Click Target", stars: 2, note: "the hit test is the challenge" },
+  { slug: "cc-paddle-and-catch", title: "Paddle and Catch", stars: 2, note: "count it once" },
+  { slug: "cc-dodge", title: "Dodge", stars: 3, note: "hardest; needs a game-over state" },
+];
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Code Challenge Set 2</h1>
+
+        <h4 class="text-sn-theme">Complete any 2 of the 4 below.</h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Set Is For</h2>
+
+          <p>Everything here happens on screen, over time, and responds to a person. <b>Selection</b> and state, on top of the sequencing from Set 1.</p>
+
+          <p>You have motion, decisions, keyboard and mouse input, and collision. That is enough to build a small game, and these four are small games.</p>
+
+          <p><b>Build in stages and run after every one.</b> A version with one working thing beats a version with three broken ones, and it is what you will be doing again at session 25.</p>
+
+        </section>
+
+        <hr />
+
+        <section id="requirements">
+          <h2>This Set Is About What Happens Next</h2>
+
+          <p>
+            Set 1's gaps were usually a missing number. Here they are almost
+            always <b>what the program should do after something happens</b>
+            &mdash; which the brief never says, because the person asking has
+            not thought about it either.
+          </p>
+
+          <p>
+            A fragment, and what it leaves open:
+          </p>
+
+          <Code
+            code={Ambiguous}
+            frame="code"
+            lang="txt"
+            title="From the Paddle and Catch brief"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            That is a normal way for a person to describe what they want, and it
+            is not enough to write a program from. Here is what should end up in
+            your requirements list:
+          </p>
+
+          <Code
+            code={Questions}
+            frame="code"
+            lang="txt"
+            title="Requirements — the questions half"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>There is no right answer to any of those.</b> There is only a
+            decision you made or a decision you did not notice. Two programs
+            that answer them differently are both correct;{" "}
+            <b class="text-sn-theme">a program whose author never thought about
+            it is the one that goes wrong in front of somebody.</b>
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="challenges">
+          <h2>The Challenges</h2>
+
+          <p>Pick <b>any two</b>.</p>
+
+          <ul class="list-unstyled mt-4">
+            {
+              pool.map((c) => (
+                <li class="mb-2">
+                  <i class="si-terminal text-sn-theme me-2"></i>
+                  <a href={`/courses/ap-csp-lua/unit-1/${c.slug}`}>{c.title}</a>
+                  <span class="ms-2">
+                    {Array.from({ length: c.stars }).map(() => (
+                      <i class="si-star text-sn-green"></i>
+                    ))}
+                  </span>
+                  <span class="text-body-secondary ms-2">&mdash; {c.note}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            For each of the two: <b>the requirements list</b> and{" "}
+            <b>the program folder</b>.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The requirements list is the deliverable
+            that is actually being read.</b> The code is evidence you tried to
+            satisfy your own list.
+          </p>
+
+          <p>Worth <b>10 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

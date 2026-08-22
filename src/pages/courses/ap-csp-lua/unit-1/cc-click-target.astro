@@ -1,0 +1,99 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Brief = `Put a target on screen. When I click it, it jumps somewhere
+else and my score goes up. If I miss, nothing happens except
+that I feel bad.`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/unit-1/cc-set-2" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back to Set 2
+        </a>
+
+        <h1>Code Challenge: Click Target</h1>
+
+        <h4>
+          Difficulty&nbsp;&nbsp;
+          <i class="si-star text-sn-green"></i>
+          <i class="si-star text-sn-green"></i>
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="brief">
+          <h2>The Brief</h2>
+
+          <Code
+            code={Brief}
+            frame="code"
+            lang="txt"
+            title="What they asked for"
+            showLineNumbers={false}
+            class="mt-3"
+          />
+
+          <p class="mt-4">
+            <b>Write your requirements list before you write any code.</b> What
+            the player does, what happens on screen, and{" "}
+            <b class="text-sn-theme">every question the brief did not
+            answer.</b>
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="notes">
+          <h2>Notes</h2>
+
+          <ul>
+            <li>Session 13 gives you the click and where it happened. <b>Working out whether that point is inside the target is the actual challenge.</b></li>
+            <li>A point is inside a circle when its distance from the center is less than the radius. <code>math.sqrt</code> exists; so does comparing squares if you would rather not use it.</li>
+            <li><b>A rectangle target is an easier and completely acceptable answer.</b> Say in your list which you chose and why.</li>
+            <li><i>Somewhere else</i> should not be the same place twice, and should not be half off the screen. <code>math.random</code> needs bounds.</li>
+            <li>Call <code>math.randomseed(os.time())</code> once at the top, or every run is identical.</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="success">
+          <h2>What Success Looks Like</h2>
+
+          <ul>
+            <li>The target moves only when it is actually clicked</li>
+            <li>Clicking the background does nothing at all</li>
+            <li>The score is correct after ten clicks and ten misses</li>
+            <li>The target never appears partly outside the window</li>
+          </ul>
+
+          <p class="mt-3"><b>Click just outside the edge of the target.</b> That is where a hit test is wrong if it is wrong.</p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Your requirements list and your program folder, named{" "}
+            <b class="text-sn-theme">cc-click-target</b>.
+          </p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Commence Challenge
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
