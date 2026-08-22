@@ -1,0 +1,177 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `x ← 5
+x ← x + 3
+DISPLAY(x)`;
+
+const Q2 = `print("Score: " .. 3 + 4)`;
+
+const Q5 = `io.write("How many? ")
+local n = io.read()`;
+
+const Q6 = `DISPLAY("A")
+DISPLAY("B")`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 1</h1>
+
+        <h4 class="text-sn-theme">
+          Six questions &middot; 10 minutes &middot; Activities 1.1 &ndash; 1.6
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Six exam-style questions on values, assignment and arithmetic. Some
+            are written in Lua and some in{" "}
+            <b class="text-sn-theme">exam notation</b>, and nothing tells you
+            which is coming &mdash; the same as in May.
+          </p>
+
+          <p>
+            <b>Set a timer for 10 minutes.</b> Work them out on paper and do not
+            run the code. Mark each answer <b>sure</b> or <b>unsure</b>. Guess
+            rather than leave a blank; the AP exam has no penalty for a wrong
+            answer.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q1} frame="code" lang="txt" title="Exam notation" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>5</code></li>
+            <li>(B) <code>8</code></li>
+            <li>(C) <code>53</code></li>
+            <li>(D) Nothing; a name cannot appear on both sides</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q2} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>Score: 34</code></li>
+            <li>(B) <code>Score: 7</code></li>
+            <li>(C) <code>Score: 3 4</code></li>
+            <li>(D) An error</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p><code>23 MOD 4</code> evaluates to:</p>
+
+          <ul>
+            <li>(A) <code>5</code></li>
+            <li>(B) <code>5.75</code></li>
+            <li>(C) <code>3</code></li>
+            <li>(D) <code>4</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p><code>19 / 4</code> evaluates to:</p>
+
+          <ul>
+            <li>(A) <code>4</code></li>
+            <li>(B) <code>4.75</code></li>
+            <li>(C) <code>5</code></li>
+            <li>(D) <code>3</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            The person types <code>12</code>. Which of the following is{" "}
+            <b>true</b>?
+          </p>
+
+          <Code code={Q5} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>n * 3</code> raises an error</li>
+            <li>(B) <code>n == 12</code> evaluates to <code>true</code></li>
+            <li>(C) <code>n * 3</code> evaluates to <code>36</code></li>
+            <li>(D) <code>n</code> holds the number 12</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q6} frame="code" lang="txt" title="Exam notation" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>AB</code></li>
+            <li>(B) <code>A</code> and <code>B</code> on two lines</li>
+            <li>(C) <code>A B</code> on one line</li>
+            <li>(D) An error; <code>DISPLAY</code> can only be used once</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Hand in your six answers with <b>sure</b> or <b>unsure</b> beside
+            each, and your time.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">The unsure marks are the useful part.</b> A
+            right answer you were unsure of is a topic to revisit; a wrong
+            answer you were sure of is a bigger one.
+          </p>
+
+          <p>Worth <b>4 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

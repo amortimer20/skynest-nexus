@@ -49,10 +49,33 @@ import { Code as CodeSnippet } from "astro:components";
           </p>
 
           <p>
-            <b>Lua's <CodeSnippet code="repeat … until" lang="lua" inline /> is
-            exactly the exam's <CodeSnippet code="REPEAT UNTIL" lang="txt" inline />.</b>{" "}
-            This is one of the three places where Lua agrees with the reference
-            sheet and JavaScript does not.
+            <b>The exam's <CodeSnippet code="REPEAT UNTIL(c)" lang="txt" inline />{" "}
+            takes its word from Lua's <CodeSnippet code="repeat" lang="lua" inline />{" "}
+            and its timing from <CodeSnippet code="while" lang="lua" inline />.</b>{" "}
+            It repeats until the condition is true, and it checks{" "}
+            <b class="text-sn-theme">before</b> each pass &mdash; so if the
+            condition is already true at the start, the body never runs.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th></th><th>Repeats</th><th>Checks</th><th>If true at the start</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><CodeSnippet code="while c do" lang="lua" inline /></td><td>while <code>c</code></td><td>before</td><td>runs zero times</td></tr>
+                <tr><td><CodeSnippet code="repeat … until c" lang="lua" inline /></td><td>until <code>c</code></td><td><b>after</b></td><td><b>runs once</b></td></tr>
+                <tr><td><CodeSnippet code="REPEAT UNTIL(c)" lang="txt" inline /></td><td>until <code>c</code></td><td>before</td><td>runs zero times</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <b class="text-sn-theme">The exact Lua translation of{" "}
+            <CodeSnippet code="REPEAT UNTIL(c)" lang="txt" inline /> is{" "}
+            <CodeSnippet code="while not c do" lang="lua" inline />.</b> The two
+            only behave differently when the condition is already true at the
+            start, which is precisely what a trace question likes to ask about.
           </p>
         </section>
 

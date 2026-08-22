@@ -1,0 +1,206 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `local w = 10
+local steps = 0
+
+while w > 0 do
+    w = w - 4
+    steps = steps + 1
+end
+
+print(steps)`;
+
+const Q2 = `x ← 5
+passes ← 0
+REPEAT UNTIL(x > 10)
+{
+  passes ← passes + 1
+  x ← x + 1
+}
+DISPLAY(passes)`;
+
+const Q3 = `local c = 0
+
+for i = 3, 7 do
+    c = c + 1
+end
+
+print(c)`;
+
+const Q4 = `local hits = 0
+
+for row = 1, 4 do
+    for col = 1, 3 do
+        hits = hits + 1
+    end
+end
+
+print(hits)`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 3</h1>
+
+        <h4 class="text-sn-theme">
+          Six questions &middot; 10 minutes &middot; cumulative through 1.17
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Six exam-style questions, weighted toward{" "}
+            <b class="text-sn-theme">iteration</b>. Four of them ask you to
+            count passes, which is exactly what the exam's written questions do.
+          </p>
+
+          <p>
+            <b>Set a timer for 10 minutes.</b> On paper, no computer.{" "}
+            <b>Write out the passes in a column</b> rather than doing them in
+            your head &mdash; four rows is usually enough to see the answer, and
+            it is faster than being wrong.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q1} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>2</code></li>
+            <li>(B) <code>3</code></li>
+            <li>(C) <code>4</code></li>
+            <li>(D) It never ends</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>What does this display?</p>
+
+          <Code code={Q2} frame="code" lang="txt" title="Exam notation" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>5</code></li>
+            <li>(B) <code>6</code></li>
+            <li>(C) <code>10</code></li>
+            <li>(D) <code>0</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q3} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>4</code></li>
+            <li>(B) <code>5</code></li>
+            <li>(C) <code>7</code></li>
+            <li>(D) <code>3</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q4} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>7</code></li>
+            <li>(B) <code>4</code></li>
+            <li>(C) <code>12</code></li>
+            <li>(D) <code>3</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>
+            On the exam reference sheet,{" "}
+            <code>REPEAT n TIMES</code>:
+          </p>
+
+          <ul>
+            <li>(A) Provides a counter variable you can use in the body</li>
+            <li>(B) Provides no counter; you make one by hand if you need it</li>
+            <li>(C) Is the same as <code>REPEAT UNTIL(n)</code></li>
+            <li>(D) Runs at least once even when <code>n</code> is 0</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6 &mdash; select all that apply</h3>
+
+          <p>Which of these can run their body <b>zero</b> times?</p>
+
+          <ul>
+            <li>(A) <code>while</code> in Lua</li>
+            <li>(B) <code>repeat … until</code> in Lua</li>
+            <li>(C) <code>for i = 1, n do</code> in Lua, when <code>n</code> is 0</li>
+            <li>(D) <code>REPEAT UNTIL(condition)</code> on the exam</li>
+          </ul>
+
+          <p class="text-body-secondary">
+            <b>Option D is the one worth thinking hardest about.</b> The exam
+            shares a word with Lua here and does not share the timing.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers with <b>sure</b> or <b>unsure</b> beside each, and your
+            time. For question 6, list every letter you chose.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Attach your pass tables for questions 1 to
+            4.</b> The working is worth more than the answer, and on the exam it
+            is what stops a careless slip.
+          </p>
+
+          <p>Worth <b>4 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

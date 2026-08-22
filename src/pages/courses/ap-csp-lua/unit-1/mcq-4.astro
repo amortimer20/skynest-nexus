@@ -1,0 +1,186 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `local pets = {"cat", "dog", "fish", "bird"}`;
+
+const Q3 = `aList ← [4, 8, 15]
+DISPLAY(aList[7])`;
+
+const Q4 = `local orig = {1, 2, 3}
+local other = orig
+
+other[2] = 50
+
+print(orig[2])`;
+
+const Q5 = `local pets = {"cat", "dog", "fish", "bird"}
+
+for i, p in ipairs(pets) do
+    if i % 2 == 1 then
+        print(p)
+    end
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 4</h1>
+
+        <h4 class="text-sn-theme">
+          Six questions &middot; 10 minutes &middot; cumulative through 1.20
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Six exam-style questions, weighted toward{" "}
+            <b class="text-sn-theme">lists</b>. Two of them are about places
+            where Lua and the reference sheet do different things, so{" "}
+            <b>read the title on each code block</b> before you answer.
+          </p>
+
+          <p>
+            <b>Set a timer for 10 minutes.</b> On paper, no computer, and mark
+            each answer <b>sure</b> or <b>unsure</b>.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>Given this table, what are <code>pets[1]</code> and <code>#pets</code>?</p>
+
+          <Code code={Q1} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>"dog"</code> and <code>4</code></li>
+            <li>(B) <code>"cat"</code> and <code>4</code></li>
+            <li>(C) <code>"cat"</code> and <code>3</code></li>
+            <li>(D) <code>"dog"</code> and <code>3</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>
+            In Lua, <code>pets[9]</code> on that same four-element table gives:
+          </p>
+
+          <ul>
+            <li>(A) An error, and the program stops</li>
+            <li>(B) <code>nil</code>, and the program carries on</li>
+            <li>(C) The last element</li>
+            <li>(D) An empty string</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>What happens here?</p>
+
+          <Code code={Q3} frame="code" lang="txt" title="Exam notation" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) It displays nothing and carries on</li>
+            <li>(B) It displays <code>15</code></li>
+            <li>(C) An error message is produced and the program terminates</li>
+            <li>(D) It displays <code>0</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q4} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>2</code></li>
+            <li>(B) <code>50</code></li>
+            <li>(C) <code>nil</code></li>
+            <li>(D) An error</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q5} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>cat</code> and <code>fish</code></li>
+            <li>(B) <code>dog</code> and <code>bird</code></li>
+            <li>(C) All four</li>
+            <li>(D) <code>cat</code> only</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6 &mdash; select all that apply</h3>
+
+          <p>
+            <code>xs</code> has 5 values and <code>ys</code> has 3. A loop walks{" "}
+            <code>xs</code> and draws a circle at{" "}
+            <code>xs[i], ys[i]</code>. Which are true?
+          </p>
+
+          <ul>
+            <li>(A) The program stops with an error about a <code>nil</code> value</li>
+            <li>(B) The error happens on the fourth pass of the loop</li>
+            <li>(C) Lua warns you that the tables are different lengths</li>
+            <li>(D) Swapping the two tables would draw three circles and not stop</li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers with <b>sure</b> or <b>unsure</b> beside each, and your
+            time. For question 6, list every letter you chose.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">Questions 2 and 3 are the same situation in
+            two notations.</b> If you gave them the same answer, one of them is
+            wrong.
+          </p>
+
+          <p>Worth <b>4 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

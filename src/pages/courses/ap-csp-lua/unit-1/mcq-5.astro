@@ -1,0 +1,213 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q1 = `local function double(n)
+    local answer = n * 2
+end
+
+local result = double(4)
+
+print(result)`;
+
+const Q2 = `local count = 10
+
+local function reset(count)
+    count = 0
+    return count
+end
+
+reset(count)
+
+print(count)`;
+
+const Q4 = `PROCEDURE tally(scores, limit)
+{
+  n ← 0
+  i ← 1
+  REPEAT LENGTH(scores) TIMES
+  {
+    IF(scores[i] > limit)
+    {
+      n ← n + 1
+    }
+    i ← i + 1
+  }
+  RETURN(n)
+}`;
+
+const Q6 = `local function total(t)
+    local sum = 0
+
+    for i, v in ipairs(t) do
+        sum = sum + v
+        return sum
+    end
+end
+
+print(total({4, 6, 10}))`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 5</h1>
+
+        <h4 class="text-sn-theme">
+          Six questions &middot; 10 minutes &middot; cumulative through 1.23
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            The last set before the exam. Six questions weighted toward{" "}
+            <b class="text-sn-theme">procedures</b>, and the whole quarter is
+            fair game.
+          </p>
+
+          <p>
+            <b>Set a timer for 10 minutes.</b> On paper, no computer.{" "}
+            <b class="text-sn-theme">Mark each answer sure or unsure and then
+            revise whatever the unsure ones point at</b> &mdash; that is what
+            this set is for.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q1} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>8</code></li>
+            <li>(B) <code>4</code></li>
+            <li>(C) <code>nil</code></li>
+            <li>(D) An error, because the function returns nothing</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q2} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>0</code></li>
+            <li>(B) <code>10</code></li>
+            <li>(C) <code>nil</code></li>
+            <li>(D) An error, because <code>count</code> is used twice</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>
+            In exam notation, a procedure hands a value back with:
+          </p>
+
+          <ul>
+            <li>(A) <code>return expression</code></li>
+            <li>(B) <code>RETURN(expression)</code></li>
+            <li>(C) <code>DISPLAY(expression)</code></li>
+            <li>(D) <code>result &larr; expression</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            <code>tally([4, 12, 30, 8, 11], 10)</code> returns:
+          </p>
+
+          <Code code={Q4} frame="code" lang="txt" title="Exam notation" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>2</code></li>
+            <li>(B) <code>3</code></li>
+            <li>(C) <code>5</code></li>
+            <li>(D) <code>53</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5 &mdash; select all that apply</h3>
+
+          <p>
+            The Create Performance Task requires at least one{" "}
+            <b>student-developed procedure</b>. Which of these would count?
+          </p>
+
+          <ul>
+            <li>(A) <code>love.draw</code>, with forty lines you wrote inside it</li>
+            <li>(B) <code>love.keypressed(key)</code>, because it has a parameter</li>
+            <li>(C) <code>drawShip(x, y, size)</code>, which you wrote and call twice</li>
+            <li>(D) <code>tally(scores, limit)</code>, which you wrote and call once</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q6} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>20</code></li>
+            <li>(B) <code>4</code></li>
+            <li>(C) <code>nil</code></li>
+            <li>(D) <code>10</code></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers with <b>sure</b> or <b>unsure</b> beside each, and your
+            time. For question 5, list every letter you chose.
+          </p>
+
+          <p>
+            <b class="text-sn-theme">This is the last set before the exam.</b>{" "}
+            Whatever you marked unsure is your revision list, and the four
+            section summaries are where to look.
+          </p>
+
+          <p>Worth <b>4 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>

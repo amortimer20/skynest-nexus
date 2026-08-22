@@ -448,35 +448,57 @@ local secret = math.random(1, 20)`}
                 <tr>
                   <th></th>
                   <th>Repeats</th>
-                  <th>Stops when</th>
+                  <th>Checks</th>
+                  <th>If true at the start</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><code>while c do</code></td>
                   <td>While <code>c</code> is true</td>
-                  <td><code>c</code> becomes false</td>
+                  <td>Before each pass</td>
+                  <td>Can run zero times</td>
                 </tr>
                 <tr>
                   <td><code>repeat &hellip; until c</code></td>
                   <td>Until <code>c</code> is true</td>
-                  <td><code>c</code> becomes true</td>
+                  <td><b>After</b> each pass</td>
+                  <td><b>Always runs once</b></td>
                 </tr>
                 <tr>
                   <td><code>REPEAT UNTIL(c)</code></td>
                   <td>Until <code>c</code> is true</td>
-                  <td><code>c</code> becomes true</td>
+                  <td><b>Before</b> each pass</td>
+                  <td>Can run zero times</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div class="alert alert-info">
-            <b>Lua's <CodeSnippet code="repeat ... until" lang="lua" inline /> is the exam's loop</b>, with
-            the same word and the same meaning. That is unusual, and it is worth
-            knowing that the language most students learn first does not have
-            it.
+          <div class="alert alert-warning">
+            <b>Read that bottom row twice.</b> The exam's{" "}
+            <code>REPEAT UNTIL</code> shares its <i>word</i> with Lua's{" "}
+            <CodeSnippet code="repeat" lang="lua" inline /> and its{" "}
+            <i>timing</i> with <CodeSnippet code="while" lang="lua" inline />.
+            The College Board says so directly: <i>"if the conditional evaluates
+            to true initially, the loop body is not executed at all, due to the
+            condition being checked before the loop."</i>
           </div>
+
+          <p>
+            <b class="text-sn-theme">So the exact Lua translation of{" "}
+            <code>REPEAT UNTIL(c)</code> is{" "}
+            <CodeSnippet code="while not c do" lang="lua" inline /></b> &mdash;
+            not <CodeSnippet code="repeat ... until c" lang="lua" inline />.
+          </p>
+
+          <p class="text-body-secondary">
+            The two differ only when the condition is already true at the start.
+            Then the exam's loop does nothing and Lua's{" "}
+            <CodeSnippet code="repeat" lang="lua" inline /> runs once anyway
+            &mdash; which is exactly the case a trace question likes to ask
+            about.
+          </p>
 
           <p>
             <b class="text-sn-theme">To translate a <code>while</code> loop, flip the condition.</b>{" "}

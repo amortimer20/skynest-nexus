@@ -1,0 +1,191 @@
+---
+import Divider from "../../../../components/ui/Divider.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+//#region CodeSnippets
+const Q3 = `local speed = 7
+
+if speed > 10 then
+    print("fast")
+elseif speed > 5 then
+    print("medium")
+elseif speed > 0 then
+    print("slow")
+else
+    print("stopped")
+end`;
+
+const Q4 = `IF(hp ≤ 0)
+{
+  DISPLAY("Game over")
+}
+ELSE
+{
+  DISPLAY("Keep going")
+}`;
+
+const Q6 = `local key = "x"
+
+if key == "a" or "d" then
+    print("moving")
+end`;
+//#endregion
+---
+
+<Layout>
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10">
+        <a href="/courses/ap-csp-lua/" class="btn btn-sm btn-outline-light mb-3">
+          <i class="si-arrow-left"></i> Back
+        </a>
+
+        <h1>Question Set 2</h1>
+
+        <h4 class="text-sn-theme">
+          Six questions &middot; 10 minutes &middot; cumulative through 1.12
+        </h4>
+
+        <Divider variant="8" classes="mb-5" />
+
+        <section id="objective">
+          <h2>What This Is</h2>
+
+          <p>
+            Six exam-style questions, weighted toward{" "}
+            <b class="text-sn-theme">booleans and decisions</b>. Two are
+            cumulative from set 1.
+          </p>
+
+          <p>
+            <b>One question asks you to select all that apply.</b> The real exam
+            has eight of those in seventy, and they are marked the same way:
+            every correct option and no incorrect ones.
+          </p>
+
+          <p>
+            <b>Set a timer for 10 minutes.</b> On paper, no computer, and mark
+            each answer <b>sure</b> or <b>unsure</b>.
+          </p>
+        </section>
+
+        <hr />
+
+        <section id="questions">
+          <h2>The Questions</h2>
+
+          <hr class="my-4" />
+
+          <h3>Question 1</h3>
+
+          <p>
+            In exam notation, <code>IF(a = b)</code> asks whether:
+          </p>
+
+          <ul>
+            <li>(A) <code>a</code> is being assigned the value of <code>b</code></li>
+            <li>(B) <code>a</code> and <code>b</code> are equal</li>
+            <li>(C) <code>a</code> is not equal to <code>b</code></li>
+            <li>(D) Nothing; the exam requires <code>==</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 2</h3>
+
+          <p>In Lua, <code>5 ~= 5</code> evaluates to:</p>
+
+          <ul>
+            <li>(A) <code>true</code></li>
+            <li>(B) <code>false</code></li>
+            <li>(C) <code>nil</code></li>
+            <li>(D) An error; Lua uses <code>!=</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 3</h3>
+
+          <p>What does this print?</p>
+
+          <Code code={Q3} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>fast</code></li>
+            <li>(B) <code>medium</code></li>
+            <li>(C) <code>slow</code></li>
+            <li>(D) <code>medium</code> and <code>slow</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 4</h3>
+
+          <p>
+            <code>hp</code> holds <code>0</code>. What does this display?
+          </p>
+
+          <Code code={Q4} frame="code" lang="txt" title="Exam notation" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) <code>Game over</code></li>
+            <li>(B) <code>Keep going</code></li>
+            <li>(C) Both</li>
+            <li>(D) Neither</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 5 &mdash; select all that apply</h3>
+
+          <p>Which of these evaluate to <code>true</code>?</p>
+
+          <ul>
+            <li>(A) <code>3 &gt; 1 and 2 &gt; 5</code></li>
+            <li>(B) <code>3 &gt; 1 or 2 &gt; 5</code></li>
+            <li>(C) <code>not (3 &gt; 1)</code></li>
+            <li>(D) <code>5 &gt;= 5</code></li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h3>Question 6</h3>
+
+          <p>
+            This is meant to move only on <code>a</code> or <code>d</code>. What
+            actually happens?
+          </p>
+
+          <Code code={Q6} frame="code" lang="lua" title="Lua" showLineNumbers={false} class="mb-3" />
+
+          <ul>
+            <li>(A) Nothing prints; <code>key</code> is <code>"x"</code></li>
+            <li>(B) <code>moving</code> prints, for any value of <code>key</code></li>
+            <li>(C) An error, because <code>"d"</code> is not a condition</li>
+            <li>(D) <code>moving</code> prints only when <code>key</code> is <code>"d"</code></li>
+          </ul>
+        </section>
+
+        <hr />
+
+        <section id="submit">
+          <h2>Submit</h2>
+
+          <p>
+            Six answers with <b>sure</b> or <b>unsure</b> beside each, and your
+            time. For question 5, list every letter you chose.
+          </p>
+
+          <p>Worth <b>4 points</b>, graded on completion.</p>
+        </section>
+
+        <h1
+          class="text-center mt-5 text-sn-theme border border-primary slow-flash"
+        >
+          Start the Timer
+        </h1>
+      </div>
+    </div>
+  </div>
+</Layout>
