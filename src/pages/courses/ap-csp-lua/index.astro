@@ -1,6 +1,7 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import ListItem from "../../../components/ui/ListItem.astro";
+import ChallengeItem from "../../../components/ui/ChallengeItem.astro";
 
 import ApCspIcon from "../../../assets/courses/ap-csp/img/ap-csp-icon.svg";
 ---
@@ -15,6 +16,7 @@ import ApCspIcon from "../../../assets/courses/ap-csp/img/ap-csp-icon.svg";
     <div class="container pb-5">
       <div class="text-center">
         <h1>AP Computer Science Principles</h1>
+        <p class="text-secondary mb-0">Lua and LÖVE</p>
         <ApCspIcon width={128} height={128} />
       </div>
     </div>
@@ -42,38 +44,162 @@ import ApCspIcon from "../../../assets/courses/ap-csp/img/ap-csp-icon.svg";
 
         <h3 class="mt-5">Course Content</h3>
 
-        <h6 class="text-sn-theme mt-2">Setup</h6>
-        <ListItem>
-          <a href="./setup">Setting Up Your Workspace</a>
-        </ListItem>
+        <h4 class="mt-2">Quarter 1: Creative Development, and the Language</h4>
+        <div class="accordion mb-5" id="unit1Accordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g1"
+                aria-expanded="false"
+                aria-controls="u1g1"
+              >
+                Part 1: Getting Started
+              </button>
+            </h2>
+            <div
+              id="u1g1"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
+            >
+              <div class="accordion-body">
+                <h6 class="text-sn-theme mt-2">Setup</h6>
+                <ListItem>
+                  <a href="./setup">Setting Up Your Workspace</a>
+                </ListItem>
 
-        <h4 class="mt-4">Quarter 1: Creative Development, and the Language</h4>
+                <h6 class="text-sn-theme mt-3">Drawing and Variables</h6>
+                <p class="text-body-secondary small mb-0">
+                  Activities 1.1 &ndash; 1.6 are being written.
+                </p>
+              </div>
+            </div>
+          </div>
 
-        <h6 class="text-sn-theme mt-3">Tables</h6>
-        <ListItem>
-          <a href="./unit-1/1-18">Activity 1.18: Tables as Lists</a>
-        </ListItem>
-        <ListItem>
-          <a href="./unit-1/1-19"
-            >Activity 1.19: How Long, and What Is Not There</a
-          >
-        </ListItem>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g2"
+                aria-expanded="false"
+                aria-controls="u1g2"
+              >
+                Part 2: Motion and Decisions
+              </button>
+            </h2>
+            <div
+              id="u1g2"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
+            >
+              <div class="accordion-body">
+                <p class="text-body-secondary small mb-0">
+                  Activities 1.7 &ndash; 1.14 are being written.
+                </p>
+              </div>
+            </div>
+          </div>
 
-        <h6 class="text-sn-theme mt-4">Bonus Projects</h6>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g3"
+                aria-expanded="false"
+                aria-controls="u1g3"
+              >
+                Part 3: Loops and Tables
+              </button>
+            </h2>
+            <div
+              id="u1g3"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
+            >
+              <div class="accordion-body">
+                <p class="text-body-secondary small">
+                  Activities 1.15 &ndash; 1.17 are being written.
+                </p>
 
-        <p class="text-body-secondary">
-          Optional, extra credit, and not required by anything later. Each one
-          says which session you need to have reached.
-        </p>
+                <h6 class="text-sn-theme mt-3">Tables</h6>
+                <ListItem>
+                  <a href="./unit-1/1-18">Activity 1.18: Tables as Lists</a>
+                </ListItem>
+                <ListItem>
+                  <a href="./unit-1/1-19"
+                    >Activity 1.19: How Long, and What Is Not There</a
+                  >
+                </ListItem>
+              </div>
+            </div>
+          </div>
 
-        <ListItem tag="Extra Credit">
-          <a href="./unit-1/bp-pong">Bonus Project: Pong</a>
-        </ListItem>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g4"
+                aria-expanded="false"
+                aria-controls="u1g4"
+              >
+                Part 4: Functions and the Creative Artifact
+              </button>
+            </h2>
+            <div
+              id="u1g4"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
+            >
+              <div class="accordion-body">
+                <p class="text-body-secondary small mb-0">
+                  Activities 1.20 &ndash; 1.26 are being written.
+                </p>
+              </div>
+            </div>
+          </div>
 
-        <div class="alert alert-info mt-4">
-          <b>The rest of the activity pages are being written.</b> Start with the
-          setup page above &mdash; getting the workspace open and a program
-          running is session one either way.
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#u1g5"
+                aria-expanded="false"
+                aria-controls="u1g5"
+              >
+                Bonus Projects
+              </button>
+            </h2>
+            <div
+              id="u1g5"
+              class="accordion-collapse collapse"
+              data-bs-parent="#unit1Accordion"
+            >
+              <div class="accordion-body">
+                <p class="text-body-secondary small">
+                  Optional and worth extra credit. Nothing later depends on
+                  them, and each one says which activity you need to have
+                  finished first.
+                </p>
+
+                <ChallengeItem
+                  href="./unit-1/bp-pong"
+                  icon="si-flask"
+                  srLabel="Bonus project"
+                  tag="Extra Credit">Pong</ChallengeItem
+                >
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
